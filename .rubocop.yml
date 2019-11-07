@@ -1,1 +1,44 @@
+require: rubocop-performance
+
 inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+  - 'db/schema.rb'
+  - 'vendor/**/*'
+  - 'node_modules/**/*'
+  - 'ccms_integration/*'
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+  - 'spec/**/*'
+
+Metrics/AbcSize:
+  Exclude:
+  - 'db/migrate/*'
+
+Metrics/BlockLength:
+  Exclude:
+  - 'config/routes.rb'
+  - 'spec/**/*'
+
+Metrics/MethodLength:
+  Exclude:
+  - 'db/migrate/*'
+
+Metrics/ParameterLists:
+  Max: 6
+
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+
+Style/Documentation:
+  Exclude:
+  - '**/*'
+
+Style/SymbolArray:
+  EnforcedStyle: percent
+
+Style/Lambda:
+  EnforcedStyle: literal
