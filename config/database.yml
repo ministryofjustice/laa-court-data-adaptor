@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: laa_court_data_adaptor_test
+  url: <%= ENV.fetch('DATABASE_URL') { 'postgres://localhost/laa_court_data_adaptor_test' } %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: laa_court_data_adaptor_production
-  username: laa_court_data_adaptor
-  password: <%= ENV['LAA_COURT_DATA_ADAPTOR_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

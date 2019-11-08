@@ -1,0 +1,103 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@4.0.1
+  aws-eks: circleci/aws-eks@0.2.1
+  kubernetes: circleci/kubernetes@0.7.0
+  helm: circleci/helm@0.2.0
+
+jobs:
+  test:
+    docker:
+      - image: circleci/ruby:2.6.3
+        environment:
+          DATABASE_URL: postgres://postgres@localhost/laa_court_data_adaptor_development
+      - image: circleci/postgres:11.5-alpine
+        environment:
+          POSTGRES_DB: laa_court_data_adaptor_development
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+
+      - run:
+          name: install bundle
+          command: |
+            gem install bundler -N
+
+      - run:
+          name: install dependencies
+          command: |
+            bundle check --path vendor/bundle || bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Database Setup
+          command: |
+            bundle exec rake db:migrate
+
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+              circleci tests split --split-by=timings)"
+
+            bundle exec rspec \
+              --format progress \
+              --format RspecJunitFormatter \
+              --out /tmp/test-results/rspec.xml \
+              --format progress \
+              $TEST_FILES
+
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+
+      - run:
+          name: run rubocop
+          command: bundle exec rubocop
+
+  install_on_cluster:
+    executor: aws-eks/python
+    steps:
+      - checkout
+      - kubernetes/install-kubeconfig:
+          kubeconfig: ENCODED_KUBECONFIG
+      - kubernetes/install-kubectl
+      - helm/upgrade-helm-chart:
+          tiller-namespace: laa-court-data-adaptor-dev
+          chart: ./helm_deploy/laa-court-data-adaptor
+          release-name: laa-court-data-adaptor
+          values-to-override: image.tag=$CIRCLE_SHA1
+
+workflows:
+  version: 2
+  test_and_build:
+    jobs:
+      - test
+      - aws-ecr/build_and_push_image:
+          requires:
+            - test
+          repo: laa-crime-apps-team/laa-court-data-adaptor
+          tag: "${CIRCLE_SHA1}"
+          filters:
+            branches:
+              only:
+                - master
+      - install_on_cluster:
+          requires:
+          - aws-ecr/build_and_push_image
+          filters:
+            branches:
+              only:
+                - master

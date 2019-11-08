@@ -152,6 +152,8 @@ GEM
       rspec-mocks (~> 3.8)
       rspec-support (~> 3.8)
     rspec-support (3.9.0)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (0.76.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -159,6 +161,8 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-performance (1.5.0)
+      rubocop (>= 0.71.0)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
     spring (2.1.0)
@@ -193,7 +197,9 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 6.0.0)
   rspec-rails (~> 4.0.0.beta3)
+  rspec_junit_formatter
   rubocop (~> 0.76.0)
+  rubocop-performance
   spring
   spring-watcher-listen (~> 2.0.0)
 
@@ -201,4 +207,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.0.1
+   2.0.2
