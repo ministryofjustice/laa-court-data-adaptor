@@ -165,6 +165,8 @@ GEM
       rubocop (>= 0.71.0)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
+    shoulda-matchers (4.1.2)
+      activesupport (>= 4.2.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -200,6 +202,7 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop (~> 0.76.0)
   rubocop-performance
+  shoulda-matchers
   spring
   spring-watcher-listen (~> 2.0.0)
 
