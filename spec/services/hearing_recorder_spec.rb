@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe HearingResultRecorder do
+RSpec.describe HearingRecorder do
   subject { described_class.call(hearing_id) }
 
   let(:hearing_id) { 'fa78c710-6a49-4276-bbb3-ad34c8d4e313' }
@@ -10,7 +10,7 @@ RSpec.describe HearingResultRecorder do
   let(:response) { double(body: { hearing: { id: hearing_id } }.to_json) }
 
   before do
-    allow(HearingResultFetcher).to receive(:call).and_return(response)
+    allow(HearingFetcher).to receive(:call).and_return(response)
   end
 
   it 'creates a Hearing' do
