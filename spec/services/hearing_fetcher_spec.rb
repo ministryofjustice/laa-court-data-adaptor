@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe HearingResultFetcher do
+RSpec.describe HearingFetcher do
   subject { described_class.call(hearing_id) }
 
   let(:hearing_id) { 'ceb158e3-7171-40ce-915b-441e2c4e3f75' }

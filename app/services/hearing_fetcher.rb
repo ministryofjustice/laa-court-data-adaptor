@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HearingResultFetcher < ApplicationService
+class HearingFetcher < ApplicationService
   def initialize(hearing_id)
     @hearing_id = hearing_id
   end
