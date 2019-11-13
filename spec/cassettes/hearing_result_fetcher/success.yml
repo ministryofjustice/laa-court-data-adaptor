@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<COMMON_PLATFORM_URL>/hearing/results/ceb158e3-7171-40ce-915b-441e2c4e3f75"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.17.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - openresty/1.15.8.2
+      date:
+      - Tue, 12 Nov 2019 17:05:26 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      vary:
+      - Accept-Encoding
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      etag:
+      - W/"490eb618ba80a6d77b42b0f634c32cb1"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 18c5166ba29f14f582b811aecbe90800
+      x-runtime:
+      - '0.079200'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"hearing":{"id":"ceb158e3-7171-40ce-915b-441e2c4e3f75","jurisdictionType":"CROWN","reportingRestrictionReason":null,"courtCentre":{"id":"be0a2b10-6bba-4ec2-ac41-63bea83adb2e","name":"Random
+        string","welshName":"Llinyn ar hap","roomId":"b3724149-5b25-49cc-85e8-feff6057b486","roomName":"Grand
+        Hall","welshRoomName":"Neuadd y Grand"},"hearingLanguage":"ENGLISH","hasSharedResults":null,"type":{"id":"25d256ab-86d9-4972-a5eb-4c8260f3516f","description":"This
+        is a description","code":"12D10JAS"},"isEffectiveTrial":null,"isBoxHearing":null,"hearingDays":[{"sittingDay":"2020-01-12T15:17:37.325Z","listingSequence":8,"listedDurationMinutes":10}]}}'
+    http_version: 
+  recorded_at: Tue, 12 Nov 2019 17:05:26 GMT
+recorded_with: VCR 5.0.0
