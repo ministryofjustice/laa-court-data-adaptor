@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 class HearingRecorder < ApplicationService
-  def initialize(hearing_id)
+  def initialize(hearing_id, body = nil)
     @hearing = Hearing.find_or_initialize_by(id: hearing_id)
+    @body = body.presence || HearingFetcher.call(hearing.id).body
   end
 
   def call
-    response = HearingFetcher.call(hearing.id)
-    hearing.body = response.body
-    hearing.save
+    hearing.update(body: body)
+    hearing
   end
 
   private
 
-  attr_reader :hearing
+  attr_reader :hearing, :body
 end

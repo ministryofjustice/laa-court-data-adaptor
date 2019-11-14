@@ -1,0 +1,20 @@
+{
+  "hearing": {
+      "id": "04180ff1-99b0-40b7-9929-ca05bdc767d8",
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentre": {
+          "id": "dd9bf969-f55e-43f1-a08a-7b475a9aa914"
+      },
+      "type": {
+          "id": "141c74ad-b87e-4756-8908-1642b1771ab5",
+          "description": "First hearing",
+          "code": "FHG"
+      },
+      "hearingDays": [{
+          "sittingDay": "2018-10-24 10:00:00",
+          "listingSequence": 1,
+          "listedDurationMinutes": 120
+      }]
+  },
+  "sharedTime": "2018-10-25 11:30:00"
+}

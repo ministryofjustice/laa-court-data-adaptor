@@ -19,6 +19,10 @@ RSpec.describe HearingRecorder do
     }.to change(Hearing, :count).by(1)
   end
 
+  it 'returns the created Hearing' do
+    expect(subject).to be_a(Hearing)
+  end
+
   context 'when the Hearing exists' do
     let!(:hearing) { Hearing.create!(id: hearing_id, body: { amazing_body: true }) }
 
@@ -31,6 +35,20 @@ RSpec.describe HearingRecorder do
     it 'updates Hearing with new response' do
       subject
       expect(hearing.reload.body).to eq(response.body)
+    end
+  end
+  context 'when the body exists' do
+    let(:body) { { response: 'text' }.to_json }
+
+    subject { described_class.call(hearing_id, body) }
+
+    it 'does not fetch the hearing again' do
+      expect(HearingFetcher).not_to receive(:call)
+      subject
+    end
+
+    it 'updates the hearing with the body' do
+      expect(subject.body).to eq(body)
     end
   end
 end
