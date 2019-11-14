@@ -3,15 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe HearingRecorder do
-  subject { described_class.call(hearing_id) }
-
   let(:hearing_id) { 'fa78c710-6a49-4276-bbb3-ad34c8d4e313' }
+  let(:body) { { response: 'text' }.to_json }
 
-  let(:response) { double(body: { hearing: { id: hearing_id } }.to_json) }
-
-  before do
-    allow(HearingFetcher).to receive(:call).and_return(response)
-  end
+  subject { described_class.call(hearing_id, body) }
 
   it 'creates a Hearing' do
     expect {
@@ -21,6 +16,10 @@ RSpec.describe HearingRecorder do
 
   it 'returns the created Hearing' do
     expect(subject).to be_a(Hearing)
+  end
+
+  it 'saves the body on the Hearing' do
+    expect(subject.body).to eq(body)
   end
 
   context 'when the Hearing exists' do
@@ -34,21 +33,7 @@ RSpec.describe HearingRecorder do
 
     it 'updates Hearing with new response' do
       subject
-      expect(hearing.reload.body).to eq(response.body)
-    end
-  end
-  context 'when the body exists' do
-    let(:body) { { response: 'text' }.to_json }
-
-    subject { described_class.call(hearing_id, body) }
-
-    it 'does not fetch the hearing again' do
-      expect(HearingFetcher).not_to receive(:call)
-      subject
-    end
-
-    it 'updates the hearing with the body' do
-      expect(subject.body).to eq(body)
+      expect(hearing.reload.body).to eq(body)
     end
   end
 end

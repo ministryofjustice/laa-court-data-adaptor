@@ -14,9 +14,10 @@ RSpec.describe HearingsController, type: :controller do
         }.to change(Hearing, :count).by(1)
       end
 
-      it 'renders a JSON response with the new hearing' do
+      it 'renders a JSON response with an empty response' do
         post :create, params: valid_attributes
         expect(response).to have_http_status(:created)
+        expect(response.body).to be_empty
       end
     end
 

@@ -4,8 +4,8 @@ class HearingsController < ApplicationController
   def create
     @hearing = HearingRecorder.call(params[:hearing][:id], hearing_params)
 
-    if @hearing
-      render json: @hearing, status: :created
+    if @hearing.valid?
+      head :created
     else
       render json: @hearing.errors, status: :unprocessable_entity
     end
