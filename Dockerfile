@@ -33,7 +33,7 @@ WORKDIR /usr/src/app
 COPY Gemfile* ./
 
 RUN gem install bundler -v 2.0.2 \
-&& bundle install --deployment
+&& bundle install --deployment --without development test
 
 ####################
 # DEPENDENCIES END #
