@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases/laaReference/f94ab249-21a6-4f63-ae86-f76353256696"
+    body:
+      encoding: UTF-8
+      string: '{"prosecutionCaseId":"invalid uuid","defendantId":"invalid uuid","offenceId":"invalid
+        uuid","statusCode":"ABCDE","applicationReference":"SOME SORT OF MAAT ID","statusDate":"2019-12-12"}'
+    headers:
+      User-Agent:
+      - Faraday v0.17.0
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      server:
+      - openresty/1.15.8.2
+      date:
+      - Tue, 19 Nov 2019 11:44:52 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      cache-control:
+      - no-cache
+      x-request-id:
+      - 3612407d60ecabd6e0a7fbf39bd2b050
+      x-runtime:
+      - '0.005232'
+    body:
+      encoding: UTF-8
+      string: '{"error":"[\"The property ''#/prosecutionCaseId'' value \\\"invalid
+        uuid\\\" did not match the regex ''[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$''
+        in schema http://justice.gov.uk/progression/global/courtsDefinitions.json#\",
+        \"The property ''#/defendantId'' value \\\"invalid uuid\\\" did not match
+        the regex ''[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$''
+        in schema http://justice.gov.uk/progression/global/courtsDefinitions.json#\",
+        \"The property ''#/offenceId'' value \\\"invalid uuid\\\" did not match the
+        regex ''[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$''
+        in schema http://justice.gov.uk/progression/global/courtsDefinitions.json#\"]"}'
+    http_version: 
+  recorded_at: Tue, 19 Nov 2019 11:44:52 GMT
+recorded_with: VCR 5.0.0
