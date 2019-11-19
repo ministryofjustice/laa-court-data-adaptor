@@ -11,10 +11,11 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.3
         environment:
-          DATABASE_URL: postgres://postgres@localhost/laa_court_data_adaptor_development
+          DATABASE_URL: postgres://postgres@localhost/laa_court_data_adaptor_test
+          RAILS_ENV: test
       - image: circleci/postgres:11.5-alpine
         environment:
-          POSTGRES_DB: laa_court_data_adaptor_development
+          POSTGRES_DB: laa_court_data_adaptor_test
     steps:
       - checkout
 
