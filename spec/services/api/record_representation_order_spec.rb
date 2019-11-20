@@ -30,6 +30,10 @@ RSpec.describe Api::RecordRepresentationOrder do
     }
   end
 
+  let(:api_request_url) { '/prosecutionCases/representationOrder/f94ab249-21a6-4f63-ae86-f76353256696' }
+
+  it_has_a 'correct api request url'
+
   it 'returns a no content status' do
     VCR.use_cassette('representation_order_recorder/update') do
       expect(subject.status).to eq(204)
