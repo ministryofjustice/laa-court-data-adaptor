@@ -3,40 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe Api::SearchProsecutionCase do
+  let(:prosecution_case_id) { 'b9950946-fe3b-4eaa-9f0a-35e497e34528' }
+  let(:response_body) { subject.body['prosecutionCases'][0] }
+  let(:prosecution_case_reference) { '3658e889-e050-4608-8f21-8bdaa529f8d0' }
+
   subject(:search) { described_class.call(prosecution_case_reference) }
 
-  let(:prosecution_case_reference) { 'prosecution-case-ref-1234' }
-  let(:prosecution_case_id) { 'prosecution-case-id-1234' }
-
-  let(:response) do
-    double(
-      body: { prosecutionCases: [
-        { prosecutionCaseReference: prosecution_case_reference,
-          prosecutionCaseId: prosecution_case_id }
-      ] }.to_json,
-      status: 200
-    )
-  end
-
-  before do
-    allow(ProsecutionCaseSearcher).to receive(:call)
-      .with(prosecution_case_reference)
-      .and_return(response)
-  end
-
   it 'calls the Prosecution Case Recorder service' do
-    body = JSON.parse(response.body)
-    expect(ProsecutionCaseRecorder).to receive(:call)
-      .with(prosecution_case_id, body['prosecutionCases'].first)
-    search
+    VCR.use_cassette('search_prosecution_case/success') do
+      expect(ProsecutionCaseRecorder).to receive(:call)
+        .with(prosecution_case_id, Hash)
+      search
+    end
   end
 
-  context 'when the search returns a 404 status' do
-    let(:response) { double(body: {}.to_json, status: 404) }
+  context 'with a non existent id' do
+    let(:prosecution_case_reference) { 'prosecution-case-5678' }
 
-    it 'does not record the result' do
-      expect(HearingRecorder).not_to receive(:call)
-      search
+    it 'returns a not found response' do
+      VCR.use_cassette('search_prosecution_case/no_results') do
+        expect(ProsecutionCaseRecorder).to_not receive(:call)
+      end
     end
   end
 end
