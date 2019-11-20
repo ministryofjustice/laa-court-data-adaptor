@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?prosecutionCaseReference=prosecution-case-5678"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.17.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - openresty/1.15.8.2
+      date:
+      - Wed, 20 Nov 2019 16:03:50 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      vary:
+      - Accept-Encoding
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      etag:
+      - W/"888bb7a482c17fd44db7465cafa7565d"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 4d673897b5b8f53597e23ad744758b1d
+      x-runtime:
+      - '0.006029'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"prosecutionCases":[]}'
+    http_version: 
+  recorded_at: Wed, 20 Nov 2019 16:03:50 GMT
+recorded_with: VCR 5.0.0
