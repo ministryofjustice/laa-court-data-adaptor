@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?prosecutionCaseReference=3658e889-e050-4608-8f21-8bdaa529f8d0"
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?nationalInsuranceNumber=BN102966C"
     body:
       encoding: US-ASCII
       string: ''
@@ -17,7 +17,7 @@ http_interactions:
       server:
       - openresty/1.15.8.2
       date:
-      - Wed, 20 Nov 2019 17:13:36 GMT
+      - Thu, 21 Nov 2019 15:26:28 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -45,9 +45,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - f80a4f7be208852b523282e63798318c
+      - e9f0451a45d3233180143befcc2cc60f
       x-runtime:
-      - '0.199601'
+      - '0.031764'
     body:
       encoding: ASCII-8BIT
       string: '{"prosecutionCases":[{"prosecutionCaseId":"b9950946-fe3b-4eaa-9f0a-35e497e34528","prosecutionCaseReference":"3658e889-e050-4608-8f21-8bdaa529f8d0","caseStatus":"INACTIVE","defendants":[{"defendantId":"23d7f10a-067a-476e-bba6-bb855674e23b","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"Random
@@ -58,5 +58,5 @@ http_interactions:
         SORT OF MAAT ID","statusId":"0beb2337-60f9-4bb7-b9b0-d83e5487c198","statusCode":"ABCDEF","statusDescription":"FAKE
         NEWS","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15"}}]}]}]}'
     http_version: 
-  recorded_at: Wed, 20 Nov 2019 17:13:36 GMT
+  recorded_at: Thu, 21 Nov 2019 15:26:28 GMT
 recorded_with: VCR 5.0.0
