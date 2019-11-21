@@ -1,24 +1,9 @@
-# README
+# LAA Court Data Adaptor
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Tools
 
-Things you may want to cover:
+### Set up / amending git hooks for robocop
 
-* Ruby version
+Rubocop can be set up to run pre-commits.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Please see this [PR](https://github.com/ministryofjustice/laa-court-data-adaptor/pull/12)
