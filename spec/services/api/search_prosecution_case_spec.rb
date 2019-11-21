@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe Api::SearchProsecutionCase do
   let(:prosecution_case_id) { 'b9950946-fe3b-4eaa-9f0a-35e497e34528' }
-  let(:response_body) { subject.body['prosecutionCases'][0] }
   let(:prosecution_case_reference) { '3658e889-e050-4608-8f21-8bdaa529f8d0' }
 
   subject(:search) { described_class.call(prosecution_case_reference) }
