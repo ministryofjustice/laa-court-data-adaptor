@@ -9,6 +9,11 @@ RSpec.describe Api::SearchProsecutionCase do
 
   subject(:search) { described_class.call(prosecution_case_reference) }
 
+  let(:api_request_url) { '/prosecutionCases' }
+  let(:params) { prosecution_case_reference }
+
+  it_has_a 'correct api request url'
+
   it 'calls the Prosecution Case Recorder service' do
     VCR.use_cassette('search_prosecution_case/success') do
       expect(ProsecutionCaseRecorder).to receive(:call)
