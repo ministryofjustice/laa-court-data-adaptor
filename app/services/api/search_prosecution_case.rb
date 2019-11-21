@@ -4,9 +4,10 @@ module Api
   class SearchProsecutionCase < ApplicationService
     include CommonPlatformConnection
 
-    def initialize(prosecution_case_reference)
+    def initialize(prosecution_case_reference: nil, national_insurance_number: nil)
       @url = '/prosecutionCases'
       @prosecution_case_reference = prosecution_case_reference
+      @national_insurance_number = national_insurance_number
     end
 
     def call
@@ -21,8 +22,14 @@ module Api
     def prosecution_case_search_request
       common_platform_connection.get(
         url,
-        prosecutionCaseReference: prosecution_case_reference
+        request_params
       )
+    end
+
+    def request_params
+      return { prosecutionCaseReference: prosecution_case_reference } if prosecution_case_reference.present?
+
+      { nationalInsuranceNumber: national_insurance_number }
     end
 
     def successful_response?
@@ -38,6 +45,6 @@ module Api
       end
     end
 
-    attr_reader :prosecution_case_reference, :response, :url
+    attr_reader :prosecution_case_reference, :national_insurance_number, :response, :url
   end
 end
