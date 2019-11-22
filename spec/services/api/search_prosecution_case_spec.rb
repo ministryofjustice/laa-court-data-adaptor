@@ -48,4 +48,18 @@ RSpec.describe Api::SearchProsecutionCase do
       end
     end
   end
+
+  context 'searching with Arrest Summons Number' do
+    let(:arrest_summons_number) { 'MG25A12456' }
+
+    subject(:search) { described_class.call(arrest_summons_number: arrest_summons_number) }
+
+    it 'calls the Prosecution Case Recorder service' do
+      VCR.use_cassette('search_prosecution_case/by_arrest_summons_number_success') do
+        expect(ProsecutionCaseRecorder).to receive(:call)
+          .with(prosecution_case_id, Hash)
+        search
+      end
+    end
+  end
 end
