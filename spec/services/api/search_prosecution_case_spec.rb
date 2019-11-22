@@ -62,4 +62,22 @@ RSpec.describe Api::SearchProsecutionCase do
       end
     end
   end
+
+  context 'searching with name and date of birth' do
+    let(:name) do
+      { firstName: 'Alfredine', lastName: 'Parker' }
+    end
+
+    let(:date_of_birth) { '1971-05-12' }
+
+    subject(:search) { described_class.call(name: name, date_of_birth: date_of_birth) }
+
+    it 'calls the Prosecution Case Recorder service' do
+      VCR.use_cassette('search_prosecution_case/by_name_and_date_of_birth_success') do
+        expect(ProsecutionCaseRecorder).to receive(:call)
+          .with(prosecution_case_id, Hash)
+        search
+      end
+    end
+  end
 end
