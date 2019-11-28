@@ -80,4 +80,22 @@ RSpec.describe Api::SearchProsecutionCase do
       end
     end
   end
+
+  context 'searching with name and date_of_next_hearing' do
+    let(:name) do
+      { firstName: 'Alfredine', lastName: 'Parker' }
+    end
+
+    let(:date_of_next_hearing) { '2025-05-04' }
+
+    subject(:search) { described_class.call(name: name, date_of_next_hearing: date_of_next_hearing) }
+
+    it 'calls the Prosecution Case Recorder service' do
+      VCR.use_cassette('search_prosecution_case/by_name_and_date_of_next_hearing_success') do
+        expect(ProsecutionCaseRecorder).to receive(:call)
+          .with(prosecution_case_id, Hash)
+        search
+      end
+    end
+  end
 end
