@@ -2,7 +2,7 @@
 
 class ProsecutionCasesController < ApplicationController
   def index
-    @prosecution_cases = Api::SearchProsecutionCase.call(normalised_params)
+    @prosecution_cases = Api::SearchProsecutionCase.call(transformed_params)
 
     render json: @prosecution_cases, status: response_status
   end
@@ -14,10 +14,14 @@ class ProsecutionCasesController < ApplicationController
   end
 
   def normalised_params
-    permitted_params.transform_keys(&:underscore).to_h.symbolize_keys
+    Normaliser::MlraProsecutionCaseSearch.call(params)
   end
 
   def permitted_params
-    params.require(:prosecutionCases).permit(:prosecutionCaseReference, :arrestSummonsNumber, :name, :dateOfBirth, :dateOFNextHearing, :nino)
+    normalised_params.require(:prosecution_case_search).permit(:prosecution_case_reference, :arrest_summons_number, :name, :date_of_birth, :date_of_next_hearing, :national_insurance_number)
+  end
+
+  def transformed_params
+    permitted_params.to_hash.transform_keys(&:to_sym)
   end
 end

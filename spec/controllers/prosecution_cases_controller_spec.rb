@@ -16,8 +16,8 @@ RSpec.describe ProsecutionCasesController, type: :controller do
     context 'when the prosecutionCase is not found' do
       let(:params) do
         {
-          "prosecutionCaseSearch": {
-            "prosecutionCaseReference": 'prosecution-case-5678'
+          "prosecutionCases": {
+            "caseReference": 'prosecution-case-5678'
           }
         }
       end

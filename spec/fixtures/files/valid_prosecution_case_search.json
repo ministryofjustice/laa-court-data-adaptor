@@ -1,10 +1,11 @@
 {
-  "prosecutionCaseSearch": {
-    "prosecutionCaseReference": "3658e889-e050-4608-8f21-8bdaa529f8d0",
-    "arrestSummonsNumber": "ASN129302040",
-    "name": "Joe Bloggs",
-    "dateOfBirth": "12-07-67",
-    "dateOFNextHearing" : "09-12-2020",
-    "nationalInsuranceNumber": "SH129415G"
+  "prosecutionCases": {
+    "asn": "ASN129302040",
+    "caseReference": "3658e889-e050-4608-8f21-8bdaa529f8d0",
+    "firstName": "Joe Bloggs",
+    "lastName": "Joe Bloggs",
+    "dob": "12-07-67",
+    "nextHearingDate" : "09-12-2020",
+    "nino": "SH129415G"
   }
 }
