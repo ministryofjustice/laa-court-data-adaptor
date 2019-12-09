@@ -18,6 +18,6 @@ class ProsecutionCasesController < ApplicationController
   end
 
   def permitted_params
-    params.require(:prosecutionCaseSearch).permit(:prosecutionCaseReference, :arrestSummonsNumber, :name, :dateOfBirth, :dateOFNextHearing, :nationalInsuranceNumber)
+    params.require(:prosecutionCases).permit(:prosecutionCaseReference, :arrestSummonsNumber, :name, :dateOfBirth, :dateOFNextHearing, :nino)
   end
 end
