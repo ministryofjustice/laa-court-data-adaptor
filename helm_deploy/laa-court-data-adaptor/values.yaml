@@ -13,6 +13,8 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+common_platform_url: https://hmcts-common-platform-mock-api.apps.live-1.cloud-platform.service.justice.gov.uk
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
