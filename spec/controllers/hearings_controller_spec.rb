@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe HearingsController, type: :controller do
+  include AuthorisedRequestHelper
+
+  before { authorise_requests! }
+
   let(:valid_attributes) { JSON.parse(file_fixture('valid_hearing.json').read) }
   let(:invalid_attributes) { JSON.parse(file_fixture('invalid_hearing.json').read) }
 
