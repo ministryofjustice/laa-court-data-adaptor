@@ -19,3 +19,6 @@
 /config/master.key
 
 spec/examples.txt
+
+# Ignore simplecov coverage stats
+/coverage/
