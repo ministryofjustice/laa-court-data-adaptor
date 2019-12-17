@@ -8,6 +8,7 @@ As the Common Platform API is not yet live to us, we have also created a Mock of
 
 Run this in parallel to the Court Data Adaptor to mock the Common Platform API.
 
+
 ## Set up
 
 This is a standard 6 Rails API application. Using Postgres 12.1 as a database.
@@ -15,7 +16,7 @@ This is a standard 6 Rails API application. Using Postgres 12.1 as a database.
 Clone the repo, then run:
 
 ```
-$ bundle exec install
+$ bundle install
 $ rails db:setup
 ```
 
@@ -26,7 +27,7 @@ $ rails s
 ```
 
 
-### Git hooks for robocop
+### Git hooks for Rubocop
 
 Rubocop can be set up to run pre-commits.
 
