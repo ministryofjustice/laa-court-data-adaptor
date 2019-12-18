@@ -27,6 +27,22 @@ $ rails s
 ```
 
 
+### API Authentication
+
+Create a user account through the rails console:
+```
+user = User.create(name: 'System User', auth_token: '<SUPER_SECRET_TOKEN>')
+# or generate a random token
+user = User.create(name: 'System User', auth_token: User.generate_unique_secure_token)
+```
+
+Note that the `auth_token` is stored as a password digest, and cannot be retrieved if lost.
+
+Now you can make authenticated request by passing an authorisation header in the request payload. The header should look like:
+```
+Authorization: Bearer <SUPER_SECRET_TOKEN>, user_id=<USER-UUID>
+```
+
 ### Git hooks for Rubocop
 
 Rubocop can be set up to run pre-commits.
