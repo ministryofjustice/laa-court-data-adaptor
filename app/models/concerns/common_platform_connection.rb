@@ -7,7 +7,7 @@ module CommonPlatformConnection
     private
 
     def common_platform_connection
-      @common_platform_connection ||= Faraday.new ENV.fetch('COMMON_PLATFORM_URL') do |connection|
+      @common_platform_connection ||= Faraday.new Rails.configuration.x.common_platform_url do |connection|
         connection.request :json
         connection.response :json, content_type: 'application/json'
         connection.adapter Faraday.default_adapter
