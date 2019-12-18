@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe ProsecutionCasesController, type: :controller do
+  include AuthorisedRequestHelper
+
+  before { authorise_requests! }
+
   describe 'GET #index' do
     let(:params) { JSON.parse(file_fixture('valid_prosecution_case_search.json').read) }
 
