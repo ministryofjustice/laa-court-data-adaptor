@@ -21,6 +21,15 @@ RSpec.describe HearingsController, type: :controller do
       end
     end
 
+    context 'with an invalid hearing' do
+      it 'renders a JSON response with an unprocessable_entity error' do
+        allow(HearingRecorder).to receive(:call).and_return(Hearing.new)
+        post :create, params: valid_attributes
+        expect(response.body).to include("can't be blank")
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new hearing' do
         post :create, params: invalid_attributes
