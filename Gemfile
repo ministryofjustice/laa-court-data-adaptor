@@ -29,7 +29,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 4.0.0.beta3'
-  gem 'rubocop', '~> 0.77.0', require: false
+  gem 'rubocop', '~> 0.78.0', require: false
   gem 'rubocop-performance'
   gem 'vcr'
 end
