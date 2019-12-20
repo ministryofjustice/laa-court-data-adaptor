@@ -54,6 +54,11 @@ spec:
                   key: secret-key-base
             - name: COMMON_PLATFORM_URL
               value: {{ .Values.common_platform_url }}
+            - name: COMMON_PLATFORM_SHARED_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: laa-court-data-adaptor-secrets
+                  key: common-platform-shared-secret-key
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
