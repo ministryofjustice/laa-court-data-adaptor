@@ -13,6 +13,12 @@ RSpec.describe HearingFetcher do
     end
   end
 
+  it 'has the correct auth header' do
+    VCR.use_cassette('hearing_result_fetcher/success') do
+      expect(subject.env.request_headers['Authorization']).to match(ENV['SHARED_SECRET_KEY_HEARING'])
+    end
+  end
+
   context 'with a non existent id' do
     let(:hearing_id) { '6c0b7068-d4a7-4adc-a7a0-7bd5715b501d' }
 

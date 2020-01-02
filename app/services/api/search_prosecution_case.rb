@@ -15,7 +15,7 @@ module Api
       @name = name
       @date_of_birth = date_of_birth
       @date_of_next_hearing = date_of_next_hearing
-      @common_platform_shared_secret_key = 'COMMON_PLATFORM_SHARED_SECRET_KEY'
+      @common_platform_shared_secret_key = 'SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE'
     end
 
     def call

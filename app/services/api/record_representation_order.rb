@@ -18,7 +18,7 @@ module Api
       @effective_start_date = effective_start_date
       @defence_organisation = defence_organisation
       @url = "/prosecutionCases/representationOrder/#{laa_reference_id}"
-      @common_platform_shared_secret_key = 'COMMON_PLATFORM_SHARED_SECRET_KEY'
+      @common_platform_shared_secret_key = 'SHARED_SECRET_KEY_REPRESENTATION_ORDER'
     end
     # rubocop:enable Metrics/ParameterLists
 

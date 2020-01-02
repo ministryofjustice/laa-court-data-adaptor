@@ -13,6 +13,17 @@ RSpec.describe Api::SearchProsecutionCase do
 
   it_has_a 'correct api request url'
 
+  context 'authorisation check' do
+    subject(:search) { Api::SearchProsecutionCase.new }
+
+    it 'has the correct auth header' do
+      VCR.use_cassette('search_prosecution_case/with_no_params_to_test_auth_header') do
+        search.call
+        expect(search.response.env.request_headers['Authorization']).to match(ENV['SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE'])
+      end
+    end
+  end
+
   context 'searching with ProsecutionCase Reference' do
     subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference) }
 

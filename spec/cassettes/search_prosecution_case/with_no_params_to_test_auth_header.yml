@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?nationalInsuranceNumber"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Token token="PROSECUTION_CASE"
+      User-Agent:
+      - Faraday v0.17.0
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      server:
+      - openresty/1.15.8.2
+      date:
+      - Fri, 03 Jan 2020 09:26:33 GMT
+      content-type:
+      - text/html
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      cache-control:
+      - no-cache
+      x-request-id:
+      - 46380d933b0160475cab6130755fe9cb
+      x-runtime:
+      - '0.001511'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 03 Jan 2020 09:26:33 GMT
+recorded_with: VCR 5.0.0

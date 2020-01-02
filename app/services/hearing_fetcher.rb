@@ -7,7 +7,7 @@ class HearingFetcher < ApplicationService
 
   def initialize(hearing_id)
     @url = "/hearing/results/#{hearing_id}"
-    @common_platform_shared_secret_key = 'COMMON_PLATFORM_SHARED_SECRET_KEY'
+    @common_platform_shared_secret_key = 'SHARED_SECRET_KEY_HEARING'
   end
 
   def call
