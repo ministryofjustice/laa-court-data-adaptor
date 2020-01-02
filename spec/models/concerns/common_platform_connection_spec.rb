@@ -10,7 +10,7 @@ RSpec.describe CommonPlatformConnection do
       attr_reader :common_platform_shared_secret_key
 
       def initialize
-        @common_platform_shared_secret_key = 'COMMON_PLATFORM_SHARED_SECRET_KEY'
+        @common_platform_shared_secret_key = 'SHARED_SECRET_TEST'
       end
 
       def connection
@@ -20,6 +20,6 @@ RSpec.describe CommonPlatformConnection do
   end
   describe '#common_platform_connection' do
     let(:connection) { TestConnection.new.connection }
-    it { expect(connection.headers['Authorization']).to_not match("Token token=\"\"") }
+    it { expect(connection.headers['Authorization']).to match('TEST_SECRET') }
   end
 end

@@ -25,6 +25,12 @@ RSpec.describe Api::RecordLaaReference do
     end
   end
 
+  it 'has the correct auth header' do
+    VCR.use_cassette('laa_reference_recorder/update') do
+      expect(subject.env.request_headers['Authorization']).to match(ENV['SHARED_SECRET_KEY_LAA_REFERENCE'])
+    end
+  end
+
   context 'when the LaaReference does not exist' do
     let(:laa_reference_id) { 'a21574ea-74c2-4d20-9cce-3f1c64be701b' }
 
