@@ -4,7 +4,7 @@ module Api
   class SearchProsecutionCase < ApplicationService
     include CommonPlatformConnection
 
-    attr_reader :prosecution_case_reference, :national_insurance_number, :response, 
+    attr_reader :prosecution_case_reference, :national_insurance_number, :response,
                 :url, :arrest_summons_number, :name, :date_of_birth, :date_of_next_hearing, :common_platform_shared_secret_key
 
     def initialize(prosecution_case_reference: nil, national_insurance_number: nil, arrest_summons_number: nil, name: nil, date_of_birth: nil, date_of_next_hearing: nil)

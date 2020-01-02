@@ -4,8 +4,8 @@ module Api
   class RecordLaaReference < ApplicationService
     include CommonPlatformConnection
 
-    attr_reader :url, :prosecution_case_id, :defendant_id, 
-                :offence_id, :status_code, :application_reference, 
+    attr_reader :url, :prosecution_case_id, :defendant_id,
+                :offence_id, :status_code, :application_reference,
                 :status_date, :common_platform_shared_secret_key
 
     # rubocop:disable Metrics/ParameterLists

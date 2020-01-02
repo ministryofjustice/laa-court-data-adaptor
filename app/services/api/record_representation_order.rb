@@ -4,8 +4,8 @@ module Api
   class RecordRepresentationOrder < ApplicationService
     include CommonPlatformConnection
 
-    attr_reader :url, :prosecution_case_id, :defendant_id, :offence_id, 
-                :status_code, :application_reference, :status_date, :effective_start_date, 
+    attr_reader :url, :prosecution_case_id, :defendant_id, :offence_id,
+                :status_code, :application_reference, :status_date, :effective_start_date,
                 :defence_organisation, :common_platform_shared_secret_key
     # rubocop:disable Metrics/ParameterLists
     def initialize(laa_reference_id:, prosecution_case_id:, defendant_id:, offence_id:, status_code:, application_reference:, status_date:, effective_start_date:, defence_organisation:)
