@@ -20,6 +20,6 @@ RSpec.describe CommonPlatformConnection do
   end
   describe '#common_platform_connection' do
     let(:connection) { TestConnection.new.connection }
-    it { expect(connection.headers['Authorization']).to_not be_blank }
+    it { expect(connection.headers['Authorization']).to_not match("Token token=\"\"") }
   end
 end
