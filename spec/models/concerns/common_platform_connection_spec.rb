@@ -6,6 +6,13 @@ RSpec.describe CommonPlatformConnection do
   before do
     class TestConnection
       include CommonPlatformConnection
+
+      attr_reader :common_platform_shared_secret_key
+
+      def initialize
+        @common_platform_shared_secret_key = 'COMMON_PLATFORM_SHARED_SECRET_KEY'
+      end
+
       def connection
         common_platform_connection
       end
