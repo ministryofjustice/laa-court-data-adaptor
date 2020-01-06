@@ -8,6 +8,7 @@ module Api
                 :url, :arrest_summons_number, :name, :date_of_birth, :date_of_next_hearing,
                 :headers
 
+    # rubocop:disable Metrics/ParameterLists
     def initialize(prosecution_case_reference: nil,
                    national_insurance_number: nil,
                    arrest_summons_number: nil,
@@ -23,8 +24,9 @@ module Api
       @date_of_birth = date_of_birth
       @date_of_next_hearing = date_of_next_hearing
       @common_platform_shared_secret_key = ''
-      @headers = { 'LAASearchCase-Subscription-Key' => shared_key}
+      @headers = { 'LAASearchCase-Subscription-Key' => shared_key }
     end
+    # rubocop:enable Metrics/ParameterLists
 
     def call
       @response ||= prosecution_case_search_request
