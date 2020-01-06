@@ -20,11 +20,11 @@ module Api
       @status_date = status_date
       @effective_start_date = effective_start_date
       @defence_organisation = defence_organisation
-      @url = %W[/receive/representation-sit/progression-command-api
-                /command/api/rest/progression/representationOrder
-                /cases/#{prosecution_case_id}
-                /defendants/#{defendant_id}
-                /offences/#{offence_id}].join
+      @url = '/receive/representation-sit/progression-command-api'\
+              '/command/api/rest/progression/representationOrder' \
+              "/cases/#{prosecution_case_id}" \
+              "/defendants/#{defendant_id}" \
+              "/offences/#{offence_id}"
 
       @headers = { 'LAARepresent-Subscription-Key' => shared_key }
     end

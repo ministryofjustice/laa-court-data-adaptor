@@ -16,11 +16,11 @@ module Api
       @status_code = status_code
       @application_reference = application_reference
       @status_date = status_date
-      @url = %W[/record/laareference-sit/progression-command-api
-                /command/api/rest/progression/laaReference
-                /cases/#{prosecution_case_id}
-                /defendants/#{defendant_id}
-                /offences/#{offence_id}].join
+      @url = '/record/laareference-sit/progression-command-api'\
+              '/command/api/rest/progression/laaReference'\
+              "/cases/#{prosecution_case_id}"\
+              "/defendants/#{defendant_id}"\
+              "/offences/#{offence_id}"
 
       @headers = { 'LAAReference-Subscription-Key' => shared_key }
     end
