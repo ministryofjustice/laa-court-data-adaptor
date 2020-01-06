@@ -40,12 +40,6 @@ RSpec.describe Api::RecordRepresentationOrder do
     end
   end
 
-  it 'has the correct auth header' do
-    VCR.use_cassette('representation_order_recorder/update') do
-      expect(subject.env.request_headers['Authorization']).to match(ENV['SHARED_SECRET_KEY_REPRESENTATION_ORDER'])
-    end
-  end
-
   context 'when the LaaReference does not exist' do
     let(:laa_reference_id) { '0beb2337-60f9-4bb7-b9b0-d83e5487c198' }
 

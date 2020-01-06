@@ -3,26 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Api::SearchProsecutionCase do
-  let(:prosecution_case_id) { 'b9950946-fe3b-4eaa-9f0a-35e497e34528' }
+  let(:prosecution_case_id) { '2279b2c3-b0d3-4889-ae8e-1ecc20c39e27' }
   let(:prosecution_case_reference) { '3658e889-e050-4608-8f21-8bdaa529f8d0' }
 
-  let(:api_request_url) { '/prosecutionCases' }
+  let(:api_request_url) { '/search/case-sit/prosecutionCases' }
   let(:params) do
     { prosecution_case_reference: prosecution_case_reference }
   end
 
   it_has_a 'correct api request url'
-
-  context 'authorisation check' do
-    subject(:search) { Api::SearchProsecutionCase.new }
-
-    it 'has the correct auth header' do
-      VCR.use_cassette('search_prosecution_case/with_no_params_to_test_auth_header') do
-        search.call
-        expect(search.response.env.request_headers['Authorization']).to match(ENV['SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE'])
-      end
-    end
-  end
 
   context 'searching with ProsecutionCase Reference' do
     subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference) }

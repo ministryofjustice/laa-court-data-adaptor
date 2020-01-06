@@ -2,61 +2,90 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?nationalInsuranceNumber=BN102966C"
+    uri: "<COMMON_PLATFORM_URL>/search/case-sit/prosecutionCases?nationalInsuranceNumber=BN102966C"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v0.17.0
+      LAASearchCase-Subscription-Key:
+      - "<SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE>"
   response:
     status:
       code: 200
       message: OK
     headers:
-      server:
-      - openresty/1.15.8.2
-      date:
-      - Thu, 21 Nov 2019 15:26:28 GMT
+      content-length:
+      - '4445'
       content-type:
-      - application/json; charset=utf-8
-      transfer-encoding:
-      - chunked
+      - application/json
+      request-context:
+      - appId=cid-v1:0cb7619e-0822-41e2-9111-25f06ec82acb
+      date:
+      - Mon, 06 Jan 2020 14:09:44 GMT
       connection:
       - close
-      vary:
-      - Accept-Encoding
-      strict-transport-security:
-      - max-age=15724800; includeSubDomains
-      x-frame-options:
-      - SAMEORIGIN
-      x-xss-protection:
-      - 1; mode=block
-      x-content-type-options:
-      - nosniff
-      x-download-options:
-      - noopen
-      x-permitted-cross-domain-policies:
-      - none
-      referrer-policy:
-      - strict-origin-when-cross-origin
-      etag:
-      - W/"0e1bf2d5a9b0012eba5500923d98c9f2"
-      cache-control:
-      - max-age=0, private, must-revalidate
-      x-request-id:
-      - e9f0451a45d3233180143befcc2cc60f
-      x-runtime:
-      - '0.031764'
     body:
-      encoding: ASCII-8BIT
-      string: '{"prosecutionCases":[{"prosecutionCaseId":"b9950946-fe3b-4eaa-9f0a-35e497e34528","prosecutionCaseReference":"3658e889-e050-4608-8f21-8bdaa529f8d0","caseStatus":"INACTIVE","defendants":[{"defendantId":"23d7f10a-067a-476e-bba6-bb855674e23b","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"Random
-        string","name":{"firstName":"Alfredine","middleName":"Treutel","lastName":"Parker"},"dateOfBirth":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offences":[{"offenceId":"147fed98-ba8a-46cb-b2b4-7c41cf4734bf","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Random string","offenceLegislation":"Random
-        string","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"SOME
-        SORT OF MAAT ID","statusId":"0beb2337-60f9-4bb7-b9b0-d83e5487c198","statusCode":"ABCDEF","statusDescription":"FAKE
-        NEWS","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15"}}]}]}]}'
+      encoding: UTF-8
+      string: "[\r\n  {\r\n    \"prosecutionCaseId\": \"2279b2c3-b0d3-4889-ae8e-1ecc20c39e27\",\r\n
+        \   \"prosecutionCaseReference\": \"TFL12345\",\r\n    \"caseStatus\": \"active\",\r\n
+        \   \"defendantSummary\": [\r\n      {\r\n        \"defendantId\": \"7377637b-a078-43f3-9215-d947f06356d2\",\r\n
+        \       \"defendantASN\": \"arrest123\",\r\n        \"defendantName\": \"Harry
+        Jack Kane Junior\",\r\n        \"defendantDOB\": \"2010-01-01\",\r\n        \"defendantNINO\":
+        \"NN763534D\",\r\n        \"dateOfNextHearing\": \"2019-01-22\",\r\n        \"defendantProceedingsConcluded\":
+        true,\r\n        \"lAAReference\": {\r\n          \"applicationReference\":
+        \"LAA REF 1\",\r\n          \"statusId\": \"bbf6f4b1-79cd-45ef-8255-66ae0845a06d\",\r\n
+        \         \"statusCode\": \"LAA STATUS CODE\",\r\n          \"statusDescription\":
+        \"LAA STATUS DESC\",\r\n          \"effectiveFromDate\": \"2019-08-12\",\r\n
+        \         \"effectiveToDate\": \"2019-10-12\",\r\n          \"laaRepresentativeAccountNumber\":
+        \"LAA REPRESENTATIVE ACC NO\"\r\n        },\r\n        \"offenceSummary\":
+        [\r\n          {\r\n            \"offenceId\": \"e9cb3ddd-587e-44af-b849-9af2337f1422\",\r\n
+        \           \"offenceCode\": \"OFFENCE CODE 1\",\r\n            \"offenceTitle\":
+        \"OFFENCE TITLE 1\",\r\n            \"offenceLegislation\": \"OFFENCE LEGISLATION
+        1\",\r\n            \"proceedingsConcluded\": false,\r\n            \"arrestDate\":
+        \"2019-09-02\",\r\n            \"dateOfInformation\": \"2019-09-02\",\r\n
+        \           \"endDate\": \"2019-09-02\",\r\n            \"startDate\": \"2019-09-02\",\r\n
+        \           \"chargeDate\": \"2019-09-02\",\r\n            \"modeOfTrial\":
+        \"CROWN\",\r\n            \"orderIndex\": 1,\r\n            \"wording\": \"OFFENCE
+        WORDING 1\",\r\n            \"lAAReference\": {\r\n              \"applicationReference\":
+        \"LAA REF OFF 1\",\r\n              \"statusId\": \"bbf6f4b1-79cd-45ef-8255-66ae0845a06d\",\r\n
+        \             \"statusCode\": \"LAA STATUS CODE OFF 1\",\r\n              \"statusDescription\":
+        \"LAA STATUS DESC OFF 1\",\r\n              \"effectiveFromDate\": \"2019-08-12\",\r\n
+        \             \"effectiveToDate\": \"2019-10-12\",\r\n              \"laaRepresentativeAccountNumber\":
+        \"LAA REPRESENTATIVE ACC NO OFF 1\"\r\n            }\r\n          },\r\n          {\r\n
+        \           \"offenceId\": \"59bf6632-d6c7-476d-a280-41a736850441\",\r\n            \"offenceCode\":
+        \"OFFENCE CODE 2\",\r\n            \"offenceTitle\": \"OFFENCE TITLE 2\",\r\n
+        \           \"offenceLegislation\": \"OFFENCE LEGISLATION 2\",\r\n            \"proceedingsConcluded\":
+        false,\r\n            \"arrestDate\": \"2019-09-02\",\r\n            \"dateOfInformation\":
+        \"2019-09-02\",\r\n            \"endDate\": \"2019-09-02\",\r\n            \"startDate\":
+        \"2019-09-02\",\r\n            \"chargeDate\": \"2019-09-02\",\r\n            \"modeOfTrial\":
+        \"CROWN\",\r\n            \"orderIndex\": 2,\r\n            \"wording\": \"OFFENCE
+        WORDING 2\",\r\n            \"lAAReference\": {\r\n              \"applicationReference\":
+        \"LAA REF OFF 2\",\r\n              \"statusId\": \"bbf6f4b1-79cd-45ef-8255-66ae0845a06d\",\r\n
+        \             \"statusCode\": \"LAA STATUS CODE OFF 2\",\r\n              \"statusDescription\":
+        \"LAA STATUS DESC OFF 2\",\r\n              \"effectiveFromDate\": \"2019-08-12\",\r\n
+        \             \"effectiveToDate\": \"2019-10-12\",\r\n              \"laaRepresentativeAccountNumber\":
+        \"LAA REPRESENTATIVE ACC NO OFF 2\"\r\n            }\r\n          }\r\n        ]\r\n
+        \     }\r\n    ],\r\n    \"hearingSummary\": [\r\n      {\r\n        \"hearingId\":
+        \"3a2b91f3-7e11-413e-a160-fc79b18a1866\",\r\n        \"jurisdictionType\":
+        \"MAGISTRATES\",\r\n        \"defendantIds\":  [\"7377637b-a078-43f3-9215-d947f06356d2\"],\r\n
+        \       \"hearingType\": {\r\n          \"id\": \"2daefec3-2f76-8109-82d9-2e60544a6c02\",\r\n
+        \         \"description\": \"Trial\",\r\n          \"code\": \"HEARING TYPE
+        CODE 1\"\r\n        },\r\n        \"courtCentre\": {\r\n          \"id\":
+        \"f93d22ee-e06b-48e1-8e50-133ff475d025\",\r\n          \"name\": \"LONDON
+        CROWN COURT CENTRE\",\r\n          \"roomId\": \"4ab9c698-f559-48ee-beae-00fb5fe2483e\",\r\n
+        \         \"roomName\": \"WEST ROOM\",\r\n          \"welshName\": \"CANOLFAN
+        LLYS CROWN LLUNDAIN\",\r\n          \"welshRoomName\": \"YSTAFELL GORLLEWIN\",\r\n
+        \         \"address\": {\r\n            \"address1\": \"123 JUSTICE SQUARE\",\r\n
+        \           \"address2\": \"LEGAL ROW\",\r\n            \"address3\": \"FARRINGDON\",\r\n
+        \           \"address4\": \"LONDON\",\r\n            \"postCode\": \"NE1 6FT\"\r\n
+        \         }\r\n        },\r\n        \"hearingDay\": [\r\n          {\r\n
+        \           \"sittingDay\": \"2019-01-22T10:00:00Z\",\r\n            \"listingSequence\":
+        1,\r\n            \"listedDurationMinutes\": 60\r\n          },\r\n          {\r\n
+        \           \"sittingDay\": \"2019-01-23T13:00:00Z\",\r\n            \"listingSequence\":
+        2,\r\n            \"listedDurationMinutes\": 60\r\n          }\r\n        ]\r\n
+        \     }\r\n    ]\r\n  }\r\n]"
     http_version: 
-  recorded_at: Thu, 21 Nov 2019 15:26:28 GMT
+  recorded_at: Mon, 06 Jan 2020 14:09:44 GMT
 recorded_with: VCR 5.0.0

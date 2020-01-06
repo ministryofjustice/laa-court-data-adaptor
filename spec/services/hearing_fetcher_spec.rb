@@ -16,7 +16,7 @@ RSpec.describe HearingFetcher do
   context 'with a incorrect key' do
     subject { described_class.call(hearing_id: hearing_id, shared_key: 'INCORRECT KEY') }
 
-    it 'returns a not found response' do
+    it 'returns an unauthorised response' do
       VCR.use_cassette('hearing_result_fetcher/unauthorised') do
         expect(subject.status).to eq(401)
       end
