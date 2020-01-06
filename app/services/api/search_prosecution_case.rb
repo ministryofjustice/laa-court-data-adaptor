@@ -4,10 +4,6 @@ module Api
   class SearchProsecutionCase < ApplicationService
     include CommonPlatformConnection
 
-    attr_reader :prosecution_case_reference, :national_insurance_number, :response,
-                :url, :arrest_summons_number, :name, :date_of_birth, :date_of_next_hearing,
-                :headers
-
     # rubocop:disable Metrics/ParameterLists
     def initialize(prosecution_case_reference: nil,
                    national_insurance_number: nil,
@@ -23,7 +19,6 @@ module Api
       @name = name
       @date_of_birth = date_of_birth
       @date_of_next_hearing = date_of_next_hearing
-      @common_platform_shared_secret_key = ''
       @headers = { 'LAASearchCase-Subscription-Key' => shared_key }
     end
     # rubocop:enable Metrics/ParameterLists
@@ -66,5 +61,7 @@ module Api
         )
       end
     end
+
+    attr_reader :prosecution_case_reference, :national_insurance_number, :response, :url, :arrest_summons_number, :name, :date_of_birth, :date_of_next_hearing, :headers
   end
 end

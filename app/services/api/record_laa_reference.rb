@@ -4,8 +4,6 @@ module Api
   class RecordLaaReference < ApplicationService
     include CommonPlatformConnection
 
-    attr_reader :url, :status_code, :application_reference, :status_date, :headers
-
     # rubocop:disable Metrics/ParameterLists
     def initialize(prosecution_case_id:,
                    defendant_id:,
@@ -41,5 +39,7 @@ module Api
         statusDate: status_date
       }
     end
+
+    attr_reader :url, :status_code, :application_reference, :status_date, :headers
   end
 end
