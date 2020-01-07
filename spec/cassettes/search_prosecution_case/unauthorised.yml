@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<COMMON_PLATFORM_URL>/search/case-sit/prosecutionCases?prosecutionCaseReference=TFL12345"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.17.0
+      LAASearchCase-Subscription-Key:
+      - INCORRECT KEY
+  response:
+    status:
+      code: 401
+      message: Access Denied
+    headers:
+      content-length:
+      - '143'
+      content-type:
+      - application/json
+      request-context:
+      - appId=cid-v1:0cb7619e-0822-41e2-9111-25f06ec82acb
+      www-authenticate:
+      - AzureApiManagementKey realm="https://spnl-sit-apim-int-gw.cpp.nonlive/search/case-sit",name="LAASearchCase-Subscription-Key",type="header"
+      date:
+      - Wed, 08 Jan 2020 15:58:58 GMT
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{ "statusCode": 401, "message": "Access denied due to invalid subscription
+        key. Make sure to provide a valid key for an active subscription." }'
+    http_version: 
+  recorded_at: Wed, 08 Jan 2020 15:58:58 GMT
+recorded_with: VCR 5.0.0

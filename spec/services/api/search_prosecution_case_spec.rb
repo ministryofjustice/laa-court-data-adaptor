@@ -3,99 +3,47 @@
 require 'rails_helper'
 
 RSpec.describe Api::SearchProsecutionCase do
-  let(:prosecution_case_id) { '2279b2c3-b0d3-4889-ae8e-1ecc20c39e27' }
-  let(:prosecution_case_reference) { '3658e889-e050-4608-8f21-8bdaa529f8d0' }
+  let(:params) { { howdy: 'hello' } }
+  let(:response_status) { 200 }
+  let(:search_results) { double('Response', status: response_status, body: response_body) }
+  let(:response_body) { [{ 'prosecutionCaseId' => 12_345 }] }
 
-  let(:api_request_url) { '/search/case-sit/prosecutionCases' }
-  let(:params) do
-    { prosecution_case_reference: prosecution_case_reference }
+  before do
+    allow(ProsecutionCaseSearcher).to receive(:call).and_return(search_results)
   end
 
-  it_has_a 'correct api request url'
+  subject { described_class.call(params) }
 
-  context 'searching with ProsecutionCase Reference' do
-    subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference) }
+  it 'records ProsecutionCase' do
+    expect(ProsecutionCaseRecorder).to receive(:call)
+      .with(12_345, 'prosecutionCaseId' => 12_345)
+    subject
+  end
 
-    it 'calls the Prosecution Case Recorder service' do
-      VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success') do
-        expect(ProsecutionCaseRecorder).to receive(:call)
-          .with(prosecution_case_id, Hash)
-        search
-      end
-    end
+  context 'containing multiple records' do
+    let(:response_body) { [{ 'prosecutionCaseId' => 12_345 }, { 'prosecutionCaseId' => 23_456 }] }
 
-    context 'with a non existent id' do
-      let(:prosecution_case_reference) { 'prosecution-case-5678' }
-
-      it 'returns a not found response' do
-        VCR.use_cassette('search_prosecution_case/no_results') do
-          expect(ProsecutionCaseRecorder).to_not receive(:call)
-        end
-      end
+    it 'records each ProsecutionCase' do
+      expect(ProsecutionCaseRecorder).to receive(:call).exactly(2).times
+      subject
     end
   end
 
-  context 'searching with National Insurance Number' do
-    let(:national_insurance_number) { 'BN102966C' }
+  context 'containing an empty body' do
+    let(:response_body) { [] }
 
-    subject(:search) { described_class.call(national_insurance_number: national_insurance_number) }
-
-    it 'calls the Prosecution Case Recorder service' do
-      VCR.use_cassette('search_prosecution_case/by_national_insurance_number_success') do
-        expect(ProsecutionCaseRecorder).to receive(:call)
-          .with(prosecution_case_id, Hash)
-        search
-      end
+    it 'does not record' do
+      expect(ProsecutionCaseRecorder).not_to receive(:call)
+      subject
     end
   end
 
-  context 'searching with Arrest Summons Number' do
-    let(:arrest_summons_number) { 'MG25A12456' }
+  context 'when the response is not a 200/ok' do
+    let(:response_status) { 404 }
 
-    subject(:search) { described_class.call(arrest_summons_number: arrest_summons_number) }
-
-    it 'calls the Prosecution Case Recorder service' do
-      VCR.use_cassette('search_prosecution_case/by_arrest_summons_number_success') do
-        expect(ProsecutionCaseRecorder).to receive(:call)
-          .with(prosecution_case_id, Hash)
-        search
-      end
-    end
-  end
-
-  context 'searching with name and date of birth' do
-    let(:name) do
-      { firstName: 'Alfredine', lastName: 'Parker' }
-    end
-
-    let(:date_of_birth) { '1971-05-12' }
-
-    subject(:search) { described_class.call(name: name, date_of_birth: date_of_birth) }
-
-    it 'calls the Prosecution Case Recorder service' do
-      VCR.use_cassette('search_prosecution_case/by_name_and_date_of_birth_success') do
-        expect(ProsecutionCaseRecorder).to receive(:call)
-          .with(prosecution_case_id, Hash)
-        search
-      end
-    end
-  end
-
-  context 'searching with name and date_of_next_hearing' do
-    let(:name) do
-      { firstName: 'Alfredine', lastName: 'Parker' }
-    end
-
-    let(:date_of_next_hearing) { '2025-05-04' }
-
-    subject(:search) { described_class.call(name: name, date_of_next_hearing: date_of_next_hearing) }
-
-    it 'calls the Prosecution Case Recorder service' do
-      VCR.use_cassette('search_prosecution_case/by_name_and_date_of_next_hearing_success') do
-        expect(ProsecutionCaseRecorder).to receive(:call)
-          .with(prosecution_case_id, Hash)
-        search
-      end
+    it 'does not record' do
+      expect(ProsecutionCaseRecorder).not_to receive(:call)
+      subject
     end
   end
 end

@@ -2,8 +2,6 @@
 
 module Api
   class RecordRepresentationOrder < ApplicationService
-    include CommonPlatformConnection
-
     # rubocop:disable Metrics/ParameterLists
     def initialize(prosecution_case_id:,
                    defendant_id:,
@@ -13,7 +11,8 @@ module Api
                    status_date:,
                    effective_start_date:,
                    defence_organisation:,
-                   shared_key: ENV['SHARED_SECRET_KEY_REPRESENTATION_ORDER'])
+                   shared_key: ENV['SHARED_SECRET_KEY_REPRESENTATION_ORDER'],
+                   connection: CommonPlatformConnection.call)
 
       @status_code = status_code
       @application_reference = application_reference
@@ -26,12 +25,13 @@ module Api
               "/defendants/#{defendant_id}" \
               "/offences/#{offence_id}"
 
+      @connection = connection
       @headers = { 'LAARepresent-Subscription-Key' => shared_key }
     end
     # rubocop:enable Metrics/ParameterLists
 
     def call
-      common_platform_connection.post(url, request_body, headers)
+      connection.post(url, request_body, headers)
     end
 
     private
@@ -46,6 +46,6 @@ module Api
       }
     end
 
-    attr_reader :url, :status_code, :application_reference, :status_date, :effective_start_date, :defence_organisation, :headers
+    attr_reader :url, :status_code, :application_reference, :status_date, :effective_start_date, :defence_organisation, :headers, :connection
   end
 end

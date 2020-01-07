@@ -23,7 +23,7 @@ http_interactions:
       request-context:
       - appId=cid-v1:0cb7619e-0822-41e2-9111-25f06ec82acb
       date:
-      - Mon, 06 Jan 2020 14:09:44 GMT
+      - Wed, 08 Jan 2020 15:58:58 GMT
       connection:
       - close
     body:
@@ -87,5 +87,5 @@ http_interactions:
         2,\r\n            \"listedDurationMinutes\": 60\r\n          }\r\n        ]\r\n
         \     }\r\n    ]\r\n  }\r\n]"
     http_version: 
-  recorded_at: Mon, 06 Jan 2020 14:09:44 GMT
+  recorded_at: Wed, 08 Jan 2020 15:58:58 GMT
 recorded_with: VCR 5.0.0

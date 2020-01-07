@@ -2,8 +2,6 @@
 
 module Api
   class RecordLaaReference < ApplicationService
-    include CommonPlatformConnection
-
     # rubocop:disable Metrics/ParameterLists
     def initialize(prosecution_case_id:,
                    defendant_id:,
@@ -11,11 +9,13 @@ module Api
                    status_code:,
                    application_reference:,
                    status_date:,
-                   shared_key: ENV['SHARED_SECRET_KEY_LAA_REFERENCE'])
+                   shared_key: ENV['SHARED_SECRET_KEY_LAA_REFERENCE'],
+                   connection: CommonPlatformConnection.call)
 
       @status_code = status_code
       @application_reference = application_reference
       @status_date = status_date
+      @connection = connection
       @url = '/record/laareference-sit/progression-command-api'\
               '/command/api/rest/progression/laaReference'\
               "/cases/#{prosecution_case_id}"\
@@ -27,7 +27,7 @@ module Api
     # rubocop:enable Metrics/ParameterLists
 
     def call
-      common_platform_connection.post(url, request_body, headers)
+      connection.post(url, request_body, headers)
     end
 
     private
@@ -40,6 +40,6 @@ module Api
       }
     end
 
-    attr_reader :url, :status_code, :application_reference, :status_date, :headers
+    attr_reader :url, :status_code, :application_reference, :status_date, :connection, :headers
   end
 end
