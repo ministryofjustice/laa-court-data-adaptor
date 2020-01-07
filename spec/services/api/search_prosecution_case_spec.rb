@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::SearchProsecutionCase do
-  let(:prosecution_case_id) { 'b9950946-fe3b-4eaa-9f0a-35e497e34528' }
+  let(:prosecution_case_id) { '2279b2c3-b0d3-4889-ae8e-1ecc20c39e27' }
   let(:prosecution_case_reference) { '3658e889-e050-4608-8f21-8bdaa529f8d0' }
 
-  let(:api_request_url) { '/prosecutionCases' }
+  let(:api_request_url) { '/search/case-sit/prosecutionCases' }
   let(:params) do
     { prosecution_case_reference: prosecution_case_reference }
   end

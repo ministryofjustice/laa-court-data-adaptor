@@ -2,58 +2,1055 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/hearing/results/ceb158e3-7171-40ce-915b-441e2c4e3f75"
+    uri: "<COMMON_PLATFORM_URL>/hearing/result-sit/LAAGetHearingHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v0.17.0
+      LAHearing-Subscription-Key:
+      - "<SHARED_SECRET_KEY_HEARING>"
   response:
     status:
       code: 200
       message: OK
     headers:
-      server:
-      - openresty/1.15.8.2
-      date:
-      - Tue, 12 Nov 2019 17:05:26 GMT
+      content-length:
+      - '81631'
       content-type:
-      - application/json; charset=utf-8
-      transfer-encoding:
-      - chunked
+      - application/json
+      request-context:
+      - appId=cid-v1:0cb7619e-0822-41e2-9111-25f06ec82acb
+      date:
+      - Mon, 06 Jan 2020 11:58:54 GMT
       connection:
       - close
-      vary:
-      - Accept-Encoding
-      strict-transport-security:
-      - max-age=15724800; includeSubDomains
-      x-frame-options:
-      - SAMEORIGIN
-      x-xss-protection:
-      - 1; mode=block
-      x-content-type-options:
-      - nosniff
-      x-download-options:
-      - noopen
-      x-permitted-cross-domain-policies:
-      - none
-      referrer-policy:
-      - strict-origin-when-cross-origin
-      etag:
-      - W/"490eb618ba80a6d77b42b0f634c32cb1"
-      cache-control:
-      - max-age=0, private, must-revalidate
-      x-request-id:
-      - 18c5166ba29f14f582b811aecbe90800
-      x-runtime:
-      - '0.079200'
     body:
-      encoding: ASCII-8BIT
-      string: '{"hearing":{"id":"ceb158e3-7171-40ce-915b-441e2c4e3f75","jurisdictionType":"CROWN","reportingRestrictionReason":null,"courtCentre":{"id":"be0a2b10-6bba-4ec2-ac41-63bea83adb2e","name":"Random
-        string","welshName":"Llinyn ar hap","roomId":"b3724149-5b25-49cc-85e8-feff6057b486","roomName":"Grand
-        Hall","welshRoomName":"Neuadd y Grand"},"hearingLanguage":"ENGLISH","hasSharedResults":null,"type":{"id":"25d256ab-86d9-4972-a5eb-4c8260f3516f","description":"This
-        is a description","code":"12D10JAS"},"isEffectiveTrial":null,"isBoxHearing":null,"hearingDays":[{"sittingDay":"2020-01-12T15:17:37.325Z","listingSequence":8,"listedDurationMinutes":10}]}}'
+      encoding: UTF-8
+      string: "{\r\n  \"hearing\": {\r\n    \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \   \"jurisdictionType\": \"MAGISTRATES\",\r\n    \"reportingRestrictionReason\":
+        \"a\",\r\n    \"courtCentre\": {\r\n      \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \     \"name\": \"a\",\r\n      \"welshName\": \"a\",\r\n      \"roomId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n      \"roomName\": \"a\",\r\n
+        \     \"welshRoomName\": \"a\",\r\n      \"address\": {\r\n        \"address1\":
+        \"a\",\r\n        \"address2\": \"a\",\r\n        \"address3\": \"a\",\r\n
+        \       \"address4\": \"a\",\r\n        \"address5\": \"a\",\r\n        \"postcode\":
+        \"GIR0AA\"\r\n      }\r\n    },\r\n    \"hearingLanguage\": \"ENGLISH\",\r\n
+        \   \"prosecutionCases\": [\r\n      {\r\n        \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \       \"prosecutionCaseIdentifier\": {\r\n          \"prosecutionAuthorityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n          \"prosecutionAuthorityCode\":
+        \"a\",\r\n          \"caseURN\": \"a\"\r\n        },\r\n        \"originatingOrganisation\":
+        \"a\",\r\n        \"initiationCode\": \"J\",\r\n        \"caseStatus\": \"a\",\r\n
+        \       \"policeOfficerInCase\": {\r\n          \"personDetails\": {\r\n            \"title\":
+        \"MR\",\r\n            \"firstName\": \"a\",\r\n            \"middleName\":
+        \"a\",\r\n            \"lastName\": \"a\",\r\n            \"dateOfBirth\":
+        \"1950-01-01\",\r\n            \"nationalityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \           \"nationalityCode\": \"a\",\r\n            \"nationalityDescription\":
+        \"a\",\r\n            \"additionalNationalityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \           \"additionalNationalityCode\": \"a\",\r\n            \"additionalNationalityDescription\":
+        \"a\",\r\n            \"disabilityStatus\": \"a\",\r\n            \"ethnicity\":
+        {\r\n              \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \             \"observedEthnicityCode\": \"a\",\r\n              \"observedEthnicityDescription\":
+        \"a\",\r\n              \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \             \"selfDefinedEthnicityCode\": \"a\",\r\n              \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n            },\r\n            \"gender\": \"MALE\",\r\n            \"interpreterLanguageNeeds\":
+        \"a\",\r\n            \"documentationLanguageNeeds\": \"ENGLISH\",\r\n            \"nationalInsuranceNumber\":
+        \"AA0A\",\r\n            \"occupation\": \"a\",\r\n            \"occupationCode\":
+        \"a\",\r\n            \"specificRequirements\": \"a\",\r\n            \"address\":
+        {\r\n              \"address1\": \"a\",\r\n              \"address2\": \"a\",\r\n
+        \             \"address3\": \"a\",\r\n              \"address4\": \"a\",\r\n
+        \             \"address5\": \"a\",\r\n              \"postcode\": \"GIR0AA\"\r\n
+        \           },\r\n            \"contact\": {\r\n              \"home\": \"
+        \",\r\n              \"work\": \"a\",\r\n              \"mobile\": \" \",\r\n
+        \             \"primaryEmail\": \"a@a.com\",\r\n              \"secondaryEmail\":
+        \"a@a.com\",\r\n              \"fax\": \"a\"\r\n            },\r\n            \"personMarkers\":
+        [\r\n              {\r\n                \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \               \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \               \"markerTypeCode\": \"a\",\r\n                \"markerTypeDescription\":
+        \"a\"\r\n              }\r\n            ]\r\n          },\r\n          \"policeOfficerRank\":
+        \"a\",\r\n          \"policeWorkerReferenceNumber\": \"a\",\r\n          \"policeWorkerLocationCode\":
+        \"a\"\r\n        },\r\n        \"statementOfFacts\": \"a\",\r\n        \"statementOfFactsWelsh\":
+        \"a\",\r\n        \"breachProceedingsPending\": true,\r\n        \"appealProceedingsPending\":
+        true,\r\n        \"defendants\": [\r\n          {\r\n            \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \           \"prosecutionCaseId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \           \"numberOfPreviousConvictionsCited\": 0,\r\n            \"prosecutionAuthorityReference\":
+        \"a\",\r\n            \"witnessStatement\": \"a\",\r\n            \"witnessStatementWelsh\":
+        \"a\",\r\n            \"mitigation\": \"a\",\r\n            \"mitigationWelsh\":
+        \"a\",\r\n            \"offences\": [\r\n              {\r\n                \"id\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"offenceDefinitionId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"offenceCode\":
+        \"a\",\r\n                \"offenceTitle\": \"a\",\r\n                \"offenceTitleWelsh\":
+        \"a\",\r\n                \"offenceLegislation\": \"a\",\r\n                \"offenceLegislationWelsh\":
+        \"a\",\r\n                \"modeOfTrial\": \"a\",\r\n                \"wording\":
+        \"a\",\r\n                \"wordingWelsh\": \"a\",\r\n                \"startDate\":
+        \"1950-01-01\",\r\n                \"endDate\": \"1950-01-01\",\r\n                \"arrestDate\":
+        \"1950-01-01\",\r\n                \"chargeDate\": \"1950-01-01\",\r\n                \"dateOfInformation\":
+        \"1950-01-01\",\r\n                \"orderIndex\": 0,\r\n                \"count\":
+        0,\r\n                \"convictionDate\": \"1950-01-01\",\r\n                \"notifiedPlea\":
+        {\r\n                  \"offenceId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"notifiedPleaDate\": \"1950-01-01\",\r\n                  \"notifiedPleaValue\":
+        \"NOTIFIED_GUILTY\"\r\n                },\r\n                \"indicatedPlea\":
+        {\r\n                  \"offenceId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"originatingHearingId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"indicatedPleaDate\": \"1950-01-01\",\r\n                  \"indicatedPleaValue\":
+        \"INDICATED_GUILTY\",\r\n                  \"source\": \"ONLINE\",\r\n                  \"allocationDecision\":
+        {\r\n                    \"courtDecision\": \"CONSENT_SUMMARY_TRIAL\",\r\n
+        \                   \"prosecutionRepresentation\": \"CONSENT_SUMMARY_TRIAL\",\r\n
+        \                   \"defendantRepresentation\": \"CONSENT_SUMMARY_TRIAL\",\r\n
+        \                   \"indicationOfSentence\": \"a\"\r\n                  }\r\n
+        \               },\r\n                \"plea\": {\r\n                  \"originatingHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"delegatedPowers\":
+        {\r\n                    \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"firstName\": \"a\",\r\n                    \"lastName\":
+        \"a\"\r\n                  },\r\n                  \"offenceId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"pleaDate\": \"1950-01-01\",\r\n                  \"pleaValue\":
+        \"GUILTY\"\r\n                },\r\n                \"verdict\": {\r\n                  \"originatingHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"offenceId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"verdictDate\":
+        \"1950-01-01\",\r\n                  \"verdictType\": {\r\n                    \"id\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"sequence\":
+        0,\r\n                    \"description\": \"a\",\r\n                    \"category\":
+        \"a\",\r\n                    \"categoryType\": \"a\"\r\n                  },\r\n
+        \                 \"jurors\": {\r\n                    \"numberOfJurors\":
+        1,\r\n                    \"numberOfSplitJurors\": 1,\r\n                    \"unanimous\":
+        true\r\n                  },\r\n                  \"lesserOrAlternativeOffence\":
+        {\r\n                    \"offenceDefinitionId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"offenceCode\": \"a\",\r\n                    \"offenceTitle\":
+        \"a\",\r\n                    \"offenceTitleWelsh\": \"a\",\r\n                    \"offenceLegislation\":
+        \"a\",\r\n                    \"offenceLegislationWelsh\": \"a\"\r\n                  }\r\n
+        \               },\r\n                \"offenceFacts\": {\r\n                  \"vehicleRegistration\":
+        \"a\",\r\n                  \"alcoholReadingAmount\": \"a\",\r\n                  \"alcoholReadingMethodCode\":
+        \"a\",\r\n                  \"alcoholReadingMethodDesciption\": \"a\",\r\n
+        \                 \"vehicleCode\": \"LARGE_GOODS_VEHICLE\"\r\n                },\r\n
+        \               \"aquittalDate\": \"1950-01-01\",\r\n                \"victims\":
+        [\r\n                  {\r\n                    \"title\": \"MR\",\r\n                    \"firstName\":
+        \"a\",\r\n                    \"middleName\": \"a\",\r\n                    \"lastName\":
+        \"a\",\r\n                    \"dateOfBirth\": \"1950-01-01\",\r\n                    \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"nationalityCode\":
+        \"a\",\r\n                    \"nationalityDescription\": \"a\",\r\n                    \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"additionalNationalityCode\":
+        \"a\",\r\n                    \"additionalNationalityDescription\": \"a\",\r\n
+        \                   \"disabilityStatus\": \"a\",\r\n                    \"ethnicity\":
+        {\r\n                      \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"observedEthnicityCode\": \"a\",\r\n                      \"observedEthnicityDescription\":
+        \"a\",\r\n                      \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"selfDefinedEthnicityCode\": \"a\",\r\n                      \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                    },\r\n                    \"gender\": \"MALE\",\r\n
+        \                   \"interpreterLanguageNeeds\": \"a\",\r\n                    \"documentationLanguageNeeds\":
+        \"ENGLISH\",\r\n                    \"nationalInsuranceNumber\": \"AA0A\",\r\n
+        \                   \"occupation\": \"a\",\r\n                    \"occupationCode\":
+        \"a\",\r\n                    \"specificRequirements\": \"a\",\r\n                    \"address\":
+        {\r\n                      \"address1\": \"a\",\r\n                      \"address2\":
+        \"a\",\r\n                      \"address3\": \"a\",\r\n                      \"address4\":
+        \"a\",\r\n                      \"address5\": \"a\",\r\n                      \"postcode\":
+        \"GIR0AA\"\r\n                    },\r\n                    \"contact\": {\r\n
+        \                     \"home\": \" \",\r\n                      \"work\":
+        \"a\",\r\n                      \"mobile\": \" \",\r\n                      \"primaryEmail\":
+        \"a@a.com\",\r\n                      \"secondaryEmail\": \"a@a.com\",\r\n
+        \                     \"fax\": \"a\"\r\n                    },\r\n                    \"personMarkers\":
+        [\r\n                      {\r\n                        \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"markerTypeCode\": \"a\",\r\n                        \"markerTypeDescription\":
+        \"a\"\r\n                      }\r\n                    ]\r\n                  }\r\n
+        \               ],\r\n                \"judicialResults\": [\r\n                  {\r\n
+        \                   \"orderedHearingId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"applicationId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"label\": \"a\",\r\n                    \"welshLabel\":
+        \"a\",\r\n                    \"isAdjournmentResult\": true,\r\n                    \"isFinancialResult\":
+        true,\r\n                    \"isConvictedResult\": true,\r\n                    \"isAvailableForCourtExtract\":
+        true,\r\n                    \"amendmentReasonId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"amendmentReason\": \"a\",\r\n                    \"amendmentDate\":
+        \"1950-01-01\",\r\n                    \"cjsCode\": \"a\",\r\n                    \"rank\":
+        0.1,\r\n                    \"orderedDate\": \"1950-01-01\",\r\n                    \"lastSharedDateTime\":
+        \"a\",\r\n                    \"courtClerk\": {\r\n                      \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"firstName\":
+        \"a\",\r\n                      \"lastName\": \"a\"\r\n                    },\r\n
+        \                   \"delegatedPowers\": {\r\n                      \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"firstName\":
+        \"a\",\r\n                      \"lastName\": \"a\"\r\n                    },\r\n
+        \                   \"fourEyesApproval\": {\r\n                      \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"firstName\":
+        \"a\",\r\n                      \"lastName\": \"a\"\r\n                    },\r\n
+        \                   \"approvedDate\": \"1950-01-01\",\r\n                    \"usergroups\":
+        [\r\n                      \"a\"\r\n                    ],\r\n                    \"category\":
+        \"FINAL\",\r\n                    \"judicialResultPrompts\": [\r\n                      {\r\n
+        \                       \"label\": \"a\",\r\n                        \"isAvailableForCourtExtract\":
+        true,\r\n                        \"welshLabel\": \"a\",\r\n                        \"value\":
+        \"a\",\r\n                        \"promptSequence\": 0.1,\r\n                        \"promptReference\":
+        \"a\",\r\n                        \"usergroups\": [\r\n                          \"a\"\r\n
+        \                       ]\r\n                      }\r\n                    ]\r\n
+        \                 }\r\n                ]\r\n              }\r\n            ],\r\n
+        \           \"associatedPersons\": [\r\n              {\r\n                \"person\":
+        {\r\n                  \"title\": \"MR\",\r\n                  \"firstName\":
+        \"a\",\r\n                  \"middleName\": \"a\",\r\n                  \"lastName\":
+        \"a\",\r\n                  \"dateOfBirth\": \"1950-01-01\",\r\n                  \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"nationalityCode\":
+        \"a\",\r\n                  \"nationalityDescription\": \"a\",\r\n                  \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"additionalNationalityCode\":
+        \"a\",\r\n                  \"additionalNationalityDescription\": \"a\",\r\n
+        \                 \"disabilityStatus\": \"a\",\r\n                  \"ethnicity\":
+        {\r\n                    \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"observedEthnicityCode\": \"a\",\r\n                    \"observedEthnicityDescription\":
+        \"a\",\r\n                    \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"selfDefinedEthnicityCode\": \"a\",\r\n                    \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                  },\r\n                  \"gender\": \"MALE\",\r\n
+        \                 \"interpreterLanguageNeeds\": \"a\",\r\n                  \"documentationLanguageNeeds\":
+        \"ENGLISH\",\r\n                  \"nationalInsuranceNumber\": \"AA0A\",\r\n
+        \                 \"occupation\": \"a\",\r\n                  \"occupationCode\":
+        \"a\",\r\n                  \"specificRequirements\": \"a\",\r\n                  \"address\":
+        {\r\n                    \"address1\": \"a\",\r\n                    \"address2\":
+        \"a\",\r\n                    \"address3\": \"a\",\r\n                    \"address4\":
+        \"a\",\r\n                    \"address5\": \"a\",\r\n                    \"postcode\":
+        \"GIR0AA\"\r\n                  },\r\n                  \"contact\": {\r\n
+        \                   \"home\": \" \",\r\n                    \"work\": \"a\",\r\n
+        \                   \"mobile\": \" \",\r\n                    \"primaryEmail\":
+        \"a@a.com\",\r\n                    \"secondaryEmail\": \"a@a.com\",\r\n                    \"fax\":
+        \"a\"\r\n                  },\r\n                  \"personMarkers\": [\r\n
+        \                   {\r\n                      \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"markerTypeCode\": \"a\",\r\n                      \"markerTypeDescription\":
+        \"a\"\r\n                    }\r\n                  ]\r\n                },\r\n
+        \               \"role\": \"a\"\r\n              }\r\n            ],\r\n            \"defenceOrganisation\":
+        {\r\n              \"name\": \"a\",\r\n              \"incorporationNumber\":
+        \"a\",\r\n              \"registeredCharityNumber\": \"a\",\r\n              \"address\":
+        {\r\n                \"address1\": \"a\",\r\n                \"address2\":
+        \"a\",\r\n                \"address3\": \"a\",\r\n                \"address4\":
+        \"a\",\r\n                \"address5\": \"a\",\r\n                \"postcode\":
+        \"GIR0AA\"\r\n              },\r\n              \"contact\": {\r\n                \"home\":
+        \" \",\r\n                \"work\": \"a\",\r\n                \"mobile\":
+        \" \",\r\n                \"primaryEmail\": \"a@a.com\",\r\n                \"secondaryEmail\":
+        \"a@a.com\",\r\n                \"fax\": \"a\"\r\n              }\r\n            },\r\n
+        \           \"personDefendant\": {\r\n              \"personDetails\": {\r\n
+        \               \"title\": \"MR\",\r\n                \"firstName\": \"a\",\r\n
+        \               \"middleName\": \"a\",\r\n                \"lastName\": \"a\",\r\n
+        \               \"dateOfBirth\": \"1950-01-01\",\r\n                \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"nationalityCode\":
+        \"a\",\r\n                \"nationalityDescription\": \"a\",\r\n                \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"additionalNationalityCode\":
+        \"a\",\r\n                \"additionalNationalityDescription\": \"a\",\r\n
+        \               \"disabilityStatus\": \"a\",\r\n                \"ethnicity\":
+        {\r\n                  \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"observedEthnicityCode\": \"a\",\r\n                  \"observedEthnicityDescription\":
+        \"a\",\r\n                  \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"selfDefinedEthnicityCode\": \"a\",\r\n                  \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                },\r\n                \"gender\": \"MALE\",\r\n                \"interpreterLanguageNeeds\":
+        \"a\",\r\n                \"documentationLanguageNeeds\": \"ENGLISH\",\r\n
+        \               \"nationalInsuranceNumber\": \"AA0A\",\r\n                \"occupation\":
+        \"a\",\r\n                \"occupationCode\": \"a\",\r\n                \"specificRequirements\":
+        \"a\",\r\n                \"address\": {\r\n                  \"address1\":
+        \"a\",\r\n                  \"address2\": \"a\",\r\n                  \"address3\":
+        \"a\",\r\n                  \"address4\": \"a\",\r\n                  \"address5\":
+        \"a\",\r\n                  \"postcode\": \"GIR0AA\"\r\n                },\r\n
+        \               \"contact\": {\r\n                  \"home\": \" \",\r\n                  \"work\":
+        \"a\",\r\n                  \"mobile\": \" \",\r\n                  \"primaryEmail\":
+        \"a@a.com\",\r\n                  \"secondaryEmail\": \"a@a.com\",\r\n                  \"fax\":
+        \"a\"\r\n                },\r\n                \"personMarkers\": [\r\n                  {\r\n
+        \                   \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"markerTypeCode\": \"a\",\r\n                    \"markerTypeDescription\":
+        \"a\"\r\n                  }\r\n                ]\r\n              },\r\n
+        \             \"bailStatus\": \"CONDITIONAL\",\r\n              \"bailConditions\":
+        \"a\",\r\n              \"custodyTimeLimit\": \"1950-01-01\",\r\n              \"perceivedBirthYear\":
+        0,\r\n              \"driverNumber\": \"a\",\r\n              \"driverLicenceCode\":
+        \"FULL\",\r\n              \"driverLicenseIssue\": \"a\",\r\n              \"vehicleOperatorLicenceNumber\":
+        \"a\",\r\n              \"arrestSummonsNumber\": \"a\",\r\n              \"employerOrganisation\":
+        {\r\n                \"name\": \"a\",\r\n                \"incorporationNumber\":
+        \"a\",\r\n                \"registeredCharityNumber\": \"a\",\r\n                \"address\":
+        {\r\n                  \"address1\": \"a\",\r\n                  \"address2\":
+        \"a\",\r\n                  \"address3\": \"a\",\r\n                  \"address4\":
+        \"a\",\r\n                  \"address5\": \"a\",\r\n                  \"postcode\":
+        \"GIR0AA\"\r\n                },\r\n                \"contact\": {\r\n                  \"home\":
+        \" \",\r\n                  \"work\": \"a\",\r\n                  \"mobile\":
+        \" \",\r\n                  \"primaryEmail\": \"a@a.com\",\r\n                  \"secondaryEmail\":
+        \"a@a.com\",\r\n                  \"fax\": \"a\"\r\n                }\r\n
+        \             },\r\n              \"employerPayrollReference\": \"a\"\r\n
+        \           },\r\n            \"aliases\": [\r\n              {\r\n                \"title\":
+        \"MR\",\r\n                \"firstName\": \"a\",\r\n                \"middleName\":
+        \"a\",\r\n                \"lastName\": \"a\",\r\n                \"legalEntityName\":
+        \"a\"\r\n              }\r\n            ],\r\n            \"judicialResults\":
+        [\r\n              {\r\n                \"orderedHearingId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \               \"applicationId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \               \"label\": \"a\",\r\n                \"welshLabel\": \"a\",\r\n
+        \               \"isAdjournmentResult\": true,\r\n                \"isFinancialResult\":
+        true,\r\n                \"isConvictedResult\": true,\r\n                \"isAvailableForCourtExtract\":
+        true,\r\n                \"amendmentReasonId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \               \"amendmentReason\": \"a\",\r\n                \"amendmentDate\":
+        \"1950-01-01\",\r\n                \"cjsCode\": \"a\",\r\n                \"rank\":
+        0.1,\r\n                \"orderedDate\": \"1950-01-01\",\r\n                \"lastSharedDateTime\":
+        \"a\",\r\n                \"courtClerk\": {\r\n                  \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"firstName\":
+        \"a\",\r\n                  \"lastName\": \"a\"\r\n                },\r\n
+        \               \"delegatedPowers\": {\r\n                  \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"firstName\": \"a\",\r\n                  \"lastName\":
+        \"a\"\r\n                },\r\n                \"fourEyesApproval\": {\r\n
+        \                 \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"firstName\": \"a\",\r\n                  \"lastName\":
+        \"a\"\r\n                },\r\n                \"approvedDate\": \"1950-01-01\",\r\n
+        \               \"usergroups\": [\r\n                  \"a\"\r\n                ],\r\n
+        \               \"category\": \"FINAL\",\r\n                \"judicialResultPrompts\":
+        [\r\n                  {\r\n                    \"label\": \"a\",\r\n                    \"isAvailableForCourtExtract\":
+        true,\r\n                    \"welshLabel\": \"a\",\r\n                    \"value\":
+        \"a\",\r\n                    \"promptSequence\": 0.1,\r\n                    \"promptReference\":
+        \"a\",\r\n                    \"usergroups\": [\r\n                      \"a\"\r\n
+        \                   ]\r\n                  }\r\n                ]\r\n              }\r\n
+        \           ],\r\n            \"croNumber\": \"a\",\r\n            \"pncId\":
+        \"a\"\r\n          }\r\n        ],\r\n        \"caseMarkers\": [\r\n          {\r\n
+        \           \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n            \"markerTypeid\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n            \"markerTypeCode\":
+        \"a\",\r\n            \"markerTypeDescription\": \"a\"\r\n          }\r\n
+        \       ]\r\n      }\r\n    ],\r\n    \"hasSharedResults\": true,\r\n    \"courtApplications\":
+        [\r\n      {\r\n        \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \       \"type\": {\r\n          \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \         \"applicationCode\": \"a\",\r\n          \"applicationType\": \"a\",\r\n
+        \         \"applicationTypeWelsh\": \"a\",\r\n          \"applicationLegislation\":
+        \"a\",\r\n          \"applicationLegislationWelsh\": \"a\",\r\n          \"applicationCategory\":
+        \"a\",\r\n          \"requiresCourtHearing\": true,\r\n          \"requiresResponse\":
+        true,\r\n          \"linkType\": \"STANDALONE\",\r\n          \"applicantSynonym\":
+        \"a\",\r\n          \"respondentSynonym\": \"a\",\r\n          \"applicationJurisdictionType\":
+        \"MAGISTRATES\",\r\n          \"isTimeRestricted\": true,\r\n          \"applicationSummonsRecipientType\":
+        \"APPLICANT\",\r\n          \"allowableOutcomes\": [\r\n            \"a\"\r\n
+        \         ]\r\n        },\r\n        \"applicationReceivedDate\": \"1950-01-01\",\r\n
+        \       \"applicationReference\": \"a\",\r\n        \"applicant\": {\r\n          \"id\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n          \"synonym\": \"a\",\r\n
+        \         \"personDetails\": {\r\n            \"title\": \"MR\",\r\n            \"firstName\":
+        \"a\",\r\n            \"middleName\": \"a\",\r\n            \"lastName\":
+        \"a\",\r\n            \"dateOfBirth\": \"1950-01-01\",\r\n            \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n            \"nationalityCode\":
+        \"a\",\r\n            \"nationalityDescription\": \"a\",\r\n            \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n            \"additionalNationalityCode\":
+        \"a\",\r\n            \"additionalNationalityDescription\": \"a\",\r\n            \"disabilityStatus\":
+        \"a\",\r\n            \"ethnicity\": {\r\n              \"observedEthnicityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n              \"observedEthnicityCode\":
+        \"a\",\r\n              \"observedEthnicityDescription\": \"a\",\r\n              \"selfDefinedEthnicityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n              \"selfDefinedEthnicityCode\":
+        \"a\",\r\n              \"selfDefinedEthnicityDescription\": \"a\"\r\n            },\r\n
+        \           \"gender\": \"MALE\",\r\n            \"interpreterLanguageNeeds\":
+        \"a\",\r\n            \"documentationLanguageNeeds\": \"ENGLISH\",\r\n            \"nationalInsuranceNumber\":
+        \"AA0A\",\r\n            \"occupation\": \"a\",\r\n            \"occupationCode\":
+        \"a\",\r\n            \"specificRequirements\": \"a\",\r\n            \"address\":
+        {\r\n              \"address1\": \"a\",\r\n              \"address2\": \"a\",\r\n
+        \             \"address3\": \"a\",\r\n              \"address4\": \"a\",\r\n
+        \             \"address5\": \"a\",\r\n              \"postcode\": \"GIR0AA\"\r\n
+        \           },\r\n            \"contact\": {\r\n              \"home\": \"
+        \",\r\n              \"work\": \"a\",\r\n              \"mobile\": \" \",\r\n
+        \             \"primaryEmail\": \"a@a.com\",\r\n              \"secondaryEmail\":
+        \"a@a.com\",\r\n              \"fax\": \"a\"\r\n            },\r\n            \"personMarkers\":
+        [\r\n              {\r\n                \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \               \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \               \"markerTypeCode\": \"a\",\r\n                \"markerTypeDescription\":
+        \"a\"\r\n              }\r\n            ]\r\n          },\r\n          \"organisation\":
+        {\r\n            \"name\": \"a\",\r\n            \"incorporationNumber\":
+        \"a\",\r\n            \"registeredCharityNumber\": \"a\",\r\n            \"address\":
+        {\r\n              \"address1\": \"a\",\r\n              \"address2\": \"a\",\r\n
+        \             \"address3\": \"a\",\r\n              \"address4\": \"a\",\r\n
+        \             \"address5\": \"a\",\r\n              \"postcode\": \"GIR0AA\"\r\n
+        \           },\r\n            \"contact\": {\r\n              \"home\": \"
+        \",\r\n              \"work\": \"a\",\r\n              \"mobile\": \" \",\r\n
+        \             \"primaryEmail\": \"a@a.com\",\r\n              \"secondaryEmail\":
+        \"a@a.com\",\r\n              \"fax\": \"a\"\r\n            }\r\n          },\r\n
+        \         \"organisationPersons\": [\r\n            {\r\n              \"person\":
+        {\r\n                \"title\": \"MR\",\r\n                \"firstName\":
+        \"a\",\r\n                \"middleName\": \"a\",\r\n                \"lastName\":
+        \"a\",\r\n                \"dateOfBirth\": \"1950-01-01\",\r\n                \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"nationalityCode\":
+        \"a\",\r\n                \"nationalityDescription\": \"a\",\r\n                \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"additionalNationalityCode\":
+        \"a\",\r\n                \"additionalNationalityDescription\": \"a\",\r\n
+        \               \"disabilityStatus\": \"a\",\r\n                \"ethnicity\":
+        {\r\n                  \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"observedEthnicityCode\": \"a\",\r\n                  \"observedEthnicityDescription\":
+        \"a\",\r\n                  \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"selfDefinedEthnicityCode\": \"a\",\r\n                  \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                },\r\n                \"gender\": \"MALE\",\r\n                \"interpreterLanguageNeeds\":
+        \"a\",\r\n                \"documentationLanguageNeeds\": \"ENGLISH\",\r\n
+        \               \"nationalInsuranceNumber\": \"AA0A\",\r\n                \"occupation\":
+        \"a\",\r\n                \"occupationCode\": \"a\",\r\n                \"specificRequirements\":
+        \"a\",\r\n                \"address\": {\r\n                  \"address1\":
+        \"a\",\r\n                  \"address2\": \"a\",\r\n                  \"address3\":
+        \"a\",\r\n                  \"address4\": \"a\",\r\n                  \"address5\":
+        \"a\",\r\n                  \"postcode\": \"GIR0AA\"\r\n                },\r\n
+        \               \"contact\": {\r\n                  \"home\": \" \",\r\n                  \"work\":
+        \"a\",\r\n                  \"mobile\": \" \",\r\n                  \"primaryEmail\":
+        \"a@a.com\",\r\n                  \"secondaryEmail\": \"a@a.com\",\r\n                  \"fax\":
+        \"a\"\r\n                },\r\n                \"personMarkers\": [\r\n                  {\r\n
+        \                   \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"markerTypeCode\": \"a\",\r\n                    \"markerTypeDescription\":
+        \"a\"\r\n                  }\r\n                ]\r\n              },\r\n
+        \             \"role\": \"a\"\r\n            }\r\n          ],\r\n          \"prosecutingAuthority\":
+        {\r\n            \"prosecutionAuthorityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \           \"prosecutionAuthorityCode\": \"a\",\r\n            \"name\":
+        \"a\",\r\n            \"accountCode\": \"a\",\r\n            \"address\":
+        {\r\n              \"address1\": \"a\",\r\n              \"address2\": \"a\",\r\n
+        \             \"address3\": \"a\",\r\n              \"address4\": \"a\",\r\n
+        \             \"address5\": \"a\",\r\n              \"postcode\": \"GIR0AA\"\r\n
+        \           },\r\n            \"contact\": {\r\n              \"home\": \"
+        \",\r\n              \"work\": \"a\",\r\n              \"mobile\": \" \",\r\n
+        \             \"primaryEmail\": \"a@a.com\",\r\n              \"secondaryEmail\":
+        \"a@a.com\",\r\n              \"fax\": \"a\"\r\n            }\r\n          },\r\n
+        \         \"defendant\": {\r\n            \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \           \"prosecutionCaseId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \           \"numberOfPreviousConvictionsCited\": 0,\r\n            \"prosecutionAuthorityReference\":
+        \"a\",\r\n            \"witnessStatement\": \"a\",\r\n            \"witnessStatementWelsh\":
+        \"a\",\r\n            \"mitigation\": \"a\",\r\n            \"mitigationWelsh\":
+        \"a\",\r\n            \"offences\": [\r\n              {\r\n                \"id\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"offenceDefinitionId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"offenceCode\":
+        \"a\",\r\n                \"offenceTitle\": \"a\",\r\n                \"offenceTitleWelsh\":
+        \"a\",\r\n                \"offenceLegislation\": \"a\",\r\n                \"offenceLegislationWelsh\":
+        \"a\",\r\n                \"modeOfTrial\": \"a\",\r\n                \"wording\":
+        \"a\",\r\n                \"wordingWelsh\": \"a\",\r\n                \"startDate\":
+        \"1950-01-01\",\r\n                \"endDate\": \"1950-01-01\",\r\n                \"arrestDate\":
+        \"1950-01-01\",\r\n                \"chargeDate\": \"1950-01-01\",\r\n                \"dateOfInformation\":
+        \"1950-01-01\",\r\n                \"orderIndex\": 0,\r\n                \"count\":
+        0,\r\n                \"convictionDate\": \"1950-01-01\",\r\n                \"notifiedPlea\":
+        {\r\n                  \"offenceId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"notifiedPleaDate\": \"1950-01-01\",\r\n                  \"notifiedPleaValue\":
+        \"NOTIFIED_GUILTY\"\r\n                },\r\n                \"indicatedPlea\":
+        {\r\n                  \"offenceId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"originatingHearingId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"indicatedPleaDate\": \"1950-01-01\",\r\n                  \"indicatedPleaValue\":
+        \"INDICATED_GUILTY\",\r\n                  \"source\": \"ONLINE\",\r\n                  \"allocationDecision\":
+        {\r\n                    \"courtDecision\": \"CONSENT_SUMMARY_TRIAL\",\r\n
+        \                   \"prosecutionRepresentation\": \"CONSENT_SUMMARY_TRIAL\",\r\n
+        \                   \"defendantRepresentation\": \"CONSENT_SUMMARY_TRIAL\",\r\n
+        \                   \"indicationOfSentence\": \"a\"\r\n                  }\r\n
+        \               },\r\n                \"plea\": {\r\n                  \"originatingHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"delegatedPowers\":
+        {\r\n                    \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"firstName\": \"a\",\r\n                    \"lastName\":
+        \"a\"\r\n                  },\r\n                  \"offenceId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"pleaDate\": \"1950-01-01\",\r\n                  \"pleaValue\":
+        \"GUILTY\"\r\n                },\r\n                \"verdict\": {\r\n                  \"originatingHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"offenceId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"verdictDate\":
+        \"1950-01-01\",\r\n                  \"verdictType\": {\r\n                    \"id\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"sequence\":
+        0,\r\n                    \"description\": \"a\",\r\n                    \"category\":
+        \"a\",\r\n                    \"categoryType\": \"a\"\r\n                  },\r\n
+        \                 \"jurors\": {\r\n                    \"numberOfJurors\":
+        1,\r\n                    \"numberOfSplitJurors\": 1,\r\n                    \"unanimous\":
+        true\r\n                  },\r\n                  \"lesserOrAlternativeOffence\":
+        {\r\n                    \"offenceDefinitionId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"offenceCode\": \"a\",\r\n                    \"offenceTitle\":
+        \"a\",\r\n                    \"offenceTitleWelsh\": \"a\",\r\n                    \"offenceLegislation\":
+        \"a\",\r\n                    \"offenceLegislationWelsh\": \"a\"\r\n                  }\r\n
+        \               },\r\n                \"offenceFacts\": {\r\n                  \"vehicleRegistration\":
+        \"a\",\r\n                  \"alcoholReadingAmount\": \"a\",\r\n                  \"alcoholReadingMethodCode\":
+        \"a\",\r\n                  \"alcoholReadingMethodDesciption\": \"a\",\r\n
+        \                 \"vehicleCode\": \"LARGE_GOODS_VEHICLE\"\r\n                },\r\n
+        \               \"aquittalDate\": \"1950-01-01\",\r\n                \"victims\":
+        [\r\n                  {\r\n                    \"title\": \"MR\",\r\n                    \"firstName\":
+        \"a\",\r\n                    \"middleName\": \"a\",\r\n                    \"lastName\":
+        \"a\",\r\n                    \"dateOfBirth\": \"1950-01-01\",\r\n                    \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"nationalityCode\":
+        \"a\",\r\n                    \"nationalityDescription\": \"a\",\r\n                    \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"additionalNationalityCode\":
+        \"a\",\r\n                    \"additionalNationalityDescription\": \"a\",\r\n
+        \                   \"disabilityStatus\": \"a\",\r\n                    \"ethnicity\":
+        {\r\n                      \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"observedEthnicityCode\": \"a\",\r\n                      \"observedEthnicityDescription\":
+        \"a\",\r\n                      \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"selfDefinedEthnicityCode\": \"a\",\r\n                      \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                    },\r\n                    \"gender\": \"MALE\",\r\n
+        \                   \"interpreterLanguageNeeds\": \"a\",\r\n                    \"documentationLanguageNeeds\":
+        \"ENGLISH\",\r\n                    \"nationalInsuranceNumber\": \"AA0A\",\r\n
+        \                   \"occupation\": \"a\",\r\n                    \"occupationCode\":
+        \"a\",\r\n                    \"specificRequirements\": \"a\",\r\n                    \"address\":
+        {\r\n                      \"address1\": \"a\",\r\n                      \"address2\":
+        \"a\",\r\n                      \"address3\": \"a\",\r\n                      \"address4\":
+        \"a\",\r\n                      \"address5\": \"a\",\r\n                      \"postcode\":
+        \"GIR0AA\"\r\n                    },\r\n                    \"contact\": {\r\n
+        \                     \"home\": \" \",\r\n                      \"work\":
+        \"a\",\r\n                      \"mobile\": \" \",\r\n                      \"primaryEmail\":
+        \"a@a.com\",\r\n                      \"secondaryEmail\": \"a@a.com\",\r\n
+        \                     \"fax\": \"a\"\r\n                    },\r\n                    \"personMarkers\":
+        [\r\n                      {\r\n                        \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"markerTypeCode\": \"a\",\r\n                        \"markerTypeDescription\":
+        \"a\"\r\n                      }\r\n                    ]\r\n                  }\r\n
+        \               ],\r\n                \"judicialResults\": [\r\n                  {\r\n
+        \                   \"orderedHearingId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"applicationId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"label\": \"a\",\r\n                    \"welshLabel\":
+        \"a\",\r\n                    \"isAdjournmentResult\": true,\r\n                    \"isFinancialResult\":
+        true,\r\n                    \"isConvictedResult\": true,\r\n                    \"isAvailableForCourtExtract\":
+        true,\r\n                    \"amendmentReasonId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"amendmentReason\": \"a\",\r\n                    \"amendmentDate\":
+        \"1950-01-01\",\r\n                    \"cjsCode\": \"a\",\r\n                    \"rank\":
+        0.1,\r\n                    \"orderedDate\": \"1950-01-01\",\r\n                    \"lastSharedDateTime\":
+        \"a\",\r\n                    \"courtClerk\": {\r\n                      \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"firstName\":
+        \"a\",\r\n                      \"lastName\": \"a\"\r\n                    },\r\n
+        \                   \"delegatedPowers\": {\r\n                      \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"firstName\":
+        \"a\",\r\n                      \"lastName\": \"a\"\r\n                    },\r\n
+        \                   \"fourEyesApproval\": {\r\n                      \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"firstName\":
+        \"a\",\r\n                      \"lastName\": \"a\"\r\n                    },\r\n
+        \                   \"approvedDate\": \"1950-01-01\",\r\n                    \"usergroups\":
+        [\r\n                      \"a\"\r\n                    ],\r\n                    \"category\":
+        \"FINAL\",\r\n                    \"judicialResultPrompts\": [\r\n                      {\r\n
+        \                       \"label\": \"a\",\r\n                        \"isAvailableForCourtExtract\":
+        true,\r\n                        \"welshLabel\": \"a\",\r\n                        \"value\":
+        \"a\",\r\n                        \"promptSequence\": 0.1,\r\n                        \"promptReference\":
+        \"a\",\r\n                        \"usergroups\": [\r\n                          \"a\"\r\n
+        \                       ]\r\n                      }\r\n                    ]\r\n
+        \                 }\r\n                ]\r\n              }\r\n            ],\r\n
+        \           \"associatedPersons\": [\r\n              {\r\n                \"person\":
+        {\r\n                  \"title\": \"MR\",\r\n                  \"firstName\":
+        \"a\",\r\n                  \"middleName\": \"a\",\r\n                  \"lastName\":
+        \"a\",\r\n                  \"dateOfBirth\": \"1950-01-01\",\r\n                  \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"nationalityCode\":
+        \"a\",\r\n                  \"nationalityDescription\": \"a\",\r\n                  \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                  \"additionalNationalityCode\":
+        \"a\",\r\n                  \"additionalNationalityDescription\": \"a\",\r\n
+        \                 \"disabilityStatus\": \"a\",\r\n                  \"ethnicity\":
+        {\r\n                    \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"observedEthnicityCode\": \"a\",\r\n                    \"observedEthnicityDescription\":
+        \"a\",\r\n                    \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"selfDefinedEthnicityCode\": \"a\",\r\n                    \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                  },\r\n                  \"gender\": \"MALE\",\r\n
+        \                 \"interpreterLanguageNeeds\": \"a\",\r\n                  \"documentationLanguageNeeds\":
+        \"ENGLISH\",\r\n                  \"nationalInsuranceNumber\": \"AA0A\",\r\n
+        \                 \"occupation\": \"a\",\r\n                  \"occupationCode\":
+        \"a\",\r\n                  \"specificRequirements\": \"a\",\r\n                  \"address\":
+        {\r\n                    \"address1\": \"a\",\r\n                    \"address2\":
+        \"a\",\r\n                    \"address3\": \"a\",\r\n                    \"address4\":
+        \"a\",\r\n                    \"address5\": \"a\",\r\n                    \"postcode\":
+        \"GIR0AA\"\r\n                  },\r\n                  \"contact\": {\r\n
+        \                   \"home\": \" \",\r\n                    \"work\": \"a\",\r\n
+        \                   \"mobile\": \" \",\r\n                    \"primaryEmail\":
+        \"a@a.com\",\r\n                    \"secondaryEmail\": \"a@a.com\",\r\n                    \"fax\":
+        \"a\"\r\n                  },\r\n                  \"personMarkers\": [\r\n
+        \                   {\r\n                      \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"markerTypeCode\": \"a\",\r\n                      \"markerTypeDescription\":
+        \"a\"\r\n                    }\r\n                  ]\r\n                },\r\n
+        \               \"role\": \"a\"\r\n              }\r\n            ],\r\n            \"defenceOrganisation\":
+        {\r\n              \"name\": \"a\",\r\n              \"incorporationNumber\":
+        \"a\",\r\n              \"registeredCharityNumber\": \"a\",\r\n              \"address\":
+        {\r\n                \"address1\": \"a\",\r\n                \"address2\":
+        \"a\",\r\n                \"address3\": \"a\",\r\n                \"address4\":
+        \"a\",\r\n                \"address5\": \"a\",\r\n                \"postcode\":
+        \"GIR0AA\"\r\n              },\r\n              \"contact\": {\r\n                \"home\":
+        \" \",\r\n                \"work\": \"a\",\r\n                \"mobile\":
+        \" \",\r\n                \"primaryEmail\": \"a@a.com\",\r\n                \"secondaryEmail\":
+        \"a@a.com\",\r\n                \"fax\": \"a\"\r\n              }\r\n            },\r\n
+        \           \"personDefendant\": {\r\n              \"personDetails\": {\r\n
+        \               \"title\": \"MR\",\r\n                \"firstName\": \"a\",\r\n
+        \               \"middleName\": \"a\",\r\n                \"lastName\": \"a\",\r\n
+        \               \"dateOfBirth\": \"1950-01-01\",\r\n                \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"nationalityCode\":
+        \"a\",\r\n                \"nationalityDescription\": \"a\",\r\n                \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"additionalNationalityCode\":
+        \"a\",\r\n                \"additionalNationalityDescription\": \"a\",\r\n
+        \               \"disabilityStatus\": \"a\",\r\n                \"ethnicity\":
+        {\r\n                  \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"observedEthnicityCode\": \"a\",\r\n                  \"observedEthnicityDescription\":
+        \"a\",\r\n                  \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"selfDefinedEthnicityCode\": \"a\",\r\n                  \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                },\r\n                \"gender\": \"MALE\",\r\n                \"interpreterLanguageNeeds\":
+        \"a\",\r\n                \"documentationLanguageNeeds\": \"ENGLISH\",\r\n
+        \               \"nationalInsuranceNumber\": \"AA0A\",\r\n                \"occupation\":
+        \"a\",\r\n                \"occupationCode\": \"a\",\r\n                \"specificRequirements\":
+        \"a\",\r\n                \"address\": {\r\n                  \"address1\":
+        \"a\",\r\n                  \"address2\": \"a\",\r\n                  \"address3\":
+        \"a\",\r\n                  \"address4\": \"a\",\r\n                  \"address5\":
+        \"a\",\r\n                  \"postcode\": \"GIR0AA\"\r\n                },\r\n
+        \               \"contact\": {\r\n                  \"home\": \" \",\r\n                  \"work\":
+        \"a\",\r\n                  \"mobile\": \" \",\r\n                  \"primaryEmail\":
+        \"a@a.com\",\r\n                  \"secondaryEmail\": \"a@a.com\",\r\n                  \"fax\":
+        \"a\"\r\n                },\r\n                \"personMarkers\": [\r\n                  {\r\n
+        \                   \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"markerTypeCode\": \"a\",\r\n                    \"markerTypeDescription\":
+        \"a\"\r\n                  }\r\n                ]\r\n              },\r\n
+        \             \"bailStatus\": \"CONDITIONAL\",\r\n              \"bailConditions\":
+        \"a\",\r\n              \"custodyTimeLimit\": \"1950-01-01\",\r\n              \"perceivedBirthYear\":
+        0,\r\n              \"driverNumber\": \"a\",\r\n              \"driverLicenceCode\":
+        \"FULL\",\r\n              \"driverLicenseIssue\": \"a\",\r\n              \"vehicleOperatorLicenceNumber\":
+        \"a\",\r\n              \"arrestSummonsNumber\": \"a\",\r\n              \"employerOrganisation\":
+        {\r\n                \"name\": \"a\",\r\n                \"incorporationNumber\":
+        \"a\",\r\n                \"registeredCharityNumber\": \"a\",\r\n                \"address\":
+        {\r\n                  \"address1\": \"a\",\r\n                  \"address2\":
+        \"a\",\r\n                  \"address3\": \"a\",\r\n                  \"address4\":
+        \"a\",\r\n                  \"address5\": \"a\",\r\n                  \"postcode\":
+        \"GIR0AA\"\r\n                },\r\n                \"contact\": {\r\n                  \"home\":
+        \" \",\r\n                  \"work\": \"a\",\r\n                  \"mobile\":
+        \" \",\r\n                  \"primaryEmail\": \"a@a.com\",\r\n                  \"secondaryEmail\":
+        \"a@a.com\",\r\n                  \"fax\": \"a\"\r\n                }\r\n
+        \             },\r\n              \"employerPayrollReference\": \"a\"\r\n
+        \           },\r\n            \"legalEntityDefendant\": {\r\n              \"organisation\":
+        {\r\n                \"name\": \"a\",\r\n                \"incorporationNumber\":
+        \"a\",\r\n                \"registeredCharityNumber\": \"a\",\r\n                \"address\":
+        {\r\n                  \"address1\": \"a\",\r\n                  \"address2\":
+        \"a\",\r\n                  \"address3\": \"a\",\r\n                  \"address4\":
+        \"a\",\r\n                  \"address5\": \"a\",\r\n                  \"postcode\":
+        \"GIR0AA\"\r\n                },\r\n                \"contact\": {\r\n                  \"home\":
+        \" \",\r\n                  \"work\": \"a\",\r\n                  \"mobile\":
+        \" \",\r\n                  \"primaryEmail\": \"a@a.com\",\r\n                  \"secondaryEmail\":
+        \"a@a.com\",\r\n                  \"fax\": \"a\"\r\n                }\r\n
+        \             }\r\n            },\r\n            \"aliases\": [\r\n              {\r\n
+        \               \"title\": \"MR\",\r\n                \"firstName\": \"a\",\r\n
+        \               \"middleName\": \"a\",\r\n                \"lastName\": \"a\",\r\n
+        \               \"legalEntityName\": \"a\"\r\n              }\r\n            ],\r\n
+        \           \"judicialResults\": [\r\n              {\r\n                \"orderedHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"applicationId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"label\": \"a\",\r\n
+        \               \"welshLabel\": \"a\",\r\n                \"isAdjournmentResult\":
+        true,\r\n                \"isFinancialResult\": true,\r\n                \"isConvictedResult\":
+        true,\r\n                \"isAvailableForCourtExtract\": true,\r\n                \"amendmentReasonId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"amendmentReason\":
+        \"a\",\r\n                \"amendmentDate\": \"1950-01-01\",\r\n                \"cjsCode\":
+        \"a\",\r\n                \"rank\": 0.1,\r\n                \"orderedDate\":
+        \"1950-01-01\",\r\n                \"lastSharedDateTime\": \"a\",\r\n                \"courtClerk\":
+        {\r\n                  \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"firstName\": \"a\",\r\n                  \"lastName\":
+        \"a\"\r\n                },\r\n                \"delegatedPowers\": {\r\n
+        \                 \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"firstName\": \"a\",\r\n                  \"lastName\":
+        \"a\"\r\n                },\r\n                \"fourEyesApproval\": {\r\n
+        \                 \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"firstName\": \"a\",\r\n                  \"lastName\":
+        \"a\"\r\n                },\r\n                \"approvedDate\": \"1950-01-01\",\r\n
+        \               \"usergroups\": [\r\n                  \"a\"\r\n                ],\r\n
+        \               \"category\": \"FINAL\",\r\n                \"judicialResultPrompts\":
+        [\r\n                  {\r\n                    \"label\": \"a\",\r\n                    \"isAvailableForCourtExtract\":
+        true,\r\n                    \"welshLabel\": \"a\",\r\n                    \"value\":
+        \"a\",\r\n                    \"promptSequence\": 0.1,\r\n                    \"promptReference\":
+        \"a\",\r\n                    \"usergroups\": [\r\n                      \"a\"\r\n
+        \                   ]\r\n                  }\r\n                ]\r\n              }\r\n
+        \           ],\r\n            \"croNumber\": \"a\",\r\n            \"pncId\":
+        \"a\"\r\n          },\r\n          \"representationOrganisation\": {\r\n            \"name\":
+        \"a\",\r\n            \"incorporationNumber\": \"a\",\r\n            \"registeredCharityNumber\":
+        \"a\",\r\n            \"address\": {\r\n              \"address1\": \"a\",\r\n
+        \             \"address2\": \"a\",\r\n              \"address3\": \"a\",\r\n
+        \             \"address4\": \"a\",\r\n              \"address5\": \"a\",\r\n
+        \             \"postcode\": \"GIR0AA\"\r\n            },\r\n            \"contact\":
+        {\r\n              \"home\": \" \",\r\n              \"work\": \"a\",\r\n
+        \             \"mobile\": \" \",\r\n              \"primaryEmail\": \"a@a.com\",\r\n
+        \             \"secondaryEmail\": \"a@a.com\",\r\n              \"fax\": \"a\"\r\n
+        \           }\r\n          }\r\n        },\r\n        \"respondents\": [\r\n
+        \         {\r\n            \"partyDetails\": {\r\n              \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \             \"synonym\": \"a\",\r\n              \"personDetails\": {\r\n
+        \               \"title\": \"MR\",\r\n                \"firstName\": \"a\",\r\n
+        \               \"middleName\": \"a\",\r\n                \"lastName\": \"a\",\r\n
+        \               \"dateOfBirth\": \"1950-01-01\",\r\n                \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"nationalityCode\":
+        \"a\",\r\n                \"nationalityDescription\": \"a\",\r\n                \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"additionalNationalityCode\":
+        \"a\",\r\n                \"additionalNationalityDescription\": \"a\",\r\n
+        \               \"disabilityStatus\": \"a\",\r\n                \"ethnicity\":
+        {\r\n                  \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"observedEthnicityCode\": \"a\",\r\n                  \"observedEthnicityDescription\":
+        \"a\",\r\n                  \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                 \"selfDefinedEthnicityCode\": \"a\",\r\n                  \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                },\r\n                \"gender\": \"MALE\",\r\n                \"interpreterLanguageNeeds\":
+        \"a\",\r\n                \"documentationLanguageNeeds\": \"ENGLISH\",\r\n
+        \               \"nationalInsuranceNumber\": \"AA0A\",\r\n                \"occupation\":
+        \"a\",\r\n                \"occupationCode\": \"a\",\r\n                \"specificRequirements\":
+        \"a\",\r\n                \"address\": {\r\n                  \"address1\":
+        \"a\",\r\n                  \"address2\": \"a\",\r\n                  \"address3\":
+        \"a\",\r\n                  \"address4\": \"a\",\r\n                  \"address5\":
+        \"a\",\r\n                  \"postcode\": \"GIR0AA\"\r\n                },\r\n
+        \               \"contact\": {\r\n                  \"home\": \" \",\r\n                  \"work\":
+        \"a\",\r\n                  \"mobile\": \" \",\r\n                  \"primaryEmail\":
+        \"a@a.com\",\r\n                  \"secondaryEmail\": \"a@a.com\",\r\n                  \"fax\":
+        \"a\"\r\n                },\r\n                \"personMarkers\": [\r\n                  {\r\n
+        \                   \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"markerTypeCode\": \"a\",\r\n                    \"markerTypeDescription\":
+        \"a\"\r\n                  }\r\n                ]\r\n              },\r\n
+        \             \"organisation\": {\r\n                \"name\": \"a\",\r\n
+        \               \"incorporationNumber\": \"a\",\r\n                \"registeredCharityNumber\":
+        \"a\",\r\n                \"address\": {\r\n                  \"address1\":
+        \"a\",\r\n                  \"address2\": \"a\",\r\n                  \"address3\":
+        \"a\",\r\n                  \"address4\": \"a\",\r\n                  \"address5\":
+        \"a\",\r\n                  \"postcode\": \"GIR0AA\"\r\n                },\r\n
+        \               \"contact\": {\r\n                  \"home\": \" \",\r\n                  \"work\":
+        \"a\",\r\n                  \"mobile\": \" \",\r\n                  \"primaryEmail\":
+        \"a@a.com\",\r\n                  \"secondaryEmail\": \"a@a.com\",\r\n                  \"fax\":
+        \"a\"\r\n                }\r\n              },\r\n              \"organisationPersons\":
+        [\r\n                {\r\n                  \"person\": {\r\n                    \"title\":
+        \"MR\",\r\n                    \"firstName\": \"a\",\r\n                    \"middleName\":
+        \"a\",\r\n                    \"lastName\": \"a\",\r\n                    \"dateOfBirth\":
+        \"1950-01-01\",\r\n                    \"nationalityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"nationalityCode\": \"a\",\r\n                    \"nationalityDescription\":
+        \"a\",\r\n                    \"additionalNationalityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"additionalNationalityCode\": \"a\",\r\n                    \"additionalNationalityDescription\":
+        \"a\",\r\n                    \"disabilityStatus\": \"a\",\r\n                    \"ethnicity\":
+        {\r\n                      \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"observedEthnicityCode\": \"a\",\r\n                      \"observedEthnicityDescription\":
+        \"a\",\r\n                      \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"selfDefinedEthnicityCode\": \"a\",\r\n                      \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                    },\r\n                    \"gender\": \"MALE\",\r\n
+        \                   \"interpreterLanguageNeeds\": \"a\",\r\n                    \"documentationLanguageNeeds\":
+        \"ENGLISH\",\r\n                    \"nationalInsuranceNumber\": \"AA0A\",\r\n
+        \                   \"occupation\": \"a\",\r\n                    \"occupationCode\":
+        \"a\",\r\n                    \"specificRequirements\": \"a\",\r\n                    \"address\":
+        {\r\n                      \"address1\": \"a\",\r\n                      \"address2\":
+        \"a\",\r\n                      \"address3\": \"a\",\r\n                      \"address4\":
+        \"a\",\r\n                      \"address5\": \"a\",\r\n                      \"postcode\":
+        \"GIR0AA\"\r\n                    },\r\n                    \"contact\": {\r\n
+        \                     \"home\": \" \",\r\n                      \"work\":
+        \"a\",\r\n                      \"mobile\": \" \",\r\n                      \"primaryEmail\":
+        \"a@a.com\",\r\n                      \"secondaryEmail\": \"a@a.com\",\r\n
+        \                     \"fax\": \"a\"\r\n                    },\r\n                    \"personMarkers\":
+        [\r\n                      {\r\n                        \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"markerTypeCode\": \"a\",\r\n                        \"markerTypeDescription\":
+        \"a\"\r\n                      }\r\n                    ]\r\n                  },\r\n
+        \                 \"role\": \"a\"\r\n                }\r\n              ],\r\n
+        \             \"prosecutingAuthority\": {\r\n                \"prosecutionAuthorityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                \"prosecutionAuthorityCode\":
+        \"a\",\r\n                \"name\": \"a\",\r\n                \"accountCode\":
+        \"a\",\r\n                \"address\": {\r\n                  \"address1\":
+        \"a\",\r\n                  \"address2\": \"a\",\r\n                  \"address3\":
+        \"a\",\r\n                  \"address4\": \"a\",\r\n                  \"address5\":
+        \"a\",\r\n                  \"postcode\": \"GIR0AA\"\r\n                },\r\n
+        \               \"contact\": {\r\n                  \"home\": \" \",\r\n                  \"work\":
+        \"a\",\r\n                  \"mobile\": \" \",\r\n                  \"primaryEmail\":
+        \"a@a.com\",\r\n                  \"secondaryEmail\": \"a@a.com\",\r\n                  \"fax\":
+        \"a\"\r\n                }\r\n              },\r\n              \"defendant\":
+        {\r\n                \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \               \"prosecutionCaseId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \               \"numberOfPreviousConvictionsCited\": 0,\r\n                \"prosecutionAuthorityReference\":
+        \"a\",\r\n                \"witnessStatement\": \"a\",\r\n                \"witnessStatementWelsh\":
+        \"a\",\r\n                \"mitigation\": \"a\",\r\n                \"mitigationWelsh\":
+        \"a\",\r\n                \"offences\": [\r\n                  {\r\n                    \"id\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"offenceDefinitionId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"offenceCode\":
+        \"a\",\r\n                    \"offenceTitle\": \"a\",\r\n                    \"offenceTitleWelsh\":
+        \"a\",\r\n                    \"offenceLegislation\": \"a\",\r\n                    \"offenceLegislationWelsh\":
+        \"a\",\r\n                    \"modeOfTrial\": \"a\",\r\n                    \"wording\":
+        \"a\",\r\n                    \"wordingWelsh\": \"a\",\r\n                    \"startDate\":
+        \"1950-01-01\",\r\n                    \"endDate\": \"1950-01-01\",\r\n                    \"arrestDate\":
+        \"1950-01-01\",\r\n                    \"chargeDate\": \"1950-01-01\",\r\n
+        \                   \"dateOfInformation\": \"1950-01-01\",\r\n                    \"orderIndex\":
+        0,\r\n                    \"count\": 0,\r\n                    \"convictionDate\":
+        \"1950-01-01\",\r\n                    \"notifiedPlea\": {\r\n                      \"offenceId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"notifiedPleaDate\":
+        \"1950-01-01\",\r\n                      \"notifiedPleaValue\": \"NOTIFIED_GUILTY\"\r\n
+        \                   },\r\n                    \"indicatedPlea\": {\r\n                      \"offenceId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"originatingHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"indicatedPleaDate\":
+        \"1950-01-01\",\r\n                      \"indicatedPleaValue\": \"INDICATED_GUILTY\",\r\n
+        \                     \"source\": \"ONLINE\",\r\n                      \"allocationDecision\":
+        {\r\n                        \"courtDecision\": \"CONSENT_SUMMARY_TRIAL\",\r\n
+        \                       \"prosecutionRepresentation\": \"CONSENT_SUMMARY_TRIAL\",\r\n
+        \                       \"defendantRepresentation\": \"CONSENT_SUMMARY_TRIAL\",\r\n
+        \                       \"indicationOfSentence\": \"a\"\r\n                      }\r\n
+        \                   },\r\n                    \"plea\": {\r\n                      \"originatingHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"delegatedPowers\":
+        {\r\n                        \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"firstName\": \"a\",\r\n                        \"lastName\":
+        \"a\"\r\n                      },\r\n                      \"offenceId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"pleaDate\":
+        \"1950-01-01\",\r\n                      \"pleaValue\": \"GUILTY\"\r\n                    },\r\n
+        \                   \"verdict\": {\r\n                      \"originatingHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"offenceId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"verdictDate\":
+        \"1950-01-01\",\r\n                      \"verdictType\": {\r\n                        \"id\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                        \"sequence\":
+        0,\r\n                        \"description\": \"a\",\r\n                        \"category\":
+        \"a\",\r\n                        \"categoryType\": \"a\"\r\n                      },\r\n
+        \                     \"jurors\": {\r\n                        \"numberOfJurors\":
+        1,\r\n                        \"numberOfSplitJurors\": 1,\r\n                        \"unanimous\":
+        true\r\n                      },\r\n                      \"lesserOrAlternativeOffence\":
+        {\r\n                        \"offenceDefinitionId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"offenceCode\": \"a\",\r\n                        \"offenceTitle\":
+        \"a\",\r\n                        \"offenceTitleWelsh\": \"a\",\r\n                        \"offenceLegislation\":
+        \"a\",\r\n                        \"offenceLegislationWelsh\": \"a\"\r\n                      }\r\n
+        \                   },\r\n                    \"offenceFacts\": {\r\n                      \"vehicleRegistration\":
+        \"a\",\r\n                      \"alcoholReadingAmount\": \"a\",\r\n                      \"alcoholReadingMethodCode\":
+        \"a\",\r\n                      \"alcoholReadingMethodDesciption\": \"a\",\r\n
+        \                     \"vehicleCode\": \"LARGE_GOODS_VEHICLE\"\r\n                    },\r\n
+        \                   \"aquittalDate\": \"1950-01-01\",\r\n                    \"victims\":
+        [\r\n                      {\r\n                        \"title\": \"MR\",\r\n
+        \                       \"firstName\": \"a\",\r\n                        \"middleName\":
+        \"a\",\r\n                        \"lastName\": \"a\",\r\n                        \"dateOfBirth\":
+        \"1950-01-01\",\r\n                        \"nationalityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"nationalityCode\": \"a\",\r\n                        \"nationalityDescription\":
+        \"a\",\r\n                        \"additionalNationalityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"additionalNationalityCode\": \"a\",\r\n                        \"additionalNationalityDescription\":
+        \"a\",\r\n                        \"disabilityStatus\": \"a\",\r\n                        \"ethnicity\":
+        {\r\n                          \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                         \"observedEthnicityCode\": \"a\",\r\n                          \"observedEthnicityDescription\":
+        \"a\",\r\n                          \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                         \"selfDefinedEthnicityCode\": \"a\",\r\n                          \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                        },\r\n                        \"gender\":
+        \"MALE\",\r\n                        \"interpreterLanguageNeeds\": \"a\",\r\n
+        \                       \"documentationLanguageNeeds\": \"ENGLISH\",\r\n                        \"nationalInsuranceNumber\":
+        \"AA0A\",\r\n                        \"occupation\": \"a\",\r\n                        \"occupationCode\":
+        \"a\",\r\n                        \"specificRequirements\": \"a\",\r\n                        \"address\":
+        {\r\n                          \"address1\": \"a\",\r\n                          \"address2\":
+        \"a\",\r\n                          \"address3\": \"a\",\r\n                          \"address4\":
+        \"a\",\r\n                          \"address5\": \"a\",\r\n                          \"postcode\":
+        \"GIR0AA\"\r\n                        },\r\n                        \"contact\":
+        {\r\n                          \"home\": \" \",\r\n                          \"work\":
+        \"a\",\r\n                          \"mobile\": \" \",\r\n                          \"primaryEmail\":
+        \"a@a.com\",\r\n                          \"secondaryEmail\": \"a@a.com\",\r\n
+        \                         \"fax\": \"a\"\r\n                        },\r\n
+        \                       \"personMarkers\": [\r\n                          {\r\n
+        \                           \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                           \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                           \"markerTypeCode\": \"a\",\r\n                            \"markerTypeDescription\":
+        \"a\"\r\n                          }\r\n                        ]\r\n                      }\r\n
+        \                   ],\r\n                    \"judicialResults\": [\r\n                      {\r\n
+        \                       \"orderedHearingId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"applicationId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"label\": \"a\",\r\n                        \"welshLabel\":
+        \"a\",\r\n                        \"isAdjournmentResult\": true,\r\n                        \"isFinancialResult\":
+        true,\r\n                        \"isConvictedResult\": true,\r\n                        \"isAvailableForCourtExtract\":
+        true,\r\n                        \"amendmentReasonId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"amendmentReason\": \"a\",\r\n                        \"amendmentDate\":
+        \"1950-01-01\",\r\n                        \"cjsCode\": \"a\",\r\n                        \"rank\":
+        0.1,\r\n                        \"orderedDate\": \"1950-01-01\",\r\n                        \"lastSharedDateTime\":
+        \"a\",\r\n                        \"courtClerk\": {\r\n                          \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                          \"firstName\":
+        \"a\",\r\n                          \"lastName\": \"a\"\r\n                        },\r\n
+        \                       \"delegatedPowers\": {\r\n                          \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                          \"firstName\":
+        \"a\",\r\n                          \"lastName\": \"a\"\r\n                        },\r\n
+        \                       \"fourEyesApproval\": {\r\n                          \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                          \"firstName\":
+        \"a\",\r\n                          \"lastName\": \"a\"\r\n                        },\r\n
+        \                       \"approvedDate\": \"1950-01-01\",\r\n                        \"usergroups\":
+        [\r\n                          \"a\"\r\n                        ],\r\n                        \"category\":
+        \"FINAL\",\r\n                        \"judicialResultPrompts\": [\r\n                          {\r\n
+        \                           \"label\": \"a\",\r\n                            \"isAvailableForCourtExtract\":
+        true,\r\n                            \"welshLabel\": \"a\",\r\n                            \"value\":
+        \"a\",\r\n                            \"promptSequence\": 0.1,\r\n                            \"promptReference\":
+        \"a\",\r\n                            \"usergroups\": [\r\n                              \"a\"\r\n
+        \                           ]\r\n                          }\r\n                        ]\r\n
+        \                     }\r\n                    ]\r\n                  }\r\n
+        \               ],\r\n                \"associatedPersons\": [\r\n                  {\r\n
+        \                   \"person\": {\r\n                      \"title\": \"MR\",\r\n
+        \                     \"firstName\": \"a\",\r\n                      \"middleName\":
+        \"a\",\r\n                      \"lastName\": \"a\",\r\n                      \"dateOfBirth\":
+        \"1950-01-01\",\r\n                      \"nationalityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"nationalityCode\": \"a\",\r\n                      \"nationalityDescription\":
+        \"a\",\r\n                      \"additionalNationalityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"additionalNationalityCode\": \"a\",\r\n                      \"additionalNationalityDescription\":
+        \"a\",\r\n                      \"disabilityStatus\": \"a\",\r\n                      \"ethnicity\":
+        {\r\n                        \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"observedEthnicityCode\": \"a\",\r\n                        \"observedEthnicityDescription\":
+        \"a\",\r\n                        \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"selfDefinedEthnicityCode\": \"a\",\r\n                        \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                      },\r\n                      \"gender\": \"MALE\",\r\n
+        \                     \"interpreterLanguageNeeds\": \"a\",\r\n                      \"documentationLanguageNeeds\":
+        \"ENGLISH\",\r\n                      \"nationalInsuranceNumber\": \"AA0A\",\r\n
+        \                     \"occupation\": \"a\",\r\n                      \"occupationCode\":
+        \"a\",\r\n                      \"specificRequirements\": \"a\",\r\n                      \"address\":
+        {\r\n                        \"address1\": \"a\",\r\n                        \"address2\":
+        \"a\",\r\n                        \"address3\": \"a\",\r\n                        \"address4\":
+        \"a\",\r\n                        \"address5\": \"a\",\r\n                        \"postcode\":
+        \"GIR0AA\"\r\n                      },\r\n                      \"contact\":
+        {\r\n                        \"home\": \" \",\r\n                        \"work\":
+        \"a\",\r\n                        \"mobile\": \" \",\r\n                        \"primaryEmail\":
+        \"a@a.com\",\r\n                        \"secondaryEmail\": \"a@a.com\",\r\n
+        \                       \"fax\": \"a\"\r\n                      },\r\n                      \"personMarkers\":
+        [\r\n                        {\r\n                          \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                         \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                         \"markerTypeCode\": \"a\",\r\n                          \"markerTypeDescription\":
+        \"a\"\r\n                        }\r\n                      ]\r\n                    },\r\n
+        \                   \"role\": \"a\"\r\n                  }\r\n                ],\r\n
+        \               \"defenceOrganisation\": {\r\n                  \"name\":
+        \"a\",\r\n                  \"incorporationNumber\": \"a\",\r\n                  \"registeredCharityNumber\":
+        \"a\",\r\n                  \"address\": {\r\n                    \"address1\":
+        \"a\",\r\n                    \"address2\": \"a\",\r\n                    \"address3\":
+        \"a\",\r\n                    \"address4\": \"a\",\r\n                    \"address5\":
+        \"a\",\r\n                    \"postcode\": \"GIR0AA\"\r\n                  },\r\n
+        \                 \"contact\": {\r\n                    \"home\": \" \",\r\n
+        \                   \"work\": \"a\",\r\n                    \"mobile\": \"
+        \",\r\n                    \"primaryEmail\": \"a@a.com\",\r\n                    \"secondaryEmail\":
+        \"a@a.com\",\r\n                    \"fax\": \"a\"\r\n                  }\r\n
+        \               },\r\n                \"personDefendant\": {\r\n                  \"personDetails\":
+        {\r\n                    \"title\": \"MR\",\r\n                    \"firstName\":
+        \"a\",\r\n                    \"middleName\": \"a\",\r\n                    \"lastName\":
+        \"a\",\r\n                    \"dateOfBirth\": \"1950-01-01\",\r\n                    \"nationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"nationalityCode\":
+        \"a\",\r\n                    \"nationalityDescription\": \"a\",\r\n                    \"additionalNationalityId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                    \"additionalNationalityCode\":
+        \"a\",\r\n                    \"additionalNationalityDescription\": \"a\",\r\n
+        \                   \"disabilityStatus\": \"a\",\r\n                    \"ethnicity\":
+        {\r\n                      \"observedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"observedEthnicityCode\": \"a\",\r\n                      \"observedEthnicityDescription\":
+        \"a\",\r\n                      \"selfDefinedEthnicityId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                     \"selfDefinedEthnicityCode\": \"a\",\r\n                      \"selfDefinedEthnicityDescription\":
+        \"a\"\r\n                    },\r\n                    \"gender\": \"MALE\",\r\n
+        \                   \"interpreterLanguageNeeds\": \"a\",\r\n                    \"documentationLanguageNeeds\":
+        \"ENGLISH\",\r\n                    \"nationalInsuranceNumber\": \"AA0A\",\r\n
+        \                   \"occupation\": \"a\",\r\n                    \"occupationCode\":
+        \"a\",\r\n                    \"specificRequirements\": \"a\",\r\n                    \"address\":
+        {\r\n                      \"address1\": \"a\",\r\n                      \"address2\":
+        \"a\",\r\n                      \"address3\": \"a\",\r\n                      \"address4\":
+        \"a\",\r\n                      \"address5\": \"a\",\r\n                      \"postcode\":
+        \"GIR0AA\"\r\n                    },\r\n                    \"contact\": {\r\n
+        \                     \"home\": \" \",\r\n                      \"work\":
+        \"a\",\r\n                      \"mobile\": \" \",\r\n                      \"primaryEmail\":
+        \"a@a.com\",\r\n                      \"secondaryEmail\": \"a@a.com\",\r\n
+        \                     \"fax\": \"a\"\r\n                    },\r\n                    \"personMarkers\":
+        [\r\n                      {\r\n                        \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"markerTypeid\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                       \"markerTypeCode\": \"a\",\r\n                        \"markerTypeDescription\":
+        \"a\"\r\n                      }\r\n                    ]\r\n                  },\r\n
+        \                 \"bailStatus\": \"CONDITIONAL\",\r\n                  \"bailConditions\":
+        \"a\",\r\n                  \"custodyTimeLimit\": \"1950-01-01\",\r\n                  \"perceivedBirthYear\":
+        0,\r\n                  \"driverNumber\": \"a\",\r\n                  \"driverLicenceCode\":
+        \"FULL\",\r\n                  \"driverLicenseIssue\": \"a\",\r\n                  \"vehicleOperatorLicenceNumber\":
+        \"a\",\r\n                  \"arrestSummonsNumber\": \"a\",\r\n                  \"employerOrganisation\":
+        {\r\n                    \"name\": \"a\",\r\n                    \"incorporationNumber\":
+        \"a\",\r\n                    \"registeredCharityNumber\": \"a\",\r\n                    \"address\":
+        {\r\n                      \"address1\": \"a\",\r\n                      \"address2\":
+        \"a\",\r\n                      \"address3\": \"a\",\r\n                      \"address4\":
+        \"a\",\r\n                      \"address5\": \"a\",\r\n                      \"postcode\":
+        \"GIR0AA\"\r\n                    },\r\n                    \"contact\": {\r\n
+        \                     \"home\": \" \",\r\n                      \"work\":
+        \"a\",\r\n                      \"mobile\": \" \",\r\n                      \"primaryEmail\":
+        \"a@a.com\",\r\n                      \"secondaryEmail\": \"a@a.com\",\r\n
+        \                     \"fax\": \"a\"\r\n                    }\r\n                  },\r\n
+        \                 \"employerPayrollReference\": \"a\"\r\n                },\r\n
+        \               \"legalEntityDefendant\": {\r\n                  \"organisation\":
+        {\r\n                    \"name\": \"a\",\r\n                    \"incorporationNumber\":
+        \"a\",\r\n                    \"registeredCharityNumber\": \"a\",\r\n                    \"address\":
+        {\r\n                      \"address1\": \"a\",\r\n                      \"address2\":
+        \"a\",\r\n                      \"address3\": \"a\",\r\n                      \"address4\":
+        \"a\",\r\n                      \"address5\": \"a\",\r\n                      \"postcode\":
+        \"GIR0AA\"\r\n                    },\r\n                    \"contact\": {\r\n
+        \                     \"home\": \" \",\r\n                      \"work\":
+        \"a\",\r\n                      \"mobile\": \" \",\r\n                      \"primaryEmail\":
+        \"a@a.com\",\r\n                      \"secondaryEmail\": \"a@a.com\",\r\n
+        \                     \"fax\": \"a\"\r\n                    }\r\n                  }\r\n
+        \               },\r\n                \"aliases\": [\r\n                  {\r\n
+        \                   \"title\": \"MR\",\r\n                    \"firstName\":
+        \"a\",\r\n                    \"middleName\": \"a\",\r\n                    \"lastName\":
+        \"a\",\r\n                    \"legalEntityName\": \"a\"\r\n                  }\r\n
+        \               ],\r\n                \"judicialResults\": [\r\n                  {\r\n
+        \                   \"orderedHearingId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"applicationId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"label\": \"a\",\r\n                    \"welshLabel\":
+        \"a\",\r\n                    \"isAdjournmentResult\": true,\r\n                    \"isFinancialResult\":
+        true,\r\n                    \"isConvictedResult\": true,\r\n                    \"isAvailableForCourtExtract\":
+        true,\r\n                    \"amendmentReasonId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \                   \"amendmentReason\": \"a\",\r\n                    \"amendmentDate\":
+        \"1950-01-01\",\r\n                    \"cjsCode\": \"a\",\r\n                    \"rank\":
+        0.1,\r\n                    \"orderedDate\": \"1950-01-01\",\r\n                    \"lastSharedDateTime\":
+        \"a\",\r\n                    \"courtClerk\": {\r\n                      \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"firstName\":
+        \"a\",\r\n                      \"lastName\": \"a\"\r\n                    },\r\n
+        \                   \"delegatedPowers\": {\r\n                      \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"firstName\":
+        \"a\",\r\n                      \"lastName\": \"a\"\r\n                    },\r\n
+        \                   \"fourEyesApproval\": {\r\n                      \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n                      \"firstName\":
+        \"a\",\r\n                      \"lastName\": \"a\"\r\n                    },\r\n
+        \                   \"approvedDate\": \"1950-01-01\",\r\n                    \"usergroups\":
+        [\r\n                      \"a\"\r\n                    ],\r\n                    \"category\":
+        \"FINAL\",\r\n                    \"judicialResultPrompts\": [\r\n                      {\r\n
+        \                       \"label\": \"a\",\r\n                        \"isAvailableForCourtExtract\":
+        true,\r\n                        \"welshLabel\": \"a\",\r\n                        \"value\":
+        \"a\",\r\n                        \"promptSequence\": 0.1,\r\n                        \"promptReference\":
+        \"a\",\r\n                        \"usergroups\": [\r\n                          \"a\"\r\n
+        \                       ]\r\n                      }\r\n                    ]\r\n
+        \                 }\r\n                ],\r\n                \"croNumber\":
+        \"a\",\r\n                \"pncId\": \"a\"\r\n              },\r\n              \"representationOrganisation\":
+        {\r\n                \"name\": \"a\",\r\n                \"incorporationNumber\":
+        \"a\",\r\n                \"registeredCharityNumber\": \"a\",\r\n                \"address\":
+        {\r\n                  \"address1\": \"a\",\r\n                  \"address2\":
+        \"a\",\r\n                  \"address3\": \"a\",\r\n                  \"address4\":
+        \"a\",\r\n                  \"address5\": \"a\",\r\n                  \"postcode\":
+        \"GIR0AA\"\r\n                },\r\n                \"contact\": {\r\n                  \"home\":
+        \" \",\r\n                  \"work\": \"a\",\r\n                  \"mobile\":
+        \" \",\r\n                  \"primaryEmail\": \"a@a.com\",\r\n                  \"secondaryEmail\":
+        \"a@a.com\",\r\n                  \"fax\": \"a\"\r\n                }\r\n
+        \             }\r\n            },\r\n            \"applicationResponse\":
+        {\r\n              \"originatingHearingId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \             \"applicationId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \             \"applicationResponseDate\": \"1950-01-01\",\r\n              \"isAdmitted\":
+        true\r\n            }\r\n          }\r\n        ],\r\n        \"applicationOutcome\":
+        {\r\n          \"originatingHearingId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \         \"applicationId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \         \"applicationOutcomeDate\": \"1950-01-01\",\r\n          \"applicationOutcomeType\":
+        \"a\"\r\n        },\r\n        \"linkedCaseId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \       \"parentApplicationId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \       \"applicationParticulars\": \"a\",\r\n        \"courtApplicationPayment\":
+        {\r\n          \"isFeePaid\": true,\r\n          \"isFeeUndertakingAttached\":
+        true,\r\n          \"isFeeExempt\": true,\r\n          \"paymentReference\":
+        \"a\"\r\n        },\r\n        \"applicationDecisionSoughtByDate\": \"1950-01-01\",\r\n
+        \       \"applicationStatus\": \"DRAFT\",\r\n        \"outOfTimeReasons\":
+        \"a\",\r\n        \"judicialResults\": [\r\n          {\r\n            \"orderedHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n            \"applicationId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n            \"label\": \"a\",\r\n
+        \           \"welshLabel\": \"a\",\r\n            \"isAdjournmentResult\":
+        true,\r\n            \"isFinancialResult\": true,\r\n            \"isConvictedResult\":
+        true,\r\n            \"isAvailableForCourtExtract\": true,\r\n            \"amendmentReasonId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n            \"amendmentReason\":
+        \"a\",\r\n            \"amendmentDate\": \"1950-01-01\",\r\n            \"cjsCode\":
+        \"a\",\r\n            \"rank\": 0.1,\r\n            \"orderedDate\": \"1950-01-01\",\r\n
+        \           \"lastSharedDateTime\": \"a\",\r\n            \"courtClerk\":
+        {\r\n              \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \             \"firstName\": \"a\",\r\n              \"lastName\": \"a\"\r\n
+        \           },\r\n            \"delegatedPowers\": {\r\n              \"userId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n              \"firstName\":
+        \"a\",\r\n              \"lastName\": \"a\"\r\n            },\r\n            \"fourEyesApproval\":
+        {\r\n              \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \             \"firstName\": \"a\",\r\n              \"lastName\": \"a\"\r\n
+        \           },\r\n            \"approvedDate\": \"1950-01-01\",\r\n            \"usergroups\":
+        [\r\n              \"a\"\r\n            ],\r\n            \"category\": \"FINAL\",\r\n
+        \           \"judicialResultPrompts\": [\r\n              {\r\n                \"label\":
+        \"a\",\r\n                \"isAvailableForCourtExtract\": true,\r\n                \"welshLabel\":
+        \"a\",\r\n                \"value\": \"a\",\r\n                \"promptSequence\":
+        0.1,\r\n                \"promptReference\": \"a\",\r\n                \"usergroups\":
+        [\r\n                  \"a\"\r\n                ]\r\n              }\r\n            ]\r\n
+        \         }\r\n        ]\r\n      }\r\n    ],\r\n    \"defendantReferralReasons\":
+        [\r\n      {\r\n        \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \       \"description\": \"a\",\r\n        \"defendantId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\"\r\n
+        \     }\r\n    ],\r\n    \"hearingCaseNotes\": [\r\n      {\r\n        \"originatingHearingId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n        \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \       \"courtClerk\": {\r\n          \"userId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \         \"firstName\": \"a\",\r\n          \"lastName\": \"a\"\r\n        },\r\n
+        \       \"prosecutionCases\": [\r\n          \"ab746921-d839-4867-bcf9-b41db8ebc852\"\r\n
+        \       ],\r\n        \"noteDateTime\": \"a\",\r\n        \"noteType\": \"HMCTS\",\r\n
+        \       \"note\": \"a\"\r\n      }\r\n    ],\r\n    \"type\": {\r\n      \"id\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n      \"description\": \"a\"\r\n
+        \   },\r\n    \"hearingDays\": [\r\n      {\r\n        \"sittingDay\": \"a\",\r\n
+        \       \"listingSequence\": 0,\r\n        \"listedDurationMinutes\": 0\r\n
+        \     }\r\n    ],\r\n    \"judiciary\": [\r\n      {\r\n        \"judicialId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n        \"title\": \"a\",\r\n
+        \       \"firstName\": \"a\",\r\n        \"middleName\": \"a\",\r\n        \"lastName\":
+        \"a\",\r\n        \"judicialRoleType\": {\r\n          \"judicialRoleTypeId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n          \"judiciaryType\":
+        \"a\"\r\n        },\r\n        \"isDeputy\": true,\r\n        \"isBenchChairman\":
+        true\r\n      }\r\n    ],\r\n    \"prosecutionCounsels\": [\r\n      {\r\n
+        \       \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n        \"title\":
+        \"a\",\r\n        \"firstName\": \"a\",\r\n        \"middleName\": \"a\",\r\n
+        \       \"lastName\": \"a\",\r\n        \"status\": \"a\",\r\n        \"prosecutionCases\":
+        [\r\n          \"ab746921-d839-4867-bcf9-b41db8ebc852\"\r\n        ],\r\n
+        \       \"attendanceDays\": [\r\n          \"1950-01-01\"\r\n        ]\r\n
+        \     }\r\n    ],\r\n    \"defenceCounsels\": [\r\n      {\r\n        \"id\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n        \"title\": \"a\",\r\n
+        \       \"firstName\": \"a\",\r\n        \"middleName\": \"a\",\r\n        \"lastName\":
+        \"a\",\r\n        \"status\": \"a\",\r\n        \"defendants\": [\r\n          \"ab746921-d839-4867-bcf9-b41db8ebc852\"\r\n
+        \       ],\r\n        \"attendanceDays\": [\r\n          \"1950-01-01\"\r\n
+        \       ]\r\n      }\r\n    ],\r\n    \"applicationPartyCounsels\": [\r\n
+        \     {\r\n        \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n        \"applicationId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n        \"title\": \"a\",\r\n
+        \       \"firstName\": \"a\",\r\n        \"middleName\": \"a\",\r\n        \"lastName\":
+        \"a\",\r\n        \"status\": \"a\",\r\n        \"applicationRespondents\":
+        [\r\n          \"ab746921-d839-4867-bcf9-b41db8ebc852\"\r\n        ],\r\n
+        \       \"attendanceDays\": [\r\n          \"1950-01-01\"\r\n        ]\r\n
+        \     }\r\n    ],\r\n    \"defendantAttendance\": [\r\n      {\r\n        \"defendantId\":
+        \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n        \"attendanceDays\": [\r\n
+        \         {\r\n            \"day\": \"1950-01-01\",\r\n            \"isInAttendance\":
+        true\r\n          }\r\n        ]\r\n      }\r\n    ],\r\n    \"courtApplicationPartyAttendance\":
+        [\r\n      {\r\n        \"courtApplicationPartyId\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \       \"attendanceDays\": [\r\n          {\r\n            \"day\": \"1950-01-01\",\r\n
+        \           \"isInAttendance\": true\r\n          }\r\n        ]\r\n      }\r\n
+        \   ],\r\n    \"crackedIneffectiveTrial\": {\r\n      \"id\": \"ab746921-d839-4867-bcf9-b41db8ebc852\",\r\n
+        \     \"description\": \"a\"\r\n    }\r\n  },\r\n  \"sharedTime\": \"2018-05-03T15:37:48.745Z\"\r\n}"
     http_version: 
-  recorded_at: Tue, 12 Nov 2019 17:05:26 GMT
+  recorded_at: Mon, 06 Jan 2020 11:58:54 GMT
 recorded_with: VCR 5.0.0

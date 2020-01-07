@@ -54,11 +54,26 @@ spec:
                   key: secret-key-base
             - name: COMMON_PLATFORM_URL
               value: {{ .Values.common_platform_url }}
-            - name: COMMON_PLATFORM_SHARED_SECRET_KEY
+            - name: SHARED_SECRET_KEY_LAA_REFERENCE
               valueFrom:
                 secretKeyRef:
                   name: laa-court-data-adaptor-secrets
-                  key: common-platform-shared-secret-key
+                  key: common-platform-laa-reference-key
+            - name: SHARED_SECRET_KEY_REPRESENTATION_ORDER
+              valueFrom:
+                secretKeyRef:
+                  name: laa-court-data-adaptor-secrets
+                  key: common-platform-representation-order-key
+            - name: SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE
+              valueFrom:
+                secretKeyRef:
+                  name: laa-court-data-adaptor-secrets
+                  key: common-platform-search-prosecution-case-key
+            - name: SHARED_SECRET_KEY_HEARING
+              valueFrom:
+                secretKeyRef:
+                  name: laa-court-data-adaptor-secrets
+                  key: common-platform-hearing-key
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

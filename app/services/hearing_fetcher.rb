@@ -3,13 +3,17 @@
 class HearingFetcher < ApplicationService
   include CommonPlatformConnection
 
-  def initialize(hearing_id)
-    @url = "/hearing/results/#{hearing_id}"
+  def initialize(hearing_id:, shared_key: ENV['SHARED_SECRET_KEY_HEARING'])
+    @url = 'hearing/result-sit/LAAGetHearingHttpTrigger'
+    @params = { hearingId: hearing_id }
+    @headers = { 'LAHearing-Subscription-Key' => shared_key }
   end
 
   def call
-    common_platform_connection.get(url)
+    common_platform_connection.get(url, params, headers)
   end
 
-  attr_reader :url
+  private
+
+  attr_reader :url, :params, :headers
 end

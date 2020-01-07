@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe HearingFetcher do
-  subject { described_class.call(hearing_id) }
+  subject { described_class.call(hearing_id: hearing_id) }
 
-  let(:hearing_id) { 'ceb158e3-7171-40ce-915b-441e2c4e3f75' }
+  let(:hearing_id) { 'ab746921-d839-4867-bcf9-b41db8ebc852' }
 
   it 'returns the requested hearing info' do
     VCR.use_cassette('hearing_result_fetcher/success') do
@@ -13,12 +13,12 @@ RSpec.describe HearingFetcher do
     end
   end
 
-  context 'with a non existent id' do
-    let(:hearing_id) { '6c0b7068-d4a7-4adc-a7a0-7bd5715b501d' }
+  context 'with a incorrect key' do
+    subject { described_class.call(hearing_id: hearing_id, shared_key: 'INCORRECT KEY') }
 
-    it 'returns a not found response' do
-      VCR.use_cassette('hearing_result_fetcher/not_found') do
-        expect(subject.status).to eq(404)
+    it 'returns an unauthorised response' do
+      VCR.use_cassette('hearing_result_fetcher/unauthorised') do
+        expect(subject.status).to eq(401)
       end
     end
   end

@@ -26,6 +26,10 @@ RSpec.describe ProsecutionCasesController, type: :controller do
         }
       end
 
+      before do
+        allow(Api::SearchProsecutionCase).to receive(:call).and_return([])
+      end
+
       it 'returns a not found response' do
         VCR.use_cassette('search_prosecution_case/no_results') do
           get :index, params: params
