@@ -27,14 +27,12 @@ RSpec.describe ProsecutionCasesController, type: :controller do
       end
 
       before do
-        allow(Api::SearchProsecutionCase).to receive(:call).and_return([])
+        allow(ProsecutionCaseSearcher).to receive(:call).and_return(double(status: 200, body: []))
       end
 
       it 'returns a not found response' do
-        VCR.use_cassette('search_prosecution_case/no_results') do
-          get :index, params: params
-          expect(response).to have_http_status(:not_found)
-        end
+        get :index, params: params
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
