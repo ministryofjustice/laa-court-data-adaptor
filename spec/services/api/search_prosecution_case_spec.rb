@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe Api::SearchProsecutionCase do
   let(:params) { { howdy: 'hello' } }
   let(:response_status) { 200 }

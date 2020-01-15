@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe Api::GetHearingResults do
   subject { described_class.call(hearing_id) }
 
