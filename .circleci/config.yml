@@ -68,17 +68,32 @@ jobs:
           name: run rubocop
           command: bundle exec rubocop
 
-  install_on_cluster:
+  install_on_dev:
     executor: aws-eks/python
     steps:
       - checkout
       - kubernetes/install-kubeconfig:
-          kubeconfig: ENCODED_KUBECONFIG
+          kubeconfig: ENCODED_KUBECONFIG_DEV
       - kubernetes/install-kubectl
       - helm/upgrade-helm-chart:
           tiller-namespace: laa-court-data-adaptor-dev
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
+          values: ./helm_deploy/laa-court-data-adaptor/values-dev.yaml
+          values-to-override: image.tag=$CIRCLE_SHA1
+
+  install_on_test:
+    executor: aws-eks/python
+    steps:
+      - checkout
+      - kubernetes/install-kubeconfig:
+          kubeconfig: ENCODED_KUBECONFIG_TEST
+      - kubernetes/install-kubectl
+      - helm/upgrade-helm-chart:
+          tiller-namespace: laa-court-data-adaptor-test
+          chart: ./helm_deploy/laa-court-data-adaptor
+          release-name: laa-court-data-adaptor
+          values: ./helm_deploy/laa-court-data-adaptor/values-test.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
 workflows:
@@ -95,9 +110,23 @@ workflows:
             branches:
               only:
                 - master
-      - install_on_cluster:
+      - install_on_dev:
           requires:
           - aws-ecr/build_and_push_image
+          filters:
+            branches:
+              only:
+                - master
+      - hold_install_on_test:
+          type: approval
+          requires:
+          - install_on_dev
+          filters:
+            branches:
+              only: master
+      - install_on_test:
+          requires:
+          - hold_install_on_test
           filters:
             branches:
               only:
