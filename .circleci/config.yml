@@ -96,6 +96,48 @@ jobs:
           values: ./helm_deploy/laa-court-data-adaptor/values-test.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
+  install_on_uat:
+    executor: aws-eks/python
+    steps:
+      - checkout
+      - kubernetes/install-kubeconfig:
+          kubeconfig: ENCODED_KUBECONFIG_UAT
+      - kubernetes/install-kubectl
+      - helm/upgrade-helm-chart:
+          tiller-namespace: laa-court-data-adaptor-uat
+          chart: ./helm_deploy/laa-court-data-adaptor
+          release-name: laa-court-data-adaptor
+          values: ./helm_deploy/laa-court-data-adaptor/values-uat.yaml
+          values-to-override: image.tag=$CIRCLE_SHA1
+
+  install_on_stage:
+    executor: aws-eks/python
+    steps:
+      - checkout
+      - kubernetes/install-kubeconfig:
+          kubeconfig: ENCODED_KUBECONFIG_STAGE
+      - kubernetes/install-kubectl
+      - helm/upgrade-helm-chart:
+          tiller-namespace: laa-court-data-adaptor-stage
+          chart: ./helm_deploy/laa-court-data-adaptor
+          release-name: laa-court-data-adaptor
+          values: ./helm_deploy/laa-court-data-adaptor/values-stage.yaml
+          values-to-override: image.tag=$CIRCLE_SHA1
+
+  install_on_prod:
+    executor: aws-eks/python
+    steps:
+      - checkout
+      - kubernetes/install-kubeconfig:
+          kubeconfig: ENCODED_KUBECONFIG_PROD
+      - kubernetes/install-kubectl
+      - helm/upgrade-helm-chart:
+          tiller-namespace: laa-court-data-adaptor-prod
+          chart: ./helm_deploy/laa-court-data-adaptor
+          release-name: laa-court-data-adaptor
+          values: ./helm_deploy/laa-court-data-adaptor/values-prod.yaml
+          values-to-override: image.tag=$CIRCLE_SHA1
+
 workflows:
   version: 2
   test_and_build:
@@ -127,6 +169,48 @@ workflows:
       - install_on_test:
           requires:
           - hold_install_on_test
+          filters:
+            branches:
+              only:
+                - master
+      - hold_install_on_uat:
+          type: approval
+          requires:
+          - install_on_test
+          filters:
+            branches:
+              only: master
+      - install_on_uat:
+          requires:
+          - hold_install_on_uat
+          filters:
+            branches:
+              only:
+                - master
+      - hold_install_on_stage:
+          type: approval
+          requires:
+          - install_on_uat
+          filters:
+            branches:
+              only: master
+      - install_on_stage:
+          requires:
+          - hold_install_on_stage
+          filters:
+            branches:
+              only:
+                - master
+      - hold_install_on_prod:
+          type: approval
+          requires:
+          - install_on_stage
+          filters:
+            branches:
+              only: master
+      - install_on_prod:
+          requires:
+          - hold_install_on_prod
           filters:
             branches:
               only:
