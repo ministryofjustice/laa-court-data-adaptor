@@ -3,31 +3,35 @@ kind: Deployment
 metadata:
   name: {{ include "laa-court-data-adaptor.fullname" . }}
   labels:
-{{ include "laa-court-data-adaptor.labels" . | indent 4 }}
+    {{- include "laa-court-data-adaptor.labels" . | nindent 4 }}
 spec:
+{{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+{{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "laa-court-data-adaptor.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- include "laa-court-data-adaptor.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: {{ include "laa-court-data-adaptor.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
-    spec:
-    {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
+    {{- with .Values.podAnnotations }}
+      annotations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ template "laa-court-data-adaptor.serviceAccountName" . }}
+      labels:
+        {{- include "laa-court-data-adaptor.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "laa-court-data-adaptor.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

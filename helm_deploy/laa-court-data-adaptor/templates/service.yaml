@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "laa-court-data-adaptor.fullname" . }}
   labels:
-{{ include "laa-court-data-adaptor.labels" . | indent 4 }}
+    {{- include "laa-court-data-adaptor.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,5 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "laa-court-data-adaptor.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "laa-court-data-adaptor.selectorLabels" . | nindent 4 }}
