@@ -4,7 +4,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@4.0.1
   aws-eks: circleci/aws-eks@0.2.1
   kubernetes: circleci/kubernetes@0.7.0
-  helm: circleci/helm@0.2.0
+  helm: circleci/helm@1.0.0
 
 commands:
   checkout_and_decrypt:
@@ -87,8 +87,11 @@ jobs:
       - kubernetes/install-kubeconfig:
           kubeconfig: ENCODED_KUBECONFIG_DEV
       - kubernetes/install-kubectl
+      - helm/install-helm-client:
+          version: 'v3.2.4'
       - helm/upgrade-helm-chart:
-          tiller-namespace: laa-court-data-adaptor-dev
+          namespace: laa-court-data-adaptor-dev
+          update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
           values: ./helm_deploy/laa-court-data-adaptor/dev/values-dev.yaml
@@ -101,8 +104,11 @@ jobs:
       - kubernetes/install-kubeconfig:
           kubeconfig: ENCODED_KUBECONFIG_TEST
       - kubernetes/install-kubectl
+      - helm/install-helm-client:
+          version: 'v3.2.4'
       - helm/upgrade-helm-chart:
-          tiller-namespace: laa-court-data-adaptor-test
+          namespace: laa-court-data-adaptor-test
+          update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
           values: ./helm_deploy/laa-court-data-adaptor/test/values-test.yaml
@@ -115,8 +121,11 @@ jobs:
       - kubernetes/install-kubeconfig:
           kubeconfig: ENCODED_KUBECONFIG_UAT
       - kubernetes/install-kubectl
+      - helm/install-helm-client:
+          version: 'v3.2.4'
       - helm/upgrade-helm-chart:
-          tiller-namespace: laa-court-data-adaptor-uat
+          namespace: laa-court-data-adaptor-uat
+          update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
           values: ./helm_deploy/laa-court-data-adaptor/uat/values-uat.yaml
@@ -129,8 +138,11 @@ jobs:
       - kubernetes/install-kubeconfig:
           kubeconfig: ENCODED_KUBECONFIG_STAGE
       - kubernetes/install-kubectl
+      - helm/install-helm-client:
+          version: 'v3.2.4'
       - helm/upgrade-helm-chart:
-          tiller-namespace: laa-court-data-adaptor-stage
+          namespace: laa-court-data-adaptor-stage
+          update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
           values: ./helm_deploy/laa-court-data-adaptor/stage/values-stage.yaml
@@ -143,8 +155,11 @@ jobs:
       - kubernetes/install-kubeconfig:
           kubeconfig: ENCODED_KUBECONFIG_PROD
       - kubernetes/install-kubectl
+      - helm/install-helm-client:
+          version: 'v3.2.4'
       - helm/upgrade-helm-chart:
-          tiller-namespace: laa-court-data-adaptor-prod
+          namespace: laa-court-data-adaptor-prod
+          update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
           values: ./helm_deploy/laa-court-data-adaptor/prod/values-prod.yaml
