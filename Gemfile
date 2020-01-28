@@ -27,6 +27,7 @@ gem 'faraday_middleware'
 
 group :development, :test do
   gem 'dotenv-rails'
+  gem 'prmd'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 4.0.0.beta4'
   gem 'rubocop', '~> 0.79.0', require: false
