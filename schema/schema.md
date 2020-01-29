@@ -24,11 +24,20 @@ Search prosecution cases.
 GET /api/prosecution_cases
 ```
 
+#### Required Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **prosecution_case** | *string* |  |  |
+
+
 
 #### Curl Example
 
 ```bash
 $ curl -n https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/api/prosecution_cases
+ -G \
+  -d prosecution_case[prosecution_case_reference]=05PP1000915
 ```
 
 
