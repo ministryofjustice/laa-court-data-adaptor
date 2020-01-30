@@ -5,14 +5,55 @@
   "id": "schemata/prosecution_case",
   "stability": "prototype",
   "strictProperties": true,
-  "type": [
-    "object"
-  ],
+  "type": "object",
   "definitions": {
+    "resource": {
+      "description": "object representing a single prosecution case",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "/schemata/prosecution_case#/definitions/type"
+        },
+        "id": {
+          "$ref": "/schemata/prosecution_case#/definitions/id"
+        },
+        "attributes": {
+          "$ref": "/schemata/prosecution_case#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "$ref": "/schemata/prosecution_case#/definitions/first_name"
+        },
+        "last_name": {
+          "$ref": "/schemata/prosecution_case#/definitions/last_name"
+        },
+        "prosecution_case_reference": {
+          "$ref": "/schemata/prosecution_case#/definitions/prosecution_case_reference"
+        },
+        "date_of_birth": {
+          "$ref": "/schemata/prosecution_case#/definitions/date_of_birth"
+        },
+        "national_insurance_number": {
+          "$ref": "/schemata/prosecution_case#/definitions/nino"
+        }
+      }
+    },
     "id": {
       "description": "Unique identifier of prosecution case provided by HMCTS (prosecutionCaseId)",
       "readOnly": true,
       "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "The prosecution cases type",
+      "enum": [
+        "prosecution_cases"
+      ],
+      "example": "prosecution_cases",
       "type": "string"
     },
     "arrest_summons_number": {
@@ -85,6 +126,7 @@
       "type": "string"
     },
     "prosecution_case_search": {
+      "description": "Search query parameters",
       "type": "object",
       "anyOf": [
         {
@@ -150,36 +192,30 @@
             "$ref": "/schemata/prosecution_case#/definitions/prosecution_case_search"
           }
         },
+        "type": "object",
         "required": [
           "prosecution_case"
         ]
       },
       "targetSchema": {
-        "items": {
-          "$ref": "#/definitions/prosecution_case"
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "/schemata/prosecution_case#/definitions/resource"
+            },
+            "type": "array"
+          }
         },
-        "type": "array"
+        "type": "object"
+      },
+      "http_header": {
+        "Content-Type": "application/vnd.api+json"
       }
     }
   ],
   "properties": {
-    "id": {
-      "$ref": "/schemata/prosecution_case#/definitions/id"
-    },
-    "first_name": {
-      "$ref": "/schemata/prosecution_case#/definitions/first_name"
-    },
-    "last_name": {
-      "$ref": "/schemata/prosecution_case#/definitions/last_name"
-    },
-    "prosecution_case_reference": {
-      "$ref": "/schemata/prosecution_case#/definitions/prosecution_case_reference"
-    },
-    "date_of_birth": {
-      "$ref": "/schemata/prosecution_case#/definitions/date_of_birth"
-    },
-    "national_insurance_number": {
-      "$ref": "/schemata/prosecution_case#/definitions/nino"
+    "data": {
+      "$ref": "/schemata/prosecution_case#/definitions/resource"
     }
   }
 }
