@@ -18,6 +18,9 @@ namespace :schema do
   Prmd::RakeTasks::Doc.new do |t|
     t.files = { 'schema/schema.json' => 'schema/schema.md' }
   end
+
+  desc 'Combine, verify and generate schema docs using prmd'
+  task generate: %i[combine verify doc]
 end
 
-task default: ['schema:combine', 'schema:verify', 'schema:doc']
+task default: ['schema:generate']
