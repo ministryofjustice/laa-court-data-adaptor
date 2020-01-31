@@ -1,7 +1,7 @@
 {
   "description": "LAA Court Data Adaptor API",
   "id": "laa-court-data-adaptor-api",
-  "$schema": "http://json-schema.org/draft-04/hyper-schema#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "links": [
     {
       "href": "https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk",
