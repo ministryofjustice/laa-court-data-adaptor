@@ -17,7 +17,7 @@ module Api
     end
 
     def record_search_results
-      response.body.each do |prosecution_case|
+      response.body.map do |prosecution_case|
         ProsecutionCaseRecorder.call(
           prosecution_case['prosecutionCaseId'],
           prosecution_case

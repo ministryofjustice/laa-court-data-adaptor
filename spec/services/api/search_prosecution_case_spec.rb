@@ -18,6 +18,10 @@ RSpec.describe Api::SearchProsecutionCase do
     subject
   end
 
+  it 'returns the recorded ProsecutionCases' do
+    expect(subject).to all(be_a(ProsecutionCase))
+  end
+
   context 'containing multiple records' do
     let(:response_body) { [{ 'prosecutionCaseId' => 12_345 }, { 'prosecutionCaseId' => 23_456 }] }
 
