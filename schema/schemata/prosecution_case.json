@@ -22,6 +22,17 @@
         }
       }
     },
+    "resource_collection": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "/schemata/prosecution_case#/definitions/resource"
+          },
+          "type": "array"
+        }
+      }
+    },
     "attributes": {
       "type": "object",
       "properties": {
@@ -188,7 +199,7 @@
       "title": "List",
       "schema": {
         "properties": {
-          "prosecution_case": {
+          "filter": {
             "$ref": "/schemata/prosecution_case#/definitions/prosecution_case_search"
           }
         },
@@ -198,15 +209,7 @@
         ]
       },
       "targetSchema": {
-        "properties": {
-          "data": {
-            "items": {
-              "$ref": "/schemata/prosecution_case#/definitions/resource"
-            },
-            "type": "array"
-          }
-        },
-        "type": "object"
+        "$ref": "/schemata/prosecution_case#/definitions/resource_collection"
       },
       "http_header": {
         "Content-Type": "application/vnd.api+json"
