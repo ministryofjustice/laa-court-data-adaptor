@@ -15,10 +15,8 @@ RSpec.describe 'Api::ProsecutionCases', type: :request do
 
     it 'matches the given schema' do
       get api_prosecution_cases_path, params: valid_query_params
+      expect(response.body).to be_valid_against_schema(schema: schema)
       expect(response).to have_http_status(200)
-      valid = JSON::Validator.validate!(schema, response.body, fragment: '#/definitions/prosecution_case/definitions/resource_collection', strict: true)
-
-      expect(valid).to be_truthy
     end
   end
 end

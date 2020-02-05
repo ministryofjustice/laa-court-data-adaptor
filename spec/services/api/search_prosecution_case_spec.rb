@@ -19,7 +19,7 @@ RSpec.describe Api::SearchProsecutionCase do
   end
 
   it 'returns the recorded ProsecutionCases' do
-    expect(subject).to all(be_a(ProsecutionCase))
+    is_expected.to all(be_a(ProsecutionCase))
   end
 
   context 'containing multiple records' do
