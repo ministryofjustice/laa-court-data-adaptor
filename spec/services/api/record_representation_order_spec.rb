@@ -34,9 +34,9 @@ RSpec.describe Api::RecordRepresentationOrder do
   let(:url) { "/receive/representation-sit/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
   # rubocop:enable Layout/LineLength
 
-  it 'returns an ok status' do
+  it 'returns a no content status' do
     VCR.use_cassette('representation_order_recorder/update') do
-      expect(subject.status).to eq(200)
+      expect(subject.status).to eq(204)
     end
   end
 
