@@ -21,9 +21,9 @@ RSpec.describe Api::RecordLaaReference do
   end
   let(:url) { "/record/laareference-sit/progression-command-api/command/api/rest/progression/laaReference/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
 
-  it 'returns an ok status' do
+  it 'returns a no content status' do
     VCR.use_cassette('laa_reference_recorder/update') do
-      expect(subject.status).to eq(200)
+      expect(subject.status).to eq(204)
     end
   end
 

@@ -8,30 +8,41 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.17.0
+      - Faraday v0.17.3
       LAHearing-Subscription-Key:
       - INCORRECT KEY
   response:
     status:
       code: 401
-      message: Access Denied
+      message: Unauthorized
     headers:
-      content-length:
-      - '143'
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
       content-type:
-      - application/json
-      request-context:
-      - appId=cid-v1:0cb7619e-0822-41e2-9111-25f06ec82acb
-      www-authenticate:
-      - AzureApiManagementKey realm="https://spnl-sit-apim-int-gw.cpp.nonlive/hearing/result-sit",name="LAHearing-Subscription-Key",type="header"
-      date:
-      - Mon, 06 Jan 2020 11:59:12 GMT
+      - text/html
+      cache-control:
+      - no-cache
+      x-request-id:
+      - d8bd1b61-1398-4349-8f66-63f9769747f6
+      x-runtime:
+      - '0.002857'
       connection:
       - close
+      transfer-encoding:
+      - chunked
     body:
       encoding: UTF-8
-      string: '{ "statusCode": 401, "message": "Access denied due to invalid subscription
-        key. Make sure to provide a valid key for an active subscription." }'
+      string: ''
     http_version: 
-  recorded_at: Mon, 06 Jan 2020 11:59:12 GMT
+  recorded_at: Wed, 05 Feb 2020 13:40:10 GMT
 recorded_with: VCR 5.0.0
