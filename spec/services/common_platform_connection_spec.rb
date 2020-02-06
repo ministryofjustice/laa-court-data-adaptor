@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe CommonPlatformConnection do
   let(:host) { 'https://example.com' }
 

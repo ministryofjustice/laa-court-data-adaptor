@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe ProsecutionCaseSearcher do
   let(:prosecution_case_reference) { 'TFL12345' }
 

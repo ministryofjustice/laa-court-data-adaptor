@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe ProsecutionCaseRecorder do
   let(:prosecution_case_id) { 'fa78c710-6a49-4276-bbb3-ad34c8d4e313' }
   let(:body) { { response: 'text' }.to_json }
