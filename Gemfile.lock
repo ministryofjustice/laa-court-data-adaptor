@@ -210,9 +210,14 @@ GEM
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
     vcr (5.1.0)
+    versionist (2.0.1)
+      activesupport (>= 3)
+      railties (>= 3)
+      yard (~> 0.9.20)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    yard (0.9.24)
     zeitwerk (2.2.2)
 
 PLATFORMS
@@ -240,6 +245,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   vcr
+  versionist
 
 RUBY VERSION
    ruby 2.6.3p62

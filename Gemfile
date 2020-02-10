@@ -26,6 +26,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'faraday_middleware'
 gem 'fast_jsonapi'
 gem 'prmd'
+gem 'versionist'
 
 group :development, :test do
   gem 'dotenv-rails'
