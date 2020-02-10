@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "title": "OAuth endpoints",
+  "description": "Endpoints for authentication via OAuth",
+  "id": "schemata/oauth",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "auth_success_response": {
+      "description": "Successful Response",
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "example": "lV_-FViUsQE2OrYnXQhVyAlzYgIc8Mal8g5YBFGs3J8",
+          "description": "Token that can be used to make authenticated requests",
+          "type": "string"
+        },
+        "token_type": {
+          "example": "Bearer",
+          "enum": [
+            "Bearer"
+          ],
+          "description": "Type of token",
+          "type": "string"
+        },
+        "expires_in": {
+          "example": 7200,
+          "description": "Duration of the token validity",
+          "type": "integer"
+        },
+        "created_at": {
+          "description": "when the token was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      }
+    }
+  },
+  "links": [
+    {
+      "description": "Request a new access token.",
+      "href": "/oauth/token",
+      "method": "POST",
+      "rel": "create",
+      "schema": {
+        "description": "Params to request a new access token",
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "description": "Grant type for the oauth token request.",
+            "enum": [
+              "client_credentials"
+            ],
+            "example": "client_credentials",
+            "type": "string"
+          },
+          "client_id": {
+            "example": "b0e2Uw0F_Hn4uVyxcaL6vas7WkYIdCcldv1uCo_vQAY",
+            "description": "Client id for authentication",
+            "type": "string"
+          },
+          "client_secret": {
+            "example": "ezLn2UTPVwqSCVYWPGTeVWcgZdRIPQLmdpQaGMHuCcU",
+            "description": "Client secret for authentication",
+            "type": "string"
+          }
+        },
+        "required": [
+          "grant_type",
+          "client_id",
+          "client_secret"
+        ]
+      },
+      "http_header": {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+      },
+      "targetSchema": {
+        "$ref": "/schemata/oauth#/definitions/auth_success_response"
+      },
+      "title": "authentication"
+    }
+  ]
+}
