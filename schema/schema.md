@@ -17,12 +17,12 @@ Prosecution case search results
 | **data:id** | *uuid* | Unique identifier of prosecution case provided by HMCTS (prosecutionCaseId) | `"01234567-89ab-cdef-0123-456789abcdef"` |
 | **data:type** | *string* | The prosecution cases type<br/> **one of:**`"prosecution_cases"` | `"prosecution_cases"` |
 
-### <a name="link-GET-prosecution_case-/api/prosecution_cases">Prosecution case search results List</a>
+### <a name="link-GET-prosecution_case-/api/internal/v1/prosecution_cases">Prosecution case search results List</a>
 
 Search prosecution cases.
 
 ```
-GET /api/prosecution_cases
+GET /api/internal/v1/prosecution_cases
 ```
 
 #### Optional Parameters
@@ -35,7 +35,7 @@ GET /api/prosecution_cases
 #### Curl Example
 
 ```bash
-$ curl -n https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/api/prosecution_cases \
+$ curl -n https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/api/internal/v1/prosecution_cases \
  -G \
   -d filter[prosecution_case_reference]=05PP1000915 \
   -H "Content-Type: application/vnd.api+json"
