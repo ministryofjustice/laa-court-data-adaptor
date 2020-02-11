@@ -1,4 +1,57 @@
 
+## <a name="resource-oauth">OAuth endpoints</a>
+
+Stability: `prototype`
+
+Endpoints for authentication via OAuth
+
+### <a name="link-POST-oauth-/oauth/token">OAuth endpoints authentication</a>
+
+Request a new access token.
+
+```
+POST /oauth/token
+```
+
+#### Required Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **client_id** | *string* | Client id for authentication | `"b0e2Uw0F_Hn4uVyxcaL6vas7WkYIdCcldv1uCo_vQAY"` |
+| **client_secret** | *string* | Client secret for authentication | `"ezLn2UTPVwqSCVYWPGTeVWcgZdRIPQLmdpQaGMHuCcU"` |
+| **grant_type** | *string* | Grant type for the oauth token request.<br/> **one of:**`"client_credentials"` | `"client_credentials"` |
+
+
+
+#### Curl Example
+
+```bash
+$ curl -n -X POST https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/oauth/token \
+  -d '{
+  "grant_type": "client_credentials",
+  "client_id": "b0e2Uw0F_Hn4uVyxcaL6vas7WkYIdCcldv1uCo_vQAY",
+  "client_secret": "ezLn2UTPVwqSCVYWPGTeVWcgZdRIPQLmdpQaGMHuCcU"
+}' \
+  -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8"
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 201 Created
+```
+
+```json
+{
+  "access_token": "lV_-FViUsQE2OrYnXQhVyAlzYgIc8Mal8g5YBFGs3J8",
+  "token_type": "Bearer",
+  "expires_in": 7200,
+  "created_at": "2015-01-01T12:00:00Z"
+}
+```
+
+
 ## <a name="resource-prosecution_case">Prosecution case search results</a>
 
 Stability: `prototype`
