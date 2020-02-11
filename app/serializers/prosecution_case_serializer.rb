@@ -4,8 +4,7 @@ class ProsecutionCaseSerializer
   include FastJsonapi::ObjectSerializer
   set_type :prosecution_cases
 
-  attributes :prosecution_case_reference, :date_of_birth, :national_insurance_number
+  attributes :prosecution_case_reference
 
-  attribute :first_name, &:defendant_first_name
-  attribute :last_name, &:defendant_last_name
+  has_many :defendants, record_type: :defendants
 end

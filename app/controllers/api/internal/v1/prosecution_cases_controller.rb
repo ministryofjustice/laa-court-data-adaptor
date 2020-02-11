@@ -6,7 +6,7 @@ module Api
       class ProsecutionCasesController < ApplicationController
         def index
           @prosecution_cases = Api::SearchProsecutionCase.call(transformed_params)
-          render json: ProsecutionCaseSerializer.new(@prosecution_cases)
+          render json: ProsecutionCaseSerializer.new(@prosecution_cases, serialization_options)
         end
 
         private
@@ -19,6 +19,12 @@ module Api
 
         def transformed_params
           filtered_params.to_hash.transform_keys(&:to_sym)
+        end
+
+        def serialization_options
+          return { include: [params[:include]] } if params[:include].present?
+
+          {}
         end
       end
     end

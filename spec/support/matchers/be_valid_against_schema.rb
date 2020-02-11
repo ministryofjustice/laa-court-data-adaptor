@@ -15,7 +15,6 @@ RSpec::Matchers.define :be_valid_against_schema do |options = {}|
       options[:schema],
       data,
       fragment: options[:fragment],
-      strict: true,
       validate_schema: true
     )
     schema_errors = errors

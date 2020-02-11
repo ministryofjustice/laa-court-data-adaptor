@@ -124,6 +124,5 @@
     "national_insurance_number": {
       "$ref": "/schemata/defendant#/definitions/nino"
     }
-  },
-  "id": "schemata/defendant"
+  }
 }

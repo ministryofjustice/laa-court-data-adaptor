@@ -71,7 +71,9 @@
           "type": "array"
         }
       },
-      "required": ["data"]
+      "required": [
+        "data"
+      ]
     },
     "attributes": {
       "type": "object",
