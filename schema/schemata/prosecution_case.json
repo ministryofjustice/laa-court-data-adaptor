@@ -193,7 +193,7 @@
   "links": [
     {
       "description": "Search prosecution cases.",
-      "href": "/api/prosecution_cases",
+      "href": "/api/internal/v1/prosecution_cases",
       "method": "GET",
       "rel": "instances",
       "title": "List",

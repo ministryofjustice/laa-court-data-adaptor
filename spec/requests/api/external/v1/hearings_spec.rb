@@ -9,7 +9,7 @@ RSpec.describe 'Hearings', type: :request do
     let(:headers) { valid_auth_header(user) }
 
     it 'renders a 201 status' do
-      post '/hearings', params: params, headers: headers
+      post '/api/external/v1/hearings', params: params, headers: headers
       expect(response).to have_http_status(201)
     end
   end

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
-RSpec.describe 'Api::ProsecutionCases', type: :request do
-  describe 'GET /api/prosecution_cases' do
+RSpec.describe 'Api::Internal::V1::ProsecutionCases', type: :request do
+  describe 'GET /api/internal/v1/prosecution_cases' do
     around do |example|
       VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success') do
         example.run
@@ -14,7 +12,7 @@ RSpec.describe 'Api::ProsecutionCases', type: :request do
     let(:schema) { File.read('schema/schema.json') }
 
     it 'matches the given schema' do
-      get api_prosecution_cases_path, params: valid_query_params
+      get api_internal_v1_prosecution_cases_path, params: valid_query_params
       expect(response.body).to be_valid_against_schema(schema: schema)
       expect(response).to have_http_status(200)
     end

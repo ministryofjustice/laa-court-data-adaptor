@@ -26,10 +26,12 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'faraday_middleware'
 gem 'fast_jsonapi'
 gem 'prmd'
+gem 'versionist'
 
 group :development, :test do
   gem 'dotenv-rails'
   gem 'json-schema'
+  gem 'pry-byebug'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 4.0.0.beta4'
   gem 'rubocop', '~> 0.79.0', require: false
