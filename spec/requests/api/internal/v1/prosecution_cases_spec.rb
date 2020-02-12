@@ -16,5 +16,14 @@ RSpec.describe 'Api::Internal::V1::ProsecutionCases', type: :request do
       expect(response.body).to be_valid_against_schema(schema: schema)
       expect(response).to have_http_status(200)
     end
+
+    context 'including defendants' do
+      let(:query_with_defendants) { valid_query_params.merge(include: 'defendants') }
+      it 'matches the given schema' do
+        get api_internal_v1_prosecution_cases_path, params: query_with_defendants
+        expect(response.body).to be_valid_against_schema(schema: schema)
+        expect(response).to have_http_status(200)
+      end
+    end
   end
 end

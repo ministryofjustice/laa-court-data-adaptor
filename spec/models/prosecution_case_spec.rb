@@ -12,10 +12,6 @@ RSpec.describe ProsecutionCase, type: :model do
       end
     end
 
-    it { expect(prosecution_case.defendant_first_name).to eq('Alfredine') }
-    it { expect(prosecution_case.defendant_last_name).to eq('Parker') }
     it { expect(prosecution_case.prosecution_case_reference).to eq('TFL12345') }
-    it { expect(prosecution_case.date_of_birth).to eq('1971-05-12') }
-    it { expect(prosecution_case.national_insurance_number).to eq('BN102966C') }
   end
 end

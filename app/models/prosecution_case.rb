@@ -3,29 +3,15 @@
 class ProsecutionCase < ApplicationRecord
   validates :body, presence: true
 
-  def defendant_first_name
-    defendant['name']['firstName']
+  def defendants
+    body['defendants'].map { |defendant| Defendant.new(body: defendant) }
   end
 
-  def defendant_last_name
-    defendant['name']['lastName']
+  def defendant_ids
+    defendants.map(&:id)
   end
 
   def prosecution_case_reference
     body['prosecutionCaseReference']
-  end
-
-  def date_of_birth
-    defendant['dateOfBirth']
-  end
-
-  def national_insurance_number
-    defendant['nationalInsuranceNumber']
-  end
-
-  private
-
-  def defendant
-    body['defendants'].first
   end
 end
