@@ -5,8 +5,7 @@ RSpec.describe 'Hearings', type: :request do
 
   describe 'POST /hearings' do
     let(:params) { JSON.parse(file_fixture('valid_hearing.json').read) }
-    let(:user) { User.create!(name: 'LAA User', auth_token: 'TOKEN') }
-    let(:headers) { valid_auth_header(user) }
+    let(:headers) { valid_auth_header }
 
     it 'renders a 201 status' do
       post '/api/external/v1/hearings', params: params, headers: headers
