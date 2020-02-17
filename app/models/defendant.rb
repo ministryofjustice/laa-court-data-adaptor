@@ -37,7 +37,9 @@ class Defendant
     offences.map(&:id)
   end
 
-  def linked?
-    offences.map(&:maat_reference).compact.present?
+  def maat_reference
+    return nil if offences == [] || offences.first.maat_reference&.first == 'Z'
+
+    offences.first.maat_reference
   end
 end

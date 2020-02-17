@@ -21,7 +21,20 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.date_of_birth).to eq('1971-05-12') }
   it { expect(defendant.national_insurance_number).to eq('BN102966C') }
   it { expect(defendant.arrest_summons_number).to eq('ARREST123') }
-  it { expect(defendant.linked?).to eq(false) }
+  it { expect(defendant.maat_reference).to eq(nil) }
+
+  context 'when an offence has no maat reference' do
+    let(:offences) do
+      [instance_double('Offence', maat_reference: nil),
+       instance_double('Offence', maat_reference: nil)]
+    end
+
+    before do
+      allow(defendant).to receive(:offences).and_return(offences)
+    end
+
+    it { expect(defendant.maat_reference).to eq(nil) }
+  end
 
   context 'when an offence has a maat reference' do
     let(:offences) do
@@ -33,6 +46,19 @@ RSpec.describe Defendant, type: :model do
       allow(defendant).to receive(:offences).and_return(offences)
     end
 
-    it { expect(defendant.linked?).to eq(true) }
+    it { expect(defendant.maat_reference).to eq('123123') }
+  end
+
+  context 'when an offence has an unlink maat reference' do
+    let(:offences) do
+      [instance_double('Offence', maat_reference: 'Z123123'),
+       instance_double('Offence', maat_reference: nil)]
+    end
+
+    before do
+      allow(defendant).to receive(:offences).and_return(offences)
+    end
+
+    it { expect(defendant.maat_reference).to eq(nil) }
   end
 end
