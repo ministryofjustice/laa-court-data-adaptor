@@ -14,7 +14,7 @@ RSpec.describe 'Api::Internal::V1::LaaReferences', type: :request do
           defendant: {
             data: {
               type: 'defendants',
-              id: 'db1cc378-a0e9-4943-bc36-7b34e47ae943'
+              id: defendant_id
             }
           }
         }
@@ -23,6 +23,20 @@ RSpec.describe 'Api::Internal::V1::LaaReferences', type: :request do
   end
   let(:fragment) { '#/definitions/laa_reference/definitions/new_resource' }
   let(:maat_reference) { 1_231_231 }
+  let(:prosecution_case_id) { SecureRandom.uuid }
+  let(:defendant_id) { SecureRandom.uuid }
+  let(:mock_laa_reference_recorder) { double Api::RecordLaaReference }
+
+  before do
+    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
+                                            defendant_id: defendant_id,
+                                            offence_id: SecureRandom.uuid)
+
+    allow(Api::RecordLaaReference).to receive(:new).and_return(mock_laa_reference_recorder)
+    allow(mock_laa_reference_recorder).to receive(:call)
+  end
+
+  subject { post api_internal_v1_laa_references_path, params: valid_body, headers: valid_auth_header }
 
   describe 'POST /api/internal/v1/laa_references' do
     let(:headers) { valid_auth_header }
@@ -32,15 +46,33 @@ RSpec.describe 'Api::Internal::V1::LaaReferences', type: :request do
     end
 
     it 'returns an accepted status' do
-      post api_internal_v1_laa_references_path, params: valid_body, headers: valid_auth_header
+      subject
       expect(response).to have_http_status(202)
+    end
+
+    it 'makes a call to common platform' do
+      expect(mock_laa_reference_recorder).to receive(:call).once
+      subject
+    end
+
+    context 'with multiple offences' do
+      before do
+        ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
+                                                defendant_id: defendant_id,
+                                                offence_id: SecureRandom.uuid)
+      end
+
+      it 'makes multiple calls to common platform' do
+        expect(mock_laa_reference_recorder).to receive(:call).twice
+        subject
+      end
     end
 
     context 'with an invalid maat_reference' do
       let(:maat_reference) { 'ABC123123' }
 
       it 'returns a bad_request status' do
-        post api_internal_v1_laa_references_path, params: valid_body, headers: valid_auth_header
+        subject
         expect(response).to have_http_status(400)
       end
     end
@@ -49,7 +81,7 @@ RSpec.describe 'Api::Internal::V1::LaaReferences', type: :request do
       before { valid_body[:data][:attributes].delete(:maat_reference) }
 
       it 'returns an accepted status' do
-        post api_internal_v1_laa_references_path, params: valid_body, headers: valid_auth_header
+        subject
         expect(response).to have_http_status(202)
       end
     end
