@@ -55,8 +55,9 @@ RSpec.describe Api::RecordLaaReference do
     it 'updates the database record for the offence' do
       subject
       offence_record = ProsecutionCaseDefendantOffence.find_by(defendant_id: defendant_id)
-      expect(offence_record.maat_reference).to eq('SOME SORT OF MAAT ID')
+      expect(offence_record.maat_reference).to eq 'SOME SORT OF MAAT ID'
       expect(offence_record.dummy_maat_reference).to be false
+      expect(offence_record.rep_order_status).to eq 'ABCDEF'
       expect(offence_record.response_status).to eq(200)
       expect(offence_record.response_body).to eq({ 'test' => 'test' })
     end

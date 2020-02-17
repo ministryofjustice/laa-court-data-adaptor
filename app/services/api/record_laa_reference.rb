@@ -47,6 +47,7 @@ module Api
       offence = ProsecutionCaseDefendantOffence.find_by(offence_id: offence_id)
       offence.maat_reference = application_reference
       offence.dummy_maat_reference = (application_reference.to_s[0] == 'A')
+      offence.rep_order_status = status_code
       offence.response_status = response.status
       offence.response_body = response.body
       offence.save!
