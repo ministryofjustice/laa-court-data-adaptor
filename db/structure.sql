@@ -127,10 +127,9 @@ CREATE TABLE public.prosecution_case_defendant_offences (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     maat_reference character varying,
-    dummy_maat_reference boolean,
+    dummy_maat_reference boolean DEFAULT false NOT NULL,
     response_status integer,
-    response_body json,
-    user_id character varying
+    response_body json
 );
 
 

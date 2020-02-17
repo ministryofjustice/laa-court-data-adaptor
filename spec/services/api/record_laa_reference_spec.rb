@@ -19,6 +19,12 @@ RSpec.describe Api::RecordLaaReference do
   end
   let(:url) { "/record/laareference/progression-command-api/command/api/rest/progression/laaReference/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
 
+  before do
+    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
+                                            defendant_id: defendant_id,
+                                            offence_id: offence_id)
+  end
+
   it 'returns a no content status' do
     VCR.use_cassette('laa_reference_recorder/update') do
       expect(subject.status).to eq(204)
@@ -36,11 +42,23 @@ RSpec.describe Api::RecordLaaReference do
       }
     end
 
-    before { params.merge!(shared_key: 'SECRET KEY', connection: connection) }
+    before do
+      allow(connection).to receive(:post).and_return(Faraday::Response.new(status: 200, body: { 'test' => 'test' }))
+      params.merge!(shared_key: 'SECRET KEY', connection: connection)
+    end
 
     it 'makes a post request' do
       expect(connection).to receive(:post).with(url, request_params, headers)
       subject
+    end
+
+    it 'updates the database record for the offence' do
+      subject
+      offence_record = ProsecutionCaseDefendantOffence.find_by(defendant_id: defendant_id)
+      expect(offence_record.maat_reference).to eq('SOME SORT OF MAAT ID')
+      expect(offence_record.dummy_maat_reference).to be false
+      expect(offence_record.response_status).to eq(200)
+      expect(offence_record.response_body).to eq({ 'test' => 'test' })
     end
   end
 end

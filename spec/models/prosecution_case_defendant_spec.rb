@@ -8,7 +8,6 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
   let(:dummy_maat_reference) { true }
   let(:response_status) { 200 }
   let(:response_body) { { response: 'response' }.to_json }
-  let(:user_id) { 'user-id' }
 
   let(:prosecution_case_defendant_offence) do
     described_class.new(
@@ -18,8 +17,7 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
       maat_reference: maat_reference,
       dummy_maat_reference: dummy_maat_reference,
       response_status: response_status,
-      response_body: response_body,
-      user_id: user_id
+      response_body: response_body
     )
   end
 
@@ -30,5 +28,4 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
   it { expect(prosecution_case_defendant_offence.dummy_maat_reference).to eq dummy_maat_reference }
   it { expect(prosecution_case_defendant_offence.response_status).to eq response_status }
   it { expect(prosecution_case_defendant_offence.response_body).to eq response_body }
-  it { expect(prosecution_case_defendant_offence.user_id).to eq user_id }
 end

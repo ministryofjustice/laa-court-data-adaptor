@@ -8,7 +8,7 @@ RSpec.describe LaaReferenceUpdater do
 
   before do
     allow(Api::RecordLaaReference).to receive(:new).and_return(mock_record_laa_reference_service)
-    allow(mock_record_laa_reference_service).to receive(:call).and_return(Faraday::Response.new(status: 200, body: { 'test' => 'test' }))
+    allow(mock_record_laa_reference_service).to receive(:call)
   end
 
   before do
@@ -24,13 +24,6 @@ RSpec.describe LaaReferenceUpdater do
     update
   end
 
-  it 'updates the ProsecutionCaseDefendantOffence record' do
-    update
-    offence_record = ProsecutionCaseDefendantOffence.find_by(defendant_id: defendant_id)
-    expect(offence_record.maat_reference).to eq(maat_reference.to_s)
-    expect(offence_record.dummy_maat_reference).to be false
-  end
-
   context 'with multiple offences' do
     before do
       ProsecutionCaseDefendantOffence.create!(prosecution_case_id: SecureRandom.uuid,
@@ -41,17 +34,6 @@ RSpec.describe LaaReferenceUpdater do
     it 'creates and calls the Api::RecordLaaReference service multiple times' do
       expect(mock_record_laa_reference_service).to receive(:call).twice
       update
-    end
-
-    it 'updates all the ProsecutionCaseDefendantOffence records' do
-      update
-      ProsecutionCaseDefendantOffence.where(defendant_id: defendant_id).each do |record|
-        expect(record.maat_reference).to eq(maat_reference.to_s)
-        expect(record.dummy_maat_reference).to be false
-        expect(record.response_status).to eq(200)
-        expect(record.response_body).to eq({ 'test' => 'test' })
-        expect(record.user_id).to be_nil
-      end
     end
   end
 
@@ -65,13 +47,6 @@ RSpec.describe LaaReferenceUpdater do
     it 'creates a dummy maat_reference' do
       expect(Api::RecordLaaReference).to receive(:new).with(hash_including(application_reference: 'A10000000'))
       update
-    end
-
-    it 'updates the ProsecutionCaseDefendantOffence record' do
-      update
-      offence_record = ProsecutionCaseDefendantOffence.find_by(defendant_id: defendant_id)
-      expect(offence_record.maat_reference).to eq('A10000000')
-      expect(offence_record.dummy_maat_reference).to be true
     end
   end
 end

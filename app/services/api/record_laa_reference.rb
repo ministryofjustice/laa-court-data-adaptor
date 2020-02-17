@@ -12,6 +12,7 @@ module Api
                    shared_key: ENV['SHARED_SECRET_KEY_LAA_REFERENCE'],
                    connection: CommonPlatformConnection.call)
 
+      @offence_id = offence_id
       @status_code = status_code
       @application_reference = application_reference
       @status_date = status_date
@@ -27,7 +28,9 @@ module Api
     # rubocop:enable Metrics/ParameterLists
 
     def call
-      connection.post(url, request_body, headers)
+      response = connection.post(url, request_body, headers)
+      update_database(response)
+      response
     end
 
     private
@@ -40,6 +43,15 @@ module Api
       }
     end
 
-    attr_reader :url, :status_code, :application_reference, :status_date, :connection, :headers
+    def update_database(response)
+      offence = ProsecutionCaseDefendantOffence.find_by(offence_id: offence_id)
+      offence.maat_reference = application_reference
+      offence.dummy_maat_reference = (application_reference.to_s[0] == 'A')
+      offence.response_status = response.status
+      offence.response_body = response.body
+      offence.save!
+    end
+
+    attr_reader :url, :status_code, :application_reference, :status_date, :connection, :headers, :offence_id
   end
 end
