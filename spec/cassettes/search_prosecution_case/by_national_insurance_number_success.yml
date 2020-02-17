@@ -2,14 +2,14 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/search/case-sit/prosecutionCases?nationalInsuranceNumber=BN102966C"
+    uri: "<COMMON_PLATFORM_URL>/search/case/prosecutionCases?nationalInsuranceNumber=BN102966C"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v0.17.3
-      LAASearchCase-Subscription-Key:
+      Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE>"
   response:
     status:
@@ -73,6 +73,6 @@ http_interactions:
         string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"SOME
         SORT OF MAAT ID","statusId":"785b253a-7d5a-493b-a7fa-b03153cad5b9","statusCode":"ABCDEF","statusDescription":"FAKE
         NEWS","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15"}}]}]}]'
-    http_version: 
+    http_version:
   recorded_at: Wed, 05 Feb 2020 13:40:10 GMT
 recorded_with: VCR 5.0.0

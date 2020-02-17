@@ -2,14 +2,14 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/hearing/result-sit/LAAGetHearingHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
+    uri: "<COMMON_PLATFORM_URL>/hearing/result/LAAGetHearingHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v0.17.3
-      LAHearing-Subscription-Key:
+      Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY_HEARING>"
   response:
     status:
@@ -48,6 +48,6 @@ http_interactions:
         string","welshName":"Llinyn ar hap","roomId":"5a57d6d5-3fc5-4e2b-993b-0d071fbad6ab","roomName":"Grand
         Hall","welshRoomName":"Neuadd y Grand"},"hearingLanguage":"WELSH","hasSharedResults":false,"type":{"id":"297dda64-5a5d-4fa8-9ce9-d86fdc7c2330","description":"This
         is a description","code":"12D10JAS"},"isEffectiveTrial":false,"isBoxHearing":false,"hearingDays":[{"sittingDay":"2019-10-23T16:19:15.000Z","listingSequence":1,"listedDurationMinutes":1}]}}'
-    http_version: 
+    http_version:
   recorded_at: Wed, 05 Feb 2020 13:40:10 GMT
 recorded_with: VCR 5.0.0

@@ -2,14 +2,14 @@
 http_interactions:
 - request:
     method: post
-    uri: "<COMMON_PLATFORM_URL>/record/laareference-sit/progression-command-api/command/api/rest/progression/laaReference/cases/b9950946-fe3b-4eaa-9f0a-35e497e34528/defendants/23d7f10a-067a-476e-bba6-bb855674e23b/offences/147fed98-ba8a-46cb-b2b4-7c41cf4734bf"
+    uri: "<COMMON_PLATFORM_URL>/record/laareference/progression-command-api/command/api/rest/progression/laaReference/cases/b9950946-fe3b-4eaa-9f0a-35e497e34528/defendants/23d7f10a-067a-476e-bba6-bb855674e23b/offences/147fed98-ba8a-46cb-b2b4-7c41cf4734bf"
     body:
       encoding: UTF-8
       string: '{"statusCode":"ABCDEF","applicationReference":"SOME SORT OF MAAT ID","statusDate":"2019-12-12"}'
     headers:
       User-Agent:
       - Faraday v0.17.3
-      LAAReference-Subscription-Key:
+      Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY_LAA_REFERENCE>"
       Content-Type:
       - application/json
@@ -41,6 +41,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ''
-    http_version: 
+    http_version:
   recorded_at: Wed, 05 Feb 2020 13:40:10 GMT
 recorded_with: VCR 5.0.0

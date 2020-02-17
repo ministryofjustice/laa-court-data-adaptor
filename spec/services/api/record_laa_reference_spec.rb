@@ -17,7 +17,7 @@ RSpec.describe Api::RecordLaaReference do
       status_date: '2019-12-12'
     }
   end
-  let(:url) { "/record/laareference-sit/progression-command-api/command/api/rest/progression/laaReference/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
+  let(:url) { "/record/laareference/progression-command-api/command/api/rest/progression/laaReference/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
 
   it 'returns a no content status' do
     VCR.use_cassette('laa_reference_recorder/update') do
@@ -27,7 +27,7 @@ RSpec.describe Api::RecordLaaReference do
 
   context 'connection' do
     let(:connection) { double('CommonPlatformConnection') }
-    let(:headers) { { 'LAAReference-Subscription-Key' => 'SECRET KEY' } }
+    let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
     let(:request_params) do
       {
         statusCode: 'ABCDEF',

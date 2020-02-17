@@ -16,13 +16,13 @@ module Api
       @application_reference = application_reference
       @status_date = status_date
       @connection = connection
-      @url = '/record/laareference-sit/progression-command-api'\
+      @url = '/record/laareference/progression-command-api'\
               '/command/api/rest/progression/laaReference'\
               "/cases/#{prosecution_case_id}"\
               "/defendants/#{defendant_id}"\
               "/offences/#{offence_id}"
 
-      @headers = { 'LAAReference-Subscription-Key' => shared_key }
+      @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     end
     # rubocop:enable Metrics/ParameterLists
 

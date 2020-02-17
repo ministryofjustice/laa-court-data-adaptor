@@ -29,7 +29,7 @@ RSpec.describe Api::RecordRepresentationOrder do
   end
 
   # rubocop:disable Layout/LineLength
-  let(:url) { "/receive/representation-sit/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
+  let(:url) { "/receive/representation/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
   # rubocop:enable Layout/LineLength
 
   it 'returns a no content status' do
@@ -40,7 +40,7 @@ RSpec.describe Api::RecordRepresentationOrder do
 
   context 'connection' do
     let(:connection) { double('CommonPlatformConnection') }
-    let(:headers) { { 'LAARepresent-Subscription-Key' => 'SECRET KEY' } }
+    let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
     let(:request_params) do
       {
         statusCode: 'ABCDEF',
