@@ -9,4 +9,8 @@ module AuthorisedRequestHelper
     access_token = Doorkeeper::Application.create(name: 'test').access_tokens.create!
     { 'Authorization': "Bearer #{access_token.token}" }
   end
+
+  def access_token
+    Doorkeeper::Application.create(name: 'test').access_tokens.create!
+  end
 end
