@@ -8,6 +8,31 @@ info:
                           exchange criminal court data between the two organisations.
   version: v1
 paths:
+  "/api/external/v1/hearings":
+    post:
+      summary: post hearing
+      description: Post Common Platform hearing data to CDA
+      consumes:
+      - application/json
+      tags:
+      - External - available to Common Platform
+      security:
+      - oAuth: []
+      parameters:
+      - name: shared_time
+        in: body
+        required: false
+        type: object
+        schema:
+          "$ref": hearing_resulted.json#/definitions/new_resource
+        description: The minimal Hearing Resulted payload
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
   "/api/internal/v1/laa_references":
     post:
       summary: post laa_reference
