@@ -2,10 +2,11 @@
 
 module AuthorisedRequestHelper
   def authorise_requests!
-    allow(controller).to receive(:authenticate).and_return(true)
+    allow(controller).to receive(:doorkeeper_authorize!).and_return(true)
   end
 
-  def valid_auth_header(user)
-    { 'Authorization': "Bearer #{user.auth_token}, user_id=#{user.id}" }
+  def valid_auth_header
+    access_token = Doorkeeper::Application.create(name: 'test').access_tokens.create!
+    { 'Authorization': "Bearer #{access_token.token}" }
   end
 end

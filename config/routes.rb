@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  use_doorkeeper
   namespace :api do
     namespace :internal do
       api_version(module: 'V1', path: { value: 'v1' }, default: true) do

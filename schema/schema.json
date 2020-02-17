@@ -493,7 +493,8 @@
             "$ref": "#/definitions/prosecution_case/definitions/resource_collection"
           },
           "http_header": {
-            "Content-Type": "application/vnd.api+json"
+            "Content-Type": "application/vnd.api+json",
+            "Authorization": "Bearer <TOKEN>"
           }
         }
       ],

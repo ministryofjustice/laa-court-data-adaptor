@@ -29,18 +29,25 @@ $ rails s
 
 ### API Authentication
 
-Create a user account through the rails console:
+Create an OAuth Application for each system that needs to authenticate to the adaptor via the console.
+```ruby
+application = Doorkeeper::Application.create(name: 'HMCTS Common Platform')
 ```
-user = User.create(name: 'System User', auth_token: '<SUPER_SECRET_TOKEN>')
-# or generate a random token
-user = User.create(name: 'System User', auth_token: User.generate_unique_secure_token)
-```
+The client credentials are available against the `application` as `application.uid` and `application.secret`
+Use these credentials to generate an `acess_token` by making a call to the OAuth endpoint described in the [schema](https://github.com/ministryofjustice/laa-court-data-adaptor/blob/master/schema/schema.md#oauth-endpoints-authentication).
 
-Note that the `auth_token` is stored as a password digest, and cannot be retrieved if lost.
 
-Now you can make authenticated request by passing an authorisation header in the request payload. The header should look like:
-```
-Authorization: Bearer <SUPER_SECRET_TOKEN>, user_id=<USER-UUID>
+##### Making authenticated requests:
+Send the `access_token` provided by the OAuth endpoint as a Bearer Token.
+eg:
+```curl
+curl --get \
+--url 'https://API_HOST/api/internal/v1/prosecution_cases' \
+--data-urlencode 'filter[first_name]=Boris' \
+--data-urlencode 'filter[last_name]=Lubowitz' \
+--data-urlencode 'filter[date_of_birth]=1981-08-22' \
+--data-urlencode 'include=defendants' \
+--header 'Authorization: Bearer <access_token>'
 ```
 
 ### Git hooks for Rubocop

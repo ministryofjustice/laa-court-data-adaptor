@@ -139,7 +139,8 @@ GET /api/internal/v1/prosecution_cases
 $ curl -n https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/api/internal/v1/prosecution_cases \
  -G \
   -d filter[prosecution_case_reference]=05PP1000915 \
-  -H "Content-Type: application/vnd.api+json"
+  -H "Content-Type: application/vnd.api+json" \
+  -H "Authorization: Bearer <TOKEN>"
 ```
 
 
