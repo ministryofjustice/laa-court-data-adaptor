@@ -225,6 +225,19 @@ GEM
     rspec-support (3.9.2)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
+    rswag (2.2.0)
+      rswag-api (= 2.2.0)
+      rswag-specs (= 2.2.0)
+      rswag-ui (= 2.2.0)
+    rswag-api (2.2.0)
+      railties (>= 3.1, < 6.1)
+    rswag-specs (2.2.0)
+      activesupport (>= 3.1, < 6.1)
+      json-schema (~> 2.2)
+      railties (>= 3.1, < 6.1)
+    rswag-ui (2.2.0)
+      actionpack (>= 3.1, < 6.1)
+      railties (>= 3.1, < 6.1)
     rubocop (0.80.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -291,6 +304,7 @@ DEPENDENCIES
   rails (~> 6.0.2)
   rspec-rails (~> 4.0.0.rc1)
   rspec_junit_formatter
+  rswag
   rubocop (~> 0.80.1)
   rubocop-performance
   shoulda-matchers

@@ -1,0 +1,95 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/internal/v1/prosecution_cases":
+    get:
+      summary: list prosecution_cases
+      description: Search prosecution cases
+      consumes:
+      - application/json
+      security:
+      - oauth:
+        - read
+      parameters:
+      - name: filter[prosecution_case_reference]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": prosecution_case.json#/definitions/prosecution_case_reference
+        description: Searches prosecution cases by prosecution case reference
+      - name: filter[arrest_summons_number]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": prosecution_case.json#/definitions/arrest_summons_number
+        description: Searches prosecution cases by arrest summons number
+      - name: filter[national_insurance_number]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/nino
+        description: Searches prosecution cases by national_insurance_number
+      - name: filter[first_name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/first_name
+        description: Searches prosecution cases by first_name
+      - name: filter[last_name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/last_name
+        description: Searches prosecution cases by last_name
+      - name: filter[date_of_birth]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/date_of_birth
+        description: Searches prosecution cases by date_of_birth
+      - name: filter[first_name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/first_name
+        description: Searches prosecution cases by first_name
+      - name: filter[last_name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/last_name
+        description: Searches prosecution cases by last_name
+      - name: filter[date_of_next_hearing]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": prosecution_case.json#/definitions/date_of_next_hearing
+        description: Searches prosecution cases by date_of_next_hearing
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+securityDefinitions:
+  oauth:
+    in: header
+    type: oauth2
+    require: true
+    description: OAuth2 client credentials flow
+    flow: clientCredentials
+    scopes:
+    - read
+    - write
+    tokenUrl: https://localhost:3000/oauth/token

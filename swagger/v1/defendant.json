@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Defendants",
+  "description": "Defendants",
+  "id": "schemata/defendant",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "unique identifier of defendant",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "type": {
+      "description": "The defendants type",
+      "enum": [
+        "defendants"
+      ],
+      "example": "defendants",
+      "type": "string"
+    },
+    "first_name": {
+      "readOnly": true,
+      "example": "Alfredine",
+      "description": "The fore name when the defendant is a person",
+      "type": "string"
+    },
+    "last_name": {
+      "readOnly": true,
+      "example": "Parker",
+      "description": "The last name when the defendant is a person",
+      "type": "string"
+    },
+    "identity": {
+      "$ref": "/schemata/defendant#/definitions/id"
+    },
+    "date_of_birth": {
+      "readOnly": true,
+      "example": "1971-05-12",
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "The person date of birth when the defendant is a person",
+          "example": "1954-02-23",
+          "type": "string",
+          "pattern": "^((([\\+-]?\\d{4}(?!\\d{2}\b))\\-(0[13578]|1[02])\\-(0[1-9]|[12]\\d|3[01]))|(([\\+-]?\\d{4}(?!\\d{2}\b))\\-(0[13456789]|1[012])\\-(0[1-9]|[12]\\d|30))|(([\\+-]?\\d{4}(?!\\d{2}\b))\\-02\\-(0[1-9]|1\\d|2[0-8]))|(((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))\\-02\\-29))$"
+        }
+      ]
+    },
+    "nino": {
+      "readOnly": true,
+      "example": "BN102966C",
+      "type": "string",
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "National Insurance Number for a person",
+          "pattern": "(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\\s*\\d\\s*){6}([A-D]|\\s)$"
+        }
+      ]
+    },
+    "resource": {
+      "description": "object representing a single defendant",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "/schemata/defendant#/definitions/type"
+        },
+        "id": {
+          "$ref": "/schemata/defendant#/definitions/id"
+        },
+        "attributes": {
+          "$ref": "/schemata/defendant#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "$ref": "/schemata/defendant#/definitions/first_name"
+        },
+        "last_name": {
+          "$ref": "/schemata/defendant#/definitions/last_name"
+        },
+        "date_of_birth": {
+          "$ref": "/schemata/defendant#/definitions/date_of_birth"
+        },
+        "national_insurance_number": {
+          "$ref": "/schemata/defendant#/definitions/nino"
+        },
+        "arrest_summons_number": {
+          "$ref": "/schemata/prosecution_case#/definitions/arrest_summons_number"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "type": "object",
+    "properties": {
+      "offences": {
+        "$ref": "/schemata/defendant#/definitions/offence_relationship"
+      }
+    }
+  },
+  "offence_relationship": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "items": {
+          "$ref": "/schemata/defendant#/definitions/offence"
+        },
+        "type": "array"
+      }
+    }
+  },
+  "offence": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "$ref": "/schemata/offence#/definitions/id"
+      },
+      "type": {
+        "$ref": "/schemata/offence#/definitions/type"
+      }
+    }
+  },
+  "links": [
+    {
+      "description": "Info for existing defendant.",
+      "href": "/defendants/{(%2Fschemata%2Fdefendant%23%2Fdefinitions%2Fidentity)}",
+      "method": "GET",
+      "rel": "self",
+      "title": "Info",
+      "targetSchema": {
+        "$ref": "/schemata/defendant#/definitions/resource"
+      }
+    }
+  ],
+  "properties": {
+    "first_name": {
+      "$ref": "/schemata/defendant#/definitions/first_name"
+    },
+    "last_name": {
+      "$ref": "/schemata/defendant#/definitions/last_name"
+    },
+    "date_of_birth": {
+      "$ref": "/schemata/defendant#/definitions/date_of_birth"
+    },
+    "national_insurance_number": {
+      "$ref": "/schemata/defendant#/definitions/nino"
+    },
+    "arrest_summons_number": {
+      "$ref": "/schemata/prosecution_case#/definitions/arrest_summons_number"
+    }
+  }
+}
