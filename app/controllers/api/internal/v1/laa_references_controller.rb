@@ -9,8 +9,7 @@ module Api
           if contract.errors.present?
             render json: contract.errors.to_hash, status: :bad_request
           else
-            make_common_platform_calls(contract)
-
+            LaaReferenceUpdaterJob.perform_later(contract)
             render status: :accepted
           end
         end
@@ -27,25 +26,6 @@ module Api
 
         def transformed_params
           create_params.slice(*allowed_params).to_hash.transform_keys(&:to_sym)
-        end
-
-        def make_common_platform_calls(contract)
-          maat_reference = contract[:maat_reference]
-          defendant_id = contract[:defendant_id]
-          offences = ProsecutionCaseDefendantOffence.where(defendant_id: defendant_id)
-          prosecution_case_id = offences.pluck(:prosecution_case_id).first
-          offence_ids = offences.pluck(:offence_id)
-
-          offence_ids.each do |offence_id|
-            LaaReferenceUpdaterJob.perform_later(
-              prosecution_case_id: prosecution_case_id,
-              defendant_id: defendant_id,
-              offence_id: offence_id,
-              status_code: 'AP',
-              application_reference: maat_reference,
-              status_date: Date.today.strftime('%Y-%m-%d')
-            )
-          end
         end
       end
     end

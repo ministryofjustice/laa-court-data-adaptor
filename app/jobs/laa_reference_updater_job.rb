@@ -3,7 +3,7 @@
 class LaaReferenceUpdaterJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    Api::RecordLaaReference.new(*args).call
+  def perform(contract)
+    LaaReferenceUpdater.call(contract)
   end
 end

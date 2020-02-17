@@ -25,15 +25,11 @@ RSpec.describe 'Api::Internal::V1::LaaReferences', type: :request do
   let(:maat_reference) { 1_231_231 }
   let(:prosecution_case_id) { SecureRandom.uuid }
   let(:defendant_id) { SecureRandom.uuid }
-  let(:mock_laa_reference_updater) { double LaaReferenceUpdaterJob }
+  let(:mock_laa_reference_updater_job) { double LaaReferenceUpdaterJob }
 
   before do
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
-                                            defendant_id: defendant_id,
-                                            offence_id: SecureRandom.uuid)
-
-    allow(LaaReferenceUpdaterJob).to receive(:new).and_return(mock_laa_reference_updater)
-    allow(mock_laa_reference_updater).to receive(:enqueue)
+    allow(LaaReferenceUpdaterJob).to receive(:new).and_return(mock_laa_reference_updater_job)
+    allow(mock_laa_reference_updater_job).to receive(:enqueue)
   end
 
   subject { post api_internal_v1_laa_references_path, params: valid_body, headers: valid_auth_header }
@@ -50,22 +46,9 @@ RSpec.describe 'Api::Internal::V1::LaaReferences', type: :request do
       expect(response).to have_http_status(202)
     end
 
-    it 'creates a laa_reference_updater job' do
-      expect(mock_laa_reference_updater).to receive(:enqueue).once
+    it 'creates an laa_reference_updater job' do
+      expect(mock_laa_reference_updater_job).to receive(:enqueue).once
       subject
-    end
-
-    context 'with multiple offences' do
-      before do
-        ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
-                                                defendant_id: defendant_id,
-                                                offence_id: SecureRandom.uuid)
-      end
-
-      it 'makes multiple calls to common platform' do
-        expect(mock_laa_reference_updater).to receive(:enqueue).twice
-        subject
-      end
     end
 
     context 'with an invalid maat_reference' do

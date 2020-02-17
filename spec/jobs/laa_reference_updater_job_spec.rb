@@ -3,19 +3,12 @@
 RSpec.describe LaaReferenceUpdaterJob, type: :job do
   include ActiveJob::TestHelper
   describe '#perform_later' do
-    let(:mock_laa_reference_recorder) { double Api::RecordLaaReference }
+    let(:mock_laa_reference_updater) { double LaaReferenceUpdater }
 
-    before { allow(Api::RecordLaaReference).to receive(:new).and_return(mock_laa_reference_recorder) }
+    before { allow(LaaReferenceUpdater).to receive(:new).and_return(mock_laa_reference_updater) }
 
     subject(:job) do
-      described_class.perform_later(
-        prosecution_case_id: SecureRandom.uuid,
-        defendant_id: SecureRandom.uuid,
-        offence_id: SecureRandom.uuid,
-        status_code: 'AP',
-        application_reference: '123456789',
-        status_date: Date.today.strftime('%Y-%m-%d')
-      )
+      described_class.perform_later(contact: 'contract')
     end
 
     it 'queues a call to update the laa reference' do
@@ -25,8 +18,8 @@ RSpec.describe LaaReferenceUpdaterJob, type: :job do
       }.to have_enqueued_job
     end
 
-    it 'creates a RecordLaaReference and calls it' do
-      expect(mock_laa_reference_recorder).to receive(:call).once
+    it 'creates a LaaReferenceUpdater and calls it' do
+      expect(mock_laa_reference_updater).to receive(:call).once
       perform_enqueued_jobs { job }
     end
   end
