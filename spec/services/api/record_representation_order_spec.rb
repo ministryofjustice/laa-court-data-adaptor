@@ -29,7 +29,7 @@ RSpec.describe Api::RecordRepresentationOrder do
   end
 
   # rubocop:disable Layout/LineLength
-  let(:url) { "/receive/representation-sit/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
+  let(:url) { "/receive/representation/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
   # rubocop:enable Layout/LineLength
 
   it 'returns a no content status' do

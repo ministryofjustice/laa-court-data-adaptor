@@ -81,7 +81,7 @@ RSpec.describe ProsecutionCaseSearcher do
     subject { described_class.call(prosecution_case_reference: prosecution_case_reference, shared_key: 'SECRET KEY', connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
-    let(:url) { '/search/case-sit/prosecutionCases' }
+    let(:url) { '/search/case/prosecutionCases' }
     let(:params) { { prosecutionCaseReference: prosecution_case_reference } }
     let(:headers) { { 'LAASearchCase-Subscription-Key' => 'SECRET KEY' } }
 

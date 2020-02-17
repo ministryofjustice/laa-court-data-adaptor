@@ -11,7 +11,7 @@ class ProsecutionCaseSearcher < ApplicationService
                  date_of_next_hearing: nil,
                  shared_key: ENV['SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE'],
                  connection: CommonPlatformConnection.call)
-    @url = '/search/case-sit/prosecutionCases'
+    @url = '/search/case/prosecutionCases'
     @headers = { 'LAASearchCase-Subscription-Key' => shared_key }
     @connection = connection
     @prosecution_case_reference = prosecution_case_reference

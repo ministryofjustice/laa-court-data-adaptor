@@ -19,7 +19,7 @@ module Api
       @status_date = status_date
       @effective_start_date = effective_start_date
       @defence_organisation = defence_organisation
-      @url = '/receive/representation-sit/progression-command-api'\
+      @url = '/receive/representation/progression-command-api'\
               '/command/api/rest/progression/representationOrder' \
               "/cases/#{prosecution_case_id}" \
               "/defendants/#{defendant_id}" \

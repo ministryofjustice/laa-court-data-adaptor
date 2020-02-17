@@ -25,7 +25,7 @@ RSpec.describe HearingFetcher do
     subject { described_class.call(hearing_id: hearing_id, shared_key: 'SECRET KEY', connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
-    let(:url) { 'hearing/result-sit/LAAGetHearingHttpTrigger' }
+    let(:url) { 'hearing/result/LAAGetHearingHttpTrigger' }
     let(:params) { { hearingId: hearing_id } }
     let(:headers) { { 'LAHearing-Subscription-Key' => 'SECRET KEY' } }
 
