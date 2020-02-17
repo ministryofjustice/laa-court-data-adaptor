@@ -37,14 +37,14 @@ module Api
           offence_ids = offences.pluck(:offence_id)
 
           offence_ids.each do |offence_id|
-            Api::RecordLaaReference.new(
+            LaaReferenceUpdaterJob.perform_later(
               prosecution_case_id: prosecution_case_id,
               defendant_id: defendant_id,
               offence_id: offence_id,
               status_code: 'AP',
               application_reference: maat_reference,
               status_date: Date.today.strftime('%Y-%m-%d')
-            ).call
+            )
           end
         end
       end
