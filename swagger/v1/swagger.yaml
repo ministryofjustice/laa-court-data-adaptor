@@ -8,6 +8,33 @@ info:
                           exchange criminal court data between the two organisations.
   version: v1
 paths:
+  "/api/internal/v1/laa_references":
+    post:
+      summary: post laa_reference
+      description: Post an LAA reference to CDA to link a MAAT case to a Common Platform
+        case
+      consumes:
+      - application/json
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: laa_reference
+        in: body
+        required: false
+        type: object
+        schema:
+          "$ref": laa_reference.json#/definitions/new_resource
+        description: The LAA issued reference to the application. CDA expects a numeric
+          number, although HMCTS allows strings
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
   "/api/internal/v1/prosecution_cases":
     get:
       summary: search prosecution_cases
