@@ -27,7 +27,7 @@ RSpec.describe HearingFetcher do
     let(:connection) { double('CommonPlatformConnection') }
     let(:url) { 'hearing/result/LAAGetHearingHttpTrigger' }
     let(:params) { { hearingId: hearing_id } }
-    let(:headers) { { 'LAHearing-Subscription-Key' => 'SECRET KEY' } }
+    let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
 
     it 'makes a get request' do
       expect(connection).to receive(:get).with(url, params, headers)

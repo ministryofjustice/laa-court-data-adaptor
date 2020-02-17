@@ -22,7 +22,7 @@ module Api
               "/defendants/#{defendant_id}"\
               "/offences/#{offence_id}"
 
-      @headers = { 'LAAReference-Subscription-Key' => shared_key }
+      @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     end
     # rubocop:enable Metrics/ParameterLists
 

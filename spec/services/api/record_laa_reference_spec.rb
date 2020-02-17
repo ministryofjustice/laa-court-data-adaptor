@@ -27,7 +27,7 @@ RSpec.describe Api::RecordLaaReference do
 
   context 'connection' do
     let(:connection) { double('CommonPlatformConnection') }
-    let(:headers) { { 'LAAReference-Subscription-Key' => 'SECRET KEY' } }
+    let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
     let(:request_params) do
       {
         statusCode: 'ABCDEF',

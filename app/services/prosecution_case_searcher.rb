@@ -12,7 +12,7 @@ class ProsecutionCaseSearcher < ApplicationService
                  shared_key: ENV['SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE'],
                  connection: CommonPlatformConnection.call)
     @url = '/search/case/prosecutionCases'
-    @headers = { 'LAASearchCase-Subscription-Key' => shared_key }
+    @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     @connection = connection
     @prosecution_case_reference = prosecution_case_reference
     @national_insurance_number = national_insurance_number

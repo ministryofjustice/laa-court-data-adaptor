@@ -83,7 +83,7 @@ RSpec.describe ProsecutionCaseSearcher do
     let(:connection) { double('CommonPlatformConnection') }
     let(:url) { '/search/case/prosecutionCases' }
     let(:params) { { prosecutionCaseReference: prosecution_case_reference } }
-    let(:headers) { { 'LAASearchCase-Subscription-Key' => 'SECRET KEY' } }
+    let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
 
     it 'makes a get request' do
       expect(connection).to receive(:get).with(url, params, headers)

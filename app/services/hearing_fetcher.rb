@@ -4,7 +4,7 @@ class HearingFetcher < ApplicationService
   def initialize(hearing_id:, shared_key: ENV['SHARED_SECRET_KEY_HEARING'], connection: CommonPlatformConnection.call)
     @url = 'hearing/result/LAAGetHearingHttpTrigger'
     @params = { hearingId: hearing_id }
-    @headers = { 'LAHearing-Subscription-Key' => shared_key }
+    @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     @connection = connection
   end
 

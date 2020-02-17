@@ -9,7 +9,7 @@ http_interactions:
     headers:
       User-Agent:
       - Faraday v0.17.3
-      LAHearing-Subscription-Key:
+      Ocp-Apim-Subscription-Key:
       - INCORRECT KEY
   response:
     status:

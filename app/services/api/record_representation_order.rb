@@ -26,7 +26,7 @@ module Api
               "/offences/#{offence_id}"
 
       @connection = connection
-      @headers = { 'LAARepresent-Subscription-Key' => shared_key }
+      @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     end
     # rubocop:enable Metrics/ParameterLists
 

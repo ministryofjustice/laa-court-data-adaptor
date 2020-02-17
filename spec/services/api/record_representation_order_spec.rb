@@ -40,7 +40,7 @@ RSpec.describe Api::RecordRepresentationOrder do
 
   context 'connection' do
     let(:connection) { double('CommonPlatformConnection') }
-    let(:headers) { { 'LAARepresent-Subscription-Key' => 'SECRET KEY' } }
+    let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
     let(:request_params) do
       {
         statusCode: 'ABCDEF',
