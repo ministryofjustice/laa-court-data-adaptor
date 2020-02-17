@@ -9,6 +9,9 @@ class ProsecutionCaseRecorder < ApplicationService
 
   def call
     prosecution_case.update(body: body)
+
+    prosecution_case.supplement_with_hearing_data
+
     prosecution_case
   end
 

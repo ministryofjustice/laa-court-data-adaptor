@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-class Offence
-  include ActiveModel::Model
-
-  attr_accessor :body
+class Offence < ApplicationRecord
+  validates :body, presence: true
 
   def id
     body['offenceId']

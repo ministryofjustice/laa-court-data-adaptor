@@ -2,7 +2,7 @@
 
 RSpec.describe ProsecutionCaseRecorder do
   let(:prosecution_case_id) { 'fa78c710-6a49-4276-bbb3-ad34c8d4e313' }
-  let(:body) { { response: 'text' }.to_json }
+  let(:body) { JSON.parse(file_fixture('prosecution_case_with_hearing.json').read) }
 
   subject(:record) { described_class.call(prosecution_case_id, body) }
 

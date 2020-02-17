@@ -4,11 +4,11 @@ class ProsecutionCase < ApplicationRecord
   validates :body, presence: true
 
   def defendants
-    body['defendants'].map { |defendant| Defendant.new(body: defendant) }
+    body['defendants']&.map { |defendant| Defendant.new(body: defendant) }
   end
 
   def defendant_ids
-    defendants.map(&:id)
+    defendants&.map(&:id)
   end
 
   def hearing_summaries
@@ -21,5 +21,10 @@ class ProsecutionCase < ApplicationRecord
 
   def prosecution_case_reference
     body['prosecutionCaseReference']
+  end
+
+  def supplement_with_hearing_data
+    # defendants
+    defendant_ids&.each { |defendant_id| Defendant.find_by(id: defendant_id)&.add_hearing_data }
   end
 end

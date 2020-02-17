@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class HearingSummary
-  include ActiveModel::Model
+class HearingSummary < ApplicationRecord
+  validates :body, presence: true
 
-  attr_accessor :body, :hearing_date
+  attr_accessor :hearing_date
 
   def id
     body['hearingId']
