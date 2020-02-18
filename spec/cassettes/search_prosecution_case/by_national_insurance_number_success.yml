@@ -31,48 +31,26 @@ http_interactions:
       content-type:
       - application/json; charset=utf-8
       etag:
-      - W/"533043f794f069786e5f6596ff29c040"
+      - W/"c69b7756ad13bd5a37b72fbbb3298c23"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 44485af4-99a3-4147-b714-dc257503cc51
+      - dfaa1bb5-2d28-4cfb-a1ef-5e936f6e4563
       x-runtime:
-      - '0.100542'
+      - '0.031499'
       connection:
       - close
       transfer-encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"prosecutionCaseId":"9ed80b34-e228-431f-a12b-062ba6c027b2","prosecutionCaseReference":"TFL12345","caseStatus":"INACTIVE","defendants":[{"defendantId":"426ee6b6-a7dd-488b-a42a-29ef125ed431","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"arrest123","name":{"firstName":"Alfredine","middleName":"Treutel","lastName":"Parker"},"dateOfBirth":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offences":[{"offenceId":"adbebec8-3023-48f5-a6ea-d67a0121f991","offenceCode":"Random
+      string: '[{"prosecutionCaseId":"7a0c947e-97b4-4c5a-ae6a-26320afc914d","prosecutionCaseReference":"TFL12345","caseStatus":"INACTIVE","defendants":[{"defendantId":"8cd0ba7e-df89-45a3-8c61-4008a2186d64","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"arrest123","name":{"firstName":"Alfredine","middleName":"Treutel","lastName":"Parker"},"dateOfBirth":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offences":[{"offenceId":"cacbd4d4-9102-4687-98b4-d529be3d5710","offenceCode":"Random
         string","orderIndex":1,"offenceTitle":"Random string","offenceLegislation":"Random
         string","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]},{"defendantId":"679c116b-6cd5-48fa-99a9-85310eb37537","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"Random
-        string","name":{"firstName":"Alfredine","middleName":"Treutel","lastName":"Parker"},"dateOfBirth":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offences":[{"offenceId":"58d7a2b8-a52b-4342-9872-2a4d02a0ed09","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Random string","offenceLegislation":"Random
-        string","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"SOME
-        SORT OF MAAT ID","statusId":"bc9bad50-c263-47d5-8f3e-8251aba75f09","statusCode":"ABCDEF","statusDescription":"FAKE
-        NEWS","statusDate":"2020-01-24","effectiveStartDate":"2020-01-25"}}]}]},{"prosecutionCaseId":"d139123d-e518-4519-9eda-c36ab2224e25","prosecutionCaseReference":"3658e889-e050-4608-8f21-8bdaa529f8d0","caseStatus":"INACTIVE","defendants":[{"defendantId":"7f3b25d0-daa8-4cf5-b8e7-5db7304bbcf2","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"Random
-        string","name":{"firstName":"Alfredine","middleName":"Treutel","lastName":"Parker"},"dateOfBirth":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offences":[{"offenceId":"676bc24c-2186-4b55-b3d3-cbcfa43305fb","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Random string","offenceLegislation":"Random
-        string","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]}]},{"prosecutionCaseId":"9ed80b34-e228-431f-a12b-062ba6c027b2","prosecutionCaseReference":"TFL12345","caseStatus":"INACTIVE","defendants":[{"defendantId":"426ee6b6-a7dd-488b-a42a-29ef125ed431","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"arrest123","name":{"firstName":"Alfredine","middleName":"Treutel","lastName":"Parker"},"dateOfBirth":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offences":[{"offenceId":"adbebec8-3023-48f5-a6ea-d67a0121f991","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Random string","offenceLegislation":"Random
-        string","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]},{"defendantId":"679c116b-6cd5-48fa-99a9-85310eb37537","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"Random
-        string","name":{"firstName":"Alfredine","middleName":"Treutel","lastName":"Parker"},"dateOfBirth":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offences":[{"offenceId":"58d7a2b8-a52b-4342-9872-2a4d02a0ed09","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Random string","offenceLegislation":"Random
-        string","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"SOME
-        SORT OF MAAT ID","statusId":"bc9bad50-c263-47d5-8f3e-8251aba75f09","statusCode":"ABCDEF","statusDescription":"FAKE
-        NEWS","statusDate":"2020-01-24","effectiveStartDate":"2020-01-25"}}]}]},{"prosecutionCaseId":"b9950946-fe3b-4eaa-9f0a-35e497e34528","prosecutionCaseReference":"3658e889-e050-4608-8f21-8bdaa529f8d0","caseStatus":"INACTIVE","defendants":[{"defendantId":"23d7f10a-067a-476e-bba6-bb855674e23b","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"Random
-        string","name":{"firstName":"Alfredine","middleName":"Treutel","lastName":"Parker"},"dateOfBirth":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offences":[{"offenceId":"147fed98-ba8a-46cb-b2b4-7c41cf4734bf","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Random string","offenceLegislation":"Random
-        string","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"SOME
-        SORT OF MAAT ID","statusId":"785b253a-7d5a-493b-a7fa-b03153cad5b9","statusCode":"ABCDEF","statusDescription":"FAKE
-        NEWS","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15"}}]}]}]'
-    http_version:
-  recorded_at: Wed, 05 Feb 2020 13:40:10 GMT
-recorded_with: VCR 5.0.0
+        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]}],"hearings":[{"hearingId":"8f23cfd3-d4ff-4e90-b018-03385b7a96d3","jurisdictionType":"CROWN","courtCentre":{"id":"f30b31b7-41f3-4b30-a482-1b3c89f8c4b7","name":"Random
+        string","welshName":"Llinyn ar hap","roomId":"c2181e2b-be46-4d82-9ac6-1c02e4cc7dbb","roomName":"Grand
+        Hall","welshRoomName":"Neuadd y Grand"},"type":{"id":"c4278f10-8f17-446d-8e3b-85236687a1f4","description":"This
+        is a description","code":"12D10JAS"},"defendants":["ecca893f-0928-4fc6-ae50-6a8794b78c5c"]}]}]'
+    http_version: null
+  recorded_at: Wed, 19 Feb 2020 11:17:18 GMT
+recorded_with: VCR 5.1.0
