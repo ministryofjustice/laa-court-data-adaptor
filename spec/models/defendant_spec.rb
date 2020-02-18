@@ -10,15 +10,18 @@ RSpec.describe Defendant, type: :model do
         'lastName' => 'Parker'
       },
       'dateOfBirth' => '1971-05-12',
-      'nationalInsuranceNumber' => 'BN102966C',
-      'gender' => 'female',
-      'address_1' => '102 Petty France',
-      'address_2' => 'London',
-      'postcode' => 'SW1H 9AJ'
+      'nationalInsuranceNumber' => 'BN102966C'
     }
   end
 
   subject(:defendant) { described_class.new(body: defendant_hash) }
+
+  before do
+    defendant.gender = 'female'
+    defendant.address_1 = '102 Petty France'
+    defendant.address_2 = 'London'
+    defendant.postcode = 'SW1H 9AJ'
+  end
 
   it { expect(defendant.first_name).to eq('Alfredine') }
   it { expect(defendant.last_name).to eq('Parker') }

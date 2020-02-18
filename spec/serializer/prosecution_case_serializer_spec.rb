@@ -7,7 +7,8 @@ RSpec.describe ProsecutionCaseSerializer do
     instance_double('ProsecutionCase',
                     id: 'UUID',
                     prosecution_case_reference: 'AAA',
-                    defendant_ids: ['UUID'])
+                    defendant_ids: ['UUID'],
+                    hearing_summary_ids: ['UUID'])
   end
 
   subject { described_class.new(prosecution_case).serializable_hash }
