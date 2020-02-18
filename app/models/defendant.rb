@@ -24,4 +24,40 @@ class Defendant
   def national_insurance_number
     body['nationalInsuranceNumber']
   end
+
+  def gender
+    body['gender']
+  end
+
+  def address_1
+    body['address_1']
+  end
+
+  def address_2
+    body['address_2']
+  end
+
+  def address_3
+    body['address_3']
+  end
+
+  def address_4
+    body['address_4']
+  end
+
+  def address_5
+    body['address_5']
+  end
+
+  def postcode
+    body['postcode']
+  end
+
+  def offences
+    body['offences'].map { |offence| Offence.new(body: offence) }
+  end
+
+  def offence_ids
+    offences.map(&:id)
+  end
 end
