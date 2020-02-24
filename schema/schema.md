@@ -83,7 +83,7 @@ $ curl -n -X POST https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.
   "client_id": "b0e2Uw0F_Hn4uVyxcaL6vas7WkYIdCcldv1uCo_vQAY",
   "client_secret": "ezLn2UTPVwqSCVYWPGTeVWcgZdRIPQLmdpQaGMHuCcU"
 }' \
-  -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8"
+  -H "Content-Type: application/json"
 ```
 
 
