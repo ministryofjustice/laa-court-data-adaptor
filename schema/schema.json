@@ -245,7 +245,7 @@
             ]
           },
           "http_header": {
-            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+            "Content-Type": "application/json"
           },
           "targetSchema": {
             "$ref": "#/definitions/oauth/definitions/auth_success_response"
