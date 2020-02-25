@@ -3,7 +3,7 @@
 class Defendant
   include ActiveModel::Model
 
-  attr_accessor :body, :gender, :address_1, :address_2, :address_3, :address_4, :address_5, :postcode
+  attr_accessor :body
 
   def id
     body['defendantId']
@@ -23,6 +23,10 @@ class Defendant
 
   def national_insurance_number
     body['nationalInsuranceNumber']
+  end
+
+  def arrest_summons_number
+    body['arrestSummonsNumber']
   end
 
   def offences

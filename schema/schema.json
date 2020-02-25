@@ -120,6 +120,9 @@
             },
             "national_insurance_number": {
               "$ref": "#/definitions/defendant/definitions/nino"
+            },
+            "arrest_summons_number": {
+              "$ref": "#/definitions/prosecution_case/definitions/arrest_summons_number"
             }
           }
         }
@@ -148,6 +151,9 @@
         },
         "national_insurance_number": {
           "$ref": "#/definitions/defendant/definitions/nino"
+        },
+        "arrest_summons_number": {
+          "$ref": "#/definitions/prosecution_case/definitions/arrest_summons_number"
         }
       }
     },

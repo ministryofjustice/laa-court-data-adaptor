@@ -9,6 +9,7 @@ Defendants
 
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
+| **[arrest_summons_number](#resource-prosecution_case)** | *string* | The police arrest summons number when the defendant is a person | `"MG25A11223344"` |
 | **date_of_birth** | *string* | The person date of birth when the defendant is a person | `"1954-02-23"` |
 | **first_name** | *string* | The fore name when the defendant is a person | `"Elaf"` |
 | **last_name** | *string* | The last name when the defendant is a person | `"Alvi"` |
@@ -44,7 +45,8 @@ HTTP/1.1 200 OK
     "first_name": "Elaf",
     "last_name": "Alvi",
     "date_of_birth": null,
-    "national_insurance_number": null
+    "national_insurance_number": null,
+    "arrest_summons_number": "MG25A11223344"
   }
 }
 ```
@@ -179,7 +181,8 @@ HTTP/1.1 200 OK
         "first_name": "Elaf",
         "last_name": "Alvi",
         "date_of_birth": null,
-        "national_insurance_number": null
+        "national_insurance_number": null,
+        "arrest_summons_number": "MG25A11223344"
       }
     }
   ]
