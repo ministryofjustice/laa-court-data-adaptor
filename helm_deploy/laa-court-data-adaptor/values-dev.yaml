@@ -45,11 +45,13 @@ ingress:
   hosts:
     - host: laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk
       paths: ["/"]
+    - host: dev.court-data-adaptor.service.justice.gov.uk
+      paths: ["/"]
 
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  tls:
+   - secretName: laa-court-data-adaptor-dev-cert
+     hosts:
+       - dev.court-data-adaptor.service.justice.gov.uk
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

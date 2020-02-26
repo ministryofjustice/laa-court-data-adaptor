@@ -148,17 +148,9 @@ workflows:
             - test
           repo: laa-crime-apps-team/laa-court-data-adaptor
           tag: "${CIRCLE_SHA1}"
-          filters:
-            branches:
-              only:
-                - master
       - install_on_dev:
           requires:
           - aws-ecr/build_and_push_image
-          filters:
-            branches:
-              only:
-                - master
       - hold_install_on_test:
           type: approval
           requires:
