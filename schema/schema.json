@@ -260,6 +260,142 @@
         }
       ]
     },
+    "offence": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Offences",
+      "description": "Offences",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of offence",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "type": {
+          "description": "The offences type",
+          "enum": [
+            "offences"
+          ],
+          "example": "offences",
+          "type": [
+            "string"
+          ]
+        },
+        "code": {
+          "readOnly": true,
+          "example": "AA06001",
+          "description": "The offence code",
+          "type": [
+            "string"
+          ]
+        },
+        "order_index": {
+          "readOnly": true,
+          "example": "Alvi",
+          "description": "The last name when the offence is a person",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/offence/definitions/id"
+        },
+        "title": {
+          "readOnly": true,
+          "example": "Fail to wear protective clothing",
+          "description": "The offence title",
+          "type": [
+            "string"
+          ]
+        },
+        "mode_of_trial": {
+          "readOnly": true,
+          "anyOf": [
+            {
+              "type": [
+                "null"
+              ]
+            },
+            {
+              "description": "Indicates if the offence is either way, indictable only or summary only",
+              "example": "Indictable-Only Offence",
+              "type": [
+                "string"
+              ]
+            }
+          ]
+        },
+        "resource": {
+          "description": "object representing a single offence",
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/offence/definitions/type"
+            },
+            "id": {
+              "$ref": "#/definitions/offence/definitions/id"
+            },
+            "attributes": {
+              "$ref": "#/definitions/offence/definitions/attributes"
+            }
+          }
+        },
+        "attributes": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "code": {
+              "$ref": "#/definitions/offence/definitions/code"
+            },
+            "order_index": {
+              "$ref": "#/definitions/offence/definitions/order_index"
+            },
+            "mode_of_trial": {
+              "$ref": "#/definitions/offence/definitions/mode_of_trial"
+            },
+            "title": {
+              "$ref": "#/definitions/offence/definitions/title"
+            }
+          }
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing offence.",
+          "href": "/offences/{(%23%2Fdefinitions%2Foffence%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info",
+          "targetSchema": {
+            "$ref": "#/definitions/offence/definitions/resource"
+          }
+        }
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/offence/definitions/code"
+        },
+        "order_index": {
+          "$ref": "#/definitions/offence/definitions/order_index"
+        },
+        "mode_of_trial": {
+          "$ref": "#/definitions/offence/definitions/mode_of_trial"
+        },
+        "title": {
+          "$ref": "#/definitions/offence/definitions/title"
+        }
+      }
+    },
     "prosecution_case": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Prosecution case search results",
@@ -517,6 +653,9 @@
     },
     "oauth": {
       "$ref": "#/definitions/oauth"
+    },
+    "offence": {
+      "$ref": "#/definitions/offence"
     },
     "prosecution_case": {
       "$ref": "#/definitions/prosecution_case"

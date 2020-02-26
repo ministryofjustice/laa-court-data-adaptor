@@ -105,6 +105,57 @@ HTTP/1.1 201 Created
 ```
 
 
+## <a name="resource-offence">Offences</a>
+
+Stability: `prototype`
+
+Offences
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **code** | *string* | The offence code | `"AA06001"` |
+| **mode_of_trial** | *string* | Indicates if the offence is either way, indictable only or summary only | `"Indictable-Only Offence"` |
+| **order_index** | *string* | The last name when the offence is a person | `"Alvi"` |
+| **title** | *string* | The offence title | `"Fail to wear protective clothing"` |
+
+### <a name="link-GET-offence-/offences/{(%23%2Fdefinitions%2Foffence%2Fdefinitions%2Fidentity)}">Offences Info</a>
+
+Info for existing offence.
+
+```
+GET /offences/{offence_id}
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/offences/$OFFENCE_ID
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "type": "offences",
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "attributes": {
+    "code": "AA06001",
+    "order_index": "Alvi",
+    "mode_of_trial": null,
+    "title": "Fail to wear protective clothing"
+  }
+}
+```
+
+
 ## <a name="resource-prosecution_case">Prosecution case search results</a>
 
 Stability: `prototype`
