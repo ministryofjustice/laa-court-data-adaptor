@@ -117,7 +117,7 @@ Offences
 | ------- | ------- | ------- | ------- |
 | **code** | *string* | The offence code | `"AA06001"` |
 | **mode_of_trial** | *string* | Indicates if the offence is either way, indictable only or summary only | `"Indictable-Only Offence"` |
-| **order_index** | *string* | The last name when the offence is a person | `"Alvi"` |
+| **order_index** | *integer* | The offence sequence provided by the police<br/> **Range:** `0 <= value` | `0` |
 | **title** | *string* | The offence title | `"Fail to wear protective clothing"` |
 
 ### <a name="link-GET-offence-/offences/{(%23%2Fdefinitions%2Foffence%2Fdefinitions%2Fidentity)}">Offences Info</a>
@@ -148,7 +148,7 @@ HTTP/1.1 200 OK
   "id": "01234567-89ab-cdef-0123-456789abcdef",
   "attributes": {
     "code": "AA06001",
-    "order_index": "Alvi",
+    "order_index": 0,
     "mode_of_trial": null,
     "title": "Fail to wear protective clothing"
   }
@@ -225,17 +225,7 @@ HTTP/1.1 200 OK
     }
   ],
   "included": [
-    {
-      "type": "defendants",
-      "id": "01234567-89ab-cdef-0123-456789abcdef",
-      "attributes": {
-        "first_name": "Elaf",
-        "last_name": "Alvi",
-        "date_of_birth": null,
-        "national_insurance_number": null,
-        "arrest_summons_number": "MG25A11223344"
-      }
-    }
+    null
   ]
 }
 ```

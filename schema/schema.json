@@ -127,6 +127,44 @@
           }
         }
       },
+      "relationships": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "offences": {
+            "$ref": "#/definitions/defendant/definitions/offence_relationship"
+          }
+        }
+      },
+      "offence_relationship": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/definitions/defendant/definitions/offence"
+            },
+            "type": [
+              "array"
+            ]
+          }
+        }
+      },
+      "offence": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/offence/definitions/id"
+          },
+          "type": {
+            "$ref": "#/definitions/offence/definitions/type"
+          }
+        }
+      },
       "links": [
         {
           "description": "Info for existing defendant.",
@@ -298,11 +336,12 @@
         },
         "order_index": {
           "readOnly": true,
-          "example": "Alvi",
-          "description": "The last name when the offence is a person",
+          "example": 0,
+          "description": "The offence sequence provided by the police",
           "type": [
-            "string"
-          ]
+            "integer"
+          ],
+          "minimum": 0
         },
         "identity": {
           "$ref": "#/definitions/offence/definitions/id"
@@ -479,7 +518,14 @@
             },
             "included": {
               "items": {
-                "$ref": "#/definitions/defendant/definitions/resource"
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/defendant/definitions/resource"
+                  },
+                  {
+                    "$ref": "#/definitions/offence/definitions/resource"
+                  }
+                ]
               },
               "type": [
                 "array"

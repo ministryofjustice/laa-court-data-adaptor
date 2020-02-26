@@ -31,9 +31,10 @@
     },
     "order_index": {
       "readOnly": true,
-      "example": "Alvi",
-      "description": "The last name when the offence is a person",
-      "type": "string"
+      "example": 0,
+      "description": "The offence sequence provided by the police",
+      "type": "integer",
+      "minimum": 0
     },
     "identity": {
       "$ref": "/schemata/offence#/definitions/id"

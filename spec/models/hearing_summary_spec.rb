@@ -3,6 +3,7 @@
 RSpec.describe HearingSummary, type: :model do
   let(:hearing_summary_hash) do
     {
+      'hearingId' => 'UUID',
       'jurisdictionType' => 'Magistrate',
       'courtCenter' => {
         'id' => '1',
@@ -33,6 +34,7 @@ RSpec.describe HearingSummary, type: :model do
 
   before { hearing_summary.hearing_date = '2020-02-01' }
 
+  it { expect(hearing_summary.id).to eq('UUID') }
   it { expect(hearing_summary.jurisdiction_type).to eq('Magistrate') }
   it { expect(hearing_summary.court_centre_id).to eq('1') }
   it { expect(hearing_summary.court_centre_name).to eq('Westminster') }
