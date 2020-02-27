@@ -66,7 +66,14 @@
         },
         "included": {
           "items": {
-            "$ref": "/schemata/defendant#/definitions/resource"
+            "anyOf":[
+              {
+                "$ref": "/schemata/defendant#/definitions/resource"
+              },
+              {
+                "$ref": "/schemata/offence#/definitions/resource"
+              }
+            ]
           },
           "type": "array"
         }

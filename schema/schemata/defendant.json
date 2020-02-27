@@ -102,6 +102,36 @@
       }
     }
   },
+  "relationships": {
+    "type": "object",
+    "properties": {
+      "offences": {
+        "$ref": "/schemata/defendant#/definitions/offence_relationship"
+      }
+    }
+  },
+  "offence_relationship": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "items": {
+          "$ref": "/schemata/defendant#/definitions/offence"
+        },
+        "type": "array"
+      }
+    }
+  },
+  "offence": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "$ref": "/schemata/offence#/definitions/id"
+      },
+      "type": {
+        "$ref": "/schemata/offence#/definitions/type"
+      }
+    }
+  },
   "links": [
     {
       "description": "Info for existing defendant.",
