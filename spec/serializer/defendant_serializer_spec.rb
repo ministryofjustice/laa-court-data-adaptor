@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe DefendantSerializer do
   let(:defendant) do
     instance_double('Defendant',

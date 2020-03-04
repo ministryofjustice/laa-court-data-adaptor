@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :internal do
       api_version(module: 'V1', path: { value: 'v1' }, default: true) do
         resources :prosecution_cases, only: [:index]
+        resources :laa_references, only: [:create]
       end
     end
     namespace :external do

@@ -41,3 +41,12 @@ Style/SymbolArray:
 
 Style/Lambda:
   EnforcedStyle: literal
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true

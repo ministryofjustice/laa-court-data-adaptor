@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe Defendant, type: :model do
   let(:defendant_hash) do
     {
