@@ -195,6 +195,141 @@
         }
       }
     },
+    "laa_reference": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "LaaReferences",
+      "description": "LaaReferences",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of laa_reference",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "type": {
+          "description": "The laa_references type",
+          "enum": [
+            "laa_references"
+          ],
+          "example": "laa_references",
+          "type": [
+            "string"
+          ]
+        },
+        "maat_reference": {
+          "example": 314159265,
+          "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
+          "type": [
+            "number"
+          ],
+          "minimum": 0,
+          "maximum": 999999999
+        },
+        "identity": {
+          "$ref": "#/definitions/laa_reference/definitions/id"
+        },
+        "new_resource": {
+          "description": "object representing a single laa_reference",
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/laa_reference/definitions/type"
+            },
+            "attributes": {
+              "$ref": "#/definitions/laa_reference/definitions/attributes"
+            },
+            "relationships": {
+              "$ref": "#/definitions/laa_reference/definitions/relationships"
+            }
+          }
+        },
+        "attributes": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "maat_reference": {
+              "$ref": "#/definitions/laa_reference/definitions/maat_reference"
+            }
+          }
+        },
+        "relationships": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "defendant": {
+              "$ref": "#/definitions/laa_reference/definitions/defendant_relationship"
+            }
+          }
+        },
+        "defendant_relationship": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/definitions/laa_reference/definitions/defendant"
+              },
+              "type": [
+                "object"
+              ]
+            }
+          }
+        },
+        "defendant": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/definitions/defendant/definitions/id"
+            },
+            "type": {
+              "$ref": "#/definitions/defendant/definitions/type"
+            }
+          }
+        }
+      },
+      "links": [
+        {
+          "description": "Create a new LaaReference.",
+          "href": "/laa_references",
+          "method": "POST",
+          "rel": "empty",
+          "title": "Create",
+          "schema": {
+            "type": [
+              "object"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/definitions/laa_reference/definitions/new_resource"
+              }
+            }
+          },
+          "http_header": {
+            "Content-Type": "application/vnd.api+json",
+            "Authorization": "Bearer <TOKEN>"
+          }
+        }
+      ],
+      "properties": {
+        "maat_reference": {
+          "$ref": "#/definitions/laa_reference/definitions/maat_reference"
+        }
+      }
+    },
     "oauth": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "OAuth endpoints",
@@ -696,6 +831,9 @@
   "properties": {
     "defendant": {
       "$ref": "#/definitions/defendant"
+    },
+    "laa_reference": {
+      "$ref": "#/definitions/laa_reference"
     },
     "oauth": {
       "$ref": "#/definitions/oauth"

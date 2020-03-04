@@ -52,6 +52,70 @@ HTTP/1.1 200 OK
 ```
 
 
+## <a name="resource-laa_reference">LaaReferences</a>
+
+Stability: `prototype`
+
+LaaReferences
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **maat_reference** | *number* | The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings<br/> **Range:** `0 <= value <= 999999999` | `314159265` |
+
+### <a name="link-POST-laa_reference-/laa_references">LaaReferences Create</a>
+
+Create a new LaaReference.
+
+```
+POST /laa_references
+```
+
+#### Optional Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **data:attributes:maat_reference** | *number* | The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings<br/> **Range:** `0 <= value <= 999999999` | `314159265` |
+| **data:relationships:defendant:data** | *object* |  |  |
+| **data:type** | *string* | The laa_references type<br/> **one of:**`"laa_references"` | `"laa_references"` |
+
+
+#### Curl Example
+
+```bash
+$ curl -n -X POST https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/laa_references \
+  -d '{
+  "data": {
+    "type": "laa_references",
+    "attributes": {
+      "maat_reference": 314159265
+    },
+    "relationships": {
+      "defendant": {
+        "data": [
+          {
+            "id": "01234567-89ab-cdef-0123-456789abcdef",
+            "type": "defendants"
+          }
+        ]
+      }
+    }
+  }
+}' \
+  -H "Content-Type: application/vnd.api+json" \
+  -H "Authorization: Bearer <TOKEN>"
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 202 Accepted
+```
+
+
+
 ## <a name="resource-oauth">OAuth endpoints</a>
 
 Stability: `prototype`
