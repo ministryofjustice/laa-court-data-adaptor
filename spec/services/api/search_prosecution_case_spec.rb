@@ -4,7 +4,8 @@ RSpec.describe Api::SearchProsecutionCase do
   let(:params) { { howdy: 'hello' } }
   let(:response_status) { 200 }
   let(:search_results) { double('Response', status: response_status, body: response_body) }
-  let(:response_body) { [{ 'prosecutionCaseId' => 12_345 }] }
+  let(:prosecution_case_id) { '7a0c947e-97b4-4c5a-ae6a-26320afc914d' }
+  let(:response_body) { [JSON.parse(file_fixture('prosecution_case_search_result.json').read)] }
 
   before do
     allow(ProsecutionCaseSearcher).to receive(:call).and_return(search_results)
@@ -14,7 +15,7 @@ RSpec.describe Api::SearchProsecutionCase do
 
   it 'records ProsecutionCase' do
     expect(ProsecutionCaseRecorder).to receive(:call)
-      .with(12_345, 'prosecutionCaseId' => 12_345)
+      .with(prosecution_case_id, response_body[0])
     subject
   end
 
