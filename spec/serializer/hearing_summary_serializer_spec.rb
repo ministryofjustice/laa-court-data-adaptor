@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe HearingSummarySerializer do
   let(:hearing_summary) do
     instance_double('HearingSummary',

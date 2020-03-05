@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe Offence, type: :model do
   let(:offence_hash) do
     {

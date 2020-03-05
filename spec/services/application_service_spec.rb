@@ -9,7 +9,7 @@ RSpec.describe ApplicationService do
     allow(ApplicationService).to receive(:new).and_return(described_instance)
   end
 
-  it 'should initialize and call the instance' do
+  it 'should initialise and call the instance' do
     expect(ApplicationService).to receive(:new).with('some', 'arguments')
     expect(described_instance).to receive(:call)
     subject
