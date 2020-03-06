@@ -9,6 +9,13 @@ class ProsecutionCaseRecorder < ApplicationService
 
   def call
     prosecution_case.update(body: body)
+
+    prosecution_case.defendants.each do |defendant|
+      defendant.offences.each do |offence|
+        ProsecutionCaseDefendantOffence.find_or_create_by!(prosecution_case_id: prosecution_case.id, defendant_id: defendant.id, offence_id: offence.id)
+      end
+    end
+
     prosecution_case
   end
 
