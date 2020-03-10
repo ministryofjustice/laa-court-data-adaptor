@@ -4,9 +4,12 @@ RSpec.describe LaaReferenceUpdater do
   let(:maat_reference) { 12_345_678 }
   let(:defendant_id) { SecureRandom.uuid }
   let(:contract) { NewLaaReferenceContract.new.call({ maat_reference: maat_reference, defendant_id: defendant_id }) }
-  let(:mock_record_laa_reference_service) { double Api::RecordLaaReference }
+  let(:mock_record_laa_reference_service) { instance_double Api::RecordLaaReference }
 
-  before { allow(Api::RecordLaaReference).to receive(:new).and_return(mock_record_laa_reference_service) }
+  before do
+    allow(Api::RecordLaaReference).to receive(:new).and_return(mock_record_laa_reference_service)
+    allow(mock_record_laa_reference_service).to receive(:call)
+  end
 
   before do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: SecureRandom.uuid,
@@ -31,6 +34,19 @@ RSpec.describe LaaReferenceUpdater do
     it 'creates and calls the Api::RecordLaaReference service multiple times' do
       expect(mock_record_laa_reference_service).to receive(:call).twice
       record
+    end
+  end
+
+  context 'with no maat reference' do
+    let(:maat_reference) { nil }
+
+    before do
+      ActiveRecord::Base.connection.execute('ALTER SEQUENCE dummy_maat_reference_seq RESTART;')
+    end
+
+    it 'creates a dummy maat_reference' do
+      expect(Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: 'A10000000'))
+      subject
     end
   end
 end

@@ -37,5 +37,7 @@ module LaaCourtDataAdaptor
     config.api_only = true
 
     config.x.common_platform_url = ENV.fetch('COMMON_PLATFORM_URL')
+
+    config.active_record.schema_format = :sql
   end
 end

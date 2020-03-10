@@ -25,3 +25,6 @@ spec/examples.txt
 
 # dotenv files
 .env.*.local
+
+# Ignore operating system files
+.DS_Store

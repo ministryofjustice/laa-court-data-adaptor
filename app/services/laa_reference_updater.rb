@@ -14,13 +14,17 @@ class LaaReferenceUpdater < ApplicationService
         defendant_id: offence.defendant_id,
         offence_id: offence.offence_id,
         status_code: 'AP',
-        application_reference: maat_reference,
+        application_reference: maat_reference || dummy_maat_reference,
         status_date: Date.today.strftime('%Y-%m-%d')
       )
     end
   end
 
   private
+
+  def dummy_maat_reference
+    "A#{ActiveRecord::Base.connection.execute("SELECT nextval('dummy_maat_reference_seq')")[0]['nextval']}"
+  end
 
   attr_reader :contract
 end
