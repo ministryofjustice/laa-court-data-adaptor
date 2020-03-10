@@ -9,6 +9,7 @@ module Api
           if contract.errors.present?
             render json: contract.errors.to_hash, status: :bad_request
           else
+            LaaReferenceUpdaterJob.perform_later(contract)
             render status: :accepted
           end
         end
