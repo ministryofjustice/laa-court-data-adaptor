@@ -125,7 +125,12 @@ CREATE TABLE public.prosecution_case_defendant_offences (
     defendant_id uuid NOT NULL,
     offence_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    maat_reference character varying,
+    dummy_maat_reference boolean DEFAULT false NOT NULL,
+    rep_order_status character varying,
+    response_status integer,
+    response_body json
 );
 
 
@@ -320,6 +325,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191211135014'),
 ('20200210053550'),
 ('20200304144205'),
-('20200310210135');
+('20200310210135'),
+('20200310222258');
 
 

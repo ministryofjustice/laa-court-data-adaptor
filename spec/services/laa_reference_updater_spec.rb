@@ -17,11 +17,11 @@ RSpec.describe LaaReferenceUpdater do
                                             offence_id: SecureRandom.uuid)
   end
 
-  subject(:record) { described_class.call(contract) }
+  subject(:update) { described_class.call(contract) }
 
   it 'creates and calls the Api::RecordLaaReference service once' do
     expect(mock_record_laa_reference_service).to receive(:call).once
-    record
+    update
   end
 
   context 'with multiple offences' do
@@ -33,7 +33,7 @@ RSpec.describe LaaReferenceUpdater do
 
     it 'creates and calls the Api::RecordLaaReference service multiple times' do
       expect(mock_record_laa_reference_service).to receive(:call).twice
-      record
+      update
     end
   end
 
@@ -45,8 +45,8 @@ RSpec.describe LaaReferenceUpdater do
     end
 
     it 'creates a dummy maat_reference' do
-      expect(Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: 'A10000000'))
-      subject
+      expect(Api::RecordLaaReference).to receive(:new).with(hash_including(application_reference: 'A10000000'))
+      update
     end
   end
 end
