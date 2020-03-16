@@ -6,10 +6,10 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:mock_laa_reference_updater_job) { double LaaReferenceUpdaterJob }
+  let(:mock_laa_reference_updater_job) { double LaaReferenceCreatorJob }
 
   before do
-    allow(LaaReferenceUpdaterJob).to receive(:new).and_return(mock_laa_reference_updater_job)
+    allow(LaaReferenceCreatorJob).to receive(:new).and_return(mock_laa_reference_updater_job)
     allow(mock_laa_reference_updater_job).to receive(:enqueue)
   end
 

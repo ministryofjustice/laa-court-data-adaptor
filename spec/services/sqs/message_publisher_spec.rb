@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe LaaReferencePublisher do
+RSpec.describe Sqs::MessagePublisher do
   let(:client_double) { instance_double('Aws::SQS::Client') }
 
   subject { described_class.call(message: { blah: 'blah' }, sqs_client: client_double) }
