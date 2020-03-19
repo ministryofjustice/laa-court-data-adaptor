@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Hearing",
+  "description": "Hearing",
+  "id": "hearing",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "unique identifier of a hearing",
+      "example": "04180ff1-99b0-40b7-9929-ca05bdc767d8",
+      "format": "uuid",
+      "type": "string"
+    },
+    "jurisdictionType": {
+      "description": "The court type",
+      "enum": [
+        "MAGISTRATES",
+        "CROWN"
+      ],
+      "example": "MAGISTRATES",
+      "type": "string"
+    },
+    "courtCentre": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id of the court",
+          "example": "dd9bf969-f55e-43f1-a08a-7b475a9aa914",
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id of the hearing type",
+          "example": "141c74ad-b87e-4756-8908-1642b1771ab5",
+          "format": "uuid",
+          "type": "string"
+          },
+        "description": {
+          "description": "Description of the hearing type",
+          "example": "First hearing",
+          "type": "string"
+          },
+        "code": {
+          "description": "Code for the hearing type",
+          "example": "FHG",
+          "type": "string"
+        }
+      }
+    },
+    "hearingDay": {
+      "type": "object",
+      "properties": {
+        "sittingDay": {
+          "description": "The date and time the hearing was held",
+          "example": "2018-10-24 10:00:00",
+          "format": "date-time",
+          "type": "string"
+        },
+        "listingSequence": {
+          "description": "Sequence number for the hearing",
+          "example": 1,
+          "type": "number"
+        },
+        "listedDurationMinutes": {
+          "description": "Duration of the hearing in minutes",
+          "example": 120,
+          "type": "number"
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "jurisdictionType",
+    "courtCentre",
+    "type",
+    "hearingDays"
+  ]
+}

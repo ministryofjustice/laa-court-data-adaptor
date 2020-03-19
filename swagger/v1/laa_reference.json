@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "LaaReferences",
+  "description": "LaaReferences",
+  "id": "laa_reference",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "unique identifier of laa_reference",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "type": {
+      "description": "The laa_references type",
+      "enum": [
+        "laa_references"
+      ],
+      "example": "laa_references",
+      "type": "string"
+    },
+    "maat_reference": {
+      "example": 314159265,
+      "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 999999999
+    },
+    "identity": {
+      "$ref": "#/definitions/id"
+    },
+    "new_resource": {
+      "description": "object representing a single laa_reference",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        },
+        "relationships": {
+          "$ref": "#/definitions/relationships"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "maat_reference": {
+          "$ref": "#/definitions/maat_reference"
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "defendant": {
+          "$ref": "#/definitions/defendant_relationship"
+        }
+      }
+    },
+    "defendant_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/defendant",
+          "type": "object"
+        }
+      }
+    },
+    "defendant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "defendant.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "defendant.json#/definitions/type"
+        }
+      }
+    }
+  },
+  "links": [
+    {
+      "description": "Create a new LaaReference.",
+      "href": "laa_reference.json",
+      "method": "POST",
+      "rel": "empty",
+      "title": "Create",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/new_resource"
+          }
+        }
+      },
+      "http_header": {
+        "Content-Type": "application/vnd.api+json",
+        "Authorization": "Bearer <TOKEN>"
+      }
+    }
+  ],
+  "properties": {
+    "maat_reference": {
+      "$ref": "#/definitions/maat_reference"
+    }
+  }
+}

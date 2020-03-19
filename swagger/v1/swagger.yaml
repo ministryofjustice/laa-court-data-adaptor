@@ -1,0 +1,220 @@
+---
+openapi: 3.0.1
+info:
+  title: Court Data Adaptor
+  description: |-
+    CDA exposes API endpoints to the LAA's View Court Data and
+                          MAAT/MLRA applications and the HMCTS Common Platform in order to
+                          exchange criminal court data between the two organisations.
+  version: v1
+paths:
+  "/api/external/v1/hearings":
+    post:
+      summary: post hearing
+      description: Post Common Platform hearing data to CDA
+      consumes:
+      - application/json
+      tags:
+      - External - available to Common Platform
+      security:
+      - oAuth: []
+      parameters:
+      - name: shared_time
+        in: body
+        required: false
+        type: object
+        schema:
+          "$ref": hearing_resulted.json#/definitions/new_resource
+        description: The minimal Hearing Resulted payload
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  "/api/internal/v1/laa_references":
+    post:
+      summary: post laa_reference
+      description: Post an LAA reference to CDA to link a MAAT case to a Common Platform
+        case
+      consumes:
+      - application/json
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: laa_reference
+        in: body
+        required: false
+        type: object
+        schema:
+          "$ref": laa_reference.json#/definitions/new_resource
+        description: The LAA issued reference to the application. CDA expects a numeric
+          number, although HMCTS allows strings
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  "/api/internal/v1/prosecution_cases":
+    get:
+      summary: search prosecution_cases
+      description: |-
+        Search prosecution cases. Valid search combinations are: <br/><br/>
+                            1) prosecution_case_reference <br/>
+                            2) arrest_summons_number <br/>
+                            3) national_insurance_number <br/>
+                            4) first_name, last_name and date_of_birth <br/>
+                            5) first_name, last_name and date_of_next_hearing
+      consumes:
+      - application/json
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: filter[prosecution_case_reference]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": prosecution_case.json#/definitions/prosecution_case_reference
+        description: Searches prosecution cases by prosecution case reference
+      - name: filter[arrest_summons_number]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": prosecution_case.json#/definitions/arrest_summons_number
+        description: Searches prosecution cases by arrest summons number
+      - name: filter[national_insurance_number]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/nino
+        description: Searches prosecution cases by national_insurance_number
+      - name: filter[first_name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/first_name
+        description: Searches prosecution cases by first_name
+      - name: filter[last_name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/last_name
+        description: Searches prosecution cases by last_name
+      - name: filter[date_of_birth]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/date_of_birth
+        description: Searches prosecution cases by date_of_birth
+      - name: filter[first_name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/first_name
+        description: Searches prosecution cases by first_name
+      - name: filter[last_name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/last_name
+        description: Searches prosecution cases by last_name
+      - name: filter[date_of_next_hearing]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": prosecution_case.json#/definitions/date_of_next_hearing
+        description: Searches prosecution cases by date_of_next_hearing
+      responses:
+        '200':
+          description: Success
+          examples:
+            application/json: |-
+              {
+                                      "prosecutionCaseId": "7a0c947e-97b4-4c5a-ae6a-26320afc914d",
+                                      "prosecutionCaseReference": "TFL12345",
+                                      "caseStatus": "INACTIVE",
+                                      "defendants": [
+                                          {
+                                              "defendantId": "8cd0ba7e-df89-45a3-8c61-4008a2186d64",
+                                              "nationalInsuranceNumber": "BN102966C",
+                                              "arrestSummonsNumber": "arrest123",
+                                              "name": {
+                                                  "firstName": "Alfredine",
+                                                  "middleName": "Treutel",
+                                                  "lastName": "Parker"
+                                              },
+                                              "dateOfBirth": "1971-05-12",
+                                              "dateOfNextHearing": "2012-12-12",
+                                              "proceedingsConcluded": false,
+                                              "offences": [
+                                                  {
+                                                      "offenceId": "cacbd4d4-9102-4687-98b4-d529be3d5710",
+                                                      "offenceCode": "Random string",
+                                                      "orderIndex": 1,
+                                                      "offenceTitle": "Random string",
+                                                      "offenceLegislation": "Random string",
+                                                      "wording": "Random string",
+                                                      "arrestDate": "2019-10-17",
+                                                      "chargeDate": "2019-10-17",
+                                                      "dateOfInformation": "2019-10-17",
+                                                      "modeOfTrial": "Random string",
+                                                      "startDate": "2019-10-17",
+                                                      "endDate": "2019-10-17",
+                                                      "proceedingsConcluded": false
+                                                  }
+                                              ]
+                                          }
+                                      ],
+                                      "hearings": [
+                                          {
+                                              "hearingId": "8f23cfd3-d4ff-4e90-b018-03385b7a96d3",
+                                              "jurisdictionType": "CROWN",
+                                              "courtCentre": {
+                                                  "id": "f30b31b7-41f3-4b30-a482-1b3c89f8c4b7",
+                                                  "name": "Random string",
+                                                  "welshName": "Llinyn ar hap",
+                                                  "roomId": "c2181e2b-be46-4d82-9ac6-1c02e4cc7dbb",
+                                                  "roomName": "Grand Hall",
+                                                  "welshRoomName": "Neuadd y Grand"
+                                              },
+                                              "type": {
+                                                  "id": "c4278f10-8f17-446d-8e3b-85236687a1f4",
+                                                  "description": "This is a description",
+                                                  "code": "12D10JAS"
+                                              },
+                                              "defendants": [
+                                                  "ecca893f-0928-4fc6-ae50-6a8794b78c5c"
+                                              ]
+                                          }
+                                      ]
+                                  }
+        '401':
+          description: Unauthorized
+securityDefinitions:
+  oAuth: {}
+components:
+  securitySchemes:
+    oAuth:
+      in: header
+      type: oauth2
+      description: OAuth2 client credentials flow
+      flows:
+        clientCredentials:
+          scopes: []
+          tokenUrl: http://localhost:3000/oauth/token
