@@ -5,12 +5,12 @@ module Api
     module V1
       class LaaReferencesController < ApplicationController
         def create
-          contract = LaaReferenceCreator.call(**transformed_params)
-          if contract.errors.present?
-            render json: contract.errors.to_hash, status: :bad_request
-          else
-            LaaReferenceUpdaterJob.perform_later(contract)
+          contract = NewLaaReferenceContract.new.call(**transformed_params)
+          if contract.success?
+            LaaReferenceCreatorJob.perform_later(**transformed_params)
             render status: :accepted
+          else
+            render json: contract.errors.to_hash, status: :bad_request
           end
         end
 
@@ -25,7 +25,7 @@ module Api
         end
 
         def transformed_params
-          create_params.slice(*allowed_params).to_hash.transform_keys(&:to_sym)
+          create_params.slice(*allowed_params).to_hash.transform_keys(&:to_sym).compact
         end
       end
     end

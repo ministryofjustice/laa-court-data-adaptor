@@ -2,8 +2,7 @@
 
 class ProsecutionCaseRecorder < ApplicationService
   def initialize(prosecution_case_id, body)
-    @prosecution_case =
-      ProsecutionCase.find_or_initialize_by(id: prosecution_case_id)
+    @prosecution_case = ProsecutionCase.find_or_initialize_by(id: prosecution_case_id)
     @body = body
   end
 
