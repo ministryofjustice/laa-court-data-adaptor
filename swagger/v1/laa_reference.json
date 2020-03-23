@@ -46,6 +46,18 @@
         "relationships": {
           "$ref": "#/definitions/relationships"
         }
+      },
+    },
+    "resource_to_delete": {
+      "description": "object representing a single laa_reference to be deleted",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
       }
     },
     "attributes": {
@@ -97,6 +109,25 @@
         "properties": {
           "data": {
             "$ref": "#/definitions/new_resource"
+          }
+        }
+      },
+      "http_header": {
+        "Content-Type": "application/vnd.api+json",
+        "Authorization": "Bearer <TOKEN>"
+      }
+    },
+    {
+      "description": "Delete an LaaReference.",
+      "href": "laa_reference.json",
+      "method": "DELETE",
+      "rel": "empty",
+      "title": "Delete",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/resource_to_delete"
           }
         }
       },
