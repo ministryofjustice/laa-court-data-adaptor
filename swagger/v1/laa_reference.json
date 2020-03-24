@@ -30,6 +30,23 @@
       "minimum": 0,
       "maximum": 999999999
     },
+    "user_id": {
+      "example": "example-username",
+      "description": "The user_id of the caseworker linking or unlinking the case",
+      "type": "string"
+    },
+    "unlink_reason_id": {
+      "example": 1,
+      "description": "Id of the reason for unlinking the case",
+      "type": "number",
+      "minimum": 1,
+      "maximum": 7
+    },
+    "unlink_reason_text": {
+      "example": "Linked to incorrect case",
+      "description": "Text describing the reason for unlinking the case",
+      "type": "string"
+    },
     "identity": {
       "$ref": "#/definitions/id"
     },
@@ -65,6 +82,15 @@
       "properties": {
         "maat_reference": {
           "$ref": "#/definitions/maat_reference"
+        },
+        "user_id": {
+          "$ref": "#/definitions/user_id"
+        },
+        "unlink_reason_id": {
+          "$ref": "#/definitions/unlink_reason_id"
+        },
+        "unlink_reason_text": {
+          "$ref": "#/definitions/unlink_reason_text"
         }
       }
     },
@@ -140,6 +166,15 @@
   "properties": {
     "maat_reference": {
       "$ref": "#/definitions/maat_reference"
+    },
+    "user_id": {
+      "$ref": "#/definitions/user_id"
+    },
+    "unlink_reason_id": {
+      "$ref": "#/definitions/unlink_reason_id"
+    },
+    "unlink_reason_text": {
+      "$ref": "#/definitions/unlink_reason_text"
     }
   }
 }
