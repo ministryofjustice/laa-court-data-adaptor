@@ -16,6 +16,9 @@ RSpec.describe Sqs::PublishLaaReference do
       maatId: maat_reference,
       caseUrn: 'TFL12345',
       asn: 'arrest123',
+      cjsAreaCode: 16,
+      cjsLocation: 'B16BG',
+      createdUser: 'cpUser',
       docLanguage: 'EN',
       isActive: false,
       defendant: {
@@ -24,16 +27,23 @@ RSpec.describe Sqs::PublishLaaReference do
         nino: 'BN102966C',
         offences: [
           {
-            offenceCode: 'Random string',
+            offenceCode: 'AA06035',
+            modeOfTrial: 1,
             asnSeq: 1,
             offenceShortTitle: 'Random string',
             offenceWording: 'Random string',
-            modeOfTrial: 'Random string',
-            results: [{ asnSeq: 1 }]
+            results: [{
+              asnSeq: 1,
+              resultCode: 3026
+            }]
           }
         ]
       },
-      sessions: []
+      sessions: [{
+        courtLocation: 'B16BG',
+        dateOfHearing: '2020-08-16',
+        postHearingCustody: 'R'
+      }]
     }
   end
 
