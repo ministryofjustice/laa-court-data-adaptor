@@ -9,6 +9,11 @@ Rails.application.routes.draw do
       api_version(module: 'V1', path: { value: 'v1' }, default: true) do
         resources :prosecution_cases, only: [:index]
         resources :laa_references, only: [:create]
+        resources :defendants, param: :defendant_id, only: [] do
+          member do
+            delete 'relationships/laa_references' => 'defendants#destroy_laa_references'
+          end
+        end
       end
     end
     namespace :external do

@@ -33,6 +33,31 @@ paths:
           description: Bad Request
         '401':
           description: Unauthorized
+  "/api/internal/v1/defendants/{defendant_id}/relationships/laa_references":
+    delete:
+      summary: delete defendant relationships
+      description: Delete an LAA reference from Common Platform case
+      consumes:
+      - application/json
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: defendant_id
+        in: path
+        required: true
+        type: object
+        schema:
+          "$ref": defendant.json#/definitions/id
+        description: The unique identifier of the defendant
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
   "/api/internal/v1/laa_references":
     post:
       summary: post laa_reference
