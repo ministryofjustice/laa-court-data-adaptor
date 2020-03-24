@@ -51,6 +51,12 @@
         }
       ]
     },
+    "is_linked": {
+      "readOnly": true,
+      "example": false,
+      "description": "Boolean indicating if a defendant is linked to a MAAT ID or not",
+      "type": "boolean"
+    },
     "nino": {
       "readOnly": true,
       "example": "BN102966C",
@@ -94,6 +100,9 @@
         },
         "national_insurance_number": {
           "$ref": "#/definitions/nino"
+        },
+        "is_linked": {
+          "$ref": "#/definitions/is_linked"
         },
         "arrest_summons_number": {
           "$ref": "prosecution_case.json#/definitions/arrest_summons_number"
@@ -155,6 +164,9 @@
     },
     "national_insurance_number": {
       "$ref": "#/definitions/nino"
+    },
+    "is_linked": {
+      "$ref": "#/definitions/is_linked"
     },
     "arrest_summons_number": {
       "$ref": "prosecution_case.json#/definitions/arrest_summons_number"

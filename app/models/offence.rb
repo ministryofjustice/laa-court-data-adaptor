@@ -24,4 +24,14 @@ class Offence
   def mode_of_trial
     body['modeOfTrial']
   end
+
+  def maat_reference
+    laa_reference['applicationReference'] if laa_reference.present?
+  end
+
+  private
+
+  def laa_reference
+    body['laaApplnReference']
+  end
 end

@@ -36,4 +36,8 @@ class Defendant
   def offence_ids
     offences.map(&:id)
   end
+
+  def linked?
+    offences.map(&:maat_reference).compact.present?
+  end
 end

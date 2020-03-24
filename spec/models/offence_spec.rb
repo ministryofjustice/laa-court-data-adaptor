@@ -25,4 +25,23 @@ RSpec.describe Offence, type: :model do
   it { expect(offence.order_index).to eq(1) }
   it { expect(offence.title).to eq('Fail to wear protective clothing / meet other criteria on entering quarantine centre/facility') }
   it { expect(offence.mode_of_trial).to eq('Indictable-Only Offence') }
+  it { expect(offence.maat_reference).to be_nil }
+
+  context 'with an LAA reference' do
+    let(:laa_reference) do
+      {
+        'laaApplnReference' => {
+          'applicationReference' => 'AB746921',
+          'statusId' => 'f644b843-a0a9-4344-81c5-ec484805775c',
+          'statusCode' => 'GR',
+          'statusDescription' => 'FAKE NEWS',
+          'statusDate' => '1980-07-15'
+        }
+      }
+    end
+
+    subject(:offence) { described_class.new(body: offence_hash.merge(laa_reference)) }
+
+    it { expect(offence.maat_reference).to eq('AB746921') }
+  end
 end

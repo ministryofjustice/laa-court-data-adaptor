@@ -9,7 +9,8 @@ RSpec.describe Defendant, type: :model do
       },
       'dateOfBirth' => '1971-05-12',
       'nationalInsuranceNumber' => 'BN102966C',
-      'arrestSummonsNumber' => 'ARREST123'
+      'arrestSummonsNumber' => 'ARREST123',
+      'offences' => []
     }
   end
 
@@ -20,4 +21,18 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.date_of_birth).to eq('1971-05-12') }
   it { expect(defendant.national_insurance_number).to eq('BN102966C') }
   it { expect(defendant.arrest_summons_number).to eq('ARREST123') }
+  it { expect(defendant.linked?).to eq(false) }
+
+  context 'when an offence has a maat reference' do
+    let(:offences) do
+      [instance_double('Offence', maat_reference: '123123'),
+       instance_double('Offence', maat_reference: nil)]
+    end
+
+    before do
+      allow(defendant).to receive(:offences).and_return(offences)
+    end
+
+    it { expect(defendant.linked?).to eq(true) }
+  end
 end
