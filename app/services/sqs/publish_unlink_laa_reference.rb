@@ -10,7 +10,7 @@ module Sqs
     end
 
     def call
-      MessagePublisher.call(message: message)
+      MessagePublisher.call(message: message, queue_url: Rails.configuration.x.aws.sqs_url_unlink)
     end
 
     private

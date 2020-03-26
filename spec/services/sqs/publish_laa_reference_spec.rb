@@ -49,8 +49,12 @@ RSpec.describe Sqs::PublishLaaReference do
 
   subject { described_class.call(prosecution_case_id: prosecution_case_id, defendant_id: defendant_id, maat_reference: maat_reference) }
 
+  before do
+    allow(Rails.configuration.x.aws).to receive(:sqs_url_link).and_return('/link-sqs-url')
+  end
+
   it 'triggers a publish call with the sqs payload' do
-    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload)
+    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: '/link-sqs-url')
     subject
   end
 end

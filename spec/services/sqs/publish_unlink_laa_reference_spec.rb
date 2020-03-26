@@ -17,8 +17,12 @@ RSpec.describe Sqs::PublishUnlinkLaaReference do
 
   subject { described_class.call(maat_reference: maat_reference, user_name: user_name, unlink_reason_code: unlink_reason_code, unlink_reason_text: unlink_reason_text) }
 
+  before do
+    allow(Rails.configuration.x.aws).to receive(:sqs_url_unlink).and_return('/unlink-sqs-url')
+  end
+
   it 'triggers a publish call with the sqs payload' do
-    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload)
+    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: '/unlink-sqs-url')
     subject
   end
 end
