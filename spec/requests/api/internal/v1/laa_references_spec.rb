@@ -7,6 +7,24 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
 
   let(:token) { access_token }
   let(:mock_laa_reference_updater_job) { double LaaReferenceCreatorJob }
+  let(:laa_reference) do
+    {
+      data: {
+        type: 'laa_references',
+        attributes: {
+          maat_reference: 1_231_231
+        },
+        relationships: {
+          defendant: {
+            data: {
+              type: 'defendants',
+              id: SecureRandom.uuid
+            }
+          }
+        }
+      }
+    }
+  end
 
   before do
     allow(LaaReferenceCreatorJob).to receive(:new).and_return(mock_laa_reference_updater_job)
@@ -35,32 +53,22 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
 
         let(:Authorization) { "Bearer #{token.token}" }
 
-        let(:laa_reference) do
-          {
-            data: {
-              type: 'laa_references',
-              attributes: {
-                maat_reference: 1_231_231
-              },
-              relationships: {
-                defendant: {
-                  data: {
-                    type: 'defendants',
-                    id: SecureRandom.uuid
-                  }
-                }
-              }
-            }
-          }
-        end
-
         run_test!
       end
 
-      context 'missing data' do
+      context 'with a blank maat_reference' do
+        response('202', 'Accepted') do
+          before { laa_reference[:data][:attributes].delete(:maat_reference) }
+          let(:Authorization) { "Bearer #{token.token}" }
+
+          run_test!
+        end
+      end
+
+      context 'with an invalid maat_reference' do
         response('400', 'Bad Request') do
           let(:Authorization) { "Bearer #{token.token}" }
-          let(:laa_reference) {}
+          before { laa_reference[:data][:attributes][:maat_reference] = 'ABC123123' }
 
           run_test!
         end

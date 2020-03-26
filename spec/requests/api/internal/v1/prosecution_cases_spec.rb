@@ -7,6 +7,7 @@ RSpec.describe 'api/internal/v1/prosecution_cases', type: :request, swagger_doc:
 
   let(:token) { access_token }
   let(:schema) { File.read('swagger/v1/schema.json') }
+  let(:include) {}
 
   path '/api/internal/v1/prosecution_cases' do
     get('search prosecution_cases') do
@@ -94,8 +95,11 @@ RSpec.describe 'api/internal/v1/prosecution_cases', type: :request, swagger_doc:
                         ]
                     }'
 
+          parameter name: 'include', in: :query, required: false, type: :string
+
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { 'TFL12345' }
+          let(:include) { 'defendants,defendants.offences' }
 
           run_test! do |response|
             expect(response.body).to be_valid_against_schema(schema: schema)
