@@ -30,23 +30,6 @@
       "minimum": 0,
       "maximum": 999999999
     },
-    "user_id": {
-      "example": "example-username",
-      "description": "The user_id of the caseworker linking or unlinking the case",
-      "type": "string"
-    },
-    "unlink_reason_id": {
-      "example": 1,
-      "description": "Id of the reason for unlinking the case",
-      "type": "number",
-      "minimum": 1,
-      "maximum": 7
-    },
-    "unlink_reason_text": {
-      "example": "Linked to incorrect case",
-      "description": "Text describing the reason for unlinking the case",
-      "type": "string"
-    },
     "identity": {
       "$ref": "#/definitions/id"
     },
@@ -65,32 +48,11 @@
         }
       },
     },
-    "resource_to_delete": {
-      "description": "object representing a single laa_reference to be deleted",
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/type"
-        },
-        "attributes": {
-          "$ref": "#/definitions/attributes"
-        }
-      }
-    },
     "attributes": {
       "type": "object",
       "properties": {
         "maat_reference": {
           "$ref": "#/definitions/maat_reference"
-        },
-        "user_id": {
-          "$ref": "#/definitions/user_id"
-        },
-        "unlink_reason_id": {
-          "$ref": "#/definitions/unlink_reason_id"
-        },
-        "unlink_reason_text": {
-          "$ref": "#/definitions/unlink_reason_text"
         }
       }
     },
@@ -142,39 +104,11 @@
         "Content-Type": "application/vnd.api+json",
         "Authorization": "Bearer <TOKEN>"
       }
-    },
-    {
-      "description": "Delete an LaaReference.",
-      "href": "laa_reference.json",
-      "method": "DELETE",
-      "rel": "empty",
-      "title": "Delete",
-      "schema": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/definitions/resource_to_delete"
-          }
-        }
-      },
-      "http_header": {
-        "Content-Type": "application/vnd.api+json",
-        "Authorization": "Bearer <TOKEN>"
-      }
     }
   ],
   "properties": {
     "maat_reference": {
       "$ref": "#/definitions/maat_reference"
-    },
-    "user_id": {
-      "$ref": "#/definitions/user_id"
-    },
-    "unlink_reason_id": {
-      "$ref": "#/definitions/unlink_reason_id"
-    },
-    "unlink_reason_text": {
-      "$ref": "#/definitions/unlink_reason_text"
     }
   }
 }
