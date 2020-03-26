@@ -2,10 +2,10 @@
 
 module Sqs
   class PublishUnlinkLaaReference < ApplicationService
-    def initialize(maat_reference:, user_id:, unlink_reason_id:, unlink_reason_text:)
+    def initialize(maat_reference:, user_name:, unlink_reason_code:, unlink_reason_text:)
       @maat_reference = maat_reference
-      @user_id = user_id
-      @unlink_reason_id = unlink_reason_id
+      @user_name = user_name
+      @unlink_reason_code = unlink_reason_code
       @unlink_reason_text = unlink_reason_text
     end
 
@@ -18,12 +18,12 @@ module Sqs
     def message
       {
         maatId: maat_reference,
-        userId: user_id,
-        unlinkReasonId: unlink_reason_id,
+        userId: user_name,
+        unlinkReasonId: unlink_reason_code,
         unlinkReasonText: unlink_reason_text
       }
     end
 
-    attr_reader :maat_reference, :user_id, :unlink_reason_id, :unlink_reason_text
+    attr_reader :maat_reference, :user_name, :unlink_reason_code, :unlink_reason_text
   end
 end

@@ -46,7 +46,7 @@ module Api
     def update_database(response)
       offence = ProsecutionCaseDefendantOffence.find_by(offence_id: offence_id)
       offence.maat_reference = application_reference
-      offence.dummy_maat_reference = (application_reference.to_s[0] == 'A')
+      offence.dummy_maat_reference = (%w[A Z].include? application_reference.to_s[0])
       offence.rep_order_status = status_code
       offence.response_status = response.status
       offence.response_body = response.body
