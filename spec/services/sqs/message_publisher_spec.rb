@@ -10,10 +10,8 @@ RSpec.describe Sqs::MessagePublisher do
     subject
   end
 
-  context 'when the queue url is configured' do
-    before do
-      allow(Rails.configuration.x.aws).to receive(:sqs_url_link).and_return('/fancy-sqs-url')
-    end
+  context 'when the queue url is provided' do
+    subject { described_class.call(message: { blah: 'blah' }, queue_url: '/fancy-sqs-url', sqs_client: client_double) }
 
     it 'publishes a message to the sqs queue as json' do
       expect(client_double).to receive(:send_message).with(queue_url: '/fancy-sqs-url', message_body: '{"blah":"blah"}')

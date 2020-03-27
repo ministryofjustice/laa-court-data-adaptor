@@ -2,9 +2,10 @@
 
 module Sqs
   class MessagePublisher < ApplicationService
-    def initialize(message:, sqs_client: Aws::SQS::Client.new)
+    def initialize(message:, queue_url: nil, sqs_client: Aws::SQS::Client.new)
       @sqs_client = sqs_client
       @message = message
+      @queue_url = queue_url
     end
 
     def call
@@ -13,14 +14,10 @@ module Sqs
 
     private
 
-    def queue_url
-      Rails.configuration.x.aws.sqs_url_link
-    end
-
     def messaging_enabled?
       queue_url.present?
     end
 
-    attr_reader :sqs_client, :message
+    attr_reader :sqs_client, :message, :queue_url
   end
 end

@@ -38,6 +38,7 @@ module LaaCourtDataAdaptor
 
     config.x.common_platform_url = ENV.fetch('COMMON_PLATFORM_URL')
     config.x.aws.sqs_url_link = ENV['AWS_LINK_QUEUE_URL']
+    config.x.aws.sqs_url_unlink = ENV['AWS_UNLINK_QUEUE_URL']
 
     config.active_record.schema_format = :sql
   end

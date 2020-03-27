@@ -79,6 +79,11 @@ spec:
                 secretKeyRef:
                   name: ca-messaging-queues-output
                   key: sqs_url_link
+            - name: AWS_UNLINK_QUEUE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ca-messaging-queues-output
+                  key: sqs_url_unlink
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
