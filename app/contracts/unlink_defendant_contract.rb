@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
-class UnlinkDefendantContract < Dry::Validation::Contract
-  UUID_REGEXP = /\A[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\z/.freeze
-
+class UnlinkDefendantContract < ApplicationContract
   params do
-    required(:defendant_id).filled(:str?, size?: 36, format?: UUID_REGEXP)
+    required(:defendant_id).value(:string)
+    required(:user_name).value(:string)
+    required(:unlink_reason_code).value(:integer)
+    required(:unlink_reason_text).value(:string)
+  end
+
+  rule(:defendant_id).validate(:uuid)
+
+  rule(:user_name) do
+    key.failure('must not exceed 10 characters') if value.length > 10
   end
 end
