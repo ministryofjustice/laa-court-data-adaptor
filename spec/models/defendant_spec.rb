@@ -21,18 +21,65 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.date_of_birth).to eq('1971-05-12') }
   it { expect(defendant.national_insurance_number).to eq('BN102966C') }
   it { expect(defendant.arrest_summons_number).to eq('ARREST123') }
-  it { expect(defendant.linked?).to eq(false) }
+  it { expect(defendant.maat_reference).to be_nil }
 
-  context 'when an offence has a maat reference' do
-    let(:offences) do
-      [instance_double('Offence', maat_reference: '123123'),
-       instance_double('Offence', maat_reference: nil)]
-    end
-
+  describe '#maat_reference' do
     before do
       allow(defendant).to receive(:offences).and_return(offences)
     end
 
-    it { expect(defendant.linked?).to eq(true) }
+    context 'with no offences' do
+      let(:offences) { [] }
+
+      it { expect(defendant.maat_reference).to be_nil }
+    end
+
+    context 'when offence with no maat reference' do
+      let(:offences) do
+        [instance_double('Offence', maat_reference: nil)]
+      end
+
+      it { expect(defendant.maat_reference).to be_nil }
+    end
+
+    context 'when there are multiple offences' do
+      context 'with nil and not-nil maat references' do
+        let(:offences) do
+          [instance_double('Offence', maat_reference: '123123'),
+           instance_double('Offence', maat_reference: nil)]
+        end
+
+        it { expect(defendant.maat_reference).to eq('123123') }
+      end
+
+      context 'with duplicate maat references' do
+        let(:offences) do
+          [instance_double('Offence', maat_reference: '123123'),
+           instance_double('Offence', maat_reference: nil),
+           instance_double('Offence', maat_reference: '123123')]
+        end
+
+        it { expect(defendant.maat_reference).to eq('123123') }
+      end
+
+      context 'with different maat references' do
+        let(:offences) do
+          [instance_double('Offence', maat_reference: '123123'),
+           instance_double('Offence', maat_reference: nil),
+           instance_double('Offence', maat_reference: '321321')]
+        end
+
+        it { expect { defendant.maat_reference }.to raise_error StandardError, 'Too many maat references' }
+      end
+    end
+
+    context 'when an offence has an unlink maat reference' do
+      let(:offences) do
+        [instance_double('Offence', maat_reference: 'Z123123'),
+         instance_double('Offence', maat_reference: nil)]
+      end
+
+      it { expect(defendant.maat_reference).to be_nil }
+    end
   end
 end

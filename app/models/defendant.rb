@@ -37,7 +37,16 @@ class Defendant
     offences.map(&:id)
   end
 
-  def linked?
-    offences.map(&:maat_reference).compact.present?
+  def maat_reference
+    _maat_reference unless _maat_reference&.start_with?('Z')
+  end
+
+  private
+
+  def _maat_reference
+    refs = offences.map(&:maat_reference).uniq.compact
+    raise 'Too many maat references' if refs.size > 1
+
+    refs&.first
   end
 end
