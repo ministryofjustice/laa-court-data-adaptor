@@ -38,8 +38,15 @@ class Defendant
   end
 
   def maat_reference
-    return nil if offences == [] || offences.first.maat_reference&.first == 'Z'
+    _maat_reference unless _maat_reference&.start_with?('Z')
+  end
 
-    offences.first.maat_reference
+  private
+
+  def _maat_reference
+    refs = offences.map(&:maat_reference).uniq.compact
+    raise 'Too many maat references' if refs.size > 1
+
+    refs&.first
   end
 end
