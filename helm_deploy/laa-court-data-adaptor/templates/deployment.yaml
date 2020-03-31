@@ -74,6 +74,7 @@ spec:
                 secretKeyRef:
                   name: laa-court-data-adaptor-secrets
                   key: common-platform-hearing-key
+            {{- if .Values.sqs_messaging_enabled }}
             - name: AWS_LINK_QUEUE_URL
               valueFrom:
                 secretKeyRef:
@@ -96,6 +97,7 @@ spec:
                   key: secret_access_key
             - name: AWS_REGION
               value: {{ .Values.sqs_region }}
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
