@@ -33,7 +33,7 @@ RSpec.configure do |config|
             flows: {
               clientCredentials: {
                 scopes: [],
-                tokenUrl: 'http://localhost:3000/oauth/token'
+                tokenUrl: '/oauth/token'
               }
             }
           }
