@@ -95,7 +95,10 @@ RSpec.describe 'api/internal/v1/prosecution_cases', type: :request, swagger_doc:
                         ]
                     }'
 
-          parameter name: 'include', in: :query, required: false, type: :string
+          parameter name: 'include', in: :query, required: false, type: :string,
+                    schema: {},
+                    description: 'Return defendant and offence data through a has_many relationship </br>
+                                  eg include=defendants,defendants.offences'
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { 'TFL12345' }
