@@ -24,6 +24,7 @@ RSpec.describe Api::RecordRepresentationOrder do
       application_reference: 'SOME SORT OF MAAT ID',
       status_date: '2019-12-12',
       effective_start_date: '2019-12-15',
+      effective_end_date: '2020-12-15',
       defence_organisation: defence_organisation
     }
   end
@@ -47,6 +48,7 @@ RSpec.describe Api::RecordRepresentationOrder do
         applicationReference: 'SOME SORT OF MAAT ID',
         statusDate: '2019-12-12',
         effectiveStartDate: '2019-12-15',
+        effectiveEndDate: '2020-12-15',
         defenceOrganisation: defence_organisation
       }
     end
@@ -56,6 +58,27 @@ RSpec.describe Api::RecordRepresentationOrder do
     it 'makes a post request' do
       expect(connection).to receive(:post).with(url, request_params, headers)
       subject
+    end
+
+    context 'without an effective_end_date' do
+      before do
+        params.delete(:effective_end_date)
+      end
+
+      let(:request_params) do
+        {
+          statusCode: 'ABCDEF',
+          applicationReference: 'SOME SORT OF MAAT ID',
+          statusDate: '2019-12-12',
+          effectiveStartDate: '2019-12-15',
+          defenceOrganisation: defence_organisation
+        }
+      end
+
+      it 'posts successfully without the effectiveEndDate' do
+        expect(connection).to receive(:post).with(url, request_params, headers)
+        subject
+      end
     end
   end
 end

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class NewLaaReferenceContract < ApplicationContract
-  params do
-    optional(:maat_reference).value(:integer)
+class NewLaaReferenceContract < Dry::Validation::Contract
+  option :uuid_validator, default: -> { CommonPlatform::UuidValidator }
+
+  json do
+    optional(:maat_reference).value(:integer, lt?: 999_999_999)
     required(:defendant_id).value(:string)
   end
 
-  rule(:defendant_id).validate(:uuid)
-
-  rule(:maat_reference) do
-    key.failure('must not exceed 9 digits') if key? && value > 999_999_999
+  rule(:defendant_id) do
+    key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value)
   end
 end

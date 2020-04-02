@@ -26,6 +26,7 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Exclude:
   - 'config/routes.rb'
+  - 'app/contracts/new_representation_order_contract.rb'
   - 'spec/**/*'
 
 Metrics/MethodLength:
