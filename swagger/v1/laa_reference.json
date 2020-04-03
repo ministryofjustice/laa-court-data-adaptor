@@ -46,7 +46,7 @@
         "relationships": {
           "$ref": "#/definitions/relationships"
         }
-      },
+      }
     },
     "attributes": {
       "type": "object",

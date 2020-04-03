@@ -140,7 +140,7 @@
               "$ref": "#/definitions/unlink_reason_text"
             }
           }
-        },
+        }
       }
     }
   },
