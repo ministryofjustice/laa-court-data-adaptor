@@ -17,20 +17,20 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
       organisation: {
         name: 'SOME ORGANISATION',
         address: {
-          address1: 'String',
-          address2: 'String',
-          address3: 'String',
-          address4: 'String',
-          address5: 'String',
+          address1: '102',
+          address2: 'Petty France',
+          address3: 'Floor 5',
+          address4: 'St James',
+          address5: 'Westminster',
           postcode: 'EC4A 2AH'
         },
         contact: {
           home: '+99999',
-          work: 'String',
+          work: 'CALL ME 888',
           mobile: '+99999',
           primary_email: 'a@example.com',
           secondary_email: 'a@example.com',
-          fax: 'String'
+          fax: 'ABC123123'
         }
       }
     }
@@ -83,7 +83,7 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
           end
         end
 
-        parameter name: :representation_order, in: :body, required: false, type: :object,
+        parameter name: :representation_order, in: :body, required: true, type: :object,
                   schema: {
                     '$ref': 'representation_order.json#/definitions/new_resource'
                   },
