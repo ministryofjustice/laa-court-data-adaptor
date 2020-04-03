@@ -95,9 +95,9 @@ spec:
                 secretKeyRef:
                   name: ca-messaging-queues-output
                   key: secret_access_key
+            {{- end }}
             - name: AWS_REGION
               value: {{ .Values.sqs_region }}
-            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
