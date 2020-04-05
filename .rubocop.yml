@@ -9,6 +9,9 @@ AllCops:
   - 'vendor/**/*'
   - 'node_modules/**/*'
 
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
 Lint/AmbiguousBlockAssociation:
   Exclude:
   - 'spec/**/*'
@@ -42,6 +45,9 @@ Style/BlockDelimiters:
 Style/Documentation:
   Exclude:
   - '**/*'
+
+Style/ExponentialNotation:
+  Enabled: true
 
 Style/SymbolArray:
   EnforcedStyle: percent
