@@ -23,7 +23,6 @@ RSpec.configure do |config|
         version: 'v1'
       },
       paths: {},
-      securityDefinitions: { oAuth: {} },
       components: {
         securitySchemes: {
           oAuth: {
