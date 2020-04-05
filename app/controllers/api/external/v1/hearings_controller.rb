@@ -5,12 +5,12 @@ module Api
     module V1
       class HearingsController < ApplicationController
         def create
-          @hearing = HearingRecorder.call(params[:hearing][:id], hearing_params)
-
-          if @hearing.valid?
-            head :created
+          contract = HearingContract.new.call(**transformed_params)
+          if contract.success?
+            @hearing = HearingRecorder.call(params[:hearing][:id], hearing_params)
+            head :accepted
           else
-            render json: @hearing.errors, status: :unprocessable_entity
+            render json: contract.errors.to_hash, status: :unprocessable_entity
           end
         end
 
@@ -20,6 +20,10 @@ module Api
         def hearing_params
           params.require(%i[sharedTime hearing])
           params.permit(:sharedTime, hearing: {})
+        end
+
+        def transformed_params
+          hearing_params.to_hash.transform_keys(&:to_sym).compact
         end
       end
     end
