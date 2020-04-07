@@ -9,7 +9,6 @@
   "definitions": {
     "id": {
       "description": "unique identifier of offence",
-      "readOnly": true,
       "format": "uuid",
       "type": [
         "string"

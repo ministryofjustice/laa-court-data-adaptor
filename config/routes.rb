@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         resources :prosecution_cases, only: [:index]
         resources :laa_references, only: [:create]
         resources :defendants, only: [:update]
+        resources :representation_orders, only: [:create]
       end
     end
     namespace :external do

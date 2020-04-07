@@ -8,7 +8,6 @@ RSpec.describe UnlinkLaaReferenceJob, type: :job do
     end
 
     it 'queues a call to update the laa reference' do
-      ActiveJob::Base.queue_adapter = :test
       expect {
         job
       }.to have_enqueued_job
