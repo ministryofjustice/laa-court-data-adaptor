@@ -130,7 +130,11 @@ CREATE TABLE public.prosecution_case_defendant_offences (
     dummy_maat_reference boolean DEFAULT false NOT NULL,
     rep_order_status character varying,
     response_status integer,
-    response_body json
+    response_body json,
+    status_date timestamp without time zone,
+    effective_start_date timestamp without time zone,
+    effective_end_date timestamp without time zone,
+    defence_organisation json
 );
 
 
@@ -326,6 +330,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200210053550'),
 ('20200304144205'),
 ('20200310210135'),
-('20200310222258');
+('20200310222258'),
+('20200407083117');
 
 

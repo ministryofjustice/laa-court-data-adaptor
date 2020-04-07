@@ -48,6 +48,7 @@ module Api
       offence.maat_reference = application_reference
       offence.dummy_maat_reference = (%w[A Z].include? application_reference.to_s[0])
       offence.rep_order_status = status_code
+      offence.status_date = status_date
       offence.response_status = response.status
       offence.response_body = response.body
       offence.save!
