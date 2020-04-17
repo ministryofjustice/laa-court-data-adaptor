@@ -19,7 +19,7 @@ RSpec.describe ProsecutionCaseSearcher do
     it 'returns a successful response' do
       VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success') do
         expect(subject.status).to eq(200)
-        expect(subject.body[0]['prosecutionCaseReference']).to eq(prosecution_case_reference)
+        expect(subject.body['cases'][0]['prosecutionCaseReference']).to eq(prosecution_case_reference)
         search
       end
     end
@@ -81,7 +81,7 @@ RSpec.describe ProsecutionCaseSearcher do
     subject { described_class.call(prosecution_case_reference: prosecution_case_reference, shared_key: 'SECRET KEY', connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
-    let(:url) { '/search/case/prosecutionCases' }
+    let(:url) { '/prosecutionCases' }
     let(:params) { { prosecutionCaseReference: prosecution_case_reference } }
     let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
 

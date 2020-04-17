@@ -3,9 +3,9 @@
 RSpec.describe Api::RecordRepresentationOrder do
   subject { described_class.call(params) }
 
-  let(:prosecution_case_id) { 'b9950946-fe3b-4eaa-9f0a-35e497e34528' }
-  let(:defendant_id) { '23d7f10a-067a-476e-bba6-bb855674e23b' }
-  let(:offence_id) { '147fed98-ba8a-46cb-b2b4-7c41cf4734bf' }
+  let(:prosecution_case_id) { '5edd67eb-9d8c-44f2-a57e-c8d026defaa4' }
+  let(:defendant_id) { '2ecc9feb-9407-482f-b081-d9e5c8ba3ed3' }
+  let(:offence_id) { '3f153786-f3cf-4311-bc0c-2d6f48af68a1' }
   let(:defence_organisation) do
     {
       'organisation' => {
@@ -28,10 +28,7 @@ RSpec.describe Api::RecordRepresentationOrder do
       defence_organisation: defence_organisation
     }
   end
-
-  # rubocop:disable Layout/LineLength
-  let(:url) { "/receive/representation/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
-  # rubocop:enable Layout/LineLength
+  let(:url) { "/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
 
   let!(:case_defendant_offence) do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
@@ -39,9 +36,9 @@ RSpec.describe Api::RecordRepresentationOrder do
                                             offence_id: offence_id)
   end
 
-  it 'returns a no content status' do
+  it 'returns an accepted status' do
     VCR.use_cassette('representation_order_recorder/update') do
-      expect(subject.status).to eq(204)
+      expect(subject.status).to eq(202)
     end
   end
 
@@ -60,7 +57,7 @@ RSpec.describe Api::RecordRepresentationOrder do
     end
 
     before do
-      allow(connection).to receive(:post).and_return(Faraday::Response.new(status: 200, body: { 'test' => 'test' }))
+      allow(connection).to receive(:post).and_return(Faraday::Response.new(status: 202, body: { 'test' => 'test' }))
       params.merge!(shared_key: 'SECRET KEY', connection: connection)
     end
 
@@ -77,7 +74,7 @@ RSpec.describe Api::RecordRepresentationOrder do
       expect(case_defendant_offence.effective_end_date).to eq '2020-12-15'
       expect(case_defendant_offence.defence_organisation).to eq defence_organisation
       expect(case_defendant_offence.rep_order_status).to eq 'ABCDEF'
-      expect(case_defendant_offence.response_status).to eq(200)
+      expect(case_defendant_offence.response_status).to eq(202)
       expect(case_defendant_offence.response_body).to eq({ 'test' => 'test' })
     end
 

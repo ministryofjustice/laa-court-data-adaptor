@@ -25,7 +25,7 @@ RSpec.describe RepresentationOrderCreator do
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,
-      body: JSON.parse(file_fixture('prosecution_case_search_result.json').read)
+      body: JSON.parse(file_fixture('prosecution_case_search_result.json').read)['cases'][0]
     )
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
                                             defendant_id: defendant_id,

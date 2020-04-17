@@ -13,14 +13,14 @@ module Api
     private
 
     def successful_response?
-      response.status == 200 && response.body.present?
+      response.status == 200 && response.body['totalResults'].positive?
     end
 
     def record_search_results
-      response.body.map do |prosecution_case|
+      response.body['cases'].map do |prosecution_case|
         ProsecutionCaseRecorder.call(
-          prosecution_case['prosecutionCaseId'],
-          prosecution_case
+          prosecution_case_id: prosecution_case['prosecutionCaseId'],
+          body: prosecution_case
         )
       end
     end

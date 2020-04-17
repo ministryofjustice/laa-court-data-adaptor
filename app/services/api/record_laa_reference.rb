@@ -14,10 +14,10 @@ module Api
 
       @offence_id = offence_id
       @status_code = status_code
-      @application_reference = application_reference
+      @application_reference = application_reference.to_s
       @status_date = status_date
       @connection = connection
-      @url = '/record/laareference/progression-command-api'\
+      @url = '/progression-command-api'\
               '/command/api/rest/progression/laaReference'\
               "/cases/#{prosecution_case_id}"\
               "/defendants/#{defendant_id}"\
@@ -46,7 +46,7 @@ module Api
     def update_database(response)
       offence = ProsecutionCaseDefendantOffence.find_by(offence_id: offence_id)
       offence.maat_reference = application_reference
-      offence.dummy_maat_reference = (%w[A Z].include? application_reference.to_s[0])
+      offence.dummy_maat_reference = (%w[A Z].include? application_reference[0])
       offence.rep_order_status = status_code
       offence.status_date = status_date
       offence.response_status = response.status

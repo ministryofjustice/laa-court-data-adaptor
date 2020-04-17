@@ -7,7 +7,7 @@ RSpec.describe HearingFetcher do
 
   it 'returns the requested hearing info' do
     VCR.use_cassette('hearing_result_fetcher/success') do
-      expect(subject.body['hearing']['id']).to eq(hearing_id)
+      expect(subject.body['id']).to eq(hearing_id)
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe HearingFetcher do
     subject { described_class.call(hearing_id: hearing_id, shared_key: 'SECRET KEY', connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
-    let(:url) { 'hearing/result/LAAGetHearingHttpTrigger' }
+    let(:url) { '/LAAGetHearingHttpTrigger' }
     let(:params) { { hearingId: hearing_id } }
     let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
 

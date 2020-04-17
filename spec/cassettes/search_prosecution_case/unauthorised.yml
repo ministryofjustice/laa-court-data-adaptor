@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/search/case/prosecutionCases?prosecutionCaseReference=TFL12345"
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?prosecutionCaseReference=TFL12345"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.17.3
+      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - INCORRECT KEY
   response:
@@ -33,16 +33,14 @@ http_interactions:
       cache-control:
       - no-cache
       x-request-id:
-      - b4a278e7-bcd4-4df7-b9b2-f233fef39168
+      - 1cade4a0-bed3-4c51-993c-fec28b330780
       x-runtime:
-      - '0.003102'
-      connection:
-      - close
+      - '0.003323'
       transfer-encoding:
       - chunked
     body:
       encoding: UTF-8
       string: ''
-    http_version:
-  recorded_at: Wed, 05 Feb 2020 13:40:10 GMT
-recorded_with: VCR 5.0.0
+    http_version: null
+  recorded_at: Fri, 17 Apr 2020 14:39:30 GMT
+recorded_with: VCR 5.1.0

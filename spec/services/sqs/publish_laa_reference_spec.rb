@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe Sqs::PublishLaaReference do
-  let(:prosecution_case_id) { '7a0c947e-97b4-4c5a-ae6a-26320afc914d' }
-  let(:defendant_id) { '8cd0ba7e-df89-45a3-8c61-4008a2186d64' }
+  let(:prosecution_case_id) { '5edd67eb-9d8c-44f2-a57e-c8d026defaa4' }
+  let(:defendant_id) { '2ecc9feb-9407-482f-b081-d9e5c8ba3ed3' }
   let!(:prosecution_case) do
     ProsecutionCase.create!(
       id: prosecution_case_id,
-      body: JSON.parse(file_fixture('prosecution_case_search_result.json').read)
+      body: JSON.parse(file_fixture('prosecution_case_search_result.json').read)['cases'][0]
     )
   end
   let(:maat_reference) { 123_456 }
@@ -14,24 +14,24 @@ RSpec.describe Sqs::PublishLaaReference do
   let(:sqs_payload) do
     {
       maatId: maat_reference,
-      caseUrn: 'TFL12345',
-      asn: 'arrest123',
+      caseUrn: '20GD0217100',
+      asn: 'ARREST123',
       cjsAreaCode: 16,
       cjsLocation: 'B16BG',
       createdUser: 'cpUser',
       docLanguage: 'EN',
       isActive: false,
       defendant: {
-        defendantId: '8cd0ba7e-df89-45a3-8c61-4008a2186d64',
-        dateOfBirth: '1971-05-12',
-        nino: 'BN102966C',
+        defendantId: '2ecc9feb-9407-482f-b081-d9e5c8ba3ed3',
+        dateOfBirth: '1980-01-01',
+        nino: 'HB133542A',
         offences: [
           {
             offenceCode: 'AA06035',
             modeOfTrial: 1,
             asnSeq: 1,
-            offenceShortTitle: 'Random string',
-            offenceWording: 'Random string',
+            offenceShortTitle: 'Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable',
+            offenceWording: 'Test',
             results: [{
               asnSeq: 1,
               resultCode: 3026
