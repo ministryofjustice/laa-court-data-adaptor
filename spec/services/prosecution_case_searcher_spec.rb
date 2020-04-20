@@ -54,7 +54,7 @@ RSpec.describe ProsecutionCaseSearcher do
   context 'searching by name and date of birth' do
     let(:date_of_birth) { '1971-05-12' }
 
-    subject(:search) { described_class.call(first_name: 'Alfredine', last_name: 'Parker', date_of_birth: date_of_birth) }
+    subject(:search) { described_class.call(name: 'Alfredine Parker', date_of_birth: date_of_birth) }
 
     it 'returns a successful response' do
       VCR.use_cassette('search_prosecution_case/by_name_and_date_of_birth_success') do
@@ -67,7 +67,7 @@ RSpec.describe ProsecutionCaseSearcher do
   context 'searching by name and date_of_next_hearing' do
     let(:date_of_next_hearing) { '2025-05-04' }
 
-    subject(:search) { described_class.call(first_name: 'Alfredine', last_name: 'Parker', date_of_next_hearing: date_of_next_hearing) }
+    subject(:search) { described_class.call(name: 'Alfredine Parker', date_of_next_hearing: date_of_next_hearing) }
 
     it 'returns a successful response' do
       VCR.use_cassette('search_prosecution_case/by_name_and_date_of_next_hearing_success') do

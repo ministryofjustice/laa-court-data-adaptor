@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?dateOfNextHearing=2025-05-04&name%5BfirstName%5D=Alfredine&name%5BlastName%5D=Parker"
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?dateOfNextHearing=2025-05-04&defendantName=Alfredine+Parker"
     body:
       encoding: US-ASCII
       string: ''
@@ -31,13 +31,13 @@ http_interactions:
       content-type:
       - application/json; charset=utf-8
       etag:
-      - W/"ee4cd97d0c0066f16d7a96dc83ee1c51"
+      - W/"d54742752b1c54215c1600fc6239a2e2"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 746e04e9-6421-48a1-aa5e-0ae941ff7e68
+      - 336b820c-396c-4251-9da8-b2ce3bbffbf0
       x-runtime:
-      - '0.032459'
+      - '0.044120'
       transfer-encoding:
       - chunked
     body:
@@ -55,9 +55,9 @@ http_interactions:
         string","orderIndex":1,"offenceTitle":"Assault with weapon with intent to
         rob","offenceLegislation":"Forgery and Counterfeiting Act 1981 s.3","wording":"Random
         string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"999999","statusId":"67a17a45-20e3-44f6-863b-26fc55f1aad4","statusCode":"ABCDEF","statusDescription":"FAKE
+        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"999999","statusId":"1175a192-2ad0-4a0c-ac50-d8194bba97e1","statusCode":"ABCDEF","statusDescription":"FAKE
         NEWS","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","effectiveEndDate":"2020-12-15"}}],"representationOrder":{"applicationReference":"999999","effectiveFromDate":"2019-12-15T00:00:00.000Z","effectiveToDate":"2020-12-15T00:00:00.000Z","laaContractNumber":"CONTRACT
         REFERENCE"}}]}]}'
     http_version: null
-  recorded_at: Fri, 17 Apr 2020 14:39:29 GMT
+  recorded_at: Mon, 20 Apr 2020 12:48:11 GMT
 recorded_with: VCR 5.1.0

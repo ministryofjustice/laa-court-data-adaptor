@@ -32,18 +32,10 @@
             "string"
           ]
         },
-        "first_name": {
+        "name": {
           "readOnly": true,
           "example": "Elaf",
-          "description": "The fore name when the defendant is a person",
-          "type": [
-            "string"
-          ]
-        },
-        "last_name": {
-          "readOnly": true,
-          "example": "Alvi",
-          "description": "The last name when the defendant is a person",
+          "description": "The first name when the defendant is a person",
           "type": [
             "string"
           ]
@@ -109,11 +101,8 @@
             "object"
           ],
           "properties": {
-            "first_name": {
-              "$ref": "#/definitions/defendant/definitions/first_name"
-            },
-            "last_name": {
-              "$ref": "#/definitions/defendant/definitions/last_name"
+            "name": {
+              "$ref": "#/definitions/defendant/definitions/name"
             },
             "date_of_birth": {
               "$ref": "#/definitions/defendant/definitions/date_of_birth"
@@ -178,11 +167,8 @@
         }
       ],
       "properties": {
-        "first_name": {
-          "$ref": "#/definitions/defendant/definitions/first_name"
-        },
-        "last_name": {
-          "$ref": "#/definitions/defendant/definitions/last_name"
+        "name": {
+          "$ref": "#/definitions/defendant/definitions/name"
         },
         "date_of_birth": {
           "$ref": "#/definitions/defendant/definitions/date_of_birth"
@@ -765,11 +751,8 @@
             },
             {
               "properties": {
-                "first_name": {
-                  "$ref": "#/definitions/defendant/definitions/first_name"
-                },
-                "last_name": {
-                  "$ref": "#/definitions/defendant/definitions/last_name"
+                "name": {
+                  "$ref": "#/definitions/defendant/definitions/name"
                 },
                 "date_of_birth": {
                   "$ref": "#/definitions/defendant/definitions/date_of_birth"
@@ -778,11 +761,8 @@
             },
             {
               "properties": {
-                "first_name": {
-                  "$ref": "#/definitions/defendant/definitions/first_name"
-                },
-                "last_name": {
-                  "$ref": "#/definitions/defendant/definitions/last_name"
+                "name": {
+                  "$ref": "#/definitions/defendant/definitions/name"
                 },
                 "date_of_next_hearing": {
                   "$ref": "#/definitions/prosecution_case/definitions/date_of_next_hearing"

@@ -21,16 +21,10 @@
       "example": "defendants",
       "type": "string"
     },
-    "first_name": {
+    "name": {
       "readOnly": true,
       "example": "Alfredine",
-      "description": "The fore name when the defendant is a person",
-      "type": "string"
-    },
-    "last_name": {
-      "readOnly": true,
-      "example": "Parker",
-      "description": "The last name when the defendant is a person",
+      "description": "The full name when the defendant is a person",
       "type": "string"
     },
     "identity": {
@@ -100,11 +94,8 @@
     "attributes": {
       "type": "object",
       "properties": {
-        "first_name": {
-          "$ref": "#/definitions/first_name"
-        },
-        "last_name": {
-          "$ref": "#/definitions/last_name"
+        "name": {
+          "$ref": "#/definitions/name"
         },
         "date_of_birth": {
           "$ref": "#/definitions/date_of_birth"
@@ -207,11 +198,8 @@
     }
   ],
   "properties": {
-    "first_name": {
-      "$ref": "#/definitions/first_name"
-    },
-    "last_name": {
-      "$ref": "#/definitions/last_name"
+    "name": {
+      "$ref": "#/definitions/name"
     },
     "date_of_birth": {
       "$ref": "#/definitions/date_of_birth"

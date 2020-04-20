@@ -11,8 +11,7 @@ Defendants
 | ------- | ------- | ------- | ------- |
 | **[arrest_summons_number](#resource-prosecution_case)** | *string* | The police arrest summons number when the defendant is a person | `"MG25A11223344"` |
 | **date_of_birth** | *string* | The person date of birth when the defendant is a person | `"1954-02-23"` |
-| **first_name** | *string* | The fore name when the defendant is a person | `"Elaf"` |
-| **last_name** | *string* | The last name when the defendant is a person | `"Alvi"` |
+| **name** | *string* | The full name when the defendant is a person | `"Elaf"` |
 | **national_insurance_number** | *string* | National Insurance Number for a person | `"SJ336043A"` |
 
 ### <a name="link-GET-defendant-/defendants/{(%23%2Fdefinitions%2Fdefendant%2Fdefinitions%2Fidentity)}">Defendants Info</a>
@@ -42,8 +41,7 @@ HTTP/1.1 200 OK
   "type": "defendants",
   "id": "01234567-89ab-cdef-0123-456789abcdef",
   "attributes": {
-    "first_name": "Elaf",
-    "last_name": "Alvi",
+    "name": "Elaf",
     "date_of_birth": null,
     "national_insurance_number": null,
     "arrest_summons_number": "MG25A11223344"
