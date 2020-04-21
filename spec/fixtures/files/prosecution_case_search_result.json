@@ -1,59 +1,72 @@
 {
-    "prosecutionCaseId": "7a0c947e-97b4-4c5a-ae6a-26320afc914d",
-    "prosecutionCaseReference": "TFL12345",
-    "caseStatus": "INACTIVE",
-    "defendants": [
+  "totalResults": 1,
+  "cases": [
+    {
+      "caseStatus": "CLOSED",
+      "prosecutionCaseId": "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
+      "prosecutionCaseReference": "20GD0217100",
+      "defendantSummary": [
         {
-            "defendantId": "8cd0ba7e-df89-45a3-8c61-4008a2186d64",
-            "nationalInsuranceNumber": "BN102966C",
-            "arrestSummonsNumber": "arrest123",
-            "name": {
-                "firstName": "Alfredine",
-                "middleName": "Treutel",
-                "lastName": "Parker"
-            },
-            "dateOfBirth": "1971-05-12",
-            "dateOfNextHearing": "2012-12-12",
-            "proceedingsConcluded": false,
-            "offences": [
-                {
-                    "offenceId": "cacbd4d4-9102-4687-98b4-d529be3d5710",
-                    "offenceCode": "Random string",
-                    "orderIndex": 1,
-                    "offenceTitle": "Random string",
-                    "offenceLegislation": "Random string",
-                    "wording": "Random string",
-                    "arrestDate": "2019-10-17",
-                    "chargeDate": "2019-10-17",
-                    "dateOfInformation": "2019-10-17",
-                    "modeOfTrial": "Random string",
-                    "startDate": "2019-10-17",
-                    "endDate": "2019-10-17",
-                    "proceedingsConcluded": false
-                }
-            ]
+          "proceedingsConcluded": true,
+          "representationOrder": {
+            "applicationReference": "LAA-20191601",
+            "effectiveFromDate": "2019-09-12",
+            "effectiveToDate": "2019-12-12",
+            "laaContractNumber": "99998888"
+          },
+          "defendantName": "George Walsh",
+          "defendantId": "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3",
+          "defendantDOB": "1980-01-01",
+          "defendantNINO": "HB133542A",
+          "defendantASN": "ARREST123",
+          "offenceSummary": [
+            {
+              "offenceId": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
+              "offenceCode": "PT00011",
+              "offenceTitle": "Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable",
+              "proceedingsConcluded": false,
+              "arrestDate": "2020-02-01",
+              "startDate": "2020-02-01",
+              "chargeDate": "2020-02-01",
+              "modeOfTrial": "Summary",
+              "orderIndex": 1,
+              "wording": "Test",
+              "laaApplnReference": {
+                "applicationReference": "LAA-20191601",
+                "statusId": "58ebf081-2b7d-3b1d-8c47-149fe7dbd672",
+                "statusCode": "G2",
+                "statusDescription": "Granted for Two Advocates"
+              }
+            }
+          ]
         }
-    ],
-    "hearings": [
+      ],
+      "hearingSummary": [
         {
-            "hearingId": "8f23cfd3-d4ff-4e90-b018-03385b7a96d3",
-            "jurisdictionType": "CROWN",
-            "courtCentre": {
-                "id": "f30b31b7-41f3-4b30-a482-1b3c89f8c4b7",
-                "name": "Random string",
-                "welshName": "Llinyn ar hap",
-                "roomId": "c2181e2b-be46-4d82-9ac6-1c02e4cc7dbb",
-                "roomName": "Grand Hall",
-                "welshRoomName": "Neuadd y Grand"
-            },
-            "type": {
-                "id": "c4278f10-8f17-446d-8e3b-85236687a1f4",
-                "description": "This is a description",
-                "code": "12D10JAS"
-            },
-            "defendants": [
-                "ecca893f-0928-4fc6-ae50-6a8794b78c5c"
-            ]
+          "hearingId": "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4",
+          "jurisdictionType": "MAGISTRATES",
+          "defendantIds": [
+            "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2020-02-17T15:00:00Z",
+              "listingSequence": 0,
+              "listedDurationMinutes": 20
+            }
+          ],
+          "hearingType": {
+            "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776",
+            "description": "First hearing"
+          },
+          "courtCentre": {
+            "id": "7e967376-eacf-4fca-9b30-21b0c5aad427",
+            "name": "Bexley Magistrates' Court",
+            "roomId": "8e912353-3b5d-36c3-953e-ad3b94b19de3",
+            "roomName": "Courtroom 01"
+          }
         }
-    ]
+      ]
+    }
+  ]
 }

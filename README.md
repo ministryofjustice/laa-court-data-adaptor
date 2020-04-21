@@ -43,8 +43,7 @@ eg:
 ```curl
 curl --get \
 --url 'https://API_HOST/api/internal/v1/prosecution_cases' \
---data-urlencode 'filter[first_name]=Boris' \
---data-urlencode 'filter[last_name]=Lubowitz' \
+--data-urlencode 'filter[name]=Boris Lubowitz' \
 --data-urlencode 'filter[date_of_birth]=1981-08-22' \
 --data-urlencode 'include=defendants' \
 --header 'Authorization: Bearer <access_token>'

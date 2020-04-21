@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/hearing/result/LAAGetHearingHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
+    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.17.3
+      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY_HEARING>"
   response:
@@ -31,23 +31,26 @@ http_interactions:
       content-type:
       - application/json; charset=utf-8
       etag:
-      - W/"6bc00ca5a2e6f24d08ad32af6dd3ab71"
+      - W/"95bfc105126067f620774a567a180b69"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 6d0ff3ae-b2a8-4c2f-9bb5-7fe4553b236c
+      - fd060690-7819-436e-8354-e33f4d8cf229
       x-runtime:
-      - '0.023654'
-      connection:
-      - close
+      - '0.048248'
       transfer-encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"hearing":{"id":"ab746921-d839-4867-bcf9-b41db8ebc852","jurisdictionType":"CROWN","reportingRestrictionReason":"MyString","courtCentre":{"id":"2eb86c77-2da9-4d79-b382-1a4a9c59f7d0","name":"Random
-        string","welshName":"Llinyn ar hap","roomId":"5a57d6d5-3fc5-4e2b-993b-0d071fbad6ab","roomName":"Grand
-        Hall","welshRoomName":"Neuadd y Grand"},"hearingLanguage":"WELSH","hasSharedResults":false,"type":{"id":"297dda64-5a5d-4fa8-9ce9-d86fdc7c2330","description":"This
-        is a description","code":"12D10JAS"},"isEffectiveTrial":false,"isBoxHearing":false,"hearingDays":[{"sittingDay":"2019-10-23T16:19:15.000Z","listingSequence":1,"listedDurationMinutes":1}]}}'
-    http_version:
-  recorded_at: Wed, 05 Feb 2020 13:40:10 GMT
-recorded_with: VCR 5.0.0
+      string: '{"id":"ab746921-d839-4867-bcf9-b41db8ebc852","jurisdictionType":"CROWN","reportingRestrictionReason":"MyString","courtCentre":{"id":"5ccb6092-1a0e-493e-bdff-96f19baf7bbd","name":"Random
+        string","ouCode":"Random string","courtHearingLocation":"Random string","welshName":"Llinyn
+        ar hap","roomId":"9470125e-5ade-4c67-8c2a-87db72e03167","roomName":"Grand
+        Hall","welshRoomName":"Neuadd y Grand"},"hearingLanguage":"WELSH","hasSharedResults":false,"type":{"id":"2531da6f-acc7-456d-aedb-a2d0b6cfc995","description":"This
+        is a description","code":"12D10JAS"},"isEffectiveTrial":false,"isBoxHearing":false,"hearingDays":[{"sittingDay":"2019-10-23T16:19:15.000Z","listingSequence":1,"listedDurationMinutes":1,"startTime":"10:00:00","endTime":"12:00:00","actualDurationMinutes":7200,"onTheDayCourtRoomId":"1f0a7a7e-690b-48ea-89a4-eac3f951a733","onTheDayCourtCentre":{"id":"060fbacf-072b-4102-93b4-e2939e1b9e0d","name":"Random
+        string","ouCode":"Random string","courtHearingLocation":"Random string","welshName":"Llinyn
+        ar hap","roomId":"81c7cf36-9d69-412e-83de-f12b51931b4f","roomName":"Grand
+        Hall","welshRoomName":"Neuadd y Grand"},"onTheDayJudiciary":[{"judicialId":"d71761a2-9e47-4c93-90b1-6020382d182e","title":"MyString","firstName":"MyString","middleName":"MyString","lastName":"MyString","isDeputy":false,"isBenchChairman":false,"judicialRoleType":{"judicialRoleTypeId":"7cdff927-578c-4ede-9a0a-7f1d93e83f5d","judiciaryType":"High
+        Court Judge"}}]}]}'
+    http_version: null
+  recorded_at: Mon, 20 Apr 2020 12:48:17 GMT
+recorded_with: VCR 5.1.0

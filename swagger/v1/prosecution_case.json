@@ -160,11 +160,8 @@
         },
         {
           "properties": {
-            "first_name": {
-              "$ref": "defendant.json#/definitions/first_name"
-            },
-            "last_name": {
-              "$ref": "defendant.json#/definitions/last_name"
+            "name": {
+              "$ref": "defendant.json#/definitions/name"
             },
             "date_of_birth": {
               "$ref": "defendant.json#/definitions/date_of_birth"
@@ -173,11 +170,8 @@
         },
         {
           "properties": {
-            "first_name": {
-              "$ref": "defendant.json#/definitions/first_name"
-            },
-            "last_name": {
-              "$ref": "defendant.json#/definitions/last_name"
+            "name": {
+              "$ref": "defendant.json#/definitions/name"
             },
             "date_of_next_hearing": {
               "$ref": "#/definitions/date_of_next_hearing"

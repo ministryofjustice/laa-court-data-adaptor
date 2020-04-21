@@ -160,11 +160,8 @@
         },
         {
           "properties": {
-            "first_name": {
-              "$ref": "/schemata/defendant#/definitions/first_name"
-            },
-            "last_name": {
-              "$ref": "/schemata/defendant#/definitions/last_name"
+            "name": {
+              "$ref": "/schemata/defendant#/definitions/name"
             },
             "date_of_birth": {
               "$ref": "/schemata/defendant#/definitions/date_of_birth"
@@ -173,11 +170,8 @@
         },
         {
           "properties": {
-            "first_name": {
-              "$ref": "/schemata/defendant#/definitions/first_name"
-            },
-            "last_name": {
-              "$ref": "/schemata/defendant#/definitions/last_name"
+            "name": {
+              "$ref": "/schemata/defendant#/definitions/name"
             },
             "date_of_next_hearing": {
               "$ref": "/schemata/prosecution_case#/definitions/date_of_next_hearing"

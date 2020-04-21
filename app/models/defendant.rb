@@ -9,28 +9,24 @@ class Defendant
     body['defendantId']
   end
 
-  def first_name
-    body['name']['firstName']
-  end
-
-  def last_name
-    body['name']['lastName']
+  def name
+    body['defendantName']
   end
 
   def date_of_birth
-    body['dateOfBirth']
+    body['defendantDOB']
   end
 
   def national_insurance_number
-    body['nationalInsuranceNumber']
+    body['defendantNINO']
   end
 
   def arrest_summons_number
-    body['arrestSummonsNumber']
+    body['defendantASN']
   end
 
   def offences
-    body['offences'].map { |offence| Offence.new(body: offence) }
+    body['offenceSummary'].map { |offence| Offence.new(body: offence) }
   end
 
   def offence_ids

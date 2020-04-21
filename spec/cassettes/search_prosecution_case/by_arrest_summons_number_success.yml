@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/search/case/prosecutionCases?arrestSummonsNumber=arrest123"
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?defendantASN=arrest123"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.17.3
+      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE>"
   response:
@@ -31,26 +31,33 @@ http_interactions:
       content-type:
       - application/json; charset=utf-8
       etag:
-      - W/"c69b7756ad13bd5a37b72fbbb3298c23"
+      - W/"d54742752b1c54215c1600fc6239a2e2"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - e61feb3d-0872-401d-9c1f-5c63d51f6937
+      - 184c0e17-3e39-496c-a284-c7eb3b91d18d
       x-runtime:
-      - '0.028273'
-      connection:
-      - close
+      - '0.031427'
       transfer-encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"prosecutionCaseId":"7a0c947e-97b4-4c5a-ae6a-26320afc914d","prosecutionCaseReference":"TFL12345","caseStatus":"INACTIVE","defendants":[{"defendantId":"8cd0ba7e-df89-45a3-8c61-4008a2186d64","nationalInsuranceNumber":"BN102966C","arrestSummonsNumber":"arrest123","name":{"firstName":"Alfredine","middleName":"Treutel","lastName":"Parker"},"dateOfBirth":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offences":[{"offenceId":"cacbd4d4-9102-4687-98b4-d529be3d5710","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Random string","offenceLegislation":"Random
-        string","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]}],"hearings":[{"hearingId":"8f23cfd3-d4ff-4e90-b018-03385b7a96d3","jurisdictionType":"CROWN","courtCentre":{"id":"f30b31b7-41f3-4b30-a482-1b3c89f8c4b7","name":"Random
-        string","welshName":"Llinyn ar hap","roomId":"c2181e2b-be46-4d82-9ac6-1c02e4cc7dbb","roomName":"Grand
-        Hall","welshRoomName":"Neuadd y Grand"},"type":{"id":"c4278f10-8f17-446d-8e3b-85236687a1f4","description":"This
-        is a description","code":"12D10JAS"},"defendants":["ecca893f-0928-4fc6-ae50-6a8794b78c5c"]}]}]'
+      string: '{"totalResults":1,"cases":[{"prosecutionCaseId":"5edd67eb-9d8c-44f2-a57e-c8d026defaa4","prosecutionCaseReference":"3658e889-e050-4608-8f21-8bdaa529f8d0","caseStatus":"INACTIVE","defendantSummary":[{"defendantId":"4c190ef5-a58b-47aa-939a-faeb68e61255","defendantNINO":"BN102966C","defendantASN":"Random
+        string","defendantName":"Alfredine Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"88f0d1a5-2cfb-4509-a097-5431bc76e4ae","offenceCode":"Random
+        string","orderIndex":1,"offenceTitle":"Blackmail","offenceLegislation":"Theft
+        Act 1968 s.16","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
+        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]},{"defendantId":"2ecc9feb-9407-482f-b081-d9e5c8ba3ed3","defendantNINO":"BN102966C","defendantASN":"arrest123","defendantName":"Alfredine
+        Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"1abb48a3-084e-4734-b2e2-abe110e28c60","offenceCode":"Random
+        string","orderIndex":1,"offenceTitle":"Assisting illegal entry or harbouring
+        persons","offenceLegislation":"Terrorism Act 2000 s.39","wording":"Random
+        string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
+        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false},{"offenceId":"3f153786-f3cf-4311-bc0c-2d6f48af68a1","offenceCode":"Random
+        string","orderIndex":1,"offenceTitle":"Assault with weapon with intent to
+        rob","offenceLegislation":"Forgery and Counterfeiting Act 1981 s.3","wording":"Random
+        string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
+        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"999999","statusId":"1175a192-2ad0-4a0c-ac50-d8194bba97e1","statusCode":"ABCDEF","statusDescription":"FAKE
+        NEWS","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","effectiveEndDate":"2020-12-15"}}],"representationOrder":{"applicationReference":"999999","effectiveFromDate":"2019-12-15T00:00:00.000Z","effectiveToDate":"2020-12-15T00:00:00.000Z","laaContractNumber":"CONTRACT
+        REFERENCE"}}]}]}'
     http_version: null
-  recorded_at: Wed, 19 Feb 2020 11:17:18 GMT
+  recorded_at: Mon, 20 Apr 2020 12:48:11 GMT
 recorded_with: VCR 5.1.0

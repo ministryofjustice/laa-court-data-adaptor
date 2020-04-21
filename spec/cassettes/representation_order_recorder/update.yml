@@ -2,22 +2,22 @@
 http_interactions:
 - request:
     method: post
-    uri: "<COMMON_PLATFORM_URL>/receive/representation/progression-command-api/command/api/rest/progression/representationOrder/cases/b9950946-fe3b-4eaa-9f0a-35e497e34528/defendants/23d7f10a-067a-476e-bba6-bb855674e23b/offences/147fed98-ba8a-46cb-b2b4-7c41cf4734bf"
+    uri: "<COMMON_PLATFORM_URL>/progression-command-api/command/api/rest/progression/representationOrder/cases/5edd67eb-9d8c-44f2-a57e-c8d026defaa4/defendants/2ecc9feb-9407-482f-b081-d9e5c8ba3ed3/offences/3f153786-f3cf-4311-bc0c-2d6f48af68a1"
     body:
       encoding: UTF-8
-      string: '{"statusCode":"ABCDEF","applicationReference":"SOME SORT OF MAAT ID","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","defenceOrganisation":{"organisation":{"name":"SOME
+      string: '{"statusCode":"ABCDEF","applicationReference":"SOME SORT OF MAAT ID","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","effectiveEndDate":"2020-12-15","defenceOrganisation":{"organisation":{"name":"SOME
         ORGANISATION"},"laaContractNumber":"CONTRACT REFERENCE"}}'
     headers:
       User-Agent:
-      - Faraday v0.17.3
+      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY_REPRESENTATION_ORDER>"
       Content-Type:
       - application/json
   response:
     status:
-      code: 204
-      message: No Content
+      code: 202
+      message: Accepted
     headers:
       x-frame-options:
       - SAMEORIGIN
@@ -31,17 +31,19 @@ http_interactions:
       - none
       referrer-policy:
       - strict-origin-when-cross-origin
+      content-type:
+      - text/html
       cache-control:
       - no-cache
       x-request-id:
-      - 440a84a3-6069-4a41-8154-9c1bd50b4d20
+      - 64c552a8-989d-4e10-b561-551edbb42ebc
       x-runtime:
-      - '0.024495'
-      connection:
-      - close
+      - '0.033885'
+      transfer-encoding:
+      - chunked
     body:
       encoding: UTF-8
       string: ''
-    http_version:
-  recorded_at: Wed, 05 Feb 2020 13:40:10 GMT
-recorded_with: VCR 5.0.0
+    http_version: null
+  recorded_at: Mon, 20 Apr 2020 12:48:19 GMT
+recorded_with: VCR 5.1.0

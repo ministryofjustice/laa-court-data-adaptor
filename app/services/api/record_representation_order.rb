@@ -22,7 +22,7 @@ module Api
       @effective_start_date = effective_start_date
       @effective_end_date = effective_end_date
       @defence_organisation = defence_organisation
-      @url = '/receive/representation/progression-command-api'\
+      @url = '/progression-command-api'\
               '/command/api/rest/progression/representationOrder' \
               "/cases/#{prosecution_case_id}" \
               "/defendants/#{defendant_id}" \

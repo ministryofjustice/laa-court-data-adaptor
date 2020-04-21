@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/hearing/result/LAAGetHearingHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
+    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.17.3
+      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - INCORRECT KEY
   response:
@@ -33,16 +33,14 @@ http_interactions:
       cache-control:
       - no-cache
       x-request-id:
-      - d8bd1b61-1398-4349-8f66-63f9769747f6
+      - 4e0147bb-3b2c-481f-812e-b403d1481aeb
       x-runtime:
-      - '0.002857'
-      connection:
-      - close
+      - '0.003196'
       transfer-encoding:
       - chunked
     body:
       encoding: UTF-8
       string: ''
-    http_version:
-  recorded_at: Wed, 05 Feb 2020 13:40:10 GMT
-recorded_with: VCR 5.0.0
+    http_version: null
+  recorded_at: Mon, 20 Apr 2020 12:48:17 GMT
+recorded_with: VCR 5.1.0
