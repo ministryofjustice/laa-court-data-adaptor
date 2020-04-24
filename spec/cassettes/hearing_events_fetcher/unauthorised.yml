@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingLogHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.0.1
+      Ocp-Apim-Subscription-Key:
+      - INCORRECT KEY
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      content-type:
+      - text/html
+      cache-control:
+      - no-cache
+      x-request-id:
+      - f2474096-fad5-42b4-972b-42812fe1379c
+      x-runtime:
+      - '0.045009'
+      transfer-encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: null
+  recorded_at: Fri, 24 Apr 2020 09:45:08 GMT
+recorded_with: VCR 5.1.0

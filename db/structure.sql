@@ -57,9 +57,10 @@ CREATE SEQUENCE public.dummy_maat_reference_seq
 
 CREATE TABLE public.hearings (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    body jsonb NOT NULL,
+    body jsonb,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    events jsonb
 );
 
 
@@ -331,6 +332,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200304144205'),
 ('20200310210135'),
 ('20200310222258'),
-('20200407083117');
+('20200407083117'),
+('20200424095754');
 
 
