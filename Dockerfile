@@ -8,12 +8,14 @@ RUN set -ex
 # - virtual: create virtual package for later deletion
 # - build-base for alpine fundamentals
 # - postgresql-dev for pg/activerecord gems
+# - postgresql-client for pg_dump, as we need to use sql schema_format
 # - tzdata for timezone data
 # - git for installing gems referred to use a git:// uri
 #
 RUN apk --no-cache add --virtual build-dependencies \
                     build-base \
                     postgresql-dev \
+                    postgresql-client \
                     tzdata \
                     git
 
@@ -29,18 +31,20 @@ WORKDIR /usr/src/app
 # DEPENDENCIES START #
 ######################
 # Env vars needed for dependency install and asset precompilation
+ENV BUNDLE_DEPLOYMENT true
+ENV BUNDLE_SET 'without development test'
 
 COPY Gemfile* ./
 
-RUN gem install bundler -v 2.0.2 \
-&& bundle install --deployment --without development test
+
+RUN gem install bundler:2.1.4 -N \
+&& bundle install --path=vendor/bundle
 
 ####################
 # DEPENDENCIES END #
 ####################
 
 ENV RAILS_ENV production
-ENV NODE_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 EXPOSE 3000

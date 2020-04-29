@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: laa_court_data_adaptor_development
+  url: <%= ENV.fetch('DATABASE_URL') { 'postgres://localhost/laa_court_data_adaptor_development' } %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
