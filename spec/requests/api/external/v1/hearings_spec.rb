@@ -14,7 +14,7 @@ RSpec.describe 'api/external/v1/hearings', type: :request do
       tags 'External - available to Common Platform'
       security [oAuth: []]
 
-      response(201, 'Created') do
+      response(202, 'Accepted') do
         parameter name: :shared_time, in: :body, required: false, type: :object,
                   schema: {
                     '$ref': 'hearing_resulted.json#/definitions/new_resource'
@@ -25,6 +25,15 @@ RSpec.describe 'api/external/v1/hearings', type: :request do
         let(:shared_time) { JSON.parse(file_fixture('valid_hearing.json').read) }
 
         run_test!
+      end
+
+      context 'unprocessable entity' do
+        response('422', 'Unprocessable Entity') do
+          let(:Authorization) { "Bearer #{token.token}" }
+          let(:shared_time) { JSON.parse(file_fixture('unprocessable_hearing.json').read) }
+
+          run_test!
+        end
       end
 
       context 'invalid data' do

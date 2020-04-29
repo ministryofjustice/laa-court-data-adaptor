@@ -18,8 +18,11 @@ paths:
       - oAuth: []
       parameters: []
       responses:
-        '201':
-          description: Created
+        '202':
+          description: Accepted
+          content: {}
+        '422':
+          description: Unprocessable Entity
           content: {}
         '400':
           description: Bad Request
