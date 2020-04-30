@@ -8,6 +8,7 @@ module Api
           contract = HearingContract.new.call(**transformed_params)
           if contract.success?
             @hearing = HearingRecorder.call(params[:hearing][:id], hearing_params)
+            HearingsCreatorJob.perform_later(@hearing)
             head :accepted
           else
             render json: contract.errors.to_hash, status: :unprocessable_entity
@@ -23,7 +24,7 @@ module Api
         end
 
         def transformed_params
-          hearing_params.to_hash.transform_keys(&:to_sym).compact
+          hearing_params.to_hash.deep_transform_keys(&:to_sym).compact
         end
       end
     end
