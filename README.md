@@ -26,6 +26,14 @@ You can then start the application server by running:
 $ rails s
 ```
 
+### Set up using docker-compose
+
+Clone the repo, and then run
+```
+$ docker-compose up
+```
+The app should be running at `http://localhost:3000`
+
 
 ### API Authentication
 

@@ -1,0 +1,22 @@
+version: '2'
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    links:
+      - postgres
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgres://postgres@postgres/laa_court_data_adaptor_development
+      RAILS_ENV: development
+      BUNDLE_DEPLOYMENT: 'false'
+      BUNDLE_SET: 'with development test'
+  postgres:
+    image: postgres:11.5-alpine
+    ports:
+      - 5432
+    environment:
+      POSTGRES_USER: 'postgres'
