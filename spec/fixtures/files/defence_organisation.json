@@ -1,0 +1,26 @@
+{
+  "laa_contract_number": "CONTRACT REFERENCE",
+  "sra_number": "SRA NUMBER",
+  "bar_council_membership_number": "BAR COUNCIL NUMBER",
+  "incorporation_number": "AAA",
+  "registered_charity_number": "BBB",
+  "organisation": {
+    "name": "SOME ORGANISATION",
+    "address": {
+      "address1": "102",
+      "address2": "Petty France",
+      "address3": "Floor 5",
+      "address4": "St James",
+      "address5": "Westminster",
+      "postcode": "EC4A 2AH"
+    },
+    "contact": {
+      "home": "+99999",
+      "work": "CALL ME 888",
+      "mobile": "+99999",
+      "primary_email": "a@example.com",
+      "secondary_email": "a@example.com",
+      "fax": "ABC123123"
+    }
+  }
+}
