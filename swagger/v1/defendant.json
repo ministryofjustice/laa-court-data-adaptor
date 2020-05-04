@@ -76,6 +76,28 @@
       "description": "Text describing the reason for unlinking the case",
       "type": "string"
     },
+    "representation_order": {
+      "readOnly": true,
+      "example": "1971-05-12",
+      "type": "object",
+      "properties": {
+        "effective_from_date":{
+          "type": "string"
+        },
+        "effective_to_date":{
+          "type": "string"
+        },
+        "laa_contract_number":{
+          "type": "string"
+        },
+        "status_date":{
+          "type": "string"
+        },
+        "provider":{
+          "type": "string"
+        }
+      }
+    },
     "resource": {
       "description": "object representing a single defendant",
       "type": "object",
@@ -108,6 +130,9 @@
         },
         "arrest_summons_number": {
           "$ref": "prosecution_case.json#/definitions/arrest_summons_number"
+        },
+        "representation_order": {
+          "$ref": "#/definitions/representation_order"
         }
       }
     },

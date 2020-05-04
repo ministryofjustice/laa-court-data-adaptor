@@ -9,6 +9,7 @@ RSpec.describe DefendantSerializer do
                     national_insurance_number: 'XW858621B',
                     arrest_summons_number: 'MG25A11223344',
                     maat_reference: '123123',
+                    representation_order: { key: 'value' },
                     offence_ids: ['55555'])
   end
 
@@ -22,6 +23,7 @@ RSpec.describe DefendantSerializer do
     it { expect(attribute_hash[:national_insurance_number]).to eq('XW858621B') }
     it { expect(attribute_hash[:arrest_summons_number]).to eq('MG25A11223344') }
     it { expect(attribute_hash[:maat_reference]).to eq('123123') }
+    it { expect(attribute_hash[:representation_order]).to eq({ key: 'value' }) }
   end
 
   context 'relationships' do

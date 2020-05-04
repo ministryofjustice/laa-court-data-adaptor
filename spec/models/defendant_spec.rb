@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe Defendant, type: :model do
+  let(:prosecution_case_hash) do
+    JSON.parse(file_fixture('prosecution_case_search_result.json').read)['cases'][0]
+  end
   let(:defendant_hash) do
-    JSON.parse(file_fixture('prosecution_case_search_result.json').read)['cases'][0]['defendantSummary'][0]
+    prosecution_case_hash['defendantSummary'][0]
   end
 
   subject(:defendant) { described_class.new(body: defendant_hash) }
@@ -12,23 +15,56 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.national_insurance_number).to eq('HB133542A') }
   it { expect(defendant.arrest_summons_number).to eq('ARREST123') }
 
-  describe '#maat_reference' do
+  context 'post linking' do
+    let(:offences) do
+      [instance_double('Offence', maat_reference: nil)]
+    end
+
     before do
       allow(defendant).to receive(:offences).and_return(offences)
     end
 
-    context 'with no offences' do
-      let(:offences) { [] }
+    it { expect(defendant.maat_reference).to be_nil }
+    it { expect(defendant.representation_order).to be_nil }
 
-      it { expect(defendant.maat_reference).to be_nil }
-    end
-
-    context 'when offence with no maat reference' do
+    context 'when a maat_reference is linked' do
       let(:offences) do
-        [instance_double('Offence', maat_reference: nil)]
+        [instance_double('Offence', maat_reference: '123123')]
       end
 
-      it { expect(defendant.maat_reference).to be_nil }
+      it { expect(defendant.maat_reference).to eq('123123') }
+      describe '#representation_order' do
+        before do
+          ProsecutionCase.create!(id: prosecution_case_hash['prosecutionCaseId'], body: '{}')
+          ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_hash['prosecutionCaseId'],
+                                                  defendant_id: defendant_hash['defendantId'],
+                                                  offence_id: SecureRandom.uuid,
+                                                  status_date: '2019-12-12',
+                                                  defence_organisation: defence_organisation)
+        end
+
+        let(:representation_order_hash) { defendant_hash['representationOrder'] }
+        let(:defence_organisation) do
+          {
+            'organisation' => {
+              'name' => 'SOME ORGANISATION'
+            },
+            'laaContractNumber' => 'CONTRACT REFERENCE'
+          }
+        end
+
+        let(:representation_order) do
+          {
+            effective_from_date: '2019-09-12',
+            effective_to_date: '2019-12-12',
+            laa_contract_number: '99998888',
+            status_date: '2019-12-12',
+            provider: defence_organisation
+          }
+        end
+
+        it { expect(defendant.representation_order).to eq(representation_order) }
+      end
     end
 
     context 'when there are multiple offences' do
@@ -69,6 +105,7 @@ RSpec.describe Defendant, type: :model do
       end
 
       it { expect(defendant.maat_reference).to be_nil }
+      it { expect(defendant.representation_order).to be_nil }
     end
   end
 end
