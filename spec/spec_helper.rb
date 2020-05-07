@@ -20,8 +20,10 @@ require 'simplecov'
 
 SimpleCov.minimum_coverage 100
 unless ENV['NOCOVERAGE']
-  SimpleCov.start do
-    add_filter 'spec/'
+  SimpleCov.start 'rails' do
+    add_group 'Serializers', 'app/serializers'
+    add_group 'Services', 'app/services'
+    add_group 'Contracts', 'app/contracts'
   end
 end
 
