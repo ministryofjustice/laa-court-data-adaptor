@@ -3,7 +3,7 @@
 class NewLaaReferenceContract < Dry::Validation::Contract
   option :uuid_validator, default: -> { CommonPlatform::UuidValidator }
 
-  json do
+  params do
     optional(:maat_reference).value(:integer, lt?: 999_999_999)
     required(:defendant_id).value(:string)
   end
