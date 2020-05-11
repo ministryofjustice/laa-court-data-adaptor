@@ -14,6 +14,12 @@ RSpec.describe NewLaaReferenceContract do
 
   it { is_expected.to be_a_success }
 
+  context 'with a maat_reference cast as a string' do
+    let(:maat_reference) { '123456789' }
+
+    it { is_expected.to be_a_success }
+  end
+
   context 'with an alphanumeric maat_reference' do
     let(:maat_reference) { 'ABC123' }
 
