@@ -6,8 +6,6 @@ module Sqs
     TEMPORARY_CJS_AREA_CODE = 16
     TEMPORARY_CJS_LOCATION = 'B16BG'
     TEMPORARY_OFFENCE_CLASSIFICATION = 'Temporary Offence Classification'
-    TEMPORARY_FIRM_NAME = 'Temporary Firm Name'
-    TEMPORARY_LAA_OFFICE_ACCOUNT = 'Temporary LAA Office Account'
     TEMPORARY_SESSION_VALIDATE_DATE = '2020-01-01'
 
     def initialize(shared_time:, jurisdiction_type:, case_status:, case_urn:, defendant:)
@@ -128,9 +126,7 @@ module Sqs
           [:resultCodeQualifiers, result[:qualifier]],
           [:nextHearingDate, result.dig(:nextHearing, :listedStartDateTime)],
           [:nextHearingLocation, TEMPORARY_CJS_LOCATION],
-          [:firmName, TEMPORARY_FIRM_NAME],
-          [:contactName, nil],
-          [:laaOfficeAccount, TEMPORARY_LAA_OFFICE_ACCOUNT],
+          [:laaOfficeAccount, defendant.dig(:defenceOrganisation, :laaAccountNumber)],
           [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)]
         ].to_h
       end

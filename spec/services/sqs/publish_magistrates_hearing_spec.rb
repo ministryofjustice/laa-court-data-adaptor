@@ -71,6 +71,9 @@ RSpec.describe Sqs::PublishMagistratesHearing do
         'statusCode': 'AP',
         'statusDescription': 'Application Pending',
         'statusDate': '2018-10-24'
+      },
+      'defenceOrganisation': {
+        'laaAccountNumber': '0A935R'
       }
     }
   end
@@ -121,9 +124,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
               resultCodeQualifiers: 'LG',
               nextHearingDate: '2018-11-11 10:30',
               nextHearingLocation: 'B16BG',
-              firmName: 'Temporary Firm Name',
-              contactName: nil,
-              laaOfficeAccount: 'Temporary LAA Office Account',
+              laaOfficeAccount: '0A935R',
               legalAidWithdrawalDate: nil
             }]
           }
