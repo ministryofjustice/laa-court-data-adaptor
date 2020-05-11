@@ -3,7 +3,7 @@
 RSpec.describe Api::RecordRepresentationOrder do
   subject { described_class.call(params) }
 
-  let(:prosecution_case_id) { '5edd67eb-9d8c-44f2-a57e-c8d026defaa4' }
+  let(:prosecution_case) { ProsecutionCase.create!(id: '5edd67eb-9d8c-44f2-a57e-c8d026defaa4', body: '{}') }
   let(:defendant_id) { '2ecc9feb-9407-482f-b081-d9e5c8ba3ed3' }
   let(:offence_id) { '3f153786-f3cf-4311-bc0c-2d6f48af68a1' }
   let(:defence_organisation) do
@@ -17,7 +17,7 @@ RSpec.describe Api::RecordRepresentationOrder do
 
   let(:params) do
     {
-      prosecution_case_id: prosecution_case_id,
+      prosecution_case_id: prosecution_case.id,
       defendant_id: defendant_id,
       offence_id: offence_id,
       status_code: 'ABCDEF',
@@ -28,10 +28,10 @@ RSpec.describe Api::RecordRepresentationOrder do
       defence_organisation: defence_organisation
     }
   end
-  let(:url) { "/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case_id}/defendants/#{defendant_id}/offences/#{offence_id}" }
+  let(:url) { "/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case.id}/defendants/#{defendant_id}/offences/#{offence_id}" }
 
   let!(:case_defendant_offence) do
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
+    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case.id,
                                             defendant_id: defendant_id,
                                             offence_id: offence_id)
   end

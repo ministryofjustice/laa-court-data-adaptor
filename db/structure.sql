@@ -246,6 +246,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_case_defendant_offences_on_prosecution_case; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_case_defendant_offences_on_prosecution_case ON public.prosecution_case_defendant_offences USING btree (prosecution_case_id);
+
+
+--
 -- Name: index_oauth_access_grants_on_application_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -302,11 +309,33 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
+-- Name: index_prosecution_case_defendant_offences_on_defendant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prosecution_case_defendant_offences_on_defendant_id ON public.prosecution_case_defendant_offences USING btree (defendant_id);
+
+
+--
+-- Name: index_prosecution_case_defendant_offences_on_offence_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prosecution_case_defendant_offences_on_offence_id ON public.prosecution_case_defendant_offences USING btree (offence_id);
+
+
+--
 -- Name: oauth_access_tokens fk_rails_732cb83ab7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.oauth_access_tokens
     ADD CONSTRAINT fk_rails_732cb83ab7 FOREIGN KEY (application_id) REFERENCES public.oauth_applications(id);
+
+
+--
+-- Name: prosecution_case_defendant_offences fk_rails_a5230a38ba; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prosecution_case_defendant_offences
+    ADD CONSTRAINT fk_rails_a5230a38ba FOREIGN KEY (prosecution_case_id) REFERENCES public.prosecution_cases(id);
 
 
 --
@@ -333,6 +362,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200310210135'),
 ('20200310222258'),
 ('20200407083117'),
-('20200424095754');
+('20200424095754'),
+('20200429163050');
 
 
