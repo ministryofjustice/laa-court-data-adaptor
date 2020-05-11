@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe HearingsCreator do
-  let(:defendant_array) { [{ 'id': 'defendant_one_id' }] }
+  let(:defendant_array) do
+    [{ 'id': 'defendant_one_id',
+       'laaApplnReference': { 'applicationReference': '123456789' } }]
+  end
   let(:prosecution_case_array) do
     [
       {
@@ -39,12 +42,10 @@ RSpec.describe HearingsCreator do
   context 'with two defendants' do
     let(:defendant_array) do
       [
-        {
-          'id': 'defendant_one_id'
-        },
-        {
-          'id': 'defendant_two_id'
-        }
+        { 'id': 'defendant_one_id',
+          'laaApplnReference': { 'applicationReference': '123456789' } },
+        { 'id': 'defendant_two_id',
+          'laaApplnReference': { 'applicationReference': '987654321' } }
       ]
     end
 
@@ -107,6 +108,22 @@ RSpec.describe HearingsCreator do
           jurisdictionType: 'CROWN',
           prosecutionCases: prosecution_case_array
         }
+      end
+
+      it 'does not call the Sqs::PublishMagistratesHearing service' do
+        expect(Sqs::PublishMagistratesHearing).not_to receive(:call)
+        create
+      end
+    end
+
+    context 'with a dummy MAAT ID' do
+      let(:defendant_array) do
+        [
+          { 'id': 'defendant_one_id',
+            'laaApplnReference': { 'applicationReference': 'A123456789' } },
+          { 'id': 'defendant_two_id',
+            'laaApplnReference': { 'applicationReference': 'Z987654321' } }
+        ]
       end
 
       it 'does not call the Sqs::PublishMagistratesHearing service' do

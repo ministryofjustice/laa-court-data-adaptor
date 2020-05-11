@@ -3,7 +3,7 @@
 RSpec.describe Sqs::PublishMagistratesHearing do
   let(:shared_time) { '2018-10-25 11:30:00' }
   let(:jurisdiction_type) { 'MAGISTRATES' }
-  let(:case_status) { 'OPEN' }
+  let(:case_status) { 'Open' }
   let(:case_urn) { '12345' }
   let(:defendant) do
     {
@@ -34,6 +34,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
         {
           'offenceCode': 'CD98072',
           'offenceTitle': 'Robbery',
+          'orderIndex': 0,
           'wording': 'On 21/10/2018 the defendant robbed someone.',
           'startDate': '2018-10-21',
           'allocationDecision': {
@@ -58,7 +59,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
             }
           ],
           'laaApplnReference': {
-            'applicationReference': 'appln001',
+            'applicationReference': '123456789',
             'statusCode': 'AP',
             'statusDescription': 'Application Pending',
             'statusDate': '2018-10-24'
@@ -66,7 +67,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
         }
       ],
       'laaApplnReference': {
-        'applicationReference': 'appln001',
+        'applicationReference': '123456789',
         'statusCode': 'AP',
         'statusDescription': 'Application Pending',
         'statusDate': '2018-10-24'
@@ -76,7 +77,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
 
   let(:sqs_payload) do
     {
-      maatId: 'appln001',
+      maatId: 123_456_789,
       caseUrn: '12345',
       jurisdictionType: 'MAGISTRATES',
       asn: 'AA11A12345',
@@ -84,7 +85,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
       caseCreationDate: '2018-10-25',
       cjsLocation: 'B16BG',
       docLanguage: 'EN',
-      isActive: true,
+      inActive: 'N',
       defendant: {
         forename: 'FirstName',
         surname: 'LastName',
@@ -104,6 +105,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
         offences: [
           {
             offenceCode: 'CD98072',
+            asnSeq: 0,
             offenceShortTitle: 'Robbery',
             offenceClassification: 'Temporary Offence Classification',
             offenceDate: '2018-10-21',
@@ -127,12 +129,12 @@ RSpec.describe Sqs::PublishMagistratesHearing do
           }
         ]
       },
-      sessions: [{
+      session: {
         courtLocation: 'B16BG',
         dateOfHearing: '2018-11-11',
         postHearingCustody: 'R',
-        sessionValidateDate: nil
-      }]
+        sessionValidateDate: '2020-01-01'
+      }
     }
   end
 

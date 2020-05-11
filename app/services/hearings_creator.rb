@@ -13,6 +13,8 @@ class HearingsCreator < ApplicationService
   def call
     hearing[:prosecutionCases].each do |prosecution_case|
       prosecution_case[:defendants].each do |defendant|
+        next if defendant[:laaApplnReference][:applicationReference]&.start_with?('A', 'Z')
+
         push_to_sqs(shared_time: shared_time,
                     case_status: prosecution_case[:caseStatus],
                     case_urn: prosecution_case[:prosecutionCaseIdentifier][:caseURN],

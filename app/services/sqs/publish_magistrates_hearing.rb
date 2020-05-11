@@ -8,6 +8,7 @@ module Sqs
     TEMPORARY_OFFENCE_CLASSIFICATION = 'Temporary Offence Classification'
     TEMPORARY_FIRM_NAME = 'Temporary Firm Name'
     TEMPORARY_LAA_OFFICE_ACCOUNT = 'Temporary LAA Office Account'
+    TEMPORARY_SESSION_VALIDATE_DATE = '2020-01-01'
 
     def initialize(shared_time:, jurisdiction_type:, case_status:, case_urn:, defendant:)
       @shared_time = shared_time
@@ -23,8 +24,8 @@ module Sqs
 
     private
 
-    def active?
-      case_status == 'OPEN'
+    def inactive?
+      case_status == 'Open' ? 'N' : 'Y'
     end
 
     def defendant_details
@@ -61,7 +62,7 @@ module Sqs
 
     def message
       {
-        maatId: defendant.dig(:laaApplnReference, :applicationReference),
+        maatId: defendant.dig(:laaApplnReference, :applicationReference).to_i,
         caseUrn: case_urn,
         jurisdictionType: jurisdiction_type,
         asn: defendant.dig(:personDefendant, :arrestSummonsNumber),
@@ -69,9 +70,9 @@ module Sqs
         caseCreationDate: shared_time.split.first,
         cjsLocation: TEMPORARY_CJS_LOCATION,
         docLanguage: 'EN',
-        isActive: active?,
+        inActive: inactive?,
         defendant: defendant_hash,
-        sessions: sessions_map
+        session: session_hash
       }
     end
 
@@ -104,6 +105,7 @@ module Sqs
       defendant&.dig(:offences)&.map do |offence|
         [
           [:offenceCode, offence[:offenceCode]],
+          [:asnSeq, offence[:orderIndex]],
           [:offenceShortTitle, offence[:offenceTitle]],
           [:offenceClassification, TEMPORARY_OFFENCE_CLASSIFICATION],
           [:offenceDate, offence[:startDate]],
@@ -134,13 +136,13 @@ module Sqs
       end
     end
 
-    def sessions_map
-      [{
+    def session_hash
+      {
         courtLocation: TEMPORARY_CJS_LOCATION,
         dateOfHearing: defendant.dig(:offences, 0, :judicialResults, 0, :orderedDate),
         postHearingCustody: post_hearing_custody,
-        sessionValidateDate: nil
-      }]
+        sessionValidateDate: TEMPORARY_SESSION_VALIDATE_DATE
+      }
     end
 
     attr_reader :shared_time, :jurisdiction_type, :case_status, :case_urn, :defendant
