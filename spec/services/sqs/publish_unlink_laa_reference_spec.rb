@@ -10,8 +10,8 @@ RSpec.describe Sqs::PublishUnlinkLaaReference do
     {
       maatId: maat_reference,
       userId: user_name,
-      unlinkReasonId: unlink_reason_code,
-      unlinkReasonText: unlink_reason_text
+      reasonId: unlink_reason_code,
+      reasonText: unlink_reason_text
     }
   end
 
