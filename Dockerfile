@@ -32,7 +32,7 @@ WORKDIR /usr/src/app
 ######################
 # Env vars needed for dependency install and asset precompilation
 ENV BUNDLE_DEPLOYMENT true
-ENV BUNDLE_SET 'without development test'
+ENV BUNDLE_WITHOUT 'development test'
 
 COPY Gemfile* ./
 
