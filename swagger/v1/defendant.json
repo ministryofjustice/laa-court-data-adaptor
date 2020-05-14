@@ -76,6 +76,11 @@
       "description": "Text describing the reason for unlinking the case",
       "type": "string"
     },
+    "representation_order_date": {
+      "readOnly": true,
+      "example": "1971-05-12",
+      "type": "date"
+    },
     "resource": {
       "description": "object representing a single defendant",
       "type": "object",
@@ -108,6 +113,9 @@
         },
         "arrest_summons_number": {
           "$ref": "prosecution_case.json#/definitions/arrest_summons_number"
+        },
+        "representation_order_date": {
+          "$ref": "#/definitions/representation_order_date"
         }
       }
     },
@@ -140,6 +148,9 @@
     "properties": {
       "offences": {
         "$ref": "#/definitions/offence_relationship"
+      },
+      "defence_organisation": {
+        "$ref": "#/definitions/defence_organisation_relationship"
       }
     }
   },
@@ -162,6 +173,17 @@
       },
       "type": {
         "$ref": "offence.json#/definitions/type"
+      }
+    }
+  },
+  "defence_organisation_relationship": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "$ref": "defence_organisation.json#/definitions/id"
+      },
+      "type": {
+        "$ref": "defence_organisation.json#/definitions/type"
       }
     }
   },

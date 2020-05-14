@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "DefenceOrganisations",
+  "description": "DefenceOrganisations",
+  "id": "defence_organisation",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "unique identifier of defence_organisation known internally as laa_contract_number",
+      "type": "string",
+    },
+    "type": {
+      "description": "The defence_organisations type",
+      "enum": [
+        "defence_organisations"
+      ],
+      "example": "defence_organisations",
+      "type": "string"
+    },
+    "name": {
+      "readOnly": true,
+      "example": "The Johnson Partnership",
+      "type": "string"
+    },
+    "address1": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "address2": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "address3": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "address4": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "address5": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "postcode": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "identity": {
+      "$ref": "defence_organisation.json#/definitions/id"
+    },
+    "resource": {
+      "description": "object representing a single defence_organisation",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "address1": {
+          "$ref": "#/definitions/address1"
+        },
+        "address2": {
+          "$ref": "#/definitions/address2"
+        },
+        "address3": {
+          "$ref": "#/definitions/address3"
+        },
+        "address4": {
+          "$ref": "#/definitions/address4"
+        },
+        "address5": {
+          "$ref": "#/definitions/address5"
+        },
+        "postcode": {
+          "$ref": "#/definitions/postcode"
+        }
+      }
+    }
+  },
+  "links": [
+    {
+      "description": "Info for existing defence_organisation.",
+      "href": "/defence_organisations/{(defence_organisation.json%23%2Fdefinitions%2Fidentity)}",
+      "method": "GET",
+      "rel": "self",
+      "title": "Info",
+      "targetSchema": {
+        "$ref": "#/definitions/resource"
+      }
+    }
+  ],
+  "properties": {
+    "name": {
+      "$ref": "defence_organisation.json#/definitions/name"
+    },
+    "address1": {
+      "$ref": "defence_organisation.json#/definitions/address1"
+    },
+    "address2": {
+      "$ref": "defence_organisation.json#/definitions/address2"
+    },
+    "address3": {
+      "$ref": "defence_organisation.json#/definitions/address3"
+    },
+    "address4": {
+      "$ref": "defence_organisation.json#/definitions/address4"
+    },
+    "address5": {
+      "$ref": "defence_organisation.json#/definitions/address5"
+    },
+    "postcode": {
+      "$ref": "defence_organisation.json#/definitions/postcode"
+    }
+  }
+}

@@ -9,7 +9,9 @@ RSpec.describe DefendantSerializer do
                     national_insurance_number: 'XW858621B',
                     arrest_summons_number: 'MG25A11223344',
                     maat_reference: '123123',
-                    offence_ids: ['55555'])
+                    representation_order_date: '2020-12-12',
+                    offence_ids: ['55555'],
+                    defence_organisation_id: '88888')
   end
 
   subject { described_class.new(defendant).serializable_hash }
@@ -22,11 +24,13 @@ RSpec.describe DefendantSerializer do
     it { expect(attribute_hash[:national_insurance_number]).to eq('XW858621B') }
     it { expect(attribute_hash[:arrest_summons_number]).to eq('MG25A11223344') }
     it { expect(attribute_hash[:maat_reference]).to eq('123123') }
+    it { expect(attribute_hash[:representation_order_date]).to eq('2020-12-12') }
   end
 
   context 'relationships' do
     let(:relationship_hash) { subject[:data][:relationships] }
 
     it { expect(relationship_hash[:offences][:data]).to eq([id: '55555', type: :offences]) }
+    it { expect(relationship_hash[:defence_organisation][:data]).to eq({ id: '88888', type: :defence_organisations }) }
   end
 end
