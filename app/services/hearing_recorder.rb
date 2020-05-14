@@ -8,10 +8,15 @@ class HearingRecorder < ApplicationService
 
   def call
     hearing.update(body: body)
+    HearingsCreatorJob.perform_later(**transformed_body)
     hearing
   end
 
   private
+
+  def transformed_body
+    body.to_hash.deep_transform_keys(&:to_sym)
+  end
 
   attr_reader :hearing, :body
 end
