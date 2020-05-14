@@ -33,27 +33,35 @@ RSpec.describe Defendant, type: :model do
         [instance_double('Offence', maat_reference: '123123')]
       end
 
-      it { expect(defendant.maat_reference).to eq('123123') }
       before do
         ProsecutionCase.create!(id: prosecution_case_hash['prosecutionCaseId'], body: '{}')
-        ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_hash['prosecutionCaseId'],
-                                                defendant_id: defendant_hash['defendantId'],
-                                                offence_id: SecureRandom.uuid,
-                                                status_date: '2019-12-12',
-                                                defence_organisation: defence_organisation)
       end
 
-      let(:defence_organisation) do
-        {
-          'organisation' => {
-            'name' => 'SOME ORGANISATION'
-          },
-          'laa_contract_number' => 'CONTRACT REFERENCE'
-        }
-      end
+      it { expect(defendant.maat_reference).to eq('123123') }
+      it { expect(defendant.representation_order_date).to be_nil }
+      it { expect(defendant.defence_organisation_id).to be_nil }
 
-      it { expect(defendant.representation_order_date).to eq('2019-12-12') }
-      it { expect(defendant.defence_organisation_id).to eq('CONTRACT REFERENCE') }
+      context 'when a representation_order is recorded' do
+        before do
+          ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_hash['prosecutionCaseId'],
+                                                  defendant_id: defendant_hash['defendantId'],
+                                                  offence_id: SecureRandom.uuid,
+                                                  status_date: '2019-12-12',
+                                                  defence_organisation: defence_organisation)
+        end
+
+        let(:defence_organisation) do
+          {
+            'organisation' => {
+              'name' => 'SOME ORGANISATION'
+            },
+            'laaContractNumber' => 'CONTRACT REFERENCE'
+          }
+        end
+
+        it { expect(defendant.representation_order_date).to eq('2019-12-12') }
+        it { expect(defendant.defence_organisation_id).to eq('CONTRACT REFERENCE') }
+      end
     end
 
     context 'when there are multiple offences' do

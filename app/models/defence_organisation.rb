@@ -6,7 +6,7 @@ class DefenceOrganisation
   attr_accessor :body
 
   def id
-    body['laa_contract_number']
+    body['laaContractNumber']
   end
 
   def name

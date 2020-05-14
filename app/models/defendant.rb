@@ -32,7 +32,7 @@ class Defendant
   def defence_organisation
     return unless representation_order_exists?
 
-    DefenceOrganisation.new(body: case_reference.defence_organisation)
+    DefenceOrganisation.new(body: case_reference.defence_organisation) if case_reference.defence_organisation.present?
   end
 
   def representation_order_date
