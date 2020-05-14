@@ -88,7 +88,7 @@ spec:
             - name: AWS_HEARING_RESULTED_QUEUE_URL
               valueFrom:
                 secretKeyRef:
-                  name: ca-messaging-queues-output
+                  name: cda-messaging-queues-output
                   key: sqs_url_hearing_resulted
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
