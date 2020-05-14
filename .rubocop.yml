@@ -12,6 +12,9 @@ AllCops:
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
 
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
 Lint/AmbiguousBlockAssociation:
   Exclude:
   - 'spec/**/*'
@@ -62,4 +65,7 @@ Style/HashTransformKeys:
   Enabled: true
 
 Style/HashTransformValues:
+  Enabled: true
+
+Style/SlicingWithRange:
   Enabled: true
