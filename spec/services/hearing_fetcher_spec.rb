@@ -3,7 +3,7 @@
 RSpec.describe HearingFetcher do
   subject { described_class.call(hearing_id: hearing_id) }
 
-  let(:hearing_id) { 'ab746921-d839-4867-bcf9-b41db8ebc852' }
+  let(:hearing_id) { 'b935a64a-6d03-4da4-bba6-4d32cc2e7fb4' }
 
   it 'returns the requested hearing info' do
     VCR.use_cassette('hearing_result_fetcher/success') do
@@ -25,7 +25,7 @@ RSpec.describe HearingFetcher do
     subject { described_class.call(hearing_id: hearing_id, shared_key: 'SECRET KEY', connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
-    let(:url) { '/LAAGetHearingHttpTrigger' }
+    let(:url) { 'LAAGetHearingHttpTrigger' }
     let(:params) { { hearingId: hearing_id } }
     let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
 

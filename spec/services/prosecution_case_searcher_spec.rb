@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe ProsecutionCaseSearcher do
-  let(:prosecution_case_reference) { 'TFL12345' }
+  let(:prosecution_case_reference) { '19GD1001816' }
 
   context 'with an incorrect key' do
     subject { described_class.call(prosecution_case_reference: prosecution_case_reference, shared_key: 'INCORRECT KEY') }
@@ -26,7 +26,7 @@ RSpec.describe ProsecutionCaseSearcher do
   end
 
   context 'searching by National Insurance Number' do
-    let(:national_insurance_number) { 'BN102966C' }
+    let(:national_insurance_number) { 'HB133542A' }
 
     subject(:search) { described_class.call(national_insurance_number: national_insurance_number) }
 
@@ -52,9 +52,9 @@ RSpec.describe ProsecutionCaseSearcher do
   end
 
   context 'searching by name and date of birth' do
-    let(:date_of_birth) { '1971-05-12' }
+    let(:date_of_birth) { '1980-01-01' }
 
-    subject(:search) { described_class.call(name: 'Alfredine Parker', date_of_birth: date_of_birth) }
+    subject(:search) { described_class.call(name: 'George Walsh', date_of_birth: date_of_birth) }
 
     it 'returns a successful response' do
       VCR.use_cassette('search_prosecution_case/by_name_and_date_of_birth_success') do
@@ -65,9 +65,9 @@ RSpec.describe ProsecutionCaseSearcher do
   end
 
   context 'searching by name and date_of_next_hearing' do
-    let(:date_of_next_hearing) { '2025-05-04' }
+    let(:date_of_next_hearing) { '2020-02-17' }
 
-    subject(:search) { described_class.call(name: 'Alfredine Parker', date_of_next_hearing: date_of_next_hearing) }
+    subject(:search) { described_class.call(name: 'George Walsh', date_of_next_hearing: date_of_next_hearing) }
 
     it 'returns a successful response' do
       VCR.use_cassette('search_prosecution_case/by_name_and_date_of_next_hearing_success') do
@@ -81,7 +81,7 @@ RSpec.describe ProsecutionCaseSearcher do
     subject { described_class.call(prosecution_case_reference: prosecution_case_reference, shared_key: 'SECRET KEY', connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
-    let(:url) { '/prosecutionCases' }
+    let(:url) { 'prosecutionCases' }
     let(:params) { { prosecutionCaseReference: prosecution_case_reference } }
     let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
 

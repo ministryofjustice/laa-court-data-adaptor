@@ -54,26 +54,23 @@ spec:
                   key: secret-key-base
             - name: COMMON_PLATFORM_URL
               value: {{ .Values.common_platform_url }}
-            - name: SHARED_SECRET_KEY_LAA_REFERENCE
+            {{- if .Values.mtls_enabled }}
+            - name: SSL_CLIENT_CERT
               valueFrom:
                 secretKeyRef:
                   name: laa-court-data-adaptor-secrets
-                  key: common-platform-laa-reference-key
-            - name: SHARED_SECRET_KEY_REPRESENTATION_ORDER
+                  key: ssl-client-cert
+            - name: SSL_CLIENT_KEY
               valueFrom:
                 secretKeyRef:
                   name: laa-court-data-adaptor-secrets
-                  key: common-platform-representation-order-key
-            - name: SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE
+                  key: ssl-client-key
+            {{- end }}
+            - name: SHARED_SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   name: laa-court-data-adaptor-secrets
-                  key: common-platform-search-prosecution-case-key
-            - name: SHARED_SECRET_KEY_HEARING
-              valueFrom:
-                secretKeyRef:
-                  name: laa-court-data-adaptor-secrets
-                  key: common-platform-hearing-key
+                  key: common-platform-key
             {{- if .Values.sqs_messaging_enabled }}
             - name: AWS_LINK_QUEUE_URL
               valueFrom:

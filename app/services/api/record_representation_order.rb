@@ -12,7 +12,7 @@ module Api
                    effective_start_date:,
                    effective_end_date: nil,
                    defence_organisation:,
-                   shared_key: ENV['SHARED_SECRET_KEY_REPRESENTATION_ORDER'],
+                   shared_key: ENV['SHARED_SECRET_KEY'],
                    connection: CommonPlatformConnection.call)
 
       @offence_id = offence_id
@@ -22,7 +22,7 @@ module Api
       @effective_start_date = effective_start_date
       @effective_end_date = effective_end_date
       @defence_organisation = defence_organisation
-      @url = '/progression-command-api'\
+      @url = 'progression-command-api'\
               '/command/api/rest/progression/representationOrder' \
               "/cases/#{prosecution_case_id}" \
               "/defendants/#{defendant_id}" \

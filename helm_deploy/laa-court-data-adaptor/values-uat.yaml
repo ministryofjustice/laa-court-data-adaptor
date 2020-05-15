@@ -13,9 +13,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-common_platform_url: https://hmcts-common-platform-mock-api.apps.live-1.cloud-platform.service.justice.gov.uk
+common_platform_url: https://apigw.sit.cjscp.org.uk/fa-sit-ccp0101-legalaidagency
 sqs_region: eu-west-2
 sqs_messaging_enabled: true
+mtls_enabled: true
 
 serviceAccount:
   # Specifies whether a service account should be created

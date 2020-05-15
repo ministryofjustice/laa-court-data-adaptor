@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProsecutionCaseSearcher < ApplicationService
-  URL = '/prosecutionCases'
+  URL = 'prosecutionCases'
   # rubocop:disable Metrics/ParameterLists
   def initialize(prosecution_case_reference: nil,
                  national_insurance_number: nil,
@@ -9,7 +9,7 @@ class ProsecutionCaseSearcher < ApplicationService
                  name: nil,
                  date_of_birth: nil,
                  date_of_next_hearing: nil,
-                 shared_key: ENV['SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE'],
+                 shared_key: ENV['SHARED_SECRET_KEY'],
                  connection: CommonPlatformConnection.call)
     @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     @connection = connection
@@ -32,7 +32,7 @@ class ProsecutionCaseSearcher < ApplicationService
     return { prosecutionCaseReference: prosecution_case_reference } if prosecution_case_reference.present?
     return { defendantASN: arrest_summons_number } if arrest_summons_number.present?
     return { defendantName: name, dateOfNextHearing: date_of_next_hearing } if date_of_next_hearing.present?
-    return { defendantName: name, dateOfBirth: date_of_birth } if date_of_birth.present?
+    return { defendantName: name, defendantDOB: date_of_birth } if date_of_birth.present?
 
     { defendantNINO: national_insurance_number }
   end

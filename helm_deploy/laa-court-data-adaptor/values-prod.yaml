@@ -16,6 +16,7 @@ fullnameOverride: ""
 common_platform_url: https://hmcts-common-platform-mock-api.apps.live-1.cloud-platform.service.justice.gov.uk
 sqs_region: eu-west-2
 sqs_messaging_enabled: false
+mtls_enabled: false
 
 serviceAccount:
   # Specifies whether a service account should be created

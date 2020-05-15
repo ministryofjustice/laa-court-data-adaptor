@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe HearingEventsFetcher do
-  subject { described_class.call(hearing_id: hearing_id) }
+  subject { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date) }
 
-  let(:hearing_id) { 'ab746921-d839-4867-bcf9-b41db8ebc852' }
+  let(:hearing_id) { '2c24f897-ffc4-439f-9c4a-ec60c7715cd0' }
+  let(:hearing_date) { '2020-04-30' }
 
   it 'returns the requested hearing info' do
     VCR.use_cassette('hearing_logs_fetcher/success') do
-      expect(subject.body['hearingLog'].map { |x| x['hearingId'] }).to all eq(hearing_id)
+      expect(subject.body['hearingId']).to eq(hearing_id)
     end
   end
 
   context 'with a incorrect key' do
-    subject { described_class.call(hearing_id: hearing_id, shared_key: 'INCORRECT KEY') }
+    subject { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date, shared_key: 'INCORRECT KEY') }
 
     it 'returns an unauthorised response' do
       VCR.use_cassette('hearing_logs_fetcher/unauthorised') do
@@ -22,11 +23,11 @@ RSpec.describe HearingEventsFetcher do
   end
 
   context 'connection' do
-    subject { described_class.call(hearing_id: hearing_id, shared_key: 'SECRET KEY', connection: connection) }
+    subject { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date, shared_key: 'SECRET KEY', connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
-    let(:url) { '/LAAGetHearingLogHttpTrigger' }
-    let(:params) { { hearingId: hearing_id } }
+    let(:url) { 'LAAGetHearingEventLogHttpTriggerFast' }
+    let(:params) { { hearingId: hearing_id, date: hearing_date } }
     let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
 
     it 'makes a get request' do

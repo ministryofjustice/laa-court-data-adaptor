@@ -28,7 +28,7 @@ RSpec.describe Api::RecordRepresentationOrder do
       defence_organisation: defence_organisation
     }
   end
-  let(:url) { "/progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case.id}/defendants/#{defendant_id}/offences/#{offence_id}" }
+  let(:url) { "progression-command-api/command/api/rest/progression/representationOrder/cases/#{prosecution_case.id}/defendants/#{defendant_id}/offences/#{offence_id}" }
 
   let!(:case_defendant_offence) do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case.id,

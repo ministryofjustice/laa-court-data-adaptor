@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
+    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=b935a64a-6d03-4da4-bba6-4d32cc2e7fb4"
     body:
       encoding: US-ASCII
       string: ''
@@ -10,47 +10,79 @@ http_interactions:
       User-Agent:
       - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
-      - "<SHARED_SECRET_KEY_HEARING>"
+      - "<SHARED_SECRET_KEY>"
   response:
     status:
       code: 200
       message: OK
     headers:
+      content-type:
+      - text/plain; charset=utf-8
+      request-context:
+      - appId=cid-v1:e7545c86-6eab-4a30-bf6d-7ed8b5691e3e
+      date:
+      - Fri, 15 May 2020 13:11:31 GMT
       x-frame-options:
       - SAMEORIGIN
-      x-xss-protection:
-      - 1; mode=block
-      x-content-type-options:
-      - nosniff
-      x-download-options:
-      - noopen
-      x-permitted-cross-domain-policies:
-      - none
-      referrer-policy:
-      - strict-origin-when-cross-origin
-      content-type:
-      - application/json; charset=utf-8
-      etag:
-      - W/"95bfc105126067f620774a567a180b69"
-      cache-control:
-      - max-age=0, private, must-revalidate
-      x-request-id:
-      - fd060690-7819-436e-8354-e33f4d8cf229
-      x-runtime:
-      - '0.048248'
       transfer-encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"id":"ab746921-d839-4867-bcf9-b41db8ebc852","jurisdictionType":"CROWN","reportingRestrictionReason":"MyString","courtCentre":{"id":"5ccb6092-1a0e-493e-bdff-96f19baf7bbd","name":"Random
-        string","ouCode":"Random string","courtHearingLocation":"Random string","welshName":"Llinyn
-        ar hap","roomId":"9470125e-5ade-4c67-8c2a-87db72e03167","roomName":"Grand
-        Hall","welshRoomName":"Neuadd y Grand"},"hearingLanguage":"WELSH","hasSharedResults":false,"type":{"id":"2531da6f-acc7-456d-aedb-a2d0b6cfc995","description":"This
-        is a description","code":"12D10JAS"},"isEffectiveTrial":false,"isBoxHearing":false,"hearingDays":[{"sittingDay":"2019-10-23T16:19:15.000Z","listingSequence":1,"listedDurationMinutes":1,"startTime":"10:00:00","endTime":"12:00:00","actualDurationMinutes":7200,"onTheDayCourtRoomId":"1f0a7a7e-690b-48ea-89a4-eac3f951a733","onTheDayCourtCentre":{"id":"060fbacf-072b-4102-93b4-e2939e1b9e0d","name":"Random
-        string","ouCode":"Random string","courtHearingLocation":"Random string","welshName":"Llinyn
-        ar hap","roomId":"81c7cf36-9d69-412e-83de-f12b51931b4f","roomName":"Grand
-        Hall","welshRoomName":"Neuadd y Grand"},"onTheDayJudiciary":[{"judicialId":"d71761a2-9e47-4c93-90b1-6020382d182e","title":"MyString","firstName":"MyString","middleName":"MyString","lastName":"MyString","isDeputy":false,"isBenchChairman":false,"judicialRoleType":{"judicialRoleTypeId":"7cdff927-578c-4ede-9a0a-7f1d93e83f5d","judiciaryType":"High
-        Court Judge"}}]}]}'
+      string: "{\r\n  \"id\": \"b935a64a-6d03-4da4-bba6-4d32cc2e7fb4\",\r\n  \"jurisdictionType\":
+        \"MAGISTRATES\",\r\n  \"courtCentre\": {\r\n    \"address\": {\r\n      \"address1\":
+        \"Norwich Place\",\r\n      \"address2\": \"Bexleyheath\",\r\n      \"address3\":
+        \"Kent\",\r\n      \"address4\": \"\",\r\n      \"address5\": \"\",\r\n      \"postcode\":
+        \"DA6 7ND\"\r\n    },\r\n    \"id\": \"7e967376-eacf-4fca-9b30-21b0c5aad427\",\r\n
+        \   \"name\": \"Bexley Magistrates' Court\",\r\n    \"roomId\": \"8e912353-3b5d-36c3-953e-ad3b94b19de3\",\r\n
+        \   \"roomName\": \"Courtroom 01\"\r\n  },\r\n  \"hearingDays\": [\r\n    {\r\n
+        \     \"listedDurationMinutes\": 20,\r\n      \"listingSequence\": 0,\r\n
+        \     \"sittingDay\": \"2020-02-17T15:00:00.000Z\"\r\n    }\r\n  ],\r\n  \"type\":
+        {\r\n    \"description\": \"First hearing\",\r\n    \"id\": \"4a0e892d-c0c5-3c51-95b8-704d8c781776\"\r\n
+        \ },\r\n  \"hearingLanguage\": \"ENGLISH\",\r\n  \"prosecutionCases\": [\r\n
+        \   {\r\n      \"id\": \"5edd67eb-9d8c-44f2-a57e-c8d026defaa4\",\r\n      \"prosecutionCaseIdentifier\":
+        {\r\n        \"prosecutionAuthorityCode\": \"DVLA\",\r\n        \"prosecutionAuthorityId\":
+        \"6ae4b163-658b-3ae2-a66d-43401cac2f96\",\r\n        \"caseURN\": \"20GD0217100\"\r\n
+        \     },\r\n      \"initiationCode\": \"C\",\r\n      \"defendants\": [\r\n
+        \       {\r\n          \"id\": \"2ecc9feb-9407-482f-b081-d9e5c8ba3ed3\",\r\n
+        \         \"prosecutionCaseId\": \"5edd67eb-9d8c-44f2-a57e-c8d026defaa4\",\r\n
+        \         \"offences\": [\r\n            {\r\n              \"id\": \"3f153786-f3cf-4311-bc0c-2d6f48af68a1\",\r\n
+        \             \"offenceDefinitionId\": \"880a9785-cabb-49ee-9f8f-1c879020ec2f\",\r\n
+        \             \"offenceCode\": \"PT00011\",\r\n              \"offenceTitle\":
+        \"Driver / other person fail to immediately move a vehicle from a cordoned
+        area on order of a constable\",\r\n              \"wording\": \"Test\",\r\n
+        \             \"startDate\": \"2020-02-01\",\r\n              \"modeOfTrial\":
+        \"Summary\",\r\n              \"arrestDate\": \"2020-02-01\",\r\n              \"chargeDate\":
+        \"2020-02-01\",\r\n              \"orderIndex\": 1,\r\n              \"count\":
+        0,\r\n              \"judicialResults\": [\r\n                {\r\n                  \"category\":
+        \"FINAL\",\r\n                  \"cjsCode\": \"1017\",\r\n                  \"courtClerk\":
+        {\r\n                    \"firstName\": \"Erica\",\r\n                    \"lastName\":
+        \"Wilson\",\r\n                    \"userId\": \"31ec3a16-8721-498c-8da5-f099390ee254\"\r\n
+        \                 },\r\n                  \"isAdjournmentResult\": false,\r\n
+        \                 \"isAvailableForCourtExtract\": true,\r\n                  \"isConvictedResult\":
+        true,\r\n                  \"isDeleted\": false,\r\n                  \"isFinancialResult\":
+        false,\r\n                  \"judicialResultId\": \"7b4cdbde-8cd0-4847-bef3-d200d12b68ff\",\r\n
+        \                 \"label\": \"Absolute discharge\",\r\n                  \"lastSharedDateTime\":
+        \"2020-03-05\",\r\n                  \"orderedDate\": \"2020-02-17\",\r\n
+        \                 \"orderedHearingId\": \"b935a64a-6d03-4da4-bba6-4d32cc2e7fb4\",\r\n
+        \                 \"rank\": 7500,\r\n                  \"usergroups\": [\r\n
+        \                   \"Court Clerks\",\r\n                    \"Legal Advisers\"\r\n
+        \                 ],\r\n                  \"welshLabel\": \"Rhyddhad diamod\"\r\n
+        \               }\r\n              ],\r\n              \"laaApplnReference\":
+        {\r\n                \"applicationReference\": \"AB746921\",\r\n                \"offenceLevelStatus\":
+        \"Granted\",\r\n                \"statusCode\": \"GR\",\r\n                \"statusDate\":
+        \"1980-07-15\",\r\n                \"statusDescription\": \"Granted (One Advocate)\",\r\n
+        \               \"statusId\": \"98e86937-9652-32a3-a9fb-dbd01eda86a5\"\r\n
+        \             }\r\n            }\r\n          ],\r\n          \"prosecutionAuthorityReference\":
+        \"2ecc9feb-9407-482f-b081-d9e5c8ba3ed3\",\r\n          \"personDefendant\":
+        {\r\n            \"bailStatus\": {\r\n              \"code\": \"A\",\r\n              \"description\":
+        \"Not applicable\",\r\n              \"id\": \"86009c70-759d-3308-8de4-194886ff9a77\"\r\n
+        \           },\r\n            \"personDetails\": {\r\n              \"address\":
+        {\r\n                \"address1\": \"No fixed abode\"\r\n              },\r\n
+        \             \"dateOfBirth\": \"1980-01-01\",\r\n              \"documentationLanguageNeeds\":
+        \"ENGLISH\",\r\n              \"firstName\": \"George\",\r\n              \"gender\":
+        \"NOT_SPECIFIED\",\r\n              \"lastName\": \"Walsh\",\r\n              \"title\":
+        \"Mr\"\r\n            }\r\n          }\r\n        }\r\n      ],\r\n      \"originatingOrganisation\":
+        \"G94DV00\"\r\n    }\r\n  ],\r\n  \"hasSharedResults\": true\r\n}"
     http_version: null
-  recorded_at: Mon, 20 Apr 2020 12:48:17 GMT
+  recorded_at: Fri, 15 May 2020 13:11:31 GMT
 recorded_with: VCR 5.1.0
