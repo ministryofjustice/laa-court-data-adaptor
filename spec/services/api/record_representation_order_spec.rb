@@ -44,7 +44,6 @@ RSpec.describe Api::RecordRepresentationOrder do
 
   context 'connection' do
     let(:connection) { double('CommonPlatformConnection') }
-    let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
     let(:request_params) do
       {
         statusCode: 'ABCDEF',
@@ -58,11 +57,11 @@ RSpec.describe Api::RecordRepresentationOrder do
 
     before do
       allow(connection).to receive(:post).and_return(Faraday::Response.new(status: 202, body: { 'test' => 'test' }))
-      params.merge!(shared_key: 'SECRET KEY', connection: connection)
+      params.merge!(connection: connection)
     end
 
     it 'makes a post request' do
-      expect(connection).to receive(:post).with(url, request_params, headers)
+      expect(connection).to receive(:post).with(url, request_params)
       subject
     end
 
@@ -94,7 +93,7 @@ RSpec.describe Api::RecordRepresentationOrder do
       end
 
       it 'posts successfully without the effectiveEndDate' do
-        expect(connection).to receive(:post).with(url, request_params, headers)
+        expect(connection).to receive(:post).with(url, request_params)
         subject
       end
     end

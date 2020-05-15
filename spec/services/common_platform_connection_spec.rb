@@ -2,13 +2,41 @@
 
 RSpec.describe CommonPlatformConnection do
   let(:host) { 'https://example.com' }
-  let(:ssl_options) { hash_including(:ssl) }
+  let(:request_options) do
+    { headers: { 'Ocp-Apim-Subscription-Key' => 'super-secret-key' } }
+  end
+
+  let(:client_cert) { nil }
+  let(:client_key) { nil }
 
   subject { described_class.call(host: host) }
 
+  before do
+    allow(Rails.configuration.x).to receive(:client_cert).and_return(client_cert)
+    allow(Rails.configuration.x).to receive(:client_key).and_return(client_key)
+  end
+
   it 'connects to the common platform url' do
-    expect(Faraday).to receive(:new).with(host, ssl_options)
+    expect(Faraday).to receive(:new).with(host, request_options)
     subject
+  end
+
+  context 'when a certificate and key is provided' do
+    let(:client_cert) { 'CERT' }
+    let(:client_key) { 'KEY' }
+    let(:request_options) do
+      { headers: { 'Ocp-Apim-Subscription-Key' => 'super-secret-key' }, ssl: { client_cert: 'OPENSSL_CERT', client_key: 'OPENSSL_KEY' } }
+    end
+
+    before do
+      allow(OpenSSL::X509::Certificate).to receive(:new).with(client_cert).and_return('OPENSSL_CERT')
+      allow(OpenSSL::PKey::RSA).to receive(:new).with(client_key).and_return('OPENSSL_KEY')
+    end
+
+    it 'connects to the common platform url' do
+      expect(Faraday).to receive(:new).with(host, request_options)
+      subject
+    end
   end
 
   context 'faraday configuration' do

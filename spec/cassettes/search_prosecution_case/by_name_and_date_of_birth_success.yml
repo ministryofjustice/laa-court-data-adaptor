@@ -7,10 +7,10 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      User-Agent:
-      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY>"
+      User-Agent:
+      - Faraday v1.0.1
   response:
     status:
       code: 200
@@ -21,9 +21,9 @@ http_interactions:
       content-type:
       - application/vnd.unifiedsearch.query.laa.cases+json
       cppid:
-      - b52df0aa-145c-4a9f-84e0-84f48a48482f
+      - 995abfd7-ecaa-40dc-b912-f169b7ab1838
       date:
-      - Fri, 15 May 2020 13:11:32 GMT
+      - Fri, 15 May 2020 15:57:01 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
@@ -37,5 +37,5 @@ http_interactions:
         01"},"hearingType":{"id":"4a0e892d-c0c5-3c51-95b8-704d8c781776","description":"First
         hearing"}}]}]}'
     http_version: null
-  recorded_at: Fri, 15 May 2020 13:11:32 GMT
+  recorded_at: Fri, 15 May 2020 15:57:01 GMT
 recorded_with: VCR 5.1.0

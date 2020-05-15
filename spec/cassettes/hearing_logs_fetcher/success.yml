@@ -7,10 +7,10 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      User-Agent:
-      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY>"
+      User-Agent:
+      - Faraday v1.0.1
   response:
     status:
       code: 200
@@ -21,7 +21,7 @@ http_interactions:
       request-context:
       - appId=cid-v1:e7545c86-6eab-4a30-bf6d-7ed8b5691e3e
       date:
-      - Fri, 15 May 2020 13:11:30 GMT
+      - Fri, 15 May 2020 15:57:00 GMT
       x-frame-options:
       - SAMEORIGIN
       transfer-encoding:
@@ -53,5 +53,5 @@ http_interactions:
         \     \"eventTime\": \"2020-04-30T16:18:29.704Z\",\r\n      \"lastModifiedTime\":
         \"2020-04-29T16:18:30.380Z\",\r\n      \"alterable\": true\r\n    }\r\n  ]\r\n}"
     http_version: null
-  recorded_at: Fri, 15 May 2020 13:11:31 GMT
+  recorded_at: Fri, 15 May 2020 15:57:00 GMT
 recorded_with: VCR 5.1.0

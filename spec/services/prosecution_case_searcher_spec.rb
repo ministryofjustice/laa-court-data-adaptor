@@ -4,7 +4,13 @@ RSpec.describe ProsecutionCaseSearcher do
   let(:prosecution_case_reference) { '19GD1001816' }
 
   context 'with an incorrect key' do
-    subject { described_class.call(prosecution_case_reference: prosecution_case_reference, shared_key: 'INCORRECT KEY') }
+    let(:connection) { CommonPlatformConnection.call }
+
+    subject { described_class.call(prosecution_case_reference: prosecution_case_reference, connection: connection) }
+
+    before do
+      connection.headers['Ocp-Apim-Subscription-Key'] = 'INCORRECT KEY'
+    end
 
     it 'returns an unauthorised response' do
       VCR.use_cassette('search_prosecution_case/unauthorised') do
@@ -78,15 +84,14 @@ RSpec.describe ProsecutionCaseSearcher do
   end
 
   context 'connection' do
-    subject { described_class.call(prosecution_case_reference: prosecution_case_reference, shared_key: 'SECRET KEY', connection: connection) }
+    subject { described_class.call(prosecution_case_reference: prosecution_case_reference, connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
     let(:url) { 'prosecutionCases' }
     let(:params) { { prosecutionCaseReference: prosecution_case_reference } }
-    let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
 
     it 'makes a get request' do
-      expect(connection).to receive(:get).with(url, params, headers)
+      expect(connection).to receive(:get).with(url, params)
       subject
     end
   end

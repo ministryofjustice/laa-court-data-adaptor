@@ -12,7 +12,6 @@ module Api
                    effective_start_date:,
                    effective_end_date: nil,
                    defence_organisation:,
-                   shared_key: ENV['SHARED_SECRET_KEY'],
                    connection: CommonPlatformConnection.call)
 
       @offence_id = offence_id
@@ -29,12 +28,11 @@ module Api
               "/offences/#{offence_id}"
 
       @connection = connection
-      @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     end
     # rubocop:enable Metrics/ParameterLists
 
     def call
-      response = connection.post(url, request_body, headers)
+      response = connection.post(url, request_body)
       update_database(response)
       response
     end
@@ -64,6 +62,6 @@ module Api
       offence.save!
     end
 
-    attr_reader :url, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :headers, :connection
+    attr_reader :url, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
   end
 end

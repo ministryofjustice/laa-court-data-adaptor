@@ -8,10 +8,10 @@ http_interactions:
       string: '{"statusCode":"ABCDEF","applicationReference":"SOME SORT OF MAAT ID","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","effectiveEndDate":"2020-12-15","defenceOrganisation":{"organisation":{"name":"SOME
         ORGANISATION"},"laaContractNumber":"CONTRACT REFERENCE"}}'
     headers:
-      User-Agent:
-      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY>"
+      User-Agent:
+      - Faraday v1.0.1
       Content-Type:
       - application/json
   response:
@@ -22,12 +22,12 @@ http_interactions:
       content-length:
       - '0'
       date:
-      - Fri, 15 May 2020 13:11:30 GMT
+      - Fri, 15 May 2020 15:57:00 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
       encoding: UTF-8
       string: ''
     http_version: null
-  recorded_at: Fri, 15 May 2020 13:11:30 GMT
+  recorded_at: Fri, 15 May 2020 15:57:00 GMT
 recorded_with: VCR 5.1.0

@@ -9,9 +9,7 @@ class ProsecutionCaseSearcher < ApplicationService
                  name: nil,
                  date_of_birth: nil,
                  date_of_next_hearing: nil,
-                 shared_key: ENV['SHARED_SECRET_KEY'],
                  connection: CommonPlatformConnection.call)
-    @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     @connection = connection
     @prosecution_case_reference = prosecution_case_reference
     @national_insurance_number = national_insurance_number
@@ -23,7 +21,7 @@ class ProsecutionCaseSearcher < ApplicationService
   # rubocop:enable Metrics/ParameterLists
 
   def call
-    connection.get(URL, request_params, headers)
+    connection.get(URL, request_params)
   end
 
   private
@@ -44,6 +42,5 @@ class ProsecutionCaseSearcher < ApplicationService
               :name,
               :date_of_birth,
               :date_of_next_hearing,
-              :headers,
               :connection
 end

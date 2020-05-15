@@ -12,7 +12,13 @@ RSpec.describe HearingFetcher do
   end
 
   context 'with a incorrect key' do
-    subject { described_class.call(hearing_id: hearing_id, shared_key: 'INCORRECT KEY') }
+    let(:connection) { CommonPlatformConnection.call }
+
+    subject { described_class.call(hearing_id: hearing_id, connection: connection) }
+
+    before do
+      connection.headers['Ocp-Apim-Subscription-Key'] = 'INCORRECT KEY'
+    end
 
     it 'returns an unauthorised response' do
       VCR.use_cassette('hearing_result_fetcher/unauthorised') do
@@ -22,15 +28,14 @@ RSpec.describe HearingFetcher do
   end
 
   context 'connection' do
-    subject { described_class.call(hearing_id: hearing_id, shared_key: 'SECRET KEY', connection: connection) }
+    subject { described_class.call(hearing_id: hearing_id, connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
     let(:url) { 'LAAGetHearingHttpTrigger' }
     let(:params) { { hearingId: hearing_id } }
-    let(:headers) { { 'Ocp-Apim-Subscription-Key' => 'SECRET KEY' } }
 
     it 'makes a get request' do
-      expect(connection).to receive(:get).with(url, params, headers)
+      expect(connection).to receive(:get).with(url, params)
       subject
     end
   end
