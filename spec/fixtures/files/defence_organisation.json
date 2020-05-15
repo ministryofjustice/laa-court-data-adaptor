@@ -1,9 +1,9 @@
 {
-  "laa_contract_number": "CONTRACT REFERENCE",
-  "sra_number": "SRA NUMBER",
-  "bar_council_membership_number": "BAR COUNCIL NUMBER",
-  "incorporation_number": "AAA",
-  "registered_charity_number": "BBB",
+  "laaContractNumber": "CONTRACT REFERENCE",
+  "sraNumber": "SRA NUMBER",
+  "barCouncilMembershipNumber": "BAR COUNCIL NUMBER",
+  "incorporationNumber": "AAA",
+  "registeredCharityNumber": "BBB",
   "organisation": {
     "name": "SOME ORGANISATION",
     "address": {
@@ -18,8 +18,8 @@
       "home": "+99999",
       "work": "CALL ME 888",
       "mobile": "+99999",
-      "primary_email": "a@example.com",
-      "secondary_email": "a@example.com",
+      "primaryEmail": "a@example.com",
+      "secondaryEmail": "a@example.com",
       "fax": "ABC123123"
     }
   }
