@@ -9,7 +9,6 @@ module Api
                    status_code:,
                    application_reference:,
                    status_date:,
-                   shared_key: ENV['SHARED_SECRET_KEY_LAA_REFERENCE'],
                    connection: CommonPlatformConnection.call)
 
       @offence_id = offence_id
@@ -17,18 +16,16 @@ module Api
       @application_reference = application_reference.to_s
       @status_date = status_date
       @connection = connection
-      @url = '/progression-command-api'\
+      @url = 'progression-command-api'\
               '/command/api/rest/progression/laaReference'\
               "/cases/#{prosecution_case_id}"\
               "/defendants/#{defendant_id}"\
               "/offences/#{offence_id}"
-
-      @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     end
     # rubocop:enable Metrics/ParameterLists
 
     def call
-      response = connection.post(url, request_body, headers)
+      response = connection.post(url, request_body)
       update_database(response)
       response
     end
@@ -54,6 +51,6 @@ module Api
       offence.save!
     end
 
-    attr_reader :url, :status_code, :application_reference, :status_date, :connection, :headers, :offence_id
+    attr_reader :url, :status_code, :application_reference, :status_date, :connection, :offence_id
   end
 end

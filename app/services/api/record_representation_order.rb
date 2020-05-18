@@ -12,7 +12,6 @@ module Api
                    effective_start_date:,
                    effective_end_date: nil,
                    defence_organisation:,
-                   shared_key: ENV['SHARED_SECRET_KEY_REPRESENTATION_ORDER'],
                    connection: CommonPlatformConnection.call)
 
       @offence_id = offence_id
@@ -22,19 +21,18 @@ module Api
       @effective_start_date = effective_start_date
       @effective_end_date = effective_end_date
       @defence_organisation = defence_organisation
-      @url = '/progression-command-api'\
+      @url = 'progression-command-api'\
               '/command/api/rest/progression/representationOrder' \
               "/cases/#{prosecution_case_id}" \
               "/defendants/#{defendant_id}" \
               "/offences/#{offence_id}"
 
       @connection = connection
-      @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
     end
     # rubocop:enable Metrics/ParameterLists
 
     def call
-      response = connection.post(url, request_body, headers)
+      response = connection.post(url, request_body)
       update_database(response)
       response
     end
@@ -64,6 +62,6 @@ module Api
       offence.save!
     end
 
-    attr_reader :url, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :headers, :connection
+    attr_reader :url, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
   end
 end

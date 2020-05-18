@@ -2,45 +2,34 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingLogHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
+    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingEventLogHttpTriggerFast?date=2020-04-30&hearingId=2c24f897-ffc4-439f-9c4a-ec60c7715cd0"
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      User-Agent:
-      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - INCORRECT KEY
+      User-Agent:
+      - Faraday v1.0.1
   response:
     status:
       code: 401
-      message: Unauthorized
+      message: Access Denied
     headers:
+      content-length:
+      - '143'
+      content-type:
+      - application/json
+      www-authenticate:
+      - AzureApiManagementKey realm="https://spnl-sit-apim-int-gw.cpp.nonlive/fa-sit-ccp0101-legalaidagency",name="Ocp-Apim-Subscription-Key",type="header"
+      date:
+      - Fri, 15 May 2020 15:57:00 GMT
       x-frame-options:
       - SAMEORIGIN
-      x-xss-protection:
-      - 1; mode=block
-      x-content-type-options:
-      - nosniff
-      x-download-options:
-      - noopen
-      x-permitted-cross-domain-policies:
-      - none
-      referrer-policy:
-      - strict-origin-when-cross-origin
-      content-type:
-      - text/html
-      cache-control:
-      - no-cache
-      x-request-id:
-      - dd6bd443-a6e2-41d7-9b26-8ed83a57abf7
-      x-runtime:
-      - '0.003491'
-      transfer-encoding:
-      - chunked
     body:
       encoding: UTF-8
-      string: ''
+      string: '{ "statusCode": 401, "message": "Access denied due to invalid subscription
+        key. Make sure to provide a valid key for an active subscription." }'
     http_version: null
-  recorded_at: Fri, 24 Apr 2020 10:02:33 GMT
+  recorded_at: Fri, 15 May 2020 15:57:01 GMT
 recorded_with: VCR 5.1.0

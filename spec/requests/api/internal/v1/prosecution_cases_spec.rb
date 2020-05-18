@@ -97,7 +97,7 @@ RSpec.describe 'api/internal/v1/prosecution_cases', type: :request, swagger_doc:
                                   eg include=defendants,defendants.offences,defendants.defence_organisation'
 
           let(:Authorization) { "Bearer #{token.token}" }
-          let(:'filter[prosecution_case_reference]') { 'TFL12345' }
+          let(:'filter[prosecution_case_reference]') { '19GD1001816' }
           let(:include) { 'defendants,defendants.offences,defendants.defence_organisation' }
 
           run_test! do |response|
@@ -144,7 +144,7 @@ RSpec.describe 'api/internal/v1/prosecution_cases', type: :request, swagger_doc:
                     description: 'Searches prosecution cases by national_insurance_number'
 
           let(:Authorization) { "Bearer #{token.token}" }
-          let(:'filter[national_insurance_number]') { 'BN102966C' }
+          let(:'filter[national_insurance_number]') { 'HB133542A' }
 
           run_test! do |response|
             expect(response.body).to be_valid_against_schema(schema: schema)
@@ -173,8 +173,8 @@ RSpec.describe 'api/internal/v1/prosecution_cases', type: :request, swagger_doc:
                     description: 'Searches prosecution cases by date_of_birth'
 
           let(:Authorization) { "Bearer #{token.token}" }
-          let(:'filter[name]') { 'Alfredine Parker' }
-          let(:'filter[date_of_birth]') { '1971-05-12' }
+          let(:'filter[name]') { 'George Walsh' }
+          let(:'filter[date_of_birth]') { '1980-01-01' }
 
           run_test! do |response|
             expect(response.body).to be_valid_against_schema(schema: schema)
@@ -203,8 +203,8 @@ RSpec.describe 'api/internal/v1/prosecution_cases', type: :request, swagger_doc:
                     description: 'Searches prosecution cases by date_of_next_hearing'
 
           let(:Authorization) { "Bearer #{token.token}" }
-          let(:'filter[name]') { 'Alfredine Parker' }
-          let(:'filter[date_of_next_hearing]') { '2025-05-04' }
+          let(:'filter[name]') { 'George Walsh' }
+          let(:'filter[date_of_next_hearing]') { '2020-02-17' }
 
           run_test! do |response|
             expect(response.body).to be_valid_against_schema(schema: schema)

@@ -7,10 +7,10 @@ http_interactions:
       encoding: UTF-8
       string: '{"statusCode":"ABCDEF","applicationReference":"999999","statusDate":"2019-12-12"}'
     headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
       User-Agent:
       - Faraday v1.0.1
-      Ocp-Apim-Subscription-Key:
-      - "<SHARED_SECRET_KEY_LAA_REFERENCE>"
       Content-Type:
       - application/json
   response:
@@ -18,31 +18,15 @@ http_interactions:
       code: 202
       message: Accepted
     headers:
+      content-length:
+      - '0'
+      date:
+      - Fri, 15 May 2020 15:57:01 GMT
       x-frame-options:
       - SAMEORIGIN
-      x-xss-protection:
-      - 1; mode=block
-      x-content-type-options:
-      - nosniff
-      x-download-options:
-      - noopen
-      x-permitted-cross-domain-policies:
-      - none
-      referrer-policy:
-      - strict-origin-when-cross-origin
-      content-type:
-      - text/html
-      cache-control:
-      - no-cache
-      x-request-id:
-      - 259156ad-43c2-4ee7-82bd-c4bfafbdf238
-      x-runtime:
-      - '0.015725'
-      transfer-encoding:
-      - chunked
     body:
       encoding: UTF-8
       string: ''
     http_version: null
-  recorded_at: Mon, 20 Apr 2020 12:48:18 GMT
+  recorded_at: Fri, 15 May 2020 15:57:01 GMT
 recorded_with: VCR 5.1.0

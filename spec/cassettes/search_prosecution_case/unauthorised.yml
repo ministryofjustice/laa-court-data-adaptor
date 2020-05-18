@@ -2,45 +2,34 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?prosecutionCaseReference=TFL12345"
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?prosecutionCaseReference=19GD1001816"
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      User-Agent:
-      - Faraday v1.0.1
       Ocp-Apim-Subscription-Key:
       - INCORRECT KEY
+      User-Agent:
+      - Faraday v1.0.1
   response:
     status:
       code: 401
-      message: Unauthorized
+      message: Access Denied
     headers:
+      content-length:
+      - '143'
+      content-type:
+      - application/json
+      www-authenticate:
+      - AzureApiManagementKey realm="https://spnl-sit-apim-int-gw.cpp.nonlive/fa-sit-ccp0101-legalaidagency",name="Ocp-Apim-Subscription-Key",type="header"
+      date:
+      - Fri, 15 May 2020 15:57:01 GMT
       x-frame-options:
       - SAMEORIGIN
-      x-xss-protection:
-      - 1; mode=block
-      x-content-type-options:
-      - nosniff
-      x-download-options:
-      - noopen
-      x-permitted-cross-domain-policies:
-      - none
-      referrer-policy:
-      - strict-origin-when-cross-origin
-      content-type:
-      - text/html
-      cache-control:
-      - no-cache
-      x-request-id:
-      - d2bbd06c-d572-47fe-9a84-e906fed51bd5
-      x-runtime:
-      - '0.002848'
-      transfer-encoding:
-      - chunked
     body:
       encoding: UTF-8
-      string: ''
+      string: '{ "statusCode": 401, "message": "Access denied due to invalid subscription
+        key. Make sure to provide a valid key for an active subscription." }'
     http_version: null
-  recorded_at: Mon, 20 Apr 2020 12:48:11 GMT
+  recorded_at: Fri, 15 May 2020 15:57:01 GMT
 recorded_with: VCR 5.1.0

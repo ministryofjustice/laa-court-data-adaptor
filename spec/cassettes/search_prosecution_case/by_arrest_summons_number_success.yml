@@ -7,57 +7,49 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
       User-Agent:
       - Faraday v1.0.1
-      Ocp-Apim-Subscription-Key:
-      - "<SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE>"
   response:
     status:
       code: 200
       message: OK
     headers:
+      content-length:
+      - '4250'
+      content-type:
+      - application/vnd.unifiedsearch.query.laa.cases+json
+      cppid:
+      - f8a87587-9504-4aca-8963-c988155b1a22
+      date:
+      - Fri, 15 May 2020 15:57:02 GMT
       x-frame-options:
       - SAMEORIGIN
-      x-xss-protection:
-      - 1; mode=block
-      x-content-type-options:
-      - nosniff
-      x-download-options:
-      - noopen
-      x-permitted-cross-domain-policies:
-      - none
-      referrer-policy:
-      - strict-origin-when-cross-origin
-      content-type:
-      - application/json; charset=utf-8
-      etag:
-      - W/"d54742752b1c54215c1600fc6239a2e2"
-      cache-control:
-      - max-age=0, private, must-revalidate
-      x-request-id:
-      - 184c0e17-3e39-496c-a284-c7eb3b91d18d
-      x-runtime:
-      - '0.031427'
-      transfer-encoding:
-      - chunked
     body:
       encoding: UTF-8
-      string: '{"totalResults":1,"cases":[{"prosecutionCaseId":"5edd67eb-9d8c-44f2-a57e-c8d026defaa4","prosecutionCaseReference":"3658e889-e050-4608-8f21-8bdaa529f8d0","caseStatus":"INACTIVE","defendantSummary":[{"defendantId":"4c190ef5-a58b-47aa-939a-faeb68e61255","defendantNINO":"BN102966C","defendantASN":"Random
-        string","defendantName":"Alfredine Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"88f0d1a5-2cfb-4509-a097-5431bc76e4ae","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Blackmail","offenceLegislation":"Theft
-        Act 1968 s.16","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]},{"defendantId":"2ecc9feb-9407-482f-b081-d9e5c8ba3ed3","defendantNINO":"BN102966C","defendantASN":"arrest123","defendantName":"Alfredine
-        Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"1abb48a3-084e-4734-b2e2-abe110e28c60","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Assisting illegal entry or harbouring
-        persons","offenceLegislation":"Terrorism Act 2000 s.39","wording":"Random
-        string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false},{"offenceId":"3f153786-f3cf-4311-bc0c-2d6f48af68a1","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Assault with weapon with intent to
-        rob","offenceLegislation":"Forgery and Counterfeiting Act 1981 s.3","wording":"Random
-        string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"999999","statusId":"1175a192-2ad0-4a0c-ac50-d8194bba97e1","statusCode":"ABCDEF","statusDescription":"FAKE
-        NEWS","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","effectiveEndDate":"2020-12-15"}}],"representationOrder":{"applicationReference":"999999","effectiveFromDate":"2019-12-15T00:00:00.000Z","effectiveToDate":"2020-12-15T00:00:00.000Z","laaContractNumber":"CONTRACT
-        REFERENCE"}}]}]}'
+      string: '{"totalResults":3,"cases":[{"caseStatus":"ACTIVE","prosecutionCaseId":"65a4d108-5930-4cdc-9ee3-766162680a73","prosecutionCaseReference":"39befafb","defendantSummary":[{"organisationName":"EY","proceedingsConcluded":false,"defendantName":"KAmgoreUoiZW9uNsvr4P
+        Jack Daniels","defendantId":"2e30868d-5b47-4f11-81e1-f75098fbc137","defendantASN":"arrest123","defendantDOB":"1994-09-11","defendantNINO":"NH323232B","offenceSummary":[{"offenceId":"2231be45-c53e-4884-b279-7979e87d550d","offenceCode":"CA03013","offenceTitle":"Obstruct
+        person executing search warrant for TV receiver","offenceLegislation":"Contrary
+        to section 366(8)(a) and (9) of the Communications Act 2003.","proceedingsConcluded":false,"arrestDate":"2019-12-21","endDate":"2019-09-21","startDate":"2019-03-21","chargeDate":"2019-12-21","modeOfTrial":"Summary","orderIndex":0,"wording":"Wound
+        / inflict grievous bodily harm without intent"}]}],"hearingSummary":[{"hearingId":"52f85aed-a33a-4213-bde8-4b4f8480386d","jurisdictionType":"MAGISTRATES","defendantIds":["2e30868d-5b47-4f11-81e1-f75098fbc137"],"hearingDays":[{"sittingDay":"2020-02-07T00:00:00Z","listingSequence":0,"listedDurationMinutes":30}],"courtCentre":{"id":"7e967376-eacf-4fca-9b30-21b0c5aad427","name":"Bexley
+        Magistrates'' Court","roomId":"8e912353-3b5d-36c3-953e-ad3b94b19de3","roomName":"Courtroom
+        01"},"hearingType":{"id":"c6d76309-c912-436b-a21b-a4c4450bc052","description":"Pre-Trial
+        Review"}}]},{"caseStatus":"CLOSED","prosecutionCaseId":"b46887af-e1d3-4cad-9ad9-e9cb3ca22ab6","prosecutionCaseReference":"36b233eb","defendantSummary":[{"organisationName":"EY","proceedingsConcluded":true,"defendantName":"boiInyVDgHE1Xs8WqZzl
+        Jack Daniels","defendantId":"37967565-184b-4f1c-a57b-9a2aad166e29","defendantASN":"arrest123","defendantDOB":"1994-09-11","defendantNINO":"NH323232B","offenceSummary":[{"offenceId":"e405811a-591d-4706-806b-f67f96da2b02","offenceCode":"CA03013","offenceTitle":"Obstruct
+        person executing search warrant for TV receiver","offenceLegislation":"Contrary
+        to section 366(8)(a) and (9) of the Communications Act 2003.","proceedingsConcluded":true,"arrestDate":"2019-12-21","endDate":"2019-09-21","startDate":"2019-03-21","chargeDate":"2019-12-21","modeOfTrial":"Summary","orderIndex":0,"wording":"Wound
+        / inflict grievous bodily harm without intent"}]}],"hearingSummary":[{"hearingId":"448a0556-a350-439f-a7c4-da72929b513c","jurisdictionType":"MAGISTRATES","defendantIds":["37967565-184b-4f1c-a57b-9a2aad166e29"],"hearingDays":[{"sittingDay":"2020-04-28T09:00:00Z","listingSequence":0,"listedDurationMinutes":1}],"courtCentre":{"id":"f8254db1-1683-483e-afb3-b87fde5a0a26","name":"Lavender
+        Hill Magistrates'' Court","roomId":"9e4932f7-97b2-3010-b942-ddd2624e4dd8","roomName":"Courtroom
+        01"},"hearingType":{"id":"c6d76309-c912-436b-a21b-a4c4450bc052","description":"Pre-Trial
+        Review"}}]},{"caseStatus":"ACTIVE","prosecutionCaseId":"dd4dcc9a-6e7e-4c36-88c1-b678b6c365e7","prosecutionCaseReference":"39667867","defendantSummary":[{"organisationName":"EY","proceedingsConcluded":false,"defendantName":"i7NYi2HoffdsCqcOnchV
+        Jack Daniels","defendantId":"ded70896-8569-4b62-9187-c7ce948eb882","defendantASN":"arrest123","defendantDOB":"1994-09-11","defendantNINO":"NH323232B","offenceSummary":[{"offenceId":"d18e625e-abfe-407d-af23-d3edb8307fee","offenceCode":"CA03013","offenceTitle":"Obstruct
+        person executing search warrant for TV receiver","offenceLegislation":"Contrary
+        to section 366(8)(a) and (9) of the Communications Act 2003.","proceedingsConcluded":false,"arrestDate":"2019-12-21","endDate":"2019-09-21","startDate":"2019-03-21","chargeDate":"2019-12-21","modeOfTrial":"Summary","orderIndex":0,"wording":"Wound
+        / inflict grievous bodily harm without intent"}]}],"hearingSummary":[{"hearingId":"88ff38de-f012-4402-902d-3e3cd69adb34","jurisdictionType":"MAGISTRATES","defendantIds":["ded70896-8569-4b62-9187-c7ce948eb882"],"hearingDays":[{"sittingDay":"2020-05-11T09:00:00Z","listingSequence":1,"listedDurationMinutes":1}],"courtCentre":{"id":"f8254db1-1683-483e-afb3-b87fde5a0a26","name":"Lavender
+        Hill Magistrates'' Court","roomId":"b4562684-9209-3ec4-a544-7f80dabd94d8","roomName":"Courtroom
+        02"},"hearingType":{"id":"c6d76309-c912-436b-a21b-a4c4450bc052","description":"Pre-Trial
+        Review"}}]}]}'
     http_version: null
-  recorded_at: Mon, 20 Apr 2020 12:48:11 GMT
+  recorded_at: Fri, 15 May 2020 15:57:02 GMT
 recorded_with: VCR 5.1.0

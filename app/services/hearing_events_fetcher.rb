@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
 class HearingEventsFetcher < ApplicationService
-  URL = '/LAAGetHearingLogHttpTrigger'
+  URL = 'LAAGetHearingEventLogHttpTriggerFast'
 
-  def initialize(hearing_id:, shared_key: ENV['SHARED_SECRET_KEY_HEARING'], connection: CommonPlatformConnection.call)
-    @params = { hearingId: hearing_id }
-    @headers = { 'Ocp-Apim-Subscription-Key' => shared_key }
+  def initialize(hearing_id:, hearing_date:, connection: CommonPlatformConnection.call)
+    @params = { hearingId: hearing_id, date: hearing_date }
     @connection = connection
   end
 
   def call
-    connection.get(URL, params, headers)
+    connection.get(URL, params)
   end
 
   private
 
-  attr_reader :params, :headers, :connection
+  attr_reader :params, :connection
 end

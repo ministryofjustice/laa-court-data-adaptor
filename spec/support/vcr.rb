@@ -5,8 +5,5 @@ VCR.configure do |c|
   c.hook_into :faraday
   c.configure_rspec_metadata!
   c.filter_sensitive_data('<COMMON_PLATFORM_URL>') { ENV['COMMON_PLATFORM_URL'] }
-  c.filter_sensitive_data('<SHARED_SECRET_KEY_HEARING>') { ENV['SHARED_SECRET_KEY_HEARING'] }
-  c.filter_sensitive_data('<SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE>') { ENV['SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE'] }
-  c.filter_sensitive_data('<SHARED_SECRET_KEY_REPRESENTATION_ORDER>') { ENV['SHARED_SECRET_KEY_REPRESENTATION_ORDER'] }
-  c.filter_sensitive_data('<SHARED_SECRET_KEY_LAA_REFERENCE>') { ENV['SHARED_SECRET_KEY_LAA_REFERENCE'] }
+  c.filter_sensitive_data('<SHARED_SECRET_KEY>') { ENV['SHARED_SECRET_KEY'] }
 end

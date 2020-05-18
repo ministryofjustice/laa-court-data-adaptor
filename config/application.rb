@@ -37,6 +37,8 @@ module LaaCourtDataAdaptor
     config.api_only = true
 
     config.x.common_platform_url = ENV.fetch('COMMON_PLATFORM_URL')
+    config.x.client_cert = ENV['SSL_CLIENT_CERT']
+    config.x.client_key = ENV['SSL_CLIENT_KEY']
     config.x.aws.sqs_url_link = ENV['AWS_LINK_QUEUE_URL']
     config.x.aws.sqs_url_unlink = ENV['AWS_UNLINK_QUEUE_URL']
     config.x.aws.sqs_url_hearing_resulted = ENV['AWS_HEARING_RESULTED_QUEUE_URL']

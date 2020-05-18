@@ -2,87 +2,40 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?dateOfBirth=1971-05-12&defendantName=Alfredine+Parker"
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?defendantDOB=1980-01-01&defendantName=George+Walsh"
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
       User-Agent:
       - Faraday v1.0.1
-      Ocp-Apim-Subscription-Key:
-      - "<SHARED_SECRET_KEY_SEARCH_PROSECUTION_CASE>"
   response:
     status:
       code: 200
       message: OK
     headers:
+      content-length:
+      - '1574'
+      content-type:
+      - application/vnd.unifiedsearch.query.laa.cases+json
+      cppid:
+      - 995abfd7-ecaa-40dc-b912-f169b7ab1838
+      date:
+      - Fri, 15 May 2020 15:57:01 GMT
       x-frame-options:
       - SAMEORIGIN
-      x-xss-protection:
-      - 1; mode=block
-      x-content-type-options:
-      - nosniff
-      x-download-options:
-      - noopen
-      x-permitted-cross-domain-policies:
-      - none
-      referrer-policy:
-      - strict-origin-when-cross-origin
-      content-type:
-      - application/json; charset=utf-8
-      etag:
-      - W/"6bf0c322c91cd50dc73ced8efc48cff5"
-      cache-control:
-      - max-age=0, private, must-revalidate
-      x-request-id:
-      - 67e93c35-8392-4434-8db8-4fb4b8d634db
-      x-runtime:
-      - '0.070672'
-      transfer-encoding:
-      - chunked
     body:
       encoding: UTF-8
-      string: '{"totalResults":4,"cases":[{"prosecutionCaseId":"5edd67eb-9d8c-44f2-a57e-c8d026defaa4","prosecutionCaseReference":"3658e889-e050-4608-8f21-8bdaa529f8d0","caseStatus":"INACTIVE","defendantSummary":[{"defendantId":"4c190ef5-a58b-47aa-939a-faeb68e61255","defendantNINO":"BN102966C","defendantASN":"Random
-        string","defendantName":"Alfredine Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"88f0d1a5-2cfb-4509-a097-5431bc76e4ae","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Blackmail","offenceLegislation":"Theft
-        Act 1968 s.16","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]},{"defendantId":"2ecc9feb-9407-482f-b081-d9e5c8ba3ed3","defendantNINO":"BN102966C","defendantASN":"arrest123","defendantName":"Alfredine
-        Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"1abb48a3-084e-4734-b2e2-abe110e28c60","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Assisting illegal entry or harbouring
-        persons","offenceLegislation":"Terrorism Act 2000 s.39","wording":"Random
-        string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false},{"offenceId":"3f153786-f3cf-4311-bc0c-2d6f48af68a1","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Assault with weapon with intent to
-        rob","offenceLegislation":"Forgery and Counterfeiting Act 1981 s.3","wording":"Random
-        string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"999999","statusId":"1175a192-2ad0-4a0c-ac50-d8194bba97e1","statusCode":"ABCDEF","statusDescription":"FAKE
-        NEWS","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","effectiveEndDate":"2020-12-15"}}],"representationOrder":{"applicationReference":"999999","effectiveFromDate":"2019-12-15T00:00:00.000Z","effectiveToDate":"2020-12-15T00:00:00.000Z","laaContractNumber":"CONTRACT
-        REFERENCE"}}]},{"prosecutionCaseId":"5edd67eb-9d8c-44f2-a57e-c8d026defaa4","prosecutionCaseReference":"3658e889-e050-4608-8f21-8bdaa529f8d0","caseStatus":"INACTIVE","defendantSummary":[{"defendantId":"4c190ef5-a58b-47aa-939a-faeb68e61255","defendantNINO":"BN102966C","defendantASN":"Random
-        string","defendantName":"Alfredine Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"88f0d1a5-2cfb-4509-a097-5431bc76e4ae","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Blackmail","offenceLegislation":"Theft
-        Act 1968 s.16","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]},{"defendantId":"2ecc9feb-9407-482f-b081-d9e5c8ba3ed3","defendantNINO":"BN102966C","defendantASN":"arrest123","defendantName":"Alfredine
-        Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"1abb48a3-084e-4734-b2e2-abe110e28c60","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Assisting illegal entry or harbouring
-        persons","offenceLegislation":"Terrorism Act 2000 s.39","wording":"Random
-        string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false},{"offenceId":"3f153786-f3cf-4311-bc0c-2d6f48af68a1","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Assault with weapon with intent to
-        rob","offenceLegislation":"Forgery and Counterfeiting Act 1981 s.3","wording":"Random
-        string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"999999","statusId":"1175a192-2ad0-4a0c-ac50-d8194bba97e1","statusCode":"ABCDEF","statusDescription":"FAKE
-        NEWS","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","effectiveEndDate":"2020-12-15"}}],"representationOrder":{"applicationReference":"999999","effectiveFromDate":"2019-12-15T00:00:00.000Z","effectiveToDate":"2020-12-15T00:00:00.000Z","laaContractNumber":"CONTRACT
-        REFERENCE"}}]},{"prosecutionCaseId":"61c8ab34-94a8-4a05-95bf-ee3f44ce5c76","prosecutionCaseReference":"TFL12345","caseStatus":"INACTIVE","defendantSummary":[{"defendantId":"c1e06d96-e14f-4369-a102-fd221f36383e","defendantNINO":"BN102966C","defendantASN":"Random
-        string","defendantName":"Alfredine Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"035b5ce7-0a14-41e7-beb3-8310618ea77d","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Random string","offenceLegislation":"Random
-        string","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false,"laaApplnReference":{"applicationReference":"SOME
-        SORT OF MAAT ID","statusId":"72ddb107-f951-47d2-9c4a-3b8419f26afb","statusCode":"ABCDE","statusDescription":"FAKE
-        NEWS","statusDate":"2019-12-12"}}]}]},{"prosecutionCaseId":"abf2032b-7ddc-4d59-b4bc-315a45a7d563","prosecutionCaseReference":"3658e889-e050-4608-8f21-8bdaa529f8d0","caseStatus":"INACTIVE","defendantSummary":[{"defendantId":"47490083-a642-4a9a-bcab-f65ba832f63b","defendantNINO":"BN102966C","defendantASN":"Random
-        string","defendantName":"Alfredine Treutel Parker","defendantDOB":"1971-05-12","dateOfNextHearing":"2012-12-12","proceedingsConcluded":false,"offenceSummary":[{"offenceId":"5025a60e-dc53-49dc-816f-4264994d170d","offenceCode":"Random
-        string","orderIndex":1,"offenceTitle":"Manslaughter","offenceLegislation":"Children
-        and Young Persons Act 1933 ss.25, 26","wording":"Random string","arrestDate":"2019-10-17","chargeDate":"2019-10-17","dateOfInformation":"2019-10-17","modeOfTrial":"Random
-        string","startDate":"2019-10-17","endDate":"2019-10-17","proceedingsConcluded":false}]}]}]}'
+      string: '{"totalResults":1,"cases":[{"caseStatus":"CLOSED","prosecutionCaseId":"5edd67eb-9d8c-44f2-a57e-c8d026defaa4","prosecutionCaseReference":"20GD0217100","defendantSummary":[{"proceedingsConcluded":true,"representationOrder":{"applicationReference":"LAA-20191601","effectiveFromDate":"2019-09-12","effectiveToDate":"2019-12-12","laaContractNumber":"99998888"},"defendantName":"George
+        Walsh","defendantId":"2ecc9feb-9407-482f-b081-d9e5c8ba3ed3","defendantDOB":"1980-01-01","defendantNINO":"HB133542A","offenceSummary":[{"offenceId":"3f153786-f3cf-4311-bc0c-2d6f48af68a1","offenceCode":"PT00011","offenceTitle":"Driver
+        / other person fail to immediately move a vehicle from a cordoned area on
+        order of a constable","proceedingsConcluded":false,"arrestDate":"2020-02-01","startDate":"2020-02-01","chargeDate":"2020-02-01","modeOfTrial":"Summary","orderIndex":1,"wording":"Test","laaApplnReference":{"applicationReference":"LAA-20191601","statusId":"58ebf081-2b7d-3b1d-8c47-149fe7dbd672","statusCode":"G2","statusDescription":"Granted
+        for Two Advocates"}}]}],"hearingSummary":[{"hearingId":"b935a64a-6d03-4da4-bba6-4d32cc2e7fb4","jurisdictionType":"MAGISTRATES","defendantIds":["2ecc9feb-9407-482f-b081-d9e5c8ba3ed3"],"hearingDays":[{"sittingDay":"2020-02-17T15:00:00Z","listingSequence":0,"listedDurationMinutes":20}],"courtCentre":{"id":"7e967376-eacf-4fca-9b30-21b0c5aad427","name":"Bexley
+        Magistrates'' Court","roomId":"8e912353-3b5d-36c3-953e-ad3b94b19de3","roomName":"Courtroom
+        01"},"hearingType":{"id":"4a0e892d-c0c5-3c51-95b8-704d8c781776","description":"First
+        hearing"}}]}]}'
     http_version: null
-  recorded_at: Mon, 20 Apr 2020 12:48:11 GMT
+  recorded_at: Fri, 15 May 2020 15:57:01 GMT
 recorded_with: VCR 5.1.0

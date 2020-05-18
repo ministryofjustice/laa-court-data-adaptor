@@ -2,50 +2,56 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingLogHttpTrigger?hearingId=ab746921-d839-4867-bcf9-b41db8ebc852"
+    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingEventLogHttpTriggerFast?date=2020-04-30&hearingId=2c24f897-ffc4-439f-9c4a-ec60c7715cd0"
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
       User-Agent:
       - Faraday v1.0.1
-      Ocp-Apim-Subscription-Key:
-      - "<SHARED_SECRET_KEY_HEARING>"
   response:
     status:
       code: 200
       message: OK
     headers:
+      content-type:
+      - text/plain; charset=utf-8
+      request-context:
+      - appId=cid-v1:e7545c86-6eab-4a30-bf6d-7ed8b5691e3e
+      date:
+      - Fri, 15 May 2020 15:57:00 GMT
       x-frame-options:
       - SAMEORIGIN
-      x-xss-protection:
-      - 1; mode=block
-      x-content-type-options:
-      - nosniff
-      x-download-options:
-      - noopen
-      x-permitted-cross-domain-policies:
-      - none
-      referrer-policy:
-      - strict-origin-when-cross-origin
-      content-type:
-      - application/json; charset=utf-8
-      etag:
-      - W/"213560198105189e02ba592a8e352873"
-      cache-control:
-      - max-age=0, private, must-revalidate
-      x-request-id:
-      - 3739539b-3c3e-4b37-abcf-f0439814ad07
-      x-runtime:
-      - '0.034013'
       transfer-encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"hearingLog":[{"hearingId":"ab746921-d839-4867-bcf9-b41db8ebc852","hearingEventDefinitionId":"1b9c50c4-ad3d-41d2-b511-0af069b3ccaa","recordedLabel":"Est
-        architecto deserunt suscipit.","eventTime":"2020-04-24T09:44:54.745+00:00"},{"hearingId":"ab746921-d839-4867-bcf9-b41db8ebc852","hearingEventDefinitionId":"9156b842-0559-4bfb-b8b9-e7751ee7a6f4","recordedLabel":"Tempora
-        architecto autem tempore.","eventTime":"2020-04-24T09:44:54.771+00:00"},{"hearingId":"ab746921-d839-4867-bcf9-b41db8ebc852","hearingEventDefinitionId":"cb84e410-ac56-4b57-8fc5-5549c5aba60c","recordedLabel":"Id
-        qui sint iste.","eventTime":"2020-04-24T09:44:54.780+00:00"}]}'
+      string: "{\r\n  \"hearingId\": \"2c24f897-ffc4-439f-9c4a-ec60c7715cd0\",\r\n
+        \ \"hasActiveHearing\": true,\r\n  \"events\": [\r\n    {\r\n      \"hearingEventId\":
+        \"b97449bb-5145-4bfc-a8ec-849082406d79\",\r\n      \"hearingEventDefinitionId\":
+        \"b71e7d2a-d3b3-4a55-a393-6d451767fc05\",\r\n      \"recordedLabel\": \"Hearing
+        started\",\r\n      \"eventTime\": \"2020-04-30T16:17:58.610Z\",\r\n      \"lastModifiedTime\":
+        \"2020-04-29T16:17:59.409Z\",\r\n      \"alterable\": false\r\n    },\r\n
+        \   {\r\n      \"hearingEventId\": \"aa2739a2-2126-469e-bee7-e9922aa3142f\",\r\n
+        \     \"hearingEventDefinitionId\": \"d555bd6e-15cc-41f4-9889-f46174b54050\",\r\n
+        \     \"recordedLabel\": \"Hearing type changed to Plea\",\r\n      \"eventTime\":
+        \"2020-04-30T16:18:06.633Z\",\r\n      \"lastModifiedTime\": \"2020-04-29T16:18:06.906Z\",\r\n
+        \     \"alterable\": true\r\n    },\r\n    {\r\n      \"hearingEventId\":
+        \"bc78bb60-9ade-485f-a213-14ff73ec5fbb\",\r\n      \"hearingEventDefinitionId\":
+        \"160ecb51-29ee-4954-bbbf-daab18a24fbb\",\r\n      \"recordedLabel\": \"Hearing
+        paused\",\r\n      \"eventTime\": \"2020-04-30T16:18:07.635Z\",\r\n      \"lastModifiedTime\":
+        \"2020-04-29T16:18:08.476Z\",\r\n      \"alterable\": false\r\n    },\r\n
+        \   {\r\n      \"hearingEventId\": \"037e4a99-2e5d-4d1a-a6d2-4ce6d655bf9a\",\r\n
+        \     \"hearingEventDefinitionId\": \"64476e43-2138-46d5-b58b-848582cf9b07\",\r\n
+        \     \"recordedLabel\": \"Hearing resumed\",\r\n      \"eventTime\": \"2020-04-30T16:18:16.664Z\",\r\n
+        \     \"lastModifiedTime\": \"2020-04-29T16:18:16.692Z\",\r\n      \"alterable\":
+        false\r\n    },\r\n    {\r\n      \"hearingEventId\": \"ccd5cecb-5723-46a7-8aea-86a78f7ad201\",\r\n
+        \     \"hearingEventDefinitionId\": \"d555bd6e-15cc-41f4-9889-f46174b54050\",\r\n
+        \     \"recordedLabel\": \"Hearing type changed to Plea and Trial Preparation\",\r\n
+        \     \"eventTime\": \"2020-04-30T16:18:29.704Z\",\r\n      \"lastModifiedTime\":
+        \"2020-04-29T16:18:30.380Z\",\r\n      \"alterable\": true\r\n    }\r\n  ]\r\n}"
     http_version: null
-  recorded_at: Fri, 24 Apr 2020 10:02:33 GMT
+  recorded_at: Fri, 15 May 2020 15:57:00 GMT
 recorded_with: VCR 5.1.0
