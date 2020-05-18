@@ -39,7 +39,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'pry-rails', '~> 0.3.9'
-  gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'rswag-specs'
   gem 'rubocop', '~> 0.83.0', require: false
   gem 'rubocop-performance'
