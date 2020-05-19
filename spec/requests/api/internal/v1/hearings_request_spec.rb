@@ -7,7 +7,7 @@ RSpec.describe 'Api::Internal::V1::Hearings', type: :request do
 
   let(:token) { access_token }
 
-  let(:id) { 'b935a64a-6d03-4da4-bba6-4d32cc2e7fb4' }
+  let(:id) { '2c24f897-ffc4-439f-9c4a-ec60c7715cd0' }
 
   path '/api/internal/v1/hearings/{id}' do
     get('get hearing') do
@@ -19,7 +19,9 @@ RSpec.describe 'Api::Internal::V1::Hearings', type: :request do
       response(200, 'Success') do
         around do |example|
           VCR.use_cassette('hearing_result_fetcher/success') do
-            example.run
+            VCR.use_cassette('hearing_logs_fetcher/success') do
+              example.run
+            end
           end
         end
 

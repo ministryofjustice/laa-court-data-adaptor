@@ -5,4 +5,6 @@ class HearingSerializer
   set_type :hearings
 
   attributes :court_name, :hearing_type, :defendant_names
+
+  has_many :hearing_events, record_type: :hearing_events
 end
