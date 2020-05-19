@@ -5,7 +5,8 @@ RSpec.describe ProsecutionCaseSerializer do
     instance_double('ProsecutionCase',
                     id: 'UUID',
                     prosecution_case_reference: 'AAA',
-                    defendant_ids: ['DEFENDANT-UUID'])
+                    defendant_ids: ['DEFENDANT-UUID'],
+                    hearing_summary_ids: ['HEARING-UUID'])
   end
 
   subject { described_class.new(prosecution_case).serializable_hash }
@@ -20,5 +21,6 @@ RSpec.describe ProsecutionCaseSerializer do
     let(:relationship_hash) { subject[:data][:relationships] }
 
     it { expect(relationship_hash[:defendants][:data]).to eq([id: 'DEFENDANT-UUID', type: :defendants]) }
+    it { expect(relationship_hash[:hearing_summaries][:data]).to eq([id: 'HEARING-UUID', type: :hearing_summaries]) }
   end
 end

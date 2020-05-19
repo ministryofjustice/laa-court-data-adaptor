@@ -13,5 +13,7 @@ RSpec.describe ProsecutionCase, type: :model do
     end
 
     it { expect(prosecution_case.prosecution_case_reference).to eq('19GD1001816') }
+    it { expect(prosecution_case.defendants).to all be_a(Defendant) }
+    it { expect(prosecution_case.hearing_summaries).to all be_a(HearingSummary) }
   end
 end
