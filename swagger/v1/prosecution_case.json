@@ -30,6 +30,9 @@
       "properties": {
         "defendants": {
           "$ref": "#/definitions/defendant_relationship"
+        },
+        "hearing_summaries": {
+          "$ref": "#/definitions/hearing_summary_relationship"
         }
       }
     },
@@ -52,6 +55,28 @@
         },
         "type": {
           "$ref": "defendant.json#/definitions/type"
+        }
+      }
+    },
+    "hearing_summary_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/hearing_summary"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "hearing_summary": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "hearing_summary.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "hearing_summary.json#/definitions/type"
         }
       }
     },

@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Hearing Summary",
+  "description": "Hearing Summary",
+  "id": "hearing_summary",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "unique identifier of hearing_summary",
+      "example": "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "The hearing_summaries type",
+      "enum": [
+        "hearing_summaries"
+      ],
+      "example": "hearing_summaries",
+      "type": "string"
+    },
+    "hearing_type_description": {
+      "readOnly": true,
+      "example": "First hearing",
+      "description": "A description of the hearing type",
+      "type": "string"
+    },
+    "identity": {
+      "$ref": "#/definitions/id"
+    },
+    "hearing_days": {
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/hearing_day"
+      }
+    },
+    "hearing_day": {
+      "example": "2020-04-07T09:00:00Z",
+      "description": "The sitting day of the hearing",
+      "type": "string"
+    },
+    "resource": {
+      "description": "object representing a single hearing_summary",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "hearing_type_description": {
+          "$ref": "#/definitions/hearing_type_description"
+        },
+        "hearing_days": {
+          "$ref": "#/definitions/hearing_days"
+        }
+      }
+    }
+  },
+  "links": [
+    {
+      "description": "Info for existing hearing_summary.",
+      "href": "/hearing_summaries/{(%23%2Fdefinitions%2Fidentity)}",
+      "method": "GET",
+      "rel": "self",
+      "title": "Info",
+      "targetSchema": {
+        "$ref": "#/definitions/resource"
+      }
+    },
+  ],
+  "properties": {
+    "hearing_type_description": {
+      "$ref": "#/definitions/hearing_type_description"
+    },
+    "hearing_days": {
+      "$ref": "#/definitions/hearing_days"
+    }
+  }
+}
