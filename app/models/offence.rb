@@ -29,9 +29,21 @@ class Offence
     laa_reference['applicationReference'] if laa_reference.present?
   end
 
+  def plea
+    plea_hash['pleaValue'] if plea_hash.present?
+  end
+
+  def plea_date
+    plea_hash['pleaDate'] if plea_hash.present?
+  end
+
   private
 
   def laa_reference
     body['laaApplnReference']
+  end
+
+  def plea_hash
+    body['plea']
   end
 end
