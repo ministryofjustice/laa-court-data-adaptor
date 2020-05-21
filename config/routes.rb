@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         resources :laa_references, only: [:create]
         resources :defendants, only: [:update]
         resources :representation_orders, only: [:create]
+        resources :hearings, only: [:show]
       end
     end
     namespace :external do

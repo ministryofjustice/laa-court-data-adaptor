@@ -4,7 +4,7 @@ module Api
   class GetHearingResults < ApplicationService
     def initialize(hearing_id)
       @hearing_id = hearing_id
-      @response = HearingFetcher.call(hearing_id)
+      @response = HearingFetcher.call(hearing_id: hearing_id)
     end
 
     def call

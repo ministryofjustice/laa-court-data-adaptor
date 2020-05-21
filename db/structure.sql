@@ -25,7 +25,7 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
@@ -52,6 +52,20 @@ CREATE SEQUENCE public.dummy_maat_reference_seq
 
 
 --
+-- Name: hearing_event_recordings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hearing_event_recordings (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    hearing_id uuid,
+    hearing_date date,
+    body jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: hearings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -59,8 +73,7 @@ CREATE TABLE public.hearings (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     body jsonb,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    events jsonb
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -182,6 +195,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: hearing_event_recordings hearing_event_recordings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hearing_event_recordings
+    ADD CONSTRAINT hearing_event_recordings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hearings hearings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -250,6 +271,13 @@ ALTER TABLE ONLY public.users
 --
 
 CREATE INDEX index_case_defendant_offences_on_prosecution_case ON public.prosecution_case_defendant_offences USING btree (prosecution_case_id);
+
+
+--
+-- Name: index_hearing_event_recordings_on_hearing_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hearing_event_recordings_on_hearing_id ON public.hearing_event_recordings USING btree (hearing_id);
 
 
 --
@@ -363,6 +391,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200310222258'),
 ('20200407083117'),
 ('20200424095754'),
-('20200429163050');
+('20200429163050'),
+('20200519141938');
 
 
