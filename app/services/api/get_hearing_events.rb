@@ -2,13 +2,14 @@
 
 module Api
   class GetHearingEvents < ApplicationService
-    def initialize(hearing_id:)
+    def initialize(hearing_id:, hearing_date:)
       @hearing_id = hearing_id
-      @response = HearingEventsFetcher.call(hearing_id: hearing_id)
+      @hearing_date = hearing_date
+      @response = HearingEventsFetcher.call(hearing_id: hearing_id, hearing_date: hearing_date)
     end
 
     def call
-      HearingEventsRecorder.call(hearing_id: hearing_id, events: response.body) if successful_response?
+      HearingEventsRecorder.call(hearing_id: hearing_id, hearing_date: hearing_date, body: response.body) if successful_response?
     end
 
     private
@@ -17,6 +18,6 @@ module Api
       response.status == 200
     end
 
-    attr_reader :hearing_id, :response
+    attr_reader :hearing_id, :hearing_date, :response
   end
 end

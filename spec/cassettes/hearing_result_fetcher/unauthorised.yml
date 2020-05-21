@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=b935a64a-6d03-4da4-bba6-4d32cc2e7fb4"
+    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=2c24f897-ffc4-439f-9c4a-ec60c7715cd0"
     body:
       encoding: US-ASCII
       string: ''
@@ -23,7 +23,7 @@ http_interactions:
       www-authenticate:
       - AzureApiManagementKey realm="https://spnl-sit-apim-int-gw.cpp.nonlive/fa-sit-ccp0101-legalaidagency",name="Ocp-Apim-Subscription-Key",type="header"
       date:
-      - Fri, 15 May 2020 15:57:02 GMT
+      - Tue, 19 May 2020 15:21:44 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
@@ -31,5 +31,5 @@ http_interactions:
       string: '{ "statusCode": 401, "message": "Access denied due to invalid subscription
         key. Make sure to provide a valid key for an active subscription." }'
     http_version: null
-  recorded_at: Fri, 15 May 2020 15:57:03 GMT
+  recorded_at: Tue, 19 May 2020 15:21:44 GMT
 recorded_with: VCR 5.1.0
