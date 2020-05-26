@@ -16,7 +16,6 @@ class HearingsCreator < ApplicationService
         next if defendant[:laaApplnReference][:applicationReference]&.start_with?('A', 'Z')
 
         push_to_sqs(shared_time: shared_time,
-                    case_status: prosecution_case[:caseStatus],
                     case_urn: prosecution_case[:prosecutionCaseIdentifier][:caseURN],
                     defendant: defendant)
       end
@@ -25,12 +24,11 @@ class HearingsCreator < ApplicationService
 
   private
 
-  def push_to_sqs(shared_time:, case_status:, case_urn:, defendant:)
+  def push_to_sqs(shared_time:, case_urn:, defendant:)
     return unless jurisdiction_type == 'MAGISTRATES'
 
     Sqs::PublishMagistratesHearing.call(shared_time: shared_time,
                                         jurisdiction_type: jurisdiction_type,
-                                        case_status: case_status,
                                         case_urn: case_urn,
                                         defendant: defendant)
   end

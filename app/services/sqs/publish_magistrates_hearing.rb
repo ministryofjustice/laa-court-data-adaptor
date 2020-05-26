@@ -8,10 +8,9 @@ module Sqs
     TEMPORARY_OFFENCE_CLASSIFICATION = 'Temporary Offence Classification'
     TEMPORARY_SESSION_VALIDATE_DATE = '2020-01-01'
 
-    def initialize(shared_time:, jurisdiction_type:, case_status:, case_urn:, defendant:)
+    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:)
       @shared_time = shared_time
       @jurisdiction_type = jurisdiction_type
-      @case_status = case_status
       @case_urn = case_urn
       @defendant = defendant
     end
@@ -23,7 +22,7 @@ module Sqs
     private
 
     def inactive?
-      case_status == 'Open' ? 'N' : 'Y'
+      jurisdiction_type == 'MAGISTRATES' ? 'N' : 'Y'
     end
 
     def defendant_details
@@ -141,7 +140,7 @@ module Sqs
       }
     end
 
-    attr_reader :shared_time, :jurisdiction_type, :case_status, :case_urn, :defendant
+    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant
   end
   # rubocop:enable Metrics/ClassLength
 end
