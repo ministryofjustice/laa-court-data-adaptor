@@ -110,31 +110,31 @@ RSpec.describe NewRepresentationOrderContract do
   context 'with an invalid postcode' do
     before { defence_organisation[:organisation][:address][:postcode] = '99999' }
 
-    it { is_expected.not_to be_a_success }
+    it { is_expected.to be_a_success }
   end
 
   context 'with an invalid primary_email' do
     before { defence_organisation[:organisation][:contact][:primary_email] = '99999' }
 
-    it { is_expected.not_to be_a_success }
+    it { is_expected.to be_a_success }
   end
 
   context 'with an invalid secondary_email' do
     before { defence_organisation[:organisation][:contact][:secondary_email] = '99999' }
 
-    it { is_expected.not_to be_a_success }
+    it { is_expected.to be_a_success }
   end
 
   context 'with an invalid home phone' do
     before { defence_organisation[:organisation][:contact][:home] = 'AAABBBCCC' }
 
-    it { is_expected.not_to be_a_success }
+    it { is_expected.to be_a_success }
   end
 
   context 'with an invalid mobile phone' do
     before { defence_organisation[:organisation][:contact][:mobile] = 'AAABBBCCC' }
 
-    it { is_expected.not_to be_a_success }
+    it { is_expected.to be_a_success }
   end
 
   context 'with unexpected keys' do
