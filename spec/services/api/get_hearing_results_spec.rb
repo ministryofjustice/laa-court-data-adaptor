@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::GetHearingResults do
-  subject { described_class.call(hearing_id) }
+  subject { described_class.call(hearing_id: hearing_id) }
 
   let(:hearing_id) { 'ceb158e3-7171-40ce-915b-441e2c4e3f75' }
 

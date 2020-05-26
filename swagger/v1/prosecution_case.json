@@ -131,9 +131,16 @@
     },
     "arrest_summons_number": {
       "readOnly": true,
-      "example": "MG25A11223344",
       "description": "The police arrest summons number when the defendant is a person",
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "example": "MG25A11223344"
+        }
+      ]
     },
     "identity": {
       "$ref": "#/definitions/id"

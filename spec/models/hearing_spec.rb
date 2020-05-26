@@ -13,7 +13,7 @@ RSpec.describe Hearing, type: :model do
 
     let(:hearing) do
       VCR.use_cassette('hearing_result_fetcher/success') do
-        Api::GetHearingResults.call(hearing_id)
+        Api::GetHearingResults.call(hearing_id: hearing_id)
       end
     end
 

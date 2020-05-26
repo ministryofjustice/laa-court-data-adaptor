@@ -3,7 +3,7 @@
 class Offence
   include ActiveModel::Model
 
-  attr_accessor :body
+  attr_accessor :body, :details
 
   def id
     body['offenceId']
@@ -30,11 +30,11 @@ class Offence
   end
 
   def plea
-    plea_hash['pleaValue'] if plea_hash.present?
+    plea_hash.dig('pleaValue')
   end
 
   def plea_date
-    plea_hash['pleaDate'] if plea_hash.present?
+    plea_hash.dig('pleaDate')
   end
 
   private
@@ -44,6 +44,8 @@ class Offence
   end
 
   def plea_hash
-    body['plea']
+    return {} if details.blank?
+
+    details.dig('plea') || {}
   end
 end

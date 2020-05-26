@@ -20,9 +20,13 @@ module Api
         end
 
         def serialization_options
-          return { include: params[:include].split(',') } if params[:include].present?
+          return { include: inclusions, params: { inclusions: inclusions } } if params[:include].present?
 
           {}
+        end
+
+        def inclusions
+          params[:include].split(',')
         end
       end
     end

@@ -8,12 +8,19 @@ RSpec.describe Defendant, type: :model do
     prosecution_case_hash['defendantSummary'][0]
   end
 
-  subject(:defendant) { described_class.new(body: defendant_hash) }
+  let(:details_hash) { nil }
+
+  subject(:defendant) { described_class.new(body: defendant_hash, details: details_hash) }
 
   it { expect(defendant.name).to eq('George Walsh') }
   it { expect(defendant.date_of_birth).to eq('1980-01-01') }
   it { expect(defendant.national_insurance_number).to eq('HB133542A') }
   it { expect(defendant.arrest_summons_number).to eq('ARREST123') }
+
+  it 'initialises Offence without details' do
+    expect(Offence).to receive(:new).with(body: defendant_hash['offenceSummary'][0], details: nil)
+    defendant.offences
+  end
 
   context 'post linking' do
     let(:offences) do
@@ -104,6 +111,25 @@ RSpec.describe Defendant, type: :model do
       it { expect(defendant.maat_reference).to be_nil }
       it { expect(defendant.representation_order_date).to be_nil }
       it { expect(defendant.defence_organisation).to be_nil }
+    end
+  end
+
+  context 'when details are available' do
+    let(:details_hash) do
+      {
+        'offences' => [
+          {
+            'id' => '3f153786-f3cf-4311-bc0c-2d6f48af68a1',
+            'offenceCode' => 'TR68107',
+            'modeOfTrial' => 'Summary'
+          }
+        ]
+      }
+    end
+
+    it 'initialises Offence with details' do
+      expect(Offence).to receive(:new).with(body: defendant_hash['offenceSummary'][0], details: details_hash['offences'][0])
+      defendant.offences
     end
   end
 end
