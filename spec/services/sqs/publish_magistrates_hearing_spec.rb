@@ -3,7 +3,6 @@
 RSpec.describe Sqs::PublishMagistratesHearing do
   let(:shared_time) { '2018-10-25 11:30:00' }
   let(:jurisdiction_type) { 'MAGISTRATES' }
-  let(:case_status) { 'Open' }
   let(:case_urn) { '12345' }
   let(:defendant) do
     {
@@ -139,7 +138,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
     }
   end
 
-  subject { described_class.call(shared_time: shared_time, jurisdiction_type: jurisdiction_type, case_status: case_status, case_urn: case_urn, defendant: defendant) }
+  subject { described_class.call(shared_time: shared_time, jurisdiction_type: jurisdiction_type, case_urn: case_urn, defendant: defendant) }
 
   before do
     allow(Rails.configuration.x.aws).to receive(:sqs_url_hearing_resulted).and_return('/hearing-resulted-sqs-url')

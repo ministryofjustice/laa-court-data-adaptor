@@ -8,7 +8,6 @@ RSpec.describe HearingsCreator do
   let(:prosecution_case_array) do
     [
       {
-        caseStatus: 'Open',
         prosecutionCaseIdentifier: {
           caseURN: '12345'
         },
@@ -32,7 +31,6 @@ RSpec.describe HearingsCreator do
     it 'calls the Sqs::PublishMagistratesHearing service once' do
       expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
                                                                                         jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_status: 'Open',
                                                                                         case_urn: '12345',
                                                                                         defendant: defendant_array.first))
       create
@@ -54,12 +52,10 @@ RSpec.describe HearingsCreator do
     it 'calls the Sqs::PublishLaaReference service twice' do
       expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
                                                                                         jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_status: 'Open',
                                                                                         case_urn: '12345',
                                                                                         defendant: defendant_array.first))
       expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
                                                                                         jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_status: 'Open',
                                                                                         case_urn: '12345',
                                                                                         defendant: defendant_array.last))
       create
@@ -70,14 +66,12 @@ RSpec.describe HearingsCreator do
     let(:prosecution_case_array) do
       [
         {
-          caseStatus: 'Open',
           prosecutionCaseIdentifier: {
             caseURN: '12345'
           },
           defendants: defendant_array
         },
         {
-          caseStatus: 'Closed',
           prosecutionCaseIdentifier: {
             caseURN: '54321'
           },
@@ -91,12 +85,10 @@ RSpec.describe HearingsCreator do
     it 'calls the Sqs::PublishMagistratesHearing service twice' do
       expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
                                                                                         jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_status: 'Open',
                                                                                         case_urn: '12345',
                                                                                         defendant: defendant_array.first))
       expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
                                                                                         jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_status: 'Closed',
                                                                                         case_urn: '54321',
                                                                                         defendant: defendant_array.first))
       create
