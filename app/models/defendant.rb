@@ -3,7 +3,7 @@
 class Defendant
   include ActiveModel::Model
 
-  attr_accessor :body
+  attr_accessor :body, :details
 
   def id
     body['defendantId']
@@ -26,7 +26,7 @@ class Defendant
   end
 
   def offences
-    body['offenceSummary'].map { |offence| Offence.new(body: offence) }
+    body['offenceSummary'].map { |offence| Offence.new(body: offence, details: offence_details.dig(offence['offenceId'])) }
   end
 
   def defence_organisation
@@ -54,6 +54,12 @@ class Defendant
   end
 
   private
+
+  def offence_details
+    return {} if details.blank?
+
+    details.dig('offences')&.map { |offence| [offence['id'], offence] }&.to_h
+  end
 
   def valid_maat_reference?
     _maat_reference.present? && !_maat_reference.start_with?('Z')

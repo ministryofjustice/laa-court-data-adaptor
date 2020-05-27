@@ -19,13 +19,17 @@ RSpec.describe Offence, type: :model do
     }
   end
 
-  subject(:offence) { described_class.new(body: offence_hash) }
+  let(:details_hash) { nil }
+
+  subject(:offence) { described_class.new(body: offence_hash, details: details_hash) }
 
   it { expect(offence.code).to eq('AA06001') }
   it { expect(offence.order_index).to eq(1) }
   it { expect(offence.title).to eq('Fail to wear protective clothing / meet other criteria on entering quarantine centre/facility') }
   it { expect(offence.mode_of_trial).to eq('Indictable-Only Offence') }
   it { expect(offence.maat_reference).to be_nil }
+  it { expect(offence.plea).to be_nil }
+  it { expect(offence.plea_date).to be_nil }
 
   context 'with an LAA reference' do
     let(:laa_reference) do
@@ -43,5 +47,19 @@ RSpec.describe Offence, type: :model do
     subject(:offence) { described_class.new(body: offence_hash.merge(laa_reference)) }
 
     it { expect(offence.maat_reference).to eq('AB746921') }
+  end
+
+  context 'when details are available' do
+    let(:details_hash) do
+      {
+        'plea' => {
+          'pleaDate' => '2020-04-24',
+          'pleaValue' => 'GUILTY'
+        }
+      }
+    end
+
+    it { expect(offence.plea).to eq('GUILTY') }
+    it { expect(offence.plea_date).to eq('2020-04-24') }
   end
 end

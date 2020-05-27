@@ -6,6 +6,7 @@ RSpec.describe ProsecutionCaseSerializer do
                     id: 'UUID',
                     prosecution_case_reference: 'AAA',
                     defendant_ids: ['DEFENDANT-UUID'],
+                    hearing_ids: ['HEARING-UUID'],
                     hearing_summary_ids: ['HEARING-UUID'])
   end
 
@@ -22,5 +23,12 @@ RSpec.describe ProsecutionCaseSerializer do
 
     it { expect(relationship_hash[:defendants][:data]).to eq([id: 'DEFENDANT-UUID', type: :defendants]) }
     it { expect(relationship_hash[:hearing_summaries][:data]).to eq([id: 'HEARING-UUID', type: :hearing_summaries]) }
+    it { expect(relationship_hash[:hearings]).to be_nil }
+
+    context 'when hearings are expected in inclusions' do
+      subject { described_class.new(prosecution_case, params: { inclusions: 'hearings' }).serializable_hash }
+
+      it { expect(relationship_hash[:hearings][:data]).to eq([id: 'HEARING-UUID', type: :hearings]) }
+    end
   end
 end
