@@ -51,9 +51,11 @@ module Sqs
       }
     end
 
+    # rubocop:disable Metrics/MethodLength
     def offences_map
       defendant.offences.map do |offence|
         [
+          [:offenceId, offence.id],
           [:offenceCode, TEMPORARY_OFFENCE_CODE],
           [:asnSeq, offence.order_index],
           [:offenceShortTitle, offence.title],
@@ -68,6 +70,7 @@ module Sqs
         ].to_h
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def sessions_map
       [{

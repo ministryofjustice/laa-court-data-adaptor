@@ -9,6 +9,9 @@ AllCops:
   - 'vendor/**/*'
   - 'node_modules/**/*'
 
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
 

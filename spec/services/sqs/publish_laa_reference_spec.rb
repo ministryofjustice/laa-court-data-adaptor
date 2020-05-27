@@ -27,6 +27,7 @@ RSpec.describe Sqs::PublishLaaReference do
         nino: 'HB133542A',
         offences: [
           {
+            offenceId: '3f153786-f3cf-4311-bc0c-2d6f48af68a1',
             offenceCode: 'AA06035',
             modeOfTrial: 1,
             asnSeq: 1,
