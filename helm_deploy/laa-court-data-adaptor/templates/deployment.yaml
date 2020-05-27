@@ -48,29 +48,19 @@ spec:
                   name: laa-court-data-adaptor-instance-output
                   key: url
             - name: SECRET_KEY_BASE
-              valueFrom:
-                secretKeyRef:
-                  name: laa-court-data-adaptor-secrets
-                  key: secret-key-base
+              value: {{ .Values.rails.secret_key_base }}
             - name: COMMON_PLATFORM_URL
               value: {{ .Values.common_platform_url }}
+            - name: SHARED_SECRET_KEY
+              value: {{ .Values.common_platform_secret_key }}
             {{- if .Values.mtls_enabled }}
             - name: SSL_CLIENT_CERT
-              valueFrom:
-                secretKeyRef:
-                  name: laa-court-data-adaptor-secrets
-                  key: ssl-client-cert
+              value: |
+                {{ .Files.Get .Values.ssl_cert_file | b64enc }}
             - name: SSL_CLIENT_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: laa-court-data-adaptor-secrets
-                  key: ssl-client-key
+              value: |
+                {{ .Files.Get .Values.ssl_key_file | b64enc }}
             {{- end }}
-            - name: SHARED_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: laa-court-data-adaptor-secrets
-                  key: common-platform-key
             {{- if .Values.sqs_messaging_enabled }}
             - name: AWS_LINK_QUEUE_URL
               valueFrom:

@@ -1,0 +1,6 @@
+# git-crypt kubernetes secrets
+helm_deploy/**/**/values-*.yaml filter=git-crypt diff=git-crypt
+# client certificate
+helm_deploy/**/**/client.crt filter=git-crypt diff=git-crypt
+# client certificate key
+helm_deploy/**/**/client.key filter=git-crypt diff=git-crypt
