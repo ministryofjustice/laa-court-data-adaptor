@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class NewRepresentationOrderContract < Dry::Validation::Contract
-  option :email_validator, default: -> { CommonPlatform::EmailValidator }
-  option :phone_validator, default: -> { CommonPlatform::PhoneValidator }
-  option :postcode_validator, default: -> { CommonPlatform::PostcodeValidator }
   option :uuid_validator, default: -> { CommonPlatform::UuidValidator }
   config.validate_keys = true
 
@@ -49,26 +46,6 @@ class NewRepresentationOrderContract < Dry::Validation::Contract
 
   rule(:defendant_id) do
     key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value)
-  end
-
-  rule('defence_organisation.organisation.address.postcode') do
-    key.failure('is not a valid postcode') if [key?, !postcode_validator.call(postcode: value)].all?
-  end
-
-  rule('defence_organisation.organisation.contact.primary_email') do
-    key.failure('is not a valid email') if [key?, !email_validator.call(email: value)].all?
-  end
-
-  rule('defence_organisation.organisation.contact.secondary_email') do
-    key.failure('is not a valid email') if [key?, !email_validator.call(email: value)].all?
-  end
-
-  rule('defence_organisation.organisation.contact.home') do
-    key.failure('is not a valid phone number') if [key?, !phone_validator.call(phone: value)].all?
-  end
-
-  rule('defence_organisation.organisation.contact.mobile') do
-    key.failure('is not a valid phone number') if [key?, !phone_validator.call(phone: value)].all?
   end
 
   rule(:offences).each do

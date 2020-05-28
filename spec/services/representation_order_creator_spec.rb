@@ -94,4 +94,42 @@ RSpec.describe RepresentationOrderCreator do
       create
     end
   end
+
+  context 'with invalid defence_organisation data' do
+    let(:defence_organisation) do
+      {
+        laa_contract_number: 'CONTRACT REFERENCE',
+        organisation: {
+          name: 'SOME ORGANISATION',
+          address: {
+            address1: 'String',
+            postcode: 'Postcode Not Provided'
+          },
+          contact: {
+            home: 'Phone Not Provided',
+            mobile: 'Phone Not Provided',
+            primary_email: 'Email Not Provided',
+            secondary_email: 'Email Not Provided'
+          }
+        }
+      }
+    end
+    let(:transformed_defence_organisation) do
+      {
+        laaContractNumber: 'CONTRACT REFERENCE',
+        organisation: {
+          name: 'SOME ORGANISATION',
+          address: {
+            address1: 'String'
+          },
+          contact: {}
+        }
+      }
+    end
+
+    it 'sanitises the data' do
+      expect(Api::RecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
+      create
+    end
+  end
 end
