@@ -72,3 +72,17 @@ To view the API documentation, start the rails server locally using `rails s` an
 To use the 'Try it out' functionality, you need to have first created an oAuth user in your local database. See [here](https://github.com/ministryofjustice/laa-court-data-adaptor#api-authentication) for details.
 
 To add a new endpoint, run `rails generate rspec:swagger <controller_name>` to generate a request spec. Add appropriate tests and content to the spec, then run `rake rswag`. The new endpoint should now appear in the Swagger UI interface.
+
+### Decrypting secrets for deployment
+
+**NOTE:** **git-crypt** is required to store secrets needed for **dev**, **test**, **uat**, **stage** and **production** environments.
+To be able to modify those secrets, **git-crypt** needs to be set up according to the following
+[guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/other-topics/git-crypt-setup.html#git-crypt).
+
+This requires your gpg key to have been added to git-crypt.  Liaise with another developer to action the steps in [git-crypt.md](docs/git-crypt.md)
+
+Once the pull request has been merged, pull master and run
+
+```
+git-crypt unlock
+```
