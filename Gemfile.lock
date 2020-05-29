@@ -281,7 +281,7 @@ GEM
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     unicode-display_width (1.7.0)
-    vcr (5.1.0)
+    vcr (6.0.0)
     versionist (2.0.1)
       activesupport (>= 3)
       railties (>= 3)
