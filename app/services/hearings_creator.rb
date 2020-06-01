@@ -30,11 +30,16 @@ class HearingsCreator < ApplicationService
     Sqs::PublishMagistratesHearing.call(shared_time: shared_time,
                                         jurisdiction_type: jurisdiction_type,
                                         case_urn: case_urn,
-                                        defendant: defendant)
+                                        defendant: defendant,
+                                        cjs_location: cjs_location)
   end
 
   def jurisdiction_type
     @jurisdiction_type ||= hearing[:jurisdictionType]
+  end
+
+  def cjs_location
+    @cjs_location ||= hearing.dig(:courtCentre, :ouCode)
   end
 
   attr_reader :shared_time, :hearing

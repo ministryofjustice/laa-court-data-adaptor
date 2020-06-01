@@ -3,16 +3,12 @@
 module Sqs
   # rubocop:disable Metrics/ClassLength
   class PublishMagistratesHearing < ApplicationService
-    TEMPORARY_CJS_AREA_CODE = 16
-    TEMPORARY_CJS_LOCATION = 'B16BG'
-    TEMPORARY_OFFENCE_CLASSIFICATION = 'Temporary Offence Classification'
-    TEMPORARY_SESSION_VALIDATE_DATE = '2020-01-01'
-
-    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:)
+    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, cjs_location:)
       @shared_time = shared_time
       @jurisdiction_type = jurisdiction_type
       @case_urn = case_urn
       @defendant = defendant
+      @cjs_location = cjs_location
     end
 
     def call
@@ -57,15 +53,19 @@ module Sqs
       @post_hearing_custody
     end
 
+    def cjs_area_code
+      cjs_location[1, 2] if cjs_location
+    end
+
     def message
       {
         maatId: defendant.dig(:laaApplnReference, :applicationReference).to_i,
         caseUrn: case_urn,
         jurisdictionType: jurisdiction_type,
         asn: defendant.dig(:personDefendant, :arrestSummonsNumber),
-        cjsAreaCode: TEMPORARY_CJS_AREA_CODE,
+        cjsAreaCode: cjs_area_code,
         caseCreationDate: shared_time.split.first,
-        cjsLocation: TEMPORARY_CJS_LOCATION,
+        cjsLocation: cjs_location,
         docLanguage: 'EN',
         inActive: inactive?,
         defendant: defendant_hash,
@@ -104,7 +104,7 @@ module Sqs
           [:offenceCode, offence[:offenceCode]],
           [:asnSeq, offence[:orderIndex]],
           [:offenceShortTitle, offence[:offenceTitle]],
-          [:offenceClassification, TEMPORARY_OFFENCE_CLASSIFICATION],
+          [:offenceClassification, offence[:modeOfTrial]],
           [:offenceDate, offence[:startDate]],
           [:offenceWording, offence[:wording]],
           [:modeOfTrial, offence.dig(:allocationDecision, :motReasonCode)],
@@ -124,7 +124,7 @@ module Sqs
           [:resultText, result[:resultText]],
           [:resultCodeQualifiers, result[:qualifier]],
           [:nextHearingDate, result.dig(:nextHearing, :listedStartDateTime)],
-          [:nextHearingLocation, TEMPORARY_CJS_LOCATION],
+          [:nextHearingLocation, result.dig(:nextHearing, :courtCentre, :ouCode)],
           [:laaOfficeAccount, defendant.dig(:defenceOrganisation, :laaAccountNumber)],
           [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)]
         ].to_h
@@ -133,14 +133,14 @@ module Sqs
 
     def session_hash
       {
-        courtLocation: TEMPORARY_CJS_LOCATION,
+        courtLocation: cjs_location,
         dateOfHearing: defendant.dig(:offences, 0, :judicialResults, 0, :orderedDate),
         postHearingCustody: post_hearing_custody,
-        sessionValidateDate: TEMPORARY_SESSION_VALIDATE_DATE
+        sessionValidateDate: defendant.dig(:offences, 0, :judicialResults, 0, :orderedDate)
       }
     end
 
-    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant
+    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :cjs_location
   end
   # rubocop:enable Metrics/ClassLength
 end

@@ -4,6 +4,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
   let(:shared_time) { '2018-10-25 11:30:00' }
   let(:jurisdiction_type) { 'MAGISTRATES' }
   let(:case_urn) { '12345' }
+  let(:cjs_location) { 'B16BG' }
   let(:defendant) do
     {
       'personDefendant': {
@@ -36,6 +37,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
           'orderIndex': 0,
           'wording': 'On 21/10/2018 the defendant robbed someone.',
           'startDate': '2018-10-21',
+          'modeOfTrial': 'Defendant consents to summary trial',
           'allocationDecision': {
             'motReasonCode': 3
           },
@@ -47,7 +49,10 @@ RSpec.describe Sqs::PublishMagistratesHearing do
               'resultText': 'Fine - Amount of fine: £1500',
               'orderedDate': '2018-11-11',
               'nextHearing': {
-                'listedStartDateTime': '2018-11-11 10:30'
+                'listedStartDateTime': '2018-11-11 10:30',
+                'courtCentre': {
+                  'ouCode': 'B16BG'
+                }
               },
               'judicialResultPrompts': [
                 {
@@ -83,7 +88,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
       caseUrn: '12345',
       jurisdictionType: 'MAGISTRATES',
       asn: 'AA11A12345',
-      cjsAreaCode: 16,
+      cjsAreaCode: '16',
       caseCreationDate: '2018-10-25',
       cjsLocation: 'B16BG',
       docLanguage: 'EN',
@@ -109,7 +114,7 @@ RSpec.describe Sqs::PublishMagistratesHearing do
             offenceCode: 'CD98072',
             asnSeq: 0,
             offenceShortTitle: 'Robbery',
-            offenceClassification: 'Temporary Offence Classification',
+            offenceClassification: 'Defendant consents to summary trial',
             offenceDate: '2018-10-21',
             offenceWording: 'On 21/10/2018 the defendant robbed someone.',
             modeOfTrial: 3,
@@ -133,12 +138,12 @@ RSpec.describe Sqs::PublishMagistratesHearing do
         courtLocation: 'B16BG',
         dateOfHearing: '2018-11-11',
         postHearingCustody: 'R',
-        sessionValidateDate: '2020-01-01'
+        sessionValidateDate: '2018-11-11'
       }
     }
   end
 
-  subject { described_class.call(shared_time: shared_time, jurisdiction_type: jurisdiction_type, case_urn: case_urn, defendant: defendant) }
+  subject { described_class.call(shared_time: shared_time, jurisdiction_type: jurisdiction_type, case_urn: case_urn, defendant: defendant, cjs_location: cjs_location) }
 
   before do
     allow(Rails.configuration.x.aws).to receive(:sqs_url_hearing_resulted).and_return('/hearing-resulted-sqs-url')
