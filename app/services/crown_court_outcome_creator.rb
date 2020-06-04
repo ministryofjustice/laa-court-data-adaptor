@@ -23,22 +23,22 @@ class CrownCourtOutcomeCreator < ApplicationService
   private
 
   def result_is_a_conclusion?
-    defendant&.dig(:offences)&.any? { |offence| offence.dig(:verdict).present? }
+    defendant.dig(:offences)&.any? { |offence| offence.dig(:verdict).present? }
   end
 
   def trial_outcome
-    return 'CONVICTED' if defendant&.dig(:offences)&.all? do |offence|
+    return 'CONVICTED' if defendant.dig(:offences)&.all? do |offence|
       GUILTY_VERDICTS.include? offence.dig(:verdict, :verdictType, :categoryType)
     end
-    return 'PART CONVICTED' if defendant&.dig(:offences)&.any? do |offence|
+    return 'PART CONVICTED' if defendant.dig(:offences)&.any? do |offence|
       GUILTY_VERDICTS.include? offence.dig(:verdict, :verdictType, :categoryType)
     end
 
-    'AQUITTED'
+    'AQUITTED' # This incorrect spelling is used in the MAAT database, and so must be used here to ensure compatibility
   end
 
   def case_end_date
-    defendant&.dig(:offences, 0, :verdict, :verdictDate)
+    defendant.dig(:offences, 0, :verdict, :verdictDate)
   end
 
   attr_reader :defendant
