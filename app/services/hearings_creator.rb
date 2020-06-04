@@ -25,9 +25,7 @@ class HearingsCreator < ApplicationService
   private
 
   def push_to_sqs(shared_time:, case_urn:, defendant:)
-    return unless jurisdiction_type == 'MAGISTRATES'
-
-    Sqs::PublishMagistratesHearing.call(shared_time: shared_time,
+    Sqs::PublishHearing.call(shared_time: shared_time,
                                         jurisdiction_type: jurisdiction_type,
                                         case_urn: case_urn,
                                         defendant: defendant,

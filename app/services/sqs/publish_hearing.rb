@@ -2,7 +2,7 @@
 
 module Sqs
   # rubocop:disable Metrics/ClassLength
-  class PublishMagistratesHearing < ApplicationService
+  class PublishHearing < ApplicationService
     def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, cjs_location:)
       @shared_time = shared_time
       @jurisdiction_type = jurisdiction_type

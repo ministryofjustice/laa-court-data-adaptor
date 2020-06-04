@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Sqs::PublishMagistratesHearing do
+RSpec.describe Sqs::PublishHearing do
   let(:shared_time) { '2018-10-25 11:30:00' }
   let(:jurisdiction_type) { 'MAGISTRATES' }
   let(:case_urn) { '12345' }
