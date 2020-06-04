@@ -26,10 +26,10 @@ class HearingsCreator < ApplicationService
 
   def push_to_sqs(shared_time:, case_urn:, defendant:)
     Sqs::PublishHearing.call(shared_time: shared_time,
-                                        jurisdiction_type: jurisdiction_type,
-                                        case_urn: case_urn,
-                                        defendant: defendant,
-                                        cjs_location: cjs_location)
+                             jurisdiction_type: jurisdiction_type,
+                             case_urn: case_urn,
+                             defendant: defendant,
+                             cjs_location: cjs_location)
   end
 
   def jurisdiction_type
@@ -37,7 +37,7 @@ class HearingsCreator < ApplicationService
   end
 
   def cjs_location
-    @cjs_location ||= hearing.dig(:courtCentre, :ouCode)
+    @cjs_location ||= hearing.dig(:courtCentre, :ouCode)[0..4]
   end
 
   attr_reader :shared_time, :hearing

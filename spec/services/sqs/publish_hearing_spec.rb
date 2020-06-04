@@ -41,6 +41,12 @@ RSpec.describe Sqs::PublishHearing do
           'allocationDecision': {
             'motReasonCode': 3
           },
+          'verdict': {
+            'verdictDate': '2018-10-25',
+            'verdictType': {
+              'categoryType': 'GUILTY_CONVICTED'
+            }
+          },
           'judicialResults': [
             {
               'cjsCode': '123',
@@ -139,6 +145,11 @@ RSpec.describe Sqs::PublishHearing do
         dateOfHearing: '2018-11-11',
         postHearingCustody: 'R',
         sessionValidateDate: '2018-11-11'
+      },
+      ccOutComeData: {
+        ccooOutcome: 'CONVICTED',
+        caseEndDate: '2018-10-25',
+        appealType: nil
       }
     }
   end
