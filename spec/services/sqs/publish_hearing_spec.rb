@@ -2,9 +2,18 @@
 
 RSpec.describe Sqs::PublishHearing do
   let(:shared_time) { '2018-10-25 11:30:00' }
-  let(:jurisdiction_type) { 'MAGISTRATES' }
+  let(:jurisdiction_type) { 'CROWN' }
   let(:case_urn) { '12345' }
   let(:cjs_location) { 'B16BG' }
+  let(:appeal_data) { nil }
+  let(:verdict_hash) do
+    {
+      'verdictDate': '2018-10-25',
+      'verdictType': {
+        'categoryType': 'GUILTY_CONVICTED'
+      }
+    }
+  end
   let(:defendant) do
     {
       'personDefendant': {
@@ -41,12 +50,7 @@ RSpec.describe Sqs::PublishHearing do
           'allocationDecision': {
             'motReasonCode': 3
           },
-          'verdict': {
-            'verdictDate': '2018-10-25',
-            'verdictType': {
-              'categoryType': 'GUILTY_CONVICTED'
-            }
-          },
+          'verdict': verdict_hash,
           'judicialResults': [
             {
               'cjsCode': '123',
@@ -92,13 +96,13 @@ RSpec.describe Sqs::PublishHearing do
     {
       maatId: 123_456_789,
       caseUrn: '12345',
-      jurisdictionType: 'MAGISTRATES',
+      jurisdictionType: 'CROWN',
       asn: 'AA11A12345',
       cjsAreaCode: '16',
       caseCreationDate: '2018-10-25',
       cjsLocation: 'B16BG',
       docLanguage: 'EN',
-      inActive: 'N',
+      inActive: 'Y',
       defendant: {
         forename: 'FirstName',
         surname: 'LastName',
@@ -154,12 +158,46 @@ RSpec.describe Sqs::PublishHearing do
     }
   end
 
-  subject { described_class.call(shared_time: shared_time, jurisdiction_type: jurisdiction_type, case_urn: case_urn, defendant: defendant, cjs_location: cjs_location) }
+  subject do
+    described_class.call(shared_time: shared_time,
+                         jurisdiction_type: jurisdiction_type,
+                         case_urn: case_urn,
+                         defendant: defendant,
+                         cjs_location: cjs_location,
+                         appeal_data: appeal_data)
+  end
 
   let(:queue_url) { Rails.configuration.x.aws.sqs_url_hearing_resulted }
 
   it 'triggers a publish call with the sqs payload' do
     expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
     subject
+  end
+
+  context 'crown court outcomes' do
+    before { expect(Sqs::MessagePublisher).to receive(:call) }
+    context 'when there is verdict data' do
+      it 'creates a crown court outcome hash' do
+        expect(CrownCourtOutcomeCreator).to receive(:call).once
+        subject
+      end
+    end
+
+    context 'when there is appeal data' do
+      let(:verdict_hash) { nil }
+      let(:appeal_data) { 'appeal_data' }
+      it 'creates a crown court outcome hash' do
+        expect(CrownCourtOutcomeCreator).to receive(:call).once
+        subject
+      end
+    end
+
+    context 'when there is no verdict or appeal data' do
+      let(:verdict_hash) { nil }
+      it 'does not create a crown court outcome hash' do
+        expect(CrownCourtOutcomeCreator).not_to receive(:call)
+        subject
+      end
+    end
   end
 end

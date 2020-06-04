@@ -3,12 +3,13 @@
 module Sqs
   # rubocop:disable Metrics/ClassLength
   class PublishHearing < ApplicationService
-    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, cjs_location:)
+    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, cjs_location:, appeal_data:)
       @shared_time = shared_time
       @jurisdiction_type = jurisdiction_type
       @case_urn = case_urn
       @defendant = defendant
       @cjs_location = cjs_location
+      @appeal_data = appeal_data
     end
 
     def call
@@ -142,10 +143,14 @@ module Sqs
     end
 
     def crown_court_outcome_hash
-      CrownCourtOutcomeCreator.call(defendant: defendant)
+      CrownCourtOutcomeCreator.call(defendant: defendant, appeal_data: appeal_data) if jurisdiction_type == 'CROWN' && result_is_a_conclusion?
     end
 
-    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :cjs_location
+    def result_is_a_conclusion?
+      defendant.dig(:offences)&.any? { |offence| offence.dig(:verdict).present? } || appeal_data.present?
+    end
+
+    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :cjs_location, :appeal_data
   end
   # rubocop:enable Metrics/ClassLength
 end
