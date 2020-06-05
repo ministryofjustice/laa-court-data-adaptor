@@ -10,7 +10,7 @@ RSpec.describe HearingRecorder do
     allow(mock_hearings_creator_job).to receive(:enqueue)
   end
 
-  subject { described_class.call(hearing_id, body) }
+  subject { described_class.call(hearing_id: hearing_id, body: body) }
 
   it 'creates a Hearing' do
     expect {
