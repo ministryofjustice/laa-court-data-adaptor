@@ -135,4 +135,19 @@ RSpec.describe HearingsCreator do
       create
     end
   end
+
+  context 'with no prosecution cases' do
+    let(:hearing) do
+      {
+        jurisdictionType: 'CROWN'
+      }
+    end
+
+    subject(:create) { described_class.call(sharedTime: shared_time, hearing: hearing) }
+
+    it 'does not call the Sqs::PublishHearing service' do
+      expect(Sqs::PublishHearing).not_to receive(:call)
+      create
+    end
+  end
 end

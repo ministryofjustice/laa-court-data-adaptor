@@ -11,7 +11,7 @@ class HearingsCreator < ApplicationService
   # rubocop:enable Naming/VariableName
 
   def call
-    hearing[:prosecutionCases].each do |prosecution_case|
+    hearing[:prosecutionCases]&.each do |prosecution_case|
       prosecution_case[:defendants].each do |defendant|
         next if defendant[:laaApplnReference][:applicationReference]&.start_with?('A', 'Z')
 
