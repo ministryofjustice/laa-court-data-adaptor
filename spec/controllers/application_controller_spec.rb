@@ -9,9 +9,10 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
-  let(:valid_token) { 'TOKENTOKEN' }
-  let(:user) { User.create(name: 'HMCTS USER', auth_token: valid_token) }
-  let(:user_id) { user.id }
-
   it_behaves_like 'an unauthorised request'
+
+  it 'returns an Laa-Transaction-Id on every request' do
+    get :index
+    expect(response.headers).to include('Laa-Transaction-Id')
+  end
 end
