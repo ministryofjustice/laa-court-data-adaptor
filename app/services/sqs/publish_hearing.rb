@@ -2,7 +2,7 @@
 
 module Sqs
   # rubocop:disable Metrics/ClassLength
-  class PublishMagistratesHearing < ApplicationService
+  class PublishHearing < ApplicationService
     def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, cjs_location:)
       @shared_time = shared_time
       @jurisdiction_type = jurisdiction_type
@@ -69,7 +69,8 @@ module Sqs
         docLanguage: 'EN',
         inActive: inactive?,
         defendant: defendant_hash,
-        session: session_hash
+        session: session_hash,
+        ccOutComeData: crown_court_outcome_hash
       }
     end
 
@@ -138,6 +139,10 @@ module Sqs
         postHearingCustody: post_hearing_custody,
         sessionValidateDate: defendant.dig(:offences, 0, :judicialResults, 0, :orderedDate)
       }
+    end
+
+    def crown_court_outcome_hash
+      CrownCourtOutcomeCreator.call(defendant: defendant)
     end
 
     attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :cjs_location

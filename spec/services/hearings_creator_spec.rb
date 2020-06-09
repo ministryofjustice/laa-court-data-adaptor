@@ -16,23 +16,27 @@ RSpec.describe HearingsCreator do
     ]
   end
   let(:shared_time) { '2018-10-25 11:30:00' }
-  let(:mags_hearing) do
+  let(:hearing) do
     {
       jurisdictionType: 'MAGISTRATES',
+      courtCentre: {
+        ouCode: 'B16BG00'
+      },
       prosecutionCases: prosecution_case_array
     }
   end
 
-  before { allow(Sqs::PublishMagistratesHearing).to receive(:call) }
+  before { allow(Sqs::PublishHearing).to receive(:call) }
+
+  subject(:create) { described_class.call(sharedTime: shared_time, hearing: hearing) }
 
   context 'with one defendant' do
-    subject(:create) { described_class.call(sharedTime: shared_time, hearing: mags_hearing) }
-
-    it 'calls the Sqs::PublishMagistratesHearing service once' do
-      expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
-                                                                                        jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_urn: '12345',
-                                                                                        defendant: defendant_array.first))
+    it 'calls the Sqs::PublishHearing service once' do
+      expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
+                                                                             jurisdiction_type: 'MAGISTRATES',
+                                                                             case_urn: '12345',
+                                                                             defendant: defendant_array.first,
+                                                                             cjs_location: 'B16BG'))
       create
     end
   end
@@ -47,17 +51,17 @@ RSpec.describe HearingsCreator do
       ]
     end
 
-    subject(:create) { described_class.call(sharedTime: shared_time, hearing: mags_hearing) }
-
     it 'calls the Sqs::PublishLaaReference service twice' do
-      expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
-                                                                                        jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_urn: '12345',
-                                                                                        defendant: defendant_array.first))
-      expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
-                                                                                        jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_urn: '12345',
-                                                                                        defendant: defendant_array.last))
+      expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
+                                                                             jurisdiction_type: 'MAGISTRATES',
+                                                                             case_urn: '12345',
+                                                                             defendant: defendant_array.first,
+                                                                             cjs_location: 'B16BG'))
+      expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
+                                                                             jurisdiction_type: 'MAGISTRATES',
+                                                                             case_urn: '12345',
+                                                                             defendant: defendant_array.last,
+                                                                             cjs_location: 'B16BG'))
       create
     end
   end
@@ -80,48 +84,55 @@ RSpec.describe HearingsCreator do
       ]
     end
 
-    subject(:create) { described_class.call(sharedTime: shared_time, hearing: mags_hearing) }
-
-    it 'calls the Sqs::PublishMagistratesHearing service twice' do
-      expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
-                                                                                        jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_urn: '12345',
-                                                                                        defendant: defendant_array.first))
-      expect(Sqs::PublishMagistratesHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
-                                                                                        jurisdiction_type: 'MAGISTRATES',
-                                                                                        case_urn: '54321',
-                                                                                        defendant: defendant_array.first))
+    it 'calls the Sqs::PublishHearing service twice' do
+      expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
+                                                                             jurisdiction_type: 'MAGISTRATES',
+                                                                             case_urn: '12345',
+                                                                             defendant: defendant_array.first,
+                                                                             cjs_location: 'B16BG'))
+      expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
+                                                                             jurisdiction_type: 'MAGISTRATES',
+                                                                             case_urn: '54321',
+                                                                             defendant: defendant_array.first,
+                                                                             cjs_location: 'B16BG'))
       create
     end
+  end
 
-    context 'with a crown court hearing' do
-      let(:mags_hearing) do
-        {
-          jurisdictionType: 'CROWN',
-          prosecutionCases: prosecution_case_array
-        }
-      end
-
-      it 'does not call the Sqs::PublishMagistratesHearing service' do
-        expect(Sqs::PublishMagistratesHearing).not_to receive(:call)
-        create
-      end
+  context 'with a crown court hearing' do
+    let(:hearing) do
+      {
+        jurisdictionType: 'CROWN',
+        courtCentre: {
+          ouCode: 'B16BG00'
+        },
+        prosecutionCases: prosecution_case_array
+      }
     end
 
-    context 'with a dummy MAAT ID' do
-      let(:defendant_array) do
-        [
-          { 'id': 'defendant_one_id',
-            'laaApplnReference': { 'applicationReference': 'A123456789' } },
-          { 'id': 'defendant_two_id',
-            'laaApplnReference': { 'applicationReference': 'Z987654321' } }
-        ]
-      end
+    it 'calls the Sqs::PublishHearing service' do
+      expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
+                                                                             jurisdiction_type: 'CROWN',
+                                                                             case_urn: '12345',
+                                                                             defendant: defendant_array.first,
+                                                                             cjs_location: 'B16BG'))
+      create
+    end
+  end
 
-      it 'does not call the Sqs::PublishMagistratesHearing service' do
-        expect(Sqs::PublishMagistratesHearing).not_to receive(:call)
-        create
-      end
+  context 'with a dummy MAAT ID' do
+    let(:defendant_array) do
+      [
+        { 'id': 'defendant_one_id',
+          'laaApplnReference': { 'applicationReference': 'A123456789' } },
+        { 'id': 'defendant_two_id',
+          'laaApplnReference': { 'applicationReference': 'Z987654321' } }
+      ]
+    end
+
+    it 'does not call the Sqs::PublishHearing service' do
+      expect(Sqs::PublishHearing).not_to receive(:call)
+      create
     end
   end
 end

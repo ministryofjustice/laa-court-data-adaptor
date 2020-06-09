@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Sqs::PublishMagistratesHearing do
+RSpec.describe Sqs::PublishHearing do
   let(:shared_time) { '2018-10-25 11:30:00' }
   let(:jurisdiction_type) { 'MAGISTRATES' }
   let(:case_urn) { '12345' }
@@ -40,6 +40,12 @@ RSpec.describe Sqs::PublishMagistratesHearing do
           'modeOfTrial': 'Defendant consents to summary trial',
           'allocationDecision': {
             'motReasonCode': 3
+          },
+          'verdict': {
+            'verdictDate': '2018-10-25',
+            'verdictType': {
+              'categoryType': 'GUILTY_CONVICTED'
+            }
           },
           'judicialResults': [
             {
@@ -139,6 +145,11 @@ RSpec.describe Sqs::PublishMagistratesHearing do
         dateOfHearing: '2018-11-11',
         postHearingCustody: 'R',
         sessionValidateDate: '2018-11-11'
+      },
+      ccOutComeData: {
+        ccooOutcome: 'CONVICTED',
+        caseEndDate: '2018-10-25',
+        appealType: nil
       }
     }
   end
