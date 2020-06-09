@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'routing', type: :routing do
   it 'routes to #new' do
     expect(get: '/v1/oauth/authorize').to route_to('v1/doorkeeper/authorizations#new')
@@ -14,7 +16,6 @@ RSpec.describe 'routing', type: :routing do
   it 'routes to #create' do
     expect(post: '/v1/oauth/authorize').to route_to('v1/doorkeeper/authorizations#create')
   end
-
 
   context 'when no API version is specified' do
     it 'routes to #create' do

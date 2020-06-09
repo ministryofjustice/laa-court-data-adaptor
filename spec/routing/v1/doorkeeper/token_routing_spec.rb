@@ -1,5 +1,6 @@
-RSpec.describe 'routing', type: :routing do
+# frozen_string_literal: true
 
+RSpec.describe 'routing', type: :routing do
   it 'routes to #create' do
     expect(post: '/v1/oauth/token').to route_to('v1/doorkeeper/tokens#create')
   end
