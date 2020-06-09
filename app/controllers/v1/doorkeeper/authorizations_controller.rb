@@ -1,8 +1,4 @@
 # frozen_string_literal: true
 
-class V1
-  class Doorkeeper
-    class AuthorizationsController < Doorkeeper::AuthorizationsController
-    end
-  end
+class V1::Doorkeeper::AuthorizationsController < Doorkeeper::AuthorizationsController
 end
