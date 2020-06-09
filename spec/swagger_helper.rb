@@ -36,6 +36,15 @@ RSpec.configure do |config|
               }
             }
           }
+        },
+        parameters: {
+          transaction_id_header: {
+            type: :uuid,
+            name: 'Laa-Transaction-Id',
+            in: :header,
+            required: false,
+            description: 'A unique identifier for an individual request that can be traced across multiple systems'
+          }
         }
       }
     }

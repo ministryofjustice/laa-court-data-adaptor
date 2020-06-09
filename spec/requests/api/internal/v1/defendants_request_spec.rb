@@ -46,6 +46,8 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
                   },
                   description: 'Object containing the user_name, unlink_reason_code and unlink_reason_text'
 
+        parameter '$ref' => '#/components/parameters/transaction_id_header'
+
         let(:Authorization) { "Bearer #{token.token}" }
 
         run_test!
@@ -56,6 +58,8 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
           let(:Authorization) { "Bearer #{token.token}" }
           let(:id) { 'X' }
 
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
+
           run_test!
         end
       end
@@ -63,6 +67,8 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
       context 'unauthorized request' do
         response('401', 'Unauthorized') do
           let(:Authorization) { nil }
+
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
 
           run_test!
         end
