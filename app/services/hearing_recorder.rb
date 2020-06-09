@@ -8,7 +8,8 @@ class HearingRecorder < ApplicationService
 
   def call
     hearing.update(body: body)
-    HearingsCreatorJob.perform_later(**transformed_body)
+    HearingsCreatorJob.perform_later(body: transformed_body, request_id: Current.request_id)
+
     hearing
   end
 

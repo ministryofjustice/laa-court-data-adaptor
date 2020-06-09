@@ -156,12 +156,10 @@ RSpec.describe Sqs::PublishHearing do
 
   subject { described_class.call(shared_time: shared_time, jurisdiction_type: jurisdiction_type, case_urn: case_urn, defendant: defendant, cjs_location: cjs_location) }
 
-  before do
-    allow(Rails.configuration.x.aws).to receive(:sqs_url_hearing_resulted).and_return('/hearing-resulted-sqs-url')
-  end
+  let(:queue_url) { Rails.configuration.x.aws.sqs_url_hearing_resulted }
 
   it 'triggers a publish call with the sqs payload' do
-    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: '/hearing-resulted-sqs-url')
+    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
     subject
   end
 end

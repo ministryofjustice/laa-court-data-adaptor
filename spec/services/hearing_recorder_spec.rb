@@ -3,10 +3,10 @@
 RSpec.describe HearingRecorder do
   let(:hearing_id) { 'fa78c710-6a49-4276-bbb3-ad34c8d4e313' }
   let(:body) { { 'response': 'text' } }
-  let(:mock_hearings_creator_job) { double HearingsCreatorJob }
+  let(:mock_hearings_creator_job) { instance_double('HearingsCreatorJob') }
 
   before do
-    allow(HearingsCreatorJob).to receive(:new).and_return(mock_hearings_creator_job)
+    allow(HearingsCreatorJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_hearings_creator_job)
     allow(mock_hearings_creator_job).to receive(:enqueue)
   end
 

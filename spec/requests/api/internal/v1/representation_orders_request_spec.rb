@@ -6,7 +6,7 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:mock_rep_order_creator_job) { double RepresentationOrderCreatorJob }
+  let(:mock_rep_order_creator_job) { instance_double('RepresentationOrderCreatorJob') }
   let(:defence_organisation) do
     {
       laa_contract_number: 'CONTRACT REFERENCE',
@@ -65,7 +65,7 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
   end
 
   before do
-    allow(RepresentationOrderCreatorJob).to receive(:new).and_return(mock_rep_order_creator_job)
+    allow(RepresentationOrderCreatorJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_rep_order_creator_job)
     allow(mock_rep_order_creator_job).to receive(:enqueue)
   end
 

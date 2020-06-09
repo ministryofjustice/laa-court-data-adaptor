@@ -6,7 +6,7 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:mock_laa_reference_updater_job) { double LaaReferenceCreatorJob }
+  let(:mock_laa_reference_updater_job) { instance_double('LaaReferenceCreatorJob') }
   let(:laa_reference) do
     {
       data: {
@@ -27,7 +27,7 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
   end
 
   before do
-    allow(LaaReferenceCreatorJob).to receive(:new).and_return(mock_laa_reference_updater_job)
+    allow(LaaReferenceCreatorJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_laa_reference_updater_job)
     allow(mock_laa_reference_updater_job).to receive(:enqueue)
   end
 

@@ -4,8 +4,8 @@ module Sqs
   class MessagePublisher < ApplicationService
     def initialize(message:, queue_url: nil, sqs_client: Aws::SQS::Client.new)
       @sqs_client = sqs_client
-      @message = message
       @queue_url = queue_url
+      @message = message.merge({ metadata: { laaTransactionId: Current.request_id } })
     end
 
     def call

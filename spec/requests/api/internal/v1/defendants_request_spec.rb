@@ -6,6 +6,7 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
+  let(:mock_unlink_job) { instance_double('UnlinkLaaReferenceJob') }
   let(:id) { '23d7f10a-067a-476e-bba6-bb855674e23b' }
   let(:defendant) do
     {
@@ -18,6 +19,11 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
         }
       }
     }
+  end
+
+  before do
+    allow(UnlinkLaaReferenceJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_unlink_job)
+    allow(mock_unlink_job).to receive(:enqueue)
   end
 
   path '/api/internal/v1/defendants/{id}' do
