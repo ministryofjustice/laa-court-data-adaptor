@@ -12,7 +12,7 @@ RSpec.describe Api::GetHearingResults do
   end
 
   it 'calls the HearingRecorder service' do
-    expect(HearingRecorder).to receive(:call).with(hearing_id, response.body)
+    expect(HearingRecorder).to receive(:call).with(hearing_id: hearing_id, body: response.body)
     subject
   end
 

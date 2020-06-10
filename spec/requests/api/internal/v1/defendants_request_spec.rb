@@ -6,6 +6,7 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
+  let(:mock_unlink_job) { instance_double('UnlinkLaaReferenceJob') }
   let(:id) { '23d7f10a-067a-476e-bba6-bb855674e23b' }
   let(:defendant) do
     {
@@ -18,6 +19,11 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
         }
       }
     }
+  end
+
+  before do
+    allow(UnlinkLaaReferenceJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_unlink_job)
+    allow(mock_unlink_job).to receive(:enqueue)
   end
 
   path '/api/internal/v1/defendants/{id}' do
@@ -40,6 +46,8 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
                   },
                   description: 'Object containing the user_name, unlink_reason_code and unlink_reason_text'
 
+        parameter '$ref' => '#/components/parameters/transaction_id_header'
+
         let(:Authorization) { "Bearer #{token.token}" }
 
         run_test!
@@ -50,6 +58,8 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
           let(:Authorization) { "Bearer #{token.token}" }
           let(:id) { 'X' }
 
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
+
           run_test!
         end
       end
@@ -57,6 +67,8 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
       context 'unauthorized request' do
         response('401', 'Unauthorized') do
           let(:Authorization) { nil }
+
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
 
           run_test!
         end

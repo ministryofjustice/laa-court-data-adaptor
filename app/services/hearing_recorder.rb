@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 class HearingRecorder < ApplicationService
-  def initialize(hearing_id, body)
+  def initialize(hearing_id:, body:)
     @hearing = Hearing.find_or_initialize_by(id: hearing_id)
     @body = body
   end
 
   def call
     hearing.update(body: body)
-    HearingsCreatorJob.perform_later(**transformed_body)
+    HearingsCreatorJob.perform_later(body: transformed_body, request_id: Current.request_id)
+
     hearing
   end
 

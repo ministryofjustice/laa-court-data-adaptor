@@ -6,7 +6,7 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:mock_laa_reference_updater_job) { double LaaReferenceCreatorJob }
+  let(:mock_laa_reference_updater_job) { instance_double('LaaReferenceCreatorJob') }
   let(:laa_reference) do
     {
       data: {
@@ -27,7 +27,7 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
   end
 
   before do
-    allow(LaaReferenceCreatorJob).to receive(:new).and_return(mock_laa_reference_updater_job)
+    allow(LaaReferenceCreatorJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_laa_reference_updater_job)
     allow(mock_laa_reference_updater_job).to receive(:enqueue)
   end
 
@@ -51,6 +51,8 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
                   },
                   description: 'The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings'
 
+        parameter '$ref' => '#/components/parameters/transaction_id_header'
+
         let(:Authorization) { "Bearer #{token.token}" }
 
         run_test!
@@ -61,6 +63,8 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
           before { laa_reference[:data][:attributes].delete(:maat_reference) }
           let(:Authorization) { "Bearer #{token.token}" }
 
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
+
           run_test!
         end
       end
@@ -70,6 +74,8 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
           let(:Authorization) { "Bearer #{token.token}" }
           before { laa_reference[:data][:attributes][:maat_reference] = 'ABC123123' }
 
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
+
           run_test!
         end
       end
@@ -77,6 +83,8 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
       context 'unauthorized request' do
         response('401', 'Unauthorized') do
           let(:Authorization) { nil }
+
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
 
           run_test!
         end

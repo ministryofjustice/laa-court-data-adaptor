@@ -8,7 +8,7 @@ module Api
     end
 
     def call
-      HearingRecorder.call(hearing_id, response.body) if successful_response?
+      HearingRecorder.call(hearing_id: hearing_id, body: response.body) if successful_response?
     end
 
     private

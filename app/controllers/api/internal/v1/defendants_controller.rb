@@ -7,7 +7,7 @@ module Api
         def update
           contract = UnlinkDefendantContract.new.call(**transformed_params)
           if contract.success?
-            UnlinkLaaReferenceJob.perform_later(**transformed_params)
+            UnlinkLaaReferenceJob.perform_later(body: transformed_params, request_id: Current.request_id)
             render status: :accepted
           else
             render json: contract.errors.to_hash, status: :bad_request

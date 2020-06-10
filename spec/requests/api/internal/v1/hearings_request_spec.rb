@@ -31,6 +31,8 @@ RSpec.describe 'Api::Internal::V1::Hearings', type: :request do
                   },
                   description: 'The unique identifier of the hearing'
 
+        parameter '$ref' => '#/components/parameters/transaction_id_header'
+
         let(:Authorization) { "Bearer #{token.token}" }
         let(:shared_time) { JSON.parse(file_fixture('valid_hearing.json').read) }
 
@@ -46,6 +48,8 @@ RSpec.describe 'Api::Internal::V1::Hearings', type: :request do
           end
 
           let(:Authorization) { nil }
+
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
 
           run_test!
         end
