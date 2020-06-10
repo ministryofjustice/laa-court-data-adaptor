@@ -3,7 +3,11 @@
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
-  use_doorkeeper
+
+  api_version(module: 'V1', path: { value: 'v1' }, default: true) do
+    use_doorkeeper
+  end
+
   namespace :api do
     namespace :internal do
       api_version(module: 'V1', path: { value: 'v1' }, default: true) do
