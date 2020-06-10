@@ -51,6 +51,9 @@ paths:
         schema:
           "$ref": defendant.json#/definitions/id
         description: The unique identifier of the defendant
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '202':
           description: Accepted
@@ -82,6 +85,8 @@ paths:
         schema:
           "$ref": hearing.json#/definitions/id
         description: The unique identifier of the hearing
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '200':
           description: Success
@@ -98,7 +103,11 @@ paths:
       - Internal - available to other LAA applications
       security:
       - oAuth: []
-      parameters: []
+      parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '202':
           description: Accepted
@@ -144,6 +153,7 @@ paths:
         description: |-
           Return defendant and offence data through a has_many relationship </br>
                                             eg include=defendants,defendants.offences,defendants.defence_organisation
+      - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[arrest_summons_number]
         in: query
         required: false
@@ -151,6 +161,7 @@ paths:
         schema:
           "$ref": prosecution_case.json#/definitions/arrest_summons_number
         description: Searches prosecution cases by arrest summons number
+      - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[national_insurance_number]
         in: query
         required: false
@@ -158,6 +169,7 @@ paths:
         schema:
           "$ref": defendant.json#/definitions/nino
         description: Searches prosecution cases by national_insurance_number
+      - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[name]
         in: query
         required: false
@@ -172,6 +184,7 @@ paths:
         schema:
           "$ref": defendant.json#/definitions/date_of_birth
         description: Searches prosecution cases by date_of_birth
+      - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[name]
         in: query
         required: false
@@ -186,6 +199,8 @@ paths:
         schema:
           "$ref": prosecution_case.json#/definitions/date_of_next_hearing
         description: Searches prosecution cases by date_of_next_hearing
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '200':
           description: Success
@@ -259,7 +274,10 @@ paths:
       - Internal - available to other LAA applications
       security:
       - oAuth: []
-      parameters: []
+      parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '202':
           description: Accepted
@@ -285,3 +303,11 @@ components:
         clientCredentials:
           scopes: []
           tokenUrl: "/oauth/token"
+  parameters:
+    transaction_id_header:
+      type: uuid
+      name: Laa-Transaction-Id
+      in: header
+      required: false
+      description: A unique identifier for an individual request that can be traced
+        across multiple systems
