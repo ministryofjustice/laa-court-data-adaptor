@@ -10,7 +10,7 @@ RSpec.describe 'routing', type: :routing do
   end
 
   it 'routes to #destroy' do
-    expect(delete: '/v1/oauth/authorize/').to route_to('v1/doorkeeper/authorizations#destroy')
+    expect(delete: '/v1/oauth/authorize').to route_to('v1/doorkeeper/authorizations#destroy')
   end
 
   it 'routes to #create' do
@@ -18,10 +18,6 @@ RSpec.describe 'routing', type: :routing do
   end
 
   context 'when no API version is specified' do
-    it 'routes to #create' do
-      expect(get: '/oauth/authorize').to route_to('v1/doorkeeper/authorizations#new')
-    end
-
     it 'routes to #show' do
       expect(get: '/oauth/authorize/native').to route_to('v1/doorkeeper/authorizations#show')
     end
