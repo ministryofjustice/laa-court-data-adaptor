@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/ClassAndModuleChildren
-
-class V1::Doorkeeper::AuthorizationsController < Doorkeeper::AuthorizationsController
+module V1
+  module Doorkeeper
+    class AuthorizationsController < ::Doorkeeper::AuthorizationsController
+    end
+  end
 end
-
-# rubocop:enable Style/ClassAndModuleChildren

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/ClassAndModuleChildren
-
-class V1::Doorkeeper::TokensController < Doorkeeper::TokensController
+module V1
+  module Doorkeeper
+    class TokensController < ::Doorkeeper::TokensController
+    end
+  end
 end
-
-# rubocop:enable Style/ClassAndModuleChildren
