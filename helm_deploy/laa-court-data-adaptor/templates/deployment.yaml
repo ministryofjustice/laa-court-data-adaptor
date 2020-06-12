@@ -47,6 +47,8 @@ spec:
                 secretKeyRef:
                   name: laa-court-data-adaptor-instance-output
                   key: url
+            - name: HOST_ENV
+              value: {{ .Values.rails.host_env }}
             - name: SECRET_KEY_BASE
               value: {{ .Values.rails.secret_key_base }}
             - name: COMMON_PLATFORM_URL
