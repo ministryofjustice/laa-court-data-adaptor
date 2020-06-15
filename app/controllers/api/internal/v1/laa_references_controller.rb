@@ -7,7 +7,7 @@ module Api
         def create
           contract = NewLaaReferenceContract.new.call(**transformed_params)
           if contract.success?
-            LaaReferenceCreatorJob.perform_later(contract: transformed_params, request_id: Current.request_id)
+            LaaReferenceCreatorWorker.perform_async(Current.request_id, transformed_params[:defendant_id], transformed_params[:maat_reference])
             render status: :accepted
           else
             render json: contract.errors.to_hash, status: :bad_request

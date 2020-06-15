@@ -33,6 +33,7 @@ gem 'jsonapi_parameters'
 gem 'prmd'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'sidekiq'
 gem 'versionist'
 
 group :development, :test do

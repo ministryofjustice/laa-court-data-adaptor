@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'swagger_helper'
+require 'sidekiq/testing'
 
 RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1/swagger.yaml' do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:mock_unlink_job) { instance_double('UnlinkLaaReferenceJob') }
   let(:id) { '23d7f10a-067a-476e-bba6-bb855674e23b' }
   let(:defendant) do
     {
@@ -21,9 +21,10 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
     }
   end
 
-  before do
-    allow(UnlinkLaaReferenceJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_unlink_job)
-    allow(mock_unlink_job).to receive(:enqueue)
+  around do |example|
+    Sidekiq::Testing.fake! do
+      example.run
+    end
   end
 
   path '/api/internal/v1/defendants/{id}' do
@@ -50,6 +51,10 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
 
         let(:Authorization) { "Bearer #{token.token}" }
 
+        before do
+          expect(UnlinkLaaReferenceWorker).to receive(:perform_async).with(String, id, 'johnDoe', 1, 'Wrong defendant').and_call_original
+        end
+
         run_test!
       end
 
@@ -60,6 +65,10 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
 
           parameter '$ref' => '#/components/parameters/transaction_id_header'
 
+          before do
+            expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+          end
+
           run_test!
         end
       end
@@ -69,6 +78,10 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
           let(:Authorization) { nil }
 
           parameter '$ref' => '#/components/parameters/transaction_id_header'
+
+          before do
+            expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+          end
 
           run_test!
         end

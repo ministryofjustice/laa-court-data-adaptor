@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'swagger_helper'
+require 'sidekiq/testing'
 
 RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v1/swagger.yaml' do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:mock_laa_reference_updater_job) { instance_double('LaaReferenceCreatorJob') }
   let(:laa_reference) do
     {
       data: {
@@ -26,9 +26,10 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
     }
   end
 
-  before do
-    allow(LaaReferenceCreatorJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_laa_reference_updater_job)
-    allow(mock_laa_reference_updater_job).to receive(:enqueue)
+  around do |example|
+    Sidekiq::Testing.fake! do
+      example.run
+    end
   end
 
   path '/api/internal/v1/laa_references' do
@@ -40,6 +41,7 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
 
       response(202, 'Accepted') do
         around do |example|
+          Sidekiq::Testing.fake!
           VCR.use_cassette('laa_reference_recorder/update') do
             example.run
           end
@@ -55,15 +57,23 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
 
         let(:Authorization) { "Bearer #{token.token}" }
 
+        before do
+          expect(LaaReferenceCreatorWorker).to receive(:perform_async).with(String, String, 1_231_231).and_call_original
+        end
+
         run_test!
       end
 
       context 'with a blank maat_reference' do
-        response('202', 'Accepted') do
+        response(202, 'Accepted') do
           before { laa_reference[:data][:attributes].delete(:maat_reference) }
           let(:Authorization) { "Bearer #{token.token}" }
 
           parameter '$ref' => '#/components/parameters/transaction_id_header'
+
+          before do
+            expect(LaaReferenceCreatorWorker).to receive(:perform_async).with(String, String, nil).and_call_original
+          end
 
           run_test!
         end
@@ -76,6 +86,10 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
 
           parameter '$ref' => '#/components/parameters/transaction_id_header'
 
+          before do
+            expect(LaaReferenceCreatorWorker).not_to receive(:perform_async)
+          end
+
           run_test!
         end
       end
@@ -85,6 +99,10 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
           let(:Authorization) { nil }
 
           parameter '$ref' => '#/components/parameters/transaction_id_header'
+
+          before do
+            expect(LaaReferenceCreatorWorker).not_to receive(:perform_async)
+          end
 
           run_test!
         end
