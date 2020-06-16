@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 
 class HearingsCreator < ApplicationService
-  # rubocop:disable Naming/MethodParameterName
-  # rubocop:disable Naming/VariableName
-  def initialize(sharedTime:, hearing:)
-    @shared_time = sharedTime
+  def initialize(shared_time:, hearing:)
+    @shared_time = shared_time
     @hearing = hearing
   end
-  # rubocop:enable Naming/MethodParameterName
-  # rubocop:enable Naming/VariableName
 
   def call
     push_prosecution_cases

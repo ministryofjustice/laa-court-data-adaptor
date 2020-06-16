@@ -8,7 +8,7 @@ class HearingRecorder < ApplicationService
 
   def call
     hearing.update(body: body)
-    HearingsCreatorJob.perform_later(body: transformed_body, request_id: Current.request_id)
+    HearingsCreatorWorker.perform_async(Current.request_id, transformed_body[:hearing], transformed_body[:sharedTime])
 
     hearing
   end
@@ -16,7 +16,7 @@ class HearingRecorder < ApplicationService
   private
 
   def transformed_body
-    body.to_hash.deep_transform_keys(&:to_sym)
+    @transformed_body ||= body.to_hash.transform_keys(&:to_sym)
   end
 
   attr_reader :hearing, :body

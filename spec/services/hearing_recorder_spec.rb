@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 
+require 'sidekiq/testing'
+
 RSpec.describe HearingRecorder do
   let(:hearing_id) { 'fa78c710-6a49-4276-bbb3-ad34c8d4e313' }
-  let(:body) { { 'response': 'text' } }
-  let(:mock_hearings_creator_job) { instance_double('HearingsCreatorJob') }
-
-  before do
-    allow(HearingsCreatorJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_hearings_creator_job)
-    allow(mock_hearings_creator_job).to receive(:enqueue)
-  end
+  let(:body) { { 'hearing': '{ "one" : "two" }', 'sharedTime': '2020-12-10' } }
 
   subject { described_class.call(hearing_id: hearing_id, body: body) }
 
@@ -26,9 +22,13 @@ RSpec.describe HearingRecorder do
     expect(subject.body).to eq(body.stringify_keys)
   end
 
-  it 'creates a new HearingsCreatorJob' do
-    expect(mock_hearings_creator_job).to receive(:enqueue)
-    subject
+  it 'enqueues a HearingsCreatorWorker' do
+    Sidekiq::Testing.fake! do
+      Current.set(request_id: 'XYZ') do
+        expect(HearingsCreatorWorker).to receive(:perform_async).with('XYZ', body[:hearing], body[:sharedTime]).and_call_original
+        subject
+      end
+    end
   end
 
   context 'when the Hearing exists' do
