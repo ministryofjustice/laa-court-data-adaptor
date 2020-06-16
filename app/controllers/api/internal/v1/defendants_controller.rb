@@ -7,7 +7,7 @@ module Api
         def update
           contract = UnlinkDefendantContract.new.call(**transformed_params)
           if contract.success?
-            UnlinkLaaReferenceJob.perform_later(body: transformed_params, request_id: Current.request_id)
+            enqueue_unlink
             render status: :accepted
           else
             render json: contract.errors.to_hash, status: :bad_request
@@ -15,6 +15,16 @@ module Api
         end
 
         private
+
+        def enqueue_unlink
+          UnlinkLaaReferenceWorker.perform_async(
+            Current.request_id,
+            transformed_params[:defendant_id],
+            transformed_params[:user_name],
+            transformed_params[:unlink_reason_code],
+            transformed_params[:unlink_reason_text]
+          )
+        end
 
         def unlink_params
           params.from_jsonapi.require(:defendant).permit(allowed_params)
@@ -25,7 +35,7 @@ module Api
         end
 
         def transformed_params
-          unlink_params.slice(*allowed_params).to_hash.transform_keys(&:to_sym).merge(defendant_id: params[:id])
+          @transformed_params ||= unlink_params.slice(*allowed_params).to_hash.transform_keys(&:to_sym).merge(defendant_id: params[:id])
         end
       end
     end
