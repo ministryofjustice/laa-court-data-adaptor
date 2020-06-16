@@ -7,7 +7,7 @@ module Api
         def create
           contract = NewRepresentationOrderContract.new.call(**transformed_params)
           if contract.success?
-            RepresentationOrderCreatorJob.perform_later(contract: transformed_params, request_id: Current.request_id)
+            enqueue_representation_order
             render status: :accepted
           else
             render json: contract.errors.to_hash, status: :bad_request
@@ -21,7 +21,17 @@ module Api
         end
 
         def transformed_params
-          create_params.to_hash.transform_keys(&:to_sym).compact
+          @transformed_params ||= create_params.to_hash.transform_keys(&:to_sym).compact
+        end
+
+        def enqueue_representation_order
+          RepresentationOrderCreatorWorker.perform_async(
+            Current.request_id,
+            transformed_params[:defendant_id],
+            transformed_params[:offences],
+            transformed_params[:maat_reference],
+            transformed_params[:defence_organisation]
+          )
         end
       end
     end

@@ -1,12 +1,24 @@
 # frozen_string_literal: true
 
 require 'swagger_helper'
+require 'sidekiq/testing'
 
 RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_doc: 'v1/swagger.yaml' do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:mock_rep_order_creator_job) { instance_double('RepresentationOrderCreatorJob') }
+  let(:defendant_id) { SecureRandom.uuid }
+  let(:offence_array) do
+    [
+      {
+        offence_id: SecureRandom.uuid,
+        status_code: 'GR',
+        status_date: '2020-02-12',
+        effective_start_date: '2020-02-20',
+        effective_end_date: '2020-02-25'
+      }
+    ]
+  end
   let(:defence_organisation) do
     {
       laa_contract_number: 'CONTRACT REFERENCE',
@@ -42,21 +54,13 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
         attributes: {
           maat_reference: 1_231_231,
           defence_organisation: defence_organisation,
-          offences: [
-            {
-              offence_id: SecureRandom.uuid,
-              status_code: 'GR',
-              status_date: Date.new(2020, 2, 12),
-              effective_start_date: Date.new(2020, 2, 20),
-              effective_end_date: Date.new(2020, 2, 25)
-            }
-          ]
+          offences: offence_array
         },
         relationships: {
           defendant: {
             data: {
               type: 'defendants',
-              id: SecureRandom.uuid
+              id: defendant_id
             }
           }
         }
@@ -64,9 +68,10 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
     }
   end
 
-  before do
-    allow(RepresentationOrderCreatorJob).to receive(:new).with(hash_including(:request_id)).and_return(mock_rep_order_creator_job)
-    allow(mock_rep_order_creator_job).to receive(:enqueue)
+  around do |example|
+    Sidekiq::Testing.fake! do
+      example.run
+    end
   end
 
   path '/api/internal/v1/representation_orders' do
@@ -93,6 +98,16 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
 
         let(:Authorization) { "Bearer #{token.token}" }
 
+        before do
+          expect(RepresentationOrderCreatorWorker).to receive(:perform_async).with(
+            String,
+            defendant_id,
+            offence_array.map { |o| o.deep_transform_keys(&:to_s) },
+            1_231_231,
+            defence_organisation.deep_transform_keys(&:to_s)
+          ).and_call_original
+        end
+
         run_test!
       end
 
@@ -103,6 +118,10 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
 
           parameter '$ref' => '#/components/parameters/transaction_id_header'
 
+          before do
+            expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)
+          end
+
           run_test!
         end
       end
@@ -112,6 +131,10 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
           let(:Authorization) { nil }
 
           parameter '$ref' => '#/components/parameters/transaction_id_header'
+
+          before do
+            expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)
+          end
 
           run_test!
         end

@@ -42,7 +42,7 @@ RSpec.describe HearingsCreator do
 
   before { allow(Sqs::PublishHearing).to receive(:call) }
 
-  subject(:create) { described_class.call(sharedTime: shared_time, hearing: hearing) }
+  subject(:create) { described_class.call(shared_time: shared_time, hearing: hearing) }
 
   context 'for a trial' do
     let(:application_array) { nil }
