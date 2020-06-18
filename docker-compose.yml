@@ -1,22 +1,46 @@
-version: '2'
+version: '3'
 services:
   app:
     build:
       context: .
+      args:
+        BUNDLE_DEPLOYMENT: 'false'
+        BUNDLE_WITHOUT: ' ' # Intentional blank value
+        RAILS_ENV: development
     volumes:
       - .:/app
-    links:
+    depends_on:
       - postgres
+      - redis
+    command: bundle exec rails s -b 0.0.0.0
     ports:
       - '3000:3000'
     environment:
+      REDIS_URL: redis://redis
       DATABASE_URL: postgres://postgres@postgres/laa_court_data_adaptor_development
-      RAILS_ENV: development
-      BUNDLE_DEPLOYMENT: 'false'
-      BUNDLE_WITHOUT: ''
+  sidekiq:
+    build:
+      context: .
+      args:
+        BUNDLE_DEPLOYMENT: 'false'
+        BUNDLE_WITHOUT: ' ' # Intentional blank value
+        RAILS_ENV: development
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+    command: bundle exec sidekiq
+    environment:
+      REDIS_URL: redis://redis
+      DATABASE_URL: postgres://postgres@postgres/laa_court_data_adaptor_development
   postgres:
     image: postgres:11.5-alpine
     ports:
       - 5432
     environment:
       POSTGRES_USER: 'postgres'
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379
