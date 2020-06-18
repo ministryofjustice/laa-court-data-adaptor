@@ -1,0 +1,11 @@
+.circleci
+.git*
+.github
+coverage/*
+helm_deploy
+Dockerfile
+log/*
+tmp/*
+docker-compose.yml
+README.md
+docs

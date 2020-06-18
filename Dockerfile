@@ -31,8 +31,10 @@ WORKDIR /usr/src/app
 # DEPENDENCIES START #
 ######################
 # Env vars needed for dependency install and asset precompilation
-ENV BUNDLE_DEPLOYMENT true
-ENV BUNDLE_WITHOUT 'development test'
+ARG BUNDLE_DEPLOYMENT
+ENV BUNDLE_DEPLOYMENT ${BUNDLE_DEPLOYMENT:-true}
+ARG BUNDLE_WITHOUT
+ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT:-'development test'}
 
 COPY Gemfile* ./
 
@@ -44,7 +46,8 @@ RUN gem install bundler:2.1.4 -N \
 # DEPENDENCIES END #
 ####################
 
-ENV RAILS_ENV production
+ARG RAILS_ENV
+ENV RAILS_ENV ${RAILS_ENV:-production}
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 EXPOSE 3000
@@ -52,7 +55,7 @@ EXPOSE 3000
 COPY . .
 
 # non-root/appuser should own only what they need to
-RUN chown -R appuser:appgroup app config log tmp db
+RUN chown -R appuser:appgroup app config log tmp db coverage
 
 USER 1000
 CMD "./docker/run"
