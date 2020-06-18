@@ -26,6 +26,15 @@ You can then start the application server by running:
 $ rails s
 ```
 
+To run background jobs using redis, you need to have redis available on port 6379, then run
+
+```
+$ bundle exec sidekiq
+```
+
+Alternatively, set `INLINE_SIDEKIQ` to `true` in your development environment to process jobs inline.
+
+
 ### Set up using docker-compose
 
 Clone the repo, and then run
