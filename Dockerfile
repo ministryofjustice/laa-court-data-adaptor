@@ -55,7 +55,7 @@ EXPOSE 3000
 COPY . .
 
 # non-root/appuser should own only what they need to
-RUN chown -R appuser:appgroup app config log tmp db coverage
+RUN chown -R appuser:appgroup app config log tmp db
 
 USER 1000
 CMD "./docker/run"
