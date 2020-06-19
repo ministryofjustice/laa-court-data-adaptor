@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: "{{ include "laa-court-data-adaptor.fullname" . }}-test-connection"
   labels:
-{{ include "laa-court-data-adaptor.labels" . | indent 4 }}
+    {{- include "laa-court-data-adaptor.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test-success
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "laa-court-data-adaptor.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "laa-court-data-adaptor.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
