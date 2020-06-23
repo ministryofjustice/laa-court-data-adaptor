@@ -10,10 +10,6 @@
 Metrics/AbcSize:
   Max: 18
 
-# Offense count: 1
-Metrics/CyclomaticComplexity:
-  Max: 9
-
 # Offense count: 2
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/MethodLength:
@@ -23,21 +19,10 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 9
 
-# Offense count: 3
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'app/mailers/application_mailer.rb'
-    - 'app/models/application_record.rb'
-    - 'config/application.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
+# Offense count: 1
+Metrics/CyclomaticComplexity:
   Exclude:
     - 'bin/bundle'
-    - 'spec/rails_helper.rb'
 
 # Offense count: 36
 # Cop supports --auto-correct.

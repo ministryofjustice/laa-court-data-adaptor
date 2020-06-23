@@ -28,7 +28,7 @@ class LaaReferenceUnlinker < ApplicationService
         offence_id: offence.offence_id,
         status_code: 'AP',
         application_reference: dummy_maat_reference,
-        status_date: Date.today.strftime('%Y-%m-%d')
+        status_date: Time.zone.today.strftime('%Y-%m-%d')
       )
     end
   end

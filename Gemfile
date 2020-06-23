@@ -42,8 +42,8 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 4.0.1'
   gem 'rswag-specs'
-  gem 'rubocop', '~> 0.86.0', require: false
   gem 'rubocop-performance'
+  gem 'rubocop-rails', require: false
   gem 'vcr'
 end
 

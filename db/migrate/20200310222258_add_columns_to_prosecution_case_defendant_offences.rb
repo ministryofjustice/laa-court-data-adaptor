@@ -2,10 +2,12 @@
 
 class AddColumnsToProsecutionCaseDefendantOffences < ActiveRecord::Migration[6.0]
   def change
-    add_column :prosecution_case_defendant_offences, :maat_reference, :string
-    add_column :prosecution_case_defendant_offences, :dummy_maat_reference, :boolean, default: false, null: false
-    add_column :prosecution_case_defendant_offences, :rep_order_status, :string
-    add_column :prosecution_case_defendant_offences, :response_status, :integer
-    add_column :prosecution_case_defendant_offences, :response_body, :json
+    change_table :prosecution_case_defendant_offences, bulk: true do |t|
+      t.string :maat_reference
+      t.boolean :dummy_maat_reference, default: false, null: false
+      t.string :rep_order_status
+      t.integer :response_status
+      t.json :response_body
+    end
   end
 end

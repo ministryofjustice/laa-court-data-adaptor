@@ -46,7 +46,7 @@ class ProsecutionCase < ApplicationRecord
   def defendant_details
     return {} unless hearings_fetched?
 
-    case_details.flat_map { |detail| detail['defendants'] }.map { |detail| [detail['id'], detail] }.to_h
+    case_details.flat_map { |detail| detail['defendants'] }.index_by { |detail| detail['id'] }
   end
 
   def hearing_results

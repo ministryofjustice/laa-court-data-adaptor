@@ -77,6 +77,7 @@ module Sqs
 
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
     def defendant_hash
       {
         forename: forename,
@@ -97,6 +98,7 @@ module Sqs
         offences: offences_map
       }
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/AbcSize
 

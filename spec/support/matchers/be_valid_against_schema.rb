@@ -8,7 +8,7 @@ require 'rspec/expectations'
 RSpec::Matchers.define :be_valid_against_schema do |options = {}|
   schema_errors = []
   match do |data|
-    options[:schema] ||= File.read(Rails.root.join('schema', 'schema.json'))
+    options[:schema] ||= File.read(Rails.root.join('schema/schema.json'))
     options[:fragment] ||= '#/definitions/prosecution_case/definitions/resource_collection'
 
     errors = JSON::Validator.fully_validate(
