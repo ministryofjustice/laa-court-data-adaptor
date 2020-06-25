@@ -20,7 +20,7 @@ module Sqs
         maatId: maat_reference,
         userId: user_name,
         reasonId: unlink_reason_code,
-        reasonText: unlink_other_reason_text
+        otherReasonText: unlink_other_reason_text
       }
     end
 
