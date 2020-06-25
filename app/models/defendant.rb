@@ -58,7 +58,7 @@ class Defendant
   def offence_details
     return {} if details.blank?
 
-    details.dig('offences')&.map { |offence| [offence['id'], offence] }&.to_h
+    details.dig('offences')&.index_by { |offence| offence['id'] }
   end
 
   def valid_maat_reference?

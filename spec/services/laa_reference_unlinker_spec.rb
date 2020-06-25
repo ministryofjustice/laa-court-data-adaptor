@@ -62,7 +62,7 @@ RSpec.describe LaaReferenceUnlinker do
 
   context 'when the maat_reference is a dummy' do
     before do
-      ProsecutionCaseDefendantOffence.update_all(dummy_maat_reference: true)
+      ProsecutionCaseDefendantOffence.update(dummy_maat_reference: true)
     end
 
     it 'does not call the Sqs::PublishUnlinkLaaReference service' do

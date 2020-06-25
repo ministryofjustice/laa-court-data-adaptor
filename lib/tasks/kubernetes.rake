@@ -2,7 +2,7 @@
 
 namespace :kubernetes do
   desc 'Health check probe for k8s'
-  task :healthcheck do
-    raise StandardError unless `pgrep -f sidekiq`.present?
+  task healthcheck: :environment do
+    raise StandardError if `pgrep -f sidekiq`.blank?
   end
 end

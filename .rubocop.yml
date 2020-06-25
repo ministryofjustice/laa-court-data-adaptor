@@ -1,4 +1,6 @@
-require: rubocop-performance
+require:
+  - rubocop-rails
+  - rubocop-performance
 
 inherit_from: .rubocop_todo.yml
 
@@ -80,4 +82,7 @@ Style/RedundantRegexpEscape:
   Enabled: true
 
 Style/SlicingWithRange:
+  Enabled: true
+
+Style/RedundantFetchBlock:
   Enabled: true
