@@ -31,7 +31,7 @@ module Api
         end
 
         def allowed_params
-          %i[user_name unlink_reason_code unlink_reason_text]
+          %i[user_name unlink_reason_code unlink_other_reason_text]
         end
 
         def transformed_params
