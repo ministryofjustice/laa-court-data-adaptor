@@ -15,7 +15,7 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
         attributes: {
           user_name: 'johnDoe',
           unlink_reason_code: 1,
-          unlink_reason_text: 'Wrong defendant'
+          unlink_other_reason_text: ''
         }
       }
     }
@@ -45,14 +45,14 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
                   schema: {
                     '$ref': 'defendant.json#/definitions/resource_to_unlink'
                   },
-                  description: 'Object containing the user_name, unlink_reason_code and unlink_reason_text'
+                  description: 'Object containing the user_name, unlink_reason_code and unlink_other_reason_text'
 
         parameter '$ref' => '#/components/parameters/transaction_id_header'
 
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(UnlinkLaaReferenceWorker).to receive(:perform_async).with(String, id, 'johnDoe', 1, 'Wrong defendant').and_call_original
+          expect(UnlinkLaaReferenceWorker).to receive(:perform_async).with(String, id, 'johnDoe', 1, '').and_call_original
         end
 
         run_test!

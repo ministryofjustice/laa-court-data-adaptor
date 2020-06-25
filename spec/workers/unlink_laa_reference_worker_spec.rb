@@ -6,7 +6,7 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
   let(:defendant_id) { '2ecc9feb-9407-482f-b081-d9e5c8ba3ed3' }
   let(:user_name) { 'ABC' }
   let(:unlink_reason_code) { 1 }
-  let(:unlink_reason_text) { 'Wrong defendant' }
+  let(:unlink_other_reason_text) { 'Wrong defendant' }
   let(:request_id) { 'XYZ' }
   let(:prosecution_case_id) { '7a0c947e-97b4-4c5a-ae6a-26320afc914d' }
   let(:set_up_linked_prosecution_case) do
@@ -22,7 +22,7 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
   end
 
   subject(:work) do
-    described_class.perform_async(request_id, defendant_id, user_name, unlink_reason_code, unlink_reason_text)
+    described_class.perform_async(request_id, defendant_id, user_name, unlink_reason_code, unlink_other_reason_text)
   end
 
   it 'queues the job' do
@@ -38,7 +38,7 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
         defendant_id: defendant_id,
         user_name: user_name,
         unlink_reason_code: unlink_reason_code,
-        unlink_reason_text: unlink_reason_text
+        unlink_other_reason_text: unlink_other_reason_text
       ).and_call_original
       work
     end

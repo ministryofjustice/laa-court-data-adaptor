@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class LaaReferenceUnlinker < ApplicationService
-  def initialize(defendant_id:, user_name:, unlink_reason_code:, unlink_reason_text:)
+  def initialize(defendant_id:, user_name:, unlink_reason_code:, unlink_other_reason_text:)
     @defendant_id = defendant_id
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
-    @unlink_reason_text = unlink_reason_text
+    @unlink_other_reason_text = unlink_other_reason_text
     @maat_reference = offences.first.maat_reference unless offences.first.dummy_maat_reference?
   end
 
@@ -17,7 +17,7 @@ class LaaReferenceUnlinker < ApplicationService
   private
 
   def push_to_sqs
-    Sqs::PublishUnlinkLaaReference.call(maat_reference: maat_reference, user_name: user_name, unlink_reason_code: unlink_reason_code, unlink_reason_text: unlink_reason_text)
+    Sqs::PublishUnlinkLaaReference.call(maat_reference: maat_reference, user_name: user_name, unlink_reason_code: unlink_reason_code, unlink_other_reason_text: unlink_other_reason_text)
   end
 
   def call_cp_endpoint
@@ -41,5 +41,5 @@ class LaaReferenceUnlinker < ApplicationService
     @dummy_maat_reference ||= "Z#{ActiveRecord::Base.connection.execute("SELECT nextval('dummy_maat_reference_seq')")[0]['nextval']}"
   end
 
-  attr_reader :defendant_id, :maat_reference, :user_name, :unlink_reason_code, :unlink_reason_text
+  attr_reader :defendant_id, :maat_reference, :user_name, :unlink_reason_code, :unlink_other_reason_text
 end

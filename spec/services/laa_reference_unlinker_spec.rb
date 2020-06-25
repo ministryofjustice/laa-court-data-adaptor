@@ -5,7 +5,7 @@ RSpec.describe LaaReferenceUnlinker do
   let(:prosecution_case_id) { '7a0c947e-97b4-4c5a-ae6a-26320afc914d' }
   let(:user_name) { 'johnDoe' }
   let(:unlink_reason_code) { 1 }
-  let(:unlink_reason_text) { 'Wrong MAAT ID' }
+  let(:unlink_other_reason_text) { 'Wrong defendant' }
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,
@@ -19,7 +19,7 @@ RSpec.describe LaaReferenceUnlinker do
     allow(Api::RecordLaaReference).to receive(:call)
   end
 
-  subject(:create) { described_class.call(defendant_id: defendant_id, user_name: user_name, unlink_reason_code: unlink_reason_code, unlink_reason_text: unlink_reason_text) }
+  subject(:create) { described_class.call(defendant_id: defendant_id, user_name: user_name, unlink_reason_code: unlink_reason_code, unlink_other_reason_text: unlink_other_reason_text) }
 
   it 'creates a dummy maat_reference starting with Z' do
     expect(Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: 'Z10000000'))
@@ -32,7 +32,7 @@ RSpec.describe LaaReferenceUnlinker do
       .with(maat_reference: '101010',
             user_name: user_name,
             unlink_reason_code: unlink_reason_code,
-            unlink_reason_text: unlink_reason_text)
+            unlink_other_reason_text: unlink_other_reason_text)
     create
   end
 
@@ -50,7 +50,7 @@ RSpec.describe LaaReferenceUnlinker do
         .with(maat_reference: '101010',
               user_name: user_name,
               unlink_reason_code: unlink_reason_code,
-              unlink_reason_text: unlink_reason_text)
+              unlink_other_reason_text: unlink_other_reason_text)
       create
     end
 
