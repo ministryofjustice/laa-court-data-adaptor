@@ -23,13 +23,12 @@ http_interactions:
       www-authenticate:
       - AzureApiManagementKey realm="https://spnl-sit-apim-int-gw.cpp.nonlive/fa-sit-ccp0101-legalaidagency",name="Ocp-Apim-Subscription-Key",type="header"
       date:
-      - Fri, 15 May 2020 15:57:01 GMT
+      - Fri, 26 Jun 2020 14:39:41 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
       encoding: UTF-8
       string: '{ "statusCode": 401, "message": "Access denied due to invalid subscription
         key. Make sure to provide a valid key for an active subscription." }'
-    http_version: null
-  recorded_at: Fri, 15 May 2020 15:57:01 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Fri, 26 Jun 2020 14:39:41 GMT
+recorded_with: VCR 6.0.0

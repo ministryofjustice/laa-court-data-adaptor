@@ -14,7 +14,7 @@ module Api
     private
 
     def successful_response?
-      response.status == 200
+      response.status == 200 && response.body.present?
     end
 
     attr_reader :hearing_id, :response

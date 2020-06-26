@@ -4,11 +4,11 @@ class Hearing < ApplicationRecord
   validates :body, presence: true
 
   def court_name
-    body['courtCentre']['name']
+    hearing_body['courtCentre']['name']
   end
 
   def hearing_type
-    body['type']['description']
+    hearing_body['type']['description']
   end
 
   def defendant_names
@@ -27,8 +27,12 @@ class Hearing < ApplicationRecord
 
   private
 
+  def hearing_body
+    body['hearing']
+  end
+
   def prosecution_cases
-    body['prosecutionCases']
+    hearing_body['prosecutionCases']
   end
 
   def defendants
@@ -36,7 +40,7 @@ class Hearing < ApplicationRecord
   end
 
   def hearing_event_recordings
-    @hearing_event_recordings ||= body['hearingDays'].flat_map do |hearing_day|
+    @hearing_event_recordings ||= hearing_body['hearingDays'].flat_map do |hearing_day|
       Api::GetHearingEvents.call(hearing_id: id, hearing_date: hearing_day['sittingDay'].to_date)
     end
   end
