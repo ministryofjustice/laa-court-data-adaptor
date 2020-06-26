@@ -31,6 +31,12 @@ class Hearing < ApplicationRecord
     end
   end
 
+  def prosecution_advocate_name
+    body['prosecutionCounsels'].map do |prosecution_counsel|
+      "#{prosecution_counsel['firstName']} #{prosecution_counsel['lastName']}"
+    end
+  end
+
   private
 
   def hearing_body

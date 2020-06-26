@@ -50,6 +50,7 @@ RSpec.describe Hearing, type: :model do
       end
 
       it { expect(hearing.judge_names).to eq(['Mr Recorder J Patterson']) }
+      it { expect(hearing.prosecution_advocate_name).to eq(['John Rob']) }
     end
   end
 end
