@@ -40,5 +40,17 @@ RSpec.describe Hearing, type: :model do
 
       it { expect(hearing.hearing_events).to all be_a(HearingEvent) }
     end
+
+    context 'hearings information' do
+      let(:hearing_id) { '2df3d60a-3826-4099-99b0-f89e2cb5e8ec' }
+      let(:hearing) do
+        VCR.use_cassette('hearing_result_fetcher/success_hearing_attendees') do
+          Api::GetHearingResults.call(hearing_id: hearing_id)
+        end
+      end
+
+      it { expect(hearing.judge_names).to eq(['Mr Recorder J Patterson']) }
+      it { expect(hearing.prosecution_advocate_names).to eq(['John Rob']) }
+    end
   end
 end

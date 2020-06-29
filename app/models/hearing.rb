@@ -25,6 +25,18 @@ class Hearing < ApplicationRecord
     hearing_events.map(&:id)
   end
 
+  def judge_names
+    judiciary.map do |judge|
+      "#{judge['title']} #{judge['firstName']} #{judge['middleName']} #{judge['lastName']}"
+    end
+  end
+
+  def prosecution_advocate_names
+    hearing_body['prosecutionCounsels'].map do |prosecution_counsel|
+      "#{prosecution_counsel['firstName']} #{prosecution_counsel['lastName']}"
+    end
+  end
+
   private
 
   def hearing_body
@@ -47,5 +59,9 @@ class Hearing < ApplicationRecord
 
   def hearing_day_events
     hearing_event_recordings.flat_map { |recording| recording.body['events'] }
+  end
+
+  def judiciary
+    hearing_body['hearingDays'].flat_map { |hearing_day| hearing_day['onTheDayJudiciary'] }.compact
   end
 end
