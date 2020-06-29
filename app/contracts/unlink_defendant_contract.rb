@@ -7,7 +7,7 @@ class UnlinkDefendantContract < Dry::Validation::Contract
     required(:defendant_id).value(:string)
     required(:user_name).value(:string)
     required(:unlink_reason_code).value(:integer)
-    required(:unlink_reason_text).value(:string)
+    optional(:unlink_other_reason_text).value(:string)
   end
 
   rule(:defendant_id) do
@@ -16,5 +16,10 @@ class UnlinkDefendantContract < Dry::Validation::Contract
 
   rule(:user_name) do
     key.failure('must not exceed 10 characters') if value.length > 10
+  end
+
+  rule(:unlink_other_reason_text, :unlink_reason_code) do
+    key.failure('must be present') if values[:unlink_other_reason_text].blank? && values[:unlink_reason_code].eql?(7)
+    key.failure('must be absent') if values[:unlink_other_reason_text].present? && !values[:unlink_reason_code].eql?(7)
   end
 end
