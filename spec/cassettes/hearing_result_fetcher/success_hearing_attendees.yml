@@ -31,18 +31,18 @@ http_interactions:
       content-type:
       - application/json; charset=utf-8
       etag:
-      - W/"3cff31f69f47a2b5ec2deac46a9e8b3d"
+      - W/"b04a1e3207c7c39d64d1418b68e44648"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 0bb1cb45-bbf0-42de-9bf6-42f38e5e475e
+      - a3ab81d2-d63b-40d3-8d6f-f892e7c36cd3
       x-runtime:
-      - '0.603201'
+      - '1.154957'
       transfer-encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"id":"2df3d60a-3826-4099-99b0-f89e2cb5e8ec","jurisdictionType":"CROWN","reportingRestrictionReason":"MyString","courtCentre":{"id":"db9c8741-2acb-4bdd-a0f5-01b6249ec1c5","name":"Random
+      string: '{"hearing":{"id":"2df3d60a-3826-4099-99b0-f89e2cb5e8ec","jurisdictionType":"CROWN","reportingRestrictionReason":"MyString","courtCentre":{"id":"db9c8741-2acb-4bdd-a0f5-01b6249ec1c5","name":"Random
         string","ouCode":"Random string","courtHearingLocation":"Random string","welshName":"Llinyn
         ar hap","roomId":"8a677611-a090-4a5d-8352-71f465e411cc","roomName":"Grand
         Hall","welshRoomName":"Neuadd y Grand"},"hearingLanguage":"WELSH","hasSharedResults":false,"type":{"id":"42687d07-0046-4cb3-9c59-fa5520485fbb","description":"This
@@ -67,6 +67,6 @@ http_interactions:
         string","ouCode":"Random string","courtHearingLocation":"Random string","welshName":"Llinyn
         ar hap","roomId":"d34644e6-828b-48b7-80b0-4fef69ee0ac9","roomName":"Grand
         Hall","welshRoomName":"Neuadd y Grand"},"onTheDayJudiciary":[{"judicialId":"6ad99b79-2c8a-48b4-959c-0b5f7056c1d6","title":"Mr","firstName":"Recorder","middleName":"J","lastName":"Patterson","isDeputy":false,"isBenchChairman":false,"judicialRoleType":{"judicialRoleTypeId":"a75b7a81-e462-41fa-b87d-dff2b1571150","judiciaryType":"High
-        Court Judge"}}]}]}'
-  recorded_at: Thu, 25 Jun 2020 11:56:22 GMT
+        Court Judge"}}]}]},"sharedTime":"2020-06-23T09:35:19.296+00:00"}'
+  recorded_at: Mon, 29 Jun 2020 12:43:17 GMT
 recorded_with: VCR 6.0.0

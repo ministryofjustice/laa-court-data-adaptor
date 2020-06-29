@@ -32,7 +32,7 @@ class Hearing < ApplicationRecord
   end
 
   def prosecution_advocate_name
-    body['prosecutionCounsels'].map do |prosecution_counsel|
+    hearing_body['prosecutionCounsels'].map do |prosecution_counsel|
       "#{prosecution_counsel['firstName']} #{prosecution_counsel['lastName']}"
     end
   end
@@ -62,6 +62,6 @@ class Hearing < ApplicationRecord
   end
 
   def judiciary
-    body['hearingDays'].flat_map { |hearing_day| hearing_day['onTheDayJudiciary'] }.compact
+    hearing_body['hearingDays'].flat_map { |hearing_day| hearing_day['onTheDayJudiciary'] }.compact
   end
 end
