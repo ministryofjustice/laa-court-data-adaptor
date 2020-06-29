@@ -22,12 +22,11 @@ http_interactions:
       content-length:
       - '0'
       date:
-      - Fri, 15 May 2020 15:57:00 GMT
+      - Fri, 26 Jun 2020 14:39:35 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
       encoding: UTF-8
       string: ''
-    http_version: null
-  recorded_at: Fri, 15 May 2020 15:57:00 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Fri, 26 Jun 2020 14:39:35 GMT
+recorded_with: VCR 6.0.0

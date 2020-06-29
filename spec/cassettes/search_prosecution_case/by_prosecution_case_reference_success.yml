@@ -17,43 +17,42 @@ http_interactions:
       message: OK
     headers:
       content-length:
-      - '3657'
+      - '3799'
       content-type:
       - application/vnd.unifiedsearch.query.laa.cases+json
       cppid:
-      - 6174d45a-61ce-4599-969e-3cf52354a660
+      - 347320b2-1dff-4066-88b6-79630dc7f209
       date:
-      - Fri, 15 May 2020 15:57:01 GMT
+      - Fri, 26 Jun 2020 14:39:42 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
       encoding: UTF-8
-      string: '{"totalResults":1,"cases":[{"caseStatus":"ACTIVE","prosecutionCaseId":"c37c2ca9-d5f9-4758-a224-52ba918a3d64","prosecutionCaseReference":"19GD1001816","defendantSummary":[{"proceedingsConcluded":false,"defendantName":"Robert
+      string: '{"totalResults":1,"cases":[{"caseStatus":"ACTIVE","prosecutionCaseId":"c37c2ca9-d5f9-4758-a224-52ba918a3d64","prosecutionCaseReference":"19GD1001816","defendantSummary":[{"proceedingsConcluded":false,"representationOrder":{},"defendantName":"Robert
         PersonGivenName20A PersonGivenName30A Ormsby","defendantId":"c6cf04b5-901d-4a89-a9ab-767eb57306e4","defendantASN":"CPS-NE","defendantDOB":"2008-08-08","offenceSummary":[{"offenceId":"aaa55a60-9a7b-423d-8be8-16c1e8aa7312","offenceCode":"PS90010","offenceTitle":"Public
         service vehicle - passenger use altered / defaced travel mandate","offenceLegislation":"Contrary
         to regulation 7(1)(a) of the Public Service Vehicles (Conduct of Drivers,
         Inspectors, Conductors and Passengers) Regulations 1990 and section 25 of
         the Public Passenger Vehicles Act 1981.","proceedingsConcluded":false,"arrestDate":"2006-05-04","endDate":"2005-05-05","startDate":"1996-05-04","chargeDate":"2006-05-30","modeOfTrial":"Summary","orderIndex":500,"wording":"Has
         a violent past and fear that he will commit further offences and\n                interfere
-        with witnesse"},{"offenceId":"d8a2963d-e62d-4bbc-8a89-591ecd71bb1c","offenceCode":"CA03013","offenceTitle":"Obstruct    person
+        with witnesse","laaApplnReference":{}},{"offenceId":"d8a2963d-e62d-4bbc-8a89-591ecd71bb1c","offenceCode":"CA03013","offenceTitle":"Obstruct    person
         executing search warrant for TV receiver","offenceLegislation":"Contrary to
         section 366(8)(a) and    (9) of the Communications Act 2003.","proceedingsConcluded":false,"arrestDate":"2006-05-04","endDate":"2005-05-05","startDate":"1996-05-04","chargeDate":"2006-05-30","modeOfTrial":"Summary","orderIndex":500,"wording":"Has
         a violent past and fear that he will commit further offences and\n                interfere
-        with witnesse"}]},{"proceedingsConcluded":false,"defendantName":"James PersonGivenName20A
-        PersonGivenName30A Smith","defendantId":"b70a36e5-13d3-4bb3-bb24-94db79b7708b","defendantASN":"TSFL","defendantDOB":"2008-08-08","offenceSummary":[{"offenceId":"137afb84-067b-4455-95bc-206ca4051fc1","offenceCode":"PS90010","offenceTitle":"Public
+        with witnesse","laaApplnReference":{}}]},{"proceedingsConcluded":false,"representationOrder":{},"defendantName":"James
+        PersonGivenName20A PersonGivenName30A Smith","defendantId":"b70a36e5-13d3-4bb3-bb24-94db79b7708b","defendantASN":"TSFL","defendantDOB":"2008-08-08","offenceSummary":[{"offenceId":"137afb84-067b-4455-95bc-206ca4051fc1","offenceCode":"PS90010","offenceTitle":"Public
         service vehicle - passenger use altered / defaced travel mandate","offenceLegislation":"Contrary
         to regulation 7(1)(a) of the Public Service Vehicles (Conduct of Drivers,
         Inspectors, Conductors and Passengers) Regulations 1990 and section 25 of
         the Public Passenger Vehicles Act 1981.","proceedingsConcluded":false,"arrestDate":"2006-05-04","endDate":"2005-05-05","startDate":"1996-05-04","chargeDate":"2006-05-30","modeOfTrial":"Summary","orderIndex":500,"wording":"Has
         a violent past and fear that he will commit further offences and\n                interfere
-        with witnesse"},{"offenceId":"eb2f7155-5009-46ae-94ac-be5d62c66754","offenceCode":"CA03014","offenceTitle":"Fail    /
+        with witnesse","laaApplnReference":{}},{"offenceId":"eb2f7155-5009-46ae-94ac-be5d62c66754","offenceCode":"CA03014","offenceTitle":"Fail    /
         refuse give assistance to person executing Communications Act search warrant","offenceLegislation":"Contrary
         to section 366(8)(b) and    (9) of the Communications Act 2003.","proceedingsConcluded":false,"arrestDate":"2006-05-04","endDate":"2005-05-05","startDate":"1996-05-04","chargeDate":"2006-05-30","modeOfTrial":"Summary","orderIndex":500,"wording":"Has
         a violent past and fear that he will commit further offences and\n                interfere
-        with witnesse"}]}],"hearingSummary":[{"hearingId":"e8d88eaa-e73f-4b59-8148-d0cfbbd3520b","jurisdictionType":"MAGISTRATES","defendantIds":["c6cf04b5-901d-4a89-a9ab-767eb57306e4","b70a36e5-13d3-4bb3-bb24-94db79b7708b"],"hearingDays":[{"sittingDay":"2020-05-07T09:01:01.001Z","listingSequence":0,"listedDurationMinutes":20}],"courtCentre":{"id":"f8254db1-1683-483e-afb3-b87fde5a0a26","name":"Lavender
+        with witnesse","laaApplnReference":{}}]}],"hearingSummary":[{"hearingId":"e8d88eaa-e73f-4b59-8148-d0cfbbd3520b","jurisdictionType":"MAGISTRATES","defendantIds":["c6cf04b5-901d-4a89-a9ab-767eb57306e4","b70a36e5-13d3-4bb3-bb24-94db79b7708b"],"hearingDays":[{"sittingDay":"2020-05-07T09:01:01.001Z","listingSequence":0,"listedDurationMinutes":20}],"courtCentre":{"id":"f8254db1-1683-483e-afb3-b87fde5a0a26","name":"Lavender
         Hill Magistrates'' Court","roomId":"9e4932f7-97b2-3010-b942-ddd2624e4dd8","roomName":"Courtroom
         01"},"hearingType":{"id":"4a0e892d-c0c5-3c51-95b8-704d8c781776","description":"First
         hearing"}}]}]}'
-    http_version: null
-  recorded_at: Fri, 15 May 2020 15:57:02 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Fri, 26 Jun 2020 14:39:42 GMT
+recorded_with: VCR 6.0.0

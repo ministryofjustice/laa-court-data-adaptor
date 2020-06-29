@@ -3,11 +3,11 @@
 RSpec.describe HearingFetcher do
   subject { described_class.call(hearing_id: hearing_id) }
 
-  let(:hearing_id) { '2c24f897-ffc4-439f-9c4a-ec60c7715cd0' }
+  let(:hearing_id) { 'ee7b9c09-4a6e-49e3-a484-193dc93a4575' }
 
   it 'returns the requested hearing info' do
     VCR.use_cassette('hearing_result_fetcher/success') do
-      expect(subject.body['id']).to eq(hearing_id)
+      expect(subject.body['hearing']['id']).to eq(hearing_id)
     end
   end
 

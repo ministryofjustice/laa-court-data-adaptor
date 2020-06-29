@@ -21,14 +21,14 @@ http_interactions:
       content-type:
       - application/vnd.unifiedsearch.query.laa.cases+json
       cppid:
-      - cccf1517-a6f1-4c27-ac8b-9f698841a32a
+      - 14d155c1-3e71-469b-8021-467d362d4f2f
       date:
-      - Fri, 15 May 2020 15:57:01 GMT
+      - Fri, 26 Jun 2020 14:39:42 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
       encoding: UTF-8
-      string: '{"totalResults":1,"cases":[{"caseStatus":"CLOSED","prosecutionCaseId":"5edd67eb-9d8c-44f2-a57e-c8d026defaa4","prosecutionCaseReference":"20GD0217100","defendantSummary":[{"proceedingsConcluded":true,"representationOrder":{"applicationReference":"LAA-20191601","effectiveFromDate":"2019-09-12","effectiveToDate":"2019-12-12","laaContractNumber":"99998888"},"defendantName":"George
+      string: '{"totalResults":1,"cases":[{"caseStatus":"ACTIVE","prosecutionCaseId":"5edd67eb-9d8c-44f2-a57e-c8d026defaa4","prosecutionCaseReference":"20GD0217100","defendantSummary":[{"proceedingsConcluded":true,"representationOrder":{"applicationReference":"LAA-20191601","effectiveFromDate":"2019-09-12","effectiveToDate":"2019-12-12","laaContractNumber":"99998888"},"defendantName":"George
         Walsh","defendantId":"2ecc9feb-9407-482f-b081-d9e5c8ba3ed3","defendantDOB":"1980-01-01","defendantNINO":"HB133542A","offenceSummary":[{"offenceId":"3f153786-f3cf-4311-bc0c-2d6f48af68a1","offenceCode":"PT00011","offenceTitle":"Driver
         / other person fail to immediately move a vehicle from a cordoned area on
         order of a constable","proceedingsConcluded":false,"arrestDate":"2020-02-01","startDate":"2020-02-01","chargeDate":"2020-02-01","modeOfTrial":"Summary","orderIndex":1,"wording":"Test","laaApplnReference":{"applicationReference":"LAA-20191601","statusId":"58ebf081-2b7d-3b1d-8c47-149fe7dbd672","statusCode":"G2","statusDescription":"Granted
@@ -36,6 +36,5 @@ http_interactions:
         Magistrates'' Court","roomId":"8e912353-3b5d-36c3-953e-ad3b94b19de3","roomName":"Courtroom
         01"},"hearingType":{"id":"4a0e892d-c0c5-3c51-95b8-704d8c781776","description":"First
         hearing"}}]}]}'
-    http_version: null
-  recorded_at: Fri, 15 May 2020 15:57:02 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Fri, 26 Jun 2020 14:39:42 GMT
+recorded_with: VCR 6.0.0

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=2c24f897-ffc4-439f-9c4a-ec60c7715cd0"
+    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=ee7b9c09-4a6e-49e3-a484-193dc93a4575"
     body:
       encoding: US-ASCII
       string: ''
@@ -21,109 +21,89 @@ http_interactions:
       request-context:
       - appId=cid-v1:e7545c86-6eab-4a30-bf6d-7ed8b5691e3e
       date:
-      - Tue, 19 May 2020 15:21:44 GMT
+      - Fri, 26 Jun 2020 14:39:41 GMT
       x-frame-options:
       - SAMEORIGIN
       transfer-encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: "{\r\n  \"id\": \"2c24f897-ffc4-439f-9c4a-ec60c7715cd0\",\r\n  \"jurisdictionType\":
-        \"MAGISTRATES\",\r\n  \"courtCentre\": {\r\n    \"address\": {\r\n      \"address1\":
-        \"176A Lavender Hill\",\r\n      \"address2\": \"London\",\r\n      \"address3\":
-        \"\",\r\n      \"address4\": \"\",\r\n      \"address5\": \"\",\r\n      \"postcode\":
-        \"SW11 1JU\"\r\n    },\r\n    \"id\": \"f8254db1-1683-483e-afb3-b87fde5a0a26\",\r\n
-        \   \"name\": \"Lavender Hill Magistrates' Court\",\r\n    \"roomId\": \"9e4932f7-97b2-3010-b942-ddd2624e4dd8\",\r\n
-        \   \"roomName\": \"Courtroom 01\"\r\n  },\r\n  \"hearingDays\": [\r\n    {\r\n
-        \     \"listedDurationMinutes\": 0,\r\n      \"listingSequence\": 0,\r\n      \"sittingDay\":
-        \"2020-04-30T09:00:00.000Z\"\r\n    }\r\n  ],\r\n  \"type\": {\r\n    \"description\":
-        \"Trial\",\r\n    \"id\": \"bf8155e1-90b9-4080-b133-bfbad895d6e4\"\r\n  },\r\n
-        \ \"hearingLanguage\": \"ENGLISH\",\r\n  \"prosecutionCases\": [\r\n    {\r\n
-        \     \"id\": \"31cbe62d-b1ec-4e82-89f7-99dced834900\",\r\n      \"prosecutionCaseIdentifier\":
-        {\r\n        \"prosecutionAuthorityCode\": \"DVLA\",\r\n        \"prosecutionAuthorityId\":
-        \"6ae4b163-658b-3ae2-a66d-43401cac2f96\",\r\n        \"prosecutionAuthorityReference\":
-        \"32GD7891820\"\r\n      },\r\n      \"initiationCode\": \"J\",\r\n      \"defendants\":
-        [\r\n        {\r\n          \"id\": \"5633ea06-1381-4952-a17d-91f571d5eca6\",\r\n
-        \         \"prosecutionCaseId\": \"31cbe62d-b1ec-4e82-89f7-99dced834900\",\r\n
-        \         \"offences\": [\r\n            {\r\n              \"id\": \"8730a436-b2df-4e9c-89e3-797c5672d86d\",\r\n
-        \             \"offenceDefinitionId\": \"462325c8-349e-4dcb-a376-c4e683209f5e\",\r\n
-        \             \"offenceCode\": \"TR68107\",\r\n              \"offenceTitle\":
-        \"Drivers hours - cause driver to    exceed 4.5 hours driving without a break
-        - EC\",\r\n              \"wording\": \"Drivers hours - cause driver to    exceed
-        4.5 hours driving without a break - EC\",\r\n              \"startDate\":
-        \"1996-05-04\",\r\n              \"offenceTitleWelsh\": \"Oriau gyrwyr - achosi
-        i yrrwr yrru am fwy na 4.5 awr heb saib - UE\",\r\n              \"offenceLegislation\":
-        \"Contrary to section 96(11A)of    the Transport Act 1968.\",\r\n              \"offenceLegislationWelsh\":
-        \"Yn groes i adran 96(11A) Deddf Trafnidiaeth 1968.\",\r\n              \"modeOfTrial\":
-        \"Summary\",\r\n              \"endDate\": \"2005-05-05\",\r\n              \"chargeDate\":
-        \"2006-05-30\",\r\n              \"orderIndex\": 500,\r\n              \"count\":
-        1,\r\n              \"notifiedPlea\": {\r\n                \"notifiedPleaDate\":
-        \"2020-04-24\",\r\n                \"notifiedPleaValue\": \"NO_NOTIFICATION\",\r\n
-        \               \"offenceId\": \"8730a436-b2df-4e9c-89e3-797c5672d86d\"\r\n
-        \             },\r\n              \"offenceFacts\": {\r\n                \"alcoholReadingAmount\":
-        500,\r\n                \"alcoholReadingMethodCode\": \"A\",\r\n                \"vehicleRegistration\":
-        \"TE4654\"\r\n              },\r\n              \"plea\": {\r\n                \"offenceId\":
-        \"8730a436-b2df-4e9c-89e3-797c5672d86d\",\r\n                \"originatingHearingId\":
-        \"e18ca082-d282-4522-9b95-41951c89d4ad\",\r\n                \"pleaDate\":
-        \"2020-04-24\",\r\n                \"pleaValue\": \"GUILTY\"\r\n              },\r\n
-        \             \"judicialResults\": [\r\n                {\r\n                  \"alwaysPublished\":
-        false,\r\n                  \"category\": \"FINAL\",\r\n                  \"cjsCode\":
-        \"1017\",\r\n                  \"courtClerk\": {\r\n                    \"firstName\":
-        \"Erica\",\r\n                    \"lastName\": \"Wilson\",\r\n                    \"userId\":
-        \"31ec3a16-8721-498c-8da5-f099390ee254\"\r\n                  },\r\n                  \"d20\":
-        false,\r\n                  \"excludedFromResults\": false,\r\n                  \"isAdjournmentResult\":
-        false,\r\n                  \"isAvailableForCourtExtract\": true,\r\n                  \"isConvictedResult\":
-        true,\r\n                  \"isDeleted\": false,\r\n                  \"isFinancialResult\":
-        false,\r\n                  \"judicialResultId\": \"19224e62-64ac-426c-a9e1-4cdc570e48a5\",\r\n
-        \                 \"judicialResultTypeId\": \"b9c6047b-fb84-4b12-97a1-2175e4b8bbac\",\r\n
-        \                 \"label\": \"Absolute discharge\",\r\n                  \"lastSharedDateTime\":
-        \"2020-04-29\",\r\n                  \"lifeDuration\": false,\r\n                  \"orderedDate\":
-        \"2020-04-30\",\r\n                  \"orderedHearingId\": \"2c24f897-ffc4-439f-9c4a-ec60c7715cd0\",\r\n
-        \                 \"postHearingCustodyStatus\": \"A\",\r\n                  \"publishedAsAPrompt\":
-        false,\r\n                  \"rank\": 8600,\r\n                  \"resultText\":
-        \"Absolute discharge\\n\",\r\n                  \"terminatesOffenceProceedings\":
-        false,\r\n                  \"urgent\": false,\r\n                  \"usergroups\":
-        [\r\n                    \"Court Clerks\",\r\n                    \"Legal
-        Advisers\"\r\n                  ],\r\n                  \"welshLabel\": \"Rhyddhad
-        diamod\"\r\n                }\r\n              ],\r\n              \"laaApplnReference\":
-        {\r\n                \"applicationReference\": \"LAA-20191601\",\r\n                \"effectiveEndDate\":
-        \"2019-12-12\",\r\n                \"effectiveStartDate\": \"2019-09-12\",\r\n
-        \               \"laaContractNumber\": \"99998888\",\r\n                \"offenceLevelStatus\":
-        \"Granted\",\r\n                \"statusCode\": \"GRM\",\r\n                \"statusDate\":
-        \"2019-12-16\",\r\n                \"statusDescription\": \"Granted (One Advocate)(Magistrates
-        court jurisdiction)\",\r\n                \"statusId\": \"98e86937-9652-32a3-a9fb-dbd01eda86a5\"\r\n
-        \             }\r\n            }\r\n          ],\r\n          \"associatedPersons\":
-        [\r\n            {\r\n              \"person\": {\r\n                \"address\":
-        {\r\n                  \"address1\": \"1\",\r\n                  \"address2\":
-        \"1\",\r\n                  \"postcode\": \"SL2 5FZ\"\r\n                },\r\n
-        \               \"firstName\": \"ewe\",\r\n                \"gender\": \"NOT_SPECIFIED\",\r\n
-        \               \"lastName\": \"dsvc\",\r\n                \"middleName\":
-        \"ewew\"\r\n              },\r\n              \"role\": \"PARENT\"\r\n            }\r\n
-        \         ],\r\n          \"personDefendant\": {\r\n            \"arrestSummonsNumber\":
-        \"TFL\",\r\n            \"bailConditions\": \"\",\r\n            \"bailReasons\":
-        \"\",\r\n            \"driverNumber\": \"MORGA657054SM9BF\",\r\n            \"personDetails\":
-        {\r\n              \"address\": {\r\n                \"address1\": \"56saon\",\r\n
-        \               \"address2\": \"56Police House\",\r\n                \"address3\":
-        \"StreetDescription1\",\r\n                \"address4\": \"Locality1\",\r\n
-        \               \"address5\": \"Town2\",\r\n                \"postcode\":
-        \"CR0 1XG\"\r\n              },\r\n              \"contact\": {\r\n                \"home\":
-        \"09998021888\",\r\n                \"mobile\": \"09998021889\",\r\n                \"primaryEmail\":
-        \"robert@gmail.com\"\r\n              },\r\n              \"dateOfBirth\":
-        \"2008-08-08\",\r\n              \"documentationLanguageNeeds\": \"ENGLISH\",\r\n
-        \             \"ethnicity\": {\r\n                \"selfDefinedEthnicityCode\":
-        \"W1\",\r\n                \"selfDefinedEthnicityDescription\": \"British\",\r\n
-        \               \"selfDefinedEthnicityId\": \"c4ca4238-a0b9-3382-8dcc-509a6f75849b\"\r\n
-        \             },\r\n              \"firstName\": \"Robert\",\r\n              \"gender\":
-        \"MALE\",\r\n              \"lastName\": \"Ormsby\",\r\n              \"nationalityCode\":
-        \"GBR\",\r\n              \"nationalityDescription\": \"British\",\r\n              \"nationalityId\":
-        \"49433158-3542-49c8-a9af-581a0e746152\",\r\n              \"specificRequirements\":
-        \"SpecialNeeds0\",\r\n              \"title\": \"MR\"\r\n            }\r\n
-        \         },\r\n          \"aliases\": [\r\n            {\r\n              \"firstName\":
-        \"PersonGivenName11\",\r\n              \"lastName\": \"PersonFamilyName2\"\r\n
-        \           }\r\n          ],\r\n          \"proceedingsConcluded\": false\r\n
-        \       }\r\n      ],\r\n      \"caseStatus\": \"SJP_REFERRAL\",\r\n      \"originatingOrganisation\":
-        \"G94DV00\",\r\n      \"statementOfFacts\": \"Prosecution fact text\"\r\n
-        \   }\r\n  ],\r\n  \"hasSharedResults\": true\r\n}"
-    http_version: null
-  recorded_at: Tue, 19 May 2020 15:21:44 GMT
-recorded_with: VCR 5.1.0
+      string: "{\r\n  \"hearing\": {\r\n    \"applicantCounsels\": [],\r\n    \"applicationPartyCounsels\":
+        [],\r\n    \"courtApplicationPartyAttendance\": [],\r\n    \"courtApplications\":
+        [],\r\n    \"courtCentre\": {\r\n      \"address\": {\r\n        \"address1\":
+        \"Norwich Place\",\r\n        \"address2\": \"Bexleyheath\",\r\n        \"address3\":
+        \"Kent\",\r\n        \"address4\": \"\",\r\n        \"address5\": \"\",\r\n
+        \       \"postcode\": \"DA6 7ND\"\r\n      },\r\n      \"id\": \"7e967376-eacf-4fca-9b30-21b0c5aad427\",\r\n
+        \     \"name\": \"Bexley Magistrates' Court\",\r\n      \"roomId\": \"8e912353-3b5d-36c3-953e-ad3b94b19de3\",\r\n
+        \     \"roomName\": \"Courtroom 01\"\r\n    },\r\n    \"defenceCounsels\":
+        [],\r\n    \"defendantAttendance\": [],\r\n    \"defendantHearingYouthMarkers\":
+        [],\r\n    \"defendantReferralReasons\": [\r\n      {\r\n        \"defendantId\":
+        \"ad03a626-d438-44a5-84b6-14111ec363fa\",\r\n        \"description\": \"Case
+        unsuitable for SJP\",\r\n        \"id\": \"d10c5cc4-ec2a-41ac-bd6e-a3659c5cfeb1\"\r\n
+        \     }\r\n    ],\r\n    \"hasSharedResults\": true,\r\n    \"hearingCaseNotes\":
+        [],\r\n    \"hearingDays\": [\r\n      {\r\n        \"listedDurationMinutes\":
+        360,\r\n        \"listingSequence\": 0,\r\n        \"sittingDay\": \"2020-04-17T09:00:00.000Z\"\r\n
+        \     }\r\n    ],\r\n    \"hearingLanguage\": \"ENGLISH\",\r\n    \"id\":
+        \"ee7b9c09-4a6e-49e3-a484-193dc93a4575\",\r\n    \"judiciary\": [],\r\n    \"jurisdictionType\":
+        \"MAGISTRATES\",\r\n    \"prosecutionCases\": [\r\n      {\r\n        \"caseMarkers\":
+        [],\r\n        \"caseStatus\": \"SJP_REFERRAL\",\r\n        \"defendants\":
+        [\r\n          {\r\n            \"aliases\": [],\r\n            \"associatedPersons\":
+        [],\r\n            \"courtProceedingsInitiated\": \"2020-04-03T10:46:55.600Z\",\r\n
+        \           \"id\": \"ad03a626-d438-44a5-84b6-14111ec363fa\",\r\n            \"judicialResults\":
+        [],\r\n            \"masterDefendantId\": \"ad03a626-d438-44a5-84b6-14111ec363fa\",\r\n
+        \           \"numberOfPreviousConvictionsCited\": 2,\r\n            \"offences\":
+        [\r\n              {\r\n                \"chargeDate\": \"2020-01-25\",\r\n
+        \               \"count\": 1,\r\n                \"id\": \"7dc1b279-805f-4ba8-97ea-be635f5764a7\",\r\n
+        \               \"judicialResults\": [\r\n                  {\r\n                    \"alwaysPublished\":
+        false,\r\n                    \"category\": \"FINAL\",\r\n                    \"cjsCode\":
+        \"1017\",\r\n                    \"d20\": false,\r\n                    \"excludedFromResults\":
+        false,\r\n                    \"isAdjournmentResult\": false,\r\n                    \"isAvailableForCourtExtract\":
+        true,\r\n                    \"isConvictedResult\": true,\r\n                    \"isDeleted\":
+        false,\r\n                    \"isFinancialResult\": false,\r\n                    \"judicialResultId\":
+        \"7e5600fe-16aa-4639-84fe-3919165a65c1\",\r\n                    \"judicialResultPrompts\":
+        [],\r\n                    \"label\": \"Absolute discharge\",\r\n                    \"lastSharedDateTime\":
+        \"2020-04-17\",\r\n                    \"lifeDuration\": false,\r\n                    \"orderedDate\":
+        \"2020-04-17\",\r\n                    \"orderedHearingId\": \"ee7b9c09-4a6e-49e3-a484-193dc93a4575\",\r\n
+        \                   \"publishedAsAPrompt\": false,\r\n                    \"rank\":
+        8600,\r\n                    \"resultText\": \"Absolute discharge\\n\",\r\n
+        \                   \"terminatesOffenceProceedings\": false,\r\n                    \"urgent\":
+        false,\r\n                    \"usergroups\": [\r\n                      \"Court
+        Clerks\",\r\n                      \"Legal Advisers\"\r\n                    ],\r\n
+        \                   \"welshLabel\": \"Rhyddhad diamod\"\r\n                  }\r\n
+        \               ],\r\n                \"laaApplnReference\": {\r\n                  \"applicationReference\":
+        \"LAA-20191601\",\r\n                  \"effectiveEndDate\": \"2019-12-12\",\r\n
+        \                 \"effectiveStartDate\": \"2019-09-12\",\r\n                  \"statusCode\":
+        \"GRC\",\r\n                  \"statusDate\": \"2019-12-16\",\r\n                  \"statusDescription\":
+        \"Granted (One Advocate)(Crown court jurisdiction)\",\r\n                  \"statusId\":
+        \"a95d8a0e-95ad-32b8-8ae4-476f8f154fd0\"\r\n                },\r\n                \"modeOfTrial\":
+        \"Summary\",\r\n                \"notifiedPlea\": {\r\n                  \"notifiedPleaDate\":
+        \"2020-04-03\",\r\n                  \"notifiedPleaValue\": \"NO_NOTIFICATION\",\r\n
+        \                 \"offenceId\": \"7dc1b279-805f-4ba8-97ea-be635f5764a7\"\r\n
+        \               },\r\n                \"offenceCode\": \"TR11004\",\r\n                \"offenceDefinitionId\":
+        \"a9ac247c-38b3-4da3-be2d-79332a7a34f0\"\r\n              }\r\n            ],\r\n
+        \           \"personDefendant\": {\r\n              \"bailConditions\": \"\",\r\n
+        \             \"personDetails\": {\r\n                \"address\": {\r\n                  \"address1\":
+        \"Flat 1, Armageddon House\",\r\n                  \"address2\": \"13 Old
+        Road\",\r\n                  \"address3\": \"Giggleswick\",\r\n                  \"address4\":
+        \"Merton\",\r\n                  \"postcode\": \"ME1 1AB\"\r\n                },\r\n
+        \               \"contact\": {},\r\n                \"dateOfBirth\": \"1980-11-25\",\r\n
+        \               \"documentationLanguageNeeds\": \"ENGLISH\",\r\n                \"ethnicity\":
+        {},\r\n                \"firstName\": \"Ocean\",\r\n                \"gender\":
+        \"FEMALE\",\r\n                \"lastName\": \"Gagnier\",\r\n                \"title\":
+        \"MR\"\r\n              }\r\n            },\r\n            \"prosecutionCaseId\":
+        \"18f7b360-9f6d-4588-89e0-0ef8b5349b17\"\r\n          }\r\n        ],\r\n
+        \       \"id\": \"18f7b360-9f6d-4588-89e0-0ef8b5349b17\",\r\n        \"initiationCode\":
+        \"J\",\r\n        \"prosecutionCaseIdentifier\": {\r\n          \"prosecutionAuthorityCode\":
+        \"TFL\",\r\n          \"prosecutionAuthorityId\": \"31af405e-7b60-4dd8-a244-c24c2d3fa595\",\r\n
+        \         \"prosecutionAuthorityReference\": \"TFL23525RRT9G\"\r\n        },\r\n
+        \       \"statementOfFacts\": \"An incident took place at GREEN PARK station
+        whereby you were spoken to by a member of London Underground staff regarding
+        your train journey and the associated fare.The facts of this incidents are
+        now being considered and I must advise you that legal proceedings may be initiated
+        against you regarding this matter in accordance with the LU prosecution policy\"\r\n
+        \     }\r\n    ],\r\n    \"prosecutionCounsels\": [],\r\n    \"respondentCounsels\":
+        [],\r\n    \"type\": {\r\n      \"description\": \"Plea and Trial Preparation\",\r\n
+        \     \"id\": \"06b0c2bf-3f98-46ed-ab7e-56efaf9ecced\"\r\n    }\r\n  },\r\n
+        \ \"sharedTime\": \"2020-04-17T16:57:04.978Z[UTC]\"\r\n}"
+  recorded_at: Fri, 26 Jun 2020 14:39:41 GMT
+recorded_with: VCR 6.0.0

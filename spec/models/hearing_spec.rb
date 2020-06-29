@@ -9,7 +9,11 @@ RSpec.describe Hearing, type: :model do
   end
 
   describe 'Common Platform search' do
-    let(:hearing_id) { '2c24f897-ffc4-439f-9c4a-ec60c7715cd0' }
+    before do
+      allow(HearingsCreatorWorker).to receive(:perform_async)
+    end
+
+    let(:hearing_id) { 'ee7b9c09-4a6e-49e3-a484-193dc93a4575' }
 
     let(:hearing) do
       VCR.use_cassette('hearing_result_fetcher/success') do
@@ -17,12 +21,12 @@ RSpec.describe Hearing, type: :model do
       end
     end
 
-    it { expect(hearing.court_name).to eq("Lavender Hill Magistrates' Court") }
-    it { expect(hearing.hearing_type).to eq('Trial') }
-    it { expect(hearing.defendant_names).to eq(['Robert Ormsby']) }
+    it { expect(hearing.court_name).to eq("Bexley Magistrates' Court") }
+    it { expect(hearing.hearing_type).to eq('Plea and Trial Preparation') }
+    it { expect(hearing.defendant_names).to eq(['Ocean Gagnier']) }
 
     context 'hearing events' do
-      let(:hearing_day) { '2020-04-30' }
+      let(:hearing_day) { '2020-04-17' }
 
       let(:hearing_event_recording) do
         VCR.use_cassette('hearing_logs_fetcher/success') do
