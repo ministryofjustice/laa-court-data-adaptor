@@ -32,7 +32,7 @@ class Hearing < ApplicationRecord
   end
 
   def prosecution_advocate_names
-    hearing_body['prosecutionCounsels'].map do |prosecution_counsel|
+    hearing_body.dig('prosecutionCounsels')&.map do |prosecution_counsel|
       "#{prosecution_counsel['firstName']} #{prosecution_counsel['lastName']}"
     end
   end
