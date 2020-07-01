@@ -143,7 +143,7 @@ GEM
     json-schema (2.8.1)
       addressable (>= 2.4)
     json_schema (0.20.8)
-    jsonapi_parameters (2.0.0)
+    jsonapi_parameters (2.1.0)
       actionpack (>= 4.1.8)
       activesupport (>= 4.1.8)
     listen (3.2.1)
@@ -305,7 +305,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     yard (0.9.24)
-    zeitwerk (2.3.0)
+    zeitwerk (2.3.1)
 
 PLATFORMS
   ruby
