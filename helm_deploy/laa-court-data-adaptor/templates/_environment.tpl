@@ -25,10 +25,10 @@ env:
   {{- if .Values.mtls_enabled }}
   - name: SSL_CLIENT_CERT
     value: |
-      {{ .Files.Get .Values.ssl_cert_file | b64enc }}
+      {{ .Files.Get .Values.ssl_cert_file | nindent 6 }}
   - name: SSL_CLIENT_KEY
     value: |
-      {{ .Files.Get .Values.ssl_key_file | b64enc }}
+      {{ .Files.Get .Values.ssl_key_file | nindent 6 }}
   {{- end }}
   {{- if .Values.sqs_messaging_enabled }}
   - name: AWS_LINK_QUEUE_URL
