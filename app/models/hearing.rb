@@ -40,7 +40,7 @@ class Hearing < ApplicationRecord
   def defence_advocate_names
     defence_details = hearing_body['defenceCounsels']
     defence_details.map do |detail|
-	     "#{detail['firstName']} #{detail['lastName']}"
+      "#{detail['firstName']} #{detail['lastName']}"
     end
   end
 
