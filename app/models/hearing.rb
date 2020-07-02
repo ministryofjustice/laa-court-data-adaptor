@@ -37,6 +37,13 @@ class Hearing < ApplicationRecord
     end
   end
 
+  def defence_advocate_names
+    defence_details = hearing_body['defenceCounsels']
+    defence_details.map do |detail|
+	     "#{detail['firstName']} #{detail['lastName']}"
+    end
+  end
+
   private
 
   def hearing_body
