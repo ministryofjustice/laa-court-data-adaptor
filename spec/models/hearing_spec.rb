@@ -51,7 +51,7 @@ RSpec.describe Hearing, type: :model do
 
       it { expect(hearing.judge_names).to eq(['Mr Recorder J Patterson']) }
       it { expect(hearing.prosecution_advocate_names).to eq(['John Rob']) }
-      it { expect(hearing.defence_advocate_names).to eq(['John Rob']) }
+      it { expect(hearing.defence_advocate_names).to eq(['Neil Griffiths']) }
 
       context 'when prosecutionCounsels are not provided' do
         before { hearing.body['hearing'].delete('prosecutionCounsels') }

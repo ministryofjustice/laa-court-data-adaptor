@@ -31,13 +31,13 @@ http_interactions:
       content-type:
       - application/json; charset=utf-8
       etag:
-      - W/"cf8673886e9ff79deb990231d8eec48e"
+      - W/"3dd65845979592c2793a3c29fdea0706"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 4376c8d7-7d45-4b8f-9fff-07be576a4c5d
+      - 695326f1-a7ac-40b3-b3a6-be59334d204b
       x-runtime:
-      - '0.605629'
+      - '0.088717'
       transfer-encoding:
       - chunked
     body:
@@ -46,7 +46,7 @@ http_interactions:
         string","ouCode":"Random string","courtHearingLocation":"Random string","welshName":"Llinyn
         ar hap","roomId":"8a677611-a090-4a5d-8352-71f465e411cc","roomName":"Grand
         Hall","welshRoomName":"Neuadd y Grand"},"hearingLanguage":"WELSH","hasSharedResults":false,"type":{"id":"42687d07-0046-4cb3-9c59-fa5520485fbb","description":"This
-        is a description","code":"12D10JAS"},"prosecutionCounsels":[{"id":"a3357fd9-3d63-4ff4-a89e-3c15783cb228","title":"Mr","firstName":"John","middleName":"Random","lastName":"Rob","status":"Random","prosecutionCases":["edc59e59-980d-4982-be24-84a41f9e17f5"],"attendanceDays":["2019-10-24"]}],"defenceCounsels":[{"id":"a1e3c7a6-c6da-4191-969b-f370fcce46a8","title":"Mr","firstName":"John","middleName":"Random","lastName":"Rob","status":"Junior
+        is a description","code":"12D10JAS"},"prosecutionCounsels":[{"id":"a3357fd9-3d63-4ff4-a89e-3c15783cb228","title":"Mr","firstName":"John","middleName":"Random","lastName":"Rob","status":"Random","prosecutionCases":["edc59e59-980d-4982-be24-84a41f9e17f5"],"attendanceDays":["2019-10-24"]}],"defenceCounsels":[{"id":"a1e3c7a6-c6da-4191-969b-f370fcce46a8","title":"Mr","firstName":"Neil","middleName":"Random","lastName":"Griffiths","status":"Junior
         counsel","defendants":["1429f6e3-75c1-47ee-b9ff-3de1c505dfe8"],"attendanceDays":["2019-10-24"]}],"isEffectiveTrial":false,"isBoxHearing":false,"prosecutionCases":[{"id":"436015e1-d7bc-48a8-95d8-1225ff704ddd","prosecutionCaseIdentifier":{"caseURN":"3658e889-e050-4608-8f21-8bdaa529f8d0","prosecutionAuthorityId":"91c0e6c7-4a4f-415b-a3e1-aea9883f6065","prosecutionAuthorityCode":"S5589083J"},"originatingOrganisation":"Random
         String","initiationCode":"Q","caseStatus":"INACTIVE","statementOfFacts":"Random
         String","statementOfFactsWelsh":"Random String","breachProceedingsPending":false,"removalReason":"Failed
@@ -69,5 +69,5 @@ http_interactions:
         ar hap","roomId":"d34644e6-828b-48b7-80b0-4fef69ee0ac9","roomName":"Grand
         Hall","welshRoomName":"Neuadd y Grand"},"onTheDayJudiciary":[{"judicialId":"6ad99b79-2c8a-48b4-959c-0b5f7056c1d6","title":"Mr","firstName":"Recorder","middleName":"J","lastName":"Patterson","isDeputy":false,"isBenchChairman":false,"judicialRoleType":{"judicialRoleTypeId":"a75b7a81-e462-41fa-b87d-dff2b1571150","judiciaryType":"High
         Court Judge"}}]}]},"sharedTime":"2020-06-23T09:35:19.296+00:00"}'
-  recorded_at: Thu, 02 Jul 2020 17:12:10 GMT
+  recorded_at: Fri, 03 Jul 2020 16:01:56 GMT
 recorded_with: VCR 6.0.0
