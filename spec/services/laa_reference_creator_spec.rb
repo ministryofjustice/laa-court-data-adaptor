@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sidekiq/testing'
+
 RSpec.describe LaaReferenceCreator do
   let(:maat_reference) { 12_345_678 }
   let(:defendant_id) { '8cd0ba7e-df89-45a3-8c61-4008a2186d64' }
@@ -12,18 +14,25 @@ RSpec.describe LaaReferenceCreator do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
                                             defendant_id: defendant_id,
                                             offence_id: 'cacbd4d4-9102-4687-98b4-d529be3d5710')
+
+    allow(Sqs::PublishLaaReference).to receive(:call)
+    allow(Api::RecordLaaReference).to receive(:call)
+    allow(Api::GetHearingResults).to receive(:call)
   end
 
   subject(:create) { described_class.call(maat_reference: maat_reference, defendant_id: defendant_id) }
 
+  it 'calls the ProsecutionCaseHearingsFetcher' do
+    expect(ProsecutionCaseHearingsFetcher).to receive(:call).with(prosecution_case_id: prosecution_case_id).and_call_original
+    create
+  end
+
   it 'calls the Api::RecordLaaReference service once' do
-    allow(Sqs::PublishLaaReference).to receive(:call)
     expect(Api::RecordLaaReference).to receive(:call).once.with(hash_including(application_reference: maat_reference))
     create
   end
 
   it 'calls the Sqs::PublishLaaReference service once' do
-    allow(Api::RecordLaaReference).to receive(:call)
     expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: maat_reference)
     create
   end
@@ -36,13 +45,11 @@ RSpec.describe LaaReferenceCreator do
     end
 
     it 'calls the Sqs::PublishLaaReference service once' do
-      allow(Api::RecordLaaReference).to receive(:call)
       expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: maat_reference)
       create
     end
 
     it 'calls the Api::RecordLaaReference service multiple times' do
-      allow(Sqs::PublishLaaReference).to receive(:call)
       expect(Api::RecordLaaReference).to receive(:call).twice.with(hash_including(application_reference: maat_reference))
       create
     end
@@ -56,7 +63,6 @@ RSpec.describe LaaReferenceCreator do
     end
 
     it 'does not call the Sqs::PublishLaaReference service' do
-      allow(Api::RecordLaaReference).to receive(:call)
       expect(Sqs::PublishLaaReference).not_to receive(:call)
       create
     end

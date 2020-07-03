@@ -9,6 +9,7 @@ class LaaReferenceCreator < ApplicationService
   def call
     push_to_sqs unless dummy_reference?
     call_cp_endpoint
+    ProsecutionCaseHearingsFetcher.call(prosecution_case_id: prosecution_case_id)
   end
 
   private
