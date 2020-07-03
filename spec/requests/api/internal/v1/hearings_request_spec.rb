@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'swagger_helper'
-require 'sidekiq/testing'
 
 RSpec.describe 'Api::Internal::V1::Hearings', type: :request do
   include AuthorisedRequestHelper
@@ -9,12 +8,6 @@ RSpec.describe 'Api::Internal::V1::Hearings', type: :request do
   let(:token) { access_token }
 
   let(:id) { 'ee7b9c09-4a6e-49e3-a484-193dc93a4575' }
-
-  around do |example|
-    Sidekiq::Testing.fake! do
-      example.run
-    end
-  end
 
   path '/api/internal/v1/hearings/{id}' do
     get('get hearing') do

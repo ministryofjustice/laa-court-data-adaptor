@@ -16,7 +16,7 @@ RSpec.describe ProsecutionCaseHearingsFetcher do
   subject { described_class.call(prosecution_case_id: prosecution_case_id) }
 
   it 'triggers a call to Api::GetHearingResults' do
-    expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id)
+    expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id, publish_to_queue: true)
     subject
   end
 end

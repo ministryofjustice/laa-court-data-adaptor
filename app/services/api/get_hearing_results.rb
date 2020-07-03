@@ -2,13 +2,14 @@
 
 module Api
   class GetHearingResults < ApplicationService
-    def initialize(hearing_id:)
+    def initialize(hearing_id:, publish_to_queue: false)
       @hearing_id = hearing_id
+      @publish_to_queue = publish_to_queue
       @response = HearingFetcher.call(hearing_id: hearing_id)
     end
 
     def call
-      HearingRecorder.call(hearing_id: hearing_id, body: response.body) if successful_response?
+      HearingRecorder.call(hearing_id: hearing_id, body: response.body, publish_to_queue: publish_to_queue) if successful_response?
     end
 
     private
@@ -17,6 +18,6 @@ module Api
       response.status == 200 && response.body.present?
     end
 
-    attr_reader :hearing_id, :response
+    attr_reader :hearing_id, :response, :publish_to_queue
   end
 end
