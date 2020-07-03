@@ -57,10 +57,6 @@ class Hearing < ApplicationRecord
     prosecution_cases.flat_map { |prosecution_case| prosecution_case['defendants'] }
   end
 
-  # def defence_details
-  #   hearing_body['defenceCounsels']
-  # end
-
   def hearing_event_recordings
     @hearing_event_recordings ||= hearing_body['hearingDays'].flat_map do |hearing_day|
       Api::GetHearingEvents.call(hearing_id: id, hearing_date: hearing_day['sittingDay'].to_date)
