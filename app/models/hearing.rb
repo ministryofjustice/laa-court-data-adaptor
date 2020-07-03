@@ -38,8 +38,8 @@ class Hearing < ApplicationRecord
   end
 
   def defence_advocate_names
-    defence_details.map do |detail|
-      "#{detail['firstName']} #{detail['lastName']}"
+    hearing_body.dig('defenceCounsels')&.map do |defence_counsel|
+      "#{defence_counsel['firstName']} #{defence_counsel['lastName']}"
     end
   end
 
@@ -57,9 +57,9 @@ class Hearing < ApplicationRecord
     prosecution_cases.flat_map { |prosecution_case| prosecution_case['defendants'] }
   end
 
-  def defence_details
-    hearing_body['defenceCounsels']
-  end
+  # def defence_details
+  #   hearing_body['defenceCounsels']
+  # end
 
   def hearing_event_recordings
     @hearing_event_recordings ||= hearing_body['hearingDays'].flat_map do |hearing_day|
