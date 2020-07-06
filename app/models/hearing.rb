@@ -37,6 +37,12 @@ class Hearing < ApplicationRecord
     end
   end
 
+  def defence_advocate_names
+    hearing_body.dig('defenceCounsels')&.map do |defence_counsel|
+      "#{defence_counsel['firstName']} #{defence_counsel['lastName']}"
+    end
+  end
+
   private
 
   def hearing_body
