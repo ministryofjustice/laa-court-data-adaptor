@@ -12,8 +12,17 @@ RSpec.describe Api::GetHearingResults do
   end
 
   it 'calls the HearingRecorder service' do
-    expect(HearingRecorder).to receive(:call).with(hearing_id: hearing_id, body: response.body)
+    expect(HearingRecorder).to receive(:call).with(hearing_id: hearing_id, body: response.body, publish_to_queue: false)
     subject
+  end
+
+  context 'when publish_to_queue is enabled' do
+    subject { described_class.call(hearing_id: hearing_id, publish_to_queue: true) }
+
+    it 'calls the HearingRecorder service' do
+      expect(HearingRecorder).to receive(:call).with(hearing_id: hearing_id, body: response.body, publish_to_queue: true)
+      subject
+    end
   end
 
   context 'when the body is blank' do
