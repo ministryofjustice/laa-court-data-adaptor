@@ -132,11 +132,18 @@ module Sqs
           [:resultText, result[:resultText]],
           [:resultCodeQualifiers, result[:qualifier]],
           [:nextHearingDate, result.dig(:nextHearing, :listedStartDateTime)],
-          [:nextHearingLocation, result.dig(:nextHearing, :courtCentre, :ouCode)],
+          [:nextHearingLocation, hearing_location(result.dig(:nextHearing, :courtCentre, :id))],
           [:laaOfficeAccount, defendant.dig(:defenceOrganisation, :laaAccountNumber)],
           [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)]
         ].to_h
       end
+    end
+
+    def hearing_location(court_centre_id)
+      return if court_centre_id.blank?
+
+      location = ReferenceData::CourtCentreFinder.call(id: court_centre_id)
+      location['oucode'][0..4]
     end
 
     def session_hash

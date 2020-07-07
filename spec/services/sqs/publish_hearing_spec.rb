@@ -61,7 +61,7 @@ RSpec.describe Sqs::PublishHearing do
               'nextHearing': {
                 'listedStartDateTime': '2018-11-11 10:30',
                 'courtCentre': {
-                  'ouCode': 'B16BG'
+                  'id': 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
                 }
               },
               'judicialResultPrompts': [
