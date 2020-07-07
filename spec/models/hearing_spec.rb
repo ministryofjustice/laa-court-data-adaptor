@@ -63,6 +63,11 @@ RSpec.describe Hearing, type: :model do
         before { hearing.body['hearing'].delete('defenceCounsels') }
         it { expect(hearing.defence_advocate_names).to be_nil }
       end
+
+      context 'when a hearing startTime is not provided' do
+        before { hearing.body['hearing']['hearingDays'].map { |detail| detail.delete('startTime') } }
+        it { expect(hearing.hearing_time).to eq([nil]) }
+      end
     end
   end
 end

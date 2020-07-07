@@ -26,7 +26,7 @@ class Hearing < ApplicationRecord
   end
 
   def hearing_time
-    hearing_body['hearingDays'].map do |detail|
+    hearing_body.dig('hearingDays')&.map do |detail|
       detail['startTime']
     end
   end
