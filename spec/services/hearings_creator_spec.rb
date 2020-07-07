@@ -33,7 +33,7 @@ RSpec.describe HearingsCreator do
     {
       jurisdictionType: 'MAGISTRATES',
       courtCentre: {
-        ouCode: 'B16BG00'
+        id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
       },
       prosecutionCases: prosecution_case_array,
       courtApplications: application_array
@@ -53,7 +53,7 @@ RSpec.describe HearingsCreator do
                                                                                jurisdiction_type: 'MAGISTRATES',
                                                                                case_urn: '12345',
                                                                                defendant: defendant_array.first,
-                                                                               cjs_location: 'B16BG'))
+                                                                               court_centre_id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'))
         create
       end
     end
@@ -73,12 +73,12 @@ RSpec.describe HearingsCreator do
                                                                                jurisdiction_type: 'MAGISTRATES',
                                                                                case_urn: '12345',
                                                                                defendant: defendant_array.first,
-                                                                               cjs_location: 'B16BG'))
+                                                                               court_centre_id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'))
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
                                                                                jurisdiction_type: 'MAGISTRATES',
                                                                                case_urn: '12345',
                                                                                defendant: defendant_array.last,
-                                                                               cjs_location: 'B16BG'))
+                                                                               court_centre_id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'))
         create
       end
     end
@@ -106,12 +106,12 @@ RSpec.describe HearingsCreator do
                                                                                jurisdiction_type: 'MAGISTRATES',
                                                                                case_urn: '12345',
                                                                                defendant: defendant_array.first,
-                                                                               cjs_location: 'B16BG'))
+                                                                               court_centre_id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'))
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: '2018-10-25 11:30:00',
                                                                                jurisdiction_type: 'MAGISTRATES',
                                                                                case_urn: '54321',
                                                                                defendant: defendant_array.first,
-                                                                               cjs_location: 'B16BG'))
+                                                                               court_centre_id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'))
         create
       end
     end
@@ -121,7 +121,7 @@ RSpec.describe HearingsCreator do
         {
           jurisdictionType: 'CROWN',
           courtCentre: {
-            ouCode: 'B16BG00'
+            id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
           },
           prosecutionCases: prosecution_case_array
         }
@@ -132,7 +132,7 @@ RSpec.describe HearingsCreator do
                                                                                jurisdiction_type: 'CROWN',
                                                                                case_urn: '12345',
                                                                                defendant: defendant_array.first,
-                                                                               cjs_location: 'B16BG'))
+                                                                               court_centre_id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'))
         create
       end
     end
@@ -162,7 +162,7 @@ RSpec.describe HearingsCreator do
                                                                              jurisdiction_type: 'MAGISTRATES',
                                                                              case_urn: '12345',
                                                                              defendant: defendant_array.first,
-                                                                             cjs_location: 'B16BG'))
+                                                                             court_centre_id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'))
       create
     end
   end
