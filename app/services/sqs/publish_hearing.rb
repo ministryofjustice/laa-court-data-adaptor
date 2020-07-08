@@ -3,12 +3,12 @@
 module Sqs
   # rubocop:disable Metrics/ClassLength
   class PublishHearing < ApplicationService
-    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, cjs_location:, appeal_data:)
+    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, court_centre_id:, appeal_data:)
       @shared_time = shared_time
       @jurisdiction_type = jurisdiction_type
       @case_urn = case_urn
       @defendant = defendant
-      @cjs_location = cjs_location
+      @court_centre = ReferenceData::CourtCentreFinder.call(id: court_centre_id)
       @appeal_data = appeal_data
     end
 
@@ -55,7 +55,11 @@ module Sqs
     end
 
     def cjs_area_code
-      cjs_location[1, 2] if cjs_location
+      court_centre['oucode_l2_code']
+    end
+
+    def cjs_location
+      court_centre['oucode'][0..4]
     end
 
     def message
@@ -128,11 +132,18 @@ module Sqs
           [:resultText, result[:resultText]],
           [:resultCodeQualifiers, result[:qualifier]],
           [:nextHearingDate, result.dig(:nextHearing, :listedStartDateTime)],
-          [:nextHearingLocation, result.dig(:nextHearing, :courtCentre, :ouCode)],
+          [:nextHearingLocation, hearing_location(result.dig(:nextHearing, :courtCentre, :id))],
           [:laaOfficeAccount, defendant.dig(:defenceOrganisation, :laaAccountNumber)],
           [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)]
         ].to_h
       end
+    end
+
+    def hearing_location(court_centre_id)
+      return if court_centre_id.blank?
+
+      location = ReferenceData::CourtCentreFinder.call(id: court_centre_id)
+      location['oucode'][0..4]
     end
 
     def session_hash
@@ -152,7 +163,7 @@ module Sqs
       defendant.dig(:offences)&.any? { |offence| offence.dig(:verdict).present? } || appeal_data.present?
     end
 
-    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :cjs_location, :appeal_data
+    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :court_centre, :appeal_data
   end
   # rubocop:enable Metrics/ClassLength
 end

@@ -4,7 +4,7 @@ class Hearing < ApplicationRecord
   validates :body, presence: true
 
   def court_name
-    hearing_body['courtCentre']['name']
+    court_centre.dig('oucode_l3_name')
   end
 
   def hearing_type
@@ -75,5 +75,9 @@ class Hearing < ApplicationRecord
 
   def judiciary
     hearing_body['hearingDays'].flat_map { |hearing_day| hearing_day['onTheDayJudiciary'] }.compact
+  end
+
+  def court_centre
+    ReferenceData::CourtCentreFinder.call(id: hearing_body['courtCentre']['id'])
   end
 end

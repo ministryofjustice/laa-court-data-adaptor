@@ -46,16 +46,12 @@ class HearingsCreator < ApplicationService
                              jurisdiction_type: jurisdiction_type,
                              case_urn: case_urn,
                              defendant: defendant,
-                             cjs_location: cjs_location,
+                             court_centre_id: hearing[:courtCentre][:id],
                              appeal_data: appeal_data)
   end
 
   def jurisdiction_type
     @jurisdiction_type ||= hearing[:jurisdictionType]
-  end
-
-  def cjs_location
-    @cjs_location ||= hearing.dig(:courtCentre, :ouCode)[0..4]
   end
 
   attr_reader :shared_time, :hearing

@@ -4,7 +4,7 @@ RSpec.describe Sqs::PublishHearing do
   let(:shared_time) { '2018-10-25 11:30:00' }
   let(:jurisdiction_type) { 'CROWN' }
   let(:case_urn) { '12345' }
-  let(:cjs_location) { 'B16BG' }
+  let(:court_centre_id) { 'dd22b110-7fbc-3036-a076-e4bb40d0a519' }
   let(:appeal_data) { nil }
   let(:verdict_hash) do
     {
@@ -61,7 +61,7 @@ RSpec.describe Sqs::PublishHearing do
               'nextHearing': {
                 'listedStartDateTime': '2018-11-11 10:30',
                 'courtCentre': {
-                  'ouCode': 'B16BG'
+                  'id': 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
                 }
               },
               'judicialResultPrompts': [
@@ -163,7 +163,7 @@ RSpec.describe Sqs::PublishHearing do
                          jurisdiction_type: jurisdiction_type,
                          case_urn: case_urn,
                          defendant: defendant,
-                         cjs_location: cjs_location,
+                         court_centre_id: court_centre_id,
                          appeal_data: appeal_data)
   end
 
