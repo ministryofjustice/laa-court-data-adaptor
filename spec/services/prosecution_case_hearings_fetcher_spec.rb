@@ -19,4 +19,23 @@ RSpec.describe ProsecutionCaseHearingsFetcher do
     expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id, publish_to_queue: true)
     subject
   end
+
+  context 'when hearingSummary does not exist' do
+    let(:body) do
+      {
+        "cases": [
+          {
+            "caseStatus": 'CLOSED',
+            "prosecutionCaseId": '5edd67eb-9d8c-44f2-a57e-c8d026defaa4',
+            "defendantSummary": []
+          }
+        ]
+      }
+    end
+
+    it 'does not trigger a call to Api::GetHearingResults' do
+      expect(Api::GetHearingResults).not_to receive(:call)
+      subject
+    end
+  end
 end
