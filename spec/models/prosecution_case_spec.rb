@@ -72,6 +72,16 @@ RSpec.describe ProsecutionCase, type: :model do
           expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: an_instance_of(Hash)).twice
           prosecution_case.defendants
         end
+
+        context 'with no prosecution_case reference' do
+          let(:hearing_one) { Hearing.create(id: hearing_ids[0], body: { 'id' => hearing_ids[0] }) }
+          let(:hearing_two) { Hearing.create(id: hearing_ids[1], body: { 'id' => hearing_ids[1] }) }
+
+          it 'initialises Defendants without details' do
+            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil).twice
+            prosecution_case.defendants
+          end
+        end
       end
     end
   end
