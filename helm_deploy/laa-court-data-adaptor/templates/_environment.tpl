@@ -59,4 +59,8 @@ env:
   {{- end }}
   - name: AWS_REGION
     value: {{ .Values.sqs_region }}
+  - name: SENTRY_DSN
+    value: {{ .Values.sentry_dsn }}
+  - name: SENTRY_CURRENT_ENV
+    value: {{ .Values.rails.host_env }}
 {{- end -}}
