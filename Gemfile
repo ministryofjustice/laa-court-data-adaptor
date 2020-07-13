@@ -33,6 +33,7 @@ gem 'json-schema'
 gem 'prmd'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'sentry-raven'
 gem 'sidekiq'
 gem 'versionist'
 
