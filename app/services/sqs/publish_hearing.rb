@@ -8,7 +8,7 @@ module Sqs
       @jurisdiction_type = jurisdiction_type
       @case_urn = case_urn
       @defendant = defendant
-      @court_centre = ReferenceData::CourtCentreFinder.call(id: court_centre_id)
+      @court_centre = HmctsCommonPlatform::Reference::CourtCentre.find(court_centre_id)
       @appeal_data = appeal_data
     end
 
@@ -55,11 +55,11 @@ module Sqs
     end
 
     def cjs_area_code
-      court_centre['oucode_l2_code']
+      court_centre.oucode_l2_code
     end
 
     def cjs_location
-      court_centre['oucode'][0..4]
+      court_centre.short_oucode
     end
 
     def message
@@ -142,8 +142,8 @@ module Sqs
     def hearing_location(court_centre_id)
       return if court_centre_id.blank?
 
-      location = ReferenceData::CourtCentreFinder.call(id: court_centre_id)
-      location['oucode'][0..4]
+      location = HmctsCommonPlatform::Reference::CourtCentre.find(court_centre_id)
+      location.short_oucode
     end
 
     def session_hash

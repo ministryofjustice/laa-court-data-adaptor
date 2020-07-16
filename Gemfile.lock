@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/ministryofjustice/hmcts_common_platform.git
+  revision: 07298c429c6d3acfcd41cce19b1a08f906f5cb8d
+  tag: 0.1.0
+  specs:
+    hmcts_common_platform (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -318,6 +325,7 @@ DEPENDENCIES
   dry-validation
   faraday_middleware
   fast_jsonapi
+  hmcts_common_platform!
   json-schema
   jsonapi_parameters
   listen (>= 3.0.5, < 3.3)
