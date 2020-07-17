@@ -4,7 +4,7 @@ class Hearing < ApplicationRecord
   validates :body, presence: true
 
   def court_name
-    court_centre.dig('oucode_l3_name')
+    court_centre.oucode_l3_name
   end
 
   def hearing_type
@@ -78,6 +78,6 @@ class Hearing < ApplicationRecord
   end
 
   def court_centre
-    ReferenceData::CourtCentreFinder.call(id: hearing_body['courtCentre']['id'])
+    @court_centre ||= HmctsCommonPlatform::Reference::CourtCentre.find(hearing_body['courtCentre']['id'])
   end
 end
