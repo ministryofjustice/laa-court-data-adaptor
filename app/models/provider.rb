@@ -8,4 +8,8 @@ class Provider
   def defence_advocate_name
     body['firstName'] + ' ' + body['lastName']
   end
+
+  def defence_advocate_status
+    body['status']
+  end
 end
