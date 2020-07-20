@@ -6,6 +6,7 @@ RSpec.describe LaaReferenceUnlinker do
   let(:user_name) { 'johnDoe' }
   let(:unlink_reason_code) { 1 }
   let(:unlink_other_reason_text) { 'Wrong defendant' }
+  let!(:linked_laa_reference) { LaaReference.create(defendant_id: defendant_id, maat_reference: 101_010) }
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,
@@ -13,8 +14,7 @@ RSpec.describe LaaReferenceUnlinker do
     )
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
                                             defendant_id: defendant_id,
-                                            offence_id: 'cacbd4d4-9102-4687-98b4-d529be3d5710',
-                                            maat_reference: 101_010)
+                                            offence_id: 'cacbd4d4-9102-4687-98b4-d529be3d5710')
     ActiveRecord::Base.connection.execute('ALTER SEQUENCE dummy_maat_reference_seq RESTART;')
     allow(Api::RecordLaaReference).to receive(:call)
   end
@@ -24,6 +24,11 @@ RSpec.describe LaaReferenceUnlinker do
   it 'creates a dummy maat_reference starting with Z' do
     expect(Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: 'Z10000000'))
     create
+  end
+
+  it 'unlinks currently linked LaaReference' do
+    create
+    expect(linked_laa_reference.reload.linked?).to be_falsey
   end
 
   it 'calls the Sqs::PublishUnlinkLaaReference service once' do
@@ -40,8 +45,7 @@ RSpec.describe LaaReferenceUnlinker do
     before do
       ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
                                               defendant_id: defendant_id,
-                                              offence_id: SecureRandom.uuid,
-                                              maat_reference: 101_010)
+                                              offence_id: SecureRandom.uuid)
     end
 
     it 'calls the Sqs::PublishUnlinkLaaReference service once' do
@@ -62,7 +66,7 @@ RSpec.describe LaaReferenceUnlinker do
 
   context 'when the maat_reference is a dummy' do
     before do
-      ProsecutionCaseDefendantOffence.update(dummy_maat_reference: true)
+      linked_laa_reference.update!(dummy_maat_reference: true)
     end
 
     it 'does not call the Sqs::PublishUnlinkLaaReference service' do

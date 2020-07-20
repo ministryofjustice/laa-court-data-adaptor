@@ -56,30 +56,9 @@ RSpec.describe Api::RecordLaaReference do
       subject
       case_defendant_offence.reload
       expect(case_defendant_offence.status_date).to eq '2019-12-12'
-      expect(case_defendant_offence.maat_reference).to eq '999999'
-      expect(case_defendant_offence.dummy_maat_reference).to be false
       expect(case_defendant_offence.rep_order_status).to eq 'ABCDEF'
       expect(case_defendant_offence.response_status).to eq(202)
       expect(case_defendant_offence.response_body).to eq({ 'test' => 'test' })
-    end
-
-    context 'with a A series dummy_maat_reference' do
-      let(:maat_reference) { 'A999999' }
-
-      it 'sets the dummy_maat_reference to true' do
-        subject
-        expect(case_defendant_offence.reload.dummy_maat_reference).to be true
-      end
-    end
-
-    context 'with a Z series dummy_maat_reference' do
-      let(:maat_reference) { 'Z999999' }
-
-      it 'sets the dummy_maat_reference to true' do
-        subject
-        offence_record = ProsecutionCaseDefendantOffence.find_by(defendant_id: defendant_id)
-        expect(offence_record.dummy_maat_reference).to be true
-      end
     end
   end
 end
