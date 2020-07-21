@@ -16,10 +16,9 @@ module Api
       @application_reference = application_reference.to_s
       @status_date = status_date
       @connection = connection
-      @url = 'progression-command-api'\
-              '/command/api/rest/progression/laaReference'\
+      @url = 'prosecutionCases/laaReference'\
               "/cases/#{prosecution_case_id}"\
-              "/defendants/#{defendant_id}"\
+              "/defendant/#{defendant_id}"\
               "/offences/#{offence_id}"
     end
     # rubocop:enable Metrics/ParameterLists

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingEventLogHttpTriggerFast?date=2020-04-17&hearingId=ee7b9c09-4a6e-49e3-a484-193dc93a4575"
+    uri: "<COMMON_PLATFORM_URL>/hearing/hearingLog?date=2020-04-17&hearingId=ee7b9c09-4a6e-49e3-a484-193dc93a4575"
     body:
       encoding: US-ASCII
       string: ''
@@ -21,14 +21,14 @@ http_interactions:
       content-type:
       - application/json
       www-authenticate:
-      - AzureApiManagementKey realm="https://spnl-sit-apim-int-gw.cpp.nonlive/fa-sit-ccp0101-legalaidagency",name="Ocp-Apim-Subscription-Key",type="header"
+      - AzureApiManagementKey realm="https://spnl-sit-apim-int-gw.cpp.nonlive/LAA/v1",name="Ocp-Apim-Subscription-Key",type="header"
       date:
-      - Fri, 26 Jun 2020 14:39:34 GMT
+      - Tue, 21 Jul 2020 10:03:15 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
       encoding: UTF-8
       string: '{ "statusCode": 401, "message": "Access denied due to invalid subscription
         key. Make sure to provide a valid key for an active subscription." }'
-  recorded_at: Fri, 26 Jun 2020 14:39:34 GMT
+  recorded_at: Tue, 21 Jul 2020 10:03:15 GMT
 recorded_with: VCR 6.0.0

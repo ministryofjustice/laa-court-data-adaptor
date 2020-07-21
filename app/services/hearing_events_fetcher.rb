@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HearingEventsFetcher < ApplicationService
-  URL = 'LAAGetHearingEventLogHttpTriggerFast'
+  URL = 'hearing/hearingLog'
 
   def initialize(hearing_id:, hearing_date:, connection: CommonPlatformConnection.call)
     @params = { hearingId: hearing_id, date: hearing_date }

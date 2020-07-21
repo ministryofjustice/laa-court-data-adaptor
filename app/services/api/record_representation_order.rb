@@ -21,12 +21,10 @@ module Api
       @effective_start_date = effective_start_date
       @effective_end_date = effective_end_date
       @defence_organisation = defence_organisation
-      @url = 'progression-command-api'\
-              '/command/api/rest/progression/representationOrder' \
-              "/cases/#{prosecution_case_id}" \
-              "/defendants/#{defendant_id}" \
+      @url = 'prosecutionCases/representationOrder'\
+              "/cases/#{prosecution_case_id}"\
+              "/defendants/#{defendant_id}"\
               "/offences/#{offence_id}"
-
       @connection = connection
     end
     # rubocop:enable Metrics/ParameterLists

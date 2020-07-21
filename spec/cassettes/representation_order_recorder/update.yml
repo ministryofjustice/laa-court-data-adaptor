@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: "<COMMON_PLATFORM_URL>/progression-command-api/command/api/rest/progression/representationOrder/cases/5edd67eb-9d8c-44f2-a57e-c8d026defaa4/defendants/2ecc9feb-9407-482f-b081-d9e5c8ba3ed3/offences/3f153786-f3cf-4311-bc0c-2d6f48af68a1"
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases/representationOrder/cases/5edd67eb-9d8c-44f2-a57e-c8d026defaa4/defendants/2ecc9feb-9407-482f-b081-d9e5c8ba3ed3/offences/3f153786-f3cf-4311-bc0c-2d6f48af68a1"
     body:
       encoding: UTF-8
       string: '{"statusCode":"ABCDEF","applicationReference":"SOME SORT OF MAAT ID","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","effectiveEndDate":"2020-12-15","defenceOrganisation":{"organisation":{"name":"SOME
@@ -22,11 +22,11 @@ http_interactions:
       content-length:
       - '0'
       date:
-      - Fri, 26 Jun 2020 14:39:35 GMT
+      - Tue, 21 Jul 2020 10:02:03 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Fri, 26 Jun 2020 14:39:35 GMT
+  recorded_at: Tue, 21 Jul 2020 10:02:03 GMT
 recorded_with: VCR 6.0.0
