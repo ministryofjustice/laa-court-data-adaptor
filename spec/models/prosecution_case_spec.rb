@@ -65,6 +65,13 @@ RSpec.describe ProsecutionCase, type: :model do
       it { expect(prosecution_case.hearings).to all be_a(Hearing) }
       it { expect(prosecution_case.hearing_ids).to eq(hearing_ids) }
 
+      context 'when a hearing has not resulted' do
+        let(:hearing_one) { nil }
+        let(:hearing_two) { nil }
+
+        it { expect(prosecution_case.hearings).to be_empty }
+      end
+
       context 'when hearings are loaded' do
         before { prosecution_case.hearings }
 
