@@ -32,7 +32,7 @@ RSpec.describe HearingEventsFetcher do
     subject { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date, connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
-    let(:url) { 'LAAGetHearingEventLogHttpTriggerFast' }
+    let(:url) { 'hearing/hearingLog' }
     let(:params) { { hearingId: hearing_id, date: hearing_date } }
 
     it 'makes a get request' do

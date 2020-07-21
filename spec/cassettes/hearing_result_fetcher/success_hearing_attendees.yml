@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=2df3d60a-3826-4099-99b0-f89e2cb5e8ec"
+    uri: "<COMMON_PLATFORM_URL>/hearing/results?hearingId=2df3d60a-3826-4099-99b0-f89e2cb5e8ec"
     body:
       encoding: US-ASCII
       string: ''

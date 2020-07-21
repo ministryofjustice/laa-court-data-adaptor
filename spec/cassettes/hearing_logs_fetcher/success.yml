@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingEventLogHttpTriggerFast?date=2020-04-17&hearingId=ee7b9c09-4a6e-49e3-a484-193dc93a4575"
+    uri: "<COMMON_PLATFORM_URL>/hearing/hearingLog?date=2020-04-17&hearingId=ee7b9c09-4a6e-49e3-a484-193dc93a4575"
     body:
       encoding: US-ASCII
       string: ''
@@ -19,9 +19,9 @@ http_interactions:
       content-type:
       - text/plain; charset=utf-8
       request-context:
-      - appId=cid-v1:e7545c86-6eab-4a30-bf6d-7ed8b5691e3e
+      - appId=
       date:
-      - Fri, 26 Jun 2020 14:39:34 GMT
+      - Tue, 21 Jul 2020 10:03:15 GMT
       x-frame-options:
       - SAMEORIGIN
       transfer-encoding:
@@ -56,5 +56,5 @@ http_interactions:
         \     \"recordedLabel\": \"Hearing type changed to Trial\",\r\n      \"eventTime\":
         \"2020-04-17T16:56:22.340Z\",\r\n      \"lastModifiedTime\": \"2020-04-17T16:56:23.052Z\",\r\n
         \     \"alterable\": true\r\n    }\r\n  ]\r\n}"
-  recorded_at: Fri, 26 Jun 2020 14:39:34 GMT
+  recorded_at: Tue, 21 Jul 2020 10:03:15 GMT
 recorded_with: VCR 6.0.0

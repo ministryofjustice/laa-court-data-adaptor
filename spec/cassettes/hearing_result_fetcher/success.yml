@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/LAAGetHearingHttpTrigger?hearingId=ee7b9c09-4a6e-49e3-a484-193dc93a4575"
+    uri: "<COMMON_PLATFORM_URL>/hearing/results?hearingId=ee7b9c09-4a6e-49e3-a484-193dc93a4575"
     body:
       encoding: US-ASCII
       string: ''
@@ -21,7 +21,7 @@ http_interactions:
       request-context:
       - appId=cid-v1:e7545c86-6eab-4a30-bf6d-7ed8b5691e3e
       date:
-      - Fri, 26 Jun 2020 14:39:41 GMT
+      - Tue, 21 Jul 2020 10:03:02 GMT
       x-frame-options:
       - SAMEORIGIN
       transfer-encoding:
@@ -37,9 +37,9 @@ http_interactions:
         \     \"name\": \"Bexley Magistrates' Court\",\r\n      \"roomId\": \"8e912353-3b5d-36c3-953e-ad3b94b19de3\",\r\n
         \     \"roomName\": \"Courtroom 01\"\r\n    },\r\n    \"defenceCounsels\":
         [],\r\n    \"defendantAttendance\": [],\r\n    \"defendantHearingYouthMarkers\":
-        [],\r\n    \"defendantReferralReasons\": [\r\n      {\r\n        \"defendantId\":
-        \"ad03a626-d438-44a5-84b6-14111ec363fa\",\r\n        \"description\": \"Case
-        unsuitable for SJP\",\r\n        \"id\": \"d10c5cc4-ec2a-41ac-bd6e-a3659c5cfeb1\"\r\n
+        [],\r\n    \"defendantJudicialResults\": [],\r\n    \"defendantReferralReasons\":
+        [\r\n      {\r\n        \"defendantId\": \"ad03a626-d438-44a5-84b6-14111ec363fa\",\r\n
+        \       \"description\": \"Case unsuitable for SJP\",\r\n        \"id\": \"d10c5cc4-ec2a-41ac-bd6e-a3659c5cfeb1\"\r\n
         \     }\r\n    ],\r\n    \"hasSharedResults\": true,\r\n    \"hearingCaseNotes\":
         [],\r\n    \"hearingDays\": [\r\n      {\r\n        \"listedDurationMinutes\":
         360,\r\n        \"listingSequence\": 0,\r\n        \"sittingDay\": \"2020-04-17T09:00:00.000Z\"\r\n
@@ -105,5 +105,5 @@ http_interactions:
         [],\r\n    \"type\": {\r\n      \"description\": \"Plea and Trial Preparation\",\r\n
         \     \"id\": \"06b0c2bf-3f98-46ed-ab7e-56efaf9ecced\"\r\n    }\r\n  },\r\n
         \ \"sharedTime\": \"2020-04-17T16:57:04.978Z[UTC]\"\r\n}"
-  recorded_at: Fri, 26 Jun 2020 14:39:41 GMT
+  recorded_at: Tue, 21 Jul 2020 10:03:02 GMT
 recorded_with: VCR 6.0.0

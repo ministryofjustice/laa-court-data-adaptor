@@ -31,7 +31,7 @@ RSpec.describe HearingFetcher do
     subject { described_class.call(hearing_id: hearing_id, connection: connection) }
 
     let(:connection) { double('CommonPlatformConnection') }
-    let(:url) { 'LAAGetHearingHttpTrigger' }
+    let(:url) { 'hearing/results' }
     let(:params) { { hearingId: hearing_id } }
 
     it 'makes a get request' do

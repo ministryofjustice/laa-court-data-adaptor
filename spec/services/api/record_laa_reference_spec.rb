@@ -18,7 +18,7 @@ RSpec.describe Api::RecordLaaReference do
       status_date: '2019-12-12'
     }
   end
-  let(:url) { "progression-command-api/command/api/rest/progression/laaReference/cases/#{prosecution_case.id}/defendants/#{defendant_id}/offences/#{offence_id}" }
+  let(:url) { "prosecutionCases/laaReference/cases/#{prosecution_case.id}/defendant/#{defendant_id}/offences/#{offence_id}" }
 
   let!(:case_defendant_offence) do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case.id,
