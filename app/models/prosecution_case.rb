@@ -50,8 +50,8 @@ class ProsecutionCase < ApplicationRecord
   end
 
   def hearing_results
-    @hearing_results ||= hearing_summary_ids.map do |hearing_id|
+    @hearing_results ||= hearing_summary_ids.map { |hearing_id|
       Api::GetHearingResults.call(hearing_id: hearing_id)
-    end
+    }.compact
   end
 end
