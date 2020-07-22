@@ -1,14 +1,14 @@
             {
-                "id": "a1e3c7a6-c6da-4191-969b-f370fcce46a8",
-                "title": "Mr",
-                "firstName": "Neil",
-                "middleName": "Random",
-                "lastName": "Griffiths",
-                "status": "Junior counsel",
-                "defendants": [
-                    "1429f6e3-75c1-47ee-b9ff-3de1c505dfe8"
-                ],
-                "attendanceDays": [
-                    "2019-10-24"
-                ]
+              "id": "a1e3c7a6-c6da-4191-969b-f370fcce46a8",
+              "title": "Mr",
+              "firstName": "Neil",
+              "middleName": "Random",
+              "lastName": "Griffiths",
+              "status": "Junior counsel",
+              "defendants": [
+                  "1429f6e3-75c1-47ee-b9ff-3de1c505dfe8"
+              ],
+              "attendanceDays": [
+                  "2019-10-24"
+              ]
             }
