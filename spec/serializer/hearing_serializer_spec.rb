@@ -11,7 +11,8 @@ RSpec.describe HearingSerializer do
                     judge_names: ['Mr Recorder J Patterson'],
                     prosecution_advocate_names: ['John Rob'],
                     defence_advocate_names: ['Neil Griffiths'],
-                    hearing_time: ['10:00:00'])
+                    hearing_time: ['10:00:00'],
+                    provider_ids: ['PROVIDER_UUID'])
   end
 
   subject { described_class.new(hearing).serializable_hash }
@@ -32,5 +33,6 @@ RSpec.describe HearingSerializer do
     let(:relationship_hash) { subject[:data][:relationships] }
 
     it { expect(relationship_hash[:hearing_events][:data]).to eq([id: 'HEARING_EVENT_UUID', type: :hearing_events]) }
+    it { expect(relationship_hash[:providers][:data]).to eq([id: 'PROVIDER_UUID', type: :providers]) }
   end
 end
