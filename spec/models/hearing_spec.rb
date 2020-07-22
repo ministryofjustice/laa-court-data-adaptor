@@ -71,6 +71,7 @@ RSpec.describe Hearing, type: :model do
 
       context 'providers information' do
         it { expect(hearing.provider_names).to eq(['Neil Griffiths']) }
+        it { expect(hearing.provider_status).to eq(['Junior counsel']) }
       end
     end
   end

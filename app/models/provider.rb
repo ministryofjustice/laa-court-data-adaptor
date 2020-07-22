@@ -10,6 +10,6 @@ class Provider
   end
 
   def defence_advocate_status
-    body.map { |detail| "#{detail['status']}" }
+    body.map { |detail| detail['status'] }
   end
 end
