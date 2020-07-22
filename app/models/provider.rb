@@ -5,11 +5,11 @@ class Provider
 
   attr_accessor :body
 
-  def defence_advocate_name
-    body.map { |detail| "#{detail['firstName']} #{detail['lastName']}" }
+  def name
+    "#{body['firstName']} #{body['lastName']}"
   end
 
-  def defence_advocate_status
-    body.map { |detail| detail['status'] }
+  def role
+    body['status']
   end
 end

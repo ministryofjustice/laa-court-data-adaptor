@@ -1,4 +1,4 @@
-            [{
+            {
                 "id": "a1e3c7a6-c6da-4191-969b-f370fcce46a8",
                 "title": "Mr",
                 "firstName": "Neil",
@@ -11,4 +11,4 @@
                 "attendanceDays": [
                     "2019-10-24"
                 ]
-            }]
+            }

@@ -7,6 +7,6 @@ RSpec.describe Provider, type: :model do
 
   subject(:provider) { described_class.new(body: provider_hash) }
 
-  it { expect(provider.defence_advocate_name).to eq(['Neil Griffiths']) }
-  it { expect(provider.defence_advocate_status).to eq(['Junior counsel']) }
+  it { expect(provider.name).to eq('Neil Griffiths') }
+  it { expect(provider.role).to eq('Junior counsel') }
 end
