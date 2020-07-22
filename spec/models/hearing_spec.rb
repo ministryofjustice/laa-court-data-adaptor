@@ -24,6 +24,8 @@ RSpec.describe Hearing, type: :model do
     it { expect(hearing.court_name).to eq("Bexley Magistrates' Court") }
     it { expect(hearing.hearing_type).to eq('Plea and Trial Preparation') }
     it { expect(hearing.defendant_names).to eq(['Ocean Gagnier']) }
+    it { expect(hearing.providers).to be_empty }
+    it { expect(hearing.provider_ids).to be_empty }
 
     context 'hearing events' do
       let(:hearing_day) { '2020-04-17' }
@@ -53,6 +55,8 @@ RSpec.describe Hearing, type: :model do
       it { expect(hearing.prosecution_advocate_names).to eq(['John Rob']) }
       it { expect(hearing.defence_advocate_names).to eq(['Neil Griffiths']) }
       it { expect(hearing.hearing_time).to eq(['10:00:00']) }
+      it { expect(hearing.providers).to all be_a(Provider) }
+      it { expect(hearing.provider_ids).to eq(['a1e3c7a6-c6da-4191-969b-f370fcce46a8']) }
 
       context 'when prosecutionCounsels are not provided' do
         before { hearing.body['hearing'].delete('prosecutionCounsels') }
@@ -67,11 +71,6 @@ RSpec.describe Hearing, type: :model do
       context 'when a hearing startTime is not provided' do
         before { hearing.body['hearing']['hearingDays'].map { |detail| detail.delete('startTime') } }
         it { expect(hearing.hearing_time).to eq([nil]) }
-      end
-
-      context 'providers information' do
-        it { expect(hearing.provider_names).to eq(['Neil Griffiths']) }
-        it { expect(hearing.provider_status).to eq(['Junior counsel']) }
       end
     end
   end

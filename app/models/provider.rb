@@ -14,5 +14,6 @@ class Provider
   end
 
   def id
+    body['id']
   end
 end
