@@ -57,6 +57,9 @@ class Hearing < ApplicationRecord
     hearing_body.dig('defenceCounsels')&.map { |defence_counsel| Provider.new(body: defence_counsel).role }
   end
 
+  def provider_ids
+  end
+
   private
 
   def hearing_body

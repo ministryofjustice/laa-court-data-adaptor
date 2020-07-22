@@ -12,4 +12,7 @@ class Provider
   def role
     body['status']
   end
+
+  def id
+  end
 end
