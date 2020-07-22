@@ -68,6 +68,10 @@ RSpec.describe Hearing, type: :model do
         before { hearing.body['hearing']['hearingDays'].map { |detail| detail.delete('startTime') } }
         it { expect(hearing.hearing_time).to eq([nil]) }
       end
+
+      context 'providers information' do
+        it { expect(hearing.provider_names).to eq(['Neil Griffiths']) }
+      end
     end
   end
 end

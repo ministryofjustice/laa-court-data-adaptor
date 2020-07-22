@@ -6,10 +6,10 @@ class Provider
   attr_accessor :body
 
   def defence_advocate_name
-    body['firstName'] + ' ' + body['lastName']
+    body.map { |detail| "#{detail['firstName']} #{detail['lastName']}" }
   end
 
   def defence_advocate_status
-    body['status']
+    body.map { |detail| "#{detail['status']}" }
   end
 end

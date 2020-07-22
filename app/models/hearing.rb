@@ -49,6 +49,11 @@ class Hearing < ApplicationRecord
     end
   end
 
+  def provider_names
+    Provider.new(body: hearing_body['defenceCounsels']).defence_advocate_name
+  end
+
+
   private
 
   def hearing_body
