@@ -78,6 +78,21 @@ CREATE TABLE public.hearings (
 
 
 --
+-- Name: laa_references; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.laa_references (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    defendant_id uuid NOT NULL,
+    maat_reference character varying NOT NULL,
+    dummy_maat_reference boolean DEFAULT false NOT NULL,
+    linked boolean DEFAULT true NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: oauth_access_grants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -140,8 +155,8 @@ CREATE TABLE public.prosecution_case_defendant_offences (
     offence_id uuid NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    maat_reference character varying,
-    dummy_maat_reference boolean DEFAULT false NOT NULL,
+    deprecated_maat_reference character varying,
+    deprecated_dummy_maat_reference boolean DEFAULT false NOT NULL,
     rep_order_status character varying,
     response_status integer,
     response_body json,
@@ -208,6 +223,14 @@ ALTER TABLE ONLY public.hearing_event_recordings
 
 ALTER TABLE ONLY public.hearings
     ADD CONSTRAINT hearings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: laa_references laa_references_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.laa_references
+    ADD CONSTRAINT laa_references_pkey PRIMARY KEY (id);
 
 
 --
@@ -278,6 +301,20 @@ CREATE INDEX index_case_defendant_offences_on_prosecution_case ON public.prosecu
 --
 
 CREATE INDEX index_hearing_event_recordings_on_hearing_id ON public.hearing_event_recordings USING btree (hearing_id);
+
+
+--
+-- Name: index_laa_references_on_defendant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_laa_references_on_defendant_id ON public.laa_references USING btree (defendant_id);
+
+
+--
+-- Name: index_laa_references_on_maat_reference; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_laa_references_on_maat_reference ON public.laa_references USING btree (maat_reference) WHERE linked;
 
 
 --
@@ -392,6 +429,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200407083117'),
 ('20200424095754'),
 ('20200429163050'),
-('20200519141938');
+('20200519141938'),
+('20200720123025');
 
 

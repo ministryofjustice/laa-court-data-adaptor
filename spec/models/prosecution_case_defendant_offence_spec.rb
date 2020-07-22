@@ -15,8 +15,6 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
       prosecution_case_id: prosecution_case_id,
       defendant_id: defendant_id,
       offence_id: offence_id,
-      maat_reference: maat_reference,
-      dummy_maat_reference: dummy_maat_reference,
       rep_order_status: rep_order_status,
       response_status: response_status,
       response_body: response_body
@@ -26,8 +24,6 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
   it { expect(prosecution_case_defendant_offence.prosecution_case_id).to eq prosecution_case_id }
   it { expect(prosecution_case_defendant_offence.defendant_id).to eq defendant_id }
   it { expect(prosecution_case_defendant_offence.offence_id).to eq offence_id }
-  it { expect(prosecution_case_defendant_offence.maat_reference).to eq maat_reference }
-  it { expect(prosecution_case_defendant_offence.dummy_maat_reference).to eq dummy_maat_reference }
   it { expect(prosecution_case_defendant_offence.rep_order_status).to eq rep_order_status }
   it { expect(prosecution_case_defendant_offence.response_status).to eq response_status }
   it { expect(prosecution_case_defendant_offence.response_body).to eq response_body }

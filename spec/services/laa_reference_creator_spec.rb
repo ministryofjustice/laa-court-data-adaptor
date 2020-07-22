@@ -6,6 +6,7 @@ RSpec.describe LaaReferenceCreator do
   let(:maat_reference) { 12_345_678 }
   let(:defendant_id) { '8cd0ba7e-df89-45a3-8c61-4008a2186d64' }
   let(:prosecution_case_id) { '7a0c947e-97b4-4c5a-ae6a-26320afc914d' }
+  let(:laa_reference) { LaaReference.last }
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,
@@ -22,6 +23,19 @@ RSpec.describe LaaReferenceCreator do
 
   subject(:create) { described_class.call(maat_reference: maat_reference, defendant_id: defendant_id) }
 
+  it 'creates an LaaReference' do
+    expect {
+      create
+    }.to change(LaaReference, :count).by(1)
+  end
+
+  it 'sets the LaaReference attributes' do
+    create
+    expect(laa_reference.defendant_id).to eq(defendant_id)
+    expect(laa_reference.maat_reference).to eq('12345678')
+    expect(laa_reference.dummy_maat_reference).to be_falsey
+  end
+
   it 'calls the ProsecutionCaseHearingsFetcher' do
     expect(ProsecutionCaseHearingsFetcher).to receive(:call).with(prosecution_case_id: prosecution_case_id).and_call_original
     create
@@ -35,6 +49,28 @@ RSpec.describe LaaReferenceCreator do
   it 'calls the Sqs::PublishLaaReference service once' do
     expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: maat_reference)
     create
+  end
+
+  context 'when an LaaReference exists' do
+    let!(:existing_laa_reference) { LaaReference.create!(defendant_id: SecureRandom.uuid, maat_reference: maat_reference) }
+
+    it 'raises an ActiveRecord::RecordInvalid error' do
+      expect {
+        create
+      }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    context 'that is no longer linked' do
+      before do
+        existing_laa_reference.update!(linked: false)
+      end
+
+      it 'creates an LaaReference' do
+        expect {
+          create
+        }.to change(LaaReference, :count).by(1)
+      end
+    end
   end
 
   context 'with multiple offences' do
@@ -70,6 +106,13 @@ RSpec.describe LaaReferenceCreator do
     it 'creates a dummy maat_reference' do
       expect(Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: 'A10000000'))
       create
+    end
+
+    it 'sets creates a dummy_maat_reference' do
+      create
+      expect(laa_reference.defendant_id).to eq(defendant_id)
+      expect(laa_reference.maat_reference).to eq('A10000000')
+      expect(laa_reference.dummy_maat_reference).to be_truthy
     end
   end
 end

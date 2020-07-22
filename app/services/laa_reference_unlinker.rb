@@ -6,18 +6,28 @@ class LaaReferenceUnlinker < ApplicationService
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
-    @maat_reference = offences.first.maat_reference unless offences.first.dummy_maat_reference?
+    @laa_reference = LaaReference.find_by(defendant_id: defendant_id, linked: true)
   end
 
   def call
-    push_to_sqs if maat_reference.present?
+    unlink_current_maat_reference
+    push_to_sqs unless laa_reference.dummy_maat_reference?
     call_cp_endpoint
   end
 
   private
 
+  def unlink_current_maat_reference
+    laa_reference.update!(linked: false)
+  end
+
   def push_to_sqs
-    Sqs::PublishUnlinkLaaReference.call(maat_reference: maat_reference, user_name: user_name, unlink_reason_code: unlink_reason_code, unlink_other_reason_text: unlink_other_reason_text)
+    Sqs::PublishUnlinkLaaReference.call(
+      maat_reference: laa_reference.maat_reference,
+      user_name: user_name,
+      unlink_reason_code: unlink_reason_code,
+      unlink_other_reason_text: unlink_other_reason_text
+    )
   end
 
   def call_cp_endpoint
@@ -41,5 +51,5 @@ class LaaReferenceUnlinker < ApplicationService
     @dummy_maat_reference ||= "Z#{ActiveRecord::Base.connection.execute("SELECT nextval('dummy_maat_reference_seq')")[0]['nextval']}"
   end
 
-  attr_reader :defendant_id, :maat_reference, :user_name, :unlink_reason_code, :unlink_other_reason_text
+  attr_reader :defendant_id, :laa_reference, :user_name, :unlink_reason_code, :unlink_other_reason_text
 end
