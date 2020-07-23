@@ -108,6 +108,7 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '202':
           description: Accepted

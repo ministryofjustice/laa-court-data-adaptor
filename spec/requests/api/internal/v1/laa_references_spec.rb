@@ -12,7 +12,8 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
       data: {
         type: 'laa_references',
         attributes: {
-          maat_reference: 1_231_231
+          maat_reference: 1_231_231,
+          user_name: 'JaneDoe'
         },
         relationships: {
           defendant: {
@@ -58,7 +59,7 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(LaaReferenceCreatorWorker).to receive(:perform_async).with(String, String, 1_231_231).and_call_original
+          expect(LaaReferenceCreatorWorker).to receive(:perform_async).with(String, String, 'JaneDoe', 1_231_231).and_call_original
         end
 
         run_test!
@@ -72,7 +73,22 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
           parameter '$ref' => '#/components/parameters/transaction_id_header'
 
           before do
-            expect(LaaReferenceCreatorWorker).to receive(:perform_async).with(String, String, nil).and_call_original
+            expect(LaaReferenceCreatorWorker).to receive(:perform_async).with(String, String, 'JaneDoe', nil).and_call_original
+          end
+
+          run_test!
+        end
+      end
+
+      context 'with a blank user_name' do
+        response(202, 'Accepted') do
+          before { laa_reference[:data][:attributes].delete(:user_name) }
+          let(:Authorization) { "Bearer #{token.token}" }
+
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
+
+          before do
+            expect(LaaReferenceCreatorWorker).to receive(:perform_async).with(String, String, nil, 1_231_231).and_call_original
           end
 
           run_test!

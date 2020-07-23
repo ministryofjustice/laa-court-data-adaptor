@@ -5,17 +5,13 @@ class UnlinkDefendantContract < Dry::Validation::Contract
 
   json do
     required(:defendant_id).value(:string)
-    required(:user_name).value(:string)
+    required(:user_name).value(:string, max_size?: 10)
     required(:unlink_reason_code).value(:integer)
     optional(:unlink_other_reason_text).value(:string)
   end
 
   rule(:defendant_id) do
     key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value)
-  end
-
-  rule(:user_name) do
-    key.failure('must not exceed 10 characters') if value.length > 10
   end
 
   rule(:unlink_other_reason_text, :unlink_reason_code) do

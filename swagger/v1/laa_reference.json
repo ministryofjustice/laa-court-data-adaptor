@@ -23,6 +23,11 @@
       "example": "laa_references",
       "type": "string"
     },
+    "user_name": {
+      "example": "example-username",
+      "description": "The user_name of the caseworker linking or unlinking the case",
+      "type": "string"
+    },
     "maat_reference": {
       "example": 314159265,
       "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
@@ -53,7 +58,10 @@
       "properties": {
         "maat_reference": {
           "$ref": "#/definitions/maat_reference"
-        }
+        },
+        "user_name": {
+          "$ref": "#/definitions/user_name"
+        },
       }
     },
     "relationships": {
@@ -109,6 +117,9 @@
   "properties": {
     "maat_reference": {
       "$ref": "#/definitions/maat_reference"
+    },
+    "user_name": {
+      "$ref": "#/definitions/user_name"
     }
   }
 }

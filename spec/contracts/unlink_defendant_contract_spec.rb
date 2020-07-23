@@ -24,7 +24,7 @@ RSpec.describe UnlinkDefendantContract do
 
     it { expect(fullfillment.errors).not_to be_empty }
 
-    it { is_expected.to have_contract_error('must not exceed 10 characters') }
+    it { is_expected.to have_contract_error('size cannot be greater than 10') }
   end
 
   context 'with a non numeric unlink_reason_code' do
