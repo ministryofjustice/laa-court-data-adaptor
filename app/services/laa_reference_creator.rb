@@ -19,7 +19,7 @@ class LaaReferenceCreator < ApplicationService
   private
 
   def create_laa_reference!
-    LaaReference.create!(defendant_id: defendant_id, maat_reference: maat_reference, dummy_maat_reference: dummy_reference?)
+    LaaReference.create!(defendant_id: defendant_id, user_name: user_name, maat_reference: maat_reference, dummy_maat_reference: dummy_reference?)
   end
 
   def push_to_sqs

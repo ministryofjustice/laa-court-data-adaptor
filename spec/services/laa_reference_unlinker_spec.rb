@@ -6,7 +6,7 @@ RSpec.describe LaaReferenceUnlinker do
   let(:user_name) { 'johnDoe' }
   let(:unlink_reason_code) { 1 }
   let(:unlink_other_reason_text) { 'Wrong defendant' }
-  let!(:linked_laa_reference) { LaaReference.create(defendant_id: defendant_id, maat_reference: 101_010) }
+  let!(:linked_laa_reference) { LaaReference.create(defendant_id: defendant_id, user_name: 'cpUser', maat_reference: 101_010) }
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,

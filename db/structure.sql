@@ -88,7 +88,8 @@ CREATE TABLE public.laa_references (
     dummy_maat_reference boolean DEFAULT false NOT NULL,
     linked boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    user_name character varying NOT NULL
 );
 
 
@@ -430,6 +431,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200424095754'),
 ('20200429163050'),
 ('20200519141938'),
-('20200720123025');
+('20200720123025'),
+('20200723141728');
 
 

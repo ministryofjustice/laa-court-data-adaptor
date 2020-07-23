@@ -53,7 +53,7 @@ RSpec.describe LaaReferenceCreator do
   end
 
   context 'when an LaaReference exists' do
-    let!(:existing_laa_reference) { LaaReference.create!(defendant_id: SecureRandom.uuid, maat_reference: maat_reference) }
+    let!(:existing_laa_reference) { LaaReference.create!(defendant_id: SecureRandom.uuid, user_name: 'MrDoe', maat_reference: maat_reference) }
 
     it 'raises an ActiveRecord::RecordInvalid error' do
       expect {
