@@ -11,7 +11,7 @@ RSpec.describe DefendantFinder do
   end
 
   context 'the defendant does exist' do
-    let!(:prosecution_case) { ProsecutionCase.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: prosecution_case_hash) }
+    let!(:prosecution_case) { ProsecutionCase.create!(id: '5edd67eb-9d8c-44f2-a57e-c8d026defaa4', body: prosecution_case_hash) }
     let!(:case_defendant_offence) { ProsecutionCaseDefendantOffence.create(defendant_id: defendant_id, prosecution_case_id: prosecution_case.id, offence_id: offence_id) }
 
     it 'returns a Defendant' do

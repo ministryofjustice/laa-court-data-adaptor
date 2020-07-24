@@ -113,6 +113,17 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
 
           run_test!
         end
+
+        context 'not found' do
+          response('404', 'Not found') do
+            let(:Authorization) { "Bearer #{token.token}" }
+            let(:id) { 'c6cf04b5' }
+
+            parameter '$ref' => '#/components/parameters/transaction_id_header'
+
+            run_test!
+          end
+        end
       end
     end
   end

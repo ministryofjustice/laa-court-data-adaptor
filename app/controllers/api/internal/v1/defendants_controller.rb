@@ -15,9 +15,12 @@ module Api
         end
 
         def show
-          prosecution_case = ProsecutionCaseDefendantOffence.find_by(defendant_id: params[:id])
-          defendant = ProsecutionCase.find(prosecution_case.prosecution_case_id).defendants.select{|defendant| defendant.id == params[:id]}.first
-          render json: DefendantSerializer.new(defendant)
+          defendant = DefendantFinder.call(defendant_id: params[:id])
+          if defendant.present?
+            render json: DefendantSerializer.new(defendant)
+          else
+            render status: :not_found
+          end
         end
 
         private
