@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       api_version(module: 'V1', path: { value: 'v1' }, default: true) do
         resources :prosecution_cases, only: [:index]
         resources :laa_references, only: [:create]
-        resources :defendants, only: [:update]
+        resources :defendants, only: [:update, :show]
         resources :representation_orders, only: [:create]
         resources :hearings, only: [:show]
       end

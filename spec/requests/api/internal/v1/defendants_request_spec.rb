@@ -87,5 +87,33 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
         end
       end
     end
+
+    path '/api/internal/v1/defendants/{id}' do
+      get('fetch a defendant by ID') do
+        description 'find a defendant where it exists within Court Data Adaptor'
+        consumes 'application/json'
+        tags 'Internal - available to other LAA applications'
+        security [oAuth: []]
+
+        response(200, 'Success') do
+          let!(:prosecution_case_result) do
+            VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success') do
+              Api::SearchProsecutionCase.call(prosecution_case_reference: '19GD1001816')
+            end
+          end
+
+          parameter name: :id, in: :path, required: true, type: :uuid,
+                    schema: {
+                      '$ref': 'defendant.json#/definitions/id'
+                    },
+                    description: 'The unique identifier of the defendant'
+
+          let(:Authorization) { "Bearer #{token.token}" }
+          let(:id) { 'c6cf04b5-901d-4a89-a9ab-767eb57306e4' }
+
+          run_test!
+        end
+      end
+    end
   end
 end
