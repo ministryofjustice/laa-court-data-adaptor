@@ -16,7 +16,7 @@ module Api
 
       @offence_id = offence_id
       @status_code = status_code
-      @application_reference = application_reference
+      @application_reference = application_reference.to_s
       @status_date = status_date
       @effective_start_date = effective_start_date
       @effective_end_date = effective_end_date

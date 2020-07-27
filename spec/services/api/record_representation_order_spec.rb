@@ -21,7 +21,7 @@ RSpec.describe Api::RecordRepresentationOrder do
       defendant_id: defendant_id,
       offence_id: offence_id,
       status_code: 'ABCDEF',
-      application_reference: 'SOME SORT OF MAAT ID',
+      application_reference: 999_999,
       status_date: '2019-12-12',
       effective_start_date: '2019-12-15',
       effective_end_date: '2020-12-15',
@@ -47,7 +47,7 @@ RSpec.describe Api::RecordRepresentationOrder do
     let(:request_params) do
       {
         statusCode: 'ABCDEF',
-        applicationReference: 'SOME SORT OF MAAT ID',
+        applicationReference: '999999',
         statusDate: '2019-12-12',
         effectiveStartDate: '2019-12-15',
         effectiveEndDate: '2020-12-15',
@@ -85,7 +85,7 @@ RSpec.describe Api::RecordRepresentationOrder do
       let(:request_params) do
         {
           statusCode: 'ABCDEF',
-          applicationReference: 'SOME SORT OF MAAT ID',
+          applicationReference: '999999',
           statusDate: '2019-12-12',
           effectiveStartDate: '2019-12-15',
           defenceOrganisation: defence_organisation
