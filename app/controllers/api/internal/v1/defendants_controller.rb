@@ -14,6 +14,15 @@ module Api
           end
         end
 
+        def show
+          defendant = DefendantFinder.call(defendant_id: params[:id])
+          if defendant.present?
+            render json: DefendantSerializer.new(defendant)
+          else
+            render status: :not_found
+          end
+        end
+
         private
 
         def enqueue_unlink
