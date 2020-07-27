@@ -30,7 +30,7 @@ RSpec.describe DefendantSerializer do
   context 'relationships' do
     let(:relationship_hash) { subject[:data][:relationships] }
 
-    it { expect(relationship_hash[:offences][:data]).to eq([id: '55555', type: :offences]) }
+    it { expect(relationship_hash[:offences][:data]).to eq([{ id: '55555', type: :offences }]) }
     it { expect(relationship_hash[:defence_organisation][:data]).to eq({ id: '88888', type: :defence_organisations }) }
   end
 end

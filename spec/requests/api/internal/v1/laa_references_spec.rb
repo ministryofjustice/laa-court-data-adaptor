@@ -38,7 +38,7 @@ RSpec.describe 'api/internal/v1/laa_references', type: :request, swagger_doc: 'v
       description 'Post an LAA reference to CDA to link a MAAT case to a Common Platform case'
       consumes 'application/json'
       tags 'Internal - available to other LAA applications'
-      security [oAuth: []]
+      security [{ oAuth: [] }]
 
       response(202, 'Accepted') do
         around do |example|
