@@ -7,6 +7,7 @@ RSpec.describe LaaReferenceCreator do
   let(:defendant_id) { '8cd0ba7e-df89-45a3-8c61-4008a2186d64' }
   let(:prosecution_case_id) { '7a0c947e-97b4-4c5a-ae6a-26320afc914d' }
   let(:laa_reference) { LaaReference.last }
+  let(:user_name) { 'caseWorker' }
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,
@@ -21,7 +22,7 @@ RSpec.describe LaaReferenceCreator do
     allow(Api::GetHearingResults).to receive(:call)
   end
 
-  subject(:create) { described_class.call(maat_reference: maat_reference, defendant_id: defendant_id) }
+  subject(:create) { described_class.call(maat_reference: maat_reference, user_name: user_name, defendant_id: defendant_id) }
 
   it 'creates an LaaReference' do
     expect {
@@ -47,12 +48,12 @@ RSpec.describe LaaReferenceCreator do
   end
 
   it 'calls the Sqs::PublishLaaReference service once' do
-    expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: maat_reference)
+    expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: maat_reference, user_name: user_name)
     create
   end
 
   context 'when an LaaReference exists' do
-    let!(:existing_laa_reference) { LaaReference.create!(defendant_id: SecureRandom.uuid, maat_reference: maat_reference) }
+    let!(:existing_laa_reference) { LaaReference.create!(defendant_id: SecureRandom.uuid, user_name: 'MrDoe', maat_reference: maat_reference) }
 
     it 'raises an ActiveRecord::RecordInvalid error' do
       expect {
@@ -81,7 +82,7 @@ RSpec.describe LaaReferenceCreator do
     end
 
     it 'calls the Sqs::PublishLaaReference service once' do
-      expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: maat_reference)
+      expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: maat_reference, user_name: user_name)
       create
     end
 
@@ -91,6 +92,13 @@ RSpec.describe LaaReferenceCreator do
     end
   end
 
+  context 'with no user name' do
+    let(:user_name) { nil }
+    it 'calls the Sqs::PublishLaaReference service once with user_name as cpUser' do
+      expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: maat_reference, user_name: 'cpUser')
+      create
+    end
+  end
   context 'with no maat reference' do
     let(:maat_reference) { nil }
 

@@ -6,11 +6,13 @@ RSpec.describe NewLaaReferenceContract do
   let(:hash_for_validation) do
     {
       maat_reference: maat_reference,
-      defendant_id: defendant_id
+      defendant_id: defendant_id,
+      user_name: user_name
     }
   end
   let(:maat_reference) { 123_456_789 }
   let(:defendant_id) { '23d7f10a-067a-476e-bba6-bb855674e23b' }
+  let(:user_name) { '' }
 
   it { is_expected.to be_a_success }
 
@@ -18,6 +20,18 @@ RSpec.describe NewLaaReferenceContract do
     let(:maat_reference) { '123456789' }
 
     it { is_expected.to be_a_success }
+  end
+
+  context 'with a user_name' do
+    let(:user_name) { 'johnDoe' }
+
+    it { is_expected.to be_a_success }
+  end
+
+  context 'with over 10 characters in user name' do
+    let(:user_name) { '12345678910' }
+
+    it { is_expected.to have_contract_error('size cannot be greater than 10') }
   end
 
   context 'with an alphanumeric maat_reference' do

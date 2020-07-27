@@ -18,7 +18,7 @@ RSpec.describe Sqs::PublishLaaReference do
       asn: 'ARREST123',
       cjsAreaCode: 16,
       cjsLocation: 'B16BG',
-      createdUser: 'cpUser',
+      createdUser: 'bossMan',
       docLanguage: 'EN',
       isActive: false,
       defendant: {
@@ -48,7 +48,7 @@ RSpec.describe Sqs::PublishLaaReference do
     }
   end
 
-  subject { described_class.call(prosecution_case_id: prosecution_case_id, defendant_id: defendant_id, maat_reference: maat_reference) }
+  subject { described_class.call(prosecution_case_id: prosecution_case_id, defendant_id: defendant_id, user_name: 'bossMan', maat_reference: maat_reference) }
 
   let(:queue_url) { Rails.configuration.x.aws.sqs_url_link }
 

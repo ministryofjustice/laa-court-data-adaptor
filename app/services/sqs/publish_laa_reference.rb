@@ -3,7 +3,6 @@
 module Sqs
   class PublishLaaReference < ApplicationService
     TEMPORARY_CJS_AREA_CODE = 16
-    TEMPORARY_CREATED_USER = 'cpUser'
     TEMPORARY_CJS_LOCATION = 'B16BG'
     TEMPORARY_DATE_OF_HEARING = '2020-08-16'
     TEMPORARY_POST_HEARING_CUSTODY = 'R'
@@ -11,9 +10,10 @@ module Sqs
     TEMPORARY_MODE_OF_TRIAL = 1
     TEMPORARY_RESULT_CODE = 3026
 
-    def initialize(prosecution_case_id:, defendant_id:, maat_reference:)
+    def initialize(prosecution_case_id:, defendant_id:, user_name:, maat_reference:)
       @prosecution_case = ProsecutionCase.find(prosecution_case_id)
       @maat_reference = maat_reference
+      @user_name = user_name
       @defendant = prosecution_case.defendants.find { |x| x.id == defendant_id }
     end
 
@@ -33,7 +33,7 @@ module Sqs
         caseUrn: prosecution_case.prosecution_case_reference,
         asn: defendant.arrest_summons_number,
         cjsAreaCode: TEMPORARY_CJS_AREA_CODE,
-        createdUser: TEMPORARY_CREATED_USER,
+        createdUser: user_name,
         cjsLocation: TEMPORARY_CJS_LOCATION,
         docLanguage: 'EN',
         isActive: active?,
@@ -80,6 +80,6 @@ module Sqs
       }]
     end
 
-    attr_reader :prosecution_case, :defendant, :maat_reference
+    attr_reader :prosecution_case, :defendant, :user_name, :maat_reference
   end
 end

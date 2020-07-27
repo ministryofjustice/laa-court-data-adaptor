@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class LaaReferenceCreator < ApplicationService
-  def initialize(defendant_id:, maat_reference: nil)
+  TEMPORARY_CREATED_USER = 'cpUser'
+
+  def initialize(defendant_id:, user_name: nil, maat_reference: nil)
     @defendant_id = defendant_id
+    @user_name = user_name.presence || TEMPORARY_CREATED_USER
     @maat_reference = maat_reference.presence || dummy_maat_reference
   end
 
@@ -16,11 +19,11 @@ class LaaReferenceCreator < ApplicationService
   private
 
   def create_laa_reference!
-    LaaReference.create!(defendant_id: defendant_id, maat_reference: maat_reference, dummy_maat_reference: dummy_reference?)
+    LaaReference.create!(defendant_id: defendant_id, user_name: user_name, maat_reference: maat_reference, dummy_maat_reference: dummy_reference?)
   end
 
   def push_to_sqs
-    Sqs::PublishLaaReference.call(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: maat_reference)
+    Sqs::PublishLaaReference.call(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, user_name: user_name, maat_reference: maat_reference)
   end
 
   def call_cp_endpoint
@@ -52,5 +55,5 @@ class LaaReferenceCreator < ApplicationService
     @dummy_maat_reference.present?
   end
 
-  attr_reader :defendant_id, :maat_reference
+  attr_reader :defendant_id, :user_name, :maat_reference
 end

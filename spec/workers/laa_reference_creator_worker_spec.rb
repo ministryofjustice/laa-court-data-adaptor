@@ -5,6 +5,7 @@ require 'sidekiq/testing'
 RSpec.describe LaaReferenceCreatorWorker, type: :worker do
   let(:defendant_id) { '2ecc9feb-9407-482f-b081-d9e5c8ba3ed3' }
   let(:maat_reference) { nil }
+  let(:user_name) { nil }
   let(:request_id) { 'XYZ' }
   let(:prosecution_case_id) { '7a0c947e-97b4-4c5a-ae6a-26320afc914d' }
   let!(:set_up_linked_prosecution_case) do
@@ -20,7 +21,7 @@ RSpec.describe LaaReferenceCreatorWorker, type: :worker do
   end
 
   subject(:work) do
-    described_class.perform_async(request_id, defendant_id, maat_reference)
+    described_class.perform_async(request_id, defendant_id, user_name, maat_reference)
   end
 
   it 'queues the job' do
@@ -31,7 +32,7 @@ RSpec.describe LaaReferenceCreatorWorker, type: :worker do
 
   it 'creates a LaaReferenceCreator and calls it' do
     Sidekiq::Testing.inline! do
-      expect(LaaReferenceCreator).to receive(:call).once.with(defendant_id: defendant_id, maat_reference: nil).and_call_original
+      expect(LaaReferenceCreator).to receive(:call).once.with(defendant_id: defendant_id, user_name: nil, maat_reference: nil).and_call_original
       work
     end
   end
@@ -40,7 +41,17 @@ RSpec.describe LaaReferenceCreatorWorker, type: :worker do
     let(:maat_reference) { 909_090 }
     it 'creates a LaaReferenceCreator and calls it' do
       Sidekiq::Testing.inline! do
-        expect(LaaReferenceCreator).to receive(:call).once.with(defendant_id: defendant_id, maat_reference: 909_090)
+        expect(LaaReferenceCreator).to receive(:call).once.with(defendant_id: defendant_id, user_name: nil, maat_reference: 909_090)
+        work
+      end
+    end
+  end
+
+  context 'with a non-nil user_name' do
+    let(:user_name) { 'johnDoe' }
+    it 'creates a LaaReferenceCreator and calls it' do
+      Sidekiq::Testing.inline! do
+        expect(LaaReferenceCreator).to receive(:call).once.with(defendant_id: defendant_id, user_name: 'johnDoe', maat_reference: nil)
         work
       end
     end
