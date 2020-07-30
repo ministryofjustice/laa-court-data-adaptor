@@ -11,6 +11,10 @@ class Hearing < ApplicationRecord
     hearing_body['type']['description']
   end
 
+  def hearing_type_description
+    hearing_body['type']['description']
+  end
+
   def hearing_id
     hearing_body['id']
   end
