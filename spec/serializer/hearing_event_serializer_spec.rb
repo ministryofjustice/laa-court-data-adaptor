@@ -6,7 +6,8 @@ RSpec.describe HearingEventSerializer do
   let(:hearing_event) do
     instance_double('HearingEvent',
                     id: 'UUID',
-                    description: 'Hearing type changed to Plea')
+                    description: 'Hearing type changed to Plea',
+                    occurred_at: '2020-04-30T16:17:58.610Z')
   end
 
   context 'data' do
@@ -21,5 +22,6 @@ RSpec.describe HearingEventSerializer do
     subject(:data_attributes) { serializable_hash[:data][:attributes] }
 
     it { expect(data_attributes[:description]).to eq('Hearing type changed to Plea') }
+    it { expect(data_attributes[:occurred_at]).to eq('2020-04-30T16:17:58.610Z') }
   end
 end

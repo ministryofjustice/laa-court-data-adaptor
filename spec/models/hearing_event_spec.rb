@@ -10,4 +10,5 @@ RSpec.describe HearingEvent, type: :model do
   subject(:defendant) { described_class.new(body: hearing_event_hash) }
 
   it { expect(defendant.description).to eq('Hearing started') }
+  it { expect(defendant.occurred_at).to eq('2020-04-30T16:17:58.610Z') }
 end
