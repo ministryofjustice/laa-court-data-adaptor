@@ -83,7 +83,13 @@ paths:
         type: uuid
         schema:
           "$ref": defendant.json#/definitions/id
-        description: The unique identifier of the defendant
+        description: The uuid of the defendant
+      - name: include
+        in: query
+        required: false
+        type: string
+        schema: {}
+        description: Return other data through a has_many relationship </br>e.g. include=offences
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '200':

@@ -106,7 +106,11 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
                     schema: {
                       '$ref': 'defendant.json#/definitions/id'
                     },
-                    description: 'The unique identifier of the defendant'
+                    description: 'The uuid of the defendant'
+
+          parameter name: 'include', in: :query, required: false, type: :string,
+                    schema: {},
+                    description: 'Return other data through a has_many relationship </br>e.g. include=offences'
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:id) { 'c6cf04b5-901d-4a89-a9ab-767eb57306e4' }
