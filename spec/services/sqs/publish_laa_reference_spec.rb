@@ -28,7 +28,7 @@ RSpec.describe Sqs::PublishLaaReference do
         offences: [
           {
             offenceId: '3f153786-f3cf-4311-bc0c-2d6f48af68a1',
-            offenceCode: 'AA06035',
+            offenceCode: 'PT00011',
             modeOfTrial: 1,
             asnSeq: 1,
             offenceShortTitle: 'Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable',
