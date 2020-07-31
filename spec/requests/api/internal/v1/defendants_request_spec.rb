@@ -8,6 +8,7 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
 
   let(:token) { access_token }
   let(:id) { '23d7f10a-067a-476e-bba6-bb855674e23b' }
+  let(:include) {}
   let(:defendant) do
     {
       data: {
@@ -88,41 +89,66 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
       end
     end
 
-    path '/api/internal/v1/defendants/{id}' do
-      get('fetch a defendant by ID') do
-        description 'find a defendant where it exists within Court Data Adaptor'
-        consumes 'application/json'
-        tags 'Internal - available to other LAA applications'
-        security [oAuth: []]
+    get('fetch a defendant by ID') do
+      description 'find a defendant where it exists within Court Data Adaptor'
+      consumes 'application/json'
+      tags 'Internal - available to other LAA applications'
+      security [oAuth: []]
 
-        response(200, 'Success') do
-          let!(:prosecution_case_result) do
-            VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success') do
-              Api::SearchProsecutionCase.call(prosecution_case_reference: '19GD1001816')
-            end
+      parameter name: :id, in: :path, required: true, type: :uuid,
+                schema: {
+                  '$ref': 'defendant.json#/definitions/id'
+                },
+                description: 'The uuid of the defendant'
+
+      parameter name: 'include', in: :query, required: false, type: :string,
+                schema: {},
+                description: 'Return other data through a has_many relationship </br>e.g. include=offences'
+
+      context 'with success' do
+        let(:Authorization) { "Bearer #{token.token}" }
+        let(:id) { 'c6cf04b5-901d-4a89-a9ab-767eb57306e4' }
+        let!(:prosecution_case_result) do
+          VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success') do
+            Api::SearchProsecutionCase.call(prosecution_case_reference: '19GD1001816')
           end
-
-          parameter name: :id, in: :path, required: true, type: :uuid,
-                    schema: {
-                      '$ref': 'defendant.json#/definitions/id'
-                    },
-                    description: 'The unique identifier of the defendant'
-
-          let(:Authorization) { "Bearer #{token.token}" }
-          let(:id) { 'c6cf04b5-901d-4a89-a9ab-767eb57306e4' }
-
-          run_test!
         end
 
-        context 'not found' do
-          response('404', 'Not found') do
-            let(:Authorization) { "Bearer #{token.token}" }
-            let(:id) { 'c6cf04b5' }
+        context 'with no inclusions' do
+          let(:include) {}
 
-            parameter '$ref' => '#/components/parameters/transaction_id_header'
-
+          response(200, 'Success') do
             run_test!
           end
+        end
+
+        context 'with offences included' do
+          let(:include) { 'offences' }
+
+          response(200, 'Success') do
+            let!(:prosecution_case_result) do
+              VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success') do
+                Api::SearchProsecutionCase.call(prosecution_case_reference: '19GD1001816')
+              end
+            end
+
+            run_test! do |response|
+              hashed = JSON.parse(response.body, symbolize_names: true)
+              included_types = hashed[:included].map { |inc| inc[:type] }
+              expect(included_types).to all(eql('offences'))
+            end
+          end
+        end
+      end
+
+      context 'when not found' do
+        response('404', 'Not found') do
+          let(:Authorization) { "Bearer #{token.token}" }
+          let(:id) { 'c6cf04b5' }
+
+          parameter '$ref' => '#/components/parameters/transaction_id_header'
+
+          run_test!
         end
       end
     end
