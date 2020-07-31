@@ -17,7 +17,7 @@ module Api
         def show
           defendant = DefendantFinder.call(defendant_id: params[:id])
           if defendant.present?
-            render json: DefendantSerializer.new(defendant)
+            render json: DefendantSerializer.new(defendant, serialization_options)
           else
             render status: :not_found
           end
@@ -45,6 +45,16 @@ module Api
 
         def transformed_params
           @transformed_params ||= unlink_params.slice(*allowed_params).to_hash.transform_keys(&:to_sym).merge(defendant_id: params[:id])
+        end
+
+        def serialization_options
+          return { include: inclusions, params: { inclusions: inclusions } } if params[:include].present?
+
+          {}
+        end
+
+        def inclusions
+          params[:include].split(',')
         end
       end
     end
