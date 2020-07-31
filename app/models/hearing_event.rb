@@ -12,4 +12,8 @@ class HearingEvent
   def description
     body['recordedLabel']
   end
+
+  def occurred_at
+    body['eventTime']
+  end
 end
