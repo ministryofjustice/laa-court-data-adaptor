@@ -6,7 +6,6 @@ class HearingSerializer
 
   attributes :court_name,
              :hearing_type,
-             :hearing_type_description,
              :hearing_days,
              :defendant_names,
              :judge_names,
