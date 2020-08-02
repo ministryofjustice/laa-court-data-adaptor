@@ -57,7 +57,7 @@ RSpec.describe Hearing, type: :model do
       it { expect(hearing.providers).to all be_a(Provider) }
       it { expect(hearing.provider_ids).to eq(['a1e3c7a6-c6da-4191-969b-f370fcce46a8']) }
       it { expect(hearing.hearing_id).to eq('2df3d60a-3826-4099-99b0-f89e2cb5e8ec') }
-      it { expect(hearing.hearing_type_description).to eq('This is a description') }
+      it { expect(hearing.hearing_type).to eq('This is a description') }
       it { expect(hearing.hearing_days).to eq(['2019-10-23T16:19:15.000Z']) }
 
       context 'when prosecutionCounsels are not provided' do
