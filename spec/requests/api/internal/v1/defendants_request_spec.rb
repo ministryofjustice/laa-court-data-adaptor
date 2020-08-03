@@ -33,7 +33,7 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
       description 'Delete an LAA reference from Common Platform case'
       consumes 'application/json'
       tags 'Internal - available to other LAA applications'
-      security [oAuth: []]
+      security [{ oAuth: [] }]
 
       response(202, 'Accepted') do
         parameter name: :id, in: :path, required: true, type: :uuid,
@@ -93,7 +93,7 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
       description 'find a defendant where it exists within Court Data Adaptor'
       consumes 'application/json'
       tags 'Internal - available to other LAA applications'
-      security [oAuth: []]
+      security [{ oAuth: [] }]
 
       parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
@@ -128,7 +128,7 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
           response(200, 'Success') do
             run_test! do |response|
               hashed = JSON.parse(response.body, symbolize_names: true)
-              included_types = hashed[:included].map { |inc| inc[:type] }
+              included_types = hashed[:included].pluck(:type)
               expect(included_types).to all(eql('offences'))
             end
           end

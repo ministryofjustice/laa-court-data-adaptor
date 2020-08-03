@@ -79,7 +79,7 @@ RSpec.describe 'api/internal/v1/representation_orders', type: :request, swagger_
       description 'Post a Representation Order to CDA to update the status on a MAAT case to a Common Platform case'
       consumes 'application/vnd.api+json'
       tags 'Internal - available to other LAA applications'
-      security [oAuth: []]
+      security [{ oAuth: [] }]
 
       response(202, 'Accepted') do
         around do |example|

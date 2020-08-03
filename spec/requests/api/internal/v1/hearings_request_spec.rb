@@ -14,7 +14,7 @@ RSpec.describe 'Api::Internal::V1::Hearings', type: :request do
       description 'GET Common Platform hearing data'
       consumes 'application/json'
       tags 'Internal - available to other LAA applications'
-      security [oAuth: []]
+      security [{ oAuth: [] }]
 
       parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
@@ -54,7 +54,7 @@ RSpec.describe 'Api::Internal::V1::Hearings', type: :request do
           response(200, 'Success') do
             run_test! do |response|
               hashed = JSON.parse(response.body, symbolize_names: true)
-              included_types = hashed[:included].map { |inc| inc[:type] }
+              included_types = hashed[:included].pluck(:type)
               expect(included_types).to all(eql('hearing_events'))
             end
           end

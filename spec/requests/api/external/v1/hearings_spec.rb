@@ -12,7 +12,7 @@ RSpec.describe 'api/external/v1/hearings', type: :request do
       description 'Post Common Platform hearing data to CDA'
       consumes 'application/json'
       tags 'External - available to Common Platform'
-      security [oAuth: []]
+      security [{ oAuth: [] }]
 
       response(202, 'Accepted') do
         parameter name: :hearing, in: :body, required: false, type: :object,

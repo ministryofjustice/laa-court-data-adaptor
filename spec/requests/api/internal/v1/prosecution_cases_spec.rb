@@ -19,7 +19,7 @@ RSpec.describe 'api/internal/v1/prosecution_cases', type: :request, swagger_doc:
                     5) name and date_of_next_hearing'
       consumes 'application/json'
       tags 'Internal - available to other LAA applications'
-      security [oAuth: []]
+      security [{ oAuth: [] }]
 
       context 'search by prosecution_case_reference' do
         response(200, 'Success') do
