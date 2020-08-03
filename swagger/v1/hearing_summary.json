@@ -21,7 +21,7 @@
       "example": "hearing_summaries",
       "type": "string"
     },
-    "hearing_type_description": {
+    "hearing_type": {
       "readOnly": true,
       "example": "First hearing",
       "description": "A description of the hearing type",
@@ -60,8 +60,8 @@
     "attributes": {
       "type": "object",
       "properties": {
-        "hearing_type_description": {
-          "$ref": "#/definitions/hearing_type_description"
+        "hearing_type": {
+          "$ref": "#/definitions/hearing_type"
         },
         "hearing_days": {
           "$ref": "#/definitions/hearing_days"
@@ -82,8 +82,8 @@
     },
   ],
   "properties": {
-    "hearing_type_description": {
-      "$ref": "#/definitions/hearing_type_description"
+    "hearing_type": {
+      "$ref": "#/definitions/hearing_type"
     },
     "hearing_days": {
       "$ref": "#/definitions/hearing_days"
