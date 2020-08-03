@@ -11,10 +11,6 @@ class Hearing < ApplicationRecord
     hearing_body['type']['description']
   end
 
-  def hearing_id
-    hearing_body['id']
-  end
-
   def hearing_days
     hearing_body['hearingDays'].map { |hearing_day| hearing_day['sittingDay'] }
   end

@@ -16,8 +16,8 @@ RSpec.describe Sqs::PublishLaaReference do
       maatId: maat_reference,
       caseUrn: '20GD0217100',
       asn: 'ARREST123',
-      cjsAreaCode: 16,
-      cjsLocation: 'B16BG',
+      cjsAreaCode: '1',
+      cjsLocation: 'B01BH',
       createdUser: 'bossMan',
       docLanguage: 'EN',
       isActive: false,
@@ -41,8 +41,8 @@ RSpec.describe Sqs::PublishLaaReference do
         ]
       },
       sessions: [{
-        courtLocation: 'B16BG',
-        dateOfHearing: '2020-08-16',
+        courtLocation: 'B01BH',
+        dateOfHearing: '2020-02-17',
         postHearingCustody: 'R'
       }]
     }
