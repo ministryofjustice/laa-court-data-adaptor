@@ -150,7 +150,7 @@ GEM
     json-schema (2.8.1)
       addressable (>= 2.4)
     json_schema (0.20.8)
-    jsonapi_parameters (2.1.0)
+    jsonapi_parameters (2.1.1)
       actionpack (>= 4.1.8)
       activesupport (>= 4.1.8)
     listen (3.2.1)
