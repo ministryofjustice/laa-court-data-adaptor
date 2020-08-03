@@ -4,5 +4,5 @@ class HearingSummarySerializer
   include FastJsonapi::ObjectSerializer
   set_type :hearing_summaries
 
-  attributes :hearing_type_description, :hearing_days
+  attributes :hearing_type, :hearing_days
 end

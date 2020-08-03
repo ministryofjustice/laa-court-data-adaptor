@@ -9,7 +9,7 @@ class HearingSummary
     body['hearingId']
   end
 
-  def hearing_type_description
+  def hearing_type
     body['hearingType']['description']
   end
 

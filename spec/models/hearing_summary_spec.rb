@@ -11,6 +11,6 @@ RSpec.describe HearingSummary, type: :model do
   subject(:hearing_summary) { described_class.new(body: hearing_summary_hash) }
 
   it { expect(hearing_summary.id).to eq('b935a64a-6d03-4da4-bba6-4d32cc2e7fb4') }
-  it { expect(hearing_summary.hearing_type_description).to eq('First hearing') }
+  it { expect(hearing_summary.hearing_type).to eq('First hearing') }
   it { expect(hearing_summary.hearing_days).to eq(['2020-02-17T15:00:00Z']) }
 end
