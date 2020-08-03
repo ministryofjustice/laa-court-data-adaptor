@@ -6,7 +6,6 @@ module Sqs
     TEMPORARY_CJS_LOCATION = 'B16BG'
     TEMPORARY_DATE_OF_HEARING = '2020-08-16'
     TEMPORARY_POST_HEARING_CUSTODY = 'R'
-    TEMPORARY_OFFENCE_CODE = 'AA06035'
     TEMPORARY_MODE_OF_TRIAL = 1
     TEMPORARY_RESULT_CODE = 3026
 
@@ -56,7 +55,7 @@ module Sqs
       defendant.offences.map do |offence|
         [
           [:offenceId, offence.id],
-          [:offenceCode, TEMPORARY_OFFENCE_CODE],
+          [:offenceCode, offence.code],
           [:asnSeq, offence.order_index],
           [:offenceShortTitle, offence.title],
           [:offenceWording, offence.body['wording']],
