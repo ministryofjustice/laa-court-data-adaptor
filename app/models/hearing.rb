@@ -37,12 +37,6 @@ class Hearing < ApplicationRecord
     hearing_events.map(&:id)
   end
 
-  def hearing_time
-    hearing_body.dig('hearingDays')&.map do |detail|
-      detail['startTime']
-    end
-  end
-
   def judge_names
     judiciary.map do |judge|
       "#{judge['title']} #{judge['firstName']} #{judge['middleName']} #{judge['lastName']}"
