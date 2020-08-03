@@ -126,12 +126,6 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
           let(:include) { 'offences' }
 
           response(200, 'Success') do
-            let!(:prosecution_case_result) do
-              VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success') do
-                Api::SearchProsecutionCase.call(prosecution_case_reference: '19GD1001816')
-              end
-            end
-
             run_test! do |response|
               hashed = JSON.parse(response.body, symbolize_names: true)
               included_types = hashed[:included].map { |inc| inc[:type] }

@@ -113,7 +113,13 @@ paths:
         type: uuid
         schema:
           "$ref": hearing.json#/definitions/id
-        description: The unique identifier of the hearing
+        description: The uuid of the hearing
+      - name: include
+        in: query
+        required: false
+        type: string
+        schema: {}
+        description: Return other data through a has_many relationship </br>e.g. include=hearing_events
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
