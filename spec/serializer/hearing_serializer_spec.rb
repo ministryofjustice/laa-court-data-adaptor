@@ -11,7 +11,6 @@ RSpec.describe HearingSerializer do
                     judge_names: ['Mr Recorder J Patterson'],
                     prosecution_advocate_names: ['John Rob'],
                     defence_advocate_names: ['Neil Griffiths'],
-                    hearing_time: ['10:00:00'],
                     provider_ids: ['PROVIDER_UUID'],
                     hearing_type_description: ['Committal for Sentencing'],
                     hearing_days: ['2020-02-01'])
@@ -28,7 +27,6 @@ RSpec.describe HearingSerializer do
     it { expect(attribute_hash[:judge_names]).to eq(['Mr Recorder J Patterson']) }
     it { expect(attribute_hash[:prosecution_advocate_names]).to eq(['John Rob']) }
     it { expect(attribute_hash[:defence_advocate_names]).to eq(['Neil Griffiths']) }
-    it { expect(attribute_hash[:hearing_time]).to eq(['10:00:00']) }
     it { expect(attribute_hash[:hearing_type_description]).to eq(['Committal for Sentencing']) }
     it { expect(attribute_hash[:hearing_days]).to eq(['2020-02-01']) }
   end
