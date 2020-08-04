@@ -29,21 +29,17 @@ RSpec.describe Sqs::PublishLaaReference do
           {
             offenceId: '3f153786-f3cf-4311-bc0c-2d6f48af68a1',
             offenceCode: 'PT00011',
-            modeOfTrial: 1,
             asnSeq: 1,
+            offenceClassification: 'Summary',
+            offenceDate: '2020-02-01',
             offenceShortTitle: 'Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable',
-            offenceWording: 'Test',
-            results: [{
-              asnSeq: 1,
-              resultCode: 3026
-            }]
+            offenceWording: 'Test'
           }
         ]
       },
       sessions: [{
         courtLocation: 'B01BH',
-        dateOfHearing: '2020-02-17',
-        postHearingCustody: 'R'
+        dateOfHearing: '2020-02-17'
       }]
     }
   end

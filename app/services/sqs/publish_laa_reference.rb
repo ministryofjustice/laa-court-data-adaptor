@@ -2,10 +2,6 @@
 
 module Sqs
   class PublishLaaReference < ApplicationService
-    TEMPORARY_POST_HEARING_CUSTODY = 'R'
-    TEMPORARY_MODE_OF_TRIAL = 1
-    TEMPORARY_RESULT_CODE = 3026
-
     def initialize(prosecution_case_id:, defendant_id:, user_name:, maat_reference:)
       @prosecution_case = ProsecutionCase.find(prosecution_case_id)
       @maat_reference = maat_reference
@@ -47,33 +43,25 @@ module Sqs
       }
     end
 
-    # rubocop:disable Metrics/MethodLength
     def offences_map
       defendant.offences.map do |offence|
         [
           [:offenceId, offence.id],
           [:offenceCode, offence.code],
           [:asnSeq, offence.order_index],
+          [:offenceClassification, offence.mode_of_trial],
+          [:offenceDate, offence.body['startDate']],
           [:offenceShortTitle, offence.title],
-          [:offenceWording, offence.body['wording']],
-          [:modeOfTrial, TEMPORARY_MODE_OF_TRIAL],
-          [:results, [
-            [
-              [:resultCode, TEMPORARY_RESULT_CODE],
-              [:asnSeq, offence.order_index]
-            ].to_h
-          ]]
+          [:offenceWording, offence.body['wording']]
         ].to_h
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     def sessions_map
       prosecution_case.hearing_summaries.map do |hearing_summary|
         {
           courtLocation: hearing_summary.short_oucode,
-          dateOfHearing: hearing_summary.hearing_days.max.to_date.strftime('%Y-%m-%d'),
-          postHearingCustody: TEMPORARY_POST_HEARING_CUSTODY
+          dateOfHearing: hearing_summary.hearing_days.max.to_date.strftime('%Y-%m-%d')
         }
       end
     end
