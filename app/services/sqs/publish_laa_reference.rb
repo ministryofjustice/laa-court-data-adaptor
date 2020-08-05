@@ -2,13 +2,6 @@
 
 module Sqs
   class PublishLaaReference < ApplicationService
-    TEMPORARY_CJS_AREA_CODE = 16
-    TEMPORARY_CJS_LOCATION = 'B16BG'
-    TEMPORARY_DATE_OF_HEARING = '2020-08-16'
-    TEMPORARY_POST_HEARING_CUSTODY = 'R'
-    TEMPORARY_MODE_OF_TRIAL = 1
-    TEMPORARY_RESULT_CODE = 3026
-
     def initialize(prosecution_case_id:, defendant_id:, user_name:, maat_reference:)
       @prosecution_case = ProsecutionCase.find(prosecution_case_id)
       @maat_reference = maat_reference
@@ -31,9 +24,9 @@ module Sqs
         maatId: maat_reference,
         caseUrn: prosecution_case.prosecution_case_reference,
         asn: defendant.arrest_summons_number,
-        cjsAreaCode: TEMPORARY_CJS_AREA_CODE,
+        cjsAreaCode: prosecution_case.hearing_summaries.first.oucode_l2_code,
         createdUser: user_name,
-        cjsLocation: TEMPORARY_CJS_LOCATION,
+        cjsLocation: prosecution_case.hearing_summaries.first.short_oucode,
         docLanguage: 'EN',
         isActive: active?,
         defendant: defendant_hash,
@@ -50,33 +43,27 @@ module Sqs
       }
     end
 
-    # rubocop:disable Metrics/MethodLength
     def offences_map
       defendant.offences.map do |offence|
         [
           [:offenceId, offence.id],
           [:offenceCode, offence.code],
           [:asnSeq, offence.order_index],
+          [:offenceClassification, offence.mode_of_trial],
+          [:offenceDate, offence.body['startDate']],
           [:offenceShortTitle, offence.title],
-          [:offenceWording, offence.body['wording']],
-          [:modeOfTrial, TEMPORARY_MODE_OF_TRIAL],
-          [:results, [
-            [
-              [:resultCode, TEMPORARY_RESULT_CODE],
-              [:asnSeq, offence.order_index]
-            ].to_h
-          ]]
+          [:offenceWording, offence.body['wording']]
         ].to_h
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     def sessions_map
-      [{
-        courtLocation: TEMPORARY_CJS_LOCATION,
-        dateOfHearing: TEMPORARY_DATE_OF_HEARING,
-        postHearingCustody: TEMPORARY_POST_HEARING_CUSTODY
-      }]
+      prosecution_case.hearing_summaries.map do |hearing_summary|
+        {
+          courtLocation: hearing_summary.short_oucode,
+          dateOfHearing: hearing_summary.hearing_days.max.to_date.strftime('%Y-%m-%d')
+        }
+      end
     end
 
     attr_reader :prosecution_case, :defendant, :user_name, :maat_reference
