@@ -26,6 +26,8 @@ RSpec.describe Defendant, type: :model do
     subject(:defendant) { described_class.new(body: defendant_hash, details: details_hash) }
 
     it { expect(defendant.prosecution_case_id).to eq('5edd67eb-9d8c-44f2-a57e-c8d026defaa4') }
+
+    it { expect(defendant.prosecution_case).to be_a(ProsecutionCase) }
   end
 
   it 'initialises Offence without details' do

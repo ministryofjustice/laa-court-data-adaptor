@@ -57,6 +57,10 @@ class Defendant
     body['prosecutionCaseId']
   end
 
+  def prosecution_case
+    ProsecutionCase.new(id: body['prosecutionCaseId'], body: body)
+  end
+
   private
 
   def offence_details
