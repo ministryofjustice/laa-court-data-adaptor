@@ -38,12 +38,6 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            exec:
-              command: ['bundle', 'exec', 'rake', 'kubernetes:healthcheck']
-          readinessProbe:
-            exec:
-              command: ['bundle', 'exec', 'rake', 'kubernetes:healthcheck']
           {{ include "laa-court-data-adaptor.env-vars" . | nindent 10 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
