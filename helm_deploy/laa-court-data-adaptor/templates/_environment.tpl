@@ -14,6 +14,8 @@ env:
       secretKeyRef:
         name: ec-cluster-output
         key: url
+  - name: RAILS_ENV
+    value: 'production'
   - name: HOST_ENV
     value: {{ .Values.rails.host_env }}
   - name: SECRET_KEY_BASE
