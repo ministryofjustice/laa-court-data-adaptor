@@ -2,8 +2,22 @@
 
 RSpec.describe Defendant, type: :model do
   let(:prosecution_case_hash) do
+    JSON.parse(file_fixture('prosecution_case_search_result.json').read)
+  end
+
+  let(:details_hash) { nil }
+
+  subject(:defendant) { described_class.new(body: prosecution_case_hash, details: details_hash) }
+
+  it 'returns the prosecution case id' do
+    defendant.body = prosecution_case_hash
+    expect(defendant.prosecution_case_id).to eq('5edd67eb-9d8c-44f2-a57e-c8d026defaa4')
+  end
+
+  let(:prosecution_case_hash) do
     JSON.parse(file_fixture('prosecution_case_search_result.json').read)['cases'][0]
   end
+
   let(:defendant_hash) do
     prosecution_case_hash['defendantSummary'][0]
   end

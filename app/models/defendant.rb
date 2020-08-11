@@ -53,6 +53,10 @@ class Defendant
     _maat_reference if valid_maat_reference?
   end
 
+  def prosecution_case_id
+    body['prosecutionCaseId']
+  end
+
   private
 
   def offence_details
