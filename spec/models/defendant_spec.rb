@@ -9,25 +9,28 @@ RSpec.describe Defendant, type: :model do
     prosecution_case_hash['defendantSummary'][0]
   end
 
+  let(:prosecution_case_id) { nil }
+
   let(:details_hash) { nil }
 
-  subject(:defendant) { described_class.new(body: defendant_hash, details: details_hash) }
+  subject(:defendant) { described_class.new(body: defendant_hash, details: details_hash, prosecution_case_id: prosecution_case_id) }
 
   it { expect(defendant.name).to eq('George Walsh') }
   it { expect(defendant.date_of_birth).to eq('1980-01-01') }
   it { expect(defendant.national_insurance_number).to eq('HB133542A') }
   it { expect(defendant.arrest_summons_number).to eq('ARREST123') }
+  it { expect(defendant.prosecution_case).to be_nil }
 
   context 'prosecution case information' do
-    let(:defendant_hash) { prosecution_case_hash }
+    before do
+      ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case_hash)
+    end
 
-    let(:details_hash) { nil }
-
-    subject(:defendant) { described_class.new(body: defendant_hash, details: details_hash) }
+    let(:prosecution_case_id) { '5edd67eb-9d8c-44f2-a57e-c8d026defaa4' }
 
     it { expect(defendant.prosecution_case_id).to eq('5edd67eb-9d8c-44f2-a57e-c8d026defaa4') }
-
     it { expect(defendant.prosecution_case).to be_a(ProsecutionCase) }
+    it { expect(defendant.prosecution_case).to be_persisted }
   end
 
   it 'initialises Offence without details' do
