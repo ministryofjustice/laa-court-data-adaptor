@@ -64,7 +64,7 @@ module Sqs
 
     def message
       {
-        maatId: defendant.dig(:laaApplnReference, :applicationReference).to_i,
+        maatId: maat_reference,
         caseUrn: case_urn,
         jurisdictionType: jurisdiction_type,
         asn: defendant.dig(:personDefendant, :arrestSummonsNumber),
@@ -77,6 +77,10 @@ module Sqs
         session: session_hash,
         ccOutComeData: crown_court_outcome_hash
       }
+    end
+
+    def maat_reference
+      defendant[:offences].first[:laaApplnReference][:applicationReference].to_i
     end
 
     # rubocop:disable Metrics/MethodLength
