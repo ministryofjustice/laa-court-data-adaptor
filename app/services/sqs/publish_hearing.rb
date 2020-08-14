@@ -69,7 +69,7 @@ module Sqs
         jurisdictionType: jurisdiction_type,
         asn: defendant.dig(:personDefendant, :arrestSummonsNumber),
         cjsAreaCode: cjs_area_code,
-        caseCreationDate: shared_time.split.first,
+        caseCreationDate: shared_time.to_date.strftime('%Y-%m-%d'),
         cjsLocation: cjs_location,
         docLanguage: 'EN',
         inActive: inactive?,

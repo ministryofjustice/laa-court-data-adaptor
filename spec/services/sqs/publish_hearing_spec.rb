@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Sqs::PublishHearing do
-  let(:shared_time) { '2018-10-25 11:30:00' }
+  let(:shared_time) { '2018-10-25T14:45:05.602Z' }
   let(:jurisdiction_type) { 'CROWN' }
   let(:case_urn) { '12345' }
   let(:court_centre_id) { 'dd22b110-7fbc-3036-a076-e4bb40d0a519' }
