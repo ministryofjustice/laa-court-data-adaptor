@@ -80,12 +80,6 @@ RSpec.describe Sqs::PublishHearing do
           }
         }
       ],
-      'laaApplnReference': {
-        'applicationReference': '123456789',
-        'statusCode': 'AP',
-        'statusDescription': 'Application Pending',
-        'statusDate': '2018-10-24'
-      },
       'defenceOrganisation': {
         'laaAccountNumber': '0A935R'
       }

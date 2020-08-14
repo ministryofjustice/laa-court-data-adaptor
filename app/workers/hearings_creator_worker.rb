@@ -5,7 +5,7 @@ class HearingsCreatorWorker
 
   def perform(request_id, hearing, shared_time)
     Current.set(request_id: request_id) do
-      HearingsCreator.call(hearing: hearing, shared_time: shared_time)
+      HearingsCreator.call(hearing: hearing.deep_transform_keys(&:to_sym), shared_time: shared_time)
     end
   end
 end

@@ -4,7 +4,20 @@ require 'sidekiq/testing'
 
 RSpec.describe HearingsCreatorWorker, type: :worker do
   let(:hearing_hash) do
-    { 'prosecutionCases' => '[]' }
+    {
+      'prosecutionCases' => [{
+        'defendants' => {}
+      }]
+    }
+  end
+
+  let(:transformed_hearing_hash) do
+    {
+      prosecutionCases: [{
+        defendants: {
+        }
+      }]
+    }
   end
   let(:shared_time) { '2020-06-16' }
   let(:request_id) { 'XYZ' }
@@ -19,9 +32,9 @@ RSpec.describe HearingsCreatorWorker, type: :worker do
     }.to change(described_class.jobs, :size).by(1)
   end
 
-  it 'creates a HearingsCreator and calls it' do
+  it 'creates a HearingsCreator and calls with a transformed hash' do
     Sidekiq::Testing.inline! do
-      expect(HearingsCreator).to receive(:call).once.with(hearing: hearing_hash, shared_time: shared_time).and_call_original
+      expect(HearingsCreator).to receive(:call).once.with(hearing: transformed_hearing_hash, shared_time: shared_time).and_call_original
       work
     end
   end
