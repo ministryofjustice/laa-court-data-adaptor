@@ -43,6 +43,12 @@ $ docker-compose up
 ```
 The app should be running at `http://localhost:3000`
 
+#### Running tests in docker
+
+Tests can be executed in the docker instance
+```
+$ docker-compose run app bundle exec rspec
+```
 
 ### API Authentication
 

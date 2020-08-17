@@ -13,6 +13,11 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.

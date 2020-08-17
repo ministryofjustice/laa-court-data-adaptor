@@ -46,8 +46,6 @@ RUN gem install bundler:2.1.4 -N \
 # DEPENDENCIES END #
 ####################
 
-ARG RAILS_ENV
-ENV RAILS_ENV ${RAILS_ENV:-production}
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 EXPOSE 3000
@@ -55,7 +53,7 @@ EXPOSE 3000
 COPY . .
 
 # non-root/appuser should own only what they need to
-RUN chown -R appuser:appgroup app config log tmp db
+RUN chown -R appuser:appgroup app config log tmp db coverage spec
 
 USER 1000
 CMD "./docker/run"

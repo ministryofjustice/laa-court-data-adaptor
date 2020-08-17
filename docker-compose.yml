@@ -6,25 +6,22 @@ services:
       args:
         BUNDLE_DEPLOYMENT: 'false'
         BUNDLE_WITHOUT: ' ' # Intentional blank value
-        RAILS_ENV: development
     volumes:
       - .:/app
+      - ./vendor/bundle:/app/vendor/bundle
     depends_on:
       - postgres
       - redis
-    command: bundle exec rails s -b 0.0.0.0
     ports:
       - '3000:3000'
     environment:
       REDIS_URL: redis://redis
-      DATABASE_URL: postgres://postgres@postgres/laa_court_data_adaptor_development
   sidekiq:
     build:
       context: .
       args:
         BUNDLE_DEPLOYMENT: 'false'
         BUNDLE_WITHOUT: ' ' # Intentional blank value
-        RAILS_ENV: development
     volumes:
       - .:/app
     depends_on:
@@ -33,7 +30,6 @@ services:
     command: bundle exec sidekiq
     environment:
       REDIS_URL: redis://redis
-      DATABASE_URL: postgres://postgres@postgres/laa_court_data_adaptor_development
   postgres:
     image: postgres:11.5-alpine
     ports:
