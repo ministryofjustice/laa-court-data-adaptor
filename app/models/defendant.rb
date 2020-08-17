@@ -3,7 +3,7 @@
 class Defendant
   include ActiveModel::Model
 
-  attr_accessor :body, :details
+  attr_accessor :body, :details, :prosecution_case_id
 
   def id
     body['defendantId']
@@ -51,6 +51,10 @@ class Defendant
 
   def maat_reference
     _maat_reference if valid_maat_reference?
+  end
+
+  def prosecution_case
+    ProsecutionCase.find_by(id: prosecution_case_id)
   end
 
   private

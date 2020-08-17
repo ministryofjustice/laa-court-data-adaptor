@@ -12,14 +12,16 @@ RSpec.describe ProsecutionCase, type: :model do
       end
     end
 
-    let(:prosecution_case) { described_class.create(id: '31cbe62d-b1ec-4e82-89f7-99dced834900', body: prosecution_case_result.body['cases'][0]) }
+    let(:prosecution_case) { described_class.create(id: prosecution_case_id, body: prosecution_case_result.body['cases'][0]) }
+
+    let(:prosecution_case_id) { '31cbe62d-b1ec-4e82-89f7-99dced834900' }
 
     it { expect(prosecution_case.prosecution_case_reference).to eq('19GD1001816') }
     it { expect(prosecution_case.defendants).to all be_a(Defendant) }
     it { expect(prosecution_case.hearing_summaries).to all be_a(HearingSummary) }
 
     it 'initialises Defendants without details' do
-      expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil).twice.and_call_original
+      expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice.and_call_original
       prosecution_case.defendants
     end
 
@@ -76,7 +78,7 @@ RSpec.describe ProsecutionCase, type: :model do
         before { prosecution_case.hearings }
 
         it 'initialises Defendants with detailed fetched from hearing' do
-          expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: an_instance_of(Hash)).twice
+          expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: an_instance_of(Hash), prosecution_case_id: prosecution_case_id).twice
           prosecution_case.defendants
         end
 
@@ -85,7 +87,7 @@ RSpec.describe ProsecutionCase, type: :model do
           let(:hearing_two) { Hearing.create(id: hearing_ids[1], body: { 'id' => hearing_ids[1] }) }
 
           it 'initialises Defendants without details' do
-            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil).twice
+            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice
             prosecution_case.defendants
           end
         end
