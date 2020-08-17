@@ -26,7 +26,8 @@
 spec/examples.txt
 
 # Ignore simplecov coverage stats
-/coverage/
+/coverage/*
+!/coverage/.keep
 
 # dotenv files
 .env.*.local
