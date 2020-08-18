@@ -143,7 +143,12 @@ RSpec.describe NewRepresentationOrderContract do
     it { is_expected.not_to be_a_success }
   end
 
-  context 'two offences with application outcomes and statusDates present' do
+  context 'Application pending status with a statusDate present' do
+    before do
+      offences_array.shift
+      offences_array[0][:status_code] = 'AP'
+    end
+
     it { is_expected.to be_a_success }
   end
 end
