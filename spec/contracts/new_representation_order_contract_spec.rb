@@ -142,4 +142,8 @@ RSpec.describe NewRepresentationOrderContract do
 
     it { is_expected.not_to be_a_success }
   end
+
+  context 'two offences with application outcomes and statusDates present' do
+    it { is_expected.to be_a_success }
+  end
 end
