@@ -135,7 +135,7 @@ module Sqs
           [:resultShortTitle, result[:label]],
           [:resultText, result[:resultText]],
           [:resultCodeQualifiers, result[:qualifier]],
-          [:nextHearingDate, result.dig(:nextHearing, :listedStartDateTime)],
+          [:nextHearingDate, result.dig(:nextHearing, :listedStartDateTime)&.to_date&.strftime('%Y-%m-%d')],
           [:nextHearingLocation, hearing_location(result.dig(:nextHearing, :courtCentre, :id))],
           [:laaOfficeAccount, defendant.dig(:defenceOrganisation, :laaAccountNumber)],
           [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)]

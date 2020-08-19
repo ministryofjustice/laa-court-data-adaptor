@@ -59,7 +59,7 @@ RSpec.describe Sqs::PublishHearing do
               'resultText': 'Fine - Amount of fine: £1500',
               'orderedDate': '2018-11-11',
               'nextHearing': {
-                'listedStartDateTime': '2018-11-11 10:30',
+                'listedStartDateTime': '2018-11-11T10:30:00Z',
                 'courtCentre': {
                   'id': 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
                 }
@@ -130,7 +130,7 @@ RSpec.describe Sqs::PublishHearing do
               resultShortTitle: 'Fine',
               resultText: 'Fine - Amount of fine: £1500',
               resultCodeQualifiers: 'LG',
-              nextHearingDate: '2018-11-11 10:30',
+              nextHearingDate: '2018-11-11',
               nextHearingLocation: 'B16BG',
               laaOfficeAccount: '0A935R',
               legalAidWithdrawalDate: nil
