@@ -83,6 +83,36 @@ RSpec.describe NewRepresentationOrderContract do
     it { is_expected.not_to be_a_success }
   end
 
+  context 'with a missing statusDate' do
+    before { offences_array[0].delete(:status_date) }
+
+    it { is_expected.not_to be_a_success }
+  end
+
+  context 'with a missing effectiveStartDate' do
+    before { offences_array[0].delete(:effective_start_date) }
+
+    it { is_expected.not_to be_a_success }
+  end
+
+  context 'with a status code of AP' do
+    before { offences_array[0][:status_code] = 'AP' }
+
+    it { is_expected.to be_a_success }
+
+    context 'with a missing statusDate ' do
+      before { offences_array[0].delete(:status_date) }
+
+      it { is_expected.to be_a_success }
+
+      context 'and a missing effectiveStartDate' do
+        before { offences_array[0].delete(:effective_start_date) }
+
+        it { is_expected.to be_a_success }
+      end
+    end
+  end
+
   context 'with missing defence_organisation name' do
     before { defence_organisation[:organisation].delete(:name) }
 
@@ -139,28 +169,6 @@ RSpec.describe NewRepresentationOrderContract do
 
   context 'with unexpected keys' do
     before { defence_organisation[:organisation][:contact][:additional_info] = 'Hello' }
-
-    it { is_expected.not_to be_a_success }
-  end
-
-  let(:offences_array) do
-    [
-      {
-        offence_id: '23d7f10a-067a-476e-bba6-bb855674e23b',
-        status_code: 'AP',
-        status_date: Date.new(2020, 2, 12),
-        effective_start_date: Date.new(2020, 2, 20),
-        effective_end_date: Date.new(2020, 2, 25)
-      }
-    ]
-  end
-
-  context 'Application pending status with a statusDate present' do
-    it { is_expected.to be_a_success }
-  end
-
-  context 'Application pending without a statusDate' do
-    before { offences_array[0][:status_date] = nil }
 
     it { is_expected.not_to be_a_success }
   end
