@@ -16,6 +16,8 @@ class RepresentationOrderCreator < ApplicationService
   private
 
   def call_cp_endpoint
+    remove_offences_without_status_date
+
     offences.each do |offence|
       prosecution_case = ProsecutionCaseDefendantOffence.find_by!(defendant_id: defendant_id, offence_id: offence[:offence_id])
 
@@ -30,6 +32,12 @@ class RepresentationOrderCreator < ApplicationService
         effective_end_date: offence[:effective_end_date],
         defence_organisation: defence_organisation
       )
+    end
+  end
+
+  def remove_offences_without_status_date
+    offences.each do |offence|
+      offences.delete(offence) if offence[:status_date].present? == false
     end
   end
 
