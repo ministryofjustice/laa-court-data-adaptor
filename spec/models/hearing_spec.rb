@@ -26,6 +26,7 @@ RSpec.describe Hearing, type: :model do
     it { expect(hearing.defendant_names).to eq(['Ocean Gagnier']) }
     it { expect(hearing.providers).to be_empty }
     it { expect(hearing.provider_ids).to be_empty }
+    it { expect(hearing.judge_names).to be_empty }
 
     context 'hearing events' do
       let(:hearing_day) { '2020-04-17' }

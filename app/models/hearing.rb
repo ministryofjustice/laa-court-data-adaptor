@@ -30,7 +30,7 @@ class Hearing < ApplicationRecord
   end
 
   def judge_names
-    judiciary.map do |judge|
+    hearing_body['judiciary']&.map do |judge|
       [judge['title'], judge['firstName'], judge['lastName']].reject(&:blank?).join(' ')
     end
   end
@@ -77,10 +77,6 @@ class Hearing < ApplicationRecord
 
   def hearing_day_events
     hearing_event_recordings.flat_map { |recording| recording.body['events'] }
-  end
-
-  def judiciary
-    hearing_body['judiciary']
   end
 
   def court_centre
