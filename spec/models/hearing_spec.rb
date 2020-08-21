@@ -44,21 +44,21 @@ RSpec.describe Hearing, type: :model do
     end
 
     context 'hearings information' do
-      let(:hearing_id) { '2df3d60a-3826-4099-99b0-f89e2cb5e8ec' }
+      let(:hearing_id) { '29b73d8f-7683-4e27-9069-f7a031672c35' }
       let(:hearing) do
         VCR.use_cassette('hearing_result_fetcher/success_hearing_attendees') do
           Api::GetHearingResults.call(hearing_id: hearing_id)
         end
       end
 
-      it { expect(hearing.judge_names).to eq(['Mr Recorder J Patterson']) }
-      it { expect(hearing.prosecution_advocate_names).to eq(['John Rob']) }
-      it { expect(hearing.defence_advocate_names).to eq(['Neil Griffiths']) }
+      it { expect(hearing.judge_names).to eq(['Andrew Gwyn Menary']) }
+      it { expect(hearing.prosecution_advocate_names).to eq(['andrew smith']) }
+      it { expect(hearing.defence_advocate_names).to eq(['joe bloggs']) }
       it { expect(hearing.providers).to all be_a(Provider) }
-      it { expect(hearing.provider_ids).to eq(['a1e3c7a6-c6da-4191-969b-f370fcce46a8']) }
-      it { expect(hearing.id).to eq('2df3d60a-3826-4099-99b0-f89e2cb5e8ec') }
-      it { expect(hearing.hearing_type).to eq('This is a description') }
-      it { expect(hearing.hearing_days).to eq(['2019-10-23T16:19:15.000Z']) }
+      it { expect(hearing.provider_ids).to eq(['536abfd5-8671-4672-bf33-aa54de5d6a24']) }
+      it { expect(hearing.id).to eq('29b73d8f-7683-4e27-9069-f7a031672c35') }
+      it { expect(hearing.hearing_type).to eq('Committal for Sentence') }
+      it { expect(hearing.hearing_days).to eq(['2020-08-18T09:00:00.000Z']) }
 
       context 'when prosecutionCounsels are not provided' do
         before { hearing.body['hearing'].delete('prosecutionCounsels') }
