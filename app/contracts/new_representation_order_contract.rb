@@ -6,8 +6,6 @@ class NewRepresentationOrderContract < Dry::Validation::Contract
 
   STATUS_CODES = %w[AP FB FJ FM WD G2 GQ GR].freeze
 
-  NON_PENDING_OUTCOME_STATUS_CODES = %w[FB FJ FM WD G2 GQ GR].freeze
-
   json do
     required(:maat_reference).value(:integer, lt?: 999_999_999)
     required(:defence_organisation).hash do
@@ -53,7 +51,7 @@ class NewRepresentationOrderContract < Dry::Validation::Contract
   rule(:offences).each do
     key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value[:offence_id])
     key.failure('is not a valid status') unless STATUS_CODES.include? value[:status_code]
-    key.failure('this status requires a status date') if NON_PENDING_OUTCOME_STATUS_CODES.include?(value[:status_code]) && value[:status_date].present? == false
-    key.failure('this status requires an effective start date') if NON_PENDING_OUTCOME_STATUS_CODES.include?(value[:status_code]) && value[:effective_start_date].present? == false
+    key.failure('this status requires a status date') if value[:status_code] != 'AP' && value[:status_date].blank?
+    key.failure('this status requires an effective start date') if value[:status_code] != 'AP' && value[:effective_start_date].blank?
   end
 end

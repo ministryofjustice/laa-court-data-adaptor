@@ -7,6 +7,7 @@ class RepresentationOrderCreator < ApplicationService
     @defendant_id = defendant_id
     @defence_organisation = defence_organisation.deep_transform_keys { |key| key.to_s.camelize(:lower).to_sym }
     sanitise_defence_organisation
+    remove_offences_without_status_date
   end
 
   def call
@@ -16,8 +17,6 @@ class RepresentationOrderCreator < ApplicationService
   private
 
   def call_cp_endpoint
-    remove_offences_without_status_date
-
     offences.each do |offence|
       prosecution_case = ProsecutionCaseDefendantOffence.find_by!(defendant_id: defendant_id, offence_id: offence[:offence_id])
 
@@ -37,7 +36,7 @@ class RepresentationOrderCreator < ApplicationService
 
   def remove_offences_without_status_date
     offences.each do |offence|
-      offences.delete(offence) if offence[:status_date].present? == false
+      offences.delete(offence) if offence[:status_date].blank?
     end
   end
 

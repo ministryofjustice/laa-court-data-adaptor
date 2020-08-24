@@ -77,17 +77,12 @@ RSpec.describe RepresentationOrderCreator do
       create
     end
 
-    context 'one offence has a status of AP' do
-      context 'and does not have a status date' do
-        before do
-          offence_two.delete(:status_date)
-          offence_two[:status_code] = 'AP'
-        end
+    context 'one offence does not have a status date' do
+      before { offence_two.delete(:status_date) }
 
-        it 'calls the Api::RecordRepresentationOrder service once' do
-          expect(Api::RecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
-          create
-        end
+      it 'calls the Api::RecordRepresentationOrder service once' do
+        expect(Api::RecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
+        create
       end
     end
   end
