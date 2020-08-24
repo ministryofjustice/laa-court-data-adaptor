@@ -2,12 +2,11 @@
 
 class RepresentationOrderCreator < ApplicationService
   def initialize(defendant_id:, offences:, maat_reference:, defence_organisation:)
-    @offences = offences.map(&:with_indifferent_access)
+    @offences = offences.map(&:with_indifferent_access).reject { |offence| offence[:status_date].blank? }
     @maat_reference = maat_reference
     @defendant_id = defendant_id
     @defence_organisation = defence_organisation.deep_transform_keys { |key| key.to_s.camelize(:lower).to_sym }
     sanitise_defence_organisation
-    remove_offences_without_status_date
   end
 
   def call
@@ -31,12 +30,6 @@ class RepresentationOrderCreator < ApplicationService
         effective_end_date: offence[:effective_end_date],
         defence_organisation: defence_organisation
       )
-    end
-  end
-
-  def remove_offences_without_status_date
-    offences.each do |offence|
-      offences.delete(offence) if offence[:status_date].blank?
     end
   end
 
