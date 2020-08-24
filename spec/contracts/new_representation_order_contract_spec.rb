@@ -83,6 +83,36 @@ RSpec.describe NewRepresentationOrderContract do
     it { is_expected.not_to be_a_success }
   end
 
+  context 'with a missing statusDate' do
+    before { offences_array[0].delete(:status_date) }
+
+    it { is_expected.not_to be_a_success }
+  end
+
+  context 'with a missing effectiveStartDate' do
+    before { offences_array[0].delete(:effective_start_date) }
+
+    it { is_expected.not_to be_a_success }
+  end
+
+  context 'with a status code of AP' do
+    before { offences_array[0][:status_code] = 'AP' }
+
+    it { is_expected.to be_a_success }
+
+    context 'with a missing statusDate ' do
+      before { offences_array[0].delete(:status_date) }
+
+      it { is_expected.to be_a_success }
+
+      context 'and a missing effectiveStartDate' do
+        before { offences_array[0].delete(:effective_start_date) }
+
+        it { is_expected.to be_a_success }
+      end
+    end
+  end
+
   context 'with missing defence_organisation name' do
     before { defence_organisation[:organisation].delete(:name) }
 

@@ -76,6 +76,15 @@ RSpec.describe RepresentationOrderCreator do
       expect(Api::RecordRepresentationOrder).to receive(:call).twice.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
       create
     end
+
+    context 'one offence does not have a status date' do
+      before { offence_two.delete(:status_date) }
+
+      it 'calls the Api::RecordRepresentationOrder service once' do
+        expect(Api::RecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
+        create
+      end
+    end
   end
 
   context 'with indifferent access' do

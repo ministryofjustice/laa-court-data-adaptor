@@ -38,8 +38,8 @@ class NewRepresentationOrderContract < Dry::Validation::Contract
     required(:offences).array(:hash) do
       required(:offence_id).value(:string)
       required(:status_code).value(:string)
-      required(:status_date).value(:date)
-      required(:effective_start_date).value(:date)
+      optional(:status_date).value(:date)
+      optional(:effective_start_date).value(:date)
       optional(:effective_end_date).value(:date)
     end
   end
@@ -51,5 +51,7 @@ class NewRepresentationOrderContract < Dry::Validation::Contract
   rule(:offences).each do
     key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value[:offence_id])
     key.failure('is not a valid status') unless STATUS_CODES.include? value[:status_code]
+    key.failure('this status requires a status date') if value[:status_code] != 'AP' && value[:status_date].blank?
+    key.failure('this status requires an effective start date') if value[:status_code] != 'AP' && value[:effective_start_date].blank?
   end
 end
