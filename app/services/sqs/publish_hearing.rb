@@ -34,18 +34,6 @@ module Sqs
       defendant_details&.dig(:contact)
     end
 
-    def split_name
-      defendant_details&.dig(:defendantName)&.split(' ')
-    end
-
-    def forename
-      split_name&.first
-    end
-
-    def surname
-      split_name&.last
-    end
-
     def post_hearing_custody
       defendant[:offences].dig(0, :judicialResults, 0, :judicialResultPrompts)&.each do |prompt|
         @post_hearing_custody = prompt[:value] if prompt[:label] == 'Remand Status'
@@ -88,8 +76,8 @@ module Sqs
     # rubocop:disable Metrics/CyclomaticComplexity
     def defendant_hash
       {
-        forename: forename,
-        surname: surname,
+        forename: defendant_details&.dig(:firstName),
+        surname: defendant_details&.dig(:lastName),
         dateOfBirth: defendant_details&.dig(:dateOfBirth),
         addressLine1: defendant_address_details&.dig(:address1),
         addressLine2: defendant_address_details&.dig(:address2),

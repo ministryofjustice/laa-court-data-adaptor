@@ -10,7 +10,15 @@ class Defendant
   end
 
   def name
-    body['defendantName']
+    "#{first_name} #{last_name}"
+  end
+
+  def first_name
+    body['defendantFirstName']
+  end
+
+  def last_name
+    body['defendantLastName']
   end
 
   def date_of_birth

@@ -18,7 +18,8 @@ RSpec.describe Sqs::PublishHearing do
     {
       'personDefendant': {
         'personDetails': {
-          'defendantName': 'FirstName M LastName',
+          "firstName": 'Lavon',
+          "lastName": 'Rempel',
           'dateOfBirth': '1970-01-01',
           'nationalInsuranceNumber': 'QQ123456Q',
           'address': {
@@ -98,8 +99,8 @@ RSpec.describe Sqs::PublishHearing do
       docLanguage: 'EN',
       inActive: 'Y',
       defendant: {
-        forename: 'FirstName',
-        surname: 'LastName',
+        forename: 'Lavon',
+        surname: 'Rempel',
         dateOfBirth: '1970-01-01',
         addressLine1: 'address1',
         addressLine2: 'address2',

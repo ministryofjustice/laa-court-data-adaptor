@@ -16,16 +16,16 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      transfer-encoding:
+      - chunked
       content-type:
       - text/plain; charset=utf-8
       request-context:
       - appId=cid-v1:e7545c86-6eab-4a30-bf6d-7ed8b5691e3e
       date:
-      - Tue, 21 Jul 2020 10:03:02 GMT
+      - Wed, 26 Aug 2020 17:24:38 GMT
       x-frame-options:
       - SAMEORIGIN
-      transfer-encoding:
-      - chunked
     body:
       encoding: UTF-8
       string: "{\r\n  \"hearing\": {\r\n    \"applicantCounsels\": [],\r\n    \"applicationPartyCounsels\":
@@ -105,5 +105,5 @@ http_interactions:
         [],\r\n    \"type\": {\r\n      \"description\": \"Plea and Trial Preparation\",\r\n
         \     \"id\": \"06b0c2bf-3f98-46ed-ab7e-56efaf9ecced\"\r\n    }\r\n  },\r\n
         \ \"sharedTime\": \"2020-04-17T16:57:04.978Z[UTC]\"\r\n}"
-  recorded_at: Tue, 21 Jul 2020 10:03:02 GMT
+  recorded_at: Wed, 26 Aug 2020 17:24:38 GMT
 recorded_with: VCR 6.0.0
