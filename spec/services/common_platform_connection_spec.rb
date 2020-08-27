@@ -25,7 +25,16 @@ RSpec.describe CommonPlatformConnection do
     let(:client_cert) { 'CERT' }
     let(:client_key) { 'KEY' }
     let(:request_options) do
-      { headers: { 'Ocp-Apim-Subscription-Key' => 'super-secret-key' }, ssl: { client_cert: 'OPENSSL_CERT', client_key: 'OPENSSL_KEY' } }
+      {
+        headers: {
+          'Ocp-Apim-Subscription-Key' => 'super-secret-key'
+        },
+        ssl: {
+          client_cert: 'OPENSSL_CERT',
+          client_key: 'OPENSSL_KEY',
+          ca_file: Rails.root.join('lib/ssl/ca.crt').to_s
+        }
+      }
     end
 
     before do

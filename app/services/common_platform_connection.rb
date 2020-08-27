@@ -34,7 +34,8 @@ class CommonPlatformConnection < ApplicationService
       headers: headers,
       ssl: {
         client_cert: OpenSSL::X509::Certificate.new(client_cert),
-        client_key: OpenSSL::PKey::RSA.new(client_key)
+        client_key: OpenSSL::PKey::RSA.new(client_key),
+        ca_file: Rails.root.join('lib/ssl/ca.crt').to_s
       }
     }
   end
