@@ -16,7 +16,7 @@ class HearingsCreator < ApplicationService
   def push_prosecution_cases
     hearing[:prosecutionCases]&.each do |prosecution_case|
       prosecution_case[:defendants].each do |defendant|
-        next if defendant[:offences].map { |offence| offence[:laaApplnReference][:applicationReference]&.start_with?('A', 'Z') }.any?
+        next if defendant[:offences].map { |offence| offence.dig(:laaApplnReference, :applicationReference)&.start_with?('A', 'Z') }.any?
 
         push_to_sqs(shared_time: shared_time,
                     case_urn: prosecution_case[:prosecutionCaseIdentifier][:caseURN],
@@ -29,7 +29,7 @@ class HearingsCreator < ApplicationService
   def push_appeals
     hearing[:courtApplications]&.each do |appeal|
       defendant = appeal.dig(:applicant, :defendant)
-      next if defendant[:offences].map { |offence| offence[:laaApplnReference][:applicationReference]&.start_with?('A', 'Z') }.any?
+      next if defendant[:offences].map { |offence| offence.dig(:laaApplnReference, :applicationReference)&.start_with?('A', 'Z') }.any?
 
       push_to_sqs(shared_time: shared_time,
                   case_urn: appeal[:applicationReference],

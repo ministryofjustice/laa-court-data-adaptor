@@ -46,7 +46,7 @@ RSpec.describe HearingsCreator do
       }
     ]
   end
-  let(:application_array) do
+  let(:applications_array) do
     [
       {
         applicationReference: '12345',
@@ -67,7 +67,7 @@ RSpec.describe HearingsCreator do
         id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
       },
       prosecutionCases: prosecution_case_array,
-      courtApplications: application_array
+      courtApplications: applications_array
     }
   end
 
@@ -76,7 +76,7 @@ RSpec.describe HearingsCreator do
   subject(:create) { described_class.call(shared_time: shared_time, hearing: hearing) }
 
   context 'for a trial' do
-    let(:application_array) { nil }
+    let(:applications_array) { nil }
 
     context 'with one defendant' do
       it 'calls the Sqs::PublishHearing service once' do
@@ -85,6 +85,17 @@ RSpec.describe HearingsCreator do
                                                                                case_urn: '12345',
                                                                                defendant: defendant_one,
                                                                                court_centre_id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'))
+        create
+      end
+    end
+
+    context 'when an laaApplnReference does not exist' do
+      let(:offence_two) do
+        {}
+      end
+
+      it 'calls the Sqs::PublishHearing service once' do
+        expect(Sqs::PublishHearing).to receive(:call).once
         create
       end
     end
@@ -183,6 +194,17 @@ RSpec.describe HearingsCreator do
                                                                              defendant: defendant_one,
                                                                              court_centre_id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'))
       create
+    end
+
+    context 'when an laaApplnReference does not exist' do
+      let(:offence_two) do
+        {}
+      end
+
+      it 'calls the Sqs::PublishHearing service once' do
+        expect(Sqs::PublishHearing).to receive(:call).once
+        create
+      end
     end
   end
 end

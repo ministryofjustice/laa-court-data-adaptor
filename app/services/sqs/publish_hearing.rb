@@ -10,6 +10,7 @@ module Sqs
       @defendant = defendant
       @court_centre = HmctsCommonPlatform::Reference::CourtCentre.find(court_centre_id)
       @appeal_data = appeal_data
+      @laa_reference = LaaReference.find_by!(defendant_id: defendant[:id], linked: true)
     end
 
     def call
@@ -52,7 +53,7 @@ module Sqs
 
     def message
       {
-        maatId: maat_reference,
+        maatId: laa_reference.maat_reference.to_i,
         caseUrn: case_urn,
         jurisdictionType: jurisdiction_type,
         asn: defendant.dig(:personDefendant, :arrestSummonsNumber),
@@ -65,10 +66,6 @@ module Sqs
         session: session_hash,
         ccOutComeData: crown_court_outcome_hash
       }
-    end
-
-    def maat_reference
-      defendant[:offences].first[:laaApplnReference][:applicationReference].to_i
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -155,7 +152,7 @@ module Sqs
       defendant.dig(:offences)&.any? { |offence| offence.dig(:verdict).present? } || appeal_data.present?
     end
 
-    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :court_centre, :appeal_data
+    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :court_centre, :appeal_data, :laa_reference
   end
   # rubocop:enable Metrics/ClassLength
 end

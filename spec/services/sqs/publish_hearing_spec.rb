@@ -16,6 +16,7 @@ RSpec.describe Sqs::PublishHearing do
   end
   let(:defendant) do
     {
+      'id': 'c6cf04b5-901d-4a89-a9ab-767eb57306e4',
       'personDefendant': {
         'personDetails': {
           "firstName": 'Lavon',
@@ -114,30 +115,7 @@ RSpec.describe Sqs::PublishHearing do
         telephoneMobile: '07000 000000',
         email1: 'test1@example.com',
         email2: 'test2@example.com',
-        offences: [
-          {
-            offenceCode: 'CD98072',
-            asnSeq: 0,
-            offenceShortTitle: 'Robbery',
-            offenceClassification: 'Defendant consents to summary trial',
-            offenceDate: '2018-10-21',
-            offenceWording: 'On 21/10/2018 the defendant robbed someone.',
-            modeOfTrial: 3,
-            legalAidStatus: 'AP',
-            legalAidStatusDate: '2018-10-24',
-            legalAidReason: 'Application Pending',
-            results: [{
-              resultCode: '123',
-              resultShortTitle: 'Fine',
-              resultText: 'Fine - Amount of fine: £1500',
-              resultCodeQualifiers: 'LG',
-              nextHearingDate: '2018-11-11',
-              nextHearingLocation: 'B16BG',
-              laaOfficeAccount: '0A935R',
-              legalAidWithdrawalDate: nil
-            }]
-          }
-        ]
+        offences: [offence_payload]
       },
       session: {
         courtLocation: 'B16BG',
@@ -151,6 +129,35 @@ RSpec.describe Sqs::PublishHearing do
         appealType: nil
       }
     }
+  end
+
+  let(:offence_payload) do
+    {
+      offenceCode: 'CD98072',
+      asnSeq: 0,
+      offenceShortTitle: 'Robbery',
+      offenceClassification: 'Defendant consents to summary trial',
+      offenceDate: '2018-10-21',
+      offenceWording: 'On 21/10/2018 the defendant robbed someone.',
+      modeOfTrial: 3,
+      legalAidStatus: 'AP',
+      legalAidStatusDate: '2018-10-24',
+      legalAidReason: 'Application Pending',
+      results: [{
+        resultCode: '123',
+        resultShortTitle: 'Fine',
+        resultText: 'Fine - Amount of fine: £1500',
+        resultCodeQualifiers: 'LG',
+        nextHearingDate: '2018-11-11',
+        nextHearingLocation: 'B16BG',
+        laaOfficeAccount: '0A935R',
+        legalAidWithdrawalDate: nil
+      }]
+    }
+  end
+
+  before do
+    LaaReference.create!(defendant_id: 'c6cf04b5-901d-4a89-a9ab-767eb57306e4', user_name: 'cpUser', maat_reference: 123_456_789)
   end
 
   subject do
@@ -167,6 +174,42 @@ RSpec.describe Sqs::PublishHearing do
   it 'triggers a publish call with the sqs payload' do
     expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
     subject
+  end
+
+  context 'for historical hearings' do
+    before do
+      defendant[:offences].each { |offence| offence.delete(:laaApplnReference) }
+    end
+
+    let(:offence_payload) do
+      {
+        offenceCode: 'CD98072',
+        asnSeq: 0,
+        offenceShortTitle: 'Robbery',
+        offenceClassification: 'Defendant consents to summary trial',
+        offenceDate: '2018-10-21',
+        offenceWording: 'On 21/10/2018 the defendant robbed someone.',
+        modeOfTrial: 3,
+        legalAidStatus: nil,
+        legalAidStatusDate: nil,
+        legalAidReason: nil,
+        results: [{
+          resultCode: '123',
+          resultShortTitle: 'Fine',
+          resultText: 'Fine - Amount of fine: £1500',
+          resultCodeQualifiers: 'LG',
+          nextHearingDate: '2018-11-11',
+          nextHearingLocation: 'B16BG',
+          laaOfficeAccount: '0A935R',
+          legalAidWithdrawalDate: nil
+        }]
+      }
+    end
+
+    it 'triggers a publish call with the sqs payload' do
+      expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
+      subject
+    end
   end
 
   context 'crown court outcomes' do
