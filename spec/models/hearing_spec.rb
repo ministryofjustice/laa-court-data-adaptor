@@ -5,8 +5,6 @@ RSpec.describe Hearing, type: :model do
   subject { hearing }
 
   context 'the hearing has not been resulted' do
-    let(:hearing_id) { '123' }
-
     it { expect(hearing.resulted?).to eq false }
   end
 
