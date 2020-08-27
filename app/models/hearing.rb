@@ -55,10 +55,6 @@ class Hearing < ApplicationRecord
     hearing_body.dig('defenceCounsels')&.map { |defence_counsel| defence_counsel['id'] }
   end
 
-  def resulted?
-    Hearing.find_by(id: id) != nil
-  end
-
   private
 
   def hearing_body

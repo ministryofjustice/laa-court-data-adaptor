@@ -15,4 +15,12 @@ RSpec.describe HearingSummary, type: :model do
   it { expect(hearing_summary.hearing_days).to eq(['2020-02-17T15:00:00Z']) }
   it { expect(hearing_summary.short_oucode).to eq('B01BH') }
   it { expect(hearing_summary.oucode_l2_code).to eq('1') }
+
+  context 'hearing has resulted' do
+    before do
+      Hearing.create!(id: hearing_summary.id, body: hearing_summary_hash)
+    end
+
+    it { expect(hearing_summary.hearing_resulted?).to eq true }
+  end
 end
