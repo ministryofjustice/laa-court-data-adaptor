@@ -56,7 +56,7 @@ class Hearing < ApplicationRecord
   end
 
   def resulted?
-    Hearing.find_by(id: hearing_body['id']) != nil
+    Hearing.find_by(id: id) != nil
   end
 
   private
