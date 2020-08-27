@@ -17,9 +17,7 @@ RSpec.describe HearingSummary, type: :model do
   it { expect(hearing_summary.oucode_l2_code).to eq('1') }
 
   context 'hearing has resulted' do
-    before do
-      Hearing.create!(id: hearing_summary.id, body: hearing_summary_hash)
-    end
+    before { Hearing.create!(id: hearing_summary.id, body: hearing_summary_hash) }
 
     it { expect(hearing_summary.hearing_resulted?).to eq true }
   end
