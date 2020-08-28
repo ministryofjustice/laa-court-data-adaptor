@@ -35,7 +35,7 @@ class ProsecutionCase < ApplicationRecord
 
   def case_details
     hearings.flat_map { |hearing|
-      hearing.body.dig('prosecutionCases')&.select { |prosecution_case| prosecution_case['id'] == id }
+      hearing.body.dig('hearing', 'prosecutionCases')&.select { |prosecution_case| prosecution_case['id'] == id }
     }.compact
   end
 

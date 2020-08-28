@@ -38,13 +38,16 @@ RSpec.describe ProsecutionCase, type: :model do
         Hearing.create(
           id: hearing_ids[0],
           body: {
-            'id' => hearing_ids[0],
-            'prosecutionCases' => [{
-              'id' => '31cbe62d-b1ec-4e82-89f7-99dced834900',
-              'defendants' => [{
-                'id' => 'c6cf04b5-901d-4a89-a9ab-767eb57306e4'
+            'hearing' => {
+              'id' => hearing_ids[0],
+              'prosecutionCases' => [{
+                'id' => '31cbe62d-b1ec-4e82-89f7-99dced834900',
+                'defendants' => [{
+                  'id' => 'c6cf04b5-901d-4a89-a9ab-767eb57306e4'
+                }]
               }]
-            }]
+            },
+            'sharedTime' => '2020-12-12'
           }
         )
       end
@@ -53,13 +56,16 @@ RSpec.describe ProsecutionCase, type: :model do
         Hearing.create(
           id: hearing_ids[1],
           body: {
-            'id' => hearing_ids[1],
-            'prosecutionCases' => [{
-              'id' => '31cbe62d-b1ec-4e82-89f7-99dced834900',
-              'defendants' => [{
-                'id' => 'b70a36e5-13d3-4bb3-bb24-94db79b7708b'
+            'hearing' => {
+              'id' => hearing_ids[1],
+              'prosecutionCases' => [{
+                'id' => '31cbe62d-b1ec-4e82-89f7-99dced834900',
+                'defendants' => [{
+                  'id' => 'b70a36e5-13d3-4bb3-bb24-94db79b7708b'
+                }]
               }]
-            }]
+            },
+            'sharedTime' => '2020-10-20'
           }
         )
       end
@@ -83,8 +89,8 @@ RSpec.describe ProsecutionCase, type: :model do
         end
 
         context 'with no prosecution_case reference' do
-          let(:hearing_one) { Hearing.create(id: hearing_ids[0], body: { 'id' => hearing_ids[0] }) }
-          let(:hearing_two) { Hearing.create(id: hearing_ids[1], body: { 'id' => hearing_ids[1] }) }
+          let(:hearing_one) { Hearing.create(id: hearing_ids[0], body: { 'hearing' => { 'id' => hearing_ids[0] } }) }
+          let(:hearing_two) { Hearing.create(id: hearing_ids[1], body: { 'hearing' => { 'id' => hearing_ids[1] } }) }
 
           it 'initialises Defendants without details' do
             expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice
