@@ -43,6 +43,7 @@ RSpec.describe Sqs::PublishHearing do
       },
       'offences': [
         {
+          'offenceId': '7dc1b279-805f-4ba8-97ea-be635f5764a7',
           'offenceCode': 'CD98072',
           'offenceTitle': 'Robbery',
           'orderIndex': 0,
@@ -133,6 +134,7 @@ RSpec.describe Sqs::PublishHearing do
 
   let(:offence_payload) do
     {
+      offenceId: '7dc1b279-805f-4ba8-97ea-be635f5764a7',
       offenceCode: 'CD98072',
       asnSeq: 0,
       offenceShortTitle: 'Robbery',
@@ -183,6 +185,7 @@ RSpec.describe Sqs::PublishHearing do
 
     let(:offence_payload) do
       {
+        offenceId: '7dc1b279-805f-4ba8-97ea-be635f5764a7',
         offenceCode: 'CD98072',
         asnSeq: 0,
         offenceShortTitle: 'Robbery',
