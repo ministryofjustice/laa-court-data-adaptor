@@ -19,8 +19,8 @@ class HearingSummary
     body['hearingDays'].map { |hearing_day| hearing_day['sittingDay'] }
   end
 
-  def hearing_resulted?
-    Hearing.find_by(id: id) != nil
+  def resulted?
+    Hearing.find_by(id: id).present?
   end
 
   private

@@ -4,10 +4,6 @@ RSpec.describe Hearing, type: :model do
   let(:hearing) { described_class.new(body: '{}') }
   subject { hearing }
 
-  context 'the hearing has not been resulted' do
-    it { expect(subject).to_not be_persisted }
-  end
-
   describe 'validations' do
     it { should validate_presence_of(:body) }
   end
@@ -31,7 +27,6 @@ RSpec.describe Hearing, type: :model do
     it { expect(hearing.providers).to be_empty }
     it { expect(hearing.provider_ids).to be_empty }
     it { expect(hearing.judge_names).to be_empty }
-    it { expect(hearing).to be_persisted }
 
     context 'hearing events' do
       let(:hearing_day) { '2020-04-17' }
