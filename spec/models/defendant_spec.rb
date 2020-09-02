@@ -17,6 +17,7 @@ RSpec.describe Defendant, type: :model do
 
   it { expect(defendant.name).to eq('George Walsh') }
   it { expect(defendant.first_name).to eq('George') }
+  it { expect(defendant.middle_name).to eq('Andrew') }
   it { expect(defendant.last_name).to eq('Walsh') }
   it { expect(defendant.date_of_birth).to eq('1980-01-01') }
   it { expect(defendant.national_insurance_number).to eq('HB133542A') }

@@ -74,6 +74,7 @@ module Sqs
     def defendant_hash
       {
         forename: defendant_details&.dig(:firstName),
+        middlename: defendant_details&.dig(:middleName),
         surname: defendant_details&.dig(:lastName),
         dateOfBirth: defendant_details&.dig(:dateOfBirth),
         addressLine1: defendant_address_details&.dig(:address1),

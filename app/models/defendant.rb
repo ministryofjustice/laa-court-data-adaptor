@@ -17,6 +17,10 @@ class Defendant
     body['defendantFirstName']
   end
 
+  def middle_name
+    body['defendantMiddleName']
+  end
+
   def last_name
     body['defendantLastName']
   end
