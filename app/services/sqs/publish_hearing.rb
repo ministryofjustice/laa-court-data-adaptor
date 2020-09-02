@@ -91,13 +91,13 @@ module Sqs
         offences: offences_map
       }
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/MethodLength
-    # rubocop:enable Metrics/AbcSize
 
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/AbcSize
     def offences_map
       defendant&.dig(:offences)&.map do |offence|
         [
+          [:offenceId, offence[:offenceId]],
           [:offenceCode, offence[:offenceCode]],
           [:asnSeq, offence[:orderIndex]],
           [:offenceShortTitle, offence[:offenceTitle]],
@@ -112,6 +112,7 @@ module Sqs
         ].to_h
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def results_map(results)
       results&.map do |result|
