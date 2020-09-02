@@ -13,7 +13,7 @@ class LaaReferenceCreator < ApplicationService
     create_laa_reference!
     push_to_sqs unless dummy_reference?
     call_cp_endpoint
-    ProsecutionCaseHearingsFetcher.call(prosecution_case_id: prosecution_case_id)
+    PastHearingsFetcherWorker.perform_at(30.seconds.from_now, Current.request_id, prosecution_case_id)
   end
 
   private

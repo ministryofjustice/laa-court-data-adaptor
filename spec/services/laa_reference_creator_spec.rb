@@ -3,6 +3,8 @@
 require 'sidekiq/testing'
 
 RSpec.describe LaaReferenceCreator do
+  include ActiveSupport::Testing::TimeHelpers
+
   let(:maat_reference) { 12_345_678 }
   let(:defendant_id) { '8cd0ba7e-df89-45a3-8c61-4008a2186d64' }
   let(:prosecution_case_id) { '7a0c947e-97b4-4c5a-ae6a-26320afc914d' }
@@ -37,9 +39,15 @@ RSpec.describe LaaReferenceCreator do
     expect(laa_reference.dummy_maat_reference).to be_falsey
   end
 
-  it 'calls the ProsecutionCaseHearingsFetcher' do
-    expect(ProsecutionCaseHearingsFetcher).to receive(:call).with(prosecution_case_id: prosecution_case_id).and_call_original
-    create
+  it 'enqueues a PastHearingsFetcherWorker' do
+    Sidekiq::Testing.fake! do
+      freeze_time do
+        Current.set(request_id: 'XYZ') do
+          expect(PastHearingsFetcherWorker).to receive(:perform_at).with(30.seconds.from_now, 'XYZ', prosecution_case_id).and_call_original
+          subject
+        end
+      end
+    end
   end
 
   it 'calls the Api::RecordLaaReference service once' do

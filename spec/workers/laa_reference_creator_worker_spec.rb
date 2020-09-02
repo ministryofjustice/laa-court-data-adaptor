@@ -8,8 +8,9 @@ RSpec.describe LaaReferenceCreatorWorker, type: :worker do
   let(:user_name) { nil }
   let(:request_id) { 'XYZ' }
   let(:prosecution_case_id) { '7a0c947e-97b4-4c5a-ae6a-26320afc914d' }
-  let!(:set_up_linked_prosecution_case) do
-    ProsecutionCase.create(
+
+  before do
+    ProsecutionCase.create!(
       id: prosecution_case_id,
       body: JSON.parse(file_fixture('prosecution_case_search_result.json').read)['cases'][0]
     )
