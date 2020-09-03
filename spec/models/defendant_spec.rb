@@ -24,6 +24,12 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.arrest_summons_number).to eq('ARREST123') }
   it { expect(defendant.prosecution_case).to be_nil }
 
+  context 'defendant does not have a middle name' do
+    before { defendant.body.delete('defendantMiddleName') }
+
+    it { expect(defendant.name).to eq('George Walsh') }
+  end
+
   context 'prosecution case information' do
     before do
       ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case_hash)
