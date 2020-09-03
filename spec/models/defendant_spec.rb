@@ -15,7 +15,7 @@ RSpec.describe Defendant, type: :model do
 
   subject(:defendant) { described_class.new(body: defendant_hash, details: details_hash, prosecution_case_id: prosecution_case_id) }
 
-  it { expect(defendant.name).to eq('George Walsh') }
+  it { expect(defendant.name).to eq('George Andrew Walsh') }
   it { expect(defendant.first_name).to eq('George') }
   it { expect(defendant.middle_name).to eq('Andrew') }
   it { expect(defendant.last_name).to eq('Walsh') }
