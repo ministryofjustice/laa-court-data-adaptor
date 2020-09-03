@@ -15,13 +15,20 @@ RSpec.describe Defendant, type: :model do
 
   subject(:defendant) { described_class.new(body: defendant_hash, details: details_hash, prosecution_case_id: prosecution_case_id) }
 
-  it { expect(defendant.name).to eq('George Walsh') }
+  it { expect(defendant.name).to eq('George Andrew Walsh') }
   it { expect(defendant.first_name).to eq('George') }
+  it { expect(defendant.middle_name).to eq('Andrew') }
   it { expect(defendant.last_name).to eq('Walsh') }
   it { expect(defendant.date_of_birth).to eq('1980-01-01') }
   it { expect(defendant.national_insurance_number).to eq('HB133542A') }
   it { expect(defendant.arrest_summons_number).to eq('ARREST123') }
   it { expect(defendant.prosecution_case).to be_nil }
+
+  context 'defendant does not have a middle name' do
+    before { defendant.body.delete('defendantMiddleName') }
+
+    it { expect(defendant.name).to eq('George Walsh') }
+  end
 
   context 'prosecution case information' do
     before do
