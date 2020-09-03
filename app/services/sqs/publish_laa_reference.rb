@@ -38,7 +38,6 @@ module Sqs
       {
         defendantId: defendant.id,
         forename: defendant.first_name,
-        middlename: defendant.middle_name,
         surname: defendant.last_name,
         dateOfBirth: defendant.date_of_birth,
         nino: defendant.national_insurance_number,
