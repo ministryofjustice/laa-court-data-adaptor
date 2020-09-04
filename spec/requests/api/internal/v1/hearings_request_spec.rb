@@ -7,7 +7,7 @@ RSpec.describe 'Api::Internal::V1::Hearings', type: :request do
 
   let(:token) { access_token }
   let(:include) {}
-  let(:id) { 'ee7b9c09-4a6e-49e3-a484-193dc93a4575' }
+  let(:id) { '4d01840d-5959-4539-a450-d39f57171036' }
 
   path '/api/internal/v1/hearings/{id}' do
     get('get hearing') do

@@ -13,7 +13,7 @@ RSpec.describe Hearing, type: :model do
       allow(HearingsCreatorWorker).to receive(:perform_async)
     end
 
-    let(:hearing_id) { 'ee7b9c09-4a6e-49e3-a484-193dc93a4575' }
+    let(:hearing_id) { '4d01840d-5959-4539-a450-d39f57171036' }
 
     let(:hearing) do
       VCR.use_cassette('hearing_result_fetcher/success') do
@@ -21,15 +21,15 @@ RSpec.describe Hearing, type: :model do
       end
     end
 
-    it { expect(hearing.court_name).to eq("Bexley Magistrates' Court") }
-    it { expect(hearing.hearing_type).to eq('Plea and Trial Preparation') }
-    it { expect(hearing.defendant_names).to eq(['Ocean Gagnier']) }
-    it { expect(hearing.providers).to be_empty }
-    it { expect(hearing.provider_ids).to be_empty }
-    it { expect(hearing.judge_names).to be_empty }
+    it { expect(hearing.court_name).to eq("Lavender Hill Magistrates' Court") }
+    it { expect(hearing.hearing_type).to eq('First hearing') }
+    it { expect(hearing.defendant_names).to eq(['Kole Jaskolski']) }
+    it { expect(hearing.providers).to be_blank }
+    it { expect(hearing.provider_ids).to be_blank }
+    it { expect(hearing.judge_names).to be_blank }
 
     context 'hearing events' do
-      let(:hearing_day) { '2020-04-17' }
+      let(:hearing_day) { '2020-08-17' }
 
       let(:hearing_event_recording) do
         VCR.use_cassette('hearing_logs_fetcher/success') do
