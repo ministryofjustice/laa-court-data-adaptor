@@ -3,8 +3,8 @@
 RSpec.describe HearingEventsFetcher do
   subject { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date) }
 
-  let(:hearing_id) { 'ee7b9c09-4a6e-49e3-a484-193dc93a4575' }
-  let(:hearing_date) { '2020-04-17' }
+  let(:hearing_id) { '4d01840d-5959-4539-a450-d39f57171036' }
+  let(:hearing_date) { '2020-08-17' }
 
   it 'returns the requested hearing info' do
     VCR.use_cassette('hearing_logs_fetcher/success') do

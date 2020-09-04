@@ -43,7 +43,7 @@ RSpec.describe Sqs::PublishHearing do
       },
       'offences': [
         {
-          'offenceId': '7dc1b279-805f-4ba8-97ea-be635f5764a7',
+          'id': '7dc1b279-805f-4ba8-97ea-be635f5764a7',
           'offenceCode': 'CD98072',
           'offenceTitle': 'Robbery',
           'orderIndex': 0,

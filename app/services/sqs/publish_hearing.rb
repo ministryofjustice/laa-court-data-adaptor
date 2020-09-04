@@ -97,7 +97,7 @@ module Sqs
     def offences_map
       defendant&.dig(:offences)&.map do |offence|
         [
-          [:offenceId, offence[:offenceId]],
+          [:offenceId, offence[:id]],
           [:offenceCode, offence[:offenceCode]],
           [:asnSeq, offence[:orderIndex]],
           [:offenceShortTitle, offence[:offenceTitle]],
