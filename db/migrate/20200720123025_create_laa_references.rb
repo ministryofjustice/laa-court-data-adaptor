@@ -13,7 +13,7 @@ class CreateLaaReferences < ActiveRecord::Migration[6.0]
 
     reversible do |dir|
       dir.up do
-        execute <<~SQL
+        execute <<~SQL.squish
           INSERT INTO laa_references (maat_reference, defendant_id, dummy_maat_reference, linked, created_at, updated_at)
           SELECT DISTINCT ON (maat_reference) maat_reference, defendant_id, dummy_maat_reference, true, created_at, updated_at
           FROM prosecution_case_defendant_offences

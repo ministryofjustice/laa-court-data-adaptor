@@ -6,4 +6,8 @@ class ApplicationService
   end
 
   def call; end
+
+  private
+
+  def initialize(*args, &block); end
 end
