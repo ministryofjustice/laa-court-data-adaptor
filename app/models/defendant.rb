@@ -38,7 +38,7 @@ class Defendant
   end
 
   def offences
-    body['offenceSummary'].map { |offence| Offence.new(body: offence, details: offence_details.dig(offence['offenceId'])) }
+    body['offenceSummary'].map { |offence| Offence.new(body: offence, details: offence_details[offence['offenceId']]) }
   end
 
   def defence_organisation
@@ -74,7 +74,7 @@ class Defendant
   def offence_details
     return {} if details.blank?
 
-    details.dig('offences')&.index_by { |offence| offence['id'] }
+    details['offences']&.index_by { |offence| offence['id'] }
   end
 
   def valid_maat_reference?

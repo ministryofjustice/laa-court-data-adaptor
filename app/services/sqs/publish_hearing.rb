@@ -71,6 +71,7 @@ module Sqs
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def defendant_hash
       {
         forename: defendant_details&.dig(:firstName),
@@ -93,6 +94,7 @@ module Sqs
     end
 
     # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize
     def offences_map
       defendant&.dig(:offences)&.map do |offence|
@@ -150,7 +152,7 @@ module Sqs
     end
 
     def result_is_a_conclusion?
-      defendant.dig(:offences)&.any? { |offence| offence.dig(:verdict).present? } || appeal_data.present?
+      defendant[:offences]&.any? { |offence| offence[:verdict].present? } || appeal_data.present?
     end
 
     attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :court_centre, :appeal_data, :laa_reference

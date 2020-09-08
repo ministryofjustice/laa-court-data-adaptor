@@ -36,23 +36,23 @@ class Hearing < ApplicationRecord
   end
 
   def prosecution_advocate_names
-    hearing_body.dig('prosecutionCounsels')&.map do |prosecution_counsel|
+    hearing_body['prosecutionCounsels']&.map do |prosecution_counsel|
       "#{prosecution_counsel['firstName']} #{prosecution_counsel['lastName']}"
     end
   end
 
   def defence_advocate_names
-    hearing_body.dig('defenceCounsels')&.map do |defence_counsel|
+    hearing_body['defenceCounsels']&.map do |defence_counsel|
       "#{defence_counsel['firstName']} #{defence_counsel['lastName']}"
     end
   end
 
   def providers
-    hearing_body.dig('defenceCounsels')&.map { |defence_counsel| Provider.new(body: defence_counsel) }
+    hearing_body['defenceCounsels']&.map { |defence_counsel| Provider.new(body: defence_counsel) }
   end
 
   def provider_ids
-    hearing_body.dig('defenceCounsels')&.map { |defence_counsel| defence_counsel['id'] }
+    hearing_body['defenceCounsels']&.map { |defence_counsel| defence_counsel['id'] }
   end
 
   private

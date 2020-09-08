@@ -10,8 +10,7 @@ module Api
                    application_reference:,
                    status_date:,
                    effective_start_date:,
-                   effective_end_date: nil,
-                   defence_organisation:,
+                   defence_organisation:, effective_end_date: nil,
                    connection: CommonPlatformConnection.call)
 
       @offence_id = offence_id
@@ -48,6 +47,7 @@ module Api
       }.compact
     end
 
+    # rubocop:disable Metrics/AbcSize
     def update_database(response)
       offence = ProsecutionCaseDefendantOffence.find_by(offence_id: offence_id)
       offence.rep_order_status = status_code
@@ -59,6 +59,7 @@ module Api
       offence.response_body = response.body
       offence.save!
     end
+    # rubocop:enable Metrics/AbcSize
 
     attr_reader :url, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
   end
