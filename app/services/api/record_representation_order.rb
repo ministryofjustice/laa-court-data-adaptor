@@ -29,8 +29,8 @@ module Api
     # rubocop:enable Metrics/ParameterLists
 
     def call
-      response = connection.post(url, request_body)
-      update_database(response)
+      @response = connection.post(url, request_body)
+      update_database
       response
     end
 
