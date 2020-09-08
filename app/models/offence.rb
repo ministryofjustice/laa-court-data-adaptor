@@ -30,11 +30,11 @@ class Offence
   end
 
   def plea
-    plea_hash.dig('pleaValue')
+    plea_hash['pleaValue']
   end
 
   def plea_date
-    plea_hash.dig('pleaDate')
+    plea_hash['pleaDate']
   end
 
   private
@@ -46,6 +46,6 @@ class Offence
   def plea_hash
     return {} if details.blank?
 
-    details.dig('plea') || {}
+    details['plea'] || {}
   end
 end

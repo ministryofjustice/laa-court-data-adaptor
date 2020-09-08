@@ -33,10 +33,10 @@ class CrownCourtOutcomeCreator < ApplicationService
   end
 
   def trial_outcome
-    return 'CONVICTED' if defendant.dig(:offences)&.all? do |offence|
+    return 'CONVICTED' if defendant[:offences]&.all? do |offence|
       GUILTY_VERDICTS.include? offence.dig(:verdict, :verdictType, :categoryType)
     end
-    return 'PART CONVICTED' if defendant.dig(:offences)&.any? do |offence|
+    return 'PART CONVICTED' if defendant[:offences]&.any? do |offence|
       GUILTY_VERDICTS.include? offence.dig(:verdict, :verdictType, :categoryType)
     end
 

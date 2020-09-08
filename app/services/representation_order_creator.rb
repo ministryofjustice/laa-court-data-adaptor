@@ -53,13 +53,13 @@ class RepresentationOrderCreator < ApplicationService
 
   def sanitise_email_addresses
     %i[primaryEmail secondaryEmail].each do |email|
-      defence_organisation[:organisation][:contact].delete(email) unless CommonPlatform::EmailValidator.new(email: contact.dig(email)).call
+      defence_organisation[:organisation][:contact].delete(email) unless CommonPlatform::EmailValidator.new(email: contact[email]).call
     end
   end
 
   def sanitise_phone_numbers
     %i[home mobile].each do |number|
-      defence_organisation[:organisation][:contact].delete(number) unless CommonPlatform::PhoneValidator.new(phone: contact.dig(number)).call
+      defence_organisation[:organisation][:contact].delete(number) unless CommonPlatform::PhoneValidator.new(phone: contact[number]).call
     end
   end
 

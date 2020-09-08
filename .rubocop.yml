@@ -10,32 +10,19 @@ AllCops:
   - 'db/schema.rb'
   - 'vendor/**/*'
   - 'node_modules/**/*'
-
-Lint/DeprecatedOpenSSLConstant:
-  Enabled: true
-
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-
-Layout/EmptyLinesAroundAttributeAccessor:
-  Enabled: true
+  NewCops: enable
 
 Lint/AmbiguousBlockAssociation:
   Exclude:
   - 'spec/**/*'
 
-Lint/MixedRegexpCaptureTypes:
-  Enabled: true
-
-Lint/RaiseException:
-  Enabled: true
-
-Lint/StructNewOverride:
-  Enabled: true
-
 Metrics/AbcSize:
   Exclude:
   - 'db/migrate/*'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+  - 'bin/bundle'
 
 Metrics/BlockLength:
   Exclude:
@@ -57,119 +44,16 @@ Style/Documentation:
   Exclude:
   - '**/*'
 
-Style/ExponentialNotation:
-  Enabled: true
-
 Style/SymbolArray:
   EnforcedStyle: percent
 
 Style/Lambda:
   EnforcedStyle: literal
 
-Style/HashEachMethods:
-  Enabled: true
+Lint/MissingSuper:
+  Exclude:
+    - 'app/services/**/*'
 
-Style/HashTransformKeys:
-  Enabled: true
-
-Style/HashTransformValues:
-  Enabled: true
-
-Style/RedundantRegexpCharacterClass:
-  Enabled: true
-
-Style/RedundantRegexpEscape:
-  Enabled: true
-
-Style/SlicingWithRange:
-  Enabled: true
-
-Style/RedundantFetchBlock:
-  Enabled: true
-
-Style/AccessorGrouping:
-  Enabled: true
-
-Style/BisectedAttrAccessor:
-  Enabled: true
-
-Style/RedundantAssignment:
-  Enabled: true
-
-Performance/AncestorsInclude:
-  Enabled: true
-
-Performance/BigDecimalWithNumericArgument:
-  Enabled: true
-
-Performance/RedundantSortBlock:
-  Enabled: true
-
-Performance/RedundantStringChars:
-  Enabled: true
-
-Performance/ReverseFirst:
-  Enabled: true
-
-Performance/SortReverse:
-  Enabled: true
-
-Performance/Squeeze:
-  Enabled: true
-
-Performance/StringInclude:
-  Enabled: true
-
-Lint/DuplicateElsifCondition:
-  Enabled: true
-
-Style/ArrayCoercion:
-  Enabled: true
-
-Style/CaseLikeIf:
-  Enabled: true
-
-Style/HashAsLastArrayItem:
-  Enabled: true
-
-Style/HashLikeCase:
-  Enabled: true
-
-Style/RedundantFileExtensionInRequire:
-  Enabled: true
-
-Rails/ActiveRecordCallbacksOrder:
-  Enabled: true
-
-Rails/FindById:
-  Enabled: true
-
-Rails/Inquiry:
-  Enabled: true
-
-Rails/MailerName:
-  Enabled: true
-
-Rails/MatchRoute:
-  Enabled: true
-
-Rails/NegateInclude:
-  Enabled: true
-
-Rails/Pluck:
-  Enabled: true
-
-Rails/PluckInWhere:
-  Enabled: true
-
-Rails/RenderInline:
-  Enabled: true
-
-Rails/RenderPlainText:
-  Enabled: true
-
-Rails/ShortI18n:
-  Enabled: true
-
-Rails/WhereExists:
-  Enabled: true
+Lint/UselessMethodDefinition:
+  Exclude:
+    - 'app/services/application_service.rb'
