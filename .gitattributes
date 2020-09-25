@@ -4,3 +4,5 @@ helm_deploy/**/**/values-*.yaml filter=git-crypt diff=git-crypt
 helm_deploy/**/**/client.crt filter=git-crypt diff=git-crypt
 # client certificate key
 helm_deploy/**/**/client.key filter=git-crypt diff=git-crypt
+# CA certificate
+helm_deploy/**/**/ca.crt filter=git-crypt diff=git-crypt
