@@ -70,9 +70,9 @@ class Hearing < ApplicationRecord
   end
 
   def hearing_event_recordings
-    @hearing_event_recordings ||= hearing_body['hearingDays'].flat_map do |hearing_day|
+    @hearing_event_recordings ||= hearing_body['hearingDays'].flat_map { |hearing_day|
       Api::GetHearingEvents.call(hearing_id: id, hearing_date: hearing_day['sittingDay'].to_date)
-    end
+    }.compact
   end
 
   def hearing_day_events
