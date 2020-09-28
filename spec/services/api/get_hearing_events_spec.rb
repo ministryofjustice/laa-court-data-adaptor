@@ -17,6 +17,15 @@ RSpec.describe Api::GetHearingEvents do
     subject
   end
 
+  context 'when the body is blank' do
+    let(:response) { double(body: {}, status: 200) }
+
+    it 'does not record the result' do
+      expect(HearingEventsRecorder).not_to receive(:call)
+      subject
+    end
+  end
+
   context 'when the status is a 404' do
     let(:response) { double(body: {}.to_json, status: 404) }
 

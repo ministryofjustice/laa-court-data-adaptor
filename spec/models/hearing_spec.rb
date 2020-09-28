@@ -37,11 +37,19 @@ RSpec.describe Hearing, type: :model do
         end
       end
 
+      let(:hearing_events) { [hearing_event_recording] }
+
       before do
-        allow(Api::GetHearingEvents).to receive(:call).and_return([hearing_event_recording])
+        allow(Api::GetHearingEvents).to receive(:call).and_return(hearing_events)
       end
 
       it { expect(hearing.hearing_events).to all be_a(HearingEvent) }
+
+      context 'with blank hearing events' do
+        let(:hearing_events) { [hearing_event_recording, nil] }
+
+        it { expect(hearing.hearing_events).to all be_a(HearingEvent) }
+      end
     end
 
     context 'hearings information' do
