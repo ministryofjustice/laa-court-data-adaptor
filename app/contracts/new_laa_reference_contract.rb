@@ -7,7 +7,7 @@ class NewLaaReferenceContract < Dry::Validation::Contract
 
   params do
     optional(:maat_reference).value(:integer, lt?: 999_999_999)
-    optional(:user_name).value(:string, max_size?: 10)
+    required(:user_name).value(:string, min_size?: 1, max_size?: 10)
     required(:defendant_id).value(:string)
   end
 

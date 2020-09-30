@@ -18,7 +18,7 @@ RSpec.describe NewLaaReferenceContract do
   end
   let(:maat_reference) { 123_456_789 }
   let(:defendant_id) { "23d7f10a-067a-476e-bba6-bb855674e23b" }
-  let(:user_name) { "" }
+  let(:user_name) { "johnDoe" }
 
   let(:link_validity) { true }
 
@@ -34,10 +34,10 @@ RSpec.describe NewLaaReferenceContract do
     it { is_expected.to be_a_success }
   end
 
-  context "with a user_name" do
-    let(:user_name) { "johnDoe" }
+  context "without a user_name" do
+    let(:user_name) { "" }
 
-    it { is_expected.to be_a_success }
+    it { is_expected.not_to be_a_success }
   end
 
   context "with over 10 characters in user name" do
@@ -79,7 +79,7 @@ RSpec.describe NewLaaReferenceContract do
 
   context "without a maat_reference" do
     let(:hash_for_validation) do
-      { defendant_id: defendant_id }
+      { defendant_id: defendant_id, user_name: user_name }
     end
 
     it { is_expected.to be_a_success }
