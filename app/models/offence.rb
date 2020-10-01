@@ -21,6 +21,10 @@ class Offence
     body['offenceTitle']
   end
 
+  def legislation
+    body['offenceLegislation']
+  end
+
   def mode_of_trial
     body['modeOfTrial']
   end
