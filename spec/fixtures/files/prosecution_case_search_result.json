@@ -67,6 +67,54 @@
             "roomId": "8e912353-3b5d-36c3-953e-ad3b94b19de3",
             "roomName": "Courtroom 01"
           }
+        },
+        {
+          "hearingId": "9161049a-bde1-4150-83e5-9d5212d762c2",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [
+            "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2020-08-04T08:00:00Z",
+              "listingSequence": 2,
+              "listedDurationMinutes": 30
+            }
+          ],
+          "courtCentre": {
+            "id": "9b583616-049b-30f9-a14f-028a53b7cfe8",
+            "name": "Liverpool Crown Court",
+            "roomId": "7cb09222-49e1-3622-a5a6-ad253d2b3c39",
+            "roomName": "Crown Court 3-1"
+          },
+          "hearingType": {
+            "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
+            "description": "Plea and Trial Preparation"
+          }
+        },
+        {
+          "hearingId": "e6487eac-df3d-4175-9c41-c2e90d0a8587",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [
+            "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2020-09-05T08:00:00Z",
+              "listingSequence": 1,
+              "listedDurationMinutes": 720
+            }
+          ],
+          "courtCentre": {
+            "id": "f8254db1-1683-483e-afb3-b87fde5a0a26",
+            "name": "Lavender Hill Magistrates' Court",
+            "roomId": "9e4932f7-97b2-3010-b942-ddd2624e4dd8",
+            "roomName": "Courtroom 01"
+          },
+          "hearingType": {
+            "id": "bf8155e1-90b9-4080-b133-bfbad895d6e4",
+            "description": "Trial"
+          }
         }
       ]
     }

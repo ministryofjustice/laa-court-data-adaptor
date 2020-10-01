@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-
 RSpec.describe Sqs::PublishLaaReference do
+  include ActiveSupport::Testing::TimeHelpers
   let(:prosecution_case_id) { '5edd67eb-9d8c-44f2-a57e-c8d026defaa4' }
   let(:defendant_id) { '2ecc9feb-9407-482f-b081-d9e5c8ba3ed3' }
   let!(:prosecution_case) do
@@ -16,8 +16,8 @@ RSpec.describe Sqs::PublishLaaReference do
       maatId: maat_reference,
       caseUrn: '20GD0217100',
       asn: 'ARREST123',
-      cjsAreaCode: '1',
-      cjsLocation: 'B01BH',
+      cjsAreaCode: cjs_area_code,
+      cjsLocation: cjs_location,
       createdUser: 'bossMan',
       docLanguage: 'EN',
       isActive: false,
@@ -39,10 +39,10 @@ RSpec.describe Sqs::PublishLaaReference do
           }
         ]
       },
-      sessions: [{
-        courtLocation: 'B01BH',
-        dateOfHearing: '2020-02-17'
-      }]
+      sessions:
+              [{:courtLocation=>"B01BH", :dateOfHearing=>"2020-02-17"},
+              {:courtLocation=>"C05LV", :dateOfHearing=>"2020-08-04"},
+              {:courtLocation=>"B01LY", :dateOfHearing=>"2020-09-05"}],
     }
   end
 
@@ -50,8 +50,37 @@ RSpec.describe Sqs::PublishLaaReference do
 
   let(:queue_url) { Rails.configuration.x.aws.sqs_url_link }
 
-  it 'triggers a publish call with the sqs payload' do
-    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
-    subject
+  let(:cjs_area_code)  { '1' }
+  let(:cjs_location)   { 'B01LY' }
+
+  it 'returns the CJS area code and location from the most recent past hearing' do
+    travel_to Time.zone.local(2020, 9, 6) do
+      expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
+      subject
+    end
+  end
+
+  context 'all hearings are in the future' do
+    let(:cjs_area_code)  { '1' }
+    let(:cjs_location)   { 'B01BH' }
+
+    it 'returns the CJS area code and location from the next upcoming hearing ' do
+      travel_to Time.zone.local(2020, 2, 1) do
+        expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
+        subject
+      end
+    end
+  end
+
+  context 'one hearing is in the past' do
+    let(:cjs_area_code)  { '1' }
+    let(:cjs_location)   { 'B01BH' }
+
+    it 'returns the CJS area code and location from the most recent past hearing ' do
+      travel_to Time.zone.local(2020, 2, 18) do
+        expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
+        subject
+      end
+    end
   end
 end
