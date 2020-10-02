@@ -69,13 +69,21 @@ module Sqs
     end
 
     def correct_hearing_summary
-      if prosecution_case.hearing_summaries.all? { |hearing_summary| hearing_summary.hearing_days.join.to_date.past? }
+      if all_hearings_in_past?
         prosecution_case.hearing_summaries.max_by { |hearing_summary| hearing_summary.hearing_days }
-      elsif prosecution_case.hearing_summaries.all? { |hearing_summary| hearing_summary.hearing_days.join.to_date.future? }
+      elsif all_hearings_in_future?
         prosecution_case.hearing_summaries.min_by { |hearing_summary| hearing_summary.hearing_days }
       else
         prosecution_case.hearing_summaries.delete_if { |hearing_summary| hearing_summary.hearing_days.join.to_date.future? }.max_by { |hearing_summary| hearing_summary.hearing_days }
       end
+    end
+
+    def all_hearings_in_past?
+      prosecution_case.hearing_summaries.all? { |hearing_summary| hearing_summary.hearing_days.join.to_date.past? }
+    end
+
+    def all_hearings_in_future?
+      prosecution_case.hearing_summaries.all? { |hearing_summary| hearing_summary.hearing_days.join.to_date.future? }
     end
 
     attr_reader :prosecution_case, :defendant, :user_name, :maat_reference
