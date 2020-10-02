@@ -32,6 +32,7 @@ gem 'hmcts_common_platform', github: 'ministryofjustice/hmcts_common_platform', 
 gem 'jsonapi_parameters'
 gem 'json-schema'
 gem 'prmd'
+gem 'prometheus-client'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'sentry-raven'
