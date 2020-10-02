@@ -70,11 +70,11 @@ module Sqs
 
     def correct_hearing_summary
       if all_hearings_in_past?
-        prosecution_case.hearing_summaries.max_by { |hearing_summary| hearing_summary.hearing_days }
+        prosecution_case.hearing_summaries.max_by(&:hearing_days)
       elsif all_hearings_in_future?
-        prosecution_case.hearing_summaries.min_by { |hearing_summary| hearing_summary.hearing_days }
+        prosecution_case.hearing_summaries.min_by(&:hearing_days)
       else
-        prosecution_case.hearing_summaries.delete_if { |hearing_summary| hearing_summary.hearing_days.join.to_date.future? }.max_by { |hearing_summary| hearing_summary.hearing_days }
+        prosecution_case.hearing_summaries.delete_if { |hearing_summary| hearing_summary.hearing_days.join.to_date.future? }.max_by(&:hearing_days)
       end
     end
 

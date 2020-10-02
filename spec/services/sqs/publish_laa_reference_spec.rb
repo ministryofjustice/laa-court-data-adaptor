@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe Sqs::PublishLaaReference do
   include ActiveSupport::Testing::TimeHelpers
   let(:prosecution_case_id) { '5edd67eb-9d8c-44f2-a57e-c8d026defaa4' }
@@ -40,9 +41,9 @@ RSpec.describe Sqs::PublishLaaReference do
         ]
       },
       sessions:
-              [{:courtLocation=>"B01BH", :dateOfHearing=>"2020-02-17"},
-              {:courtLocation=>"C05LV", :dateOfHearing=>"2020-08-04"},
-              {:courtLocation=>"B01LY", :dateOfHearing=>"2020-09-05"}],
+              [{ :courtLocation => "B01BH", :dateOfHearing => "2020-02-17" },
+              { :courtLocation => "C05LV", :dateOfHearing => "2020-08-04" },
+              { :courtLocation => "B01LY", :dateOfHearing => "2020-09-05" }]
     }
   end
 
