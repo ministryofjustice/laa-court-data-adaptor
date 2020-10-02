@@ -41,9 +41,9 @@ RSpec.describe Sqs::PublishLaaReference do
         ]
       },
       sessions:
-              [{ :courtLocation => "B01BH", :dateOfHearing => "2020-02-17" },
-              { :courtLocation => "C05LV", :dateOfHearing => "2020-08-04" },
-              { :courtLocation => "B01LY", :dateOfHearing => "2020-09-05" }]
+              [{ courtLocation: 'B01BH', dateOfHearing: '2020-02-17' },
+               { courtLocation: 'C05LV', dateOfHearing: '2020-08-04' },
+               { courtLocation: 'B01LY', dateOfHearing: '2020-09-05' }]
     }
   end
 
@@ -73,12 +73,12 @@ RSpec.describe Sqs::PublishLaaReference do
     end
   end
 
-  context 'one hearing is in the past' do
-    let(:cjs_area_code)  { '1' }
-    let(:cjs_location)   { 'B01BH' }
+  context 'one hearing is in the future' do
+    let(:cjs_area_code)  { '5' }
+    let(:cjs_location)   { 'C05LV' }
 
     it 'returns the CJS area code and location from the most recent past hearing ' do
-      travel_to Time.zone.local(2020, 2, 18) do
+      travel_to Time.zone.local(2020, 8, 10) do
         expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
         subject
       end
