@@ -7,6 +7,8 @@ module MaatApi
     end
 
     def call
+      return if host.blank?
+
       Faraday.new host do |connection|
         connection.request :oauth2, access_token.token, token_type: :bearer
         connection.request :json

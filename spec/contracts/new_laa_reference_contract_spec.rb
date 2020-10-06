@@ -63,6 +63,12 @@ RSpec.describe NewLaaReferenceContract do
 
     it { is_expected.not_to be_a_success }
     it { is_expected.to have_contract_error('5635423: MaatId already linked to the application.') }
+
+    context 'when the maat api validator is not available' do
+      before { allow(MaatApi::MaatReferenceValidator).to receive(:call).and_return(nil) }
+
+      it { is_expected.to be_a_success }
+    end
   end
 
   context 'without a maat_reference' do

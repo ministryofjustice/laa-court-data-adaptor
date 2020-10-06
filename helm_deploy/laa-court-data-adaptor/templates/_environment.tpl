@@ -59,6 +59,16 @@ env:
         name: cda-messaging-queues-output
         key: secret_access_key
   {{- end }}
+  {{- if .Values.maat_api.validation_enabled }}
+  - name: MAAT_API_OAUTH_URL
+    value: {{ .Values.maat_api.oauth_url }}
+  - name: MAAT_API_API_URL
+    value: {{ .Values.maat_api.api_url }}
+  - name: MAAT_API_CLIENT_ID
+    value: {{ .Values.maat_api.client_id }}
+  - name: MAAT_API_CLIENT_SECRET
+    value: {{ .Values.maat_api.client_secret }}
+  {{- end }}
   - name: AWS_REGION
     value: {{ .Values.sqs_region }}
   - name: SENTRY_DSN

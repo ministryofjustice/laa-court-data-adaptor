@@ -22,4 +22,12 @@ RSpec.describe MaatApi::MaatReferenceValidator do
       end
     end
   end
+
+  context 'when the connection is blank' do
+    subject { described_class.call(maat_reference: maat_reference, connection: MaatApi::Connection.call(host: nil)) }
+
+    it 'does not make a validation request' do
+      subject
+    end
+  end
 end

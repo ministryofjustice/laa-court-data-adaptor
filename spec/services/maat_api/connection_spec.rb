@@ -10,6 +10,15 @@ RSpec.describe MaatApi::Connection do
     subject
   end
 
+  context 'when the host is not defined' do
+    let(:host) { nil }
+
+    it 'does not connect to the maat api url' do
+      expect(Faraday).not_to receive(:new)
+      subject
+    end
+  end
+
   context 'faraday configuration' do
     let(:connection) { double }
     let(:oauth_client) { instance_double('OAuth2::Client', client_credentials: double(get_token: double(token: 'TOKEN'))) }
