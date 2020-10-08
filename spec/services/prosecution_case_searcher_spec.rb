@@ -94,5 +94,17 @@ RSpec.describe ProsecutionCaseSearcher do
       expect(connection).to receive(:get).with(url, params)
       subject
     end
+
+    context 'searching by ASN and Prosecution case reference' do
+      let(:arrest_summons_number) { 'arrest123' }
+      let(:params) { { prosecutionCaseReference: prosecution_case_reference, defendantASN: arrest_summons_number } }
+
+      subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference, arrest_summons_number: arrest_summons_number, connection: connection) }
+
+      it 'makes a get request with both parameters' do
+        expect(connection).to receive(:get).with(url, params)
+        search
+      end
+    end
   end
 end

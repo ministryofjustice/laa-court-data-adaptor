@@ -11,36 +11,21 @@ class ProsecutionCaseSearcher < ApplicationService
                  date_of_next_hearing: nil,
                  connection: CommonPlatformConnection.call)
     @connection = connection
-    @prosecution_case_reference = prosecution_case_reference
-    @national_insurance_number = national_insurance_number
-    @arrest_summons_number = arrest_summons_number
-    @name = name
-    @date_of_birth = date_of_birth
-    @date_of_next_hearing = date_of_next_hearing
+    @params = { prosecutionCaseReference: prosecution_case_reference,
+                defendantASN: arrest_summons_number,
+                defendantName: name,
+                dateOfNextHearing: date_of_next_hearing,
+                defendantDOB: date_of_birth,
+                defendantNINO: national_insurance_number }.compact
   end
   # rubocop:enable Metrics/ParameterLists
 
   def call
-    connection.get(URL, request_params)
+    connection.get(URL, params)
   end
 
   private
 
-  def request_params
-    return { prosecutionCaseReference: prosecution_case_reference } if prosecution_case_reference.present?
-    return { defendantASN: arrest_summons_number } if arrest_summons_number.present?
-    return { defendantName: name, dateOfNextHearing: date_of_next_hearing } if date_of_next_hearing.present?
-    return { defendantName: name, defendantDOB: date_of_birth } if date_of_birth.present?
-
-    { defendantNINO: national_insurance_number }
-  end
-
-  attr_reader :prosecution_case_reference,
-              :national_insurance_number,
-              :response,
-              :arrest_summons_number,
-              :name,
-              :date_of_birth,
-              :date_of_next_hearing,
-              :connection
+  attr_reader :connection,
+              :params
 end
