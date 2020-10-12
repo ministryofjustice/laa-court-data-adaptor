@@ -3,6 +3,7 @@
 class NewLaaReferenceContract < Dry::Validation::Contract
   option :uuid_validator, default: -> { CommonPlatform::UuidValidator }
   option :maat_reference_validator, default: -> { MaatApi::MaatReferenceValidator }
+  option :link_validator, default: -> { LinkValidator }
 
   params do
     optional(:maat_reference).value(:integer, lt?: 999_999_999)
@@ -12,6 +13,7 @@ class NewLaaReferenceContract < Dry::Validation::Contract
 
   rule(:defendant_id) do
     key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value)
+    key.failure('We do not have all the info needed to link right now, please try again later') unless link_validator.call(defendant_id: value)
   end
 
   rule(:maat_reference) do
