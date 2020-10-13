@@ -32,7 +32,7 @@ RSpec.describe LinkValidator do
     end
   end
 
-  context 'when the prosecution case defendant offence does not exit' do
+  context 'when the prosecution case defendant offence does not exist' do
     before do
       ProsecutionCaseDefendantOffence.destroy_all
     end
