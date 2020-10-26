@@ -61,18 +61,13 @@ RSpec.describe Sqs::PublishHearing do
               'qualifier': 'LG',
               'resultText': 'Fine - Amount of fine: £1500',
               'orderedDate': '2018-11-11',
+              "postHearingCustodyStatus": 'R',
               'nextHearing': {
                 'listedStartDateTime': '2018-11-11T10:30:00Z',
                 'courtCentre': {
                   'id': 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
                 }
-              },
-              'judicialResultPrompts': [
-                {
-                  'label': 'Remand Status',
-                  'value': 'R'
-                }
-              ]
+              }
             }
           ],
           'laaApplnReference': {

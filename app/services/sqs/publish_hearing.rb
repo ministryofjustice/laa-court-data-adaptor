@@ -35,14 +35,6 @@ module Sqs
       defendant_details&.dig(:contact)
     end
 
-    def post_hearing_custody
-      defendant[:offences].dig(0, :judicialResults, 0, :judicialResultPrompts)&.each do |prompt|
-        @post_hearing_custody = prompt[:value] if prompt[:label] == 'Remand Status'
-      end
-
-      @post_hearing_custody
-    end
-
     def cjs_area_code
       court_centre.oucode_l2_code
     end
@@ -142,7 +134,7 @@ module Sqs
       {
         courtLocation: cjs_location,
         dateOfHearing: defendant.dig(:offences, 0, :judicialResults, 0, :orderedDate),
-        postHearingCustody: post_hearing_custody,
+        postHearingCustody: PostHearingCustodyCalculator.call(offences: defendant[:offences]),
         sessionValidateDate: defendant.dig(:offences, 0, :judicialResults, 0, :orderedDate)
       }
     end
