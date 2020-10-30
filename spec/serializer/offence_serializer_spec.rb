@@ -8,6 +8,8 @@ RSpec.describe OffenceSerializer do
                     order_index: '0',
                     title: 'Fail to wear protective clothing',
                     mode_of_trial: 'Indictable-Only Offence',
+                    mode_of_trial_reason: 'Court directs trial by jury',
+                    mode_of_trial_reason_code: '5',
                     plea: 'GUILTY',
                     plea_date: '2020-01-01')
   end
@@ -21,6 +23,8 @@ RSpec.describe OffenceSerializer do
     it { expect(attribute_hash[:order_index]).to eq('0') }
     it { expect(attribute_hash[:title]).to eq('Fail to wear protective clothing') }
     it { expect(attribute_hash[:mode_of_trial]).to eq('Indictable-Only Offence') }
+    it { expect(attribute_hash[:mode_of_trial_reason]).to eq('Court directs trial by jury') }
+    it { expect(attribute_hash[:mode_of_trial_reason_code]).to eq('5') }
     it { expect(attribute_hash[:plea]).to eq('GUILTY') }
     it { expect(attribute_hash[:plea_date]).to eq('2020-01-01') }
   end
