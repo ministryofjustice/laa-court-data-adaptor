@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://maat-cd-api.auth.eu-west-2.amazoncognito.com/oauth2/token
+    uri: https://maat-cd-api-dev.auth.eu-west-2.amazoncognito.com/oauth2/token
     body:
       encoding: UTF-8
       string: grant_type=client_credentials
