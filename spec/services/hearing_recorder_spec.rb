@@ -25,7 +25,7 @@ RSpec.describe HearingRecorder do
   it 'enqueues a HearingsCreatorWorker' do
     Sidekiq::Testing.fake! do
       Current.set(request_id: 'XYZ') do
-        expect(HearingsCreatorWorker).to receive(:perform_async).with('XYZ', body[:hearing], body[:sharedTime]).and_call_original
+        expect(HearingsCreatorWorker).to receive(:perform_async).with('XYZ', hearing_id).and_call_original
         subject
       end
     end

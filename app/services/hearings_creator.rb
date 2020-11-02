@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class HearingsCreator < ApplicationService
-  def initialize(shared_time:, hearing:)
-    @shared_time = shared_time
-    @hearing = hearing
+  def initialize(hearing_id:)
+    hearing_body = Hearing.find(hearing_id).body.deep_transform_keys(&:to_sym)
+    @hearing = hearing_body[:hearing]
+    @shared_time = hearing_body[:sharedTime]
   end
 
   def call
