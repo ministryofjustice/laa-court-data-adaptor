@@ -23,6 +23,7 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.national_insurance_number).to eq('HB133542A') }
   it { expect(defendant.arrest_summons_number).to eq('ARREST123') }
   it { expect(defendant.prosecution_case).to be_nil }
+  it { expect(defendant.post_hearing_custody_status).to eq('A') }
 
   context 'defendant does not have a middle name' do
     before { defendant.body.delete('defendantMiddleName') }
@@ -155,6 +156,36 @@ RSpec.describe Defendant, type: :model do
     it 'initialises Offence with details' do
       expect(Offence).to receive(:new).with(body: defendant_hash['offenceSummary'][0], details: details_hash['offences'][0])
       defendant.offences
+    end
+
+    it 'exposes the post hearing custody status' do
+      expect(defendant.post_hearing_custody_status).to eq('A')
+    end
+  end
+
+  context 'with an applicable post hearing custody status' do
+    let(:details_hash) do
+      {
+        'offences' => [
+          {
+            'id' => '3f153786-f3cf-4311-bc0c-2d6f48af68a1',
+            'offenceCode' => 'TR68107',
+            'modeOfTrial' => 'Summary',
+            'judicialResults' => [
+              {
+                'postHearingCustodyStatus' => 'R'
+              }
+            ]
+          }
+        ]
+      }
+    end
+
+    let(:offences) { details_hash.deep_transform_keys(&:to_sym)[:offences] }
+
+    it 'returns an applicable status' do
+      expect(PostHearingCustodyCalculator).to receive(:call).with(offences: offences).and_call_original
+      expect(defendant.post_hearing_custody_status).to eq('R')
     end
   end
 end
