@@ -77,5 +77,10 @@ RSpec.describe NewLaaReferenceContract do
     end
 
     it { is_expected.to be_a_success }
+
+    it 'does not call the maat reference validator' do
+      expect(described_class.new.maat_reference_validator).not_to receive(:call)
+      subject
+    end
   end
 end

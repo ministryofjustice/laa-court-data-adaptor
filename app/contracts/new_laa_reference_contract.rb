@@ -15,7 +15,7 @@ class NewLaaReferenceContract < Dry::Validation::Contract
   end
 
   rule(:maat_reference) do
-    validation = maat_reference_validator.call(maat_reference: value)
+    validation = maat_reference_validator.call(maat_reference: value) if value
     key.failure(validation.body['message']) if validation && validation.status != 200
   end
 end
