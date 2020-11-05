@@ -41,6 +41,7 @@ gem 'sidekiq'
 gem 'versionist'
 
 group :development, :test do
+  gem 'colorize'
   gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'pry-rails', '~> 0.3.9'
