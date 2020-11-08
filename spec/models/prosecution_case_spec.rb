@@ -88,6 +88,10 @@ RSpec.describe ProsecutionCase, type: :model do
 
         it { is_expected.to all be_a(Hearing) }
 
+        it 'is_expected to have alias #fetch_details' do
+          expect(prosecution_case.method(:hearings)).to eq(prosecution_case.method(:fetch_details))
+        end
+
         context 'when a hearing has not resulted' do
           let(:hearing_one) { nil }
           let(:hearing_two) { nil }
