@@ -110,9 +110,21 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
       context 'with success' do
         let(:Authorization) { "Bearer #{token.token}" }
         let(:id) { 'c6cf04b5-901d-4a89-a9ab-767eb57306e4' }
-        let!(:prosecution_case_result) do
-          VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success') do
-            Api::SearchProsecutionCase.call(prosecution_case_reference: '19GD1001816')
+
+        before do
+          # This call creates the ProsecutionCase and ProsecutionCaseDefendantOffence
+          # in the CDA DB, which are currently required to query the defendant by id
+          # on this api endpoint.
+          # It implies that defendants are not queryable unless their case has been searched
+          # for beforehand, which seems risky (albeit that VCD should always have queried the
+          # case first via its searchinng options).
+          #
+          Api::SearchProsecutionCase.call(prosecution_case_reference: '19GD1001816')
+        end
+
+        around do |example|
+          VCR.use_cassette('search_prosecution_case/by_prosecution_case_reference_success', record: :new_episodes) do
+            example.run
           end
         end
 
