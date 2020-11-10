@@ -31,7 +31,7 @@ class DefendantFinder < ApplicationService
   end
 
   def prosecution_case
-    return unless prosecution_case_defendant&.prosecution_case_id
+    return unless prosecution_case_defendant
 
     @prosecution_case ||= ProsecutionCase.find(prosecution_case_defendant.prosecution_case_id)
   end
