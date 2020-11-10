@@ -36,5 +36,5 @@ class DefendantFinder < ApplicationService
     @prosecution_case ||= ProsecutionCase.find(prosecution_case_defendant.prosecution_case_id)
   end
 
-  attr_reader :defendant_id, :prosecution_case_defendant, :inclusions
+  attr_reader :defendant_id, :prosecution_case_defendant
 end
