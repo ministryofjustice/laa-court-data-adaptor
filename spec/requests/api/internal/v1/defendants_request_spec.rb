@@ -105,6 +105,8 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
                 schema: {},
                 description: 'Return other data through a has_many relationship </br>e.g. include=offences'
 
+      parameter '$ref' => '#/components/parameters/transaction_id_header'
+
       context 'with success' do
         let(:Authorization) { "Bearer #{token.token}" }
         let(:id) { 'c6cf04b5-901d-4a89-a9ab-767eb57306e4' }
@@ -139,8 +141,6 @@ RSpec.describe 'Api::Internal::V1::Defendants', type: :request, swagger_doc: 'v1
         response('404', 'Not found') do
           let(:Authorization) { "Bearer #{token.token}" }
           let(:id) { 'c6cf04b5' }
-
-          parameter '$ref' => '#/components/parameters/transaction_id_header'
 
           run_test!
         end
