@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?dateOfNextHearing=2020-02-17&defendantName=George+Walsh"
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?dateOfNextHearing=2020-02-17&defendantName=George%20Walsh"
     body:
       encoding: US-ASCII
       string: ''

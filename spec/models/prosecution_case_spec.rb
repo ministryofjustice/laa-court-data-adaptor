@@ -13,19 +13,26 @@ RSpec.describe ProsecutionCase, type: :model do
     end
 
     let(:prosecution_case) { described_class.create(id: prosecution_case_id, body: prosecution_case_result.body['cases'][0]) }
-
     let(:prosecution_case_id) { '31cbe62d-b1ec-4e82-89f7-99dced834900' }
 
-    it { expect(prosecution_case.prosecution_case_reference).to eq('19GD1001816') }
-    it { expect(prosecution_case.defendants).to all be_a(Defendant) }
-    it { expect(prosecution_case.hearing_summaries).to all be_a(HearingSummary) }
-
-    it 'initialises Defendants without details' do
-      expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice.and_call_original
-      prosecution_case.defendants
+    describe '#prosecution_case_reference' do
+      it { expect(prosecution_case.prosecution_case_reference).to eq('19GD1001816') }
     end
 
-    context 'requesting hearing resulted' do
+    describe '#defendants' do
+      it { expect(prosecution_case.defendants).to all be_a(Defendant) }
+
+      it 'initialises Defendants without details' do
+        expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice.and_call_original
+        prosecution_case.defendants
+      end
+    end
+
+    describe '#hearing_summaries' do
+      it { expect(prosecution_case.hearing_summaries).to all be_a(HearingSummary) }
+    end
+
+    context 'when requesting hearing resulted' do
       let(:hearing_ids) { %w[311bb2df-4df5-4abe-bae3-82f144e1e5c5 c6cf04b5-901d-4a89-a9ab-767eb57306e4] }
 
       before do
@@ -70,31 +77,44 @@ RSpec.describe ProsecutionCase, type: :model do
         )
       end
 
-      it { expect(prosecution_case.hearings).to all be_a(Hearing) }
-      it { expect(prosecution_case.hearing_ids).to eq(hearing_ids) }
+      describe '#hearing_ids' do
+        subject { prosecution_case.hearing_ids }
 
-      context 'when a hearing has not resulted' do
-        let(:hearing_one) { nil }
-        let(:hearing_two) { nil }
-
-        it { expect(prosecution_case.hearings).to be_empty }
+        it { is_expected.to eq(hearing_ids) }
       end
 
-      context 'when hearings are loaded' do
-        before { prosecution_case.hearings }
+      describe '#hearings' do
+        subject(:hearings) { prosecution_case.hearings }
 
-        it 'initialises Defendants with detailed fetched from hearing' do
-          expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: an_instance_of(Hash), prosecution_case_id: prosecution_case_id).twice
-          prosecution_case.defendants
+        it { is_expected.to all be_a(Hearing) }
+
+        it 'is_expected to have alias #fetch_details' do
+          expect(prosecution_case.method(:hearings)).to eq(prosecution_case.method(:fetch_details))
         end
 
-        context 'with no prosecution_case reference' do
-          let(:hearing_one) { Hearing.create(id: hearing_ids[0], body: { 'hearing' => { 'id' => hearing_ids[0] } }) }
-          let(:hearing_two) { Hearing.create(id: hearing_ids[1], body: { 'hearing' => { 'id' => hearing_ids[1] } }) }
+        context 'when a hearing has not resulted' do
+          let(:hearing_one) { nil }
+          let(:hearing_two) { nil }
 
-          it 'initialises Defendants without details' do
-            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice
+          it { is_expected.to be_empty }
+        end
+
+        context 'when hearings are loaded' do
+          before { prosecution_case.hearings }
+
+          it 'initialises Defendants with detail fetched from hearing' do
+            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: an_instance_of(Hash), prosecution_case_id: prosecution_case_id).twice
             prosecution_case.defendants
+          end
+
+          context 'with no prosecution_case reference' do
+            let(:hearing_one) { Hearing.create(id: hearing_ids[0], body: { 'hearing' => { 'id' => hearing_ids[0] } }) }
+            let(:hearing_two) { Hearing.create(id: hearing_ids[1], body: { 'hearing' => { 'id' => hearing_ids[1] } }) }
+
+            it 'initialises Defendants without details' do
+              expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice
+              prosecution_case.defendants
+            end
           end
         end
       end
