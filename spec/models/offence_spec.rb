@@ -9,7 +9,7 @@ RSpec.describe Offence, type: :model do
       'offenceCode' => 'AA06001',
       'orderIndex' => 1,
       'offenceTitle' => 'Fail to wear protective clothing / meet other criteria on entering quarantine centre/facility',
-      'offenceLegislation' => 'N/A',
+      'offenceLegislation' => 'Offences against the Person Act 1861 s.24',
       'wording' => 'Random string',
       'arrestDate' => '2020-02-01',
       'chargeDate' => '2020-02-01',
@@ -26,6 +26,7 @@ RSpec.describe Offence, type: :model do
   it { expect(offence.code).to eq('AA06001') }
   it { expect(offence.order_index).to eq(1) }
   it { expect(offence.title).to eq('Fail to wear protective clothing / meet other criteria on entering quarantine centre/facility') }
+  it { expect(offence.legislation).to eq('Offences against the Person Act 1861 s.24') }
   it { expect(offence.mode_of_trial).to eq('Indictable-Only Offence') }
   it { expect(offence.maat_reference).to be_nil }
   it { expect(offence.plea).to be_nil }

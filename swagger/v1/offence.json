@@ -44,6 +44,12 @@
       "description": "The offence title",
       "type": "string"
     },
+    "legislation": {
+      "readOnly": true,
+      "example": "Offences against the Person Act 1861 s.24",
+      "description": "The offence legislation from reference data",
+      "type": "string"
+    },
     "mode_of_trial": {
       "readOnly": true,
       "anyOf": [
@@ -104,6 +110,9 @@
         "title": {
           "$ref": "#/definitions/title"
         },
+        "legislation": {
+          "$ref": "#/definitions/legislation"
+        },
         "plea": {
           "$ref": "#/definitions/plea"
         },
@@ -137,6 +146,9 @@
     },
     "title": {
       "$ref": "offence.json#/definitions/title"
+    },
+    "legislation": {
+      "$ref": "offence.json#/definitions/legislation"
     },
     "plea": {
       "$ref": "offence.json#/definitions/plea"
