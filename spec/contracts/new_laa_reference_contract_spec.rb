@@ -3,6 +3,12 @@
 RSpec.describe NewLaaReferenceContract do
   subject { described_class.new.call(hash_for_validation) }
 
+  around do |example|
+    VCR.use_cassette('maat_api/maat_reference_success') do
+      example.run
+    end
+  end
+
   let(:hash_for_validation) do
     {
       maat_reference: maat_reference,
@@ -46,11 +52,35 @@ RSpec.describe NewLaaReferenceContract do
     it { is_expected.not_to be_a_success }
   end
 
+  context 'with an invalid maat_reference' do
+    let(:maat_reference) { 5_635_423 }
+
+    around do |example|
+      VCR.use_cassette('maat_api/maat_reference_invalid') do
+        example.run
+      end
+    end
+
+    it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error('5635423: MaatId already linked to the application.') }
+
+    context 'when the maat api validator is not available' do
+      before { allow(MaatApi::MaatReferenceValidator).to receive(:call).and_return(nil) }
+
+      it { is_expected.to be_a_success }
+    end
+  end
+
   context 'without a maat_reference' do
     let(:hash_for_validation) do
       { defendant_id: defendant_id }
     end
 
     it { is_expected.to be_a_success }
+
+    it 'does not call the maat reference validator' do
+      expect(described_class.new.maat_reference_validator).not_to receive(:call)
+      subject
+    end
   end
 end

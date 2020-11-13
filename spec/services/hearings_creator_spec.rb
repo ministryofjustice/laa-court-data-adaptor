@@ -7,30 +7,30 @@ RSpec.describe HearingsCreator do
   let(:maat_reference) { '123456789' }
 
   let(:defendant_one) do
-    { offences: offence_array }
+    { "offences": offence_array }
   end
 
   let(:offence_one) do
     {
-      laaApplnReference: {
-        applicationReference: maat_reference
+      "laaApplnReference": {
+        "applicationReference": maat_reference
       }
     }
   end
 
   let(:offence_two) do
     {
-      laaApplnReference: {
-        applicationReference: maat_reference
+      "laaApplnReference": {
+        "applicationReference": maat_reference
       }
     }
   end
 
   let(:defendant_two) do
     {
-      offences: [{
-        laaApplnReference: {
-          applicationReference: '987654321'
+      "offences": [{
+        "laaApplnReference": {
+          "applicationReference": '987654321'
         }
       }]
     }
@@ -39,41 +39,45 @@ RSpec.describe HearingsCreator do
   let(:prosecution_case_array) do
     [
       {
-        prosecutionCaseIdentifier: {
-          caseURN: '12345'
+        "prosecutionCaseIdentifier": {
+          "caseURN": '12345'
         },
-        defendants: defendant_array
+        "defendants": defendant_array
       }
     ]
   end
   let(:applications_array) do
     [
       {
-        applicationReference: '12345',
-        type: {
-          applicationCode: 'ASE'
+        "applicationReference": '12345',
+        "type": {
+          "applicationCode": 'ASE'
         },
-        applicant: {
-          defendant: defendant_one
+        "applicant": {
+          "defendant": defendant_one
         }
       }
     ]
   end
-  let(:shared_time) { '2018-10-25 11:30:00' }
-  let(:hearing) do
+  let(:hearing_body) do
     {
-      jurisdictionType: 'MAGISTRATES',
-      courtCentre: {
-        id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
+      "hearing": {
+        "jurisdictionType": 'MAGISTRATES',
+        "courtCentre": {
+          "id": 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
+        },
+        "prosecutionCases": prosecution_case_array,
+        "courtApplications": applications_array
       },
-      prosecutionCases: prosecution_case_array,
-      courtApplications: applications_array
+      "sharedTime": '2018-10-25 11:30:00'
     }
   end
 
+  let(:hearing) { Hearing.create!(body: hearing_body) }
+
   before { allow(Sqs::PublishHearing).to receive(:call) }
 
-  subject(:create) { described_class.call(shared_time: shared_time, hearing: hearing) }
+  subject(:create) { described_class.call(hearing_id: hearing.id) }
 
   context 'for a trial' do
     let(:applications_array) { nil }
@@ -124,16 +128,16 @@ RSpec.describe HearingsCreator do
       let(:prosecution_case_array) do
         [
           {
-            prosecutionCaseIdentifier: {
-              caseURN: '12345'
+            "prosecutionCaseIdentifier": {
+              "caseURN": '12345'
             },
-            defendants: defendant_array
+            "defendants": defendant_array
           },
           {
-            prosecutionCaseIdentifier: {
-              caseURN: '54321'
+            "prosecutionCaseIdentifier": {
+              "caseURN": '54321'
             },
-            defendants: defendant_array
+            "defendants": defendant_array
           }
         ]
       end
@@ -154,13 +158,16 @@ RSpec.describe HearingsCreator do
     end
 
     context 'with a crown court hearing' do
-      let(:hearing) do
+      let(:hearing_body) do
         {
-          jurisdictionType: 'CROWN',
-          courtCentre: {
-            id: 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
+          "hearing": {
+            "jurisdictionType": 'CROWN',
+            "courtCentre": {
+              "id": 'dd22b110-7fbc-3036-a076-e4bb40d0a519'
+            },
+            "prosecutionCases": prosecution_case_array
           },
-          prosecutionCases: prosecution_case_array
+          "sharedTime": '2018-10-25 11:30:00'
         }
       end
 

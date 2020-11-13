@@ -22,6 +22,7 @@ class ProsecutionCase < ApplicationRecord
   def hearings
     hearing_results.select(&:body)
   end
+  alias fetch_details hearings
 
   def hearing_ids
     hearings.map(&:id)

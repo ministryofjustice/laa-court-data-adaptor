@@ -9,16 +9,12 @@ class HearingRecorder < ApplicationService
 
   def call
     hearing.update(body: body)
-    HearingsCreatorWorker.perform_async(Current.request_id, transformed_body[:hearing], transformed_body[:sharedTime]) if publish_to_queue
+    HearingsCreatorWorker.perform_async(Current.request_id, hearing.id) if publish_to_queue
 
     hearing
   end
 
   private
-
-  def transformed_body
-    @transformed_body ||= body.to_hash.transform_keys(&:to_sym)
-  end
 
   attr_reader :hearing, :body, :publish_to_queue
 end

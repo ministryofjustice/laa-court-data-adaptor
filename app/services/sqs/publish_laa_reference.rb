@@ -24,9 +24,9 @@ module Sqs
         maatId: maat_reference,
         caseUrn: prosecution_case.prosecution_case_reference,
         asn: defendant.arrest_summons_number,
-        cjsAreaCode: prosecution_case.hearing_summaries.first.oucode_l2_code,
+        cjsAreaCode: correct_hearing_summary.oucode_l2_code,
         createdUser: user_name,
-        cjsLocation: prosecution_case.hearing_summaries.first.short_oucode,
+        cjsLocation: correct_hearing_summary.short_oucode,
         docLanguage: 'EN',
         isActive: active?,
         defendant: defendant_hash,
@@ -66,6 +66,21 @@ module Sqs
           dateOfHearing: hearing_summary.hearing_days.max.to_date.strftime('%Y-%m-%d')
         }
       end
+    end
+
+    def correct_hearing_summary
+      return prosecution_case.hearing_summaries.max_by(&:hearing_days) if all_hearings_in_past?
+      return prosecution_case.hearing_summaries.min_by(&:hearing_days) if all_hearings_in_future?
+
+      prosecution_case.hearing_summaries.reject(&:hearing_in_future?).max_by(&:hearing_days)
+    end
+
+    def all_hearings_in_past?
+      prosecution_case.hearing_summaries.all?(&:hearing_in_past?)
+    end
+
+    def all_hearings_in_future?
+      prosecution_case.hearing_summaries.all?(&:hearing_in_future?)
     end
 
     attr_reader :prosecution_case, :defendant, :user_name, :maat_reference

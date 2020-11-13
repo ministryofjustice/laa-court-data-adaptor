@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Offence, type: :model do
+  subject(:offence) { described_class.new(body: offence_hash, details: details_hash) }
+
   let(:offence_hash) do
     {
       'offenceId' => 'db1cc378-a0e9-4943-bc36-7b34e47ae943',
@@ -21,8 +23,6 @@ RSpec.describe Offence, type: :model do
 
   let(:details_hash) { nil }
 
-  subject(:offence) { described_class.new(body: offence_hash, details: details_hash) }
-
   it { expect(offence.code).to eq('AA06001') }
   it { expect(offence.order_index).to eq(1) }
   it { expect(offence.title).to eq('Fail to wear protective clothing / meet other criteria on entering quarantine centre/facility') }
@@ -32,7 +32,9 @@ RSpec.describe Offence, type: :model do
   it { expect(offence.plea).to be_nil }
   it { expect(offence.plea_date).to be_nil }
 
-  context 'with an LAA reference' do
+  context 'when an LAA reference are available' do
+    subject(:offence) { described_class.new(body: offence_hash.merge(laa_reference)) }
+
     let(:laa_reference) do
       {
         'laaApplnReference' => {
@@ -45,12 +47,10 @@ RSpec.describe Offence, type: :model do
       }
     end
 
-    subject(:offence) { described_class.new(body: offence_hash.merge(laa_reference)) }
-
     it { expect(offence.maat_reference).to eq('AB746921') }
   end
 
-  context 'when details are available' do
+  context 'when plea details are available' do
     let(:details_hash) do
       {
         'plea' => {
@@ -62,5 +62,49 @@ RSpec.describe Offence, type: :model do
 
     it { expect(offence.plea).to eq('GUILTY') }
     it { expect(offence.plea_date).to eq('2020-04-24') }
+  end
+
+  describe '#mode_of_trial_reason' do
+    subject(:mode_of_trial_reason) { offence.mode_of_trial_reason }
+
+    context 'when an allocation decision is not available' do
+      let(:details_hash) { {} }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when an allocation decision is available' do
+      let(:details_hash) do
+        {
+          'allocationDecision' => {
+            'motReasonDescription' => 'Court directs trial by jury'
+          }
+        }
+      end
+
+      it { is_expected.to eql 'Court directs trial by jury' }
+    end
+  end
+
+  describe '#mode_of_trial_reason_code' do
+    subject(:mode_of_trial_reason) { offence.mode_of_trial_reason_code }
+
+    context 'when an allocation decision is not available' do
+      let(:details_hash) { {} }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when an allocation decision is available' do
+      let(:details_hash) do
+        {
+          'allocationDecision' => {
+            'motReasonCode' => '5'
+          }
+        }
+      end
+
+      it { is_expected.to eql '5' }
+    end
   end
 end

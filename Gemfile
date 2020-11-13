@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3'
@@ -31,7 +31,9 @@ gem 'fast_jsonapi'
 gem 'hmcts_common_platform', github: 'ministryofjustice/hmcts_common_platform', tag: '0.1.0'
 gem 'jsonapi_parameters'
 gem 'json-schema'
+gem 'oauth2'
 gem 'prmd'
+gem 'prometheus-client'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'sentry-raven'
@@ -39,6 +41,7 @@ gem 'sidekiq'
 gem 'versionist'
 
 group :development, :test do
+  gem 'colorize'
   gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'pry-rails', '~> 0.3.9'
@@ -47,6 +50,7 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails', require: false
   gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do

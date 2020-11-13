@@ -29,6 +29,14 @@ class Offence
     body['modeOfTrial']
   end
 
+  def mode_of_trial_reason
+    allocation_decision['motReasonDescription']
+  end
+
+  def mode_of_trial_reason_code
+    allocation_decision['motReasonCode']
+  end
+
   def maat_reference
     laa_reference['applicationReference'] if laa_reference.present?
   end
@@ -51,5 +59,11 @@ class Offence
     return {} if details.blank?
 
     details['plea'] || {}
+  end
+
+  def allocation_decision
+    return {} if details.blank?
+
+    details.fetch('allocationDecision', {})
   end
 end
