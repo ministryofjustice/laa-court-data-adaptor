@@ -143,7 +143,7 @@ GEM
       faraday (~> 1.0)
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
-    ffi (1.11.3)
+    ffi (1.13.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashdiff (1.0.1)
@@ -157,7 +157,7 @@ GEM
       actionpack (>= 4.1.8)
       activesupport (>= 4.1.8)
     jwt (2.2.2)
-    listen (3.2.1)
+    listen (3.3.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.7.0)
@@ -235,8 +235,8 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
-    rb-fsevent (0.10.3)
-    rb-inotify (0.10.0)
+    rb-fsevent (0.10.4)
+    rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.2.2)
     regexp_parser (1.8.0)
@@ -347,7 +347,7 @@ DEPENDENCIES
   hmcts_common_platform!
   json-schema
   jsonapi_parameters
-  listen (>= 3.0.5, < 3.3)
+  listen (>= 3.0.5, < 3.4)
   oauth2
   pg (>= 0.18, < 2.0)
   prmd
