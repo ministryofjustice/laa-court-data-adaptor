@@ -20,6 +20,12 @@ RSpec.describe NewLaaReferenceContract do
   let(:defendant_id) { "23d7f10a-067a-476e-bba6-bb855674e23b" }
   let(:user_name) { "" }
 
+  let(:link_validity) { true }
+
+  before do
+    allow(LinkValidator).to receive(:call).and_return(link_validity)
+  end
+
   it { is_expected.to be_a_success }
 
   context "with a maat_reference cast as a string" do
@@ -82,5 +88,12 @@ RSpec.describe NewLaaReferenceContract do
       expect(described_class.new.maat_reference_validator).not_to receive(:call)
       subject
     end
+  end
+
+  context 'when the defendant cannot be linked' do
+    let(:link_validity) { false }
+
+    it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error('We do not have all the info needed to link right now, please try again later') }
   end
 end

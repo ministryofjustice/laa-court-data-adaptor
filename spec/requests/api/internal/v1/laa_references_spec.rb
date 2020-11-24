@@ -28,6 +28,10 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
     }
   end
 
+  before do
+    allow(LinkValidator).to receive(:call).and_return(true)
+  end
+
   around do |example|
     VCR.use_cassette("maat_api/maat_reference_success") do
       Sidekiq::Testing.fake! do

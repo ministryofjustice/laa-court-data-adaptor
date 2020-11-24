@@ -65,6 +65,10 @@ class Defendant
     _maat_reference if valid_maat_reference?
   end
 
+  def post_hearing_custody_status
+    PostHearingCustodyCalculator.call(offences: offence_details.deep_transform_keys(&:to_sym).values)
+  end
+
   def prosecution_case
     ProsecutionCase.find_by(id: prosecution_case_id)
   end
