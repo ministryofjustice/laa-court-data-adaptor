@@ -11,6 +11,7 @@ RSpec.describe OffenceSerializer do
                     mode_of_trial: "Indictable-Only Offence",
                     mode_of_trial_reason: "Court directs trial by jury",
                     mode_of_trial_reason_code: "5",
+                    pleas: %w[GUILTY NOT_GUILTY],
                     plea: "GUILTY",
                     plea_date: "2020-01-01")
   end
@@ -27,6 +28,7 @@ RSpec.describe OffenceSerializer do
     it { expect(attribute_hash[:mode_of_trial]).to eq("Indictable-Only Offence") }
     it { expect(attribute_hash[:mode_of_trial_reason]).to eq("Court directs trial by jury") }
     it { expect(attribute_hash[:mode_of_trial_reason_code]).to eq("5") }
+    it { expect(attribute_hash[:pleas]).to eq(%w[GUILTY NOT_GUILTY]) }
     it { expect(attribute_hash[:plea]).to eq("GUILTY") }
     it { expect(attribute_hash[:plea_date]).to eq("2020-01-01") }
   end
