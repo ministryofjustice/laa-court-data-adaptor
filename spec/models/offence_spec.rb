@@ -31,6 +31,7 @@ RSpec.describe Offence, type: :model do
   it { expect(offence.maat_reference).to be_nil }
   it { expect(offence.plea).to be_nil }
   it { expect(offence.plea_date).to be_nil }
+  it { expect(offence.pleas).to eq([]) }
 
   context "when an LAA reference are available" do
     subject(:offence) { described_class.new(body: offence_hash.merge(laa_reference)) }
@@ -62,6 +63,49 @@ RSpec.describe Offence, type: :model do
 
     it { expect(offence.plea).to eq("GUILTY") }
     it { expect(offence.plea_date).to eq("2020-04-24") }
+
+    context "#pleas" do
+      let(:plea_array) do
+        [{
+          "code": "GUILTY",
+          "pleaded_at": "2020-04-24",
+        }]
+      end
+
+      subject { offence.pleas }
+
+      it { is_expected.to eq plea_array }
+
+      context "with multiple pleas" do
+        let(:details_array) do
+          [{
+            "plea" => {
+              "pleaDate" => "2020-04-24",
+              "pleaValue" => "NOT_GUILTY",
+            },
+          },
+           {
+             "plea" => {
+               "pleaDate" => "2020-12-24",
+               "pleaValue" => "GUILTY",
+             },
+           }]
+        end
+
+        let(:plea_array) do
+          [{
+            "code": "NOT_GUILTY",
+            "pleaded_at": "2020-04-24",
+          },
+           {
+             "code": "GUILTY",
+             "pleaded_at": "2020-12-24",
+           }]
+        end
+
+        it { is_expected.to eq plea_array }
+      end
+    end
   end
 
   describe "#mode_of_trial_reason" do

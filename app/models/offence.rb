@@ -41,6 +41,15 @@ class Offence
     laa_reference["applicationReference"] if laa_reference.present?
   end
 
+  def pleas
+    pleas_array.map do |plea|
+      {
+        code: plea["pleaValue"],
+        pleaded_at: plea["pleaDate"],
+      }
+    end
+  end
+
   def plea
     pleas_array.dig(0, "pleaValue")
   end
