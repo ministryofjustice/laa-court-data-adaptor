@@ -17,7 +17,7 @@ RSpec.configure do |config|
 
   config.before(:each, stub_hearing_result: true) do
     stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results")
-      .with(query: hash_including('hearingId'))
+      .with(query: hash_including("hearingId"))
       .to_return(
         status: 200,
         body: hearing_json,

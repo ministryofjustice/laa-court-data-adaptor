@@ -30,11 +30,11 @@ class Offence
   end
 
   def mode_of_trial_reason
-    allocation_decision["motReasonDescription"]
+    allocation_decisions.dig(0, "motReasonDescription")
   end
 
   def mode_of_trial_reason_code
-    allocation_decision["motReasonCode"]
+    allocation_decisions.dig(0, "motReasonCode")
   end
 
   def maat_reference
@@ -42,11 +42,11 @@ class Offence
   end
 
   def plea
-    plea_hash["pleaValue"]
+    pleas_array.dig(0, "pleaValue")
   end
 
   def plea_date
-    plea_hash["pleaDate"]
+    pleas_array.dig(0, "pleaDate")
   end
 
 private
@@ -55,15 +55,15 @@ private
     body["laaApplnReference"]
   end
 
-  def plea_hash
+  def pleas_array
     return {} if details.blank?
 
-    details["plea"] || {}
+    details.flat_map { |detail| detail["plea"] }
   end
 
-  def allocation_decision
+  def allocation_decisions
     return {} if details.blank?
 
-    details.fetch("allocationDecision", {})
+    details.flat_map { |detail| detail["allocationDecision"] }
   end
 end

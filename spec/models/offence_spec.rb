@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Offence, type: :model do
-  subject(:offence) { described_class.new(body: offence_hash, details: details_hash) }
+  subject(:offence) { described_class.new(body: offence_hash, details: details_array) }
 
   let(:offence_hash) do
     {
@@ -21,7 +21,7 @@ RSpec.describe Offence, type: :model do
     }
   end
 
-  let(:details_hash) { nil }
+  let(:details_array) { nil }
 
   it { expect(offence.code).to eq("AA06001") }
   it { expect(offence.order_index).to eq(1) }
@@ -51,13 +51,13 @@ RSpec.describe Offence, type: :model do
   end
 
   context "when plea details are available" do
-    let(:details_hash) do
-      {
+    let(:details_array) do
+      [{
         "plea" => {
           "pleaDate" => "2020-04-24",
           "pleaValue" => "GUILTY",
         },
-      }
+      }]
     end
 
     it { expect(offence.plea).to eq("GUILTY") }
@@ -68,18 +68,18 @@ RSpec.describe Offence, type: :model do
     subject(:mode_of_trial_reason) { offence.mode_of_trial_reason }
 
     context "when an allocation decision is not available" do
-      let(:details_hash) { {} }
+      let(:details_array) { {} }
 
       it { is_expected.to be_nil }
     end
 
     context "when an allocation decision is available" do
-      let(:details_hash) do
-        {
+      let(:details_array) do
+        [{
           "allocationDecision" => {
             "motReasonDescription" => "Court directs trial by jury",
           },
-        }
+        }]
       end
 
       it { is_expected.to eql "Court directs trial by jury" }
@@ -90,18 +90,18 @@ RSpec.describe Offence, type: :model do
     subject(:mode_of_trial_reason) { offence.mode_of_trial_reason_code }
 
     context "when an allocation decision is not available" do
-      let(:details_hash) { {} }
+      let(:details_array) { {} }
 
       it { is_expected.to be_nil }
     end
 
     context "when an allocation decision is available" do
-      let(:details_hash) do
-        {
+      let(:details_array) do
+        [{
           "allocationDecision" => {
             "motReasonCode" => "5",
           },
-        }
+        }]
       end
 
       it { is_expected.to eql "5" }
