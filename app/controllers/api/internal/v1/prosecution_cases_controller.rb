@@ -9,7 +9,7 @@ module Api
           render json: ProsecutionCaseSerializer.new(@prosecution_cases, serialization_options)
         end
 
-        private
+      private
 
         def filtered_params
           params.require(:filter).permit(:prosecution_case_reference, :arrest_summons_number, :name, :date_of_birth, :date_of_next_hearing, :national_insurance_number)
@@ -26,7 +26,7 @@ module Api
         end
 
         def inclusions
-          params[:include].split(',')
+          params[:include].split(",")
         end
       end
     end

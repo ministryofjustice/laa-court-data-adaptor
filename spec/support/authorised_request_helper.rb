@@ -6,6 +6,6 @@ module AuthorisedRequestHelper
   end
 
   def access_token
-    Doorkeeper::Application.create(name: 'test').access_tokens.create!
+    Doorkeeper::Application.create(name: "test").access_tokens.create!
   end
 end

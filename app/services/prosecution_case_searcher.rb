@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class ProsecutionCaseSearcher < ApplicationService
-  URL = 'prosecutionCases'
-  # rubocop:disable Metrics/ParameterLists
+  URL = "prosecutionCases"
   def initialize(prosecution_case_reference: nil,
                  national_insurance_number: nil,
                  arrest_summons_number: nil,
@@ -18,13 +17,12 @@ class ProsecutionCaseSearcher < ApplicationService
                 defendantDOB: date_of_birth,
                 defendantNINO: national_insurance_number }.compact
   end
-  # rubocop:enable Metrics/ParameterLists
 
   def call
     connection.get(URL, params)
   end
 
-  private
+private
 
   attr_reader :connection,
               :params

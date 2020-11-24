@@ -11,7 +11,7 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[6.0]
       # that doesn't require redirect URI to be used during authorization
       # like Client Credentials flow or Resource Owner Password.
       t.text    :redirect_uri
-      t.string  :scopes,       null: false, default: ''
+      t.string  :scopes,       null: false, default: ""
       t.boolean :confidential, null: false, default: true
       t.timestamps             null: false
     end
@@ -26,14 +26,14 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[6.0]
       t.text     :redirect_uri,      null: false
       t.datetime :created_at,        null: false
       t.datetime :revoked_at
-      t.string   :scopes, null: false, default: ''
+      t.string   :scopes, null: false, default: ""
     end
 
     add_index :oauth_access_grants, :token, unique: true
     add_foreign_key(
       :oauth_access_grants,
       :oauth_applications,
-      column: :application_id
+      column: :application_id,
     )
 
     create_table :oauth_access_tokens, id: :uuid do |t|
@@ -63,7 +63,7 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[6.0]
       # previous tokens are revoked as soon as a new access token is created.
       # Comment out this line if you'd rather have refresh tokens
       # instantly revoked.
-      t.string   :previous_refresh_token, null: false, default: ''
+      t.string   :previous_refresh_token, null: false, default: ""
     end
 
     add_index :oauth_access_tokens, :token, unique: true
@@ -71,7 +71,7 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[6.0]
     add_foreign_key(
       :oauth_access_tokens,
       :oauth_applications,
-      column: :application_id
+      column: :application_id,
     )
 
     # Uncomment below to ensure a valid reference to the resource owner's table

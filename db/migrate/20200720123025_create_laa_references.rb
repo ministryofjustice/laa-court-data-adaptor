@@ -4,7 +4,7 @@ class CreateLaaReferences < ActiveRecord::Migration[6.0]
   def change
     create_table :laa_references, id: :uuid do |t|
       t.uuid :defendant_id, null: false, index: true
-      t.string :maat_reference, null: false, index: { unique: true, where: 'linked' }
+      t.string :maat_reference, null: false, index: { unique: true, where: "linked" }
       t.boolean :dummy_maat_reference, default: false, null: false
       t.boolean :linked, default: true, null: false
 

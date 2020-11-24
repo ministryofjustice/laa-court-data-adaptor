@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HearingFetcher < ApplicationService
-  URL = 'hearing/results'
+  URL = "hearing/results"
 
   def initialize(hearing_id:, connection: CommonPlatformConnection.call)
     @params = { hearingId: hearing_id }
@@ -12,7 +12,7 @@ class HearingFetcher < ApplicationService
     connection.get(URL, params)
   end
 
-  private
+private
 
   attr_reader :params, :connection
 end

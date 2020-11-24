@@ -18,7 +18,7 @@ class ProsecutionCaseRecorder < ApplicationService
     prosecution_case
   end
 
-  private
+private
 
   attr_reader :prosecution_case, :body
 end

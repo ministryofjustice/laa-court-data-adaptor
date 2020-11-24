@@ -13,14 +13,14 @@ module Sqs
       MessagePublisher.call(message: message, queue_url: Rails.configuration.x.aws.sqs_url_unlink)
     end
 
-    private
+  private
 
     def message
       {
         maatId: maat_reference,
         userId: user_name,
         reasonId: unlink_reason_code,
-        otherReasonText: unlink_other_reason_text
+        otherReasonText: unlink_other_reason_text,
       }
     end
 

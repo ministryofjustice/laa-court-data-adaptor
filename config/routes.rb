@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
+  mount Rswag::Ui::Engine => "/api-docs"
+  mount Rswag::Api::Engine => "/api-docs"
 
-  api_version(module: 'V1', path: { value: 'v1' }, default: true) do
+  api_version(module: "V1", path: { value: "v1" }, default: true) do
     use_doorkeeper
   end
 
   namespace :api do
     namespace :internal do
-      api_version(module: 'V1', path: { value: 'v1' }, default: true) do
+      api_version(module: "V1", path: { value: "v1" }, default: true) do
         resources :prosecution_cases, only: [:index]
         resources :laa_references, only: [:create]
         resources :defendants, only: %i[update show]
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       end
     end
     namespace :external do
-      api_version(module: 'V1', path: { value: 'v1' }, default: true) do
+      api_version(module: "V1", path: { value: "v1" }, default: true) do
         resources :hearings, only: [:create]
       end
     end

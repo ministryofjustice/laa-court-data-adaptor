@@ -4,7 +4,7 @@ class ProsecutionCase < ApplicationRecord
   validates :body, presence: true
 
   def defendants
-    body['defendantSummary'].map { |defendant| Defendant.new(body: defendant, details: defendant_details[defendant['defendantId']], prosecution_case_id: id) }
+    body["defendantSummary"].map { |defendant| Defendant.new(body: defendant, details: defendant_details[defendant["defendantId"]], prosecution_case_id: id) }
   end
 
   def defendant_ids
@@ -12,7 +12,7 @@ class ProsecutionCase < ApplicationRecord
   end
 
   def hearing_summaries
-    body['hearingSummary']&.map { |hearing_summary| HearingSummary.new(body: hearing_summary) } || []
+    body["hearingSummary"]&.map { |hearing_summary| HearingSummary.new(body: hearing_summary) } || []
   end
 
   def hearing_summary_ids
@@ -22,21 +22,21 @@ class ProsecutionCase < ApplicationRecord
   def hearings
     hearing_results.select(&:body)
   end
-  alias fetch_details hearings
+  alias_method :fetch_details, :hearings
 
   def hearing_ids
     hearings.map(&:id)
   end
 
   def prosecution_case_reference
-    body['prosecutionCaseReference']
+    body["prosecutionCaseReference"]
   end
 
-  private
+private
 
   def case_details
     hearings.flat_map { |hearing|
-      hearing.body.dig('hearing', 'prosecutionCases')&.select { |prosecution_case| prosecution_case['id'] == id }
+      hearing.body.dig("hearing", "prosecutionCases")&.select { |prosecution_case| prosecution_case["id"] == id }
     }.compact
   end
 
@@ -47,7 +47,7 @@ class ProsecutionCase < ApplicationRecord
   def defendant_details
     return {} unless hearings_fetched?
 
-    case_details.flat_map { |detail| detail['defendants'] }.index_by { |detail| detail['id'] }
+    case_details.flat_map { |detail| detail["defendants"] }.index_by { |detail| detail["id"] }
   end
 
   def hearing_results

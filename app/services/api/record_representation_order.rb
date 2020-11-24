@@ -2,7 +2,6 @@
 
 module Api
   class RecordRepresentationOrder < ApplicationService
-    # rubocop:disable Metrics/ParameterLists
     def initialize(prosecution_case_id:,
                    defendant_id:,
                    offence_id:,
@@ -20,13 +19,12 @@ module Api
       @effective_start_date = effective_start_date
       @effective_end_date = effective_end_date
       @defence_organisation = defence_organisation
-      @url = 'prosecutionCases/representationOrder'\
+      @url = "prosecutionCases/representationOrder"\
               "/cases/#{prosecution_case_id}"\
               "/defendants/#{defendant_id}"\
               "/offences/#{offence_id}"
       @connection = connection
     end
-    # rubocop:enable Metrics/ParameterLists
 
     def call
       response = connection.post(url, request_body)
@@ -34,7 +32,7 @@ module Api
       response
     end
 
-    private
+  private
 
     def request_body
       {
@@ -43,11 +41,10 @@ module Api
         statusDate: status_date,
         effectiveStartDate: effective_start_date,
         effectiveEndDate: effective_end_date,
-        defenceOrganisation: defence_organisation
+        defenceOrganisation: defence_organisation,
       }.compact
     end
 
-    # rubocop:disable Metrics/AbcSize
     def update_database(response)
       offence = ProsecutionCaseDefendantOffence.find_by(offence_id: offence_id)
       offence.rep_order_status = status_code
@@ -59,7 +56,6 @@ module Api
       offence.response_body = response.body
       offence.save!
     end
-    # rubocop:enable Metrics/AbcSize
 
     attr_reader :url, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
   end

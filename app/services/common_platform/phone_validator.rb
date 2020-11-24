@@ -10,14 +10,14 @@ module CommonPlatform
       JSON::Validator.validate(schema, phone, validate_schema: true)
     end
 
-    private
+  private
 
     attr_reader :phone
 
     def schema
       {
-        "type": 'string',
-        "pattern": '^[\\+]?[0-9()\\-\\.\\s]+$'
+        "type": "string",
+        "pattern": '^[\\+]?[0-9()\\-\\.\\s]+$',
       }
     end
   end

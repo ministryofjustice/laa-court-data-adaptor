@@ -14,7 +14,7 @@ class HearingRecorder < ApplicationService
     hearing
   end
 
-  private
+private
 
   attr_reader :hearing, :body, :publish_to_queue
 end

@@ -13,10 +13,10 @@ module Sqs
       MessagePublisher.call(message: message, queue_url: Rails.configuration.x.aws.sqs_url_link)
     end
 
-    private
+  private
 
     def active?
-      prosecution_case.body['caseStatus'] == 'ACTIVE'
+      prosecution_case.body["caseStatus"] == "ACTIVE"
     end
 
     def message
@@ -27,10 +27,10 @@ module Sqs
         cjsAreaCode: correct_hearing_summary.oucode_l2_code,
         createdUser: user_name,
         cjsLocation: correct_hearing_summary.short_oucode,
-        docLanguage: 'EN',
+        docLanguage: "EN",
         isActive: active?,
         defendant: defendant_hash,
-        sessions: sessions_map
+        sessions: sessions_map,
       }
     end
 
@@ -41,7 +41,7 @@ module Sqs
         surname: defendant.last_name,
         dateOfBirth: defendant.date_of_birth,
         nino: defendant.national_insurance_number,
-        offences: offences_map
+        offences: offences_map,
       }
     end
 
@@ -52,9 +52,9 @@ module Sqs
           [:offenceCode, offence.code],
           [:asnSeq, offence.order_index],
           [:offenceClassification, offence.mode_of_trial],
-          [:offenceDate, offence.body['startDate']],
+          [:offenceDate, offence.body["startDate"]],
           [:offenceShortTitle, offence.title],
-          [:offenceWording, offence.body['wording']]
+          [:offenceWording, offence.body["wording"]],
         ].to_h
       end
     end
@@ -63,7 +63,7 @@ module Sqs
       prosecution_case.hearing_summaries.map do |hearing_summary|
         {
           courtLocation: hearing_summary.short_oucode,
-          dateOfHearing: hearing_summary.hearing_days.max.to_date.strftime('%Y-%m-%d')
+          dateOfHearing: hearing_summary.hearing_days.max.to_date.strftime("%Y-%m-%d"),
         }
       end
     end

@@ -27,23 +27,23 @@ class HearingContract < Dry::Validation::Contract
     required(:sharedTime).value(:date_time)
   end
 
-  rule('hearing.id') do
-    key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value)
+  rule("hearing.id") do
+    key.failure("is not a valid uuid") unless uuid_validator.call(uuid: value)
   end
 
-  rule('hearing.jurisdictionType') do
-    key.failure('is not a valid jurisdictionType') unless JURISDICTION_TYPES.include? value
+  rule("hearing.jurisdictionType") do
+    key.failure("is not a valid jurisdictionType") unless JURISDICTION_TYPES.include? value
   end
 
-  rule('hearing.courtCentre.id') do
-    key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value)
+  rule("hearing.courtCentre.id") do
+    key.failure("is not a valid uuid") unless uuid_validator.call(uuid: value)
   end
 
-  rule('hearing.type.id') do
-    key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value)
+  rule("hearing.type.id") do
+    key.failure("is not a valid uuid") unless uuid_validator.call(uuid: value)
   end
 
-  rule('hearing.type.code') do
-    key.failure('is not a valid hearing code') unless !key? || (HEARING_TYPES.include? value)
+  rule("hearing.type.code") do
+    key.failure("is not a valid hearing code") unless !key? || (HEARING_TYPES.include? value)
   end
 end

@@ -6,14 +6,14 @@ class HearingEvent
   attr_accessor :body
 
   def id
-    body['hearingEventId']
+    body["hearingEventId"]
   end
 
   def description
-    body['recordedLabel']
+    body["recordedLabel"]
   end
 
   def occurred_at
-    body['eventTime']
+    body["eventTime"]
   end
 end

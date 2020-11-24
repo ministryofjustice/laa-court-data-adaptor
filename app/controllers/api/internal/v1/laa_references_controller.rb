@@ -14,7 +14,7 @@ module Api
           end
         end
 
-        private
+      private
 
         def create_params
           params.from_jsonapi.require(:laa_reference).permit(allowed_params)

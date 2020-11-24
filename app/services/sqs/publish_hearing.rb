@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Sqs
-  # rubocop:disable Metrics/ClassLength
   class PublishHearing < ApplicationService
     def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, court_centre_id:, appeal_data:)
       @shared_time = shared_time
@@ -17,10 +16,10 @@ module Sqs
       MessagePublisher.call(message: message, queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted)
     end
 
-    private
+  private
 
     def inactive?
-      jurisdiction_type == 'MAGISTRATES' ? 'N' : 'Y'
+      jurisdiction_type == "MAGISTRATES" ? "N" : "Y"
     end
 
     def defendant_details
@@ -50,20 +49,16 @@ module Sqs
         jurisdictionType: jurisdiction_type,
         asn: defendant.dig(:personDefendant, :arrestSummonsNumber),
         cjsAreaCode: cjs_area_code,
-        caseCreationDate: shared_time.to_date.strftime('%Y-%m-%d'),
+        caseCreationDate: shared_time.to_date.strftime("%Y-%m-%d"),
         cjsLocation: cjs_location,
-        docLanguage: 'EN',
+        docLanguage: "EN",
         inActive: inactive?,
         defendant: defendant_hash,
         session: session_hash,
-        ccOutComeData: crown_court_outcome_hash
+        ccOutComeData: crown_court_outcome_hash,
       }
     end
 
-    # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
     def defendant_hash
       {
         forename: defendant_details&.dig(:firstName),
@@ -81,13 +76,10 @@ module Sqs
         telephoneMobile: defendant_contact_details&.dig(:mobile),
         email1: defendant_contact_details&.dig(:primaryEmail),
         email2: defendant_contact_details&.dig(:secondaryEmail),
-        offences: offences_map
+        offences: offences_map,
       }
     end
 
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/AbcSize
     def offences_map
       defendant&.dig(:offences)&.map do |offence|
         [
@@ -102,11 +94,10 @@ module Sqs
           [:legalAidStatus, offence.dig(:laaApplnReference, :statusCode)],
           [:legalAidStatusDate, offence.dig(:laaApplnReference, :statusDate)],
           [:legalAidReason, offence.dig(:laaApplnReference, :statusDescription)],
-          [:results, results_map(offence[:judicialResults])]
+          [:results, results_map(offence[:judicialResults])],
         ].to_h
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     def results_map(results)
       results&.map do |result|
@@ -115,10 +106,10 @@ module Sqs
           [:resultShortTitle, result[:label]],
           [:resultText, result[:resultText]],
           [:resultCodeQualifiers, result[:qualifier]],
-          [:nextHearingDate, result.dig(:nextHearing, :listedStartDateTime)&.to_date&.strftime('%Y-%m-%d')],
+          [:nextHearingDate, result.dig(:nextHearing, :listedStartDateTime)&.to_date&.strftime("%Y-%m-%d")],
           [:nextHearingLocation, hearing_location(result.dig(:nextHearing, :courtCentre, :id))],
           [:laaOfficeAccount, defendant.dig(:defenceOrganisation, :laaAccountNumber)],
-          [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)]
+          [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)],
         ].to_h
       end
     end
@@ -135,12 +126,12 @@ module Sqs
         courtLocation: cjs_location,
         dateOfHearing: defendant.dig(:offences, 0, :judicialResults, 0, :orderedDate),
         postHearingCustody: PostHearingCustodyCalculator.call(offences: defendant[:offences]),
-        sessionValidateDate: defendant.dig(:offences, 0, :judicialResults, 0, :orderedDate)
+        sessionValidateDate: defendant.dig(:offences, 0, :judicialResults, 0, :orderedDate),
       }
     end
 
     def crown_court_outcome_hash
-      CrownCourtOutcomeCreator.call(defendant: defendant, appeal_data: appeal_data) if jurisdiction_type == 'CROWN' && result_is_a_conclusion?
+      CrownCourtOutcomeCreator.call(defendant: defendant, appeal_data: appeal_data) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
     end
 
     def result_is_a_conclusion?
@@ -149,5 +140,4 @@ module Sqs
 
     attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :court_centre, :appeal_data, :laa_reference
   end
-  # rubocop:enable Metrics/ClassLength
 end

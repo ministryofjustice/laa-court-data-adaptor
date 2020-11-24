@@ -4,11 +4,11 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
   let(:prosecution_case_id) { SecureRandom.uuid }
   let(:defendant_id) { SecureRandom.uuid }
   let(:offence_id) { SecureRandom.uuid }
-  let(:maat_reference) { 'A00000001' }
+  let(:maat_reference) { "A00000001" }
   let(:dummy_maat_reference) { true }
-  let(:rep_order_status) { 'AP' }
+  let(:rep_order_status) { "AP" }
   let(:response_status) { 200 }
-  let(:response_body) { { response: 'response' }.to_json }
+  let(:response_body) { { response: "response" }.to_json }
 
   let(:prosecution_case_defendant_offence) do
     described_class.new(
@@ -17,7 +17,7 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
       offence_id: offence_id,
       rep_order_status: rep_order_status,
       response_status: response_status,
-      response_body: response_body
+      response_body: response_body,
     )
   end
 

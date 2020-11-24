@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rspec/expectations'
+require "rspec/expectations"
 
 # have_contract_error
 # e.g.
@@ -12,7 +12,7 @@ RSpec::Matchers.define :have_contract_error do |message|
   end
 
   description do
-    'have contract error'
+    "have contract error"
   end
 
   failure_message do |fullfillment|

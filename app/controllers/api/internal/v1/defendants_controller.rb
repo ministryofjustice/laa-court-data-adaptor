@@ -24,7 +24,7 @@ module Api
           end
         end
 
-        private
+      private
 
         def enqueue_unlink
           UnlinkLaaReferenceWorker.perform_async(
@@ -32,7 +32,7 @@ module Api
             transformed_params[:defendant_id],
             transformed_params[:user_name],
             transformed_params[:unlink_reason_code],
-            transformed_params[:unlink_other_reason_text]
+            transformed_params[:unlink_other_reason_text],
           )
         end
 
@@ -55,7 +55,7 @@ module Api
         end
 
         def inclusions
-          params[:include].split(',')
+          params[:include].split(",")
         end
       end
     end

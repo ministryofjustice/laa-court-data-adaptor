@@ -12,7 +12,7 @@ module Sqs
       sqs_client.send_message(queue_url: queue_url, message_body: message.to_json) if messaging_enabled?
     end
 
-    private
+  private
 
     def messaging_enabled?
       queue_url.present?

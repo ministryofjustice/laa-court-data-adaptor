@@ -11,7 +11,7 @@ class MaatLinkCreator < ApplicationService
     PastHearingsFetcherWorker.perform_at(30.seconds.from_now, Current.request_id, prosecution_case_id)
   end
 
-  private
+private
 
   def push_to_sqs
     Sqs::PublishLaaReference.call(defendant_id: laa_reference.defendant_id,
@@ -26,9 +26,9 @@ class MaatLinkCreator < ApplicationService
         prosecution_case_id: offence.prosecution_case_id,
         defendant_id: offence.defendant_id,
         offence_id: offence.offence_id,
-        status_code: 'AP',
+        status_code: "AP",
         application_reference: laa_reference.maat_reference,
-        status_date: Time.zone.today.strftime('%Y-%m-%d')
+        status_date: Time.zone.today.strftime("%Y-%m-%d"),
       )
     end
   end

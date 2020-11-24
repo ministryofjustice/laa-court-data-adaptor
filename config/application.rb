@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails'
+require "rails"
 # Pick the frameworks you want:
-require 'active_model/railtie'
-require 'active_job/railtie'
-require 'active_record/railtie'
+require "active_model/railtie"
+require "active_job/railtie"
+require "active_record/railtie"
 # require "active_storage/engine"
-require 'action_controller/railtie'
+require "action_controller/railtie"
 # require "action_mailer/railtie"
 # require "action_mailbox/engine"
 # require "action_text/engine"
-require 'action_view/railtie'
-require 'action_cable/engine'
+require "action_view/railtie"
+require "action_cable/engine"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -36,16 +36,16 @@ module LaaCourtDataAdaptor
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.x.common_platform_url = ENV.fetch('COMMON_PLATFORM_URL')
-    config.x.client_cert = ENV['SSL_CLIENT_CERT']
-    config.x.client_key = ENV['SSL_CLIENT_KEY']
-    config.x.aws.sqs_url_link = ENV['AWS_LINK_QUEUE_URL']
-    config.x.aws.sqs_url_unlink = ENV['AWS_UNLINK_QUEUE_URL']
-    config.x.aws.sqs_url_hearing_resulted = ENV['AWS_HEARING_RESULTED_QUEUE_URL']
-    config.x.maat_api.oauth_url = ENV['MAAT_API_OAUTH_URL']
-    config.x.maat_api.client_id = ENV['MAAT_API_CLIENT_ID']
-    config.x.maat_api.client_secret = ENV['MAAT_API_CLIENT_SECRET']
-    config.x.maat_api.api_url = ENV['MAAT_API_API_URL']
+    config.x.common_platform_url = ENV.fetch("COMMON_PLATFORM_URL")
+    config.x.client_cert = ENV["SSL_CLIENT_CERT"]
+    config.x.client_key = ENV["SSL_CLIENT_KEY"]
+    config.x.aws.sqs_url_link = ENV["AWS_LINK_QUEUE_URL"]
+    config.x.aws.sqs_url_unlink = ENV["AWS_UNLINK_QUEUE_URL"]
+    config.x.aws.sqs_url_hearing_resulted = ENV["AWS_HEARING_RESULTED_QUEUE_URL"]
+    config.x.maat_api.oauth_url = ENV["MAAT_API_OAUTH_URL"]
+    config.x.maat_api.client_id = ENV["MAAT_API_CLIENT_ID"]
+    config.x.maat_api.client_secret = ENV["MAAT_API_CLIENT_SECRET"]
+    config.x.maat_api.api_url = ENV["MAAT_API_API_URL"]
 
     config.active_record.schema_format = :sql
   end
