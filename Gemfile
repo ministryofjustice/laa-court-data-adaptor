@@ -48,6 +48,7 @@ group :development, :test do
   gem "rspec-rails", "~> 4.0.1"
   gem "rswag-specs"
   gem "rubocop-govuk"
+  gem "rubocop-performance"
   gem "vcr"
   gem "webmock"
 end

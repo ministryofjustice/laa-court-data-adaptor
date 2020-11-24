@@ -1,3 +1,5 @@
+require: rubocop-performance
+
 inherit_gem:
   rubocop-govuk:
     - config/default.yml
