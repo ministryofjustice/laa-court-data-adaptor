@@ -23,7 +23,7 @@ RSpec.describe MaatLinkCreator do
     allow(Api::RecordLaaReference).to receive(:call)
   end
 
-  subject(:create) { described_class.call(laa_reference_id: laa_reference.id) }
+  subject(:create_maat_link) { described_class.call(laa_reference_id: laa_reference.id) }
 
   it "enqueues a PastHearingsFetcherWorker" do
     Sidekiq::Testing.fake! do
@@ -38,12 +38,12 @@ RSpec.describe MaatLinkCreator do
 
   it "calls the Api::RecordLaaReference service once" do
     expect(Api::RecordLaaReference).to receive(:call).once.with(hash_including(application_reference: "12345678"))
-    create
+    create_maat_link
   end
 
   it "calls the Sqs::PublishLaaReference service once" do
     expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: "12345678", user_name: "caseWorker")
-    create
+    create_maat_link
   end
 
   context "with multiple offences" do
@@ -55,12 +55,12 @@ RSpec.describe MaatLinkCreator do
 
     it "calls the Sqs::PublishLaaReference service once" do
       expect(Sqs::PublishLaaReference).to receive(:call).once.with(defendant_id: defendant_id, prosecution_case_id: prosecution_case_id, maat_reference: "12345678", user_name: "caseWorker")
-      create
+      create_maat_link
     end
 
     it "calls the Api::RecordLaaReference service multiple times" do
       expect(Api::RecordLaaReference).to receive(:call).twice.with(hash_including(application_reference: "12345678"))
-      create
+      create_maat_link
     end
   end
 
@@ -70,12 +70,12 @@ RSpec.describe MaatLinkCreator do
 
     it "does not call the Sqs::PublishLaaReference service" do
       expect(Sqs::PublishLaaReference).not_to receive(:call)
-      create
+      create_maat_link
     end
 
     it "creates a dummy maat_reference" do
       expect(Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: "A10000000"))
-      create
+      create_maat_link
     end
   end
 end

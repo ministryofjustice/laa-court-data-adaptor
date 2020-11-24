@@ -14,7 +14,7 @@ RSpec.describe DefendantFinder do
 
   before do
     ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case)
-    ProsecutionCaseDefendantOffence.create(
+    ProsecutionCaseDefendantOffence.create!(
       defendant_id: defendant_id,
       prosecution_case_id: prosecution_case_id,
       offence_id: offence_id,
@@ -59,7 +59,7 @@ RSpec.describe DefendantFinder do
     end
 
     context "when defendant does not exist" do
-      let(:defendant_id) { "2ecc9feb" }
+      let(:defendant_id) { "2ecc9feb-9407-482f-b081-123456789012" }
 
       it { is_expected.to be_nil }
     end

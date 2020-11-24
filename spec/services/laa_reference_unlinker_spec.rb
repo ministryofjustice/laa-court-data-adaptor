@@ -19,15 +19,15 @@ RSpec.describe LaaReferenceUnlinker do
     allow(Api::RecordLaaReference).to receive(:call)
   end
 
-  subject(:create) { described_class.call(defendant_id: defendant_id, user_name: user_name, unlink_reason_code: unlink_reason_code, unlink_other_reason_text: unlink_other_reason_text) }
+  subject(:create_unlinker) { described_class.call(defendant_id: defendant_id, user_name: user_name, unlink_reason_code: unlink_reason_code, unlink_other_reason_text: unlink_other_reason_text) }
 
   it "creates a dummy maat_reference starting with Z" do
     expect(Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: "Z10000000"))
-    create
+    create_unlinker
   end
 
   it "unlinks currently linked LaaReference" do
-    create
+    create_unlinker
     expect(linked_laa_reference.reload.linked?).to be_falsey
   end
 
@@ -38,7 +38,7 @@ RSpec.describe LaaReferenceUnlinker do
             user_name: user_name,
             unlink_reason_code: unlink_reason_code,
             unlink_other_reason_text: unlink_other_reason_text)
-    create
+    create_unlinker
   end
 
   context "with multiple offences" do
@@ -55,12 +55,12 @@ RSpec.describe LaaReferenceUnlinker do
               user_name: user_name,
               unlink_reason_code: unlink_reason_code,
               unlink_other_reason_text: unlink_other_reason_text)
-      create
+      create_unlinker
     end
 
     it "calls the Api::RecordLaaReference service multiple times" do
       expect(Api::RecordLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
-      create
+      create_unlinker
     end
   end
 
@@ -71,12 +71,12 @@ RSpec.describe LaaReferenceUnlinker do
 
     it "does not call the Sqs::PublishUnlinkLaaReference service" do
       expect(Sqs::PublishUnlinkLaaReference).not_to receive(:call)
-      create
+      create_unlinker
     end
 
     it "calls the Api::RecordLaaReference service" do
       expect(Api::RecordLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
-      create
+      create_unlinker
     end
   end
 end

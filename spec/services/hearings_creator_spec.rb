@@ -77,7 +77,7 @@ RSpec.describe HearingsCreator do
 
   before { allow(Sqs::PublishHearing).to receive(:call) }
 
-  subject(:create) { described_class.call(hearing_id: hearing.id) }
+  subject(:create_hearings) { described_class.call(hearing_id: hearing.id) }
 
   context "for a trial" do
     let(:applications_array) { nil }
@@ -89,7 +89,7 @@ RSpec.describe HearingsCreator do
                                                                                case_urn: "12345",
                                                                                defendant: defendant_one,
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
-        create
+        create_hearings
       end
     end
 
@@ -100,7 +100,7 @@ RSpec.describe HearingsCreator do
 
       it "calls the Sqs::PublishHearing service once" do
         expect(Sqs::PublishHearing).to receive(:call).once
-        create
+        create_hearings
       end
     end
 
@@ -120,7 +120,7 @@ RSpec.describe HearingsCreator do
                                                                                case_urn: "12345",
                                                                                defendant: defendant_two,
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
-        create
+        create_hearings
       end
     end
 
@@ -153,7 +153,7 @@ RSpec.describe HearingsCreator do
                                                                                case_urn: "54321",
                                                                                defendant: defendant_one,
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
-        create
+        create_hearings
       end
     end
 
@@ -177,7 +177,7 @@ RSpec.describe HearingsCreator do
                                                                                case_urn: "12345",
                                                                                defendant: defendant_one,
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
-        create
+        create_hearings
       end
     end
 
@@ -186,7 +186,7 @@ RSpec.describe HearingsCreator do
 
       it "does not call the Sqs::PublishHearing service" do
         expect(Sqs::PublishHearing).not_to receive(:call)
-        create
+        create_hearings
       end
     end
   end
@@ -200,7 +200,7 @@ RSpec.describe HearingsCreator do
                                                                              case_urn: "12345",
                                                                              defendant: defendant_one,
                                                                              court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
-      create
+      create_hearings
     end
 
     context "when an laaApplnReference does not exist" do
@@ -210,7 +210,7 @@ RSpec.describe HearingsCreator do
 
       it "calls the Sqs::PublishHearing service once" do
         expect(Sqs::PublishHearing).to receive(:call).once
-        create
+        create_hearings
       end
     end
   end

@@ -32,7 +32,7 @@ RSpec.describe RepresentationOrderCreator do
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
   end
 
-  subject(:create) do
+  subject(:create_rep_order) do
     described_class.call(
       maat_reference: maat_reference,
       defendant_id: defendant_id,
@@ -52,7 +52,7 @@ RSpec.describe RepresentationOrderCreator do
 
   it "calls the Api::RecordRepresentationOrder service once" do
     expect(Api::RecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
-    create
+    create_rep_order
   end
 
   context "with multiple offences" do
@@ -74,7 +74,7 @@ RSpec.describe RepresentationOrderCreator do
 
     it "calls the Api::RecordRepresentationOrder service twice" do
       expect(Api::RecordRepresentationOrder).to receive(:call).twice.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
-      create
+      create_rep_order
     end
 
     context "one offence does not have a status date" do
@@ -82,7 +82,7 @@ RSpec.describe RepresentationOrderCreator do
 
       it "calls the Api::RecordRepresentationOrder service once" do
         expect(Api::RecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
-        create
+        create_rep_order
       end
     end
   end
@@ -100,7 +100,7 @@ RSpec.describe RepresentationOrderCreator do
 
     it "calls the Api::RecordRepresentationOrder service once" do
       expect(Api::RecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
-      create
+      create_rep_order
     end
   end
 
@@ -138,7 +138,7 @@ RSpec.describe RepresentationOrderCreator do
 
     it "sanitises the data" do
       expect(Api::RecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
-      create
+      create_rep_order
     end
   end
 end

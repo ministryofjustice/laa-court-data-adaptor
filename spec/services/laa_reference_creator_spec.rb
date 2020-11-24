@@ -21,16 +21,16 @@ RSpec.describe LaaReferenceCreator do
     allow(Api::GetHearingResults).to receive(:call)
   end
 
-  subject(:create) { described_class.call(maat_reference: maat_reference, user_name: user_name, defendant_id: defendant_id) }
+  subject(:create_reference) { described_class.call(maat_reference: maat_reference, user_name: user_name, defendant_id: defendant_id) }
 
   it "creates an LaaReference" do
     expect {
-      create
+      create_reference
     }.to change(LaaReference, :count).by(1)
   end
 
   it "sets the LaaReference attributes" do
-    create
+    create_reference
     laa_reference = LaaReference.last
     expect(laa_reference.defendant_id).to eq(defendant_id)
     expect(laa_reference.maat_reference).to eq("12345678")
@@ -38,7 +38,7 @@ RSpec.describe LaaReferenceCreator do
   end
 
   it "returns the LaaReference" do
-    expect(create).to be_an(LaaReference)
+    expect(create_reference).to be_an(LaaReference)
   end
 
   it "enqueues a MaatLinkCreatorWorker" do
@@ -55,7 +55,7 @@ RSpec.describe LaaReferenceCreator do
 
     it "raises an ActiveRecord::RecordInvalid error" do
       expect {
-        create
+        create_reference
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
@@ -66,7 +66,7 @@ RSpec.describe LaaReferenceCreator do
 
       it "creates an LaaReference" do
         expect {
-          create
+          create_reference
         }.to change(LaaReference, :count).by(1)
       end
     end
@@ -80,7 +80,7 @@ RSpec.describe LaaReferenceCreator do
     end
 
     it "creates a dummy_maat_reference" do
-      create
+      create_reference
       laa_reference = LaaReference.last
       expect(laa_reference.defendant_id).to eq(defendant_id)
       expect(laa_reference.maat_reference).to eq("A10000000")
