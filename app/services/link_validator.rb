@@ -9,7 +9,7 @@ class LinkValidator < ApplicationService
     prosecution_case&.hearing_summaries&.present? || false
   end
 
-  private
+private
 
   attr_reader :prosecution_case
 end
