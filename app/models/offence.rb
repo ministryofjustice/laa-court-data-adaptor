@@ -50,10 +50,12 @@ class Offence
     end
   end
 
+  # TODO: derprecate/remove
   def plea
     pleas_array.dig(0, "pleaValue")
   end
 
+  # TODO: derprecate/remove
   def plea_date
     pleas_array.dig(0, "pleaDate")
   end
@@ -67,7 +69,7 @@ private
   def pleas_array
     return {} if details.blank?
 
-    details.flat_map { |detail| detail["plea"] }
+    details.flat_map { |detail| detail["plea"] }.compact
   end
 
   def allocation_decisions
