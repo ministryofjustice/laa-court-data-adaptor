@@ -31,7 +31,7 @@ RSpec.describe Offence, type: :model do
   it { expect(offence.maat_reference).to be_nil }
   it { expect(offence.plea).to be_nil }
   it { expect(offence.plea_date).to be_nil }
-  it { expect(offence.pleas).to be_empty }
+  it { expect(offence.pleas).to be_an(Array).and be_empty }
 
   context "when an LAA reference are available" do
     subject(:offence) { described_class.new(body: offence_hash.merge(laa_reference)) }
@@ -118,7 +118,7 @@ RSpec.describe Offence, type: :model do
       context "with no pleas" do
         let(:details_array) { [{ "some_other_detail" => "" }] }
 
-        it { is_expected.to be_empty }
+        it { expect(offence.pleas).to be_an(Array).and be_empty }
       end
     end
   end

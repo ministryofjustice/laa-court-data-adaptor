@@ -67,7 +67,7 @@ private
   end
 
   def pleas_array
-    return {} if details.blank?
+    return [] if details.blank?
 
     details.flat_map { |detail| detail["plea"] }.compact
   end
