@@ -127,7 +127,7 @@ RSpec.describe Offence, type: :model do
     subject(:mode_of_trial_reason) { offence.mode_of_trial_reason }
 
     context "when an allocation decision is not available" do
-      let(:details_array) { {} }
+      let(:details_array) { [] }
 
       it { is_expected.to be_nil }
     end
@@ -149,7 +149,7 @@ RSpec.describe Offence, type: :model do
     subject(:mode_of_trial_reason) { offence.mode_of_trial_reason_code }
 
     context "when an allocation decision is not available" do
-      let(:details_array) { {} }
+      let(:details_array) { [] }
 
       it { is_expected.to be_nil }
     end

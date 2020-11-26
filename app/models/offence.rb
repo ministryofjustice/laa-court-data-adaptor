@@ -73,7 +73,7 @@ private
   end
 
   def allocation_decisions
-    return {} if details.blank?
+    return [] if details.blank?
 
     details.flat_map { |detail| detail["allocationDecision"] }
   end
