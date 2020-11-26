@@ -14,7 +14,7 @@ module Api
           end
         end
 
-        private
+      private
 
         # Only allow a trusted parameter "white list" through.
         def hearing_params

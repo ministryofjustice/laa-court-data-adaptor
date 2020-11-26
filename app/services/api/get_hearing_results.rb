@@ -12,7 +12,7 @@ module Api
       HearingRecorder.call(hearing_id: hearing_id, body: response.body, publish_to_queue: publish_to_queue) if successful_response?
     end
 
-    private
+  private
 
     def successful_response?
       response.status == 200 && response.body.present?

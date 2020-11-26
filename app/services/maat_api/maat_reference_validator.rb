@@ -2,7 +2,7 @@
 
 module MaatApi
   class MaatReferenceValidator < ApplicationService
-    URL = 'link/validate'
+    URL = "link/validate"
 
     def initialize(maat_reference:, connection: MaatApi::Connection.call)
       @maat_reference = maat_reference
@@ -10,10 +10,10 @@ module MaatApi
     end
 
     def call
-      connection.post(URL, { maatId: maat_reference, caseUrn: 'XYZ' }) if connection.present?
+      connection.post(URL, { maatId: maat_reference, caseUrn: "XYZ" }) if connection.present?
     end
 
-    private
+  private
 
     attr_reader :maat_reference, :connection
   end

@@ -6,39 +6,39 @@ class Defendant
   attr_accessor :body, :details, :prosecution_case_id
 
   def id
-    body['defendantId']
+    body["defendantId"]
   end
 
   def name
-    [first_name, middle_name, last_name].compact.join(' ')
+    [first_name, middle_name, last_name].compact.join(" ")
   end
 
   def first_name
-    body['defendantFirstName']
+    body["defendantFirstName"]
   end
 
   def middle_name
-    body['defendantMiddleName']
+    body["defendantMiddleName"]
   end
 
   def last_name
-    body['defendantLastName']
+    body["defendantLastName"]
   end
 
   def date_of_birth
-    body['defendantDOB']
+    body["defendantDOB"]
   end
 
   def national_insurance_number
-    body['defendantNINO']
+    body["defendantNINO"]
   end
 
   def arrest_summons_number
-    body['defendantASN']
+    body["defendantASN"]
   end
 
   def offences
-    body['offenceSummary'].map { |offence| Offence.new(body: offence, details: offence_details[offence['offenceId']]) }
+    body["offenceSummary"].map { |offence| Offence.new(body: offence, details: offence_details[offence["offenceId"]]) }
   end
 
   def defence_organisation
@@ -73,27 +73,27 @@ class Defendant
     ProsecutionCase.find_by(id: prosecution_case_id)
   end
 
-  private
+private
 
   def offence_details
     return {} if details.blank?
 
-    details['offences']&.index_by { |offence| offence['id'] }
+    details["offences"]&.index_by { |offence| offence["id"] }
   end
 
   def valid_maat_reference?
-    _maat_reference.present? && !_maat_reference.start_with?('Z')
+    _maat_reference.present? && !_maat_reference.start_with?("Z")
   end
 
   def _maat_reference
     refs = offences.map(&:maat_reference).uniq.compact
-    raise 'Too many maat references' if refs.size > 1
+    raise "Too many maat references" if refs.size > 1
 
     refs&.first
   end
 
   def representation_order_hash
-    body['representationOrder'] if valid_maat_reference?
+    body["representationOrder"] if valid_maat_reference?
   end
 
   def representation_order_exists?

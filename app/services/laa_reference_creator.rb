@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LaaReferenceCreator < ApplicationService
-  TEMPORARY_CREATED_USER = 'cpUser'
+  TEMPORARY_CREATED_USER = "cpUser"
 
   def initialize(defendant_id:, user_name: nil, maat_reference: nil)
     @defendant_id = defendant_id
@@ -15,7 +15,7 @@ class LaaReferenceCreator < ApplicationService
     laa_reference
   end
 
-  private
+private
 
   def create_laa_reference!
     @laa_reference = LaaReference.create!(defendant_id: defendant_id, user_name: user_name, maat_reference: maat_reference, dummy_maat_reference: dummy_reference?)

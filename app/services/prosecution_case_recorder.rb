@@ -7,7 +7,7 @@ class ProsecutionCaseRecorder < ApplicationService
   end
 
   def call
-    prosecution_case.update(body: body)
+    prosecution_case.update!(body: body)
 
     prosecution_case.defendants.each do |defendant|
       defendant.offences.each do |offence|
@@ -18,7 +18,7 @@ class ProsecutionCaseRecorder < ApplicationService
     prosecution_case
   end
 
-  private
+private
 
   attr_reader :prosecution_case, :body
 end

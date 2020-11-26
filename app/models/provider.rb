@@ -10,10 +10,10 @@ class Provider
   end
 
   def role
-    body['status']
+    body["status"]
   end
 
   def id
-    body['id']
+    body["id"]
   end
 end

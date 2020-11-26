@@ -8,13 +8,13 @@ class HearingRecorder < ApplicationService
   end
 
   def call
-    hearing.update(body: body)
+    hearing.update!(body: body)
     HearingsCreatorWorker.perform_async(Current.request_id, hearing.id) if publish_to_queue
 
     hearing
   end
 
-  private
+private
 
   attr_reader :hearing, :body, :publish_to_queue
 end

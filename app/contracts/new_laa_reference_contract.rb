@@ -12,12 +12,12 @@ class NewLaaReferenceContract < Dry::Validation::Contract
   end
 
   rule(:defendant_id) do
-    key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value)
-    key.failure('We do not have all the info needed to link right now, please try again later') unless link_validator.call(defendant_id: value)
+    key.failure("is not a valid uuid") unless uuid_validator.call(uuid: value)
+    key.failure("We do not have all the info needed to link right now, please try again later") unless link_validator.call(defendant_id: value)
   end
 
   rule(:maat_reference) do
     validation = maat_reference_validator.call(maat_reference: value) if value
-    key.failure(validation.body['message']) if validation && validation.status != 200
+    key.failure(validation.body["message"]) if validation && validation.status != 200
   end
 end

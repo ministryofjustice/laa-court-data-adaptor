@@ -1,59 +1,10 @@
-require:
-  - rubocop-rails
-  - rubocop-performance
+require: rubocop-performance
 
-inherit_from: .rubocop_todo.yml
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
+    - config/rails.yml
 
-AllCops:
-  TargetRubyVersion: 2.6
-  Exclude:
-  - 'db/schema.rb'
-  - 'vendor/**/*'
-  - 'node_modules/**/*'
-  NewCops: enable
-
-Lint/AmbiguousBlockAssociation:
-  Exclude:
-  - 'spec/**/*'
-
-Metrics/AbcSize:
-  Exclude:
-  - 'db/migrate/*'
-
-Metrics/PerceivedComplexity:
-  Exclude:
-  - 'bin/bundle'
-
-Metrics/BlockLength:
-  Exclude:
-  - 'config/routes.rb'
-  - 'app/contracts/new_representation_order_contract.rb'
-  - 'spec/**/*'
-
-Metrics/MethodLength:
-  Exclude:
-  - 'db/migrate/*'
-
-Metrics/ParameterLists:
-  Max: 6
-
-Style/BlockDelimiters:
-  EnforcedStyle: braces_for_chaining
-
-Style/Documentation:
-  Exclude:
-  - '**/*'
-
-Style/SymbolArray:
-  EnforcedStyle: percent
-
-Style/Lambda:
-  EnforcedStyle: literal
-
-Lint/MissingSuper:
-  Exclude:
-    - 'app/services/**/*'
-
-Lint/UselessMethodDefinition:
-  Exclude:
-    - 'app/services/application_service.rb'
+inherit_mode:
+  merge:
+    - Exclude

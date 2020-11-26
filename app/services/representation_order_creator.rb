@@ -13,7 +13,7 @@ class RepresentationOrderCreator < ApplicationService
     call_cp_endpoint
   end
 
-  private
+private
 
   def call_cp_endpoint
     offences.each do |offence|
@@ -28,7 +28,7 @@ class RepresentationOrderCreator < ApplicationService
         status_date: offence[:status_date],
         effective_start_date: offence[:effective_start_date],
         effective_end_date: offence[:effective_end_date],
-        defence_organisation: defence_organisation
+        defence_organisation: defence_organisation,
       )
     end
   end

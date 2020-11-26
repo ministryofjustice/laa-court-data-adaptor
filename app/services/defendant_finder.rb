@@ -10,7 +10,7 @@ class DefendantFinder < ApplicationService
     cp_defendant
   end
 
-  private
+private
 
   def cp_defendant
     @cp_defendant ||= cp_prosecution_case&.defendants&.find { |d| d.id.eql?(defendant_id) }
@@ -27,7 +27,7 @@ class DefendantFinder < ApplicationService
   end
 
   def prosecution_case_urn
-    @prosecution_case_urn ||= prosecution_case&.body&.fetch('prosecutionCaseReference', nil)
+    @prosecution_case_urn ||= prosecution_case&.body&.fetch("prosecutionCaseReference", nil)
   end
 
   def prosecution_case

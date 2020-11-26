@@ -45,13 +45,13 @@ class NewRepresentationOrderContract < Dry::Validation::Contract
   end
 
   rule(:defendant_id) do
-    key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value)
+    key.failure("is not a valid uuid") unless uuid_validator.call(uuid: value)
   end
 
   rule(:offences).each do
-    key.failure('is not a valid uuid') unless uuid_validator.call(uuid: value[:offence_id])
-    key.failure('is not a valid status') unless STATUS_CODES.include? value[:status_code]
-    key.failure('this status requires a status date') if value[:status_code] != 'AP' && value[:status_date].blank?
-    key.failure('this status requires an effective start date') if value[:status_code] != 'AP' && value[:effective_start_date].blank?
+    key.failure("is not a valid uuid") unless uuid_validator.call(uuid: value[:offence_id])
+    key.failure("is not a valid status") unless STATUS_CODES.include? value[:status_code]
+    key.failure("this status requires a status date") if value[:status_code] != "AP" && value[:status_date].blank?
+    key.failure("this status requires an effective start date") if value[:status_code] != "AP" && value[:effective_start_date].blank?
   end
 end

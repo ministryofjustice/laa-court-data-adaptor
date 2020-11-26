@@ -6,17 +6,17 @@ class HearingSummary
   attr_accessor :body, :hearing_date
 
   def id
-    body['hearingId']
+    body["hearingId"]
   end
 
   delegate :short_oucode, :oucode_l2_code, to: :court_centre
 
   def hearing_type
-    body['hearingType']['description']
+    body["hearingType"]["description"]
   end
 
   def hearing_days
-    body['hearingDays'].map { |hearing_day| hearing_day['sittingDay'] }
+    body["hearingDays"].map { |hearing_day| hearing_day["sittingDay"] }
   end
 
   def hearing_in_past?
@@ -31,9 +31,9 @@ class HearingSummary
     Hearing.find_by(id: id).present?
   end
 
-  private
+private
 
   def court_centre
-    @court_centre ||= HmctsCommonPlatform::Reference::CourtCentre.find(body['courtCentre']['id'])
+    @court_centre ||= HmctsCommonPlatform::Reference::CourtCentre.find(body["courtCentre"]["id"])
   end
 end

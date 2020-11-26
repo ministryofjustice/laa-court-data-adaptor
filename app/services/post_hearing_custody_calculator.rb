@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostHearingCustodyCalculator < ApplicationService
-  NOT_APPLICABLE_CUSTODY_CODE = 'A'
+  NOT_APPLICABLE_CUSTODY_CODE = "A"
 
   def initialize(offences:)
     @offences = offences
@@ -15,7 +15,7 @@ class PostHearingCustodyCalculator < ApplicationService
     }.first || NOT_APPLICABLE_CUSTODY_CODE
   end
 
-  private
+private
 
   attr_reader :offences
 end

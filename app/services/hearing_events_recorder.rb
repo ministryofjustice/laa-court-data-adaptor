@@ -7,11 +7,11 @@ class HearingEventsRecorder < ApplicationService
   end
 
   def call
-    hearing_event_recording.update(body: body)
+    hearing_event_recording.update!(body: body)
     hearing_event_recording
   end
 
-  private
+private
 
   attr_reader :hearing_event_recording, :body
 end

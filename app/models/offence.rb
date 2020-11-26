@@ -6,64 +6,64 @@ class Offence
   attr_accessor :body, :details
 
   def id
-    body['offenceId']
+    body["offenceId"]
   end
 
   def code
-    body['offenceCode']
+    body["offenceCode"]
   end
 
   def order_index
-    body['orderIndex']
+    body["orderIndex"]
   end
 
   def title
-    body['offenceTitle']
+    body["offenceTitle"]
   end
 
   def legislation
-    body['offenceLegislation']
+    body["offenceLegislation"]
   end
 
   def mode_of_trial
-    body['modeOfTrial']
+    body["modeOfTrial"]
   end
 
   def mode_of_trial_reason
-    allocation_decision['motReasonDescription']
+    allocation_decision["motReasonDescription"]
   end
 
   def mode_of_trial_reason_code
-    allocation_decision['motReasonCode']
+    allocation_decision["motReasonCode"]
   end
 
   def maat_reference
-    laa_reference['applicationReference'] if laa_reference.present?
+    laa_reference["applicationReference"] if laa_reference.present?
   end
 
   def plea
-    plea_hash['pleaValue']
+    plea_hash["pleaValue"]
   end
 
   def plea_date
-    plea_hash['pleaDate']
+    plea_hash["pleaDate"]
   end
 
-  private
+private
 
   def laa_reference
-    body['laaApplnReference']
+    body["laaApplnReference"]
   end
 
   def plea_hash
     return {} if details.blank?
 
-    details['plea'] || {}
+    details["plea"] || {}
   end
 
   def allocation_decision
     return {} if details.blank?
 
-    details.fetch('allocationDecision', {})
+    details.fetch("allocationDecision", {})
   end
 end

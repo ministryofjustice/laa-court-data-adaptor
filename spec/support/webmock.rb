@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'webmock/rspec'
+require "webmock/rspec"
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
@@ -10,7 +10,7 @@ RSpec.configure do |config|
       .to_return(
         status: 200,
         body: prosecution_cases_json,
-        headers: { 'Content-Type' => 'application/vnd.unifiedsearch.query.laa.cases+json' }
+        headers: { "Content-Type" => "application/vnd.unifiedsearch.query.laa.cases+json" },
       )
   end
 
@@ -21,7 +21,7 @@ RSpec.configure do |config|
       .to_return(
         status: 200,
         body: hearing_json,
-        headers: { 'Content-Type' => 'application/vnd.unifiedsearch.query.laa.cases+json' }
+        headers: { "Content-Type" => "application/vnd.unifiedsearch.query.laa.cases+json" },
       )
   end
 end

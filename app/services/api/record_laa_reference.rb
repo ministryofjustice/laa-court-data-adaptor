@@ -2,7 +2,6 @@
 
 module Api
   class RecordLaaReference < ApplicationService
-    # rubocop:disable Metrics/ParameterLists
     def initialize(prosecution_case_id:,
                    defendant_id:,
                    offence_id:,
@@ -16,12 +15,11 @@ module Api
       @application_reference = application_reference.to_s
       @status_date = status_date
       @connection = connection
-      @url = 'prosecutionCases/laaReference'\
+      @url = "prosecutionCases/laaReference"\
               "/cases/#{prosecution_case_id}"\
               "/defendant/#{defendant_id}"\
               "/offences/#{offence_id}"
     end
-    # rubocop:enable Metrics/ParameterLists
 
     def call
       response = connection.post(url, request_body)
@@ -29,13 +27,13 @@ module Api
       response
     end
 
-    private
+  private
 
     def request_body
       {
         statusCode: status_code,
         applicationReference: application_reference,
-        statusDate: status_date
+        statusDate: status_date,
       }
     end
 

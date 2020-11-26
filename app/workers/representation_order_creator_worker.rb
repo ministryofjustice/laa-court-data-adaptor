@@ -9,7 +9,7 @@ class RepresentationOrderCreatorWorker
         defendant_id: defendant_id,
         offences: offences,
         maat_reference: maat_reference,
-        defence_organisation: defence_organisation
+        defence_organisation: defence_organisation,
       )
     end
   end

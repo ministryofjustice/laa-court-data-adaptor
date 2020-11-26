@@ -9,7 +9,7 @@ module Api
           render json: HearingSerializer.new(@hearing, serialization_options)
         end
 
-        private
+      private
 
         def serialization_options
           return { include: inclusions } if inclusions.present?
@@ -18,7 +18,7 @@ module Api
         end
 
         def inclusions
-          params[:include]&.split(',')
+          params[:include]&.split(",")
         end
       end
     end

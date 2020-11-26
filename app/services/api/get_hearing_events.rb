@@ -12,7 +12,7 @@ module Api
       HearingEventsRecorder.call(hearing_id: hearing_id, hearing_date: hearing_date, body: response.body) if successful_response?
     end
 
-    private
+  private
 
     def successful_response?
       response.status == 200 && response.body.present?

@@ -14,17 +14,17 @@ class CommonPlatformConnection < ApplicationService
   def call
     Faraday.new host, options do |connection|
       connection.request :json
-      connection.response :json, content_type: 'application/json'
-      connection.response :json, content_type: 'application/vnd.unifiedsearch.query.laa.cases+json'
-      connection.response :json, content_type: 'text/plain'
+      connection.response :json, content_type: "application/json"
+      connection.response :json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json"
+      connection.response :json, content_type: "text/plain"
       connection.adapter Faraday.default_adapter
     end
   end
 
-  private
+private
 
   def headers
-    { 'Ocp-Apim-Subscription-Key' => ENV['SHARED_SECRET_KEY'] }
+    { "Ocp-Apim-Subscription-Key" => ENV["SHARED_SECRET_KEY"] }
   end
 
   def options
@@ -35,8 +35,8 @@ class CommonPlatformConnection < ApplicationService
       ssl: {
         client_cert: OpenSSL::X509::Certificate.new(client_cert),
         client_key: OpenSSL::PKey::RSA.new(client_key),
-        ca_file: Rails.root.join('lib/ssl/ca.crt').to_s
-      }
+        ca_file: Rails.root.join("lib/ssl/ca.crt").to_s,
+      },
     }
   end
 

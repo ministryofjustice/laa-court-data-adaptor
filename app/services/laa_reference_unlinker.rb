@@ -15,7 +15,7 @@ class LaaReferenceUnlinker < ApplicationService
     call_cp_endpoint
   end
 
-  private
+private
 
   def unlink_current_maat_reference
     laa_reference.update!(linked: false)
@@ -26,7 +26,7 @@ class LaaReferenceUnlinker < ApplicationService
       maat_reference: laa_reference.maat_reference,
       user_name: user_name,
       unlink_reason_code: unlink_reason_code,
-      unlink_other_reason_text: unlink_other_reason_text
+      unlink_other_reason_text: unlink_other_reason_text,
     )
   end
 
@@ -36,9 +36,9 @@ class LaaReferenceUnlinker < ApplicationService
         prosecution_case_id: offence.prosecution_case_id,
         defendant_id: offence.defendant_id,
         offence_id: offence.offence_id,
-        status_code: 'AP',
+        status_code: "AP",
         application_reference: dummy_maat_reference,
-        status_date: Time.zone.today.strftime('%Y-%m-%d')
+        status_date: Time.zone.today.strftime("%Y-%m-%d"),
       )
     end
   end

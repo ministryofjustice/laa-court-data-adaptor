@@ -14,7 +14,7 @@ module Api
           end
         end
 
-        private
+      private
 
         def create_params
           params.from_jsonapi.require(:representation_order).permit!
@@ -30,7 +30,7 @@ module Api
             transformed_params[:defendant_id],
             transformed_params[:offences],
             transformed_params[:maat_reference],
-            transformed_params[:defence_organisation]
+            transformed_params[:defence_organisation],
           )
         end
       end

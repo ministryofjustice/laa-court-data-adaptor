@@ -6,10 +6,10 @@ class ProsecutionCaseHearingsFetcher < ApplicationService
   end
 
   def call
-    prosecution_case.body['hearingSummary']&.map { |hearing| Api::GetHearingResults.call(hearing_id: hearing['hearingId'], publish_to_queue: true) }
+    prosecution_case.body["hearingSummary"]&.map { |hearing| Api::GetHearingResults.call(hearing_id: hearing["hearingId"], publish_to_queue: true) }
   end
 
-  private
+private
 
   attr_reader :prosecution_case
 end

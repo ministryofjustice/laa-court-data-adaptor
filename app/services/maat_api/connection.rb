@@ -12,12 +12,12 @@ module MaatApi
       Faraday.new host do |connection|
         connection.request :oauth2, access_token.token, token_type: :bearer
         connection.request :json
-        connection.response :json, content_type: 'application/json'
+        connection.response :json, content_type: "application/json"
         connection.adapter Faraday.default_adapter
       end
     end
 
-    private
+  private
 
     def access_token
       @access_token = new_access_token if @access_token.blank? || @access_token.expired?
@@ -32,8 +32,8 @@ module MaatApi
         Rails.configuration.x.maat_api.client_id,
         Rails.configuration.x.maat_api.client_secret,
         site: Rails.configuration.x.maat_api.oauth_url,
-        token_url: '/oauth2/token',
-        auth_scheme: :basic_auth
+        token_url: "/oauth2/token",
+        auth_scheme: :basic_auth,
       )
     end
 
