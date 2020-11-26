@@ -94,6 +94,6 @@ RSpec.describe NewLaaReferenceContract do
     let(:link_validity) { false }
 
     it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("We do not have all the info needed to link right now, please try again later") }
+    it { is_expected.to have_contract_error("cannot be linked right now as we do not have all the required information, please try again later") }
   end
 end
