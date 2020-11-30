@@ -65,8 +65,10 @@ class Defendant
     _maat_reference if valid_maat_reference?
   end
 
-  def post_hearing_custody_status
-    PostHearingCustodyCalculator.call(offences: offence_details.deep_transform_keys(&:to_sym).values)
+  def post_hearing_custody_statuses
+    offence_details.deep_transform_keys(&:to_sym).flat_map do |_offence_id, offence|
+      PostHearingCustodyCalculator.call(offences: offence)
+    end
   end
 
   def prosecution_case
@@ -78,7 +80,7 @@ private
   def offence_details
     return {} if details.blank?
 
-    details["offences"]&.index_by { |offence| offence["id"] }
+    details.flat_map { |detail| detail["offences"] }.group_by { |offence| offence["id"] }
   end
 
   def valid_maat_reference?

@@ -33,7 +33,7 @@ RSpec.describe ProsecutionCase, type: :model do
     end
 
     context "when requesting hearing resulted" do
-      let(:hearing_ids) { %w[311bb2df-4df5-4abe-bae3-82f144e1e5c5 c6cf04b5-901d-4a89-a9ab-767eb57306e4] }
+      let(:hearing_ids) { %w[311bb2df-4df5-4abe-bae3-82f144e1e5c5 e8d88eaa-e73f-4b59-8148-d0cfbbd3520b] }
 
       before do
         allow(prosecution_case).to receive(:hearing_summary_ids).and_return(hearing_ids)
@@ -51,6 +51,11 @@ RSpec.describe ProsecutionCase, type: :model do
                 "id" => "31cbe62d-b1ec-4e82-89f7-99dced834900",
                 "defendants" => [{
                   "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+                  "offences": [
+                    {
+                      "id": "offence-one-id",
+                    },
+                  ],
                 }],
               }],
             },
@@ -63,13 +68,27 @@ RSpec.describe ProsecutionCase, type: :model do
         Hearing.create(
           id: hearing_ids[1],
           body: {
+
             "hearing" => {
               "id" => hearing_ids[1],
               "prosecutionCases" => [{
                 "id" => "31cbe62d-b1ec-4e82-89f7-99dced834900",
                 "defendants" => [{
-                  "id" => "b70a36e5-13d3-4bb3-bb24-94db79b7708b",
-                }],
+                  "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+                  "offences": [
+                    {
+                      "id": "offence-two-id",
+                    },
+                  ],
+                },
+                                 {
+                                   "id" => "b70a36e5-13d3-4bb3-bb24-94db79b7708b",
+                                   "offences": [
+                                     {
+                                       "id": "offence-three-id",
+                                     },
+                                   ],
+                                 }],
               }],
             },
             "sharedTime" => "2020-10-20",
@@ -100,10 +119,29 @@ RSpec.describe ProsecutionCase, type: :model do
         end
 
         context "when hearings are loaded" do
+          let(:defendant_one_details) do
+            [{
+              "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+              "offences" => [{ "id" => "offence-one-id" }],
+            },
+             {
+               "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+               "offences" => [{ "id" => "offence-two-id" }],
+             }]
+          end
+
+          let(:defendant_two_details) do
+            [{
+              "id" => "b70a36e5-13d3-4bb3-bb24-94db79b7708b",
+              "offences" => [{ "id" => "offence-three-id" }],
+            }]
+          end
+
           before { prosecution_case.hearings }
 
           it "initialises Defendants with detail fetched from hearing" do
-            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: an_instance_of(Hash), prosecution_case_id: prosecution_case_id).twice
+            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: defendant_one_details, prosecution_case_id: prosecution_case_id).once
+            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: defendant_two_details, prosecution_case_id: prosecution_case_id).once
             prosecution_case.defendants
           end
 

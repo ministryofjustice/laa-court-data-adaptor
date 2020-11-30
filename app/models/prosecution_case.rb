@@ -47,7 +47,7 @@ private
   def defendant_details
     return {} unless hearings_fetched?
 
-    case_details.flat_map { |detail| detail["defendants"] }.index_by { |detail| detail["id"] }
+    case_details.flat_map { |detail| detail["defendants"] }.group_by { |detail| detail["id"] }
   end
 
   def hearing_results

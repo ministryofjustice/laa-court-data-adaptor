@@ -30,23 +30,34 @@ class Offence
   end
 
   def mode_of_trial_reason
-    allocation_decision["motReasonDescription"]
+    allocation_decisions.dig(0, "motReasonDescription")
   end
 
   def mode_of_trial_reason_code
-    allocation_decision["motReasonCode"]
+    allocation_decisions.dig(0, "motReasonCode")
   end
 
   def maat_reference
     laa_reference["applicationReference"] if laa_reference.present?
   end
 
-  def plea
-    plea_hash["pleaValue"]
+  def pleas
+    pleas_array.map do |plea|
+      {
+        code: plea["pleaValue"],
+        pleaded_at: plea["pleaDate"],
+      }
+    end
   end
 
+  # TODO: derprecate/remove
+  def plea
+    pleas_array.dig(0, "pleaValue")
+  end
+
+  # TODO: derprecate/remove
   def plea_date
-    plea_hash["pleaDate"]
+    pleas_array.dig(0, "pleaDate")
   end
 
 private
@@ -55,15 +66,15 @@ private
     body["laaApplnReference"]
   end
 
-  def plea_hash
-    return {} if details.blank?
+  def pleas_array
+    return [] if details.blank?
 
-    details["plea"] || {}
+    details.flat_map { |detail| detail["plea"] }.compact
   end
 
-  def allocation_decision
-    return {} if details.blank?
+  def allocation_decisions
+    return [] if details.blank?
 
-    details.fetch("allocationDecision", {})
+    details.flat_map { |detail| detail["allocationDecision"] }
   end
 end

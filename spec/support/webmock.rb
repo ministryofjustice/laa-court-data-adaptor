@@ -6,7 +6,8 @@ WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
   config.before(:each, stub_case_search_with_urn: true) do
-    stub_request(:get, %r{http.*/apigw.*\.cjscp\.org\.uk/LAA/v1/prosecutionCases\?prosecutionCaseReference=#{prosecution_case_reference}})
+    stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/prosecutionCases")
+      .with(query: { prosecutionCaseReference: prosecution_case_reference })
       .to_return(
         status: 200,
         body: prosecution_cases_json,
@@ -15,9 +16,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each, stub_hearing_result: true) do
-    uuid_regex = /[a-f0-9]{8}-([a-f0-9]{4}-){3}[a-f0-9]{12}/
-
-    stub_request(:get, %r{http.*/apigw.*\.cjscp\.org\.uk/LAA/v1/hearing/results\?hearingId=#{uuid_regex}})
+    stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results")
+      .with(query: hash_including("hearingId"))
       .to_return(
         status: 200,
         body: hearing_json,

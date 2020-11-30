@@ -33,7 +33,7 @@ private
   def prosecution_case
     return unless prosecution_case_defendant
 
-    @prosecution_case ||= ProsecutionCase.find(prosecution_case_defendant.prosecution_case_id)
+    @prosecution_case ||= prosecution_case_defendant.prosecution_case
   end
 
   attr_reader :defendant_id, :prosecution_case_defendant
