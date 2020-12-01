@@ -102,7 +102,7 @@ RSpec.describe Offence, type: :model do
       it { is_expected.to eq plea_array }
     end
 
-    context "with multiple pleas" do
+    context "with multiple unique pleas" do
       let(:details_array) do
         [{
           "plea" => {
@@ -127,6 +127,32 @@ RSpec.describe Offence, type: :model do
            "code": "GUILTY",
            "pleaded_at": "2020-12-24",
          }]
+      end
+
+      it { is_expected.to eq plea_array }
+    end
+
+    context "with multiple non-unique pleas" do
+      let(:details_array) do
+        [{
+          "plea" => {
+            "pleaDate" => "2020-04-24",
+            "pleaValue" => "NOT_GUILTY",
+          },
+        },
+         {
+           "plea" => {
+             "pleaDate" => "2020-04-24",
+             "pleaValue" => "NOT_GUILTY",
+           },
+         }]
+      end
+
+      let(:plea_array) do
+        [{
+          "code": "NOT_GUILTY",
+          "pleaded_at": "2020-04-24",
+        }]
       end
 
       it { is_expected.to eq plea_array }
