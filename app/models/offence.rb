@@ -69,7 +69,7 @@ private
   def pleas_array
     return [] if details.blank?
 
-    details.flat_map { |detail| detail["plea"] }.compact
+    details.flat_map { |detail| detail["plea"] }.uniq.compact
   end
 
   def allocation_decisions
