@@ -51,75 +51,91 @@ RSpec.describe Offence, type: :model do
     it { expect(offence.maat_reference).to eq("AB746921") }
   end
 
-  context "when plea details are available" do
+  describe "#plea" do
     let(:details_array) do
       [{
         "plea" => {
-          "pleaDate" => "2020-04-24",
           "pleaValue" => "GUILTY",
         },
       }]
     end
 
-    describe "#plea" do
-      subject { offence.plea }
+    subject { offence.plea }
 
-      it { is_expected.to eq("GUILTY") }
+    it { is_expected.to eq("GUILTY") }
+  end
+
+  describe "#plea_date" do
+    let(:details_array) do
+      [{
+        "plea" => {
+          "pleaDate" => "2020-04-24",
+        },
+      }]
     end
 
-    describe "#plea_date" do
-      subject { offence.plea_date }
+    subject { offence.plea_date }
 
-      it { is_expected.to eq("2020-04-24") }
-    end
+    it { is_expected.to eq("2020-04-24") }
+  end
 
-    context "#pleas" do
-      subject { offence.pleas }
+  context "#pleas" do
+    subject { offence.pleas }
+
+    context "with one plea" do
+      let(:details_array) do
+        [{
+          "plea" => {
+            "pleaDate" => "2020-04-25",
+            "pleaValue" => "NOT_GUILTY",
+          },
+        }]
+      end
 
       let(:plea_array) do
         [{
-          "code": "GUILTY",
-          "pleaded_at": "2020-04-24",
+          "code": "NOT_GUILTY",
+          "pleaded_at": "2020-04-25",
         }]
       end
 
       it { is_expected.to eq plea_array }
+    end
 
-      context "with multiple pleas" do
-        let(:details_array) do
-          [{
-            "plea" => {
-              "pleaDate" => "2020-04-24",
-              "pleaValue" => "NOT_GUILTY",
-            },
+    context "with multiple pleas" do
+      let(:details_array) do
+        [{
+          "plea" => {
+            "pleaDate" => "2020-04-24",
+            "pleaValue" => "NOT_GUILTY",
           },
-           {
-             "plea" => {
-               "pleaDate" => "2020-12-24",
-               "pleaValue" => "GUILTY",
-             },
-           }]
-        end
-
-        let(:plea_array) do
-          [{
-            "code": "NOT_GUILTY",
-            "pleaded_at": "2020-04-24",
-          },
-           {
-             "code": "GUILTY",
-             "pleaded_at": "2020-12-24",
-           }]
-        end
-
-        it { is_expected.to eq plea_array }
+        },
+         {
+           "plea" => {
+             "pleaDate" => "2020-12-24",
+             "pleaValue" => "GUILTY",
+           },
+         }]
       end
 
-      context "with no pleas" do
-        let(:details_array) { [{ "some_other_detail" => "" }] }
-
-        it { expect(offence.pleas).to be_an(Array).and be_empty }
+      let(:plea_array) do
+        [{
+          "code": "NOT_GUILTY",
+          "pleaded_at": "2020-04-24",
+        },
+         {
+           "code": "GUILTY",
+           "pleaded_at": "2020-12-24",
+         }]
       end
+
+      it { is_expected.to eq plea_array }
+    end
+
+    context "with no pleas" do
+      let(:details_array) { [{ "some_other_detail" => "" }] }
+
+      it { expect(offence.pleas).to be_an(Array).and be_empty }
     end
   end
 
