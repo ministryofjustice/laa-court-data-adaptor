@@ -88,14 +88,14 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
       end
 
       context "with a blank user_name" do
-        response(202, "Accepted") do
+        response("400", "Bad Request") do
           let(:Authorization) { "Bearer #{token.token}" }
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
             laa_reference[:data][:attributes].delete(:user_name)
-            expect(LaaReferenceCreator).to receive(:call).with(defendant_id: defendant_id, user_name: nil, maat_reference: 1_231_231).and_call_original
+            expect(LaaReferenceCreator).not_to receive(:call)
           end
 
           run_test!
