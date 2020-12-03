@@ -9,3 +9,4 @@ tmp/*
 docker-compose.yml
 README.md
 docs
+.editorconfig
