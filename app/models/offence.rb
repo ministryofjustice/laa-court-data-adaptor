@@ -37,6 +37,15 @@ class Offence
     allocation_decisions.dig(0, "motReasonCode")
   end
 
+  def mode_of_trial_reasons
+    allocation_decisions.map do |decision|
+      {
+        description: decision["motReasonDescription"],
+        code: decision["motReasonDescriptionCode"],
+      }
+    end
+  end
+
   def maat_reference
     laa_reference["applicationReference"] if laa_reference.present?
   end
@@ -75,6 +84,6 @@ private
   def allocation_decisions
     return [] if details.blank?
 
-    details.flat_map { |detail| detail["allocationDecision"] }
+    details.flat_map { |detail| detail["allocationDecision"] }.uniq.compact
   end
 end
