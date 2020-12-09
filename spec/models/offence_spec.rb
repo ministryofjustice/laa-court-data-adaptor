@@ -29,8 +29,6 @@ RSpec.describe Offence, type: :model do
   it { expect(offence.legislation).to eq("Offences against the Person Act 1861 s.24") }
   it { expect(offence.mode_of_trial).to eq("Indictable-Only Offence") }
   it { expect(offence.maat_reference).to be_nil }
-  it { expect(offence.plea).to be_nil }
-  it { expect(offence.plea_date).to be_nil }
   it { expect(offence.pleas).to be_an(Array).and be_empty }
 
   context "when an LAA reference are available" do
@@ -49,34 +47,6 @@ RSpec.describe Offence, type: :model do
     end
 
     it { expect(offence.maat_reference).to eq("AB746921") }
-  end
-
-  describe "#plea" do
-    let(:details_array) do
-      [{
-        "plea" => {
-          "pleaValue" => "GUILTY",
-        },
-      }]
-    end
-
-    subject { offence.plea }
-
-    it { is_expected.to eq("GUILTY") }
-  end
-
-  describe "#plea_date" do
-    let(:details_array) do
-      [{
-        "plea" => {
-          "pleaDate" => "2020-04-24",
-        },
-      }]
-    end
-
-    subject { offence.plea_date }
-
-    it { is_expected.to eq("2020-04-24") }
   end
 
   context "#pleas" do

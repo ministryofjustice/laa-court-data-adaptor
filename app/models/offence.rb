@@ -59,16 +59,6 @@ class Offence
     end
   end
 
-  # TODO: deprecate/remove
-  def plea
-    pleas_array.dig(0, "pleaValue")
-  end
-
-  # TODO: deprecate/remove
-  def plea_date
-    pleas_array.dig(0, "pleaDate")
-  end
-
 private
 
   def laa_reference
