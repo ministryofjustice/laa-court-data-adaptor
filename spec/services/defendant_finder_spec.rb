@@ -49,7 +49,7 @@ RSpec.describe DefendantFinder do
 
       context "with offence" do
         it "includes plea detail" do
-          expect(defendant.offences.map(&:plea)).to include("NOT_GUILTY")
+          expect(defendant.offences.flat_map(&:pleas)).to include({ code: "NOT_GUILTY", pleaded_at: "2020-04-12" })
         end
 
         it "includes mode of trial detail" do
