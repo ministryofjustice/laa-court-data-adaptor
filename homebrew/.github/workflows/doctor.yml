@@ -1,0 +1,35 @@
+name: brew doctor
+on:
+  pull_request:
+    paths:
+      - .github/workflows/doctor.yml
+      - Library/Homebrew/cmd/doctor.rb
+      - Library/Homebrew/diagnostic.rb
+      - Library/Homebrew/extend/os/diagnostic.rb
+      - Library/Homebrew/extend/os/mac/diagnostic.rb
+      - Library/Homebrew/os/mac/xcode.rb
+    branches-ignore:
+      - master
+env:
+  HOMEBREW_DEVELOPER: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
+jobs:
+  tests:
+    strategy:
+      matrix:
+        version: [10.15, 10.14, 10.13]
+      fail-fast: false
+    runs-on: ${{ matrix.version }}
+    env:
+      PATH: '/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - run: brew test-bot --only-cleanup-before
+
+      - run: brew test-bot --only-setup
+
+      - run: brew test-bot --only-cleanup-after
+        if: always()

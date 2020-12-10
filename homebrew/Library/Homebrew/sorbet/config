@@ -1,0 +1,11 @@
+--dir
+.
+
+--ignore
+/vendor
+
+--ignore
+/test/.gem
+
+--dsl-plugins
+sorbet/triggers.yml

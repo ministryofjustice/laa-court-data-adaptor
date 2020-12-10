@@ -1,4 +1,4 @@
-#Add a new user for git-crypt
+# Add a new user for git-crypt
 * start a new git branch `git checkout -b add-<name>-as-gpg-user`
 * obtain the user key ID from a keystore (for example pgp.key-server.io)
 
