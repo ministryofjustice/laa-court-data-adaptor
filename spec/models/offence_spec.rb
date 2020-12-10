@@ -208,4 +208,90 @@ RSpec.describe Offence, type: :model do
       it { is_expected.to eql "5" }
     end
   end
+
+  describe "#mode of trial reasons" do
+    subject(:mode_of_trial_reasons) { offence.mode_of_trial_reasons }
+
+    context "when one allocation decision is available" do
+      let(:details_array) do
+        [{
+          "allocationDecision" => {
+            "motReasonDescription" => "Court directs trial by jury",
+            "motReasonDescriptionCode" => "3",
+          },
+        }]
+      end
+
+      let(:allocation_decisions_array) do
+        [{
+          "description": "Court directs trial by jury",
+          "code": "3",
+        }]
+      end
+
+      it { is_expected.to eql allocation_decisions_array }
+    end
+
+    context "when multiple unique allocation decisions are available" do
+      let(:details_array) do
+        [{
+          "allocationDecision" => {
+            "motReasonDescription" => "Court directs trial by jury",
+            "motReasonDescriptionCode" => "3",
+          },
+        },
+         {
+           "allocationDecision" => {
+             "motReasonDescription" => "Some other mot desc",
+             "motReasonDescriptionCode" => "1",
+           },
+         }]
+      end
+
+      let(:allocation_decisions_array) do
+        [{
+          "description": "Court directs trial by jury",
+          "code": "3",
+        },
+         {
+           "description": "Some other mot desc",
+           "code": "1",
+         }]
+      end
+
+      it { is_expected.to eql allocation_decisions_array }
+    end
+
+    context "when multiple non-unique allocation decisions are available" do
+      let(:details_array) do
+        [{
+          "allocationDecision" => {
+            "motReasonDescription" => "Court directs trial by jury",
+            "motReasonDescriptionCode" => "3",
+          },
+        },
+         {
+           "allocationDecision" => {
+             "motReasonDescription" => "Court directs trial by jury",
+             "motReasonDescriptionCode" => "3",
+           },
+         }]
+      end
+
+      let(:allocation_decisions_array) do
+        [{
+          "description": "Court directs trial by jury",
+          "code": "3",
+        }]
+      end
+
+      it { is_expected.to eql allocation_decisions_array }
+    end
+
+    context "with no allocation decisions" do
+      let(:details_array) { [{ "some_other_detail" => "" }] }
+
+      it { expect(offence.mode_of_trial_reasons).to be_an(Array).and be_empty }
+    end
+  end
 end
