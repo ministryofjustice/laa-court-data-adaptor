@@ -9,6 +9,10 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
   let(:schema) { File.read("swagger/v1/schema.json") }
   let(:include) {}
 
+  before do
+    allow(Api::GetHearingResults).to receive(:call)
+  end
+
   path "/api/internal/v1/prosecution_cases" do
     get("search prosecution_cases") do
       description 'Search prosecution cases. Valid search combinations are: <br/><br/>

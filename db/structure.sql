@@ -25,6 +25,8 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 SET default_tablespace = '';
 
+SET default_table_access_method = heap;
+
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
@@ -54,7 +56,7 @@ CREATE SEQUENCE public.dummy_maat_reference_seq
 --
 
 CREATE TABLE public.hearing_event_recordings (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     hearing_id uuid,
     hearing_date date,
     body jsonb NOT NULL,
@@ -68,7 +70,7 @@ CREATE TABLE public.hearing_event_recordings (
 --
 
 CREATE TABLE public.hearings (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     body jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -80,7 +82,7 @@ CREATE TABLE public.hearings (
 --
 
 CREATE TABLE public.laa_references (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     defendant_id uuid NOT NULL,
     maat_reference character varying NOT NULL,
     dummy_maat_reference boolean DEFAULT false NOT NULL,
@@ -96,7 +98,7 @@ CREATE TABLE public.laa_references (
 --
 
 CREATE TABLE public.oauth_access_grants (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     resource_owner_id uuid NOT NULL,
     application_id uuid NOT NULL,
     token character varying NOT NULL,
@@ -113,7 +115,7 @@ CREATE TABLE public.oauth_access_grants (
 --
 
 CREATE TABLE public.oauth_access_tokens (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     resource_owner_id uuid,
     application_id uuid NOT NULL,
     token character varying NOT NULL,
@@ -131,7 +133,7 @@ CREATE TABLE public.oauth_access_tokens (
 --
 
 CREATE TABLE public.oauth_applications (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
     uid character varying NOT NULL,
     secret character varying NOT NULL,
@@ -148,7 +150,7 @@ CREATE TABLE public.oauth_applications (
 --
 
 CREATE TABLE public.prosecution_case_defendant_offences (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     prosecution_case_id uuid NOT NULL,
     defendant_id uuid NOT NULL,
     offence_id uuid NOT NULL,
@@ -171,7 +173,7 @@ CREATE TABLE public.prosecution_case_defendant_offences (
 --
 
 CREATE TABLE public.prosecution_cases (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     body jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -192,7 +194,7 @@ CREATE TABLE public.schema_migrations (
 --
 
 CREATE TABLE public.users (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying,
     auth_token_digest character varying,
     created_at timestamp(6) without time zone NOT NULL,
