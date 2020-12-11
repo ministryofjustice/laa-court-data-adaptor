@@ -33,12 +33,14 @@ In the Configure New Token section, set:
 ## Set local variables 
 1. In laa-court-data-adaptor add a file at the root level named `.env.developement.local` and copy in the following variables:
 ```
-COMMON_PLATFORM_URL=http://localhost:3001/ 
-SHARED_SECRET_KEY=super-secret-key 
-ADMIN_USERNAME=admin 
-ADMIN_PASSWORD=password 
-LAA_DEV_API_URL=http://localhost:3001 LAA_DEV_OAUTH_URL=http://localhost:3001/v1/oauth/token LAA_DEV_CLIENT_ID= 
-LAA_DEV_CLIENT_SECRET= 
+COMMON_PLATFORM_URL=http://localhost:3001/
+SHARED_SECRET_KEY=super-secret-key
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=password
+LAA_DEV_API_URL=http://localhost:3001
+LAA_DEV_OAUTH_URL=http://localhost:3001/v1/oauth/token
+LAA_DEV_CLIENT_ID=
+LAA_DEV_CLIENT_SECRET=
 DATABASE_URL=postgres://localhost/laa_court_data_adaptor_development
 ```
 
