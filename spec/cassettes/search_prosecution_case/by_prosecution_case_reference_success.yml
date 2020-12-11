@@ -152,4 +152,52 @@ http_interactions:
       encoding: UTF-8
       string: "{}"
   recorded_at: Mon, 09 Nov 2020 17:51:54 GMT
+- request:
+    method: get
+    uri: "<COMMON_PLATFORM_URL>prosecutionCases?prosecutionCaseReference=19GD1001816"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
+      User-Agent:
+      - Faraday v1.0.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Content-Type:
+      - application/vnd.unifiedsearch.query.laa.cases+json
+      Etag:
+      - W/"fb28f6d7c7ea88e334fe228433b66a24"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - ca4619fc-5f35-4816-8254-1ba733c1aa18
+      X-Runtime:
+      - '0.021437'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"totalResults":0,"cases":[]}'
+  recorded_at: Fri, 11 Dec 2020 11:53:19 GMT
 recorded_with: VCR 6.0.0
