@@ -82,5 +82,27 @@ RSpec.describe Hearing, type: :model do
         it { expect(hearing.defence_advocate_names).to be_nil }
       end
     end
+
+    context "with cracked ineffective trial data available" do
+      let(:hearing_id) { "da124701-048f-408c-85b4-81138316ddce" }
+      let(:hearing) do
+        VCR.use_cassette("hearing_result_fetcher/success_hearing_cracked_trial") do
+          Api::GetHearingResults.call(hearing_id: hearing_id)
+        end
+      end
+
+      describe "#cracked_ineffective_trial_id" do
+        subject { hearing.cracked_ineffective_trial_id }
+
+        it { is_expected.to eql("c4ca4238-a0b9-3382-8dcc-509a6f75849b") }
+      end
+
+      describe "#cracked_ineffective_trial" do
+        subject { hearing.cracked_ineffective_trial }
+
+        it { is_expected.to be_a(CrackedIneffectiveTrial) }
+        it { is_expected.to respond_to(:id, :code, :description, :type) }
+      end
+    end
   end
 end

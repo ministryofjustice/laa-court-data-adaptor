@@ -1,0 +1,348 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<COMMON_PLATFORM_URL>/hearing/results?hearingId=da124701-048f-408c-85b4-81138316ddce"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
+      User-Agent:
+      - Faraday v1.0.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/plain; charset=utf-8
+      Request-Context:
+      - appId=cid-v1:fa402f79-a77a-4ded-8114-1ca5377aa0ab
+      Date:
+      - Fri, 18 Dec 2020 14:34:51 GMT
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "hearing": {
+            "id": "da124701-048f-408c-85b4-81138316ddce",
+            "jurisdictionType": "CROWN",
+            "courtCentre": {
+              "address": {
+                "address1": "QEII Law Courts",
+                "address2": "Derby Square",
+                "address3": "Liverpool",
+                "address4": "",
+                "address5": "",
+                "postcode": "L2 1XA"
+              },
+              "code": "C05LV00",
+              "id": "9b583616-049b-30f9-a14f-028a53b7cfe8",
+              "lja": {
+                "ljaCode": "1810",
+                "ljaName": "Merseyside Magistrates' Court"
+              },
+              "name": "Liverpool Crown Court",
+              "roomId": "7cb09222-49e1-3622-a5a6-ad253d2b3c39",
+              "roomName": "Crown Court 3-1"
+            },
+            "hearingDays": [
+              {
+                "listedDurationMinutes": 120,
+                "listingSequence": 1,
+                "sittingDay": "2020-08-28T08:00:00.000Z"
+              }
+            ],
+            "type": {
+              "description": "Trial",
+              "id": "bf8155e1-90b9-4080-b133-bfbad895d6e4"
+            },
+            "hearingLanguage": "ENGLISH",
+            "prosecutionCases": [
+              {
+                "id": "46115836-02c6-4547-844b-0db38d5d8447",
+                "prosecutionCaseIdentifier": {
+                  "majorCreditorCode": "PF45",
+                  "prosecutionAuthorityCode": "SURRPF",
+                  "prosecutionAuthorityId": "764bff92-a135-34cb-b858-8bb6b4b66301",
+                  "prosecutionAuthorityName": "Surrey Police",
+                  "prosecutionAuthorityOUCode": "0450000",
+                  "caseURN": "90GD9163LAA"
+                },
+                "initiationCode": "C",
+                "defendants": [
+                  {
+                    "id": "5f1d74c0-a2c3-425f-9447-68050e569a15",
+                    "prosecutionCaseId": "46115836-02c6-4547-844b-0db38d5d8447",
+                    "offences": [
+                      {
+                        "id": "933c2585-4d1c-4e51-8f78-5ed148db7d5c",
+                        "offenceDefinitionId": "a927ec2f-8a15-47e1-8a89-1d08d90b5091",
+                        "offenceCode": "AA06006",
+                        "offenceTitle": "Furnish false / misleading information - Animals and Animal Products (Import and Export) Regulations 2006",
+                        "wording": "Has a violent past and fear that he will commit further offences and\n                interfere with witnesse",
+                        "startDate": "2020-02-09",
+                        "offenceLegislation": "Contrary to regulations 32(c) and 34(4) of the Animals and Animal Products (Import and Export)(England) Regulations 2006.",
+                        "modeOfTrial": "Either Way",
+                        "arrestDate": "2020-02-09",
+                        "chargeDate": "2020-02-09",
+                        "orderIndex": 1,
+                        "count": 0,
+                        "plea": {
+                          "offenceId": "933c2585-4d1c-4e51-8f78-5ed148db7d5c",
+                          "originatingHearingId": "75865225-3608-4715-a800-c8b001a7f6d2",
+                          "pleaDate": "2020-08-27",
+                          "pleaValue": "NOT_GUILTY"
+                        },
+                        "aquittalDate": "2020-08-28",
+                        "judicialResults": [
+                          {
+                            "alwaysPublished": false,
+                            "category": "FINAL",
+                            "cjsCode": "2050",
+                            "courtClerk": {
+                              "firstName": "Erica",
+                              "lastName": "Wilson",
+                              "userId": "31ec3a16-8721-498c-8da5-f099390ee254"
+                            },
+                            "d20": false,
+                            "excludedFromResults": false,
+                            "isAdjournmentResult": false,
+                            "isAvailableForCourtExtract": true,
+                            "isConvictedResult": false,
+                            "isDeleted": false,
+                            "isFinancialResult": false,
+                            "isUnscheduled": false,
+                            "judicialResultId": "3cf9fd4b-ade4-427f-8f80-bef8a8e67f51",
+                            "judicialResultTypeId": "88fd00c6-d63c-4f4e-9a86-4628856a9557",
+                            "label": "No evidence offered - verdict of not guilty by order of Judge",
+                            "lastSharedDateTime": "2020-08-26",
+                            "lifeDuration": false,
+                            "orderedDate": "2020-08-28",
+                            "orderedHearingId": "da124701-048f-408c-85b4-81138316ddce",
+                            "postHearingCustodyStatus": "A",
+                            "publishedAsAPrompt": false,
+                            "publishedForNows": false,
+                            "rank": 18500,
+                            "resultText": "No evidence offered - verdict of not guilty by order of Judge\n",
+                            "rollUpPrompts": true,
+                            "terminatesOffenceProceedings": true,
+                            "urgent": false,
+                            "usergroups": []
+                          }
+                        ],
+                        "allocationDecision": {
+                          "originatingHearingId": "75865225-3608-4715-a800-c8b001a7f6d2",
+                          "offenceId": "933c2585-4d1c-4e51-8f78-5ed148db7d5c",
+                          "allocationDecisionDate": "2020-08-26",
+                          "motReasonId": "f8eb278a-8bce-373e-b365-b45e939da38a",
+                          "sequenceNumber": 30,
+                          "motReasonDescription": "Defendant elects trial by jury",
+                          "motReasonCode": "04"
+                        },
+                        "laaApplnReference": {
+                          "applicationReference": "6007982",
+                          "effectiveEndDate": "2020-08-26",
+                          "effectiveStartDate": "2020-08-26",
+                          "laaContractNumber": "0R022D",
+                          "offenceLevelStatus": "Granted",
+                          "statusCode": "GR",
+                          "statusDate": "2020-08-26",
+                          "statusDescription": "Granted (One Advocate)",
+                          "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5"
+                        },
+                        "proceedingsConcluded": false
+                      },
+                      {
+                        "id": "a588aefd-006a-41d9-a42d-3beb450cbc0f",
+                        "offenceDefinitionId": "9c225a5d-e7e1-447f-bb1b-62c265b662ed",
+                        "offenceCode": "AA06007",
+                        "offenceTitle": "Operate an unapproved quarantine centre / facility for captive birds",
+                        "wording": "Has a violent past and fear that he will commit further offences and\n                interfere with witnesse",
+                        "startDate": "2020-02-09",
+                        "offenceLegislation": "Contrary to regulations 19(1) & 34(4) of the Animals and Animal Products (Import and Export) (England) Regulations 2006",
+                        "modeOfTrial": "Either Way",
+                        "arrestDate": "2020-02-09",
+                        "chargeDate": "2020-02-09",
+                        "orderIndex": 2,
+                        "count": 0,
+                        "plea": {
+                          "offenceId": "a588aefd-006a-41d9-a42d-3beb450cbc0f",
+                          "originatingHearingId": "75865225-3608-4715-a800-c8b001a7f6d2",
+                          "pleaDate": "2020-08-27",
+                          "pleaValue": "NOT_GUILTY"
+                        },
+                        "aquittalDate": "2020-08-28",
+                        "judicialResults": [
+                          {
+                            "alwaysPublished": false,
+                            "category": "FINAL",
+                            "cjsCode": "2050",
+                            "courtClerk": {
+                              "firstName": "Erica",
+                              "lastName": "Wilson",
+                              "userId": "31ec3a16-8721-498c-8da5-f099390ee254"
+                            },
+                            "d20": false,
+                            "excludedFromResults": false,
+                            "isAdjournmentResult": false,
+                            "isAvailableForCourtExtract": true,
+                            "isConvictedResult": false,
+                            "isDeleted": false,
+                            "isFinancialResult": false,
+                            "isUnscheduled": false,
+                            "judicialResultId": "fee32fcc-cb0f-4c12-ace3-f122cb0eff73",
+                            "judicialResultTypeId": "88fd00c6-d63c-4f4e-9a86-4628856a9557",
+                            "label": "No evidence offered - verdict of not guilty by order of Judge",
+                            "lastSharedDateTime": "2020-08-26",
+                            "lifeDuration": false,
+                            "orderedDate": "2020-08-28",
+                            "orderedHearingId": "da124701-048f-408c-85b4-81138316ddce",
+                            "postHearingCustodyStatus": "A",
+                            "publishedAsAPrompt": false,
+                            "publishedForNows": false,
+                            "rank": 18500,
+                            "resultText": "No evidence offered - verdict of not guilty by order of Judge\n",
+                            "rollUpPrompts": true,
+                            "terminatesOffenceProceedings": true,
+                            "urgent": false,
+                            "usergroups": []
+                          }
+                        ],
+                        "allocationDecision": {
+                          "originatingHearingId": "75865225-3608-4715-a800-c8b001a7f6d2",
+                          "offenceId": "a588aefd-006a-41d9-a42d-3beb450cbc0f",
+                          "allocationDecisionDate": "2020-08-26",
+                          "motReasonId": "f8eb278a-8bce-373e-b365-b45e939da38a",
+                          "sequenceNumber": 30,
+                          "motReasonDescription": "Defendant elects trial by jury",
+                          "motReasonCode": "04"
+                        },
+                        "laaApplnReference": {
+                          "applicationReference": "6007982",
+                          "effectiveEndDate": "2020-08-26",
+                          "effectiveStartDate": "2020-08-26",
+                          "laaContractNumber": "0R022D",
+                          "offenceLevelStatus": "Granted",
+                          "statusCode": "GR",
+                          "statusDate": "2020-08-26",
+                          "statusDescription": "Granted (One Advocate)",
+                          "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5"
+                        },
+                        "proceedingsConcluded": false
+                      }
+                    ],
+                    "prosecutionAuthorityReference": "TFL",
+                    "personDefendant": {
+                      "arrestSummonsNumber": "TFL",
+                      "bailConditions": "",
+                      "bailStatus": {
+                        "code": "A",
+                        "description": "Not applicable",
+                        "id": "86009c70-759d-3308-8de4-194886ff9a77"
+                      },
+                      "personDetails": {
+                        "address": {
+                          "address1": "1234",
+                          "address2": "StreetDescription",
+                          "address3": "Locality2O"
+                        },
+                        "dateOfBirth": "1990-01-01",
+                        "documentationLanguageNeeds": "ENGLISH",
+                        "firstName": "Yessenia",
+                        "gender": "MALE",
+                        "lastName": "Kutch",
+                        "title": "Mr"
+                      }
+                    }
+                  }
+                ],
+                "originatingOrganisation": "0450000"
+              }
+            ],
+            "hasSharedResults": true,
+            "judiciary": [
+              {
+                "firstName": "Andrew Gwyn",
+                "judicialId": "f033ab37-c302-31f7-bf14-2449d037028d",
+                "judicialRoleType": {
+                  "judicialRoleTypeId": "f033ab37-c302-31f7-bf14-2449d037028d",
+                  "judiciaryType": "Senior Circuit Judge"
+                },
+                "lastName": "Menary",
+                "title": ""
+              }
+            ],
+            "prosecutionCounsels": [
+              {
+                "attendanceDays": [
+                  "2020-08-28"
+                ],
+                "firstName": "JO",
+                "id": "1877c1d9-f0b8-41c2-86d2-a601e4f3c540",
+                "lastName": "BOX",
+                "middleName": "",
+                "prosecutionCases": [
+                  "46115836-02c6-4547-844b-0db38d5d8447"
+                ],
+                "status": "JUNIOR",
+                "title": ""
+              }
+            ],
+            "defenceCounsels": [
+              {
+                "attendanceDays": [
+                  "2020-08-28"
+                ],
+                "defendants": [
+                  "f135658a-9d9f-49a2-b172-4935c4a2abf2"
+                ],
+                "firstName": "SIMON",
+                "id": "b0b28f12-df9a-447d-89fa-18b21ecb77f6",
+                "lastName": "BOLTON",
+                "middleName": "",
+                "status": "JUNIOR",
+                "title": ""
+              }
+            ],
+            "defendantAttendance": [
+              {
+                "attendanceDays": [
+                  {
+                    "attendanceType": "IN_PERSON",
+                    "day": "2020-08-28"
+                  }
+                ],
+                "defendantId": "5f1d74c0-a2c3-425f-9447-68050e569a15"
+              },
+              {
+                "attendanceDays": [
+                  {
+                    "attendanceType": "IN_PERSON",
+                    "day": "2020-08-28"
+                  }
+                ],
+                "defendantId": "f135658a-9d9f-49a2-b172-4935c4a2abf2"
+              }
+            ],
+            "crackedIneffectiveTrial": {
+              "code": "A",
+              "description": "On the date of trial the defendant, for the first time, enters a guilty plea which the prosecution accepts.",
+              "id": "c4ca4238-a0b9-3382-8dcc-509a6f75849b",
+              "type": "Cracked"
+            }
+          },
+          "sharedTime": "2020-08-26T13:32:10.717Z"
+        }
+  recorded_at: Fri, 18 Dec 2020 14:34:51 GMT
+recorded_with: VCR 6.0.0
