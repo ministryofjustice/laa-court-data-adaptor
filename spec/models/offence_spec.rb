@@ -187,7 +187,7 @@ RSpec.describe Offence, type: :model do
         [{
           "allocationDecision" => {
             "motReasonDescription" => "Court directs trial by jury",
-            "motReasonDescriptionCode" => "3",
+            "motReasonCode" => "3",
           },
         }]
       end
@@ -207,13 +207,13 @@ RSpec.describe Offence, type: :model do
         [{
           "allocationDecision" => {
             "motReasonDescription" => "Court directs trial by jury",
-            "motReasonDescriptionCode" => "3",
+            "motReasonCode" => "3",
           },
         },
          {
            "allocationDecision" => {
              "motReasonDescription" => "Some other mot desc",
-             "motReasonDescriptionCode" => "1",
+             "motReasonCode" => "1",
            },
          }]
       end
@@ -237,13 +237,13 @@ RSpec.describe Offence, type: :model do
         [{
           "allocationDecision" => {
             "motReasonDescription" => "Court directs trial by jury",
-            "motReasonDescriptionCode" => "3",
+            "motReasonCode" => "3",
           },
         },
          {
            "allocationDecision" => {
              "motReasonDescription" => "Court directs trial by jury",
-             "motReasonDescriptionCode" => "3",
+             "motReasonCode" => "3",
            },
          }]
       end

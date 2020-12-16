@@ -41,7 +41,7 @@ class Offence
     allocation_decisions.map do |decision|
       {
         description: decision["motReasonDescription"],
-        code: decision["motReasonDescriptionCode"],
+        code: decision["motReasonCode"],
       }
     end
   end
