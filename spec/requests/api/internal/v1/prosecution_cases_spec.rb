@@ -25,7 +25,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
 
-      context "search by prosecution_case_reference" do
+      context "when searching by prosecution_case_reference" do
         response(200, "Success") do
           around do |example|
             VCR.use_cassette("search_prosecution_case/by_prosecution_case_reference_success") do
@@ -112,7 +112,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
         end
       end
 
-      context "search by arrest_summons_number" do
+      context "when searching by arrest_summons_number" do
         response(200, "Success") do
           around do |example|
             VCR.use_cassette("search_prosecution_case/by_arrest_summons_number_success") do
@@ -137,7 +137,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
         end
       end
 
-      context "search by national_insurance_number" do
+      context "when searching by national_insurance_number" do
         response(200, "Success") do
           around do |example|
             VCR.use_cassette("search_prosecution_case/by_national_insurance_number_success") do
@@ -162,7 +162,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
         end
       end
 
-      context "search by name and date of birth" do
+      context "when searching by name and date of birth" do
         response(200, "Success") do
           around do |example|
             VCR.use_cassette("search_prosecution_case/by_name_and_date_of_birth_success") do
@@ -194,7 +194,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
         end
       end
 
-      context "search by name and date of next hearing" do
+      context "when searching by name and date of next hearing" do
         response(200, "Success") do
           around do |example|
             VCR.use_cassette("search_prosecution_case/by_name_and_date_of_next_hearing_success") do
@@ -226,7 +226,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
         end
       end
 
-      context "unauthorized request" do
+      context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
 

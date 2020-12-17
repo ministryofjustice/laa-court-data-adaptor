@@ -27,8 +27,5 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
   it { expect(prosecution_case_defendant_offence.rep_order_status).to eq rep_order_status }
   it { expect(prosecution_case_defendant_offence.response_status).to eq response_status }
   it { expect(prosecution_case_defendant_offence.response_body).to eq response_body }
-
-  it do
-    should belong_to(:prosecution_case).class_name("ProsecutionCase")
-  end
+  it { is_expected.to belong_to(:prosecution_case).class_name("ProsecutionCase") }
 end

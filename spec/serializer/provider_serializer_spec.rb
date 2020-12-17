@@ -10,7 +10,7 @@ RSpec.describe ProviderSerializer do
                     role: "Junior counsel")
   end
 
-  context "data" do
+  context "with data" do
     subject(:data) { serializable_hash[:data] }
 
     it { is_expected.to include(id: "PROVIDER_UUID") }
@@ -18,7 +18,7 @@ RSpec.describe ProviderSerializer do
     it { is_expected.to have_key(:attributes) }
   end
 
-  context "attributes" do
+  context "with attributes" do
     let(:attribute_hash) { serializable_hash[:data][:attributes] }
 
     it { expect(attribute_hash[:name]).to eq("Neil Griffiths") }

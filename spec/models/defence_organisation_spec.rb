@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe DefenceOrganisation, type: :model do
+  subject(:defendant) { described_class.new(body: defence_organisation_hash) }
+
   let(:defence_organisation_hash) do
     JSON.parse(file_fixture("defence_organisation.json").read)
   end
-
-  subject(:defendant) { described_class.new(body: defence_organisation_hash) }
 
   it { expect(defendant.id).to eq("CONTRACT REFERENCE") }
   it { expect(defendant.name).to eq("SOME ORGANISATION") }

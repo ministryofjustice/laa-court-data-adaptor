@@ -59,7 +59,7 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
         run_test!
       end
 
-      context "Bad data" do
+      context "when data is bad" do
         response("400", "Bad Request") do
           let(:Authorization) { "Bearer #{token.token}" }
           let(:id) { "X" }
@@ -74,7 +74,7 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
         end
       end
 
-      context "unauthorized request" do
+      context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
 

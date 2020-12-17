@@ -3,6 +3,8 @@
 require "sidekiq/testing"
 
 RSpec.describe MaatLinkCreator do
+  subject(:create_maat_link) { described_class.call(laa_reference_id: laa_reference.id) }
+
   include ActiveSupport::Testing::TimeHelpers
 
   let(:maat_reference) { 12_345_678 }
@@ -10,6 +12,7 @@ RSpec.describe MaatLinkCreator do
   let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
   let(:offence_id) { "cacbd4d4-9102-4687-98b4-d529be3d5710" }
   let(:laa_reference) { LaaReference.create!(defendant_id: defendant_id, user_name: "caseWorker", maat_reference: maat_reference) }
+
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,
@@ -23,14 +26,12 @@ RSpec.describe MaatLinkCreator do
     allow(Api::RecordLaaReference).to receive(:call)
   end
 
-  subject(:create_maat_link) { described_class.call(laa_reference_id: laa_reference.id) }
-
   it "enqueues a PastHearingsFetcherWorker" do
     Sidekiq::Testing.fake! do
       freeze_time do
         Current.set(request_id: "XYZ") do
           expect(PastHearingsFetcherWorker).to receive(:perform_at).with(30.seconds.from_now, "XYZ", prosecution_case_id).and_call_original
-          subject
+          create_maat_link
         end
       end
     end

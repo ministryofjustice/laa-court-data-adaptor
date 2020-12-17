@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe HearingSerializer do
+  subject { described_class.new(hearing).serializable_hash }
+
   let(:hearing) do
     instance_double("Hearing",
                     id: "UUID",
@@ -15,9 +17,7 @@ RSpec.describe HearingSerializer do
                     provider_ids: %w[PROVIDER_UUID])
   end
 
-  subject { described_class.new(hearing).serializable_hash }
-
-  context "attributes" do
+  context "with attributes" do
     let(:attribute_hash) { subject[:data][:attributes] }
 
     it { expect(attribute_hash[:court_name]).to eq("Bexley Court") }
@@ -29,7 +29,7 @@ RSpec.describe HearingSerializer do
     it { expect(attribute_hash[:hearing_days]).to eq(%w[2020-02-01]) }
   end
 
-  context "relationships" do
+  context "with relationships" do
     let(:relationship_hash) { subject[:data][:relationships] }
 
     it { expect(relationship_hash[:hearing_events][:data]).to eq([{ id: "HEARING_EVENT_UUID", type: :hearing_events }]) }

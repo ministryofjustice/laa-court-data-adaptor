@@ -3,10 +3,13 @@
 require "sidekiq/testing"
 
 RSpec.describe LaaReferenceCreator do
+  subject(:create_reference) { described_class.call(maat_reference: maat_reference, user_name: user_name, defendant_id: defendant_id) }
+
   let(:maat_reference) { 12_345_678 }
   let(:defendant_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }
   let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
   let(:user_name) { "caseWorker" }
+
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,
@@ -20,8 +23,6 @@ RSpec.describe LaaReferenceCreator do
     allow(Api::RecordLaaReference).to receive(:call)
     allow(Api::GetHearingResults).to receive(:call)
   end
-
-  subject(:create_reference) { described_class.call(maat_reference: maat_reference, user_name: user_name, defendant_id: defendant_id) }
 
   it "creates an LaaReference" do
     expect {
@@ -45,7 +46,7 @@ RSpec.describe LaaReferenceCreator do
     Sidekiq::Testing.fake! do
       Current.set(request_id: "XYZ") do
         expect(MaatLinkCreatorWorker).to receive(:perform_async).with("XYZ", String).and_call_original
-        subject
+        create_reference
       end
     end
   end
@@ -59,7 +60,7 @@ RSpec.describe LaaReferenceCreator do
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
-    context "that is no longer linked" do
+    context "and it is no longer linked" do
       before do
         existing_laa_reference.update!(linked: false)
       end

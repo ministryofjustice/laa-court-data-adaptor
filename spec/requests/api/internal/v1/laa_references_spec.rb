@@ -117,7 +117,7 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
         end
       end
 
-      context "unauthorized request" do
+      context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
 

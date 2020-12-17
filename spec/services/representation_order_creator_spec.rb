@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe RepresentationOrderCreator do
+  subject(:create_rep_order) do
+    described_class.call(
+      maat_reference: maat_reference,
+      defendant_id: defendant_id,
+      offences: offences,
+      defence_organisation: defence_organisation,
+    )
+  end
+
   let(:maat_reference) { 12_345_678 }
   let(:defendant_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }
   let(:offence_one) do
@@ -22,6 +31,15 @@ RSpec.describe RepresentationOrderCreator do
       snake_cased_item: "random value",
     }
   end
+  let(:transformed_defence_organisation) do
+    {
+      snakeCasedLevel: {
+        snakeCasedItem: 1,
+      },
+      snakeCasedItem: "random value",
+    }
+  end
+
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,
@@ -30,24 +48,6 @@ RSpec.describe RepresentationOrderCreator do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
                                             defendant_id: defendant_id,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
-  end
-
-  subject(:create_rep_order) do
-    described_class.call(
-      maat_reference: maat_reference,
-      defendant_id: defendant_id,
-      offences: offences,
-      defence_organisation: defence_organisation,
-    )
-  end
-
-  let(:transformed_defence_organisation) do
-    {
-      snakeCasedLevel: {
-        snakeCasedItem: 1,
-      },
-      snakeCasedItem: "random value",
-    }
   end
 
   it "calls the Api::RecordRepresentationOrder service once" do
@@ -66,6 +66,7 @@ RSpec.describe RepresentationOrderCreator do
       }
     end
     let(:offences) { [offence_one, offence_two] }
+
     before do
       ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
                                               defendant_id: defendant_id,
@@ -77,7 +78,7 @@ RSpec.describe RepresentationOrderCreator do
       create_rep_order
     end
 
-    context "one offence does not have a status date" do
+    context "when one offence does not have a status date" do
       before { offence_two.delete(:status_date) }
 
       it "calls the Api::RecordRepresentationOrder service once" do

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe CrownCourtOutcomeCreator do
+  subject(:create) { described_class.call(defendant: defendant, appeal_data: appeal_data) }
+
   let(:guilty_verdict) do
     {
       'verdictDate': "2018-10-25",
@@ -31,9 +33,7 @@ RSpec.describe CrownCourtOutcomeCreator do
   end
   let(:appeal_data) { nil }
 
-  subject(:create) { described_class.call(defendant: defendant, appeal_data: appeal_data) }
-
-  context "for a trial" do
+  context "when a trial" do
     context "with all guilty trial verdicts" do
       it "results in a CONVICTED result" do
         expect(create).to eq({ appealType: nil, caseEndDate: "2018-10-25", ccooOutcome: "CONVICTED" })
@@ -59,7 +59,7 @@ RSpec.describe CrownCourtOutcomeCreator do
       end
     end
 
-    context "a mix of guity and not guilty trial verdicts" do
+    context "with a mix of guity and not guilty trial verdicts" do
       let(:defendant) do
         {
           'offences': [
@@ -79,7 +79,7 @@ RSpec.describe CrownCourtOutcomeCreator do
     end
   end
 
-  context "for an appeal" do
+  context "when an appeal" do
     let(:defendant) do
       {
         'offences': [],
@@ -95,6 +95,7 @@ RSpec.describe CrownCourtOutcomeCreator do
         },
       }
     end
+
     context "with a successful result" do
       it "results in a SUCCESSFUL result" do
         expect(create).to eq({ appealType: "ASE", caseEndDate: "2019-01-01", ccooOutcome: "SUCCESSFUL" })

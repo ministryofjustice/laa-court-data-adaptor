@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Defendant, type: :model do
+  subject(:defendant) { described_class.new(body: defendant_hash, details: details_array, prosecution_case_id: prosecution_case_id) }
+
   let(:prosecution_case_hash) do
     JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0]
   end
@@ -10,10 +12,7 @@ RSpec.describe Defendant, type: :model do
   end
 
   let(:prosecution_case_id) { nil }
-
   let(:details_array) { nil }
-
-  subject(:defendant) { described_class.new(body: defendant_hash, details: details_array, prosecution_case_id: prosecution_case_id) }
 
   it { expect(defendant.name).to eq("George Andrew Walsh") }
   it { expect(defendant.first_name).to eq("George") }
@@ -25,13 +24,13 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.prosecution_case).to be_nil }
   it { expect(defendant.post_hearing_custody_statuses).to eq([]) }
 
-  context "defendant does not have a middle name" do
+  context "when defendant does not have a middle name" do
     before { defendant.body.delete("defendantMiddleName") }
 
     it { expect(defendant.name).to eq("George Walsh") }
   end
 
-  context "prosecution case information" do
+  context "with prosecution case information" do
     before do
       ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case_hash)
     end
@@ -48,7 +47,7 @@ RSpec.describe Defendant, type: :model do
     defendant.offences
   end
 
-  context "post linking" do
+  context "with case linked" do
     let(:offences) do
       [instance_double("Offence", maat_reference: nil)]
     end
@@ -128,7 +127,7 @@ RSpec.describe Defendant, type: :model do
       end
     end
 
-    context "when an offence has an unlink maat reference" do
+    context "when an offence has an unlinked maat reference" do
       let(:offences) do
         [instance_double("Offence", maat_reference: "Z123123"),
          instance_double("Offence", maat_reference: nil)]

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe OffenceSerializer do
+  subject { described_class.new(offence).serializable_hash }
+
   let(:offence) do
     instance_double("Offence",
                     id: "UUID",
@@ -15,9 +17,7 @@ RSpec.describe OffenceSerializer do
                     pleas: %w[GUILTY NOT_GUILTY])
   end
 
-  subject { described_class.new(offence).serializable_hash }
-
-  context "attributes" do
+  context "with attributes" do
     let(:attribute_hash) { subject[:data][:attributes] }
 
     it { expect(attribute_hash[:code]).to eq("AA06001") }

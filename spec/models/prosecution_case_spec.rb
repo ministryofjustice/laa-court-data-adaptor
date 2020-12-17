@@ -1,8 +1,63 @@
 # frozen_string_literal: true
 
 RSpec.describe ProsecutionCase, type: :model do
+  let(:hearing_one) do
+    Hearing.create(
+      id: hearing_ids[0],
+      body: {
+        "hearing" => {
+          "id" => hearing_ids[0],
+          "prosecutionCases" => [{
+            "id" => "31cbe62d-b1ec-4e82-89f7-99dced834900",
+            "defendants" => [{
+              "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+              "offences": [
+                {
+                  "id": "offence-one-id",
+                },
+              ],
+            }],
+          }],
+        },
+        "sharedTime" => "2020-12-12",
+      },
+    )
+  end
+
+  let(:hearing_two) do
+    Hearing.create(
+      id: hearing_ids[1],
+      body: {
+
+        "hearing" => {
+          "id" => hearing_ids[1],
+          "prosecutionCases" => [{
+            "id" => "31cbe62d-b1ec-4e82-89f7-99dced834900",
+            "defendants" => [{
+              "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+              "offences": [
+                {
+                  "id": "offence-two-id",
+                },
+              ],
+            },
+                             {
+                               "id" => "b70a36e5-13d3-4bb3-bb24-94db79b7708b",
+                               "offences": [
+                                 {
+                                   "id": "offence-three-id",
+                                 },
+                               ],
+                             }],
+          }],
+        },
+        "sharedTime" => "2020-10-20",
+      },
+    )
+  end
+
   describe "validations" do
-    it { should validate_presence_of(:body) }
+    it { is_expected.to validate_presence_of(:body) }
   end
 
   describe "Common Platform search" do
@@ -39,61 +94,6 @@ RSpec.describe ProsecutionCase, type: :model do
         allow(prosecution_case).to receive(:hearing_summary_ids).and_return(hearing_ids)
         allow(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[0]).and_return(hearing_one)
         allow(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[1]).and_return(hearing_two)
-      end
-
-      let(:hearing_one) do
-        Hearing.create(
-          id: hearing_ids[0],
-          body: {
-            "hearing" => {
-              "id" => hearing_ids[0],
-              "prosecutionCases" => [{
-                "id" => "31cbe62d-b1ec-4e82-89f7-99dced834900",
-                "defendants" => [{
-                  "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
-                  "offences": [
-                    {
-                      "id": "offence-one-id",
-                    },
-                  ],
-                }],
-              }],
-            },
-            "sharedTime" => "2020-12-12",
-          },
-        )
-      end
-
-      let(:hearing_two) do
-        Hearing.create(
-          id: hearing_ids[1],
-          body: {
-
-            "hearing" => {
-              "id" => hearing_ids[1],
-              "prosecutionCases" => [{
-                "id" => "31cbe62d-b1ec-4e82-89f7-99dced834900",
-                "defendants" => [{
-                  "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
-                  "offences": [
-                    {
-                      "id": "offence-two-id",
-                    },
-                  ],
-                },
-                                 {
-                                   "id" => "b70a36e5-13d3-4bb3-bb24-94db79b7708b",
-                                   "offences": [
-                                     {
-                                       "id": "offence-three-id",
-                                     },
-                                   ],
-                                 }],
-              }],
-            },
-            "sharedTime" => "2020-10-20",
-          },
-        )
       end
 
       describe "#hearing_ids" do

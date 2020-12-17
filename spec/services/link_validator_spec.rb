@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe LinkValidator do
-  subject { described_class.call(defendant_id: defendant_id) }
+  subject(:link_validator_response) { described_class.call(defendant_id: defendant_id) }
+
   let(:defendant_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }
   let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
   let!(:prosecution_case) do
@@ -18,7 +19,7 @@ RSpec.describe LinkValidator do
   end
 
   it "returns true" do
-    expect(subject).to eq true
+    expect(link_validator_response).to eq true
   end
 
   context "when the hearing summary does not exist" do
@@ -28,7 +29,7 @@ RSpec.describe LinkValidator do
     end
 
     it "returns false" do
-      expect(subject).to eq false
+      expect(link_validator_response).to eq false
     end
   end
 
@@ -38,7 +39,7 @@ RSpec.describe LinkValidator do
     end
 
     it "returns false" do
-      expect(subject).to eq false
+      expect(link_validator_response).to eq false
     end
   end
 end

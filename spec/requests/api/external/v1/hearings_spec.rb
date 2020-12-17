@@ -31,7 +31,7 @@ RSpec.describe "api/external/v1/hearings", type: :request do
         run_test!
       end
 
-      context "unprocessable entity" do
+      context "when entity is unprocessable" do
         response("422", "Unprocessable Entity") do
           let(:Authorization) { "Bearer #{token.token}" }
           let(:hearing) { JSON.parse(file_fixture("unprocessable_hearing.json").read) }
@@ -40,7 +40,7 @@ RSpec.describe "api/external/v1/hearings", type: :request do
         end
       end
 
-      context "invalid data" do
+      context "when data is invalid" do
         response("400", "Bad Request") do
           let(:Authorization) { "Bearer #{token.token}" }
           let(:hearing) { JSON.parse(file_fixture("invalid_hearing.json").read) }
@@ -49,7 +49,7 @@ RSpec.describe "api/external/v1/hearings", type: :request do
         end
       end
 
-      context "unauthorized request" do
+      context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
 

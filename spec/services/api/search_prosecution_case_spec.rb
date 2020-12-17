@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::SearchProsecutionCase do
+  subject(:search_prosecution_case) { described_class.call(params) }
+
   let(:params) { { howdy: "hello" } }
   let(:response_status) { 200 }
   let(:search_results) { double("Response", status: response_status, body: response_body) }
@@ -11,19 +13,17 @@ RSpec.describe Api::SearchProsecutionCase do
     allow(ProsecutionCaseSearcher).to receive(:call).and_return(search_results)
   end
 
-  subject { described_class.call(params) }
-
   it "records ProsecutionCase" do
     expect(ProsecutionCaseRecorder).to receive(:call)
       .with(prosecution_case_id: prosecution_case_id, body: response_body["cases"][0])
-    subject
+    search_prosecution_case
   end
 
   it "returns the recorded ProsecutionCases" do
-    is_expected.to all(be_a(ProsecutionCase))
+    expect(search_prosecution_case).to all(be_a(ProsecutionCase))
   end
 
-  context "containing multiple records" do
+  context "when containing multiple records" do
     let(:response_body) do
       {
         "totalResults" => 2,
@@ -39,12 +39,12 @@ RSpec.describe Api::SearchProsecutionCase do
     end
 
     it "records each ProsecutionCase" do
-      expect(ProsecutionCaseRecorder).to receive(:call).exactly(2).times
-      subject
+      expect(ProsecutionCaseRecorder).to receive(:call).twice
+      search_prosecution_case
     end
   end
 
-  context "containing no records" do
+  context "when containing no records" do
     let(:response_body) do
       {
         "totalResults" => 0,
@@ -54,7 +54,7 @@ RSpec.describe Api::SearchProsecutionCase do
 
     it "does not record" do
       expect(ProsecutionCaseRecorder).not_to receive(:call)
-      subject
+      search_prosecution_case
     end
   end
 
@@ -63,7 +63,7 @@ RSpec.describe Api::SearchProsecutionCase do
 
     it "does not record" do
       expect(ProsecutionCaseRecorder).not_to receive(:call)
-      subject
+      search_prosecution_case
     end
   end
 end

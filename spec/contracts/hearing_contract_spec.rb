@@ -209,6 +209,7 @@ RSpec.describe HearingContract do
         listedDurationMinutes: listed_duration_minutes,
       }
     end
+
     it { is_expected.to be_a_success }
   end
 
@@ -225,6 +226,7 @@ RSpec.describe HearingContract do
         listingSequence: listing_sequence,
       }
     end
+
     it { is_expected.not_to be_a_success }
   end
 

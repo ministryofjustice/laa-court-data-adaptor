@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::GetHearingEvents do
-  subject { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date) }
+  subject(:get_hearing_events) { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date) }
 
   let(:hearing_id) { "ceb158e3-7171-40ce-915b-441e2c4e3f75" }
   let(:hearing_date) { "2020-04-30" }
@@ -14,7 +14,7 @@ RSpec.describe Api::GetHearingEvents do
 
   it "calls the HearingEventsRecorder service" do
     expect(HearingEventsRecorder).to receive(:call).with(hearing_id: hearing_id, hearing_date: hearing_date, body: response.body)
-    subject
+    get_hearing_events
   end
 
   context "when the body is blank" do
@@ -22,7 +22,7 @@ RSpec.describe Api::GetHearingEvents do
 
     it "does not record the result" do
       expect(HearingEventsRecorder).not_to receive(:call)
-      subject
+      get_hearing_events
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.describe Api::GetHearingEvents do
 
     it "does not record the result" do
       expect(HearingEventsRecorder).not_to receive(:call)
-      subject
+      get_hearing_events
     end
   end
 end

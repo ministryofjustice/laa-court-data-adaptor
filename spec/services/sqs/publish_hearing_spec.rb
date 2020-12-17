@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe Sqs::PublishHearing do
+  subject(:publish) do
+    described_class.call(shared_time: shared_time,
+                         jurisdiction_type: jurisdiction_type,
+                         case_urn: case_urn,
+                         defendant: defendant,
+                         court_centre_id: court_centre_id,
+                         appeal_data: appeal_data)
+  end
+
   let(:shared_time) { "2018-10-25T14:45:05.602Z" }
   let(:jurisdiction_type) { "CROWN" }
   let(:case_urn) { "12345" }
@@ -152,28 +161,18 @@ RSpec.describe Sqs::PublishHearing do
       }],
     }
   end
+  let(:queue_url) { Rails.configuration.x.aws.sqs_url_hearing_resulted }
 
   before do
     LaaReference.create!(defendant_id: "c6cf04b5-901d-4a89-a9ab-767eb57306e4", user_name: "cpUser", maat_reference: 123_456_789)
   end
 
-  subject do
-    described_class.call(shared_time: shared_time,
-                         jurisdiction_type: jurisdiction_type,
-                         case_urn: case_urn,
-                         defendant: defendant,
-                         court_centre_id: court_centre_id,
-                         appeal_data: appeal_data)
-  end
-
-  let(:queue_url) { Rails.configuration.x.aws.sqs_url_hearing_resulted }
-
   it "triggers a publish call with the sqs payload" do
     expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
-    subject
+    publish
   end
 
-  context "for historical hearings" do
+  context "when there are historical hearings" do
     before do
       defendant[:offences].each { |offence| offence.delete(:laaApplnReference) }
     end
@@ -206,33 +205,34 @@ RSpec.describe Sqs::PublishHearing do
 
     it "triggers a publish call with the sqs payload" do
       expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
-      subject
+      publish
     end
   end
 
-  context "crown court outcomes" do
-    before { expect(Sqs::MessagePublisher).to receive(:call) }
+  context "when there are crown court outcomes" do
     context "when there is verdict data" do
       it "creates a crown court outcome hash" do
         expect(CrownCourtOutcomeCreator).to receive(:call).once
-        subject
+        publish
       end
     end
 
     context "when there is appeal data" do
       let(:verdict_hash) { nil }
       let(:appeal_data) { "appeal_data" }
+
       it "creates a crown court outcome hash" do
         expect(CrownCourtOutcomeCreator).to receive(:call).once
-        subject
+        publish
       end
     end
 
     context "when there is no verdict or appeal data" do
       let(:verdict_hash) { nil }
+
       it "does not create a crown court outcome hash" do
         expect(CrownCourtOutcomeCreator).not_to receive(:call)
-        subject
+        publish
       end
     end
   end

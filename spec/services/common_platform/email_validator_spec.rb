@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::EmailValidator do
+  subject(:common_platform_email_validator_response) { described_class.call(email: email) }
+
   let(:email) { "abc@example.com" }
 
-  subject { described_class.call(email: email) }
-
   it "validates successfully against the common platform email format" do
-    is_expected.to be_truthy
+    expect(common_platform_email_validator_response).to be_truthy
   end
 
-  context "invalid email" do
+  context "with invalid email" do
     let(:email) { "random" }
 
     it "fails validation" do
-      is_expected.to be_falsey
+      expect(common_platform_email_validator_response).to be_falsey
     end
   end
 end

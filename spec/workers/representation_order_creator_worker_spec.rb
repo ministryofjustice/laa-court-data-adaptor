@@ -3,15 +3,15 @@
 require "sidekiq/testing"
 
 RSpec.describe RepresentationOrderCreatorWorker, type: :worker do
+  subject(:work) do
+    described_class.perform_async(request_id, defendant_id, offences, maat_reference, defence_organisation)
+  end
+
   let(:defendant_id) { "LONG-UUID" }
   let(:offences) { [] }
   let(:maat_reference) { 123_123 }
   let(:defence_organisation) { { "key" => "value" } }
   let(:request_id) { "XYZ" }
-
-  subject(:work) do
-    described_class.perform_async(request_id, defendant_id, offences, maat_reference, defence_organisation)
-  end
 
   it "queues the job" do
     expect {
