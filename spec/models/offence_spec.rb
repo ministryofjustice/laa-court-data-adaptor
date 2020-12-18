@@ -150,8 +150,8 @@ RSpec.describe Offence, type: :model do
 
       let(:allocation_decisions_array) do
         [{
-          "description": "Court directs trial by jury",
-          "code": "3",
+          description: "Court directs trial by jury",
+          code: "3",
         }]
       end
 
@@ -176,12 +176,12 @@ RSpec.describe Offence, type: :model do
 
       let(:allocation_decisions_array) do
         [{
-          "description": "Court directs trial by jury",
-          "code": "3",
+          code: "3",
+          description: "Court directs trial by jury",
         },
          {
-           "description": "Some other mot desc",
-           "code": "1",
+           code: "1",
+           description: "Some other mot desc",
          }]
       end
 
@@ -206,8 +206,8 @@ RSpec.describe Offence, type: :model do
 
       let(:allocation_decisions_array) do
         [{
-          "description": "Court directs trial by jury",
-          "code": "3",
+          description: "Court directs trial by jury",
+          code: "3",
         }]
       end
 

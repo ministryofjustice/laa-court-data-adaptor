@@ -30,12 +30,12 @@ class Offence
   end
 
   def mode_of_trial_reasons
-    allocation_decisions.map do |decision|
+    allocation_decisions.map { |decision|
       {
         description: decision["motReasonDescription"],
         code: decision["motReasonCode"],
       }
-    end
+    }.uniq.compact
   end
 
   def maat_reference
