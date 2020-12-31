@@ -14,7 +14,7 @@
     - type `quit` to exit the gpg prompt
 * add user to git-crypt:
 
-        git-crypt add-gpg-user <email> --trusted
+        git-crypt add-gpg-user --trusted <email>
 
     This will create a commit with the appropriate changes
 
