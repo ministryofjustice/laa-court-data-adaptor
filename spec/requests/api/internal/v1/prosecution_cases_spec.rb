@@ -6,7 +6,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:schema) { File.read("swagger/v1/schema.json") }
   let(:include) {}
 
   before do
@@ -21,7 +20,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
                     3) national_insurance_number <br/>
                     4) name and date_of_birth <br/>
                     5) name and date_of_next_hearing'
-      consumes "application/json"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
 
@@ -33,7 +31,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
             end
           end
 
-          produces 'application/vnd.api+json'
+          produces "application/vnd.api+json"
 
           parameter name: "filter[prosecution_case_reference]", in: :query, required: false, type: :string,
                     schema: {
@@ -48,15 +46,13 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
-          schema '$ref' => "prosecution_case.json#/definitions/resource_collection"
+          schema "$ref" => "prosecution_case.json#/definitions/resource_collection"
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { "19GD1001816" }
           let(:include) { "defendants,defendants.offences,defendants.defence_organisation" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 
@@ -79,9 +75,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[arrest_summons_number]') { "arrest123" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 
@@ -104,9 +98,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[national_insurance_number]') { "HB133542A" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 
@@ -136,9 +128,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
           let(:'filter[name]') { "George Walsh" }
           let(:'filter[date_of_birth]') { "1980-01-01" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 
@@ -168,9 +158,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
           let(:'filter[name]') { "George Walsh" }
           let(:'filter[date_of_next_hearing]') { "2020-02-17" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 

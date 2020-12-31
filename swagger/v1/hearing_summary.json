@@ -79,7 +79,7 @@
       "targetSchema": {
         "$ref": "#/definitions/resource"
       }
-    },
+    }
   ],
   "properties": {
     "hearing_type": {

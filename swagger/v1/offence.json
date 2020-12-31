@@ -36,7 +36,7 @@
       "minimum": 0
     },
     "identity": {
-      "$ref": "offence.json#/definitions/id"
+      "$ref": "#/definitions/id"
     },
     "title": {
       "readOnly": true,
@@ -151,7 +151,7 @@
   "links": [
     {
       "description": "Info for existing offence.",
-      "href": "/offences/{(offence.json%23%2Fdefinitions%2Fidentity)}",
+      "href": "/offences/{(%23%2Fdefinitions%2Fidentity)}",
       "method": "GET",
       "rel": "self",
       "title": "Info",
@@ -162,22 +162,22 @@
   ],
   "properties": {
     "code": {
-      "$ref": "offence.json#/definitions/code"
+      "$ref": "#/definitions/code"
     },
     "order_index": {
-      "$ref": "offence.json#/definitions/order_index"
+      "$ref": "#/definitions/order_index"
     },
     "mode_of_trial_reasons": {
-      "$ref": "offence.json#/definitions/mode_of_trial_reasons"
+      "$ref": "#/definitions/mode_of_trial_reasons"
     },
     "title": {
-      "$ref": "offence.json#/definitions/title"
+      "$ref": "#/definitions/title"
     },
     "legislation": {
-      "$ref": "offence.json#/definitions/legislation"
+      "$ref": "#/definitions/legislation"
     },
     "pleas": {
-      "$ref": "offence.json#/definitions/pleas"
+      "$ref": "#/definitions/pleas"
     }
   }
 }
