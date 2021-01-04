@@ -6,7 +6,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:schema) { File.read("swagger/v1/schema.json") }
   let(:include) {}
 
   before do
@@ -21,7 +20,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
                     3) national_insurance_number <br/>
                     4) name and date_of_birth <br/>
                     5) name and date_of_next_hearing'
-      consumes "application/json"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
 
@@ -33,67 +31,13 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
             end
           end
 
+          produces "application/vnd.api+json"
+
           parameter name: "filter[prosecution_case_reference]", in: :query, required: false, type: :string,
                     schema: {
                       '$ref': "prosecution_case.json#/definitions/prosecution_case_reference",
                     },
                     description: "Searches prosecution cases by prosecution case reference"
-
-          examples 'application/json': '{
-                        "prosecutionCaseId": "7a0c947e-97b4-4c5a-ae6a-26320afc914d",
-                        "prosecutionCaseReference": "TFL12345",
-                        "caseStatus": "INACTIVE",
-                        "defendants": [
-                            {
-                                "defendantId": "8cd0ba7e-df89-45a3-8c61-4008a2186d64",
-                                "nationalInsuranceNumber": "BN102966C",
-                                "arrestSummonsNumber": "arrest123",
-                                "name": "Alfredine Treutel Parker",
-                                "dateOfBirth": "1971-05-12",
-                                "dateOfNextHearing": "2012-12-12",
-                                "proceedingsConcluded": false,
-                                "offences": [
-                                    {
-                                        "offenceId": "cacbd4d4-9102-4687-98b4-d529be3d5710",
-                                        "offenceCode": "Random string",
-                                        "orderIndex": 1,
-                                        "offenceTitle": "Random string",
-                                        "offenceLegislation": "Random string",
-                                        "wording": "Random string",
-                                        "arrestDate": "2019-10-17",
-                                        "chargeDate": "2019-10-17",
-                                        "dateOfInformation": "2019-10-17",
-                                        "modeOfTrial": "Random string",
-                                        "startDate": "2019-10-17",
-                                        "endDate": "2019-10-17",
-                                        "proceedingsConcluded": false
-                                    }
-                                ]
-                            }
-                        ],
-                        "hearings": [
-                            {
-                                "hearingId": "8f23cfd3-d4ff-4e90-b018-03385b7a96d3",
-                                "jurisdictionType": "CROWN",
-                                "courtCentre": {
-                                    "id": "f30b31b7-41f3-4b30-a482-1b3c89f8c4b7",
-                                    "name": "Random string",
-                                    "welshName": "Llinyn ar hap",
-                                    "roomId": "c2181e2b-be46-4d82-9ac6-1c02e4cc7dbb",
-                                    "roomName": "Grand Hall",
-                                    "welshRoomName": "Neuadd y Grand"
-                                },
-                                "type": {
-                                    "id": "c4278f10-8f17-446d-8e3b-85236687a1f4",
-                                    "description": "This is a description",
-                                    "code": "12D10JAS"
-                                },
-                                "defendants": [
-                                    "ecca893f-0928-4fc6-ae50-6a8794b78c5c"
-                                ]
-                            }
-                        ]
-                    }'
 
           parameter name: "include", in: :query, required: false, type: :string,
                     schema: {},
@@ -102,13 +46,13 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
+          schema "$ref" => "prosecution_case.json#/definitions/resource_collection"
+
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { "19GD1001816" }
           let(:include) { "defendants,defendants.offences,defendants.defence_organisation" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 
@@ -131,9 +75,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[arrest_summons_number]') { "arrest123" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 
@@ -156,9 +98,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[national_insurance_number]') { "HB133542A" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 
@@ -188,9 +128,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
           let(:'filter[name]') { "George Walsh" }
           let(:'filter[date_of_birth]') { "1980-01-01" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 
@@ -220,9 +158,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
           let(:'filter[name]') { "George Walsh" }
           let(:'filter[date_of_next_hearing]') { "2020-02-17" }
 
-          run_test! do |response|
-            expect(response.body).to be_valid_against_schema(schema: schema)
-          end
+          run_test!
         end
       end
 

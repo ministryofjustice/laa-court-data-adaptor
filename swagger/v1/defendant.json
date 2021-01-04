@@ -48,14 +48,25 @@
     "nino": {
       "readOnly": true,
       "example": "BN102966C",
-      "type": "string",
       "anyOf": [
         {
           "type": "null"
         },
         {
           "description": "National Insurance Number for a person",
+          "type": "string",
           "pattern": "(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\\s*\\d\\s*){6}([A-D]|\\s)$"
+        }
+      ]
+    },
+    "maat_reference": {
+      "example": 314159265,
+      "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
+      "anyOf":[
+        {
+          "$ref": "laa_reference.json#/definitions/maat_reference"
+        },{
+          "type": "null"
         }
       ]
     },
@@ -109,7 +120,7 @@
           "$ref": "#/definitions/nino"
         },
         "maat_reference": {
-          "$ref": "laa_reference.json#/definitions/maat_reference"
+          "$ref": "#/definitions/maat_reference"
         },
         "arrest_summons_number": {
           "$ref": "prosecution_case.json#/definitions/arrest_summons_number"
@@ -230,7 +241,7 @@
       "$ref": "#/definitions/nino"
     },
     "maat_reference": {
-      "$ref": "laa_reference.json#/definitions/maat_reference"
+      "$ref": "#/definitions/maat_reference"
     },
     "arrest_summons_number": {
       "$ref": "prosecution_case.json#/definitions/arrest_summons_number"
