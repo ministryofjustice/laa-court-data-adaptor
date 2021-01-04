@@ -210,3 +210,53 @@ workflows:
       - install_on_prod:
           requires:
           - hold_install_on_prod
+
+  test-branch:
+    jobs:
+      - test:
+        filters:
+          branches:
+            ignore:
+              - master
+
+  build-deploy-branch:
+    jobs:
+      - branch-build-approval:
+          type: approval
+          filters:
+            branches:
+              ignore:
+                - master
+      - aws-ecr/build_and_push_image:
+          requires:
+            - branch-build-approval
+          repo: laa-crime-apps-team/laa-court-data-adaptor
+          tag: "${CIRCLE_SHA1}"
+      - hold_install_on_dev:
+          type: approval
+          requires:
+          - aws-ecr/build_and_push_image
+      - install_on_dev:
+          requires:
+          - hold_install_on_dev
+      - hold_install_on_test:
+          type: approval
+          requires:
+          - aws-ecr/build_and_push_image
+      - install_on_test:
+          requires:
+          - hold_install_on_test
+      - hold_install_on_uat:
+          type: approval
+          requires:
+          - aws-ecr/build_and_push_image
+      - install_on_uat:
+          requires:
+          - hold_install_on_uat
+      - hold_install_on_stage:
+          type: approval
+          requires:
+          - aws-ecr/build_and_push_image
+      - install_on_stage:
+          requires:
+          - hold_install_on_stage
