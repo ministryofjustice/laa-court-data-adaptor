@@ -167,78 +167,46 @@ jobs:
 
 workflows:
   version: 2
-  test_and_build:
+  test-build-deploy-master:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              only:
+                - master
       - aws-ecr/build_and_push_image:
           requires:
             - test
           repo: laa-crime-apps-team/laa-court-data-adaptor
           tag: "${CIRCLE_SHA1}"
-          filters:
-            branches:
-              only:
-                - master
       - install_on_dev:
           requires:
           - aws-ecr/build_and_push_image
-          filters:
-            branches:
-              only:
-                - master
       - hold_install_on_test:
           type: approval
           requires:
           - install_on_dev
-          filters:
-            branches:
-              only: master
       - install_on_test:
           requires:
           - hold_install_on_test
-          filters:
-            branches:
-              only:
-                - master
       - hold_install_on_uat:
           type: approval
           requires:
           - install_on_test
-          filters:
-            branches:
-              only: master
       - install_on_uat:
           requires:
           - hold_install_on_uat
-          filters:
-            branches:
-              only:
-                - master
       - hold_install_on_stage:
           type: approval
           requires:
           - install_on_uat
-          filters:
-            branches:
-              only: master
       - install_on_stage:
           requires:
           - hold_install_on_stage
-          filters:
-            branches:
-              only:
-                - master
       - hold_install_on_prod:
           type: approval
           requires:
           - install_on_stage
-          filters:
-            branches:
-              only: master
       - install_on_prod:
           requires:
           - hold_install_on_prod
-          filters:
-            branches:
-              only:
-                - master
