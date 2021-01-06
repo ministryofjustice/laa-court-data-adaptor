@@ -53,7 +53,7 @@ RSpec.describe DefendantFinder do
         end
 
         it "includes mode of trial detail" do
-          expect(defendant.offences.map(&:mode_of_trial_reason)).to include("Court directs trial by jury")
+          expect(defendant.offences.flat_map(&:mode_of_trial_reasons)).to include({ description: "Court directs trial by jury", code: "5" })
         end
       end
     end

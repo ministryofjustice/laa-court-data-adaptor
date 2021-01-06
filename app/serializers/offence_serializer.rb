@@ -9,7 +9,5 @@ class OffenceSerializer
               :legislation,
               :mode_of_trial,
               :mode_of_trial_reasons,
-              :mode_of_trial_reason,
-              :mode_of_trial_reason_code,
               :pleas
 end

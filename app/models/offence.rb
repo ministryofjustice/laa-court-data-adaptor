@@ -29,14 +29,6 @@ class Offence
     body["modeOfTrial"]
   end
 
-  def mode_of_trial_reason
-    allocation_decisions.dig(0, "motReasonDescription")
-  end
-
-  def mode_of_trial_reason_code
-    allocation_decisions.dig(0, "motReasonCode")
-  end
-
   def mode_of_trial_reasons
     allocation_decisions.map do |decision|
       {
