@@ -35,7 +35,7 @@ class Offence
         description: decision["motReasonDescription"],
         code: decision["motReasonCode"],
       }
-    }.uniq.compact
+    }.uniq
   end
 
   def maat_reference
@@ -66,6 +66,6 @@ private
   def allocation_decisions
     return [] if details.blank?
 
-    details.flat_map { |detail| detail["allocationDecision"] }
+    details.flat_map { |detail| detail["allocationDecision"] }.compact
   end
 end
