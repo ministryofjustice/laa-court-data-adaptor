@@ -66,6 +66,6 @@ private
   def allocation_decisions
     return [] if details.blank?
 
-    details.flat_map { |detail| detail["allocationDecision"] }.uniq.compact
+    details.flat_map { |detail| detail["allocationDecision"] }
   end
 end
