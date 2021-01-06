@@ -143,7 +143,7 @@ RSpec.describe Offence, type: :model do
         [{
           "allocationDecision" => {
             "motReasonDescription" => "Court directs trial by jury",
-            "motReasonCode" => "3",
+            "motReasonCode" => "05",
           },
         }]
       end
@@ -151,7 +151,7 @@ RSpec.describe Offence, type: :model do
       let(:allocation_decisions_array) do
         [{
           description: "Court directs trial by jury",
-          code: "3",
+          code: "05",
         }]
       end
 
@@ -163,24 +163,24 @@ RSpec.describe Offence, type: :model do
         [{
           "allocationDecision" => {
             "motReasonDescription" => "Court directs trial by jury",
-            "motReasonCode" => "3",
+            "motReasonCode" => "05",
           },
         },
          {
            "allocationDecision" => {
              "motReasonDescription" => "Some other mot desc",
-             "motReasonCode" => "1",
+             "motReasonCode" => "101",
            },
          }]
       end
 
       let(:allocation_decisions_array) do
         [{
-          code: "3",
+          code: "05",
           description: "Court directs trial by jury",
         },
          {
-           code: "1",
+           code: "101",
            description: "Some other mot desc",
          }]
       end
@@ -188,19 +188,19 @@ RSpec.describe Offence, type: :model do
       it { is_expected.to eql allocation_decisions_array }
     end
 
-    context "when multiple non-unique allocation decisions are available" do
+    context "when multiple non-unique allocation decisions available across different hearings" do
       let(:details_array) do
         [{
           "allocationDecision" => {
             "motReasonDescription" => "Court directs trial by jury",
-            "motReasonCode" => "3",
+            "motReasonCode" => "05",
             "originatingHearingId" => "uuid-for-first-hearing",
           },
         },
          {
            "allocationDecision" => {
              "motReasonDescription" => "Court directs trial by jury",
-             "motReasonCode" => "3",
+             "motReasonCode" => "05",
              "originatingHearingId" => "uuid-for-second-hearing",
            },
          }]
@@ -209,7 +209,7 @@ RSpec.describe Offence, type: :model do
       let(:allocation_decisions_array) do
         [{
           description: "Court directs trial by jury",
-          code: "3",
+          code: "05",
         }]
       end
 
