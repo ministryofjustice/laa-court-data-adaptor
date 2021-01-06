@@ -135,7 +135,7 @@ RSpec.describe Offence, type: :model do
     end
   end
 
-  describe "#mode of trial reasons" do
+  describe "#mode_of_trial_reasons" do
     subject(:mode_of_trial_reasons) { offence.mode_of_trial_reasons }
 
     context "when one allocation decision is available" do
@@ -194,12 +194,14 @@ RSpec.describe Offence, type: :model do
           "allocationDecision" => {
             "motReasonDescription" => "Court directs trial by jury",
             "motReasonCode" => "3",
+            "originatingHearingId" => "uuid-for-first-hearing",
           },
         },
          {
            "allocationDecision" => {
              "motReasonDescription" => "Court directs trial by jury",
              "motReasonCode" => "3",
+             "originatingHearingId" => "uuid-for-second-hearing",
            },
          }]
       end
