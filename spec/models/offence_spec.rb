@@ -135,50 +135,6 @@ RSpec.describe Offence, type: :model do
     end
   end
 
-  describe "#mode_of_trial_reason" do
-    subject(:mode_of_trial_reason) { offence.mode_of_trial_reason }
-
-    context "when an allocation decision is not available" do
-      let(:details_array) { [] }
-
-      it { is_expected.to be_nil }
-    end
-
-    context "when an allocation decision is available" do
-      let(:details_array) do
-        [{
-          "allocationDecision" => {
-            "motReasonDescription" => "Court directs trial by jury",
-          },
-        }]
-      end
-
-      it { is_expected.to eql "Court directs trial by jury" }
-    end
-  end
-
-  describe "#mode_of_trial_reason_code" do
-    subject(:mode_of_trial_reason) { offence.mode_of_trial_reason_code }
-
-    context "when an allocation decision is not available" do
-      let(:details_array) { [] }
-
-      it { is_expected.to be_nil }
-    end
-
-    context "when an allocation decision is available" do
-      let(:details_array) do
-        [{
-          "allocationDecision" => {
-            "motReasonCode" => "5",
-          },
-        }]
-      end
-
-      it { is_expected.to eql "5" }
-    end
-  end
-
   describe "#mode of trial reasons" do
     subject(:mode_of_trial_reasons) { offence.mode_of_trial_reasons }
 
