@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe NewLaaReferenceContract do
-  subject { described_class.new.call(hash_for_validation) }
+  subject(:validate_contract) { described_class.new.call(hash_for_validation) }
 
   around do |example|
     VCR.use_cassette("maat_api/maat_reference_success") do
@@ -86,7 +86,7 @@ RSpec.describe NewLaaReferenceContract do
 
     it "does not call the maat reference validator" do
       expect(described_class.new.maat_reference_validator).not_to receive(:call)
-      subject
+      validate_contract
     end
   end
 

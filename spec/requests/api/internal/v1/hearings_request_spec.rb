@@ -61,7 +61,7 @@ RSpec.describe "Api::Internal::V1::Hearings", type: :request do
         end
       end
 
-      context "unauthorized request" do
+      context "when request is unauthorized" do
         response("401", "Unauthorized") do
           around do |example|
             VCR.use_cassette("hearing_result_fetcher/unauthorised") do

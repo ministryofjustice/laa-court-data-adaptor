@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe HearingsCreator do
+  subject(:create_hearings) { described_class.call(hearing_id: hearing.id) }
+
   let(:defendant_array) { [defendant_one] }
   let(:offence_array) { [offence_one, offence_two] }
 
@@ -77,9 +79,7 @@ RSpec.describe HearingsCreator do
 
   before { allow(Sqs::PublishHearing).to receive(:call) }
 
-  subject(:create_hearings) { described_class.call(hearing_id: hearing.id) }
-
-  context "for a trial" do
+  context "when a trial" do
     let(:applications_array) { nil }
 
     context "with one defendant" do
@@ -191,7 +191,7 @@ RSpec.describe HearingsCreator do
     end
   end
 
-  context "for an appeal" do
+  context "when an appeal" do
     let(:prosecution_case_array) { nil }
 
     it "calls the Sqs::PublishHearing service once" do

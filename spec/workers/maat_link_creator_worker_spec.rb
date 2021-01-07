@@ -3,6 +3,10 @@
 require "sidekiq/testing"
 
 RSpec.describe MaatLinkCreatorWorker, type: :worker do
+  subject(:work) do
+    described_class.perform_async(request_id, laa_reference.id)
+  end
+
   let(:request_id) { "XYZ" }
   let(:maat_reference) { 12_345_678 }
   let(:defendant_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }
@@ -22,10 +26,6 @@ RSpec.describe MaatLinkCreatorWorker, type: :worker do
     allow(Sqs::PublishLaaReference).to receive(:call)
     allow(Api::RecordLaaReference).to receive(:call)
     allow(Api::GetHearingResults).to receive(:call)
-  end
-
-  subject(:work) do
-    described_class.perform_async(request_id, laa_reference.id)
   end
 
   it "queues the job" do

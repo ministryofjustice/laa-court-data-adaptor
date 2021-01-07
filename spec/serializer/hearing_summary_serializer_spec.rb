@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe HearingSummarySerializer do
+  subject { described_class.new(hearing_summary).serializable_hash }
+
   let(:hearing_summary) do
     instance_double("HearingSummary",
                     id: "UUID",
@@ -8,9 +10,7 @@ RSpec.describe HearingSummarySerializer do
                     hearing_days: %w[2020-02-01])
   end
 
-  subject { described_class.new(hearing_summary).serializable_hash }
-
-  context "attributes" do
+  context "with attributes" do
     let(:attribute_hash) { subject[:data][:attributes] }
 
     it { expect(attribute_hash[:hearing_type]).to eq("Committal for Sentencing") }

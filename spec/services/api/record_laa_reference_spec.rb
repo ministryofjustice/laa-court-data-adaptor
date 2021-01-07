@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::RecordLaaReference do
-  subject { described_class.call(params) }
+  subject(:record_reference) { described_class.call(params) }
 
   let(:prosecution_case) { ProsecutionCase.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}") }
   let(:defendant_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
@@ -28,11 +28,11 @@ RSpec.describe Api::RecordLaaReference do
 
   it "returns an accepted status" do
     VCR.use_cassette("laa_reference_recorder/update") do
-      expect(subject.status).to eq(202)
+      expect(record_reference.status).to eq(202)
     end
   end
 
-  context "connection" do
+  context "with connection" do
     let(:connection) { double("CommonPlatformConnection") }
     let(:request_params) do
       {
@@ -49,11 +49,11 @@ RSpec.describe Api::RecordLaaReference do
 
     it "makes a post request" do
       expect(connection).to receive(:post).with(url, request_params)
-      subject
+      record_reference
     end
 
     it "updates the database record for the offence" do
-      subject
+      record_reference
       case_defendant_offence.reload
       expect(case_defendant_offence.status_date).to eq "2019-12-12"
       expect(case_defendant_offence.rep_order_status).to eq "ABCDEF"

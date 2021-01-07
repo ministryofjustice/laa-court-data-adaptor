@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe UnlinkDefendantContract do
+  subject(:fullfillment) { described_class.new.call(hash_for_validation) }
+
   let(:defendant_id) { "23d7f10a-067a-476e-bba6-bb855674e23b" }
   let(:user_name) { "johnDoe" }
   let(:unlink_reason_code) { 1 }
@@ -14,8 +16,6 @@ RSpec.describe UnlinkDefendantContract do
       unlink_other_reason_text: unlink_other_reason_text,
     }
   end
-
-  subject(:fullfillment) { described_class.new.call(hash_for_validation) }
 
   it { is_expected.not_to have_contract_error }
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatformConnection do
+  subject(:connect_to_common_platform) { described_class.call(host: host) }
+
   let(:host) { "https://example.com" }
   let(:request_options) do
     { headers: { "Ocp-Apim-Subscription-Key" => "super-secret-key" } }
@@ -9,8 +11,6 @@ RSpec.describe CommonPlatformConnection do
   let(:client_cert) { nil }
   let(:client_key) { nil }
 
-  subject { described_class.call(host: host) }
-
   before do
     allow(Rails.configuration.x).to receive(:client_cert).and_return(client_cert)
     allow(Rails.configuration.x).to receive(:client_key).and_return(client_key)
@@ -18,7 +18,7 @@ RSpec.describe CommonPlatformConnection do
 
   it "connects to the common platform url" do
     expect(Faraday).to receive(:new).with(host, request_options)
-    subject
+    connect_to_common_platform
   end
 
   context "when a certificate and key is provided" do
@@ -44,11 +44,11 @@ RSpec.describe CommonPlatformConnection do
 
     it "connects to the common platform url" do
       expect(Faraday).to receive(:new).with(host, request_options)
-      subject
+      connect_to_common_platform
     end
   end
 
-  context "faraday configuration" do
+  context "with faraday configuration" do
     let(:connection) { double }
 
     before do
@@ -61,7 +61,7 @@ RSpec.describe CommonPlatformConnection do
       expect(connection).to receive(:response).with(:json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json")
       expect(connection).to receive(:response).with(:json, content_type: "text/plain")
       expect(connection).to receive(:adapter).with(:net_http)
-      subject
+      connect_to_common_platform
     end
   end
 end

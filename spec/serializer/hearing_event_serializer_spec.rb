@@ -10,7 +10,7 @@ RSpec.describe HearingEventSerializer do
                     occurred_at: "2020-04-30T16:17:58.610Z")
   end
 
-  context "data" do
+  context "with data" do
     subject(:data) { serializable_hash[:data] }
 
     it { is_expected.to include(id: "UUID") }
@@ -18,7 +18,7 @@ RSpec.describe HearingEventSerializer do
     it { is_expected.to have_key(:attributes) }
   end
 
-  context "data attributes" do
+  context "with data attributes" do
     subject(:data_attributes) { serializable_hash[:data][:attributes] }
 
     it { expect(data_attributes[:description]).to eq("Hearing type changed to Plea") }

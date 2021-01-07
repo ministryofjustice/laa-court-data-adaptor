@@ -49,7 +49,7 @@ RSpec.describe Offence, type: :model do
     it { expect(offence.maat_reference).to eq("AB746921") }
   end
 
-  context "#pleas" do
+  describe "#pleas" do
     subject { offence.pleas }
 
     context "with one plea" do

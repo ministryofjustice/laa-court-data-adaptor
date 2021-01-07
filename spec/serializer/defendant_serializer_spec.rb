@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe DefendantSerializer do
+  subject { described_class.new(defendant).serializable_hash }
+
   let(:defendant) do
     instance_double("Defendant",
                     id: "UUID",
@@ -16,9 +18,7 @@ RSpec.describe DefendantSerializer do
                     post_hearing_custody_statuses: %w[A])
   end
 
-  subject { described_class.new(defendant).serializable_hash }
-
-  context "attributes" do
+  context "with attributes" do
     let(:attribute_hash) { subject[:data][:attributes] }
 
     it { expect(attribute_hash[:name]).to eq("John Doe") }
@@ -31,7 +31,7 @@ RSpec.describe DefendantSerializer do
     it { expect(attribute_hash[:post_hearing_custody_statuses]).to eq(%w[A]) }
   end
 
-  context "relationships" do
+  context "with relationships" do
     let(:relationship_hash) { subject[:data][:relationships] }
 
     it { expect(relationship_hash[:offences][:data]).to eq([{ id: "55555", type: :offences }]) }

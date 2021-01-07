@@ -3,6 +3,10 @@
 require "sidekiq/testing"
 
 RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
+  subject(:work) do
+    described_class.perform_async(request_id, defendant_id, user_name, unlink_reason_code, unlink_other_reason_text)
+  end
+
   let(:defendant_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
   let(:user_name) { "ABC" }
   let(:unlink_reason_code) { 1 }
@@ -19,10 +23,6 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
                                             defendant_id: defendant_id,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
     allow(Api::RecordLaaReference).to receive(:call)
-  end
-
-  subject(:work) do
-    described_class.perform_async(request_id, defendant_id, user_name, unlink_reason_code, unlink_other_reason_text)
   end
 
   it "queues the job" do

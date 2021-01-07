@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe PostHearingCustodyCalculator do
+  subject { described_class.call(offences: offences) }
+
   let(:offences) do
     [{
       'id': "7dc1b279-805f-4ba8-97ea-be635f5764a7",
@@ -27,8 +29,6 @@ RSpec.describe PostHearingCustodyCalculator do
       },
     }]
   end
-
-  subject { described_class.call(offences: offences) }
 
   it { is_expected.to eq("A") }
 

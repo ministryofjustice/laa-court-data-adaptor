@@ -1,11 +1,16 @@
-
-## <a name="resource-defendant">Defendants</a>
+<a name="#resource-defendant"></a>
+## Defendants
 
 Stability: `prototype`
 
 Defendants
 
+
 ### Attributes
+
+<details>
+  <summary>Details</summary>
+
 
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
@@ -14,7 +19,13 @@ Defendants
 | **name** | *string* | The full name when the defendant is a person | `"Elaf"` |
 | **national_insurance_number** | *string* | National Insurance Number for a person | `"SJ336043A"` |
 
-### <a name="link-GET-defendant-/defendants/{(%23%2Fdefinitions%2Fdefendant%2Fdefinitions%2Fidentity)}">Defendants Info</a>
+</details>
+
+<a name="link-GET-defendant-/defendants/{(%23%2Fdefinitions%2Fdefendant%2Fdefinitions%2Fidentity)}"></a>
+### Defendants Info
+
+<details>
+  <summary>Details</summary>
 
 Info for existing defendant.
 
@@ -49,20 +60,34 @@ HTTP/1.1 200 OK
 }
 ```
 
+</details>
 
-## <a name="resource-laa_reference">LaaReferences</a>
+
+<a name="#resource-laa_reference"></a>
+## LaaReferences
 
 Stability: `prototype`
 
 LaaReferences
 
+
 ### Attributes
+
+<details>
+  <summary>Details</summary>
+
 
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
 | **maat_reference** | *number* | The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings<br/> **Range:** `0 <= value <= 999999999` | `314159265` |
 
-### <a name="link-POST-laa_reference-/laa_references">LaaReferences Create</a>
+</details>
+
+<a name="link-POST-laa_reference-/laa_references"></a>
+### LaaReferences Create
+
+<details>
+  <summary>Details</summary>
 
 Create a new LaaReference.
 
@@ -113,14 +138,21 @@ HTTP/1.1 202 Accepted
 ```
 
 
+</details>
 
-## <a name="resource-oauth">OAuth endpoints</a>
+
+<a name="#resource-oauth"></a>
+## OAuth endpoints
 
 Stability: `prototype`
 
 Endpoints for authentication via OAuth
 
-### <a name="link-POST-oauth-/oauth/token">OAuth endpoints authentication</a>
+<a name="link-POST-oauth-/oauth/token"></a>
+### OAuth endpoints authentication
+
+<details>
+  <summary>Details</summary>
 
 Request a new access token.
 
@@ -166,14 +198,22 @@ HTTP/1.1 201 Created
 }
 ```
 
+</details>
 
-## <a name="resource-offence">Offences</a>
+
+<a name="#resource-offence"></a>
+## Offences
 
 Stability: `prototype`
 
 Offences
 
+
 ### Attributes
+
+<details>
+  <summary>Details</summary>
+
 
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
@@ -182,7 +222,13 @@ Offences
 | **order_index** | *integer* | The offence sequence provided by the police<br/> **Range:** `0 <= value` | `0` |
 | **title** | *string* | The offence title | `"Fail to wear protective clothing"` |
 
-### <a name="link-GET-offence-/offences/{(%23%2Fdefinitions%2Foffence%2Fdefinitions%2Fidentity)}">Offences Info</a>
+</details>
+
+<a name="link-GET-offence-/offences/{(%23%2Fdefinitions%2Foffence%2Fdefinitions%2Fidentity)}"></a>
+### Offences Info
+
+<details>
+  <summary>Details</summary>
 
 Info for existing offence.
 
@@ -217,14 +263,22 @@ HTTP/1.1 200 OK
 }
 ```
 
+</details>
 
-## <a name="resource-prosecution_case">Prosecution case search results</a>
+
+<a name="#resource-prosecution_case"></a>
+## Prosecution case search results
 
 Stability: `prototype`
 
 Prosecution case search results
 
+
 ### Attributes
+
+<details>
+  <summary>Details</summary>
+
 
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
@@ -233,7 +287,13 @@ Prosecution case search results
 | **data:relationships:defendants:data** | *array* |  | `[{"id":"01234567-89ab-cdef-0123-456789abcdef","type":"defendants"}]` |
 | **data:type** | *string* | The prosecution cases type<br/> **one of:**`"prosecution_cases"` | `"prosecution_cases"` |
 
-### <a name="link-GET-prosecution_case-/api/internal/v1/prosecution_cases">Prosecution case search results List</a>
+</details>
+
+<a name="link-GET-prosecution_case-/api/internal/v1/prosecution_cases"></a>
+### Prosecution case search results List
+
+<details>
+  <summary>Details</summary>
 
 Search prosecution cases.
 
@@ -291,5 +351,7 @@ HTTP/1.1 200 OK
   ]
 }
 ```
+
+</details>
 
 

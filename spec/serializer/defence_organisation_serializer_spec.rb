@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe DefenceOrganisationSerializer do
+  subject { described_class.new(defence_organisation).serializable_hash }
+
   let(:defence_organisation) do
     instance_double("DefenceOrganisation",
                     id: "UUID",
@@ -13,9 +15,7 @@ RSpec.describe DefenceOrganisationSerializer do
                     postcode: "EC4A 2AH")
   end
 
-  subject { described_class.new(defence_organisation).serializable_hash }
-
-  context "attributes" do
+  context "with attributes" do
     let(:attribute_hash) { subject[:data][:attributes] }
 
     it { expect(attribute_hash[:name]).to eq("The Johnson Partnership") }

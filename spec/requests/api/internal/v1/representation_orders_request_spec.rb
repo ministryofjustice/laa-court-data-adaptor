@@ -126,7 +126,7 @@ RSpec.describe "api/internal/v1/representation_orders", type: :request, swagger_
         end
       end
 
-      context "unauthorized request" do
+      context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
 

@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::PhoneValidator do
+  subject(:common_platform_phone_validator_response) { described_class.call(phone: phone) }
+
   let(:phone) { "+999999" }
 
-  subject { described_class.call(phone: phone) }
-
   it "validates successfully against the common platform phone format" do
-    is_expected.to be_truthy
+    expect(common_platform_phone_validator_response).to be_truthy
   end
 
-  context "invalid phone" do
+  context "with invalid phone" do
     let(:phone) { "random" }
 
     it "fails validation" do
-      is_expected.to be_falsey
+      expect(common_platform_phone_validator_response).to be_falsey
     end
   end
 end
