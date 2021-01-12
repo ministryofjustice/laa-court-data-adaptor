@@ -14,7 +14,8 @@ RSpec.describe HearingSerializer do
                     judge_names: ["Mr Recorder J Patterson"],
                     prosecution_advocate_names: ["John Rob"],
                     defence_advocate_names: ["Neil Griffiths"],
-                    provider_ids: %w[PROVIDER_UUID])
+                    provider_ids: %w[PROVIDER_UUID],
+                    cracked_ineffective_trial_id: "CRACKED_INEFFECTIVE_TRIAL_UUID")
   end
 
   context "with attributes" do
