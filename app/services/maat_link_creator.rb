@@ -7,7 +7,7 @@ class MaatLinkCreator < ApplicationService
 
   def call
     push_to_sqs unless laa_reference.dummy_maat_reference?
-    call_cp_endpoint
+    call_common_platform_endpoint
     PastHearingsFetcherWorker.perform_at(30.seconds.from_now, Current.request_id, prosecution_case_id)
   end
 
@@ -20,7 +20,7 @@ private
                                   maat_reference: laa_reference.maat_reference)
   end
 
-  def call_cp_endpoint
+  def call_common_platform_endpoint
     offences.each do |offence|
       Api::RecordLaaReference.call(
         prosecution_case_id: offence.prosecution_case_id,

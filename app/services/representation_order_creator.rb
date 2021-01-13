@@ -10,12 +10,12 @@ class RepresentationOrderCreator < ApplicationService
   end
 
   def call
-    call_cp_endpoint
+    call_common_platform_endpoint
   end
 
 private
 
-  def call_cp_endpoint
+  def call_common_platform_endpoint
     offences.each do |offence|
       prosecution_case = ProsecutionCaseDefendantOffence.find_by!(defendant_id: defendant_id, offence_id: offence[:offence_id])
 

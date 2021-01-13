@@ -7,23 +7,23 @@ class DefendantFinder < ApplicationService
   end
 
   def call
-    cp_defendant
+    common_platform_defendant
   end
 
 private
 
-  def cp_defendant
-    @cp_defendant ||= cp_prosecution_case&.defendants&.find { |d| d.id.eql?(defendant_id) }
+  def common_platform_defendant
+    @common_platform_defendant ||= common_platform_prosecution_case&.defendants&.find { |d| d.id.eql?(defendant_id) }
   end
 
-  def cp_prosecution_case
+  def common_platform_prosecution_case
     return unless prosecution_case_urn
 
     # fetch details needed to include plea and mode of trial reason, at least
-    @cp_prosecution_case ||=  Api::SearchProsecutionCase
-                              .call(prosecution_case_reference: prosecution_case_urn)
-                              &.first
-                              &.tap(&:fetch_details)
+    @common_platform_prosecution_case ||= Api::SearchProsecutionCase
+                                          .call(prosecution_case_reference: prosecution_case_urn)
+                                          &.first
+                                          &.tap(&:fetch_details)
   end
 
   def prosecution_case_urn

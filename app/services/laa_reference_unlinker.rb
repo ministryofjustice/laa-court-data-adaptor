@@ -12,7 +12,7 @@ class LaaReferenceUnlinker < ApplicationService
   def call
     unlink_current_maat_reference
     push_to_sqs unless laa_reference.dummy_maat_reference?
-    call_cp_endpoint
+    call_common_platform_endpoint
   end
 
 private
@@ -30,7 +30,7 @@ private
     )
   end
 
-  def call_cp_endpoint
+  def call_common_platform_endpoint
     offences.each do |offence|
       Api::RecordLaaReference.call(
         prosecution_case_id: offence.prosecution_case_id,
