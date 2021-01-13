@@ -56,13 +56,13 @@ class Hearing < ApplicationRecord
   end
 
   def cracked_ineffective_trial
-    return if cp_cracked_ineffective_trial.blank?
+    return if common_platform_cracked_ineffective_trial.blank?
 
-    CrackedIneffectiveTrial.new(body: cp_cracked_ineffective_trial)
+    CrackedIneffectiveTrial.new(body: common_platform_cracked_ineffective_trial)
   end
 
   def cracked_ineffective_trial_id
-    cp_cracked_ineffective_trial&.fetch("id", nil)
+    common_platform_cracked_ineffective_trial&.fetch("id", nil)
   end
 
 private
@@ -93,7 +93,7 @@ private
     @court_centre ||= HmctsCommonPlatform::Reference::CourtCentre.find(hearing_body["courtCentre"]["id"])
   end
 
-  def cp_cracked_ineffective_trial
+  def common_platform_cracked_ineffective_trial
     hearing_body["crackedIneffectiveTrial"]
   end
 end
