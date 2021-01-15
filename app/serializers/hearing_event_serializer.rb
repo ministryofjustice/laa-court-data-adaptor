@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HearingEventSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   set_type :hearing_events
 
   attributes :description

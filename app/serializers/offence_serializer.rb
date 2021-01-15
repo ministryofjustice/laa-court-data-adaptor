@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OffenceSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   set_type :offences
   attributes  :code,
               :order_index,
