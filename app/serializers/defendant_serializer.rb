@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DefendantSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   set_type :defendants
 
   attributes :name, :date_of_birth, :national_insurance_number, :arrest_summons_number, :maat_reference, :representation_order_date, :prosecution_case_id, :post_hearing_custody_statuses

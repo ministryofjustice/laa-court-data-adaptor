@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProviderSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   set_type :providers
 
   attributes :name, :role
