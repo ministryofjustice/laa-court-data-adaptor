@@ -185,28 +185,28 @@ workflows:
       - hold_install_on_test:
           type: approval
           requires:
-          - aws-ecr/build_and_push_image
+          - install_on_dev
       - install_on_test:
           requires:
           - hold_install_on_test
       - hold_install_on_uat:
           type: approval
           requires:
-          - aws-ecr/build_and_push_image
+          - install_on_test
       - install_on_uat:
           requires:
           - hold_install_on_uat
       - hold_install_on_stage:
           type: approval
           requires:
-          - aws-ecr/build_and_push_image
+          - install_on_uat
       - install_on_stage:
           requires:
           - hold_install_on_stage
       - hold_install_on_prod:
           type: approval
           requires:
-          - aws-ecr/build_and_push_image
+          - install_on_stage
       - install_on_prod:
           requires:
           - hold_install_on_prod
