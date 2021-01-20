@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@4.0.1
+  aws-ecr: circleci/aws-ecr@6.15.2
   aws-eks: circleci/aws-eks@0.2.1
   kubernetes: circleci/kubernetes@0.7.0
   helm: circleci/helm@1.1.2
@@ -174,14 +174,14 @@ workflows:
             branches:
               only:
                 - master
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
           requires:
-            - test
+          - test
           repo: laa-crime-apps-team/laa-court-data-adaptor
           tag: "${CIRCLE_SHA1}"
       - install_on_dev:
           requires:
-          - aws-ecr/build_and_push_image
+          - aws-ecr/build-and-push-image
       - hold_install_on_test:
           type: approval
           requires:
@@ -227,7 +227,7 @@ workflows:
             branches:
               ignore:
                 - master
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
           requires:
             - branch-build-approval
           repo: laa-crime-apps-team/laa-court-data-adaptor
@@ -235,28 +235,28 @@ workflows:
       - hold_install_on_dev:
           type: approval
           requires:
-          - aws-ecr/build_and_push_image
+          - aws-ecr/build-and-push-image
       - install_on_dev:
           requires:
           - hold_install_on_dev
       - hold_install_on_test:
           type: approval
           requires:
-          - aws-ecr/build_and_push_image
+          - aws-ecr/build-and-push-image
       - install_on_test:
           requires:
           - hold_install_on_test
       - hold_install_on_uat:
           type: approval
           requires:
-          - aws-ecr/build_and_push_image
+          - aws-ecr/build-and-push-image
       - install_on_uat:
           requires:
           - hold_install_on_uat
       - hold_install_on_stage:
           type: approval
           requires:
-          - aws-ecr/build_and_push_image
+          - aws-ecr/build-and-push-image
       - install_on_stage:
           requires:
           - hold_install_on_stage
