@@ -80,6 +80,18 @@ jobs:
           name: run rubocop
           command: bundle exec rubocop
 
+  build-and-push-app:
+    executor: aws-ecr/default
+    steps:
+      - aws-ecr/build-and-push-image:
+          repo: laa-crime-apps-team/laa-court-data-adaptor
+          tag: "${CIRCLE_SHA1}"
+          extra-build-args: |
+            --build-arg BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) \
+            --build-arg COMMIT_ID=${CIRCLE_SHA1} \
+            --build-arg BUILD_TAG=${CIRCLE_SHA1} \
+            --build-arg APP_BRANCH=${CIRCLE_BRANCH} \
+
   install_on_dev:
     executor: aws-eks/python
     steps:
@@ -174,23 +186,16 @@ workflows:
             branches:
               only:
                 - master
-      - aws-ecr/build-and-push-image:
+      - build-and-push-app:
           requires:
             - test
-          repo: laa-crime-apps-team/laa-court-data-adaptor
-          tag: "${CIRCLE_SHA1}"
-          extra-build-args: |
-            --build-arg BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) \
-            --build-arg COMMIT_ID=${CIRCLE_SHA1} \
-            --build-arg BUILD_TAG=${CIRCLE_SHA1} \
-            --build-arg APP_BRANCH=${CIRCLE_BRANCH} \
           filters:
             branches:
               only:
                 - master
       - install_on_dev:
           requires:
-            - aws-ecr/build-and-push-image
+            - build-and-push-app
       - hold_install_on_test:
           type: approval
           requires:
@@ -236,41 +241,34 @@ workflows:
             branches:
               ignore:
                 - master
-      - aws-ecr/build-and-push-image:
+      - build-and-push-app:
           requires:
             - branch-build-approval
-          repo: laa-crime-apps-team/laa-court-data-adaptor
-          tag: "${CIRCLE_SHA1}"
-          extra-build-args: |
-            --build-arg BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) \
-            --build-arg COMMIT_ID=${CIRCLE_SHA1} \
-            --build-arg BUILD_TAG=${CIRCLE_SHA1} \
-            --build-arg APP_BRANCH=${CIRCLE_BRANCH} \
       - hold_install_on_dev:
           type: approval
           requires:
-          - aws-ecr/build-and-push-image
+          - build-and-push-app
       - install_on_dev:
           requires:
           - hold_install_on_dev
       - hold_install_on_test:
           type: approval
           requires:
-          - aws-ecr/build-and-push-image
+          - build-and-push-app
       - install_on_test:
           requires:
           - hold_install_on_test
       - hold_install_on_uat:
           type: approval
           requires:
-          - aws-ecr/build-and-push-image
+          - build-and-push-app
       - install_on_uat:
           requires:
           - hold_install_on_uat
       - hold_install_on_stage:
           type: approval
           requires:
-          - aws-ecr/build-and-push-image
+          - build-and-push-app
       - install_on_stage:
           requires:
           - hold_install_on_stage
