@@ -10,7 +10,7 @@ class Defendant
   end
 
   def name
-    [first_name, middle_name, last_name].compact.join(" ")
+    [first_name, middle_name, last_name].join(" ").squish
   end
 
   def first_name

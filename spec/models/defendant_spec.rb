@@ -14,7 +14,6 @@ RSpec.describe Defendant, type: :model do
   let(:prosecution_case_id) { nil }
   let(:details_array) { nil }
 
-  it { expect(defendant.name).to eq("George Andrew Walsh") }
   it { expect(defendant.first_name).to eq("George") }
   it { expect(defendant.middle_name).to eq("Andrew") }
   it { expect(defendant.last_name).to eq("Walsh") }
@@ -24,10 +23,32 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.prosecution_case).to be_nil }
   it { expect(defendant.post_hearing_custody_statuses).to eq([]) }
 
-  context "when defendant does not have a middle name" do
-    before { defendant.body.delete("defendantMiddleName") }
+  describe "#name" do
+    subject { defendant.name }
 
-    it { expect(defendant.name).to eq("George Walsh") }
+    it { is_expected.to eq("George Andrew Walsh") }
+
+    context "with no middle name attribute" do
+      before { defendant.body.delete("defendantMiddleName") }
+
+      it { is_expected.to eq("George Walsh") }
+    end
+
+    context "with empty string for middle name" do
+      before { defendant.body["defendantMiddleName"] = "" }
+
+      it { is_expected.to eq("George Walsh") }
+    end
+
+    context "with extra whitespace in name parts" do
+      before do
+        defendant.body["defendantFirstName"] = "   Fred   "
+        defendant.body["defendantMiddleName"] = " "
+        defendant.body["defendantLastName"] = " Bloggs   "
+      end
+
+      it { is_expected.to eq("Fred Bloggs") }
+    end
   end
 
   context "with prosecution case information" do
