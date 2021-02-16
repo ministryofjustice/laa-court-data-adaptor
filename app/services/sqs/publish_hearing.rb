@@ -52,6 +52,7 @@ module Sqs
         caseCreationDate: shared_time.to_date.strftime("%Y-%m-%d"),
         cjsLocation: cjs_location,
         docLanguage: "EN",
+        proceedingsConcluded: defendant.dig(:proceedingsConcluded),
         inActive: inactive?,
         defendant: defendant_hash,
         session: session_hash,
