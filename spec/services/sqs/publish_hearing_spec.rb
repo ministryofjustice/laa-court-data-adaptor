@@ -26,6 +26,7 @@ RSpec.describe Sqs::PublishHearing do
   let(:defendant) do
     {
       'id': "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+      'proceedingsConcluded': true,
       'personDefendant': {
         'personDetails': {
           "firstName": "Lavon",
@@ -103,6 +104,7 @@ RSpec.describe Sqs::PublishHearing do
       caseCreationDate: "2018-10-25",
       cjsLocation: "B16BG",
       docLanguage: "EN",
+      proceedingsConcluded: true,
       inActive: "Y",
       defendant: {
         forename: "Lavon",
