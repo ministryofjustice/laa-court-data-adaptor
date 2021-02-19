@@ -96,7 +96,8 @@ module Sqs
           [:legalAidStatusDate, offence.dig(:laaApplnReference, :statusDate)],
           [:legalAidReason, offence.dig(:laaApplnReference, :statusDescription)],
           [:results, results_map(offence[:judicialResults])],
-          [:plea, offence[:plea]]
+          [:plea, offence[:plea]],
+          [:verdict, flatten_verdict(offence[:verdict])],
         ].to_h
       end
     end
@@ -114,6 +115,17 @@ module Sqs
           [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)],
         ].to_h
       end
+    end
+
+    def flatten_verdict(verdict)
+     {
+      :offenceId=>verdict&.dig(:offenceId),
+      :verdictDate=>verdict&.dig(:verdictDate),
+      :category=>verdict&.dig(:verdictType, :category),
+      :categoryType=>verdict&.dig(:verdictType, :categoryType),
+      :cjsVerdictCode=>verdict&.dig(:verdictType, :cjsVerdictCode),
+      :verdictCode=>verdict&.dig(:verdictType, :verdictCode),
+     }
     end
 
     def hearing_location(court_centre_id)
