@@ -64,6 +64,11 @@ RSpec.describe Sqs::PublishHearing do
             'motReasonCode': 3,
           },
           'verdict': verdict_hash,
+          'plea': {
+            'offenceId': "dc1b279-805f-4ba8-97ea-be635f5764a7",
+            'pleaDate': "2018-11-11",
+            'pleaValue': "PARDON"
+          },
           'judicialResults': [
             {
               'cjsCode': "123",
@@ -151,6 +156,11 @@ RSpec.describe Sqs::PublishHearing do
       legalAidStatus: "AP",
       legalAidStatusDate: "2018-10-24",
       legalAidReason: "Application Pending",
+      plea: {
+        offenceId: "dc1b279-805f-4ba8-97ea-be635f5764a7",
+        pleaDate: "2018-11-11",
+        pleaValue: "PARDON"
+      },
       results: [{
         resultCode: "123",
         resultShortTitle: "Fine",
@@ -169,7 +179,7 @@ RSpec.describe Sqs::PublishHearing do
     LaaReference.create!(defendant_id: "c6cf04b5-901d-4a89-a9ab-767eb57306e4", user_name: "cpUser", maat_reference: 123_456_789)
   end
 
-  it "triggers a publish call with the sqs payload" do
+  it "triggers a publish call with the expected sqs payload" do
     expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
     publish
   end
@@ -192,6 +202,11 @@ RSpec.describe Sqs::PublishHearing do
         legalAidStatus: nil,
         legalAidStatusDate: nil,
         legalAidReason: nil,
+        plea: {
+          offenceId: "dc1b279-805f-4ba8-97ea-be635f5764a7",
+          pleaDate: "2018-11-11",
+          pleaValue: "PARDON"
+        },
         results: [{
           resultCode: "123",
           resultShortTitle: "Fine",
