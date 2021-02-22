@@ -71,7 +71,7 @@ RSpec.describe Sqs::PublishHearing do
           'plea': {
             'offenceId': "dc1b279-805f-4ba8-97ea-be635f5764a7",
             'pleaDate': "2018-11-11",
-            'pleaValue': "PARDON"
+            'pleaValue': "PARDON",
           },
           'judicialResults': [
             {
@@ -163,7 +163,7 @@ RSpec.describe Sqs::PublishHearing do
       plea: {
         offenceId: "dc1b279-805f-4ba8-97ea-be635f5764a7",
         pleaDate: "2018-11-11",
-        pleaValue: "PARDON"
+        pleaValue: "PARDON",
       },
       verdict: {
         offenceId: "7dc1b279-805f-4ba8-97ea-be635f5764a7",
@@ -217,7 +217,7 @@ RSpec.describe Sqs::PublishHearing do
         plea: {
           offenceId: "dc1b279-805f-4ba8-97ea-be635f5764a7",
           pleaDate: "2018-11-11",
-          pleaValue: "PARDON"
+          pleaValue: "PARDON",
         },
         verdict: {
           offenceId: "7dc1b279-805f-4ba8-97ea-be635f5764a7",
