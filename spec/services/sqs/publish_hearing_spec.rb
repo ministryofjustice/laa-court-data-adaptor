@@ -192,7 +192,7 @@ RSpec.describe Sqs::PublishHearing do
   end
 
   it "triggers a publish call with the expected sqs payload" do
-    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
+    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url)
     publish
   end
 
@@ -241,7 +241,7 @@ RSpec.describe Sqs::PublishHearing do
     end
 
     it "triggers a publish call with the sqs payload" do
-      expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
+      expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url)
       publish
     end
   end
