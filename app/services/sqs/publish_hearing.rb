@@ -18,30 +18,6 @@ module Sqs
 
   private
 
-    def inactive?
-      jurisdiction_type == "MAGISTRATES" ? "N" : "Y"
-    end
-
-    def defendant_details
-      defendant&.dig(:personDefendant, :personDetails)
-    end
-
-    def defendant_address_details
-      defendant_details&.dig(:address)
-    end
-
-    def defendant_contact_details
-      defendant_details&.dig(:contact)
-    end
-
-    def cjs_area_code
-      court_centre.oucode_l2_code
-    end
-
-    def cjs_location
-      court_centre.short_oucode
-    end
-
     def message
       {
         maatId: laa_reference.maat_reference.to_i,
@@ -58,6 +34,30 @@ module Sqs
         session: session_hash,
         ccOutComeData: crown_court_outcome_hash,
       }
+    end
+
+    def cjs_area_code
+      court_centre.oucode_l2_code
+    end
+
+    def cjs_location
+      court_centre.short_oucode
+    end
+
+    def inactive?
+      jurisdiction_type == "MAGISTRATES" ? "N" : "Y"
+    end
+
+    def defendant_details
+      defendant&.dig(:personDefendant, :personDetails)
+    end
+
+    def defendant_address_details
+      defendant_details&.dig(:address)
+    end
+
+    def defendant_contact_details
+      defendant_details&.dig(:contact)
     end
 
     def defendant_hash
@@ -96,6 +96,8 @@ module Sqs
           [:legalAidStatusDate, offence.dig(:laaApplnReference, :statusDate)],
           [:legalAidReason, offence.dig(:laaApplnReference, :statusDescription)],
           [:results, results_map(offence[:judicialResults])],
+          [:plea, offence[:plea]],
+          [:verdict, format_verdict(offence[:verdict])],
         ].to_h
       end
     end
@@ -113,6 +115,19 @@ module Sqs
           [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)],
         ].to_h
       end
+    end
+
+    def format_verdict(verdict)
+      return if verdict.nil?
+
+      {
+        offenceId: verdict[:offenceId],
+        verdictDate: verdict[:verdictDate],
+        category: verdict.dig(:verdictType, :category),
+        categoryType: verdict.dig(:verdictType, :categoryType),
+        cjsVerdictCode: verdict.dig(:verdictType, :cjsVerdictCode),
+        verdictCode: verdict.dig(:verdictType, :verdictCode),
+      }
     end
 
     def hearing_location(court_centre_id)

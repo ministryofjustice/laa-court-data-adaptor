@@ -15,14 +15,20 @@ RSpec.describe Sqs::PublishHearing do
   let(:case_urn) { "12345" }
   let(:court_centre_id) { "dd22b110-7fbc-3036-a076-e4bb40d0a519" }
   let(:appeal_data) { nil }
+
   let(:verdict_hash) do
     {
+      'offenceId': "7dc1b279-805f-4ba8-97ea-be635f5764a7",
       'verdictDate': "2018-10-25",
       'verdictType': {
+        'category': "GUILTY",
         'categoryType': "GUILTY_CONVICTED",
+        'cjsVerdictCode': "123",
+        'verdictCode': "789",
       },
     }
   end
+
   let(:defendant) do
     {
       'id': "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
@@ -64,6 +70,11 @@ RSpec.describe Sqs::PublishHearing do
             'motReasonCode': 3,
           },
           'verdict': verdict_hash,
+          'plea': {
+            'offenceId': "dc1b279-805f-4ba8-97ea-be635f5764a7",
+            'pleaDate': "2018-11-11",
+            'pleaValue': "PARDON",
+          },
           'judicialResults': [
             {
               'cjsCode': "123",
@@ -151,6 +162,19 @@ RSpec.describe Sqs::PublishHearing do
       legalAidStatus: "AP",
       legalAidStatusDate: "2018-10-24",
       legalAidReason: "Application Pending",
+      plea: {
+        offenceId: "dc1b279-805f-4ba8-97ea-be635f5764a7",
+        pleaDate: "2018-11-11",
+        pleaValue: "PARDON",
+      },
+      verdict: {
+        offenceId: "7dc1b279-805f-4ba8-97ea-be635f5764a7",
+        verdictDate: "2018-10-25",
+        category: "GUILTY",
+        categoryType: "GUILTY_CONVICTED",
+        cjsVerdictCode: "123",
+        verdictCode: "789",
+      },
       results: [{
         resultCode: "123",
         resultShortTitle: "Fine",
@@ -169,8 +193,8 @@ RSpec.describe Sqs::PublishHearing do
     LaaReference.create!(defendant_id: "c6cf04b5-901d-4a89-a9ab-767eb57306e4", user_name: "cpUser", maat_reference: 123_456_789)
   end
 
-  it "triggers a publish call with the sqs payload" do
-    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
+  it "triggers a publish call with the expected sqs payload" do
+    expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url)
     publish
   end
 
@@ -179,34 +203,12 @@ RSpec.describe Sqs::PublishHearing do
       defendant[:offences].each { |offence| offence.delete(:laaApplnReference) }
     end
 
-    let(:offence_payload) do
-      {
-        offenceId: "7dc1b279-805f-4ba8-97ea-be635f5764a7",
-        offenceCode: "CD98072",
-        asnSeq: 0,
-        offenceShortTitle: "Robbery",
-        offenceClassification: "Defendant consents to summary trial",
-        offenceDate: "2018-10-21",
-        offenceWording: "On 21/10/2018 the defendant robbed someone.",
-        modeOfTrial: 3,
-        legalAidStatus: nil,
-        legalAidStatusDate: nil,
-        legalAidReason: nil,
-        results: [{
-          resultCode: "123",
-          resultShortTitle: "Fine",
-          resultText: "Fine - Amount of fine: £1500",
-          resultCodeQualifiers: "LG",
-          nextHearingDate: "2018-11-11",
-          nextHearingLocation: "B16BG",
-          laaOfficeAccount: "0A935R",
-          legalAidWithdrawalDate: nil,
-        }],
-      }
-    end
-
     it "triggers a publish call with the sqs payload" do
-      expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url).and_call_original
+      offence_payload[:legalAidStatus] = nil
+      offence_payload[:legalAidStatusDate] = nil
+      offence_payload[:legalAidReason] = nil
+
+      expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url)
       publish
     end
   end
