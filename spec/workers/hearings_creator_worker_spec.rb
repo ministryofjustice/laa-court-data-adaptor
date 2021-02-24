@@ -11,7 +11,7 @@ RSpec.describe HearingsCreatorWorker, type: :worker do
   let(:request_id) { "XYZ" }
 
   before do
-    Hearing.create!(id: hearing_id, body: JSON.parse(file_fixture("valid_hearing.json").read))
+    Hearing.create!(id: hearing_id, body: file_fixture("valid_hearing.json").read)
   end
 
   it "queues the job" do

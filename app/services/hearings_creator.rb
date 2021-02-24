@@ -2,7 +2,7 @@
 
 class HearingsCreator < ApplicationService
   def initialize(hearing_id:)
-    hearing_body = Hearing.find(hearing_id).body.deep_transform_keys(&:to_sym)
+    hearing_body = JSON.parse(Hearing.find(hearing_id).body).deep_symbolize_keys!
     @hearing = hearing_body[:hearing]
     @shared_time = hearing_body[:sharedTime]
   end

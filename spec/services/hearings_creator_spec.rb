@@ -48,6 +48,7 @@ RSpec.describe HearingsCreator do
       },
     ]
   end
+
   let(:applications_array) do
     [
       {
@@ -61,6 +62,7 @@ RSpec.describe HearingsCreator do
       },
     ]
   end
+
   let(:hearing_body) do
     {
       "hearing": {
@@ -72,7 +74,7 @@ RSpec.describe HearingsCreator do
         "courtApplications": applications_array,
       },
       "sharedTime": "2018-10-25 11:30:00",
-    }
+    }.to_json
   end
 
   let(:hearing) { Hearing.create!(body: hearing_body) }
@@ -168,7 +170,7 @@ RSpec.describe HearingsCreator do
             "prosecutionCases": prosecution_case_array,
           },
           "sharedTime": "2018-10-25 11:30:00",
-        }
+        }.to_json
       end
 
       it "calls the Sqs::PublishHearing service" do
