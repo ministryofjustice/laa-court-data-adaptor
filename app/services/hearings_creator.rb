@@ -2,22 +2,9 @@
 
 class HearingsCreator < ApplicationService
   def initialize(hearing_id:)
-    @hearing_id = hearing_id
+    hearing_body = Hearing.find(hearing_id).body.deep_transform_keys(&:to_sym)
     @hearing = hearing_body[:hearing]
     @shared_time = hearing_body[:sharedTime]
-  end
-
-  # This is temp to process failing delayed jobs. To be reverted. See PR
-  def hearing_body
-    body = Hearing.find(@hearing_id).body
-
-    if body.is_a?(Hash)
-      return body.deep_symbolize_keys
-    end
-
-    if body.is_a?(String)
-      JSON.parse(body).deep_symbolize_keys
-    end
   end
 
   def call
