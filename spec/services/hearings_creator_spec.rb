@@ -214,4 +214,29 @@ RSpec.describe HearingsCreator do
       end
     end
   end
+
+  context "when hearing body is a string" do
+    let(:hearing_body) do
+      {
+        "hearing": {
+          "jurisdictionType": "MAGISTRATES",
+          "courtCentre": {
+            "id": "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+          },
+          "prosecutionCases": prosecution_case_array,
+          "courtApplications": nil,
+        },
+        "sharedTime": "2018-10-25 11:30:00",
+      }.to_json
+    end
+
+    it "calls the Sqs::PublishHearing service once" do
+      expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
+                                                                             jurisdiction_type: "MAGISTRATES",
+                                                                             case_urn: "12345",
+                                                                             defendant: defendant_one,
+                                                                             court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+      create_hearings
+    end
+  end
 end
