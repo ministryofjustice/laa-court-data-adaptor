@@ -81,4 +81,24 @@ RSpec.describe HearingRecorder do
       expect(HearingsCreatorWorker).not_to receive(:perform_async)
     end
   end
+
+  context "when the hearing body is jibberish" do
+    let(:hearing) { Hearing.create!(body: { foo: "bar" }) }
+    let(:body) { "<span>Clearly not a processable hearing body</span>" }
+
+    it "does not create a new record" do
+      expect {
+        record_hearing
+      }.to change(Hearing, :count).by(0)
+    end
+
+    it "does not update Hearing with new response" do
+      record_hearing
+      expect(hearing.reload.body).to eq({ "foo" => "bar" })
+    end
+
+    it "does not publish hearing to the queue" do
+      expect(HearingsCreatorWorker).not_to receive(:perform_async)
+    end
+  end
 end
