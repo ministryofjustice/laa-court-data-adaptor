@@ -36,7 +36,7 @@ gem "prmd"
 gem "prometheus-client"
 gem "rswag-api"
 gem "rswag-ui"
-gem "sentry-raven"
+gem "sentry-ruby"
 gem "sidekiq"
 gem "versionist"
 
