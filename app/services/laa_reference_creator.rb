@@ -10,15 +10,22 @@ class LaaReferenceCreator < ApplicationService
   end
 
   def call
-    create_laa_reference!
-    MaatLinkCreatorWorker.perform_async(Current.request_id, laa_reference.id)
+    persist_laa_reference!
+    create_maat_link
     laa_reference
   end
 
 private
 
-  def create_laa_reference!
-    @laa_reference = LaaReference.create!(defendant_id: defendant_id, user_name: user_name, maat_reference: maat_reference, dummy_maat_reference: dummy_reference?)
+  def persist_laa_reference!
+    @laa_reference = LaaReference.create!(defendant_id: defendant_id,
+                                          user_name: user_name,
+                                          maat_reference: maat_reference,
+                                          dummy_maat_reference: dummy_reference?)
+  end
+
+  def create_maat_link
+    MaatLinkCreatorWorker.perform_async(Current.request_id, laa_reference.id)
   end
 
   def dummy_maat_reference

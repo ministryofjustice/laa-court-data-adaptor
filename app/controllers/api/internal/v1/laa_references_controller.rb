@@ -5,9 +5,8 @@ module Api
     module V1
       class LaaReferencesController < ApplicationController
         def create
-          contract = NewLaaReferenceContract.new.call(**transformed_params)
           if contract.success?
-            LaaReferenceCreator.call(defendant_id: transformed_params[:defendant_id], user_name: transformed_params[:user_name], maat_reference: transformed_params[:maat_reference])
+            create_laa_reference
             render status: :accepted
           else
             render json: contract.errors.to_hash, status: :bad_request
@@ -15,6 +14,16 @@ module Api
         end
 
       private
+
+        def contract
+          @contract ||= NewLaaReferenceContract.new.call(**transformed_params)
+        end
+
+        def create_laa_reference
+          LaaReferenceCreator.call(defendant_id: transformed_params[:defendant_id],
+                                   user_name: transformed_params[:user_name],
+                                   maat_reference: transformed_params[:maat_reference])
+        end
 
         def create_params
           params.from_jsonapi.require(:laa_reference).permit(allowed_params)
