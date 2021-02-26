@@ -7,22 +7,28 @@ module Api
     end
 
     def call
-      record_search_results if successful_response?
+      record_prosecution_cases if search_results?
     end
 
   private
 
-    def successful_response?
-      response.status == 200 && response.body["totalResults"].positive?
+    def search_results?
+      response.status == 200 && response.body["totalResults"]&.positive?
     end
 
-    def record_search_results
-      response.body["cases"].map do |prosecution_case|
-        ProsecutionCaseRecorder.call(
-          prosecution_case_id: prosecution_case["prosecutionCaseId"],
-          body: prosecution_case,
-        )
-      end
+    def record_prosecution_cases
+      prosecution_cases.map { |prosecution_case| record_prosecution_case(prosecution_case) }
+    end
+
+    def record_prosecution_case(prosecution_case)
+      ProsecutionCaseRecorder.call(
+        prosecution_case_id: prosecution_case["prosecutionCaseId"],
+        body: prosecution_case,
+      )
+    end
+
+    def prosecution_cases
+      response.body["cases"]
     end
 
     attr_reader :response
