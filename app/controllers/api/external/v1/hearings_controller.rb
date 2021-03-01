@@ -10,6 +10,18 @@ module Api
             HearingRecorder.call(hearing_id: params[:hearing][:id], body: transformed_params, publish_to_queue: true)
             head :accepted
           else
+            tags = {
+              request_id: Current.request_id,
+              hearing_id: transformed_params[:hearing][:id],
+            }
+
+            extras = {
+              body: hearing_params,
+              contract_errors: contract.errors.to_hash,
+            }
+
+            Sentry.capture_message("A hearing contract failed", tags: tags, extras: extras)
+
             render json: contract.errors.to_hash, status: :unprocessable_entity
           end
         end
