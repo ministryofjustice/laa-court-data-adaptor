@@ -11,6 +11,14 @@ class HearingRecorder < ApplicationService
     if hearing_contract.success?
       hearing.update!(body: body)
       publish_hearing_to_queue if publish_to_queue
+    else
+      Sentry.capture_message("A hearing contract failed",
+                             tags: { hearing_id: hearing.id },
+                             extras: {
+                               body: body,
+                               publish_to_queue: publish_to_queue,
+                               errors: hearing_contract.errors.messages,
+                             })
     end
 
     hearing
