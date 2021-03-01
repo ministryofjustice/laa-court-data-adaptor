@@ -9,6 +9,19 @@ module Api
             create_laa_reference
             render status: :accepted
           else
+            tags = {
+              request_id: Current.request_id,
+              defendant_id: transformed_params[:defendant_id],
+              user_name: transformed_params[:user_name],
+              maat_reference: transformed_params[:maat_reference],
+            }
+
+            extras = { contract_errors: contract.errors.to_hash }
+
+            Sentry.capture_message("LAA Reference contract failed",
+                                   tags: tags,
+                                   extras: extras)
+
             render json: contract.errors.to_hash, status: :bad_request
           end
         end
