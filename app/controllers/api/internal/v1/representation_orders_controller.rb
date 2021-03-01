@@ -10,6 +10,16 @@ module Api
             enqueue_representation_order
             render status: :accepted
           else
+            tags = {
+              request_id: Current.request_id,
+              defendant_id: transformed_params[:defendant_id],
+              maat_id: transformed_params[:maat_reference],
+            }
+
+            extras = { contract_errors: contract.errors.to_hash }
+
+            Sentry.capture_message("A representation order contract failed", tags: tags, extras: extras)
+
             render json: contract.errors.to_hash, status: :bad_request
           end
         end
