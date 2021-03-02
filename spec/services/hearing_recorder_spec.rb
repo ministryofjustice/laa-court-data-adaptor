@@ -6,7 +6,7 @@ RSpec.describe HearingRecorder do
   subject(:record_hearing) { described_class.call(hearing_id: hearing_id, body: body, publish_to_queue: true) }
 
   let(:hearing_id) { "fa78c710-6a49-4276-bbb3-ad34c8d4e313" }
-  let(:body) { { 'hearing': '{ "one" : "two" }', 'sharedTime': "2020-12-10" } }
+  let(:body) { JSON.parse(file_fixture("valid_hearing.json").read) }
 
   it "creates a Hearing" do
     expect {
@@ -52,6 +52,53 @@ RSpec.describe HearingRecorder do
     it "updates Hearing with new response" do
       record_hearing
       expect(hearing.reload.body).to eq(body.stringify_keys)
+    end
+  end
+
+  context "when the hearing body is invalid as per the hearing contract" do
+    let(:body) { JSON.parse(file_fixture("invalid_hearing.json").read) }
+
+    it "does not create a new record" do
+      expect {
+        record_hearing
+      }.to change(Hearing, :count).by(0)
+    end
+
+    it "does not update Hearing with new response" do
+      hearing = Hearing.create!(body: { foo: "bar" })
+      body = JSON.parse(file_fixture("invalid_hearing.json").read)
+
+      hearing_recorder = described_class.new(hearing_id: hearing.id,
+                                             body: body,
+                                             publish_to_queue: true)
+
+      hearing_recorder.call
+
+      expect(hearing.reload.body).to eq({ "foo" => "bar" })
+    end
+
+    it "does not publish hearing to the queue" do
+      expect(HearingsCreatorWorker).not_to receive(:perform_async)
+    end
+  end
+
+  context "when the hearing body is jibberish" do
+    let(:hearing) { Hearing.create!(body: { foo: "bar" }) }
+    let(:body) { "<span>Clearly not a processable hearing body</span>" }
+
+    it "does not create a new record" do
+      expect {
+        record_hearing
+      }.to change(Hearing, :count).by(0)
+    end
+
+    it "does not update Hearing with new response" do
+      record_hearing
+      expect(hearing.reload.body).to eq({ "foo" => "bar" })
+    end
+
+    it "does not publish hearing to the queue" do
+      expect(HearingsCreatorWorker).not_to receive(:perform_async)
     end
   end
 end
