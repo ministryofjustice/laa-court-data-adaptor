@@ -130,6 +130,17 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
           run_test!
         end
       end
+
+      context "when we are attempting to create an LaaReference that already exists" do
+        it "includes error message in JSON response" do
+          LaaReference.create!(defendant_id: defendant_id, maat_reference: 1_231_231, user_name: "JaneDoe")
+
+          post api_internal_v1_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+
+          expect(response).to have_http_status :bad_request
+          expect(JSON.parse(response.body)).to eql({ "error" => "Validation failed: Maat reference has already been taken" })
+        end
+      end
     end
   end
 end

@@ -6,11 +6,20 @@ class ApplicationController < ActionController::API
 
   ERROR_MAPPINGS = {
     ActionController::ParameterMissing => :bad_request,
+    ActiveRecord::RecordInvalid => :bad_request,
   }.freeze
 
   ERROR_MAPPINGS.each do |klass, status|
     rescue_from klass do |error|
       render json: { error: error }, status: status
+
+      Sentry.capture_message(
+        error,
+        tags: {
+          defendant_id: params.dig(:defendant_id),
+          hearing_id: params.dig(:hearing, :id),
+        },
+      )
     end
   end
 
