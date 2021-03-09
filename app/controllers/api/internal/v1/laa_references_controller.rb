@@ -5,28 +5,20 @@ module Api
     module V1
       class LaaReferencesController < ApplicationController
         def create
-          if contract.success?
-            create_laa_reference
-            render status: :accepted
-          else
-            tags = {
-              request_id: Current.request_id,
-              defendant_id: transformed_params[:defendant_id],
-              user_name: transformed_params[:user_name],
-              maat_reference: transformed_params[:maat_reference],
-            }
+          enforce_contract!
+          create_laa_reference
 
-            extras = { contract_errors: contract.errors.to_hash }
-
-            Sentry.capture_message("LAA Reference contract failed",
-                                   tags: tags,
-                                   extras: extras)
-
-            render json: contract.errors.to_hash, status: :bad_request
-          end
+          render status: :accepted
         end
 
       private
+
+        def enforce_contract!
+          unless contract.success?
+            message = "LaaReference contract failed with: #{contract.errors.to_hash}"
+            raise Errors::ContractError, message
+          end
+        end
 
         def contract
           @contract ||= NewLaaReferenceContract.new.call(**transformed_params)
