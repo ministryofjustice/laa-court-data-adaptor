@@ -7,7 +7,7 @@ RSpec.describe Sqs::PublishHearing do
                          case_urn: case_urn,
                          defendant: defendant,
                          court_centre_id: court_centre_id,
-                         appeal_data: appeal_data)
+                         application_data: application_data)
   end
 
   let(:shared_time) { "2018-10-25T14:45:05.602Z" }
@@ -102,6 +102,73 @@ RSpec.describe Sqs::PublishHearing do
       'defenceOrganisation': {
         'laaAccountNumber': "0A935R",
       },
+    }
+  end
+
+  let(:application_data) do
+    {
+      'id': "9dc1b279-805f-4ba8-97ea-be635f576007",
+      'courtApplicationCases': [
+        {
+          'prosecutionCaseId': "ar42b110-7fbc-3036-a076-e4bb40d0a543",
+          'prosecutionCaseIdentifier': {
+            'prosecutionAuthorityId': "9ha1b279-805f-4ba8-97ea-be635f5776s7",
+            'prosecutionAuthorityCode': "A",
+          },
+          'isSJP': false,
+          'caseStatus': "Active",
+        }
+      ],
+      'parentApplicationId': "8ga90279-805f-4ba8-9fsb-be635fsh47f2",
+      # 'courtOrder':,
+      'type':{
+        'id': "hd820279-76sd-4bv8-9fsb-be635fs87sg2",
+        'type': "A",
+        'categoryCode': "A",
+        'linkType': "STANDALONE",
+        'jurisdiction': "MAGISTRATES",
+        'summonsTemplateType': "GENERIC_APPLICATION",
+        'breachType': "NOT_APPLICABLE",
+        'appealFlag': false,
+        'applicantAppellantFlag': false,
+        'pleaApplicableFlag': false,
+        'commrOfOathFlag': false,
+        'courtOfAppealFlag': false,
+        'courtExtractAvlFlag': false,
+        'prosecutorThirdPartyFlag': false,
+        'spiOutApplicableFlag': false,
+        'offenceActiveOrder': "NOT_APPLICABLE",
+      },
+      'applicationReceivedDate': "2021-02-12",
+      # 'allegationOrComplaintStartDate':,
+      # 'allegationOrComplaintEndDate':,
+      # 'applicationReference':,
+      'applicant':{
+        'id': "12dg0279-76sd-gsh4-9fsb-be635fs86da1",
+        'summonsRequired': false,
+        'notificationRequired': false,
+      },
+      # 'respondents':,
+      # 'thirdParties':,
+      'subject': {
+        'id': "12dg0279-76sd-gsh4-9fsb-be635fs86da1",
+        'summonsRequired': false,
+        'notificationRequired': false,
+      },
+      # 'applicationParticulars':,
+      # 'courtApplicationPayment':,
+      # 'applicationDecisionSoughtByDate':,
+      'applicationStatus': "DRAFT",
+      # 'outOfTimeReasons':,
+      # 'defendantASN':,
+      # 'judicialResults':,
+      # 'plea':,
+      # 'verdict':,
+      'hasSummonsSupplied': false,
+      'removalReason': "Contempt of court",
+      'commissionerOfOath': false,
+      'convictionDate': "2021-01-11",
+      'futureSummonsHearing': {},
     }
   end
 

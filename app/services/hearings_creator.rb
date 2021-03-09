@@ -22,7 +22,7 @@ class HearingsCreator < ApplicationService
 
   def call
     push_prosecution_cases
-    push_appeals
+    push_applications
   end
 
 private
@@ -35,33 +35,35 @@ private
         push_to_sqs(shared_time: shared_time,
                     case_urn: prosecution_case[:prosecutionCaseIdentifier][:caseURN],
                     defendant: defendant,
-                    appeal_data: nil)
+                    application_data: nil)
       end
     end
   end
 
-  def push_appeals
-    hearing[:courtApplications]&.each do |appeal|
-      defendant = appeal.dig(:applicant, :defendant)
-      next if defendant[:offences].map { |offence| offence.dig(:laaApplnReference, :applicationReference)&.start_with?("A", "Z") }.any?
+  def push_applications
+    hearing[:courtApplications]&.each do |application|
+      defendant_cases = application.dig(:applicant, :masterDefendant, :defendantCase)
+      return if defendant_cases.nil?
 
-      push_to_sqs(shared_time: shared_time,
-                  case_urn: appeal[:applicationReference],
-                  defendant: defendant,
-                  appeal_data: {
-                    appeal_type: appeal.dig(:type, :applicationCode),
-                    appeal_outcome: appeal[:applicationOutcomes],
-                  })
+      defendant_cases.each do |defendant_case|
+        defendant = LaaReference.find_by(defendant_id: defendant_case[:defendantId], linked: true)
+        next if defendant.nil?
+
+        push_to_sqs(shared_time: shared_time,
+                    case_urn: application[:applicationReference],
+                    defendant: defendant,
+                    application_data: application)
+      end
     end
   end
 
-  def push_to_sqs(shared_time:, case_urn:, defendant:, appeal_data:)
+  def push_to_sqs(shared_time:, case_urn:, defendant:, application_data:)
     Sqs::PublishHearing.call(shared_time: shared_time,
                              jurisdiction_type: jurisdiction_type,
                              case_urn: case_urn,
                              defendant: defendant,
                              court_centre_id: hearing[:courtCentre][:id],
-                             appeal_data: appeal_data)
+                             application_data: application_data)
   end
 
   def jurisdiction_type
