@@ -88,7 +88,7 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
       end
 
       context "with a blank user_name" do
-        response("400", "Bad Request") do
+        response("422", "Unprocessable entity") do
           let(:Authorization) { "Bearer #{token.token}" }
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
@@ -103,7 +103,7 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
       end
 
       context "with an invalid maat_reference" do
-        response("400", "Bad Request") do
+        response("422", "Unprocessable entity") do
           let(:Authorization) { "Bearer #{token.token}" }
           before { laa_reference[:data][:attributes][:maat_reference] = "ABC123123" }
 
@@ -139,6 +139,17 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
 
           expect(response).to have_http_status :bad_request
           expect(JSON.parse(response.body)).to eql({ "error" => "Validation failed: Maat reference has already been taken" })
+        end
+      end
+
+      context "with a failing LAA Reference contract" do
+        before { laa_reference[:data][:relationships][:defendant][:data][:id] = "foo" }
+
+        it "renders a JSON response with an unprocessable_entity error" do
+          post api_internal_v1_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+
+          expect(response.body).to include("is not a valid uuid")
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end

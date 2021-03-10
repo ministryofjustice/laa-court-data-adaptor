@@ -8,6 +8,7 @@ RSpec.describe "api/internal/v1/representation_orders", type: :request, swagger_
 
   let(:token) { access_token }
   let(:defendant_id) { SecureRandom.uuid }
+
   let(:offence_array) do
     [
       {
@@ -19,6 +20,7 @@ RSpec.describe "api/internal/v1/representation_orders", type: :request, swagger_
       },
     ]
   end
+
   let(:defence_organisation) do
     {
       laa_contract_number: "CONTRACT REFERENCE",
@@ -47,6 +49,7 @@ RSpec.describe "api/internal/v1/representation_orders", type: :request, swagger_
       },
     }
   end
+
   let(:representation_order) do
     {
       data: {
@@ -112,7 +115,7 @@ RSpec.describe "api/internal/v1/representation_orders", type: :request, swagger_
       end
 
       context "with an invalid maat_reference" do
-        response("400", "Bad Request") do
+        response("422", "Unprocessable entity") do
           let(:Authorization) { "Bearer #{token.token}" }
           before { representation_order[:data][:attributes][:maat_reference] = "ABC123123" }
 
@@ -137,6 +140,17 @@ RSpec.describe "api/internal/v1/representation_orders", type: :request, swagger_
           end
 
           run_test!
+        end
+      end
+
+      context "with a failing contract" do
+        before { representation_order[:data][:relationships][:defendant][:data][:id] = "foo" }
+
+        it "renders a JSON response with an unprocessable_entity error" do
+          post api_internal_v1_representation_orders_path, params: representation_order, headers: { "Authorization" => "Bearer #{token.token}" }
+
+          expect(response.body).to include("is not a valid uuid")
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end

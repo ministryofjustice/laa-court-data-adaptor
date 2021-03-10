@@ -5,16 +5,24 @@ module Api
     module V1
       class RepresentationOrdersController < ApplicationController
         def create
-          contract = NewRepresentationOrderContract.new.call(**transformed_params)
-          if contract.success?
-            enqueue_representation_order
-            render status: :accepted
-          else
-            render json: contract.errors.to_hash, status: :bad_request
-          end
+          enforce_contract!
+          enqueue_representation_order
+
+          render status: :accepted
         end
 
       private
+
+        def enforce_contract!
+          unless contract.success?
+            message = "Representation Order contract failed with: #{contract.errors.to_hash}"
+            raise Errors::ContractError, message
+          end
+        end
+
+        def contract
+          NewRepresentationOrderContract.new.call(**transformed_params)
+        end
 
         def create_params
           params.from_jsonapi.require(:representation_order).permit!

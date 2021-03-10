@@ -5,15 +5,20 @@ module Api
     module V1
       class LaaReferencesController < ApplicationController
         def create
-          if contract.success?
-            create_laa_reference
-            render status: :accepted
-          else
-            render json: contract.errors.to_hash, status: :bad_request
-          end
+          enforce_contract!
+          create_laa_reference
+
+          render status: :accepted
         end
 
       private
+
+        def enforce_contract!
+          unless contract.success?
+            message = "LaaReference contract failed with: #{contract.errors.to_hash}"
+            raise Errors::ContractError, message
+          end
+        end
 
         def contract
           @contract ||= NewLaaReferenceContract.new.call(**transformed_params)

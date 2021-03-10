@@ -7,6 +7,7 @@ class ApplicationController < ActionController::API
   ERROR_MAPPINGS = {
     ActionController::ParameterMissing => :bad_request,
     ActiveRecord::RecordInvalid => :bad_request,
+    Errors::ContractError => :unprocessable_entity,
   }.freeze
 
   ERROR_MAPPINGS.each do |klass, status|
@@ -16,6 +17,7 @@ class ApplicationController < ActionController::API
       Sentry.capture_message(
         error,
         tags: {
+          request_id: Current.request_id,
           defendant_id: params.dig(:defendant_id),
           hearing_id: params.dig(:hearing, :id),
         },

@@ -5,16 +5,24 @@ module Api
     module V1
       class HearingsController < ApplicationController
         def create
-          contract = HearingContract.new.call(**transformed_params)
-          if contract.success?
-            HearingRecorder.call(hearing_id: params[:hearing][:id], body: transformed_params, publish_to_queue: true)
-            head :accepted
-          else
-            render json: contract.errors.to_hash, status: :unprocessable_entity
-          end
+          enforce_contract!
+
+          HearingRecorder.call(hearing_id: params[:hearing][:id], body: transformed_params, publish_to_queue: true)
+          head :accepted
         end
 
       private
+
+        def enforce_contract!
+          unless contract.success?
+            message = "Hearing contract failed with: #{contract.errors.to_hash}"
+            raise Errors::ContractError, message
+          end
+        end
+
+        def contract
+          HearingContract.new.call(**transformed_params)
+        end
 
         # Only allow a trusted parameter "white list" through.
         def hearing_params
