@@ -147,6 +147,9 @@ RSpec.describe Sqs::PublishHearing do
         'id': "12dg0279-76sd-gsh4-9fsb-be635fs86da1",
         'summonsRequired': false,
         'notificationRequired': false,
+        'masterDefendant': {
+          
+        }
       },
       # 'respondents':,
       # 'thirdParties':,

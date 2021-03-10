@@ -212,6 +212,43 @@ RSpec.describe HearingsCreator do
       end
     end
   end
+  
+  context "when an appeal" do
+    let(:prosecution_case_array) { nil }
+    let(:applications_array) do
+      [
+        {
+          "applicationReference": "12345",
+          "type": {
+            "applicationCode": "ASE",
+          },
+          "applicant": {
+            "defendant": defendant_one,
+          },
+        },
+      ]
+    end
+
+    it "calls the Sqs::PublishHearing service once" do
+      expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
+                                                                             jurisdiction_type: "MAGISTRATES",
+                                                                             case_urn: "12345",
+                                                                             defendant: defendant_one,
+                                                                             court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+      create_hearings
+    end
+
+    context "when an laaApplnReference does not exist" do
+      let(:offence_two) do
+        {}
+      end
+
+      it "calls the Sqs::PublishHearing service once" do
+        expect(Sqs::PublishHearing).to receive(:call).once
+        create_hearings
+      end
+    end
+  end
 
   context "when an application to court" do
     context "with a defendant that has a linked LAA reference" do
