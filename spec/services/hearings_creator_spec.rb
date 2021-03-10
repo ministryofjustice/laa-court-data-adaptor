@@ -212,7 +212,7 @@ RSpec.describe HearingsCreator do
       end
     end
   end
-  
+
   context "when an appeal" do
     let(:prosecution_case_array) { nil }
     let(:applications_array) do

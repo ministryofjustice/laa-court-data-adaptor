@@ -2,12 +2,13 @@
 
 module Sqs
   class PublishHearing < ApplicationService
-    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, court_centre_id:, application_data:)
+    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, court_centre_id:, appeal_data:, application_data:)
       @shared_time = shared_time
       @jurisdiction_type = jurisdiction_type
       @case_urn = case_urn
       @defendant = defendant
       @court_centre = HmctsCommonPlatform::Reference::CourtCentre.find(court_centre_id)
+      @appeal_data = appeal_data
       @application_data = application_data
       @laa_reference = LaaReference.find_by!(defendant_id: defendant[:id], linked: true)
     end
@@ -147,13 +148,13 @@ module Sqs
     end
 
     def crown_court_outcome_hash
-      CrownCourtOutcomeCreator.call(defendant: defendant, application_data: application_data) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
+      CrownCourtOutcomeCreator.call(defendant: defendant, appeal_data: appeal_data) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
     end
 
     def result_is_a_conclusion?
-      defendant[:offences]&.any? { |offence| offence[:verdict].present? } || application_data.present?
+      defendant[:offences]&.any? { |offence| offence[:verdict].present? } || appeal_data.present?
     end
 
-    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :court_centre, :application_data, :laa_reference
+    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :court_centre, :appeal_data, :application_data, :laa_reference
   end
 end

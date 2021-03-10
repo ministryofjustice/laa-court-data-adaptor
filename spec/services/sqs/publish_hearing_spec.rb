@@ -7,6 +7,7 @@ RSpec.describe Sqs::PublishHearing do
                          case_urn: case_urn,
                          defendant: defendant,
                          court_centre_id: court_centre_id,
+                         appeal_data: appeal_data,
                          application_data: application_data)
   end
 
@@ -117,11 +118,11 @@ RSpec.describe Sqs::PublishHearing do
           },
           'isSJP': false,
           'caseStatus': "Active",
-        }
+        },
       ],
       'parentApplicationId': "8ga90279-805f-4ba8-9fsb-be635fsh47f2",
       # 'courtOrder':,
-      'type':{
+      'type': {
         'id': "hd820279-76sd-4bv8-9fsb-be635fs87sg2",
         'type': "A",
         'categoryCode': "A",
@@ -143,13 +144,13 @@ RSpec.describe Sqs::PublishHearing do
       # 'allegationOrComplaintStartDate':,
       # 'allegationOrComplaintEndDate':,
       # 'applicationReference':,
-      'applicant':{
+      'applicant': {
         'id': "12dg0279-76sd-gsh4-9fsb-be635fs86da1",
         'summonsRequired': false,
         'notificationRequired': false,
         'masterDefendant': {
-          
-        }
+
+        },
       },
       # 'respondents':,
       # 'thirdParties':,
