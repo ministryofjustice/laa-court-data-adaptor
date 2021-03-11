@@ -12,7 +12,7 @@ class LaaReferenceUnlinker < ApplicationService
   def call
     unlink_maat_reference!
     push_to_sqs unless laa_reference.is_dummy_maat_reference?
-    call_common_platform_endpoint
+    update_offences_on_common_platform
   end
 
 private
@@ -30,17 +30,19 @@ private
     )
   end
 
-  def call_common_platform_endpoint
-    offences.each do |offence|
-      Api::RecordLaaReference.call(
-        prosecution_case_id: offence.prosecution_case_id,
-        defendant_id: offence.defendant_id,
-        offence_id: offence.offence_id,
-        status_code: "AP",
-        application_reference: dummy_maat_reference,
-        status_date: Time.zone.today.strftime("%Y-%m-%d"),
-      )
-    end
+  def update_offences_on_common_platform
+    offences.each { |offence| update_offence_on_common_platform(offence) }
+  end
+
+  def update_offence_on_common_platform(offence)
+    Api::RecordLaaReference.call(
+      prosecution_case_id: offence.prosecution_case_id,
+      defendant_id: offence.defendant_id,
+      offence_id: offence.offence_id,
+      status_code: "AP",
+      application_reference: dummy_maat_reference,
+      status_date: Time.zone.today.strftime("%Y-%m-%d"),
+    )
   end
 
   def offences
