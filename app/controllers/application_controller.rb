@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
     rescue_from klass do |error|
       render json: { error: error }, status: status
 
-      Sentry.capture_message(
+      Sentry.capture_exception(
         error,
         tags: {
           request_id: Current.request_id,
