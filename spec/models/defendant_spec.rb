@@ -146,6 +146,16 @@ RSpec.describe Defendant, type: :model do
 
         it { expect { defendant.maat_reference }.to raise_error StandardError, "Too many maat references" }
       end
+
+      context "with a mix of dummy and actual maat references" do
+        let(:offences) do
+          [instance_double("Offence", maat_reference: "Z123123"),
+           instance_double("Offence", maat_reference: nil),
+           instance_double("Offence", maat_reference: "321321")]
+        end
+
+        it { expect { defendant.maat_reference }.not_to raise_error }
+      end
     end
 
     context "when an offence has an unlinked maat reference" do

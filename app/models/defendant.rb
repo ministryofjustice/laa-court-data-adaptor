@@ -42,13 +42,13 @@ class Defendant
   end
 
   def defence_organisation
-    return unless representation_order_exists?
+    return unless valid_representation_order_exists?
 
-    DefenceOrganisation.new(body: case_reference.defence_organisation) if case_reference.defence_organisation.present?
+    DefenceOrganisation.new(body: case_reference.defence_organisation)
   end
 
   def representation_order_date
-    return unless representation_order_exists?
+    return unless valid_representation_order_exists?
 
     case_reference&.status_date
   end
@@ -62,7 +62,14 @@ class Defendant
   end
 
   def maat_reference
-    _maat_reference if valid_maat_reference?
+    refs = offences.map(&:maat_reference)
+      .uniq
+      .compact
+      .reject { |ref| ref.start_with?("Z") }
+
+    raise "Too many maat references" if refs.size > 1
+
+    refs&.first
   end
 
   def post_hearing_custody_statuses
@@ -83,23 +90,12 @@ private
     details.flat_map { |detail| detail["offences"] }.group_by { |offence| offence["id"] }
   end
 
-  def valid_maat_reference?
-    _maat_reference.present? && !_maat_reference.start_with?("Z")
+  def valid_representation_order_exists?
+    maat_reference.present? && case_reference.present? && representation_order.present?
   end
 
-  def _maat_reference
-    refs = offences.map(&:maat_reference).uniq.compact
-    raise "Too many maat references" if refs.size > 1
-
-    refs&.first
-  end
-
-  def representation_order_hash
-    body["representationOrder"] if valid_maat_reference?
-  end
-
-  def representation_order_exists?
-    representation_order_hash.present? && case_reference.present?
+  def representation_order
+    body["representationOrder"]
   end
 
   def case_reference
