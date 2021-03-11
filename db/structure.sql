@@ -83,7 +83,6 @@ CREATE TABLE public.laa_references (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     defendant_id uuid NOT NULL,
     maat_reference character varying NOT NULL,
-    dummy_maat_reference boolean DEFAULT false NOT NULL,
     linked boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -430,6 +429,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200429163050'),
 ('20200519141938'),
 ('20200720123025'),
-('20200723141728');
+('20200723141728'),
+('20210311145419');
 
 
