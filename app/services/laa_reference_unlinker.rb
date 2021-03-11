@@ -11,7 +11,7 @@ class LaaReferenceUnlinker < ApplicationService
 
   def call
     unlink_maat_reference!
-    push_to_sqs unless laa_reference.is_dummy_maat_reference?
+    push_to_sqs unless laa_reference.dummy_maat_reference?
     update_offences_on_common_platform
   end
 

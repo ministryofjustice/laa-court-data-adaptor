@@ -35,7 +35,7 @@ RSpec.describe LaaReferenceCreator do
     laa_reference = LaaReference.last
     expect(laa_reference.defendant_id).to eq(defendant_id)
     expect(laa_reference.maat_reference).to eq("12345678")
-    expect(laa_reference.dummy_maat_reference).to be_falsey
+    expect(laa_reference).not_to be_dummy_maat_reference
   end
 
   it "returns the LaaReference" do
@@ -86,7 +86,7 @@ RSpec.describe LaaReferenceCreator do
 
       expect(laa_reference.defendant_id).to eq(defendant_id)
       expect(laa_reference.maat_reference).to eq("A10000000")
-      expect(laa_reference).to be_is_dummy_maat_reference
+      expect(laa_reference).to be_dummy_maat_reference
     end
   end
 end

@@ -6,7 +6,7 @@ class MaatLinkCreator < ApplicationService
   end
 
   def call
-    publish_laa_reference_to_queue unless laa_reference.is_dummy_maat_reference?
+    publish_laa_reference_to_queue unless laa_reference.dummy_maat_reference?
     post_laa_references_to_common_platform
     fetch_past_hearings
   end

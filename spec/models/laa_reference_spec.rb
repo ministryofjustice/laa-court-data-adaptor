@@ -36,13 +36,13 @@ RSpec.describe LaaReference, type: :model do
     end
   end
 
-  describe "#is_dummy_maat_reference?" do
+  describe "#dummy_maat_reference?" do
     it "returns true when MAAT reference is a linking dummy maat reference" do
-      expect(described_class.new(maat_reference: "A123")).to be_is_dummy_maat_reference
+      expect(described_class.new(maat_reference: "A123")).to be_dummy_maat_reference
     end
 
     it "returns true when MAAT reference is a unlinking dummy maat reference" do
-      expect(described_class.new(maat_reference: "Z123")).to be_is_dummy_maat_reference
+      expect(described_class.new(maat_reference: "Z123")).to be_dummy_maat_reference
     end
   end
 end

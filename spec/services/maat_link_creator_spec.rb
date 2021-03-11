@@ -66,8 +66,7 @@ RSpec.describe MaatLinkCreator do
   end
 
   context "with a dummy_maat_reference" do
-    let(:maat_reference) { "A10000000" }
-    let(:laa_reference) { LaaReference.create!(defendant_id: defendant_id, user_name: "caseWorker", maat_reference: maat_reference, dummy_maat_reference: true) }
+    let(:laa_reference) { LaaReference.create!(defendant_id: defendant_id, user_name: "caseWorker", maat_reference: "A10000000") }
 
     it "does not call the Sqs::PublishLaaReference service" do
       expect(Sqs::PublishLaaReference).not_to receive(:call)

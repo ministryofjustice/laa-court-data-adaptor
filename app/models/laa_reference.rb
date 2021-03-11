@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LaaReference < ApplicationRecord
+  self.ignored_columns = %w[dummy_maat_reference]
+
   validates :defendant_id, presence: true
   validates :maat_reference, presence: true, uniqueness: { conditions: -> { where(linked: true) } }
   validates :user_name, presence: true
@@ -9,7 +11,7 @@ class LaaReference < ApplicationRecord
     update!(linked: false)
   end
 
-  def is_dummy_maat_reference?
+  def dummy_maat_reference?
     maat_reference.start_with?("A", "Z")
   end
 
