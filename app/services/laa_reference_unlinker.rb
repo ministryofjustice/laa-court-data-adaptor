@@ -10,15 +10,15 @@ class LaaReferenceUnlinker < ApplicationService
   end
 
   def call
-    unlink_current_maat_reference
-    push_to_sqs unless laa_reference.dummy_maat_reference?
+    unlink_maat_reference!
+    push_to_sqs unless laa_reference.is_dummy_maat_reference?
     call_common_platform_endpoint
   end
 
 private
 
-  def unlink_current_maat_reference
-    laa_reference.update!(linked: false)
+  def unlink_maat_reference!
+    laa_reference.unlink!
   end
 
   def push_to_sqs
@@ -48,7 +48,7 @@ private
   end
 
   def dummy_maat_reference
-    @dummy_maat_reference ||= "Z#{ActiveRecord::Base.connection.execute("SELECT nextval('dummy_maat_reference_seq')")[0]['nextval']}"
+    @dummy_maat_reference ||= LaaReference.generate_unlinking_dummy_maat_reference
   end
 
   attr_reader :defendant_id, :laa_reference, :user_name, :unlink_reason_code, :unlink_other_reason_text

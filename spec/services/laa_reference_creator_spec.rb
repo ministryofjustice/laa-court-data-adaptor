@@ -83,9 +83,10 @@ RSpec.describe LaaReferenceCreator do
     it "creates a dummy_maat_reference" do
       create_reference
       laa_reference = LaaReference.last
+
       expect(laa_reference.defendant_id).to eq(defendant_id)
       expect(laa_reference.maat_reference).to eq("A10000000")
-      expect(laa_reference.dummy_maat_reference).to be_truthy
+      expect(laa_reference).to be_is_dummy_maat_reference
     end
   end
 end
