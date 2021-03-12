@@ -66,12 +66,14 @@ private
       defendant_cases = court_application.dig(:applicant, :masterDefendant, :defendantCase)
       return if defendant_cases.nil?
 
+      defendant = court_application.dig(:applicant, :masterDefendant)
+
       defendant_cases.each do |defendant_case|
         next if LaaReference.find_by(defendant_id: defendant_case[:defendantId], linked: true).blank?
 
         push_to_sqs(shared_time: shared_time,
                     case_urn: court_application[:applicationReference],
-                    defendant: nil,
+                    defendant: defendant,
                     appeal_data: nil,
                     court_application: court_application,
                     function_type: "APPLICATION")

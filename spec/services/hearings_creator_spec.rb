@@ -52,7 +52,7 @@ RSpec.describe HearingsCreator do
 
   let(:defendant_case_array) { [defendant_case_one] }
 
-  let(:master_defendant_one) do
+  let(:master_defendant) do
     { "defendantCase": defendant_case_array }
   end
 
@@ -74,7 +74,7 @@ RSpec.describe HearingsCreator do
         "applicationCode": "ASE",
       },
       "applicant": {
-        "masterDefendant": master_defendant_one,
+        "masterDefendant": master_defendant,
       },
     }
   end
@@ -260,7 +260,7 @@ RSpec.describe HearingsCreator do
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
                                                                                jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
-                                                                               defendant: nil,
+                                                                               defendant: master_defendant,
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
         create_hearings
       end
@@ -277,7 +277,7 @@ RSpec.describe HearingsCreator do
         expect(Sqs::PublishHearing).to receive(:call).twice.with(hash_including(shared_time: "2018-10-25 11:30:00",
                                                                                 jurisdiction_type: "MAGISTRATES",
                                                                                 case_urn: "12345",
-                                                                                defendant: nil,
+                                                                                defendant: master_defendant,
                                                                                 court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
         create_hearings
       end
@@ -294,7 +294,7 @@ RSpec.describe HearingsCreator do
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
                                                                                jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
-                                                                               defendant: nil,
+                                                                               defendant: master_defendant,
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
 
         create_hearings
