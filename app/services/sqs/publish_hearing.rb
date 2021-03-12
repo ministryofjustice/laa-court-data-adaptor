@@ -2,7 +2,7 @@
 
 module Sqs
   class PublishHearing < ApplicationService
-    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, court_centre_code:, court_centre_id:, appeal_data:, application_data:, function_type:)
+    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, court_centre_code:, court_centre_id:, appeal_data:, court_application:, function_type:)
       @shared_time = shared_time
       @jurisdiction_type = jurisdiction_type
       @case_urn = case_urn
@@ -10,7 +10,7 @@ module Sqs
       @court_centre_code = court_centre_code
       @court_centre = HmctsCommonPlatform::Reference::CourtCentre.find(court_centre_id)
       @appeal_data = appeal_data
-      @application_data = application_data
+      @court_application = court_application
       @function_type = function_type
       @laa_reference = LaaReference.find_by!(defendant_id: defendant[:id], linked: true)
     end
@@ -42,9 +42,9 @@ module Sqs
       elsif @function_type == "APPLICATION"
         {
           maatId: laa_reference.maat_reference.to_i,
-          caseUrn: application_data[:applicationReference],
+          caseUrn: court_application[:applicationReference],
           jurisdictionType: jurisdiction_type,
-          asn: application_data[:defendantASN],
+          asn: court_application[:defendantASN],
           cjsAreaCode: court_centre_code,
           caseCreationDate: shared_time.to_date.strftime("%Y-%m-%d"),
           docLanguage: "EN",
@@ -81,7 +81,7 @@ module Sqs
     end
 
     def court_application_type
-      application_data[:type]
+      court_application[:type]
     end
 
     def defendant_hash
@@ -134,7 +134,7 @@ module Sqs
           offenceClassification: court_application_type[:categoryCode],
           offenceDate: "", # Question outstanding what this should be
           offenceWording: court_application_type[:legislation],
-          results: results_map(application_data[:judicialResults]),
+          results: results_map(court_application[:judicialResults]),
         }
       end
     end
@@ -199,8 +199,8 @@ module Sqs
       elsif function_type == "APPLICATION"
         {
           courtLocation: court_centre_code,
-          dateOfHearing: application_data[:judicialResults][0][:orderedDate], # Question outstanding what this should be
-          sessionValidateDate: application_data[:applicationReceivedDate],
+          dateOfHearing: court_application[:judicialResults][0][:orderedDate], # Question outstanding what this should be
+          sessionValidateDate: court_application[:applicationReceivedDate],
         }
       end
     end
@@ -213,6 +213,6 @@ module Sqs
       defendant[:offences]&.any? { |offence| offence[:verdict].present? } || appeal_data.present?
     end
 
-    attr_reader :shared_time, :jurisdiction_type, :case_urn, :function_type, :defendant, :court_centre_code, :court_centre, :appeal_data, :application_data, :laa_reference
+    attr_reader :shared_time, :jurisdiction_type, :case_urn, :function_type, :defendant, :court_centre_code, :court_centre, :appeal_data, :court_application, :laa_reference
   end
 end

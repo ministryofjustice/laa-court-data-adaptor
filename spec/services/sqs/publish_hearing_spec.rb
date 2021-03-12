@@ -9,7 +9,7 @@ RSpec.describe Sqs::PublishHearing do
                          court_centre_code: court_centre_code,
                          court_centre_id: court_centre_id,
                          appeal_data: appeal_data,
-                         application_data: application_data,
+                         court_application: court_application,
                          function_type: function_type)
   end
 
@@ -33,6 +33,7 @@ RSpec.describe Sqs::PublishHearing do
       },
     }
   end
+
   let(:person_defendant) do
     {
       'personDetails': {
@@ -126,7 +127,7 @@ RSpec.describe Sqs::PublishHearing do
     ]
   end
 
-  let(:application_data) do
+  let(:court_application) do
     {
       'id': "9dc1b279-805f-4ba8-97ea-be635f576007",
       'defendantASN': "12435",
