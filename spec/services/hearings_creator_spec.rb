@@ -67,7 +67,7 @@ RSpec.describe HearingsCreator do
     ]
   end
 
-  let(:application) do
+  let(:court_application) do
     {
       "applicationReference": "12345",
       "type": {
@@ -79,8 +79,8 @@ RSpec.describe HearingsCreator do
     }
   end
 
-  let(:applications_array) do
-    [application]
+  let(:court_applications_array) do
+    [court_application]
   end
 
   let(:hearing_body) do
@@ -91,7 +91,7 @@ RSpec.describe HearingsCreator do
           "id": "dd22b110-7fbc-3036-a076-e4bb40d0a519",
         },
         "prosecutionCases": prosecution_case_array,
-        "courtApplications": applications_array,
+        "courtApplications": court_applications_array,
       },
       "sharedTime": "2018-10-25 11:30:00",
     }
@@ -102,7 +102,7 @@ RSpec.describe HearingsCreator do
   before { allow(Sqs::PublishHearing).to receive(:call) }
 
   context "when a trial" do
-    let(:applications_array) { nil }
+    let(:court_applications_array) { nil }
 
     context "with one defendant" do
       it "calls the Sqs::PublishHearing service once" do
@@ -215,7 +215,7 @@ RSpec.describe HearingsCreator do
 
   context "when an appeal" do
     let(:prosecution_case_array) { nil }
-    let(:applications_array) do
+    let(:court_applications_array) do
       [
         {
           "applicationReference": "12345",
@@ -250,56 +250,51 @@ RSpec.describe HearingsCreator do
     end
   end
 
-  context "when an application to court" do
-    context "with a defendant that has a linked LAA reference" do
+  describe "an application to court" do
+    context "with one linked defendant" do
       let(:prosecution_case_array) { nil }
 
       it "calls the Sqs::PublishHearing service once" do
-        allow(LaaReference).to receive(:find_by).with(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true).and_return(defendant_one)
+        LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
 
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
                                                                                jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
-                                                                               defendant: defendant_one,
+                                                                               defendant: nil,
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
         create_hearings
       end
     end
 
-    context "with two defendants that each have linked LAA reference" do
+    context "with two linked defendants" do
       let(:prosecution_case_array) { nil }
       let(:defendant_case_array) { [defendant_case_one, defendant_case_two] }
 
       it "calls the Sqs::PublishHearing service twice" do
-        allow(LaaReference).to receive(:find_by).with(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true).and_return(defendant_one)
-        allow(LaaReference).to receive(:find_by).with(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: true).and_return(defendant_two)
+        LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
+        LaaReference.create!(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: true, maat_reference: "456", user_name: "Steve")
 
-        expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
-                                                                               case_urn: "12345",
-                                                                               defendant: defendant_one,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
-        expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
-                                                                               case_urn: "12345",
-                                                                               defendant: defendant_two,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+        expect(Sqs::PublishHearing).to receive(:call).twice.with(hash_including(shared_time: "2018-10-25 11:30:00",
+                                                                                jurisdiction_type: "MAGISTRATES",
+                                                                                case_urn: "12345",
+                                                                                defendant: nil,
+                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
         create_hearings
       end
     end
 
-    context "with two defendants one with linked LAA reference, one without" do
+    context "with two defendants, one with linked LAA reference, one without" do
       let(:prosecution_case_array) { nil }
       let(:defendant_case_array) { [defendant_case_one, defendant_case_two] }
 
-      it "calls the Sqs::PublishHearing service twice" do
-        allow(LaaReference).to receive(:find_by).with(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true).and_return(defendant_one)
-        allow(LaaReference).to receive(:find_by).with(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: true).and_return(nil)
+      it "calls the Sqs::PublishHearing service once" do
+        LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
+        LaaReference.create!(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: false, maat_reference: "456", user_name: "Steve")
 
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
                                                                                jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
-                                                                               defendant: defendant_one,
+                                                                               defendant: nil,
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
 
         create_hearings
@@ -323,27 +318,6 @@ RSpec.describe HearingsCreator do
         allow(LaaReference).to receive(:find_by).and_return(nil)
 
         expect(Sqs::PublishHearing).not_to receive(:call)
-        create_hearings
-      end
-    end
-  end
-
-  context "when hearing had both a prosecution case and an applicationt to court" do
-    context "with one defendant for the case and one defendant for the application" do
-      it "calls the Sqs::PublishHearing service twice" do
-        allow(LaaReference).to receive(:find_by).with(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true).and_return(defendant_one)
-
-        expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
-                                                                               case_urn: "12345",
-                                                                               defendant: defendant_one,
-                                                                               application_data: application,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
-        expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
-                                                                               case_urn: "12345",
-                                                                               defendant: defendant_one,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
         create_hearings
       end
     end

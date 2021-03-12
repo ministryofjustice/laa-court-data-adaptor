@@ -37,7 +37,7 @@ private
                     case_urn: prosecution_case[:prosecutionCaseIdentifier][:caseURN],
                     defendant: defendant,
                     appeal_data: nil,
-                    application_data: nil,
+                    court_application: nil,
                     function_type: "OFFENCE")
       end
     end
@@ -56,31 +56,30 @@ private
                     appeal_type: appeal.dig(:type, :applicationCode),
                     appeal_outcome: appeal[:applicationOutcomes],
                   },
-                  application_data: nil,
+                  court_application: nil,
                   function_type: nil)
     end
   end
 
   def push_applications
-    hearing[:courtApplications]&.each do |application|
-      defendant_cases = application.dig(:applicant, :masterDefendant, :defendantCase)
+    hearing[:courtApplications]&.each do |court_application|
+      defendant_cases = court_application.dig(:applicant, :masterDefendant, :defendantCase)
       return if defendant_cases.nil?
 
       defendant_cases.each do |defendant_case|
-        defendant = LaaReference.find_by(defendant_id: defendant_case[:defendantId], linked: true)
-        next if defendant.nil?
+        next if LaaReference.find_by(defendant_id: defendant_case[:defendantId], linked: true).blank?
 
         push_to_sqs(shared_time: shared_time,
-                    case_urn: application[:applicationReference],
-                    defendant: defendant,
+                    case_urn: court_application[:applicationReference],
+                    defendant: nil,
                     appeal_data: nil,
-                    application_data: application,
+                    court_application: court_application,
                     function_type: "APPLICATION")
       end
     end
   end
 
-  def push_to_sqs(shared_time:, case_urn:, defendant:, appeal_data:, application_data:, function_type:)
+  def push_to_sqs(shared_time:, case_urn:, defendant:, appeal_data:, court_application:, function_type:)
     Sqs::PublishHearing.call(shared_time: shared_time,
                              jurisdiction_type: jurisdiction_type,
                              case_urn: case_urn,
@@ -88,7 +87,7 @@ private
                              court_centre_code: hearing[:courtCentre][:code],
                              court_centre_id: hearing[:courtCentre][:id],
                              appeal_data: appeal_data,
-                             application_data: application_data,
+                             court_application: court_application,
                              function_type: function_type)
   end
 
