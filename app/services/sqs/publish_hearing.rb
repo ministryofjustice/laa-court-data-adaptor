@@ -2,17 +2,22 @@
 
 module Sqs
   class PublishHearing < ApplicationService
-    def initialize(shared_time:, jurisdiction_type:, case_urn:, defendant:, court_centre_code:, court_centre_id:, appeal_data:, court_application:, function_type:)
+    attr_reader :shared_time, :hearing_data, :case_urn, :defendant, :appeal_data, :court_application, :function_type
+
+    def initialize(shared_time:,
+                   hearing_data:,
+                   case_urn:,
+                   defendant:,
+                   appeal_data:,
+                   court_application:,
+                   function_type:)
       @shared_time = shared_time
-      @jurisdiction_type = jurisdiction_type
+      @hearing_data = hearing_data
       @case_urn = case_urn
       @defendant = defendant
-      @court_centre_code = court_centre_code
-      @court_centre = HmctsCommonPlatform::Reference::CourtCentre.find(court_centre_id)
       @appeal_data = appeal_data
       @court_application = court_application
       @function_type = function_type
-      @laa_reference = LaaReference.find_by!(defendant_id: defendant[:id], linked: true)
     end
 
     def call
@@ -45,7 +50,7 @@ module Sqs
           caseUrn: court_application[:applicationReference],
           jurisdictionType: jurisdiction_type,
           asn: court_application[:defendantASN],
-          cjsAreaCode: court_centre_code,
+          cjsAreaCode: hearing_data[:court_centre_code],
           caseCreationDate: shared_time.to_date.strftime("%Y-%m-%d"),
           docLanguage: "EN",
           inActive: true,
@@ -120,7 +125,7 @@ module Sqs
             [:legalAidStatus, offence.dig(:laaApplnReference, :statusCode)],
             [:legalAidStatusDate, offence.dig(:laaApplnReference, :statusDate)],
             [:legalAidReason, offence.dig(:laaApplnReference, :statusDescription)],
-            [:results, results_map(offence[:judicialResults])],
+            [:results, judicial_results_map(offence[:judicialResults])],
             [:plea, offence[:plea]],
             [:verdict, format_verdict(offence[:verdict])],
           ].to_h
@@ -134,14 +139,14 @@ module Sqs
           offenceClassification: court_application_type[:categoryCode],
           offenceDate: "", # Question outstanding what this should be
           offenceWording: court_application_type[:legislation],
-          results: results_map(court_application[:judicialResults]),
+          results: judicial_results_map(court_application[:judicialResults]),
         }
       end
     end
 
-    def results_map(results)
+    def judicial_results_map(judicial_results)
       if function_type == "OFFENCE"
-        results&.map do |result|
+        judicial_results&.map do |result|
           [
             [:resultCode, result[:cjsCode]],
             [:resultShortTitle, result[:label]],
@@ -154,7 +159,7 @@ module Sqs
           ].to_h
         end
       elsif function_type == "APPLICATION"
-        results&.map do |result|
+        judicial_results&.map do |result|
           {
             resultCode: result[:cjsCode],
             resultShortTitle: result[:label],
@@ -198,7 +203,7 @@ module Sqs
         }
       elsif function_type == "APPLICATION"
         {
-          courtLocation: court_centre_code,
+          courtLocation: hearing_data[:court_centre_code],
           dateOfHearing: court_application[:judicialResults][0][:orderedDate], # Question outstanding what this should be
           sessionValidateDate: court_application[:applicationReceivedDate],
         }
@@ -213,6 +218,16 @@ module Sqs
       defendant[:offences]&.any? { |offence| offence[:verdict].present? } || appeal_data.present?
     end
 
-    attr_reader :shared_time, :jurisdiction_type, :case_urn, :function_type, :defendant, :court_centre_code, :court_centre, :appeal_data, :court_application, :laa_reference
+    def laa_reference
+      LaaReference.find_by!(defendant_id: defendant[:id], linked: true)
+    end
+
+    def jurisdiction_type
+      hearing_data[:jurisdiction_type]
+    end
+
+    def court_centre
+      HmctsCommonPlatform::Reference::CourtCentre.find(hearing_data[:court_centre_id])
+    end
   end
 end

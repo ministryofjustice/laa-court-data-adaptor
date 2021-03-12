@@ -3,11 +3,13 @@
 RSpec.describe Sqs::PublishHearing do
   subject(:publish) do
     described_class.call(shared_time: shared_time,
-                         jurisdiction_type: jurisdiction_type,
+                         hearing_data: {
+                           jurisdiction_type: jurisdiction_type,
+                           court_centre_id: court_centre_id,
+                           court_centre_code: court_centre_code,
+                         },
                          case_urn: case_urn,
                          defendant: defendant,
-                         court_centre_code: court_centre_code,
-                         court_centre_id: court_centre_id,
                          appeal_data: appeal_data,
                          court_application: court_application,
                          function_type: function_type)

@@ -89,6 +89,7 @@ RSpec.describe HearingsCreator do
         "jurisdictionType": "MAGISTRATES",
         "courtCentre": {
           "id": "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+          "code": "123",
         },
         "prosecutionCases": prosecution_case_array,
         "courtApplications": court_applications_array,
@@ -107,10 +108,13 @@ RSpec.describe HearingsCreator do
     context "with one defendant" do
       it "calls the Sqs::PublishHearing service once" do
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
                                                                                defendant: defendant_one,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                               hearing_data: {
+                                                                                 jurisdiction_type: "MAGISTRATES",
+                                                                                 court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                                 court_centre_code: "123",
+                                                                               }))
         create_hearings
       end
     end
@@ -133,15 +137,22 @@ RSpec.describe HearingsCreator do
 
       it "calls the Sqs::PublishLaaReference service twice" do
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
                                                                                defendant: defendant_one,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                               hearing_data: {
+                                                                                 jurisdiction_type: "MAGISTRATES",
+                                                                                 court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                                 court_centre_code: "123",
+                                                                               }))
+
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
                                                                                defendant: defendant_two,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                               hearing_data: {
+                                                                                 jurisdiction_type: "MAGISTRATES",
+                                                                                 court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                                 court_centre_code: "123",
+                                                                               }))
         create_hearings
       end
     end
@@ -166,15 +177,22 @@ RSpec.describe HearingsCreator do
 
       it "calls the Sqs::PublishHearing service twice" do
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
                                                                                defendant: defendant_one,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                               hearing_data: {
+                                                                                 jurisdiction_type: "MAGISTRATES",
+                                                                                 court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                                 court_centre_code: "123",
+                                                                               }))
+
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "54321",
                                                                                defendant: defendant_one,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                               hearing_data: {
+                                                                                 jurisdiction_type: "MAGISTRATES",
+                                                                                 court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                                 court_centre_code: "123",
+                                                                               }))
         create_hearings
       end
     end
@@ -186,6 +204,7 @@ RSpec.describe HearingsCreator do
             "jurisdictionType": "CROWN",
             "courtCentre": {
               "id": "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+              "code": "123",
             },
             "prosecutionCases": prosecution_case_array,
           },
@@ -195,10 +214,13 @@ RSpec.describe HearingsCreator do
 
       it "calls the Sqs::PublishHearing service" do
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "CROWN",
                                                                                case_urn: "12345",
                                                                                defendant: defendant_one,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                               hearing_data: {
+                                                                                 jurisdiction_type: "CROWN",
+                                                                                 court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                                 court_centre_code: "123",
+                                                                               }))
         create_hearings
       end
     end
@@ -231,10 +253,13 @@ RSpec.describe HearingsCreator do
 
     it "calls the Sqs::PublishHearing service once" do
       expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                             jurisdiction_type: "MAGISTRATES",
                                                                              case_urn: "12345",
                                                                              defendant: defendant_one,
-                                                                             court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                             hearing_data: {
+                                                                               jurisdiction_type: "MAGISTRATES",
+                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                               court_centre_code: "123",
+                                                                             }))
       create_hearings
     end
 
@@ -258,10 +283,13 @@ RSpec.describe HearingsCreator do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
 
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
                                                                                defendant: master_defendant,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                               hearing_data: {
+                                                                                 jurisdiction_type: "MAGISTRATES",
+                                                                                 court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                                 court_centre_code: "123",
+                                                                               }))
         create_hearings
       end
     end
@@ -275,10 +303,13 @@ RSpec.describe HearingsCreator do
         LaaReference.create!(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: true, maat_reference: "456", user_name: "Steve")
 
         expect(Sqs::PublishHearing).to receive(:call).twice.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                                jurisdiction_type: "MAGISTRATES",
                                                                                 case_urn: "12345",
                                                                                 defendant: master_defendant,
-                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                                hearing_data: {
+                                                                                  jurisdiction_type: "MAGISTRATES",
+                                                                                  court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                                  court_centre_code: "123",
+                                                                                }))
         create_hearings
       end
     end
@@ -292,10 +323,13 @@ RSpec.describe HearingsCreator do
         LaaReference.create!(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: false, maat_reference: "456", user_name: "Steve")
 
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                               jurisdiction_type: "MAGISTRATES",
                                                                                case_urn: "12345",
                                                                                defendant: master_defendant,
-                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                               hearing_data: {
+                                                                                 jurisdiction_type: "MAGISTRATES",
+                                                                                 court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                                 court_centre_code: "123",
+                                                                               }))
 
         create_hearings
       end
@@ -330,6 +364,7 @@ RSpec.describe HearingsCreator do
           "jurisdictionType": "MAGISTRATES",
           "courtCentre": {
             "id": "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+            "code": "123",
           },
           "prosecutionCases": prosecution_case_array,
           "courtApplications": nil,
@@ -340,10 +375,13 @@ RSpec.describe HearingsCreator do
 
     it "calls the Sqs::PublishHearing service once" do
       expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
-                                                                             jurisdiction_type: "MAGISTRATES",
                                                                              case_urn: "12345",
                                                                              defendant: defendant_one,
-                                                                             court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519"))
+                                                                             hearing_data: {
+                                                                               jurisdiction_type: "MAGISTRATES",
+                                                                               court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+                                                                               court_centre_code: "123",
+                                                                             }))
       create_hearings
     end
   end
