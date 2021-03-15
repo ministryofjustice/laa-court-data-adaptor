@@ -214,4 +214,89 @@ RSpec.describe HearingsCreator do
       end
     end
   end
+
+  describe "an application to court" do
+    let(:court_application) do
+      {
+        "applicationReference": "12345",
+        "type": {
+          "applicationCode": "ASE",
+        },
+        "applicant": {
+          "masterDefendant": {
+            "defendantCase":
+            [
+              { "defendantId": "dd22b110-7fbc-3036-a076-e4bb40d0a666" },
+              { "defendantId": "ad22b110-7fbc-3036-a076-e4bb40d0a667" },
+            ],
+          },
+        },
+      }
+    end
+
+    let(:applications_array) { [court_application] }
+
+    context "with one linked defendant" do
+      let(:prosecution_case_array) { nil }
+
+      it "calls the Sqs::MessagePublisher service once" do
+        LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
+
+        expect(Sqs::MessagePublisher).to receive(:call).once
+
+        create_hearings
+      end
+    end
+
+    context "with two linked defendants" do
+      let(:prosecution_case_array) { nil }
+      let(:defendant_case_array) { [defendant_case_one, defendant_case_two] }
+
+      it "calls the Sqs::MessagePublisher service twice" do
+        LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
+        LaaReference.create!(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: true, maat_reference: "456", user_name: "Steve")
+
+        expect(Sqs::MessagePublisher).to receive(:call).twice
+
+        create_hearings
+      end
+    end
+
+    context "with two defendants, one with linked LAA reference, one without" do
+      let(:prosecution_case_array) { nil }
+      let(:defendant_case_array) { [defendant_case_one, defendant_case_two] }
+
+      it "calls the Sqs::MessagePublisher service once" do
+        LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
+        LaaReference.create!(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: false, maat_reference: "456", user_name: "Steve")
+
+        expect(Sqs::MessagePublisher).to receive(:call).once
+
+        create_hearings
+      end
+    end
+
+    context "with no defendant cases" do
+      let(:prosecution_case_array) { nil }
+      let(:defendant_case_array) { nil }
+
+      it "does not call the Sqs::MessagePublisher service" do
+        expect(Sqs::MessagePublisher).not_to receive(:call)
+
+        create_hearings
+      end
+    end
+
+    context "with a defendant that has no LAA reference" do
+      let(:prosecution_case_array) { nil }
+
+      it "does not call the Sqs::MessagePublisher service" do
+        allow(LaaReference).to receive(:find_by).and_return(nil)
+
+        expect(Sqs::MessagePublisher).not_to receive(:call)
+
+        create_hearings
+      end
+    end
+  end
 end

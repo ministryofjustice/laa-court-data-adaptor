@@ -1,0 +1,776 @@
+{
+  "hearing": {
+    "id": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+    "jurisdictionType": "MAGISTRATES",
+    "courtCentre": {
+      "address": {
+        "address1": "176A Lavender Hill",
+        "address2": "London",
+        "address3": "",
+        "address4": "",
+        "address5": "",
+        "postcode": "SW11 1JU"
+      },
+      "code": "B01LY00",
+      "id": "f8254db1-1683-483e-afb3-b87fde5a0a26",
+      "lja": {
+        "ljaCode": "2577",
+        "ljaName": "South West London Magistrates' Court"
+      },
+      "name": "Lavender Hill Magistrates' Court",
+      "roomId": "b4562684-9209-3ec4-a544-7f80dabd94d8",
+      "roomName": "Courtroom 02"
+    },
+    "type": {
+      "description": "First hearing",
+      "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776"
+    },
+    "hearingDays": [
+      {
+        "courtCentreId": "f8254db1-1683-483e-afb3-b87fde5a0a26",
+        "courtRoomId": "b4562684-9209-3ec4-a544-7f80dabd94d8",
+        "isCancelled": false,
+        "listedDurationMinutes": 20,
+        "listingSequence": 0,
+        "sittingDay": "2021-03-10T09:01:01.001Z"
+      }
+    ],
+    "hearingLanguage": "ENGLISH",
+    "prosecutionCases": [
+      {
+        "id": "ff0a7306-bd04-4815-b953-fb57039c7c40",
+        "prosecutionCaseIdentifier": {
+          "address": {
+            "address1": "Criminal Justice Department",
+            "address2": "Derbyshire Constabulary",
+            "address3": "Butterley Hall",
+            "postcode": "DE5 3RS"
+          },
+          "majorCreditorCode": "PF30",
+          "prosecutionAuthorityCode": "DERPF",
+          "prosecutionAuthorityId": "bdc190e7-c939-37ca-be4b-9f615d6ef40e",
+          "prosecutionAuthorityName": "Derbyshire Police",
+          "prosecutionAuthorityOUCode": "0300000",
+          "caseURN": "90GDAPPS314"
+        },
+        "initiationCode": "C",
+        "defendants": [
+          {
+            "id": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+            "prosecutionCaseId": "ff0a7306-bd04-4815-b953-fb57039c7c40",
+            "offences": [
+              {
+                "id": "0005d9c9-6911-4329-a204-833e77f80f1a",
+                "offenceDefinitionId": "062cedf4-b495-3a6c-9148-cec6bef362ef",
+                "offenceCode": "CA03013",
+                "offenceTitle": "Obstruct person executing search warrant for TV receiver",
+                "wording": "Has a violent past and fear that he will commit further offences and\n interfere with witnesse",
+                "startDate": "2020-02-09",
+                "offenceLegislation": "Contrary to section 366(8)(a) and (9) of the Communications Act 2003.",
+                "modeOfTrial": "Summary",
+                "arrestDate": "2020-02-09",
+                "chargeDate": "2020-02-09",
+                "orderIndex": 2,
+                "count": 0,
+                "convictionDate": "2021-03-10",
+                "plea": {
+                  "offenceId": "0005d9c9-6911-4329-a204-833e77f80f1a",
+                  "originatingHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                  "pleaDate": "2021-03-10",
+                  "pleaValue": "GUILTY"
+                },
+                "judicialResults": [
+                  {
+                    "alwaysPublished": false,
+                    "canBeSubjectOfBreach": true,
+                    "canBeSubjectOfVariation": false,
+                    "category": "FINAL",
+                    "cjsCode": "1018",
+                    "courtClerk": {
+                      "firstName": "Erica",
+                      "lastName": "Wilson",
+                      "userId": "a085e359-6069-4694-8820-7810e7dfe762"
+                    },
+                    "d20": false,
+                    "durationElement": {
+                      "primaryDurationUnit": "W",
+                      "primaryDurationValue": 1
+                    },
+                    "excludedFromResults": false,
+                    "isAdjournmentResult": false,
+                    "isAvailableForCourtExtract": true,
+                    "isConvictedResult": true,
+                    "isDeleted": false,
+                    "isFinancialResult": false,
+                    "isUnscheduled": false,
+                    "judicialResultId": "a062457f-2570-4624-83f5-3669aac57dbb",
+                    "judicialResultPrompts": [
+                      {
+                        "courtExtract": "Y",
+                        "durationSequence": 1,
+                        "isFinancialImposition": false,
+                        "judicialResultPromptTypeId": "d3205319-84cf-4c5b-9d7a-7e4bb1865054",
+                        "label": "Period of conditional discharge",
+                        "promptReference": "periodofConditionalDischarge",
+                        "promptSequence": 100,
+                        "type": "INT",
+                        "usergroups": [],
+                        "value": "1 Weeks",
+                        "welshLabel": "Cyfnod o ryddhad amodol",
+                        "welshValue": "1 Wythnos"
+                      }
+                    ],
+                    "judicialResultTypeId": "554c2622-c1cc-459e-a98d-b7f317ab065c",
+                    "label": "Conditional discharge",
+                    "lastSharedDateTime": "2021-03-09",
+                    "level": "O",
+                    "lifeDuration": false,
+                    "orderedDate": "2021-03-10",
+                    "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                    "postHearingCustodyStatus": "A",
+                    "publishedAsAPrompt": false,
+                    "publishedForNows": false,
+                    "rank": 23400,
+                    "resultText": "Conditional discharge\nPeriod of conditional discharge 1 Weeks",
+                    "rollUpPrompts": true,
+                    "rootJudicialResultId": "a062457f-2570-4624-83f5-3669aac57dbb",
+                    "rootJudicialResultTypeId": "554c2622-c1cc-459e-a98d-b7f317ab065c",
+                    "terminatesOffenceProceedings": false,
+                    "urgent": false,
+                    "usergroups": [],
+                    "welshLabel": "Rhyddhad Amodol"
+                  }
+                ],
+                "allocationDecision": {
+                  "offenceId": "0005d9c9-6911-4329-a204-833e77f80f1a",
+                  "motReasonId": "b8c37e33-defd-351c-b91e-1e03e51657da",
+                  "sequenceNumber": 90,
+                  "motReasonDescription": "Summary-only offence",
+                  "motReasonCode": "01",
+                  "originatingHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                  "allocationDecisionDate": "2021-03-10"
+                }
+              },
+              {
+                "id": "0b4b2d12-1811-4935-ac65-da6f44f148ad",
+                "offenceDefinitionId": "3722ce0f-660c-32ba-8088-e23f2f86057f",
+                "offenceCode": "CA03012",
+                "offenceTitle": "Possess / control TV set with intent another use install without a licence",
+                "wording": "Has a violent past and fear that he will commit further offences and\n interfere with witnesse",
+                "startDate": "2020-02-09",
+                "offenceLegislation": "Contrary to section 363(3)(b) and (4) of the Communications Act 2003.",
+                "modeOfTrial": "Summary",
+                "arrestDate": "2020-02-09",
+                "chargeDate": "2020-02-09",
+                "orderIndex": 1,
+                "count": 0,
+                "convictionDate": "2021-03-10",
+                "plea": {
+                  "offenceId": "0b4b2d12-1811-4935-ac65-da6f44f148ad",
+                  "originatingHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                  "pleaDate": "2021-03-10",
+                  "pleaValue": "GUILTY"
+                },
+                "judicialResults": [
+                  {
+                    "alwaysPublished": false,
+                    "canBeSubjectOfBreach": true,
+                    "canBeSubjectOfVariation": false,
+                    "category": "FINAL",
+                    "cjsCode": "1018",
+                    "courtClerk": {
+                      "firstName": "Erica",
+                      "lastName": "Wilson",
+                      "userId": "a085e359-6069-4694-8820-7810e7dfe762"
+                    },
+                    "d20": false,
+                    "durationElement": {
+                      "primaryDurationUnit": "M",
+                      "primaryDurationValue": 1
+                    },
+                    "excludedFromResults": false,
+                    "isAdjournmentResult": false,
+                    "isAvailableForCourtExtract": true,
+                    "isConvictedResult": true,
+                    "isDeleted": false,
+                    "isFinancialResult": false,
+                    "isUnscheduled": false,
+                    "judicialResultId": "514e37bb-220d-456b-9081-e14714c7392d",
+                    "judicialResultPrompts": [
+                      {
+                        "courtExtract": "Y",
+                        "durationSequence": 1,
+                        "isFinancialImposition": false,
+                        "judicialResultPromptTypeId": "d3205319-84cf-4c5b-9d7a-7e4bb1865054",
+                        "label": "Period of conditional discharge",
+                        "promptReference": "periodofConditionalDischarge",
+                        "promptSequence": 100,
+                        "type": "INT",
+                        "usergroups": [],
+                        "value": "1 Months",
+                        "welshLabel": "Cyfnod o ryddhad amodol",
+                        "welshValue": "1 Mis"
+                      }
+                    ],
+                    "judicialResultTypeId": "554c2622-c1cc-459e-a98d-b7f317ab065c",
+                    "label": "Conditional discharge",
+                    "lastSharedDateTime": "2021-03-09",
+                    "level": "O",
+                    "lifeDuration": false,
+                    "orderedDate": "2021-03-10",
+                    "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                    "postHearingCustodyStatus": "A",
+                    "publishedAsAPrompt": false,
+                    "publishedForNows": false,
+                    "rank": 23400,
+                    "resultText": "Conditional discharge\nPeriod of conditional discharge 1 Months",
+                    "rollUpPrompts": true,
+                    "rootJudicialResultId": "514e37bb-220d-456b-9081-e14714c7392d",
+                    "rootJudicialResultTypeId": "554c2622-c1cc-459e-a98d-b7f317ab065c",
+                    "terminatesOffenceProceedings": false,
+                    "urgent": false,
+                    "usergroups": [],
+                    "welshLabel": "Rhyddhad Amodol"
+                  }
+                ],
+                "allocationDecision": {
+                  "offenceId": "0b4b2d12-1811-4935-ac65-da6f44f148ad",
+                  "motReasonId": "b8c37e33-defd-351c-b91e-1e03e51657da",
+                  "sequenceNumber": 90,
+                  "motReasonDescription": "Summary-only offence",
+                  "motReasonCode": "01",
+                  "originatingHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                  "allocationDecisionDate": "2021-03-10"
+                },
+                "laaApplnReference": {
+                  "applicationReference": "LAA-12345",
+                  "effectiveEndDate": "2019-12-12",
+                  "effectiveStartDate": "2019-09-12",
+                  "laaContractNumber": "99998888",
+                  "offenceLevelStatus": "Granted",
+                  "statusCode": "GR",
+                  "statusDate": "2019-12-16",
+                  "statusDescription": "Granted (One Advocate)",
+                  "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5"
+                }
+              }
+            ],
+            "prosecutionAuthorityReference": "TFL1",
+            "personDefendant": {
+              "arrestSummonsNumber": "TFL1",
+              "bailConditions": "",
+              "bailStatus": {
+                "code": "A",
+                "description": "Not applicable",
+                "id": "86009c70-759d-3308-8de4-194886ff9a77"
+              },
+              "personDetails": {
+                "address": {
+                  "address1": "1234",
+                  "address2": "StreetDescription",
+                  "address3": "Locality2O"
+                },
+                "dateOfBirth": "1990-01-01",
+                "documentationLanguageNeeds": "ENGLISH",
+                "firstName": "Carlee",
+                "gender": "MALE",
+                "lastName": "WilliamsonConnelly",
+                "title": "Mr"
+              }
+            },
+            "masterDefendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+            "isYouth": false
+          }
+        ],
+        "caseStatus": "ACTIVE",
+        "originatingOrganisation": "0300000"
+      }
+    ],
+    "hasSharedResults": true,
+    "courtApplications": [
+      {
+        "id": "c5266a93-389c-4331-a56a-dd000b361cef",
+        "defendantASN": "12456ABC",
+        "type": {
+          "appealFlag": false,
+          "applicantAppellantFlag": false,
+          "boxworkNotifTemplate": "NOT_APPLICABLE",
+          "breachType": "NOT_APPLICABLE",
+          "categoryCode": "CO",
+          "code": "LA12505",
+          "commrOfOathFlag": false,
+          "courtExtractAvlFlag": true,
+          "courtOfAppealFlag": false,
+          "hearingCode": "APN",
+          "id": "74b72f6f-414a-3464-a4a2-d91397b4c439",
+          "jurisdiction": "EITHER",
+          "legislation": "Pursuant to Regulation 14 of the Criminal Legal Aid",
+          "linkType": "LINKED",
+          "listingNotifTemplate": "POSTAL_NOTIFICATION",
+          "offenceActiveOrder": "NOT_APPLICABLE",
+          "pleaApplicableFlag": false,
+          "prosecutorThirdPartyFlag": false,
+          "spiOutApplicableFlag": true,
+          "summonsTemplateType": "NOT_APPLICABLE",
+          "type": "Application for transfer of legal aid"
+        },
+        "applicationReceivedDate": "2021-03-09",
+        "applicant": {
+          "id": "80ae2f05-04dd-4f7e-aa11-802fbf585efe",
+          "masterDefendant": {
+            "isYouth": false,
+            "masterDefendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+            "personDefendant": {
+              "arrestSummonsNumber": "TFL1",
+              "bailStatus": {
+                "code": "C",
+                "description": "Custody or remanded into custody",
+                "id": "12e69486-4d01-3403-a50a-7419ca040635"
+              },
+              "personDetails": {
+                "nationalInsuranceNumber": "123456789A",
+                "address": {
+                  "address1": "Address Line 1",
+                  "address2": "Address Line 2",
+                  "address3": "Address Line 3",
+                  "address4": "Address Line 4",
+                  "address5": "Address Line 5",
+                  "postcode": "SW1 W11"
+                },
+                "contact": {
+                  "home": "000-000-0000",
+                  "work": "111-111-1111",
+                  "mobile": "222-222-2222",
+                  "primaryEmail": "primary@example.com",
+                  "secondaryEmail": "secondary@example.com"
+                },
+                "dateOfBirth": "1990-01-01",
+                "documentationLanguageNeeds": "ENGLISH",
+                "firstName": "Carlee",
+                "gender": "MALE",
+                "lastName": "WilliamsonConnelly",
+                "title": "Mr"
+              }
+            }
+          },
+          "notificationRequired": true,
+          "summonsRequired": false
+        },
+        "applicationStatus": "LISTED",
+        "subject": {
+          "id": "80ae2f05-04dd-4f7e-aa11-802fbf585efe",
+          "masterDefendant": {
+            "isYouth": false,
+            "masterDefendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+            "personDefendant": {
+              "arrestSummonsNumber": "TFL1",
+              "bailConditions": "",
+              "bailStatus": {
+                "code": "C",
+                "description": "Custody or remanded into custody",
+                "id": "12e69486-4d01-3403-a50a-7419ca040635"
+              },
+              "personDetails": {
+                "address": {
+                  "address1": "1234",
+                  "address2": "StreetDescription",
+                  "address3": "Locality2O"
+                },
+                "dateOfBirth": "1990-01-01",
+                "documentationLanguageNeeds": "ENGLISH",
+                "firstName": "Carlee",
+                "gender": "MALE",
+                "lastName": "WilliamsonConnelly",
+                "title": "Mr"
+              }
+            }
+          },
+          "notificationRequired": true,
+          "summonsRequired": false
+        },
+        "applicationReference": "90GDAPPS314",
+        "applicationParticulars": "application particulars",
+        "judicialResults": [
+          {
+            "alwaysPublished": false,
+            "canBeSubjectOfBreach": false,
+            "canBeSubjectOfVariation": false,
+            "category": "FINAL",
+            "cjsCode": "4600",
+            "courtClerk": {
+              "firstName": "Erica",
+              "lastName": "Wilson",
+              "userId": "a085e359-6069-4694-8820-7810e7dfe762"
+            },
+            "d20": false,
+            "excludedFromResults": false,
+            "isAdjournmentResult": false,
+            "isAvailableForCourtExtract": true,
+            "isConvictedResult": false,
+            "isDeleted": false,
+            "isFinancialResult": false,
+            "isUnscheduled": false,
+            "judicialResultId": "be225605-fc15-47aa-b74c-efb8629db58e",
+            "judicialResultPrompts": [
+              {
+                "courtExtract": "Y",
+                "isFinancialImposition": false,
+                "judicialResultPromptTypeId": "1745ee94-1564-48b3-9eca-4a34e1baf706",
+                "label": "Grant of legal aid transferred to (new firm name)",
+                "promptReference": "grantOfLegalAidTransferredToNewFirmName",
+                "promptSequence": 100,
+                "type": "TXT",
+                "usergroups": [],
+                "value": "Joe Bloggs Solicitors Ltd, London",
+                "welshValue": "Joe Bloggs Solicitors Ltd, London"
+              },
+              {
+                "courtExtract": "Y",
+                "isFinancialImposition": false,
+                "judicialResultPromptTypeId": "df6fe61a-b209-4fb1-9bbf-eadb2acb7c22",
+                "label": "Additional reasons",
+                "promptReference": "additionalReasons",
+                "promptSequence": 200,
+                "type": "TXT",
+                "usergroups": [],
+                "value": "Defendant's choice",
+                "welshValue": "Defendant's choice"
+              },
+              {
+                "courtExtract": "Y",
+                "isFinancialImposition": false,
+                "judicialResultPromptTypeId": "de946ead-b69e-4096-9008-dfecb6014e2d",
+                "label": "New firm's LAA account reference",
+                "promptReference": "newFirmsLAAAccountReference",
+                "promptSequence": 300,
+                "type": "TXT",
+                "usergroups": [],
+                "value": "55558888",
+                "welshValue": "55558888"
+              }
+            ],
+            "judicialResultTypeId": "c5520033-7389-4815-a5c9-bf28fcebb134",
+            "label": "Legal Aid Transfer Granted",
+            "lastSharedDateTime": "2021-03-09",
+            "level": "O",
+            "lifeDuration": false,
+            "nextHearing": {
+              "courtCentre": {
+                "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
+              },
+              "listedStartDateTime": "2020-03-01"
+            },
+            "orderedDate": "2021-03-10",
+            "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+            "postHearingCustodyStatus": "A",
+            "publishedAsAPrompt": false,
+            "publishedForNows": false,
+            "qualifier": "",
+            "rank": 49500,
+            "resultText": "Legal Aid Transfer Granted\nGrant of legal aid transferred to (new firm name) Joe Bloggs Solicitors Ltd, London\nAdditional reasons Defendant's choice\nNew firm's LAA account reference 55558888",
+            "rollUpPrompts": true,
+            "rootJudicialResultId": "be225605-fc15-47aa-b74c-efb8629db58e",
+            "rootJudicialResultTypeId": "c5520033-7389-4815-a5c9-bf28fcebb134",
+            "terminatesOffenceProceedings": false,
+            "urgent": false,
+            "usergroups": []
+          }
+        ],
+        "courtApplicationCases": [
+          {
+            "prosecutionCaseId": "ff0a7306-bd04-4815-b953-fb57039c7c40",
+            "isSJP": false,
+            "caseStatus": "ACTIVE",
+            "prosecutionCaseIdentifier": {
+              "address": {
+                "address1": "Criminal Justice Department",
+                "address2": "Derbyshire Constabulary",
+                "address3": "Butterley Hall",
+                "postcode": "DE5 3RS"
+              },
+              "majorCreditorCode": "PF30",
+              "prosecutionAuthorityCode": "DERPF",
+              "prosecutionAuthorityId": "bdc190e7-c939-37ca-be4b-9f615d6ef40e",
+              "prosecutionAuthorityName": "Derbyshire Police",
+              "prosecutionAuthorityOUCode": "0300000",
+              "caseURN": "90GDAPPS314"
+            }
+          }
+        ]
+      }
+    ],
+    "defendantAttendance": [
+      {
+        "attendanceDays": [
+          {
+            "attendanceType": "IN_PERSON",
+            "day": "2021-03-10"
+          }
+        ],
+        "defendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5"
+      },
+      {
+        "attendanceDays": [
+          {
+            "attendanceType": "IN_PERSON",
+            "day": "2021-03-10"
+          }
+        ],
+        "defendantId": "7cef245a-c1f8-48d8-b15a-ff9a83bab091"
+      }
+    ],
+    "prosectionCases": [
+      [
+        {
+          "id": "ff0a7306-bd04-4815-b953-fb57039c7c40",
+          "prosecutionCaseIdentifier": {
+            "address": {
+              "address1": "Criminal Justice Department",
+              "address2": "Derbyshire Constabulary",
+              "address3": "Butterley Hall",
+              "postcode": "DE5 3RS"
+            },
+            "majorCreditorCode": "PF30",
+            "prosecutionAuthorityCode": "DERPF",
+            "prosecutionAuthorityId": "bdc190e7-c939-37ca-be4b-9f615d6ef40e",
+            "prosecutionAuthorityName": "Derbyshire Police",
+            "prosecutionAuthorityOUCode": "0300000",
+            "caseURN": "90GDAPPS314"
+          },
+          "initiationCode": "C",
+          "defendants": [
+            {
+              "id": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+              "prosecutionCaseId": "ff0a7306-bd04-4815-b953-fb57039c7c40",
+              "offences": [
+                {
+                  "id": "0005d9c9-6911-4329-a204-833e77f80f1a",
+                  "offenceDefinitionId": "062cedf4-b495-3a6c-9148-cec6bef362ef",
+                  "offenceCode": "CA03013",
+                  "offenceTitle": "Obstruct person executing search warrant for TV receiver",
+                  "wording": "Has a violent past and fear that he will commit further offences and\n interfere with witnesse",
+                  "startDate": "2020-02-09",
+                  "offenceLegislation": "Contrary to section 366(8)(a) and (9) of the Communications Act 2003.",
+                  "modeOfTrial": "Summary",
+                  "arrestDate": "2020-02-09",
+                  "chargeDate": "2020-02-09",
+                  "orderIndex": 2,
+                  "count": 0,
+                  "convictionDate": "2021-03-10",
+                  "plea": {
+                    "offenceId": "0005d9c9-6911-4329-a204-833e77f80f1a",
+                    "originatingHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                    "pleaDate": "2021-03-10",
+                    "pleaValue": "GUILTY"
+                  },
+                  "judicialResults": [
+                    {
+                      "alwaysPublished": false,
+                      "canBeSubjectOfBreach": true,
+                      "canBeSubjectOfVariation": false,
+                      "category": "FINAL",
+                      "cjsCode": "1018",
+                      "courtClerk": {
+                        "firstName": "Erica",
+                        "lastName": "Wilson",
+                        "userId": "a085e359-6069-4694-8820-7810e7dfe762"
+                      },
+                      "d20": false,
+                      "durationElement": {
+                        "primaryDurationUnit": "W",
+                        "primaryDurationValue": 1
+                      },
+                      "excludedFromResults": false,
+                      "isAdjournmentResult": false,
+                      "isAvailableForCourtExtract": true,
+                      "isConvictedResult": true,
+                      "isDeleted": false,
+                      "isFinancialResult": false,
+                      "isUnscheduled": false,
+                      "judicialResultId": "a062457f-2570-4624-83f5-3669aac57dbb",
+                      "judicialResultPrompts": [
+                        {
+                          "courtExtract": "Y",
+                          "durationSequence": 1,
+                          "isFinancialImposition": false,
+                          "judicialResultPromptTypeId": "d3205319-84cf-4c5b-9d7a-7e4bb1865054",
+                          "label": "Period of conditional discharge",
+                          "promptReference": "periodofConditionalDischarge",
+                          "promptSequence": 100,
+                          "type": "INT",
+                          "usergroups": [],
+                          "value": "1 Weeks",
+                          "welshLabel": "Cyfnod o ryddhad amodol",
+                          "welshValue": "1 Wythnos"
+                        }
+                      ],
+                      "judicialResultTypeId": "554c2622-c1cc-459e-a98d-b7f317ab065c",
+                      "label": "Conditional discharge",
+                      "lastSharedDateTime": "2021-03-09",
+                      "level": "O",
+                      "lifeDuration": false,
+                      "orderedDate": "2021-03-10",
+                      "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                      "postHearingCustodyStatus": "A",
+                      "publishedAsAPrompt": false,
+                      "publishedForNows": false,
+                      "rank": 23400,
+                      "resultText": "Conditional discharge\nPeriod of conditional discharge 1 Weeks",
+                      "rollUpPrompts": true,
+                      "rootJudicialResultId": "a062457f-2570-4624-83f5-3669aac57dbb",
+                      "rootJudicialResultTypeId": "554c2622-c1cc-459e-a98d-b7f317ab065c",
+                      "terminatesOffenceProceedings": false,
+                      "urgent": false,
+                      "usergroups": [],
+                      "welshLabel": "Rhyddhad Amodol"
+                    }
+                  ],
+                  "allocationDecision": {
+                    "offenceId": "0005d9c9-6911-4329-a204-833e77f80f1a",
+                    "motReasonId": "b8c37e33-defd-351c-b91e-1e03e51657da",
+                    "sequenceNumber": 90,
+                    "motReasonDescription": "Summary-only offence",
+                    "motReasonCode": "01",
+                    "originatingHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                    "allocationDecisionDate": "2021-03-10"
+                  }
+                },
+                {
+                  "id": "0b4b2d12-1811-4935-ac65-da6f44f148ad",
+                  "offenceDefinitionId": "3722ce0f-660c-32ba-8088-e23f2f86057f",
+                  "offenceCode": "CA03012",
+                  "offenceTitle": "Possess / control TV set with intent another use install without a licence",
+                  "wording": "Has a violent past and fear that he will commit further offences and\n interfere with witnesse",
+                  "startDate": "2020-02-09",
+                  "offenceLegislation": "Contrary to section 363(3)(b) and (4) of the Communications Act 2003.",
+                  "modeOfTrial": "Summary",
+                  "arrestDate": "2020-02-09",
+                  "chargeDate": "2020-02-09",
+                  "orderIndex": 1,
+                  "count": 0,
+                  "convictionDate": "2021-03-10",
+                  "plea": {
+                    "offenceId": "0b4b2d12-1811-4935-ac65-da6f44f148ad",
+                    "originatingHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                    "pleaDate": "2021-03-10",
+                    "pleaValue": "GUILTY"
+                  },
+                  "judicialResults": [
+                    {
+                      "alwaysPublished": false,
+                      "canBeSubjectOfBreach": true,
+                      "canBeSubjectOfVariation": false,
+                      "category": "FINAL",
+                      "cjsCode": "1018",
+                      "courtClerk": {
+                        "firstName": "Erica",
+                        "lastName": "Wilson",
+                        "userId": "a085e359-6069-4694-8820-7810e7dfe762"
+                      },
+                      "d20": false,
+                      "durationElement": {
+                        "primaryDurationUnit": "M",
+                        "primaryDurationValue": 1
+                      },
+                      "excludedFromResults": false,
+                      "isAdjournmentResult": false,
+                      "isAvailableForCourtExtract": true,
+                      "isConvictedResult": true,
+                      "isDeleted": false,
+                      "isFinancialResult": false,
+                      "isUnscheduled": false,
+                      "judicialResultId": "514e37bb-220d-456b-9081-e14714c7392d",
+                      "judicialResultPrompts": [
+                        {
+                          "courtExtract": "Y",
+                          "durationSequence": 1,
+                          "isFinancialImposition": false,
+                          "judicialResultPromptTypeId": "d3205319-84cf-4c5b-9d7a-7e4bb1865054",
+                          "label": "Period of conditional discharge",
+                          "promptReference": "periodofConditionalDischarge",
+                          "promptSequence": 100,
+                          "type": "INT",
+                          "usergroups": [],
+                          "value": "1 Months",
+                          "welshLabel": "Cyfnod o ryddhad amodol",
+                          "welshValue": "1 Mis"
+                        }
+                      ],
+                      "judicialResultTypeId": "554c2622-c1cc-459e-a98d-b7f317ab065c",
+                      "label": "Conditional discharge",
+                      "lastSharedDateTime": "2021-03-09",
+                      "level": "O",
+                      "lifeDuration": false,
+                      "orderedDate": "2021-03-10",
+                      "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                      "postHearingCustodyStatus": "A",
+                      "publishedAsAPrompt": false,
+                      "publishedForNows": false,
+                      "rank": 23400,
+                      "resultText": "Conditional discharge\nPeriod of conditional discharge 1 Months",
+                      "rollUpPrompts": true,
+                      "rootJudicialResultId": "514e37bb-220d-456b-9081-e14714c7392d",
+                      "rootJudicialResultTypeId": "554c2622-c1cc-459e-a98d-b7f317ab065c",
+                      "terminatesOffenceProceedings": false,
+                      "urgent": false,
+                      "usergroups": [],
+                      "welshLabel": "Rhyddhad Amodol"
+                    }
+                  ],
+                  "allocationDecision": {
+                    "offenceId": "0b4b2d12-1811-4935-ac65-da6f44f148ad",
+                    "motReasonId": "b8c37e33-defd-351c-b91e-1e03e51657da",
+                    "sequenceNumber": 90,
+                    "motReasonDescription": "Summary-only offence",
+                    "motReasonCode": "01",
+                    "originatingHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+                    "allocationDecisionDate": "2021-03-10"
+                  },
+                  "laaApplnReference": {
+                    "applicationReference": "LAA-12345",
+                    "effectiveEndDate": "2019-12-12",
+                    "effectiveStartDate": "2019-09-12",
+                    "laaContractNumber": "99998888",
+                    "offenceLevelStatus": "Granted",
+                    "statusCode": "GR",
+                    "statusDate": "2019-12-16",
+                    "statusDescription": "Granted (One Advocate)",
+                    "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5"
+                  }
+                }
+              ],
+              "prosecutionAuthorityReference": "TFL1",
+              "personDefendant": {
+                "arrestSummonsNumber": "TFL1",
+                "bailConditions": "",
+                "bailStatus": {
+                  "code": "A",
+                  "description": "Not applicable",
+                  "id": "86009c70-759d-3308-8de4-194886ff9a77"
+                },
+                "personDetails": {
+                  "address": {
+                    "address1": "1234",
+                    "address2": "StreetDescription",
+                    "address3": "Locality2O"
+                  },
+                  "dateOfBirth": "1990-01-01",
+                  "documentationLanguageNeeds": "ENGLISH",
+                  "firstName": "Carlee",
+                  "gender": "MALE",
+                  "lastName": "WilliamsonConnelly",
+                  "title": "Mr"
+                }
+              },
+              "masterDefendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+              "isYouth": false
+            }
+          ],
+          "caseStatus": "ACTIVE",
+          "originatingOrganisation": "0300000"
+        }
+      ]
+    ]
+  },
+  "sharedTime": "2021-03-09T15:54:09.871Z"
+}
