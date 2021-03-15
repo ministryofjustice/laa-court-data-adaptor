@@ -50,8 +50,9 @@ module Sqs
           caseUrn: court_application[:applicationReference],
           jurisdictionType: jurisdiction_type,
           asn: court_application[:defendantASN],
-          cjsAreaCode: hearing_data[:court_centre_code],
+          cjsAreaCode: cjs_area_code,
           caseCreationDate: shared_time.to_date.strftime("%Y-%m-%d"),
+          cjsLocation: cjs_location,
           docLanguage: "EN",
           inActive: true,
           function_type: function_type,
@@ -137,7 +138,7 @@ module Sqs
           offenceCode: court_application_type[:code],
           offenceShortTitle: court_application_type[:type],
           offenceClassification: court_application_type[:categoryCode],
-          offenceDate: "", # Question outstanding what this should be
+          offenceDate: court_application[:applicationReceivedDate],
           offenceWording: court_application_type[:legislation],
           results: judicial_results_map(court_application[:judicialResults]),
         }
@@ -203,9 +204,9 @@ module Sqs
         }
       elsif function_type == "APPLICATION"
         {
-          courtLocation: hearing_data[:court_centre_code],
+          courtLocation: cjs_location,
           dateOfHearing: court_application[:judicialResults][0][:orderedDate], # Question outstanding what this should be
-          sessionValidateDate: court_application[:applicationReceivedDate],
+          sessionValidateDate: hearing_data.dig(:hearing_days, 0, :sittingDay),
         }
       end
     end

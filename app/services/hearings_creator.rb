@@ -83,7 +83,7 @@ private
     hearing_data = {
       jurisdiction_type: hearing[:jurisdictionType],
       court_centre_id: hearing[:courtCentre][:id],
-      court_centre_code: hearing[:courtCentre][:code],
+      hearing_days: hearing[:hearingDays],
     }
 
     Sqs::PublishHearing.call(shared_time: shared_time,

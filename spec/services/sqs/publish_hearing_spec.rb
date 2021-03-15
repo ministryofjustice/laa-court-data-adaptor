@@ -6,7 +6,7 @@ RSpec.describe Sqs::PublishHearing do
                          hearing_data: {
                            jurisdiction_type: jurisdiction_type,
                            court_centre_id: court_centre_id,
-                           court_centre_code: court_centre_code,
+                           hearing_days: hearing_days,
                          },
                          case_urn: case_urn,
                          defendant: defendant,
@@ -18,7 +18,7 @@ RSpec.describe Sqs::PublishHearing do
   let(:shared_time) { "2018-10-25T14:45:05.602Z" }
   let(:jurisdiction_type) { "CROWN" }
   let(:case_urn) { "12345" }
-  let(:court_centre_code) { "B01DU00" }
+  let(:hearing_days) { [{ sittingDay: "2021-02-12" }] }
   let(:court_centre_id) { "dd22b110-7fbc-3036-a076-e4bb40d0a519" }
   let(:appeal_data) { nil }
   let(:function_type) { nil }
@@ -304,8 +304,9 @@ RSpec.describe Sqs::PublishHearing do
         caseUrn: "98sg3v79-e4sd-4bv8-9fsb-be635fs87783",
         jurisdictionType: "CROWN",
         asn: "12435",
-        cjsAreaCode: "B01DU00",
+        cjsAreaCode: "16",
         caseCreationDate: "2018-10-25",
+        cjsLocation: "B16BG",
         docLanguage: "EN",
         inActive: true,
         function_type: "APPLICATION",
@@ -330,7 +331,7 @@ RSpec.describe Sqs::PublishHearing do
             offenceCode: "LA12505",
             offenceShortTitle: "Application for transfer of legal aid",
             offenceClassification: "CO",
-            offenceDate: "",
+            offenceDate: "2021-02-12",
             offenceWording: "Pursuant to Regulation 14 of the Criminal Legal Aid (Determinations by a Court and Choice of Representative) Regulations 2013.",
             results: [{
               resultCode: "123",
@@ -343,7 +344,7 @@ RSpec.describe Sqs::PublishHearing do
           },
         },
         session: {
-          courtLocation: "B01DU00",
+          courtLocation: "B16BG",
           dateOfHearing: "2018-11-11",
           sessionValidateDate: "2021-02-12",
         },

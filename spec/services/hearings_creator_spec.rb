@@ -93,10 +93,13 @@ RSpec.describe HearingsCreator do
         },
         "prosecutionCases": prosecution_case_array,
         "courtApplications": court_applications_array,
+        "hearingDays": hearing_days,
       },
       "sharedTime": "2018-10-25 11:30:00",
     }
   end
+
+  let(:hearing_days) { [{ sittingDay: "2021-02-12" }] }
 
   let(:hearing) { Hearing.create!(body: hearing_body) }
 
@@ -113,7 +116,7 @@ RSpec.describe HearingsCreator do
                                                                                hearing_data: {
                                                                                  jurisdiction_type: "MAGISTRATES",
                                                                                  court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                                 court_centre_code: "123",
+                                                                                 hearing_days: hearing_days,
                                                                                }))
         create_hearings
       end
@@ -142,7 +145,7 @@ RSpec.describe HearingsCreator do
                                                                                hearing_data: {
                                                                                  jurisdiction_type: "MAGISTRATES",
                                                                                  court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                                 court_centre_code: "123",
+                                                                                 hearing_days: hearing_days,
                                                                                }))
 
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
@@ -151,7 +154,7 @@ RSpec.describe HearingsCreator do
                                                                                hearing_data: {
                                                                                  jurisdiction_type: "MAGISTRATES",
                                                                                  court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                                 court_centre_code: "123",
+                                                                                 hearing_days: hearing_days,
                                                                                }))
         create_hearings
       end
@@ -182,7 +185,7 @@ RSpec.describe HearingsCreator do
                                                                                hearing_data: {
                                                                                  jurisdiction_type: "MAGISTRATES",
                                                                                  court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                                 court_centre_code: "123",
+                                                                                 hearing_days: hearing_days,
                                                                                }))
 
         expect(Sqs::PublishHearing).to receive(:call).once.with(hash_including(shared_time: "2018-10-25 11:30:00",
@@ -191,7 +194,7 @@ RSpec.describe HearingsCreator do
                                                                                hearing_data: {
                                                                                  jurisdiction_type: "MAGISTRATES",
                                                                                  court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                                 court_centre_code: "123",
+                                                                                 hearing_days: hearing_days,
                                                                                }))
         create_hearings
       end
@@ -207,6 +210,7 @@ RSpec.describe HearingsCreator do
               "code": "123",
             },
             "prosecutionCases": prosecution_case_array,
+            "hearingDays": hearing_days,
           },
           "sharedTime": "2018-10-25 11:30:00",
         }
@@ -219,7 +223,7 @@ RSpec.describe HearingsCreator do
                                                                                hearing_data: {
                                                                                  jurisdiction_type: "CROWN",
                                                                                  court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                                 court_centre_code: "123",
+                                                                                 hearing_days: hearing_days,
                                                                                }))
         create_hearings
       end
@@ -258,7 +262,7 @@ RSpec.describe HearingsCreator do
                                                                              hearing_data: {
                                                                                jurisdiction_type: "MAGISTRATES",
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                               court_centre_code: "123",
+                                                                               hearing_days: hearing_days,
                                                                              }))
       create_hearings
     end
@@ -288,7 +292,7 @@ RSpec.describe HearingsCreator do
                                                                                hearing_data: {
                                                                                  jurisdiction_type: "MAGISTRATES",
                                                                                  court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                                 court_centre_code: "123",
+                                                                                 hearing_days: hearing_days,
                                                                                }))
         create_hearings
       end
@@ -308,7 +312,7 @@ RSpec.describe HearingsCreator do
                                                                                 hearing_data: {
                                                                                   jurisdiction_type: "MAGISTRATES",
                                                                                   court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                                  court_centre_code: "123",
+                                                                                  hearing_days: hearing_days,
                                                                                 }))
         create_hearings
       end
@@ -328,7 +332,7 @@ RSpec.describe HearingsCreator do
                                                                                hearing_data: {
                                                                                  jurisdiction_type: "MAGISTRATES",
                                                                                  court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                                 court_centre_code: "123",
+                                                                                 hearing_days: hearing_days,
                                                                                }))
 
         create_hearings
@@ -368,6 +372,7 @@ RSpec.describe HearingsCreator do
           },
           "prosecutionCases": prosecution_case_array,
           "courtApplications": nil,
+          "hearingDays": hearing_days,
         },
         "sharedTime": "2018-10-25 11:30:00",
       }.to_json
@@ -380,7 +385,7 @@ RSpec.describe HearingsCreator do
                                                                              hearing_data: {
                                                                                jurisdiction_type: "MAGISTRATES",
                                                                                court_centre_id: "dd22b110-7fbc-3036-a076-e4bb40d0a519",
-                                                                               court_centre_code: "123",
+                                                                               hearing_days: hearing_days,
                                                                              }))
       create_hearings
     end
