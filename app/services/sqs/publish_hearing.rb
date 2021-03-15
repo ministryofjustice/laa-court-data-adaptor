@@ -47,7 +47,7 @@ module Sqs
       elsif @function_type == "APPLICATION"
         {
           maatId: laa_reference.maat_reference.to_i,
-          caseUrn: court_application[:applicationReference],
+          caseUrn: nil,
           jurisdictionType: jurisdiction_type,
           asn: court_application[:defendantASN],
           cjsAreaCode: cjs_area_code,

@@ -301,7 +301,7 @@ RSpec.describe Sqs::PublishHearing do
     let(:sqs_payload) do
       {
         maatId: 123_456_789,
-        caseUrn: "98sg3v79-e4sd-4bv8-9fsb-be635fs87783",
+        caseUrn: nil,
         jurisdictionType: "CROWN",
         asn: "12435",
         cjsAreaCode: "16",

@@ -68,7 +68,7 @@ private
       defendant_cases.each do |defendant_case|
         next if LaaReference.find_by(defendant_id: defendant_case[:defendantId], linked: true).blank?
 
-        push_to_sqs(case_urn: court_application[:applicationReference],
+        push_to_sqs(case_urn: nil,
                     defendant: defendant,
                     appeal_data: nil,
                     court_application: court_application,
