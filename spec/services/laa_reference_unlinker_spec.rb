@@ -67,7 +67,7 @@ RSpec.describe LaaReferenceUnlinker do
 
   context "when the maat_reference is a dummy" do
     before do
-      linked_laa_reference.update!(dummy_maat_reference: true)
+      linked_laa_reference.update!(maat_reference: "Z10000000")
     end
 
     it "does not call the Sqs::PublishUnlinkLaaReference service" do

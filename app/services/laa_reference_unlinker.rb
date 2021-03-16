@@ -10,15 +10,15 @@ class LaaReferenceUnlinker < ApplicationService
   end
 
   def call
-    unlink_current_maat_reference
+    unlink_maat_reference!
     push_to_sqs unless laa_reference.dummy_maat_reference?
-    call_common_platform_endpoint
+    update_offences_on_common_platform
   end
 
 private
 
-  def unlink_current_maat_reference
-    laa_reference.update!(linked: false)
+  def unlink_maat_reference!
+    laa_reference.unlink!
   end
 
   def push_to_sqs
@@ -30,17 +30,19 @@ private
     )
   end
 
-  def call_common_platform_endpoint
-    offences.each do |offence|
-      Api::RecordLaaReference.call(
-        prosecution_case_id: offence.prosecution_case_id,
-        defendant_id: offence.defendant_id,
-        offence_id: offence.offence_id,
-        status_code: "AP",
-        application_reference: dummy_maat_reference,
-        status_date: Time.zone.today.strftime("%Y-%m-%d"),
-      )
-    end
+  def update_offences_on_common_platform
+    offences.each { |offence| update_offence_on_common_platform(offence) }
+  end
+
+  def update_offence_on_common_platform(offence)
+    Api::RecordLaaReference.call(
+      prosecution_case_id: offence.prosecution_case_id,
+      defendant_id: offence.defendant_id,
+      offence_id: offence.offence_id,
+      status_code: "AP",
+      application_reference: dummy_maat_reference,
+      status_date: Time.zone.today.strftime("%Y-%m-%d"),
+    )
   end
 
   def offences
@@ -48,7 +50,7 @@ private
   end
 
   def dummy_maat_reference
-    @dummy_maat_reference ||= "Z#{ActiveRecord::Base.connection.execute("SELECT nextval('dummy_maat_reference_seq')")[0]['nextval']}"
+    @dummy_maat_reference ||= LaaReference.generate_unlinking_dummy_maat_reference
   end
 
   attr_reader :defendant_id, :laa_reference, :user_name, :unlink_reason_code, :unlink_other_reason_text

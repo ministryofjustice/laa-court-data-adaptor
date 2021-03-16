@@ -5,7 +5,6 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
   let(:defendant_id) { SecureRandom.uuid }
   let(:offence_id) { SecureRandom.uuid }
   let(:maat_reference) { "A00000001" }
-  let(:dummy_maat_reference) { true }
   let(:rep_order_status) { "AP" }
   let(:response_status) { 200 }
   let(:response_body) { { response: "response" }.to_json }

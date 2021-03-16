@@ -12,7 +12,12 @@ module Api
       private
 
         def filtered_params
-          params.require(:filter).permit(:prosecution_case_reference, :arrest_summons_number, :name, :date_of_birth, :date_of_next_hearing, :national_insurance_number)
+          params.require(:filter).permit(:prosecution_case_reference,
+                                         :arrest_summons_number,
+                                         :name,
+                                         :date_of_birth,
+                                         :date_of_next_hearing,
+                                         :national_insurance_number)
         end
 
         def transformed_params
