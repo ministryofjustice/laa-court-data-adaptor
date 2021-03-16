@@ -14,6 +14,7 @@ class CommonPlatformConnection < ApplicationService
   def call
     Faraday.new host, options do |connection|
       connection.request :json
+      connection.response :logger, Rails.logger
       connection.response :json, content_type: "application/json"
       connection.response :json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json"
       connection.response :json, content_type: "text/plain"

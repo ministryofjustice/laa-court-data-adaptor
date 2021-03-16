@@ -57,10 +57,12 @@ RSpec.describe CommonPlatformConnection do
 
     it "initiates a json request" do
       expect(connection).to receive(:request).with(:json)
+      expect(connection).to receive(:response).with(:logger, Rails.logger)
       expect(connection).to receive(:response).with(:json, content_type: "application/json")
       expect(connection).to receive(:response).with(:json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json")
       expect(connection).to receive(:response).with(:json, content_type: "text/plain")
       expect(connection).to receive(:adapter).with(:net_http)
+
       connect_to_common_platform
     end
   end
