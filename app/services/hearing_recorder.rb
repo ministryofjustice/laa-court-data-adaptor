@@ -8,23 +8,35 @@ class HearingRecorder < ApplicationService
   end
 
   def call
-    if hearing_contract.success?
+    begin
+      enforce_contract!
       hearing.update!(body: body)
       publish_hearing_to_queue if publish_to_queue
-    else
-      Sentry.capture_message("A hearing contract failed",
-                             tags: { hearing_id: hearing.id },
-                             extras: {
-                               body: body,
-                               publish_to_queue: publish_to_queue,
-                               errors: hearing_contract.errors.messages,
-                             })
+    rescue Errors::ContractError => e
+      report_to_sentry(e)
     end
 
     hearing
   end
 
 private
+
+  def enforce_contract!
+    unless hearing_contract.success?
+      message = "Hearing contract failed with: #{hearing_contract.errors.to_hash}"
+      raise Errors::ContractError, message
+    end
+  end
+
+  def report_to_sentry(error)
+    Sentry.capture_exception(
+      error,
+      tags: {
+        request_id: Current.request_id,
+        hearing_id: @hearing.id,
+      },
+    )
+  end
 
   def hearing_contract
     HearingContract.new.call(body)
