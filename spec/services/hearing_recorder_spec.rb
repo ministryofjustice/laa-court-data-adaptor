@@ -79,6 +79,7 @@ RSpec.describe HearingRecorder do
 
     it "does not publish hearing to the queue" do
       expect(HearingsCreatorWorker).not_to receive(:perform_async)
+      record_hearing
     end
   end
 
