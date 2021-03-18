@@ -31,7 +31,7 @@ module Api
         end
 
         def inclusions
-          params[:include].split(",")
+          params[:include]&.split(",")
         end
       end
     end
