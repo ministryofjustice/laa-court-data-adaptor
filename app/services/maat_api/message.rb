@@ -15,7 +15,7 @@ module MaatApi
         cjsAreaCode: object.cjs_area_code,
         caseCreationDate: object.case_creation_date.to_date.strftime("%Y-%m-%d"),
         cjsLocation: object.cjs_location,
-        docLanguage: object.doc_language,
+        docLanguage: doc_language,
         proceedingsConcluded: object.proceedings_concluded,
         inActive: object.inactive,
         function_type: object.function_type,
@@ -23,6 +23,12 @@ module MaatApi
         session: object.session,
         ccOutComeData: object.crown_court_outcome,
       }.compact
+    end
+
+  private
+
+    def doc_language
+      object.doc_language == "WELSH" ? "CY" : "EN"
     end
   end
 end

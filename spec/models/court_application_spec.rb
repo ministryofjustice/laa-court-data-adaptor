@@ -33,7 +33,7 @@ RSpec.describe CourtApplication, type: :model do
   end
 
   it "has a doc language" do
-    expect(court_application.doc_language).to eql("EN")
+    expect(court_application.doc_language).to eql("WELSH")
   end
 
   it "has no proceedings_concluded flag" do

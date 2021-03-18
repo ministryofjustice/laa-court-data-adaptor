@@ -26,62 +26,82 @@ RSpec.describe MaatApi::Message do
 
     expect(message).to eql(expected_payload)
   end
+
+  it "formats WELSH doc language to CY" do
+    maat_api_messageable = Messageable.new({ doc_language: "WELSH" })
+    message = described_class.new(maat_api_messageable).generate
+
+    expect(message[:docLanguage]).to eql("CY")
+  end
+
+  it "defaults doc language to EN" do
+    maat_api_messageable = Messageable.new({ doc_language: nil })
+    message = described_class.new(maat_api_messageable).generate
+
+    expect(message[:docLanguage]).to eql("EN")
+  end
 end
 
 class Messageable
+  attr_reader :attrs
+
+  def initialize(attrs = {})
+    @attrs = attrs
+  end
+
   def maat_reference
-    "maat reference"
+    attrs[:maat_reference] || "maat reference"
   end
 
   def case_urn
-    "case urn"
+    attrs[:case_urn] || "case urn"
   end
 
   def jurisdiction_type
-    "jurisdiction type"
+    attrs[:jurisdiction_type] || "jurisdiction type"
   end
 
   def defendant_asn
-    "asn"
+    attrs[:defendant_asn] || "asn"
   end
 
   def cjs_area_code
-    "cjs area code"
+    attrs[:cjs_area_code] || "cjs area code"
   end
 
   def cjs_location
-    "cjs location"
+    attrs[:cjs_location] || "cjs location"
   end
 
   def case_creation_date
-    "2018-10-25"
+    attrs[:case_creation_date] || "2018-10-25"
   end
 
   def doc_language
-    "EN"
+    attrs[:doc_language] || "doc language"
   end
 
   def proceedings_concluded
-    "proceedings concluded flag"
+    attrs[:proceedings_concluded] || "proceedings concluded flag"
   end
 
   def inactive
-    "Y"
+    attrs[:inactive] || "Y"
   end
 
   def function_type
-    "function type"
+    attrs[:function_type] || "function type"
   end
 
   def crown_court_outcome
-    "crown court outcome data"
+    attrs[:crown_court_outcome] || "crown court outcome data"
   end
 
   def defendant
-    "defendant"
+    attrs[:defendant] || "defendant"
   end
 
   def session
-    "session"
+    attrs[:session] || "session"
   end
 end

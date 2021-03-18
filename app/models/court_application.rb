@@ -31,7 +31,7 @@ class CourtApplication
   end
 
   def doc_language
-    "EN"
+    defendant_details&.dig(:documentationLanguageNeeds)
   end
 
   def proceedings_concluded; end
