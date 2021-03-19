@@ -55,6 +55,12 @@ RSpec.describe Hearing, type: :model do
 
           it { expect(hearing.hearing_events).to all be_a(HearingEvent) }
         end
+
+        context "with a missing events key from hearing log response" do
+          let(:hearing_events) { [HearingEventRecording.new(body: {})] }
+
+          it { expect(hearing.hearing_events).to be_empty }
+        end
       end
     end
 
