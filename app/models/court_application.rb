@@ -15,7 +15,7 @@ class CourtApplication
   end
 
   def defendant_asn
-    court_application_data[:defendantASN]
+    court_application_data.dig(:applicant, :masterDefendant, :personDefendant, :arrestSummonsNumber)
   end
 
   def cjs_area_code

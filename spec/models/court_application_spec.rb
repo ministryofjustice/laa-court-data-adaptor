@@ -17,7 +17,7 @@ RSpec.describe CourtApplication, type: :model do
   end
 
   it "has a defendant ASN" do
-    expect(court_application.defendant_asn).to eql("12456ABC")
+    expect(court_application.defendant_asn).to eql("TFL1")
   end
 
   it "has a cjs area code" do
