@@ -13,7 +13,7 @@ RSpec.describe MaatApi::Message do
       docLanguage: "EN",
       proceedingsConcluded: "proceedings concluded flag",
       inActive: "Y",
-      function_type: "function type",
+      functionType: "function type",
       defendant: "defendant",
       session: "session",
       ccOutComeData: "crown court outcome data",

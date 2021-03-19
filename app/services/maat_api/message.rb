@@ -18,7 +18,7 @@ module MaatApi
         docLanguage: doc_language,
         proceedingsConcluded: object.proceedings_concluded,
         inActive: object.inactive,
-        function_type: object.function_type,
+        functionType: object.function_type,
         defendant: object.defendant,
         session: object.session,
         ccOutComeData: object.crown_court_outcome,

@@ -103,4 +103,89 @@ RSpec.describe CourtApplication, type: :model do
 
     expect(court_application.session).to eql(expected)
   end
+
+  context "when the hearing body has only required fields" do
+    let(:hearing_body) { JSON.parse(file_fixture("hearing_with_court_application_required_only.json").read).deep_symbolize_keys }
+
+    it "has a maat_reference" do
+      expect(court_application.maat_reference).to eql("123")
+    end
+
+    it "has no case URN" do
+      expect(court_application.case_urn).to be_nil
+    end
+
+    it "has a jurisdiction type" do
+      expect(court_application.jurisdiction_type).to eql("MAGISTRATES")
+    end
+
+    it "has a defendant ASN" do
+      expect(court_application.defendant_asn).to be_nil
+    end
+
+    it "has a cjs area code" do
+      expect(court_application.cjs_area_code).to eql("1")
+    end
+
+    it "has no cjs location" do
+      expect(court_application.cjs_location).to eql("B01LY")
+    end
+
+    it "has a case creation date" do
+      expect(court_application.case_creation_date).to eql("2021-03-09")
+    end
+
+    it "has a doc language" do
+      expect(court_application.doc_language).to be_nil
+    end
+
+    it "has no proceedings_concluded flag" do
+      expect(court_application.proceedings_concluded).to be_nil
+    end
+
+    it "has no crown_court_outcome" do
+      expect(court_application.crown_court_outcome).to be_nil
+    end
+
+    it "is always inactive" do
+      expect(court_application.inactive).to eql("Y")
+    end
+
+    it "has a function type of APPLICATION " do
+      expect(court_application.function_type).to eql("APPLICATION")
+    end
+
+    it "has a defendant object" do
+      expected = {
+        forename: nil,
+        surname: "WilliamsonConnelly",
+        dateOfBirth: nil,
+        addressLine1: nil,
+        addressLine2: nil,
+        addressLine3: nil,
+        addressLine4: nil,
+        addressLine5: nil,
+        postcode: nil,
+        nino: nil,
+        email1: nil,
+        email2: nil,
+        telephoneHome: nil,
+        telephoneMobile: nil,
+        telephoneWork: nil,
+        offences: [
+          {
+            offenceClassification: "CO",
+            offenceCode: nil,
+            offenceDate: "2021-03-09",
+            offenceId: "74b72f6f-414a-3464-a4a2-d91397b4c439",
+            offenceShortTitle: "Application for transfer of legal aid",
+            offenceWording: nil,
+            results: nil,
+          },
+        ],
+      }
+
+      expect(court_application.defendant).to eql(expected)
+    end
+  end
 end
