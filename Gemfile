@@ -47,7 +47,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "pry-byebug"
   gem "pry-rails", "~> 0.3.9"
-  gem "rspec-rails", "~> 5.0.0"
+  gem "rspec-rails", "~> 5.0.1"
   gem "rswag-specs"
   gem "rubocop-govuk"
   gem "rubocop-performance"
