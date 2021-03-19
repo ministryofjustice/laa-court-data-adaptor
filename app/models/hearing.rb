@@ -86,7 +86,7 @@ private
   end
 
   def hearing_day_events
-    hearing_event_recordings.flat_map { |recording| recording.body["events"] }
+    hearing_event_recordings.flat_map { |recording| recording.body["events"] }.compact
   end
 
   def court_centre
