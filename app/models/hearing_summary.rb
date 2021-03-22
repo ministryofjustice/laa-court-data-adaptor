@@ -20,15 +20,19 @@ class HearingSummary
   end
 
   def hearing_in_past?
-    hearing_days.max.to_date.past?
+    date_of_hearing.past?
   end
 
   def hearing_in_future?
-    hearing_days.max.to_date.future?
+    date_of_hearing.future?
   end
 
   def resulted?
     Hearing.find_by(id: id).present?
+  end
+
+  def date_of_hearing
+    hearing_days.max&.to_date
   end
 
 private
