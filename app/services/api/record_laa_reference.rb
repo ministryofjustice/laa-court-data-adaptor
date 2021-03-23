@@ -2,8 +2,6 @@
 
 module Api
   class RecordLaaReference < ApplicationService
-    PAUSE_BETWEEN_REQUESTS_IN_SECONDS = 1
-
     def initialize(prosecution_case_id:,
                    defendant_id:,
                    offence_id:,
@@ -26,7 +24,6 @@ module Api
     def call
       response = connection.post(url, request_body)
       update_database(response)
-      pause_before_next_http_request
       response
     end
 
@@ -47,11 +44,6 @@ module Api
       offence.response_status = response.status
       offence.response_body = response.body
       offence.save!
-    end
-
-    def pause_before_next_http_request
-      Rails.logger.info "Pausing #{PAUSE_BETWEEN_REQUESTS_IN_SECONDS} second(s) before next request to Common Platform ..."
-      sleep PAUSE_BETWEEN_REQUESTS_IN_SECONDS
     end
 
     attr_reader :url, :status_code, :application_reference, :status_date, :connection, :offence_id
