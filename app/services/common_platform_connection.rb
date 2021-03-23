@@ -13,6 +13,7 @@ class CommonPlatformConnection < ApplicationService
 
   def call
     Faraday.new host, options do |connection|
+      connection.request :retry, retry_options
       connection.request :json
       connection.response :logger, Rails.logger
       connection.response :json, content_type: "application/json"
@@ -38,6 +39,13 @@ private
         client_key: OpenSSL::PKey::RSA.new(client_key),
         ca_file: Rails.root.join("lib/ssl/ca.crt").to_s,
       },
+    }
+  end
+
+  def retry_options
+    {
+      retry_statuses: [429],
+      methods: %i[delete get head options put post],
     }
   end
 

@@ -56,6 +56,12 @@ RSpec.describe CommonPlatformConnection do
     end
 
     it "initiates a json request" do
+      retry_options = {
+        methods: %i[delete get head options put post],
+        retry_statuses: [429],
+      }
+
+      expect(connection).to receive(:request).with(:retry, retry_options)
       expect(connection).to receive(:request).with(:json)
       expect(connection).to receive(:response).with(:logger, Rails.logger)
       expect(connection).to receive(:response).with(:json, content_type: "application/json")
