@@ -115,6 +115,24 @@
             "id": "bf8155e1-90b9-4080-b133-bfbad895d6e4",
             "description": "Trial"
           }
+        },
+        {
+          "hearingId": "bd84aff9-229a-4d77-bfcc-421af3f2fc1b",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [
+            "1a847ab9-3b82-4c5a-98ad-2241581377e8"
+          ],
+          "hearingDays": [],
+          "courtCentre": {
+            "id": "9b583616-049b-30f9-a14f-028a53b7cfe8",
+            "name": "Liverpool Crown Court",
+            "roomId": "7cb09222-49e1-3622-a5a6-ad253d2b3c39",
+            "roomName": "Crown Court 3-1"
+          },
+          "hearingType": {
+            "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
+            "description": "Plea and Trial Preparation"
+          }
         }
       ]
     }

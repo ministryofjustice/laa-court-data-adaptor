@@ -9,6 +9,7 @@ RSpec.describe ProsecutionCaseHearingsFetcher do
   let(:hearing_id)   { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
   let(:hearing_id_2) { "9161049a-bde1-4150-83e5-9d5212d762c2" }
   let(:hearing_id_3) { "e6487eac-df3d-4175-9c41-c2e90d0a8587" }
+  let(:hearing_id_4) { "bd84aff9-229a-4d77-bfcc-421af3f2fc1b" }
 
   before do
     ProsecutionCase.create!(
@@ -21,6 +22,8 @@ RSpec.describe ProsecutionCaseHearingsFetcher do
     expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id, publish_to_queue: true)
     expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_2, publish_to_queue: true)
     expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_3, publish_to_queue: true)
+    expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_4, publish_to_queue: true)
+
     fetch_hearings
   end
 

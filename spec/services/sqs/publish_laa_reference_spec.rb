@@ -36,10 +36,12 @@ RSpec.describe Sqs::PublishLaaReference do
           },
         ],
       },
-      sessions:
-              [{ courtLocation: "B01BH", dateOfHearing: "2020-02-17" },
-               { courtLocation: "C05LV", dateOfHearing: "2020-08-04" },
-               { courtLocation: "B01LY", dateOfHearing: "2020-09-05" }],
+      sessions: [
+        { courtLocation: "B01BH", dateOfHearing: "2020-02-17" },
+        { courtLocation: "C05LV", dateOfHearing: "2020-08-04" },
+        { courtLocation: "B01LY", dateOfHearing: "2020-09-05" },
+        { courtLocation: "C05LV", dateOfHearing: nil },
+      ],
     }
   end
 
