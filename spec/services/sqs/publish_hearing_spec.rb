@@ -213,6 +213,18 @@ RSpec.describe Sqs::PublishHearing do
     end
   end
 
+  context "when the defendant proceedingsConcluded flag is absent from the incoming hearing defendnt payload" do
+    before do
+      defendant.delete(:proceedingsConcluded)
+      sqs_payload[:proceedingsConcluded] = false
+    end
+
+    it "defaults the value to false" do
+      expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url)
+      publish
+    end
+  end
+
   context "when there are crown court outcomes" do
     context "when there is verdict data" do
       it "creates a crown court outcome hash" do
