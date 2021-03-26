@@ -16,7 +16,7 @@ module MaatApi
     end
 
     def defendant_asn
-      court_application.defendant_asn
+      court_application.defendant_arrest_summons_number
     end
 
     def cjs_area_code
@@ -50,8 +50,6 @@ module MaatApi
     end
 
     def defendant
-      # person_defendant = HmctsCommonPlatform::Defendant.new(court_application.person_defendant)
-
       {
         forename: court_application.defendant_first_name,
         surname: court_application.defendant_last_name,
@@ -80,7 +78,7 @@ module MaatApi
       }
     end
 
-    private
+  private
 
     def offence
       {

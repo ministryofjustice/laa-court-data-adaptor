@@ -28,7 +28,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
 
   describe "defendant" do
     it "has an ASN" do
-      expect(court_application.defendant_asn).to eql("TFL1")
+      expect(court_application.defendant_arrest_summons_number).to eql("TFL1")
     end
 
     it "has a first name" do

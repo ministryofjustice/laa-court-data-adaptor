@@ -1,0 +1,32 @@
+{
+  "arrestSummonsNumber": "TFL1",
+  "bailStatus": {
+    "code": "C",
+    "description": "Custody or remanded into custody",
+    "id": "12e69486-4d01-3403-a50a-7419ca040635"
+  },
+  "personDetails": {
+    "nationalInsuranceNumber": "123456789A",
+    "address": {
+      "address1": "Address Line 1",
+      "address2": "Address Line 2",
+      "address3": "Address Line 3",
+      "address4": "Address Line 4",
+      "address5": "Address Line 5",
+      "postcode": "SW1 W11"
+    },
+    "contact": {
+      "home": "000-000-0000",
+      "work": "111-111-1111",
+      "mobile": "222-222-2222",
+      "primaryEmail": "primary@example.com",
+      "secondaryEmail": "secondary@example.com"
+    },
+    "dateOfBirth": "1990-01-01",
+    "documentationLanguageNeeds": "WELSH",
+    "firstName": "Carlee",
+    "gender": "MALE",
+    "lastName": "WilliamsonConnelly",
+    "title": "Mr"
+  }
+}

@@ -30,72 +30,72 @@ module HmctsCommonPlatform
       data[:applicationReceivedDate]
     end
 
-    def defendant_asn
-      person_defendant&.dig(:arrestSummonsNumber)
+    def defendant_arrest_summons_number
+      person_defendant.arrest_summons_number
     end
 
     def defendant_first_name
-      defendant_details&.dig(:firstName)
+      person_defendant.first_name
     end
 
     def defendant_last_name
-      defendant_details&.dig(:lastName)
+      person_defendant.last_name
     end
 
     def defendant_date_of_birth
-      defendant_details&.dig(:dateOfBirth)
+      person_defendant.date_of_birth
     end
 
     def defendant_nino
-      defendant_details&.dig(:nationalInsuranceNumber)
+      person_defendant.nino
     end
 
     def defendant_documentation_language_needs
-      defendant_details&.dig(:documentationLanguageNeeds)
+      person_defendant.documentation_language_needs
     end
 
     def defendant_address_1
-      defendant_address&.dig(:address1)
+      person_defendant.address_1
     end
 
     def defendant_address_2
-      defendant_address&.dig(:address2)
+      person_defendant.address_2
     end
 
     def defendant_address_3
-      defendant_address&.dig(:address3)
+      person_defendant.address_3
     end
 
     def defendant_address_4
-      defendant_address&.dig(:address4)
+      person_defendant.address_4
     end
 
     def defendant_address_5
-      defendant_address&.dig(:address5)
+      person_defendant.address_5
     end
 
     def defendant_postcode
-      defendant_address&.dig(:postcode)
+      person_defendant.postcode
     end
 
     def defendant_phone_home
-      defendant_contact_details&.dig(:home)
+      person_defendant.phone_home
     end
 
     def defendant_phone_work
-      defendant_contact_details&.dig(:work)
+      person_defendant.phone_work
     end
 
     def defendant_phone_mobile
-      defendant_contact_details&.dig(:mobile)
+      person_defendant.phone_mobile
     end
 
     def defendant_email_primary
-      defendant_contact_details&.dig(:primaryEmail)
+      person_defendant.email_primary
     end
 
     def defendant_email_secondary
-      defendant_contact_details&.dig(:secondaryEmail)
+      person_defendant.email_secondary
     end
 
     def judicial_results
@@ -104,22 +104,10 @@ module HmctsCommonPlatform
       end
     end
 
-    def person_defendant
-      data.dig(:applicant, :masterDefendant, :personDefendant)
-    end
-
   private
 
-    def defendant_address
-      person_defendant&.dig(:personDetails, :address)
-    end
-
-    def defendant_contact_details
-      person_defendant&.dig(:personDetails, :contact)
-    end
-
-    def defendant_details
-      person_defendant&.dig(:personDetails)
+    def person_defendant
+      HmctsCommonPlatform::PersonDefendant.new(data.dig(:applicant, :masterDefendant, :personDefendant))
     end
   end
 end
