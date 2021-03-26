@@ -1,4 +1,4 @@
-RSpec.describe CourtApplication, type: :model do
+RSpec.describe MaatApi::CourtApplication, type: :model do
   let(:hearing_body) { JSON.parse(file_fixture("hearing_with_court_application.json").read).deep_symbolize_keys }
   let(:maat_reference) { "123" }
   let(:court_application_data) { hearing_body.dig(:hearing, :courtApplications).first }

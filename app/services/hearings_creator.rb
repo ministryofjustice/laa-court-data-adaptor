@@ -58,7 +58,7 @@ private
 
         next if laa_reference.blank?
 
-        court_application = CourtApplication.new(
+        court_application = MaatApi::CourtApplication.new(
           hearing_body,
           court_application_data,
           laa_reference.maat_reference,
