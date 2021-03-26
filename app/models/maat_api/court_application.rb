@@ -97,7 +97,7 @@ module MaatApi
           resultText: judicial_result.text,
           resultCodeQualifiers: judicial_result.qualifier,
           nextHearingDate: judicial_result.next_hearing_date&.to_date&.strftime("%Y-%m-%d"),
-          nextHearingLocation: judicial_result.next_hearing_location,
+          nextHearingLocation: find_court_centre_by_id(judicial_result.next_hearing_court_centre_id)&.short_oucode,
         }
       end
     end

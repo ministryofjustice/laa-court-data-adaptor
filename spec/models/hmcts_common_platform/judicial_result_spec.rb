@@ -22,8 +22,8 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
     expect(judicial_result.next_hearing_date).to eql("2020-03-01")
   end
 
-  it "has a next hearing location" do
-    expect(judicial_result.next_hearing_location).to eql("B01LY")
+  it "has a next hearing court centre ID" do
+    expect(judicial_result.next_hearing_court_centre_id).to eql("f8254db1-1683-483e-afb3-b87fde5a0a26")
   end
 
   context "when there is no next hearing object" do
@@ -31,12 +31,12 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
       JSON.parse(file_fixture("judicial_result.json").read).deep_symbolize_keys.delete(:nextHearing)
     end
 
-    it "has no hearing date" do
+    it "has no next hearing date" do
       expect(judicial_result.next_hearing_date).to be_nil
     end
 
-    it "has no hearing location" do
-      expect(judicial_result.next_hearing_location).to be_nil
+    it "has no next hearing court centre ID" do
+      expect(judicial_result.next_hearing_court_centre_id).to be_nil
     end
   end
 end

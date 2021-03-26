@@ -22,20 +22,12 @@ module HmctsCommonPlatform
       data[:qualifier]
     end
 
+    def next_hearing_court_centre_id
+      data.dig(:nextHearing, :courtCentre, :id)
+    end
+
     def next_hearing_date
       data.dig(:nextHearing, :listedStartDateTime)
-    end
-
-    def next_hearing_location
-      find_court_centre_by_id(data.dig(:nextHearing, :courtCentre, :id))&.short_oucode
-    end
-
-  private
-
-    def find_court_centre_by_id(id)
-      return if id.blank?
-
-      HmctsCommonPlatform::Reference::CourtCentre.find(id)
     end
   end
 end
