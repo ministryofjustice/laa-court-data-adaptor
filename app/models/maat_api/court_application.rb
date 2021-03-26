@@ -1,26 +1,23 @@
 module MaatApi
   class CourtApplication
     attr_reader :hearing, :court_application, :maat_reference
+    delegate :jurisdiction_type, to: :hearing
 
     def initialize(hearing_body, court_application_data, maat_reference)
       @shared_time = hearing_body[:sharedTime]
-      @hearing = hearing_body[:hearing]
+      @hearing = HmctsCommonPlatform::Hearing.new(hearing_body[:hearing])
       @court_application = HmctsCommonPlatform::CourtApplication.new(court_application_data)
       @maat_reference = maat_reference
     end
 
     def case_urn; end
 
-    def jurisdiction_type
-      hearing[:jurisdictionType]
-    end
-
     def defendant_asn
       court_application.defendant_arrest_summons_number
     end
 
     def cjs_area_code
-      find_court_centre_by_id(hearing[:courtCentre][:id]).oucode_l2_code
+      find_court_centre_by_id(hearing.court_centre_id).oucode_l2_code
     end
 
     def cjs_location
@@ -74,7 +71,7 @@ module MaatApi
       {
         courtLocation: court_centre_short_ou_code,
         dateOfHearing: hearing_first_sitting_day_date,
-        sessionValidateDate: hearing.dig(:hearingDays, 0, :sittingDay)&.to_date&.strftime("%Y-%m-%d"),
+        sessionValidateDate: hearing_first_sitting_day_date,
       }
     end
 
@@ -106,17 +103,17 @@ module MaatApi
     end
 
     def court_centre_short_ou_code
-      find_court_centre_by_id(hearing[:courtCentre][:id]).short_oucode
+      find_court_centre_by_id(hearing.court_centre_id).short_oucode
+    end
+
+    def hearing_first_sitting_day_date
+      hearing.first_sitting_day_date&.to_date&.strftime("%Y-%m-%d")
     end
 
     def find_court_centre_by_id(id)
       return if id.blank?
 
       HmctsCommonPlatform::Reference::CourtCentre.find(id)
-    end
-
-    def hearing_first_sitting_day_date
-      hearing.dig(:hearingDays, 0, :sittingDay)&.to_date&.strftime("%Y-%m-%d")
     end
   end
 end
