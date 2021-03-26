@@ -7,17 +7,8 @@ class HearingsCreator < ApplicationService
     @shared_time = hearing_body[:sharedTime]
   end
 
-  # This is temp to process failing delayed jobs. To be reverted. See PR
   def hearing_body
-    body = Hearing.find(@hearing_id).body
-
-    if body.is_a?(Hash)
-      return body.deep_symbolize_keys
-    end
-
-    if body.is_a?(String)
-      JSON.parse(body).deep_symbolize_keys
-    end
+    Hearing.find(@hearing_id).body.deep_symbolize_keys
   end
 
   def call

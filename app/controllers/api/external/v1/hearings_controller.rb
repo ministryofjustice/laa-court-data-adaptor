@@ -7,7 +7,12 @@ module Api
         def create
           enforce_contract!
 
-          HearingRecorder.call(hearing_id: params[:hearing][:id], body: transformed_params, publish_to_queue: true)
+          HearingRecorder.call(
+            hearing_id: params[:hearing][:id],
+            body: transformed_params,
+            publish_to_queue: true,
+          )
+
           head :accepted
         end
 
@@ -31,7 +36,7 @@ module Api
         end
 
         def transformed_params
-          hearing_params.to_hash.deep_transform_keys(&:to_sym).compact
+          hearing_params.to_hash.deep_symbolize_keys.compact
         end
       end
     end
