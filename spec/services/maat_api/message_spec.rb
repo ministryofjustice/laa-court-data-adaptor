@@ -11,7 +11,7 @@ RSpec.describe MaatApi::Message do
       caseCreationDate: "2018-10-25",
       cjsLocation: "cjs location",
       docLanguage: "EN",
-      proceedingsConcluded: "proceedings concluded flag",
+      proceedingsConcluded: false,
       inActive: "Y",
       functionType: "function type",
       defendant: "defendant",
@@ -82,7 +82,7 @@ class Messageable
   end
 
   def proceedings_concluded
-    attrs[:proceedings_concluded] || "proceedings concluded flag"
+    attrs[:proceedings_concluded]
   end
 
   def inactive

@@ -34,7 +34,9 @@ class CourtApplication
     defendant_details&.dig(:documentationLanguageNeeds)
   end
 
-  def proceedings_concluded; end
+  def proceedings_concluded
+    false
+  end
 
   def crown_court_outcome; end
 

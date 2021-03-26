@@ -36,8 +36,8 @@ RSpec.describe CourtApplication, type: :model do
     expect(court_application.doc_language).to eql("WELSH")
   end
 
-  it "has no proceedings_concluded flag" do
-    expect(court_application.proceedings_concluded).to be_nil
+  it "has proceedings_concluded flag" do
+    expect(court_application.proceedings_concluded).to be(false)
   end
 
   it "has no crown_court_outcome" do
@@ -139,8 +139,8 @@ RSpec.describe CourtApplication, type: :model do
       expect(court_application.doc_language).to be_nil
     end
 
-    it "has no proceedings_concluded flag" do
-      expect(court_application.proceedings_concluded).to be_nil
+    it "has proceedings_concluded flag" do
+      expect(court_application.proceedings_concluded).to be(false)
     end
 
     it "has no crown_court_outcome" do

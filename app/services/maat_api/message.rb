@@ -16,7 +16,7 @@ module MaatApi
         caseCreationDate: object.case_creation_date.to_date.strftime("%Y-%m-%d"),
         cjsLocation: object.cjs_location,
         docLanguage: doc_language,
-        proceedingsConcluded: object.proceedings_concluded,
+        proceedingsConcluded: object.proceedings_concluded || false,
         inActive: object.inactive,
         functionType: object.function_type,
         defendant: object.defendant,
