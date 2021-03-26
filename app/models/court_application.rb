@@ -1,10 +1,10 @@
 class CourtApplication
-  attr_reader :hearing, :court_application_data, :maat_reference
+  attr_reader :hearing, :court_application, :maat_reference
 
   def initialize(hearing_body, court_application_data, maat_reference)
     @shared_time = hearing_body[:sharedTime]
     @hearing = hearing_body[:hearing]
-    @court_application_data = court_application_data
+    @court_application = HmctsCommonPlatform::CourtApplication.new(court_application_data)
     @maat_reference = maat_reference
   end
 
@@ -15,7 +15,7 @@ class CourtApplication
   end
 
   def defendant_asn
-    court_application_data.dig(:applicant, :masterDefendant, :personDefendant, :arrestSummonsNumber)
+    court_application.defendant_asn
   end
 
   def cjs_area_code
@@ -31,7 +31,7 @@ class CourtApplication
   end
 
   def doc_language
-    defendant_details&.dig(:documentationLanguageNeeds)
+    court_application.defendant_documentation_language_needs
   end
 
   def proceedings_concluded
@@ -49,22 +49,24 @@ class CourtApplication
   end
 
   def defendant
+    # person_defendant = HmctsCommonPlatform::Defendant.new(court_application.person_defendant)
+
     {
-      forename: defendant_details&.dig(:firstName),
-      surname: defendant_details&.dig(:lastName),
-      dateOfBirth: defendant_details&.dig(:dateOfBirth),
-      addressLine1: defendant_address_details&.dig(:address1),
-      addressLine2: defendant_address_details&.dig(:address2),
-      addressLine3: defendant_address_details&.dig(:address3),
-      addressLine4: defendant_address_details&.dig(:address4),
-      addressLine5: defendant_address_details&.dig(:address5),
-      postcode: defendant_address_details&.dig(:postcode),
-      nino: defendant_details&.dig(:nationalInsuranceNumber),
-      telephoneHome: defendant_contact_details&.dig(:home),
-      telephoneWork: defendant_contact_details&.dig(:work),
-      telephoneMobile: defendant_contact_details&.dig(:mobile),
-      email1: defendant_contact_details&.dig(:primaryEmail),
-      email2: defendant_contact_details&.dig(:secondaryEmail),
+      forename: court_application.defendant_first_name,
+      surname: court_application.defendant_last_name,
+      dateOfBirth: court_application.defendant_date_of_birth,
+      addressLine1: court_application.defendant_address_1,
+      addressLine2: court_application.defendant_address_2,
+      addressLine3: court_application.defendant_address_3,
+      addressLine4: court_application.defendant_address_4,
+      addressLine5: court_application.defendant_address_5,
+      postcode: court_application.defendant_postcode,
+      nino: court_application.defendant_nino,
+      telephoneHome: court_application.defendant_phone_home,
+      telephoneWork: court_application.defendant_phone_work,
+      telephoneMobile: court_application.defendant_phone_mobile,
+      email1: court_application.defendant_email_primary,
+      email2: court_application.defendant_email_secondary,
       offences: [offence],
     }
   end
@@ -79,42 +81,20 @@ class CourtApplication
 
 private
 
-  def defendant_details
-    master_defendant&.dig(:personDefendant, :personDetails)
-  end
-
-  def defendant_address_details
-    defendant_details&.dig(:address)
-  end
-
-  def defendant_contact_details
-    defendant_details&.dig(:contact)
-  end
-
-  def master_defendant
-    court_application_data.dig(:applicant, :masterDefendant)
-  end
-
   def offence
     {
-      offenceId: court_application_type[:id],
-      offenceCode: court_application_type[:code],
-      offenceShortTitle: court_application_type[:type],
-      offenceClassification: court_application_type[:categoryCode],
-      offenceDate: court_application_data[:applicationReceivedDate],
-      offenceWording: court_application_type[:legislation],
+      offenceId: court_application.type_id,
+      offenceCode: court_application.type_code,
+      offenceShortTitle: court_application.type_name,
+      offenceClassification: court_application.type_category_code,
+      offenceDate: court_application.received_date,
+      offenceWording: court_application.type_legislation,
       results: judicial_results,
     }
   end
 
-  def court_application_type
-    court_application_data[:type]
-  end
-
   def judicial_results
-    court_application_data[:judicialResults]&.map do |judicial_result_data|
-      judicial_result = HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
-
+    court_application.judicial_results&.map do |judicial_result|
       {
         resultCode: judicial_result.code,
         resultShortTitle: judicial_result.label,
