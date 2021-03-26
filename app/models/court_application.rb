@@ -112,18 +112,18 @@ private
   end
 
   def judicial_results
-    court_application_data[:judicialResults]&.map { |jr| judicial_result(jr) }
-  end
+    court_application_data[:judicialResults]&.map do |judicial_result_data|
+      judicial_result = HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
 
-  def judicial_result(data)
-    {
-      resultCode: data[:cjsCode],
-      resultShortTitle: data[:label],
-      resultText: data[:resultText],
-      resultCodeQualifiers: data[:qualifier],
-      nextHearingDate: data.dig(:nextHearing, :listedStartDateTime)&.to_date&.strftime("%Y-%m-%d"),
-      nextHearingLocation: find_court_centre_by_id(data.dig(:nextHearing, :courtCentre, :id)).short_oucode,
-    }
+      {
+        resultCode: judicial_result.code,
+        resultShortTitle: judicial_result.label,
+        resultText: judicial_result.text,
+        resultCodeQualifiers: judicial_result.qualifier,
+        nextHearingDate: judicial_result.next_hearing_date&.to_date&.strftime("%Y-%m-%d"),
+        nextHearingLocation: judicial_result.next_hearing_location,
+      }
+    end
   end
 
   def court_centre_short_ou_code
