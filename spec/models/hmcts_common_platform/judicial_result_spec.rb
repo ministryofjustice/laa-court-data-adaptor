@@ -1,5 +1,5 @@
 RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
-  let(:data) { JSON.parse(file_fixture("judicial_result.json").read).deep_symbolize_keys }
+  let(:data) { JSON.parse(file_fixture("judicial_result/all_fields.json").read).deep_symbolize_keys }
   let(:judicial_result) { described_class.new(data) }
 
   it "has a code" do
@@ -28,7 +28,7 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
 
   context "when there is no next hearing object" do
     let(:data) do
-      JSON.parse(file_fixture("judicial_result.json").read).deep_symbolize_keys.delete(:nextHearing)
+      JSON.parse(file_fixture("judicial_result/required_fields.json").read).deep_symbolize_keys
     end
 
     it "has no next hearing date" do
