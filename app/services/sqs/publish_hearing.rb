@@ -32,7 +32,6 @@ module Sqs
         inActive: inactive?,
         defendant: defendant_hash,
         session: session_hash,
-        ccOutComeData: crown_court_outcome_hash,
       }
     end
 
@@ -146,14 +145,6 @@ module Sqs
       }
     end
 
-    def crown_court_outcome_hash
-      CrownCourtOutcomeCreator.call(defendant: defendant, appeal_data: appeal_data) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
-    end
-
-    def result_is_a_conclusion?
-      defendant[:offences]&.any? { |offence| offence[:verdict].present? } || appeal_data.present?
-    end
-
-    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :court_centre, :appeal_data, :laa_reference
+    attr_reader :shared_time, :jurisdiction_type, :case_urn, :defendant, :court_centre, :laa_reference
   end
 end

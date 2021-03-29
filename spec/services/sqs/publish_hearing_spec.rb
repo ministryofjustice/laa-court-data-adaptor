@@ -141,11 +141,6 @@ RSpec.describe Sqs::PublishHearing do
         postHearingCustody: "R",
         sessionValidateDate: "2018-11-11",
       },
-      ccOutComeData: {
-        ccooOutcome: "CONVICTED",
-        caseEndDate: "2018-10-25",
-        appealType: nil,
-      },
     }
   end
 
@@ -222,34 +217,6 @@ RSpec.describe Sqs::PublishHearing do
     it "defaults the value to false" do
       expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url)
       publish
-    end
-  end
-
-  context "when there are crown court outcomes" do
-    context "when there is verdict data" do
-      it "creates a crown court outcome hash" do
-        expect(CrownCourtOutcomeCreator).to receive(:call).once
-        publish
-      end
-    end
-
-    context "when there is appeal data" do
-      let(:verdict_hash) { nil }
-      let(:appeal_data) { "appeal_data" }
-
-      it "creates a crown court outcome hash" do
-        expect(CrownCourtOutcomeCreator).to receive(:call).once
-        publish
-      end
-    end
-
-    context "when there is no verdict or appeal data" do
-      let(:verdict_hash) { nil }
-
-      it "does not create a crown court outcome hash" do
-        expect(CrownCourtOutcomeCreator).not_to receive(:call)
-        publish
-      end
     end
   end
 end
