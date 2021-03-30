@@ -12,7 +12,7 @@ class Hearing < ApplicationRecord
   end
 
   def hearing_days
-    hearing_body["hearingDays"].map { |hearing_day| hearing_day["sittingDay"] }
+    Array(hearing_body["hearingDays"]).map { |hearing_day| hearing_day["sittingDay"] }
   end
 
   def defendant_names
@@ -30,19 +30,19 @@ class Hearing < ApplicationRecord
   end
 
   def judge_names
-    hearing_body["judiciary"]&.map do |judge|
+    Array(hearing_body["judiciary"]).map do |judge|
       [judge["title"], judge["firstName"], judge["lastName"]].reject(&:blank?).join(" ")
     end
   end
 
   def prosecution_advocate_names
-    hearing_body["prosecutionCounsels"]&.map do |prosecution_counsel|
+    Array(hearing_body["prosecutionCounsels"]).map do |prosecution_counsel|
       "#{prosecution_counsel['firstName']} #{prosecution_counsel['lastName']}"
     end
   end
 
   def defence_advocate_names
-    hearing_body["defenceCounsels"]&.map do |defence_counsel|
+    Array(hearing_body["defenceCounsels"]).map do |defence_counsel|
       "#{defence_counsel['firstName']} #{defence_counsel['lastName']}"
     end
   end
@@ -76,11 +76,11 @@ private
   end
 
   def defendants
-    prosecution_cases.flat_map { |prosecution_case| prosecution_case["defendants"] }
+    Array(prosecution_cases).flat_map { |prosecution_case| prosecution_case["defendants"] }
   end
 
   def hearing_event_recordings
-    @hearing_event_recordings ||= hearing_body["hearingDays"].flat_map { |hearing_day|
+    @hearing_event_recordings ||= Array(hearing_body["hearingDays"]).flat_map { |hearing_day|
       Api::GetHearingEvents.call(hearing_id: id, hearing_date: hearing_day["sittingDay"].to_date)
     }.compact
   end

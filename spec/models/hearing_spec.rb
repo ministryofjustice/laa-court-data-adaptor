@@ -86,13 +86,13 @@ RSpec.describe Hearing, type: :model do
       context "when prosecutionCounsels are not provided" do
         before { hearing.body["hearing"].delete("prosecutionCounsels") }
 
-        it { expect(hearing.prosecution_advocate_names).to be_nil }
+        it { expect(hearing.prosecution_advocate_names).to eql([]) }
       end
 
       context "when defenceCounsels are not provided" do
         before { hearing.body["hearing"].delete("defenceCounsels") }
 
-        it { expect(hearing.defence_advocate_names).to be_nil }
+        it { expect(hearing.defence_advocate_names).to eql([]) }
       end
     end
 

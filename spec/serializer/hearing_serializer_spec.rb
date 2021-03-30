@@ -36,4 +36,18 @@ RSpec.describe HearingSerializer do
     it { expect(relationship_hash[:hearing_events][:data]).to eq([{ id: "HEARING_EVENT_UUID", type: :hearing_events }]) }
     it { expect(relationship_hash[:providers][:data]).to eq([{ id: "PROVIDER_UUID", type: :providers }]) }
   end
+
+  context "with required fields only" do
+    let(:hearing_data) { JSON.parse(file_fixture("hearing/required_fields.json").read).deep_symbolize_keys }
+    let(:hearing) { Hearing.new(body: hearing_data) }
+    let(:attribute_hash) { subject[:data][:attributes] }
+
+    it { expect(attribute_hash[:court_name]).to eq("Warrington CCU (Decom)") }
+    it { expect(attribute_hash[:hearing_type]).to eql("Mention - Defendant to Attend (MDA)") }
+    it { expect(attribute_hash[:defendant_names]).to eq([]) }
+    it { expect(attribute_hash[:judge_names]).to eq([]) }
+    it { expect(attribute_hash[:prosecution_advocate_names]).to eq([]) }
+    it { expect(attribute_hash[:defence_advocate_names]).to eq([]) }
+    it { expect(attribute_hash[:hearing_days]).to eq([]) }
+  end
 end
