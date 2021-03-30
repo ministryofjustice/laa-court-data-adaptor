@@ -1,0 +1,68 @@
+{
+    "hearing": {
+      "id": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+      "jurisdictionType": "MAGISTRATES",
+      "courtCentre": {
+        "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
+      },
+      "type": {
+        "description": "First hearing",
+        "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776"
+      },
+      "courtApplications": [
+        {
+          "id": "c5266a93-389c-4331-a56a-dd000b361cef",
+          "type": {
+            "id": "74b72f6f-414a-3464-a4a2-d91397b4c439",
+            "type": "Application for transfer of legal aid",
+            "categoryCode": "CO",
+            "linkType": "LINKED",
+            "jurisdiction": "EITHER",
+            "summonsTemplateType": "NOT_APPLICABLE",
+            "breachType": "NOT_APPLICABLE",
+            "appealFlag": false,
+            "applicantAppellantFlag": false,
+            "pleaApplicableFlag": false,
+            "commrOfOathFlag": false,
+            "courtOfAppealFlag": false,
+            "courtExtractAvlFlag": true,
+            "prosecutorThirdPartyFlag": false,
+            "spiOutApplicableFlag": true,
+            "offenceActiveOrder": "NOT_APPLICABLE"
+          },
+          "applicationReceivedDate": "2021-03-09",
+          "applicant": {
+            "id": "80ae2f05-04dd-4f7e-aa11-802fbf585efe",
+            "masterDefendant": {
+              "masterDefendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+              "personDefendant": {
+                "personDetails": {
+                  "gender": "MALE",
+                  "lastName": "WilliamsonConnelly"
+                }
+              }
+            },
+            "notificationRequired": true,
+            "summonsRequired": false
+          },
+          "subject": {
+            "id": "80ae2f05-04dd-4f7e-aa11-802fbf585efe",
+            "masterDefendant": {
+              "masterDefendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+              "personDefendant": {
+                "personDetails": {
+                  "gender": "MALE",
+                  "lastName": "WilliamsonConnelly"
+                }
+              }
+            },
+            "notificationRequired": true,
+            "summonsRequired": false
+          },
+          "applicationStatus": "LISTED"
+        }
+      ]
+    },
+    "sharedTime": "2021-03-09T15:54:09.871Z"
+  }
+  
