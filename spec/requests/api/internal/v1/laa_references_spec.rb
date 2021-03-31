@@ -15,6 +15,8 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
         attributes: {
           maat_reference: 1_231_231,
           user_name: "JaneDoe",
+          unlink_reason_code: 1,
+          unlink_other_reason_text: "",
         },
         relationships: {
           defendant: {
@@ -151,6 +153,64 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
           expect(response.body).to include("is not a valid uuid")
           expect(response).to have_http_status(:unprocessable_entity)
         end
+      end
+    end
+  end
+
+  path "/api/internal/v1/laa_references/{defendant_id}" do
+    delete("laa_reference") do
+      description "Delete an LAA reference from Common Platform case"
+      consumes "application/json"
+      tags "Internal - available to other LAA applications"
+      security [{ oAuth: [] }]
+
+      response(202, "Accepted") do
+        parameter name: :defendant_id, in: :path, required: true, type: :uuid,
+                  schema: {
+                    '$ref': "defendant.json#/definitions/id",
+                  },
+                  description: "The unique identifier of the defendant"
+
+        parameter name: :laa_reference, in: :body, required: true, type: :object,
+                  schema: {
+                    '$ref': "laa_reference.json#/definitions/resource_to_destroy",
+                  },
+                  description: "Object containing the user_name, unlink_reason_code and unlink_other_reason_text"
+
+        parameter "$ref" => "#/components/parameters/transaction_id_header"
+
+        let(:Authorization) { "Bearer #{token.token}" }
+
+        before do
+          expect(UnlinkLaaReferenceWorker).to receive(:perform_async).with(String, defendant_id, "JaneDoe", 1, "")
+        end
+
+        run_test!
+      end
+
+      response("422", "Unprocessable Entity") do
+        let(:Authorization) { "Bearer #{token.token}" }
+        let(:defendant_id) { "X" }
+
+        parameter "$ref" => "#/components/parameters/transaction_id_header"
+
+        before do
+          expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+        end
+
+        run_test!
+      end
+
+      response("401", "Unauthorized") do
+        let(:Authorization) { nil }
+
+        parameter "$ref" => "#/components/parameters/transaction_id_header"
+
+        before do
+          expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+        end
+
+        run_test!
       end
     end
   end
