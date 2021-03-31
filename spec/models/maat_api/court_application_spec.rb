@@ -1,5 +1,5 @@
 RSpec.describe MaatApi::CourtApplication, type: :model do
-  let(:hearing_body) { JSON.parse(file_fixture("hearing_with_court_application.json").read).deep_symbolize_keys }
+  let(:hearing_body) { JSON.parse(file_fixture("hearing/with_court_application.json").read).deep_symbolize_keys }
   let(:maat_reference) { "123" }
   let(:court_application_data) { hearing_body.dig(:hearing, :courtApplications).first }
   let(:court_application) { described_class.new(hearing_body, court_application_data, maat_reference) }
@@ -105,7 +105,7 @@ RSpec.describe MaatApi::CourtApplication, type: :model do
   end
 
   context "when the hearing body has only required fields" do
-    let(:hearing_body) { JSON.parse(file_fixture("hearing_with_court_application_required_only.json").read).deep_symbolize_keys }
+    let(:hearing_body) { JSON.parse(file_fixture("hearing/with_court_application_required_only.json").read).deep_symbolize_keys }
 
     it "has a maat_reference" do
       expect(court_application.maat_reference).to eql("123")
