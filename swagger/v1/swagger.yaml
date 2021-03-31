@@ -36,39 +36,6 @@ paths:
             schema:
               "$ref": hearing_resulted.json#/definitions/new_resource
   "/api/internal/v1/defendants/{id}":
-    patch:
-      summary: patch defendant relationships
-      description: Delete an LAA reference from Common Platform case
-      tags:
-      - Internal - available to other LAA applications
-      security:
-      - oAuth: []
-      parameters:
-      - name: id
-        in: path
-        required: true
-        type: uuid
-        schema:
-          "$ref": defendant.json#/definitions/id
-        description: The unique identifier of the defendant
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      responses:
-        '202':
-          description: Accepted
-          content: {}
-        '400':
-          description: Bad Request
-          content: {}
-        '401':
-          description: Unauthorized
-          content: {}
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": defendant.json#/definitions/resource_to_unlink
     get:
       summary: fetch a defendant by ID
       description: find a defendant where it exists within Court Data Adaptor
