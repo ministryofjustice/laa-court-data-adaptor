@@ -6,7 +6,7 @@ RSpec.describe HearingRecorder do
   subject(:record_hearing) { described_class.call(hearing_id: hearing_id, body: body, publish_to_queue: true) }
 
   let(:hearing_id) { "fa78c710-6a49-4276-bbb3-ad34c8d4e313" }
-  let(:body) { JSON.parse(file_fixture("valid_hearing.json").read) }
+  let(:body) { JSON.parse(file_fixture("hearing/valid.json").read) }
 
   it "creates a Hearing" do
     expect {
@@ -56,7 +56,7 @@ RSpec.describe HearingRecorder do
   end
 
   context "when the hearing body is invalid as per the hearing contract" do
-    let(:body) { JSON.parse(file_fixture("invalid_hearing.json").read) }
+    let(:body) { JSON.parse(file_fixture("hearing/invalid.json").read) }
 
     it "does not create a new record" do
       expect {
@@ -66,7 +66,7 @@ RSpec.describe HearingRecorder do
 
     it "does not update Hearing with new response" do
       hearing = Hearing.create!(body: { foo: "bar" })
-      body = JSON.parse(file_fixture("invalid_hearing.json").read)
+      body = JSON.parse(file_fixture("hearing/invalid.json").read)
 
       hearing_recorder = described_class.new(hearing_id: hearing.id,
                                              body: body,

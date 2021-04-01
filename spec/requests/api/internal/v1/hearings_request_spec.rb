@@ -30,7 +30,7 @@ RSpec.describe "Api::Internal::V1::Hearings", type: :request do
 
       context "with success" do
         let(:Authorization) { "Bearer #{token.token}" }
-        let(:shared_time) { JSON.parse(file_fixture("valid_hearing.json").read) }
+        let(:shared_time) { JSON.parse(file_fixture("hearing/valid.json").read) }
 
         around do |example|
           VCR.use_cassette("hearing_result_fetcher/success") do
