@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     namespace :internal do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
         resources :prosecution_cases, only: [:index]
-        resources :laa_references, only: [:create]
+        resources :laa_references, only: %i[create destroy], param: :defendant_id
         resources :defendants, only: %i[update show]
         resources :representation_orders, only: [:create]
         resources :hearings, only: [:show]

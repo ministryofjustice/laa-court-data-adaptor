@@ -53,6 +53,29 @@
         }
       }
     },
+    "resource_to_destroy": {
+      "description": "object representing a single laa_reference to be destroyed",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "user_name": {
+              "$ref": "#/definitions/user_name"
+            },
+            "unlink_reason_code": {
+              "$ref": "#/definitions/unlink_reason_code"
+            },
+            "unlink_other_reason_text": {
+              "$ref": "#/definitions/unlink_other_reason_text"
+            }
+          }
+        }
+      }
+    },
     "attributes": {
       "type": "object",
       "properties": {
@@ -112,6 +135,26 @@
         "Content-Type": "application/vnd.api+json",
         "Authorization": "Bearer <TOKEN>"
       }
+    },
+    {
+      "description": "Destroy a defendant's LaaReference.",
+      "href": "/laa_references/{(%23%2Fdefinitions%2Fidentity)}",
+      "method": "DELETE",
+      "rel": "empty",
+      "title": "Destroy",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/resource_to_destroy"
+          }
+        }
+      },
+      "http_header": {
+        "Content-Type": "application/vnd.api+json",
+        "Authorization": "Bearer <TOKEN>"
+      }
+
     }
   ],
   "properties": {
