@@ -84,7 +84,7 @@ module MaatApi
         offenceShortTitle: court_application.type_name,
         offenceClassification: court_application.type_category_code,
         offenceDate: court_application.received_date,
-        offenceWording: court_application.type_legislation,
+        offenceWording: offence_wording,
         results: judicial_results,
       }
     end
@@ -100,6 +100,10 @@ module MaatApi
           nextHearingLocation: find_court_centre_by_id(judicial_result.next_hearing_court_centre_id)&.short_oucode,
         }
       end
+    end
+
+    def offence_wording
+      [court_application.application_particulars, court_application.type_legislation].compact.join(" - ").presence
     end
 
     def court_centre_short_ou_code

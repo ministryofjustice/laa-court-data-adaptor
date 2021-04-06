@@ -26,6 +26,10 @@ module HmctsCommonPlatform
       data.dig(:type, :legislation)
     end
 
+    def application_particulars
+      data[:applicationParticulars]
+    end
+
     def received_date
       data[:applicationReceivedDate]
     end
