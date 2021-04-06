@@ -76,7 +76,7 @@ RSpec.describe MaatApi::CourtApplication, type: :model do
           offenceDate: "2021-03-09",
           offenceId: "74b72f6f-414a-3464-a4a2-d91397b4c439",
           offenceShortTitle: "Application for transfer of legal aid",
-          offenceWording: "Pursuant to Regulation 14 of the Criminal Legal Aid",
+          offenceWording: "application particulars - Pursuant to Regulation 14 of the Criminal Legal Aid",
           results: [
             {
               nextHearingDate: "2020-03-01",

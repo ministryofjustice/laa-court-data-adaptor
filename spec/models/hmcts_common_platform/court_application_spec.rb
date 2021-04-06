@@ -22,6 +22,10 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
     expect(court_application.type_legislation).to eql("Pursuant to Regulation 14 of the Criminal Legal Aid")
   end
 
+  it "has an application particulars" do
+    expect(court_application.application_particulars).to eql("application particulars")
+  end
+
   it "has a received date" do
     expect(court_application.received_date).to eql("2021-03-09")
   end
