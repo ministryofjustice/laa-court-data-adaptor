@@ -20,14 +20,24 @@ class HearingsCreator < ApplicationService
 private
 
   def push_prosecution_cases
-    hearing[:prosecutionCases]&.each do |prosecution_case|
-      prosecution_case[:defendants].each do |defendant|
-        next if defendant[:offences].map { |offence| offence.dig(:laaApplnReference, :applicationReference)&.start_with?("A", "Z") }.any?
+    hearing[:prosecutionCases]&.each do |prosecution_case_data|
+      prosecution_case_data[:defendants].each do |defendant_data|
+        next if defendant_data[:offences].map { |offence| offence.dig(:laaApplnReference, :applicationReference)&.start_with?("A", "Z") }.any?
 
-        push_to_sqs(shared_time: shared_time,
-                    case_urn: prosecution_case[:prosecutionCaseIdentifier][:caseURN],
-                    defendant: defendant,
-                    appeal_data: nil)
+        laa_reference = LaaReference.find_by!(defendant_id: defendant_data[:id], linked: true)
+        next if laa_reference.blank?
+
+        prosecution_case = MaatApi::ProsecutionCase.new(
+          hearing_body,
+          prosecution_case_data[:prosecutionCaseIdentifier][:caseURN],
+          defendant_data,
+          laa_reference.maat_reference,
+        )
+
+        Sqs::MessagePublisher.call(
+          message: MaatApi::Message.new(prosecution_case).generate,
+          queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
+        )
       end
     end
   end
