@@ -11,12 +11,10 @@ RSpec.describe CrackedIneffectiveTrialSerializer do
                     description: "A reason for the cracked trail goes here")
   end
 
-  context "with attributes" do
-    let(:attribute_hash) { subject[:data][:attributes] }
+  let(:attributes) { subject[:data][:attributes] }
 
-    it { expect(attribute_hash[:id]).to eq("a-uuid") }
-    it { expect(attribute_hash[:code]).to eq("A") }
-    it { expect(attribute_hash[:type]).to eq("cracked") }
-    it { expect(attribute_hash[:description]).to eq("A reason for the cracked trail goes here") }
-  end
+  it { expect(attributes[:id]).to eq("a-uuid") }
+  it { expect(attributes[:code]).to eq("A") }
+  it { expect(attributes[:type]).to eq("cracked") }
+  it { expect(attributes[:description]).to eq("A reason for the cracked trail goes here") }
 end
