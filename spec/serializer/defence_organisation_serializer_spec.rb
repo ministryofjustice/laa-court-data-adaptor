@@ -15,15 +15,13 @@ RSpec.describe DefenceOrganisationSerializer do
                     postcode: "EC4A 2AH")
   end
 
-  context "with attributes" do
-    let(:attribute_hash) { subject[:data][:attributes] }
+  let(:attributes) { subject[:data][:attributes] }
 
-    it { expect(attribute_hash[:name]).to eq("The Johnson Partnership") }
-    it { expect(attribute_hash[:address1]).to eq("104") }
-    it { expect(attribute_hash[:address2]).to eq("Fleet Street") }
-    it { expect(attribute_hash[:address3]).to eq("Westminster") }
-    it { expect(attribute_hash[:address4]).to eq("London") }
-    it { expect(attribute_hash[:address5]).to eq("GB") }
-    it { expect(attribute_hash[:postcode]).to eq("EC4A 2AH") }
-  end
+  it { expect(attributes[:name]).to eq("The Johnson Partnership") }
+  it { expect(attributes[:address1]).to eq("104") }
+  it { expect(attributes[:address2]).to eq("Fleet Street") }
+  it { expect(attributes[:address3]).to eq("Westminster") }
+  it { expect(attributes[:address4]).to eq("London") }
+  it { expect(attributes[:address5]).to eq("GB") }
+  it { expect(attributes[:postcode]).to eq("EC4A 2AH") }
 end
