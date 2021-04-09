@@ -17,5 +17,11 @@ module HmctsCommonPlatform
     def first_sitting_day_date
       data.dig(:hearingDays, 0, :sittingDay)
     end
+
+    def prosecution_cases
+      Array(data[:prosecutionCases]).map do |prosecution_case_data|
+        HmctsCommonPlatform::ProsecutionCase.new(prosecution_case_data)
+      end
+    end
   end
 end
