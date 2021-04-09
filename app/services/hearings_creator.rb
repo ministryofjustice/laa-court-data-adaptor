@@ -3,7 +3,8 @@
 class HearingsCreator < ApplicationService
   def initialize(hearing_id:)
     @hearing_id = hearing_id
-    @hearing = hearing_body[:hearing]
+    @hearing_data = hearing_body[:hearing]
+    @hearing = HmctsCommonPlatform::Hearing.new(hearing_body[:hearing])
     @shared_time = hearing_body[:sharedTime]
   end
 
@@ -20,20 +21,28 @@ class HearingsCreator < ApplicationService
 private
 
   def push_prosecution_cases
-    hearing[:prosecutionCases]&.each do |prosecution_case|
-      prosecution_case[:defendants].each do |defendant|
-        next if defendant[:offences].map { |offence| offence.dig(:laaApplnReference, :applicationReference)&.start_with?("A", "Z") }.any?
+    hearing.prosecution_cases.each do |prosecution_case|
+      prosecution_case.defendants.each do |defendant|
+        next if defendant.offences.any? { |o| o.laa_reference_application_reference&.start_with?("A", "Z") }
 
-        push_to_sqs(shared_time: shared_time,
-                    case_urn: prosecution_case[:prosecutionCaseIdentifier][:caseURN],
-                    defendant: defendant,
-                    appeal_data: nil)
+        maat_api_prosecution_case = MaatApi::ProsecutionCase.new(
+          shared_time,
+          LaaReference.find_by(defendant_id: defendant.id, linked: true).maat_reference,
+          prosecution_case.urn,
+          hearing,
+          defendant,
+        )
+
+        Sqs::MessagePublisher.call(
+          message: MaatApi::Message.new(maat_api_prosecution_case).generate,
+          queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
+        )
       end
     end
   end
 
   def push_appeals
-    hearing[:courtApplications]&.each do |appeal|
+    hearing_data[:courtApplications]&.each do |appeal|
       defendant = appeal.dig(:applicant, :defendant)
 
       next if defendant.nil?
@@ -50,7 +59,7 @@ private
   end
 
   def push_applications
-    hearing[:courtApplications]&.each do |court_application_data|
+    hearing_data[:courtApplications]&.each do |court_application_data|
       defendant_cases = court_application_data.dig(:applicant, :masterDefendant, :defendantCase) || []
 
       defendant_cases.each do |defendant_case|
@@ -77,13 +86,13 @@ private
                              jurisdiction_type: jurisdiction_type,
                              case_urn: case_urn,
                              defendant: defendant,
-                             court_centre_id: hearing[:courtCentre][:id],
+                             court_centre_id: hearing_data[:courtCentre][:id],
                              appeal_data: appeal_data)
   end
 
   def jurisdiction_type
-    @jurisdiction_type ||= hearing[:jurisdictionType]
+    @jurisdiction_type ||= hearing_data[:jurisdictionType]
   end
 
-  attr_reader :shared_time, :hearing
+  attr_reader :shared_time, :hearing, :hearing_data
 end
