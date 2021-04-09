@@ -110,6 +110,17 @@
                   "pleaDate": "2020-04-12",
                   "pleaValue": "NOT_GUILTY"
                 },
+                "verdict": {
+                  "originatingHearingId": "",
+                  "offenceId": "",
+                  "applicationId": "",
+                  "verdictDate": "2020-04-14",
+                  "verdictType": {
+                    "id": "",
+                    "category": "",
+                    "categoryType": ""
+                  }
+                },
                 "laaApplnReference": {
                   "applicationReference": "A10000099",
                   "statusId": "38944fbb-c8a6-45ff-9b5c-e09e9867eabc",

@@ -1,0 +1,121 @@
+{
+  "id": "5aa2ba71-01d6-481b-82d3-228d61e6e73d",
+  "prosecutionCaseId": "440ded03-603e-47a3-bc66-1191aed5ae8e",
+  "proceedingsConcluded": true,
+  "offences": [
+    {
+      "id": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
+      "offenceDefinitionId": "084cc312-8e01-485e-a836-c52273e83d5a",
+      "offenceCode": "PT00011",
+      "offenceTitle": "Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable",
+      "offenceTitleWelsh": "some welsh for that offence",
+      "offenceLegislation": "Common law",
+      "offenceLegislationWelsh": "Firearms Act 1968 s.2",
+      "modeOfTrial": "Either way",
+      "wording": "Random string",
+      "wordingWelsh": "Llinyn ar hap",
+      "startDate": "2019-10-17",
+      "endDate": "2019-10-17",
+      "arrestDate": "2019-10-17",
+      "chargeDate": "2019-10-17",
+      "laidDate": "2019-10-17",
+      "dateOfInformation": "2019-10-17",
+      "orderIndex": 1,
+      "count": 1,
+      "convictionDate": "2019-10-17",
+      "aquittalDate": "2019-10-17",
+      "isDiscontinued": false,
+      "proceedingsConcluded": false,
+      "allocationDecision": {
+        "originatingHearingId": "7084b980-d09d-40bc-b856-ea1fafd401bf",
+        "offenceId": "e58b3a59-e5e5-4ec4-a478-2c846b9e6b6d",
+        "motReasonId": "d47268e9-db2e-3aa3-827b-ba3afb7ff94a",
+        "motReasonDescription": "Court directs trial by jury",
+        "motReasonCode": "5",
+        "sequenceNumber": 20,
+        "allocationDecisionDate": "2020-02-13",
+        "courtIndicatedSentence": {
+          "courtIndicatedSentenceTypeId": "f7f76e0b-366b-4746-b0b0-4d8a46c6ad4e",
+          "courtIndicatedSentenceDescription": "Aut laborum quia et."
+        }
+      },
+      "plea": {
+        "originatingHearingId": "818d572c-a9e8-4bf2-8eb7-6abf98cd7a5f",
+        "offenceId": "e58b3a59-e5e5-4ec4-a478-2c846b9e6b6d",
+        "pleaDate": "2020-04-12",
+        "pleaValue": "NOT_GUILTY"
+      },
+      "verdict": {
+        "originatingHearingId": "a84db3ea-6751-458f-a99b-2f4d7a7ed13b",
+        "offenceId": "e58b3a59-e5e5-4ec4-a478-2c846b9e6b6d",
+        "applicationId": "959bc753-bcab-42e8-b737-1792a120470d",
+        "verdictDate": "2020-04-14",
+        "verdictType": {
+          "id": "6a291a72-85d2-4cf9-91b3-93f05a1cf2ff",
+          "category": "verdict type category",
+          "categoryType": "verdict type category type",
+          "cjsVerdictCode": "CJS verdict code",
+          "verdictCode": "verdict code"
+        }
+      },
+      "judicialResults": [
+        {
+          "cjsCode": "4600",
+          "label": "Legal Aid Transfer Granted",
+          "resultText": "Legal Aid Transfer Granted\nGrant of legal aid transferred to (new firm name) Joe Bloggs Solicitors Ltd, London\nAdditional reasons Defendant's choice\nNew firm's LAA account reference 55558888",
+          "qualifier": "qualifier",
+          "postHearingCustodyStatus": "R",
+          "nextHearing": {
+            "courtCentre": {
+              "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
+            },
+            "listedStartDateTime": "2020-03-01"
+          }
+        }
+      ],
+      "laaApplnReference": {
+        "applicationReference": "A10000099",
+        "effectiveEndDate": "2020-11-12",
+        "statusId": "38944fbb-c8a6-45ff-9b5c-e09e9867eabc",
+        "statusCode": "AP",
+        "statusDescription": "FAKE NEWS",
+        "statusDate": "2020-11-05"
+      }
+    }
+  ],
+  "defenceOrganisation": {
+    "name": "Acme Organisation"
+  },
+  "personDefendant": {
+    "arrestSummonsNumber": "TFL1",
+    "bailStatus": {
+      "code": "C",
+      "description": "Custody or remanded into custody",
+      "id": "12e69486-4d01-3403-a50a-7419ca040635"
+    },
+    "personDetails": {
+      "nationalInsuranceNumber": "123456789A",
+      "address": {
+        "address1": "Address Line 1",
+        "address2": "Address Line 2",
+        "address3": "Address Line 3",
+        "address4": "Address Line 4",
+        "address5": "Address Line 5",
+        "postcode": "SW1 W11"
+      },
+      "contact": {
+        "home": "000-000-0000",
+        "work": "111-111-1111",
+        "mobile": "222-222-2222",
+        "primaryEmail": "primary@example.com",
+        "secondaryEmail": "secondary@example.com"
+      },
+      "dateOfBirth": "1990-01-01",
+      "documentationLanguageNeeds": "WELSH",
+      "firstName": "Carlee",
+      "gender": "MALE",
+      "lastName": "WilliamsonConnelly",
+      "title": "Mr"
+    }
+  }
+}
