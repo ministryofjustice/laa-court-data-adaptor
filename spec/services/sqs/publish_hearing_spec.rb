@@ -19,7 +19,7 @@ RSpec.describe Sqs::PublishHearing do
   let(:verdict_hash) do
     {
       'offenceId': "7dc1b279-805f-4ba8-97ea-be635f5764a7",
-      'verdictDate': "2018-10-25",
+      'verdictDate': "2018-10-26",
       'verdictType': {
         'category': "GUILTY",
         'categoryType': "GUILTY_CONVICTED",
@@ -141,6 +141,7 @@ RSpec.describe Sqs::PublishHearing do
         postHearingCustody: "R",
         sessionValidateDate: "2018-11-11",
       },
+      caseEndDate: "2018-10-26",
     }
   end
 
@@ -164,7 +165,7 @@ RSpec.describe Sqs::PublishHearing do
       },
       verdict: {
         offenceId: "7dc1b279-805f-4ba8-97ea-be635f5764a7",
-        verdictDate: "2018-10-25",
+        verdictDate: "2018-10-26",
         category: "GUILTY",
         categoryType: "GUILTY_CONVICTED",
         cjsVerdictCode: "123",

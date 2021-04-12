@@ -32,6 +32,7 @@ module Sqs
         inActive: inactive?,
         defendant: defendant_hash,
         session: session_hash,
+        caseEndDate: defendant.dig(:offences, 0, :verdict, :verdictDate),
       }
     end
 
