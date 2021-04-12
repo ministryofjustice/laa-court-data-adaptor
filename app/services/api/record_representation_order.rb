@@ -2,16 +2,18 @@
 
 module Api
   class RecordRepresentationOrder < ApplicationService
-    def initialize(prosecution_case_id:,
+    def initialize(case_defendant_offence:,
                    defendant_id:,
                    offence_id:,
                    status_code:,
                    application_reference:,
                    status_date:,
                    effective_start_date:,
-                   defence_organisation:, effective_end_date: nil,
+                   defence_organisation:,
+                   effective_end_date: nil,
                    connection: CommonPlatformConnection.call)
 
+      @case_defendant_offence = case_defendant_offence
       @offence_id = offence_id
       @status_code = status_code
       @application_reference = application_reference.to_s
@@ -20,7 +22,7 @@ module Api
       @effective_end_date = effective_end_date
       @defence_organisation = defence_organisation
       @url = "prosecutionCases/representationOrder"\
-              "/cases/#{prosecution_case_id}"\
+              "/cases/#{case_defendant_offence.prosecution_case_id}"\
               "/defendants/#{defendant_id}"\
               "/offences/#{offence_id}"
       @connection = connection
@@ -46,17 +48,17 @@ module Api
     end
 
     def update_database(response)
-      offence = ProsecutionCaseDefendantOffence.find_by(offence_id: offence_id)
-      offence.rep_order_status = status_code
-      offence.status_date = status_date
-      offence.effective_start_date = effective_start_date
-      offence.effective_end_date = effective_end_date
-      offence.defence_organisation = defence_organisation
-      offence.response_status = response.status
-      offence.response_body = response.body
-      offence.save!
+      case_defendant_offence.update!(
+        rep_order_status: status_code,
+        status_date: status_date,
+        effective_start_date: effective_start_date,
+        effective_end_date: effective_end_date,
+        defence_organisation: defence_organisation,
+        response_status: response.status,
+        response_body: response.body,
+      )
     end
 
-    attr_reader :url, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
+    attr_reader :url, :case_defendant_offence, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
   end
 end

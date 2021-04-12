@@ -17,7 +17,7 @@ RSpec.describe Api::RecordRepresentationOrder do
 
   let(:params) do
     {
-      prosecution_case_id: prosecution_case.id,
+      case_defendant_offence: case_defendant_offence,
       defendant_id: defendant_id,
       offence_id: offence_id,
       status_code: "ABCDEF",
