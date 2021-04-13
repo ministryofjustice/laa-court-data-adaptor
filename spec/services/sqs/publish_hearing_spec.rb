@@ -96,12 +96,10 @@ RSpec.describe Sqs::PublishHearing do
             'statusCode': "AP",
             'statusDescription': "Application Pending",
             'statusDate': "2018-10-24",
+            'laaContractNumber': "0A935R",
           },
         },
       ],
-      'defenceOrganisation': {
-        'laaAccountNumber': "0A935R",
-      },
     }
   end
 
@@ -196,21 +194,6 @@ RSpec.describe Sqs::PublishHearing do
   it "triggers a publish call with the expected sqs payload" do
     expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url)
     publish
-  end
-
-  context "when there are historical hearings" do
-    before do
-      defendant[:offences].each { |offence| offence.delete(:laaApplnReference) }
-    end
-
-    it "triggers a publish call with the sqs payload" do
-      offence_payload[:legalAidStatus] = nil
-      offence_payload[:legalAidStatusDate] = nil
-      offence_payload[:legalAidReason] = nil
-
-      expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url)
-      publish
-    end
   end
 
   context "when the defendant proceedingsConcluded flag is absent from the incoming hearing defendnt payload" do
