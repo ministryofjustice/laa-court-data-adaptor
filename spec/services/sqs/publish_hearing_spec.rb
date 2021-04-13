@@ -97,6 +97,7 @@ RSpec.describe Sqs::PublishHearing do
             'statusDescription': "Application Pending",
             'statusDate': "2018-10-24",
             'laaContractNumber': "0A935R",
+            'effectiveEndDate': "2022-01-01",
           },
         },
       ],
@@ -181,7 +182,7 @@ RSpec.describe Sqs::PublishHearing do
         nextHearingDate: "2018-11-11",
         nextHearingLocation: "B16BG",
         laaOfficeAccount: "0A935R",
-        legalAidWithdrawalDate: nil,
+        legalAidWithdrawalDate: "2022-01-01",
       }],
     }
   end
