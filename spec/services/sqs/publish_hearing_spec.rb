@@ -198,21 +198,6 @@ RSpec.describe Sqs::PublishHearing do
     publish
   end
 
-  context "when there are historical hearings" do
-    before do
-      defendant[:offences].each { |offence| offence.delete(:laaApplnReference) }
-    end
-
-    it "triggers a publish call with the sqs payload" do
-      offence_payload[:legalAidStatus] = nil
-      offence_payload[:legalAidStatusDate] = nil
-      offence_payload[:legalAidReason] = nil
-
-      expect(Sqs::MessagePublisher).to receive(:call).with(message: sqs_payload, queue_url: queue_url)
-      publish
-    end
-  end
-
   context "when the defendant proceedingsConcluded flag is absent from the incoming hearing defendnt payload" do
     before do
       defendant.delete(:proceedingsConcluded)
