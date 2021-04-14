@@ -26,7 +26,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
     expect(prosecution_case.cjs_area_code).to eql("7")
   end
 
-  it "has no cjs location" do
+  it "has a cjs location" do
     expect(prosecution_case.cjs_location).to eql("A07AF")
   end
 
@@ -38,7 +38,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
     expect(prosecution_case.doc_language).to eql("EN")
   end
 
-  it "has proceedings_concluded flag" do
+  it "has a proceedings_concluded flag" do
     expect(prosecution_case.proceedings_concluded).to be(false)
   end
 
@@ -132,10 +132,12 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
   end
 
   it "has a session object" do
+    allow(PostHearingCustodyCalculator).to receive(:call).and_return("B")
+
     expected = {
       courtLocation: "A07AF",
       dateOfHearing: "2021-03-10",
-      postHearingCustody: "A",
+      postHearingCustody: "B",
       sessionValidateDate: "2021-03-10",
     }
 
@@ -223,16 +225,9 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
             legalAidStatus: nil,
             legalAidStatusDate: nil,
             legalAidReason: nil,
-            results: nil,
+            results: [],
             plea: nil,
-            verdict: {
-              category: nil,
-              categoryType: nil,
-              cjsVerdictCode: nil,
-              offenceId: nil,
-              verdictCode: nil,
-              verdictDate: nil,
-            },
+            verdict: nil,
           },
         ],
       }
@@ -241,6 +236,8 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
     end
 
     it "has a session object" do
+      allow(PostHearingCustodyCalculator).to receive(:call).and_return("A")
+
       expected = {
         courtLocation: "A07AF",
         dateOfHearing: nil,

@@ -112,6 +112,7 @@
                       "resultText": "Result",
                       "qualifier": "Qualifier",
                       "orderedDate": "2021-03-10",
+                      "postHearingCustodyStatus": "B",
                       "nextHearing": {
                         "courtCentre": {
                           "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"

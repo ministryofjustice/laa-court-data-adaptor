@@ -59,7 +59,7 @@ module HmctsCommonPlatform
     end
 
     def results
-      data[:judicialResults]&.map do |judicial_result_data|
+      Array(data[:judicialResults]).map do |judicial_result_data|
         HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
       end
     end
@@ -68,28 +68,8 @@ module HmctsCommonPlatform
       HmctsCommonPlatform::Plea.new(data[:plea]) if data[:plea]
     end
 
-    def verdict_offence_id
-      data.dig(:verdict, :offenceId)
-    end
-
-    def verdict_date
-      data.dig(:verdict, :verdictDate)
-    end
-
-    def verdict_type_category
-      data.dig(:verdict, :verdictType, :category)
-    end
-
-    def verdict_type_category_type
-      data.dig(:verdict, :verdictType, :categoryType)
-    end
-
-    def verdict_type_cjs_verdict_code
-      data.dig(:verdict, :verdictType, :cjsVerdictCode)
-    end
-
-    def verdict_type_verdict_code
-      data.dig(:verdict, :verdictType, :verdictCode)
+    def verdict
+      HmctsCommonPlatform::Verdict.new(data[:verdict]) if data[:verdict]
     end
   end
 end

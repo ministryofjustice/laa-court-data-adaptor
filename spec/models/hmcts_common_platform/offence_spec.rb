@@ -64,27 +64,7 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
   end
 
   it "has a verdict offence id" do
-    expect(offence.verdict_offence_id).to eql("3f153786-f3cf-4311-bc0c-2d6f48af68a1")
-  end
-
-  it "has a verdict date" do
-    expect(offence.verdict_date).to eql("2021-04-10")
-  end
-
-  it "has a verdict type category" do
-    expect(offence.verdict_type_category).to eql("A")
-  end
-
-  it "has a verdict type category type" do
-    expect(offence.verdict_type_category_type).to eql("Type A")
-  end
-
-  it "has a verdict type cjs verdict code" do
-    expect(offence.verdict_type_cjs_verdict_code).to eql("1093")
-  end
-
-  it "has a verdict type verdict code" do
-    expect(offence.verdict_type_verdict_code).to eql("367A")
+    expect(offence.verdict).to be_a(HmctsCommonPlatform::Verdict)
   end
 
   context "when there are only required fields" do
@@ -108,7 +88,7 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
       expect(offence.offence_title).to eql("Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable")
     end
 
-    it "has a mode of trial" do
+    it "has no mode of trial" do
       expect(offence.mode_of_trial).to be_nil
     end
 
@@ -120,56 +100,36 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
       expect(offence.wording).to eql("Random string")
     end
 
-    it "has an allocation decision mot reason code" do
+    it "has no allocation decision mot reason code" do
       expect(offence.allocation_decision_mot_reason_code).to be_nil
     end
 
-    it "has an laa appln reference status code" do
+    it "has no laa appln reference status code" do
       expect(offence.laa_appln_reference_status_code).to be_nil
     end
 
-    it "has an laa appln reference status date" do
+    it "has no laa appln reference status date" do
       expect(offence.laa_appln_reference_status_date).to be_nil
     end
 
-    it "has an laa appln reference end date" do
+    it "has no laa appln reference end date" do
       expect(offence.laa_appln_reference_end_date).to be_nil
     end
 
-    it "has an laa appln reference status description" do
+    it "has no laa appln reference status description" do
       expect(offence.laa_appln_reference_status_description).to be_nil
     end
 
-    it "has results" do
-      expect(offence.results).to be_nil
+    it "has no results" do
+      expect(offence.results).to eql([])
     end
 
-    it "has a plea" do
+    it "has no plea" do
       expect(offence.plea).to be_nil
     end
 
-    it "has a verdict offence id" do
-      expect(offence.verdict_offence_id).to be_nil
-    end
-
-    it "has a verdict date" do
-      expect(offence.verdict_date).to be_nil
-    end
-
-    it "has a verdict type category" do
-      expect(offence.verdict_type_category).to be_nil
-    end
-
-    it "has a verdict type category type" do
-      expect(offence.verdict_type_category_type).to be_nil
-    end
-
-    it "has a verdict type cjs verdict code" do
-      expect(offence.verdict_type_cjs_verdict_code).to be_nil
-    end
-
-    it "has a verdict type verdict code" do
-      expect(offence.verdict_type_verdict_code).to be_nil
+    it "has no verdict" do
+      expect(offence.verdict).to be_nil
     end
   end
 end

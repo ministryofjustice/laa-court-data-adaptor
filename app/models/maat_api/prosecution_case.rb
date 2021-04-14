@@ -1,20 +1,21 @@
 module MaatApi
   class ProsecutionCase
-    attr_reader :hearing, :prosecution_case, :maat_reference
+    attr_reader :hearing, :hmcts_common_platform_defendant, :maat_reference
     delegate :jurisdiction_type, to: :hearing
 
     def initialize(hearing_body, case_urn, defendant_data, maat_reference)
       @shared_time = hearing_body[:sharedTime]
       @case_urn = case_urn
       @hearing = HmctsCommonPlatform::Hearing.new(hearing_body[:hearing])
-      @prosecution_case = HmctsCommonPlatform::ProsecutionCase.new(defendant_data)
+      @defendant_data = defendant_data
+      @hmcts_common_platform_defendant = HmctsCommonPlatform::Defendant.new(defendant_data)
       @maat_reference = maat_reference
     end
 
     attr_reader :case_urn
 
     def defendant_asn
-      prosecution_case.defendant_arrest_summons_number
+      hmcts_common_platform_defendant.arrest_summons_number
     end
 
     def cjs_area_code
@@ -30,12 +31,11 @@ module MaatApi
     end
 
     def doc_language
-      # Should we derive this from somewhere else?
       "EN"
     end
 
     def proceedings_concluded
-      prosecution_case.proceedings_concluded || false
+      hmcts_common_platform_defendant.proceedings_concluded || false
     end
 
     def inactive
@@ -48,21 +48,21 @@ module MaatApi
 
     def defendant
       {
-        forename: prosecution_case.defendant_first_name,
-        surname: prosecution_case.defendant_last_name,
-        dateOfBirth: prosecution_case.defendant_date_of_birth,
-        addressLine1: prosecution_case.defendant_address_1,
-        addressLine2: prosecution_case.defendant_address_2,
-        addressLine3: prosecution_case.defendant_address_3,
-        addressLine4: prosecution_case.defendant_address_4,
-        addressLine5: prosecution_case.defendant_address_5,
-        postcode: prosecution_case.defendant_postcode,
-        nino: prosecution_case.defendant_nino,
-        telephoneHome: prosecution_case.defendant_phone_home,
-        telephoneWork: prosecution_case.defendant_phone_work,
-        telephoneMobile: prosecution_case.defendant_phone_mobile,
-        email1: prosecution_case.defendant_email_primary,
-        email2: prosecution_case.defendant_email_secondary,
+        forename: hmcts_common_platform_defendant.first_name,
+        surname: hmcts_common_platform_defendant.last_name,
+        dateOfBirth: hmcts_common_platform_defendant.date_of_birth,
+        addressLine1: hmcts_common_platform_defendant.address_1,
+        addressLine2: hmcts_common_platform_defendant.address_2,
+        addressLine3: hmcts_common_platform_defendant.address_3,
+        addressLine4: hmcts_common_platform_defendant.address_4,
+        addressLine5: hmcts_common_platform_defendant.address_5,
+        postcode: hmcts_common_platform_defendant.postcode,
+        nino: hmcts_common_platform_defendant.nino,
+        telephoneHome: hmcts_common_platform_defendant.phone_home,
+        telephoneWork: hmcts_common_platform_defendant.phone_work,
+        telephoneMobile: hmcts_common_platform_defendant.phone_mobile,
+        email1: hmcts_common_platform_defendant.email_primary,
+        email2: hmcts_common_platform_defendant.email_secondary,
         offences: offences,
       }
     end
@@ -70,9 +70,9 @@ module MaatApi
     def session
       {
         courtLocation: court_centre.short_oucode,
-        dateOfHearing: prosecution_case&.offences&.first&.results&.first&.ordered_date,
-        postHearingCustody: PostHearingCustodyCalculator.call(offences: offences),
-        sessionValidateDate: prosecution_case&.offences&.first&.results&.first&.ordered_date,
+        dateOfHearing: hmcts_common_platform_defendant.offences&.first&.results&.first&.ordered_date,
+        postHearingCustody: PostHearingCustodyCalculator.call(offences: @defendant_data[:offences]),
+        sessionValidateDate: hmcts_common_platform_defendant.offences&.first&.results&.first&.ordered_date,
       }
     end
 
@@ -81,7 +81,7 @@ module MaatApi
   private
 
     def offences
-      prosecution_case.offences&.map do |offence|
+      hmcts_common_platform_defendant.offences.map do |offence|
         {
           offenceId: offence.id,
           offenceCode: offence.offence_code,
@@ -96,7 +96,7 @@ module MaatApi
           legalAidReason: offence.laa_appln_reference_status_description,
           results: judicial_results(offence),
           plea: plea(offence.plea),
-          verdict: verdict(offence),
+          verdict: verdict(offence.verdict),
         }
       end
     end
@@ -130,6 +130,19 @@ module MaatApi
       }
     end
 
+    def verdict(data)
+      return if data.nil?
+
+      {
+        offenceId: data.offence_id,
+        verdictDate: data.verdict_date,
+        category: data.verdict_type_category,
+        categoryType: data.verdict_type_category_type,
+        cjsVerdictCode: data.verdict_type_cjs_verdict_code,
+        verdictCode: data.verdict_type_verdict_code,
+      }
+    end
+
     def delegated_powers(data)
       {
         userId: data.user_id,
@@ -146,19 +159,6 @@ module MaatApi
         offenceTitleWelsh: data.offence_title_welsh,
         offenceLegislation: data.offence_legislation,
         offenceLegislationWelsh: data.offence_legislation_welsh,
-      }
-    end
-
-    def verdict(offence)
-      return if offence.nil?
-
-      {
-        offenceId: offence.verdict_offence_id,
-        verdictDate: offence.verdict_date,
-        category: offence.verdict_type_category,
-        categoryType: offence.verdict_type_category_type,
-        cjsVerdictCode: offence.verdict_type_cjs_verdict_code,
-        verdictCode: offence.verdict_type_verdict_code,
       }
     end
 
