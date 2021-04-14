@@ -95,25 +95,25 @@ module Sqs
           [:legalAidStatus, offence.dig(:laaApplnReference, :statusCode)],
           [:legalAidStatusDate, offence.dig(:laaApplnReference, :statusDate)],
           [:legalAidReason, offence.dig(:laaApplnReference, :statusDescription)],
-          [:results, results_map(offence[:judicialResults])],
+          [:results, results_map(offence)],
           [:plea, offence[:plea]],
           [:verdict, format_verdict(offence[:verdict])],
         ].to_h
       end
     end
 
-    def results_map(results)
-      results&.map do |result|
-        [
-          [:resultCode, result[:cjsCode]],
-          [:resultShortTitle, result[:label]],
-          [:resultText, result[:resultText]],
-          [:resultCodeQualifiers, result[:qualifier]],
-          [:nextHearingDate, result.dig(:nextHearing, :listedStartDateTime)&.to_date&.strftime("%Y-%m-%d")],
-          [:nextHearingLocation, hearing_location(result.dig(:nextHearing, :courtCentre, :id))],
-          [:laaOfficeAccount, defendant.dig(:defenceOrganisation, :laaAccountNumber)],
-          [:legalAidWithdrawalDate, defendant.dig(:laaApplnReference, :effectiveEndDate)],
-        ].to_h
+    def results_map(offence)
+      offence[:judicialResults]&.map do |result|
+        {
+          resultCode: result[:cjsCode],
+          resultShortTitle: result[:label],
+          resultText: result[:resultText],
+          resultCodeQualifiers: result[:qualifier],
+          nextHearingDate: result.dig(:nextHearing, :listedStartDateTime)&.to_date&.strftime("%Y-%m-%d"),
+          nextHearingLocation: hearing_location(result.dig(:nextHearing, :courtCentre, :id)),
+          laaOfficeAccount: offence.dig(:laaApplnReference, :laaContractNumber),
+          legalAidWithdrawalDate: offence.dig(:laaApplnReference, :effectiveEndDate),
+        }
       end
     end
 
