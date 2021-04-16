@@ -22,6 +22,10 @@ Rails.application.routes.draw do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
         resources :hearings, only: [:create]
       end
+
+      api_version(module: "V2", path: { value: "v2" }) do
+        resources :hearings, only: [:create]
+      end
     end
   end
 
