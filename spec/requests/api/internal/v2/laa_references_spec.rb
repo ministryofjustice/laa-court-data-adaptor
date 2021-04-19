@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable all
 
 require "swagger_helper"
 require "sidekiq/testing"
@@ -215,3 +216,4 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
     end
   end
 end
+# rubocop:enable all

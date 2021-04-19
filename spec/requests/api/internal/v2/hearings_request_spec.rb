@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable all
 
 require "swagger_helper"
 
@@ -79,3 +80,4 @@ RSpec.describe "Api::Internal::V2::Hearings", type: :request do
     end
   end
 end
+# rubocop:enable all

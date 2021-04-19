@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable all
 
 require "swagger_helper"
 
@@ -59,3 +60,4 @@ RSpec.describe "api/external/v2/hearings", type: :request do
     end
   end
 end
+# rubocop:enable all
