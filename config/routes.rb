@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     use_doorkeeper
   end
 
+  api_version(module: "V2", path: { value: "v2" }) do
+    use_doorkeeper
+  end
+
   namespace :api do
     namespace :internal do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
