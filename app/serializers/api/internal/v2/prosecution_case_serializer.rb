@@ -11,7 +11,6 @@ module Api
 
         has_many :defendants, record_type: :defendants
         has_many :hearing_summaries, record_type: :hearing_summaries
-        has_many :hearings, record_type: :hearings
       end
     end
   end

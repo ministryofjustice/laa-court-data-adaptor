@@ -23,6 +23,5 @@ RSpec.describe Api::Internal::V2::ProsecutionCaseSerializer do
 
     it { expect(relationship_hash[:defendants][:data]).to eq([{ id: "DEFENDANT-UUID", type: :defendants }]) }
     it { expect(relationship_hash[:hearing_summaries][:data]).to eq([{ id: "HEARING-UUID", type: :hearing_summaries }]) }
-    it { expect(relationship_hash[:hearings][:data]).to eq([{ id: "HEARING-UUID", type: :hearings }]) }
   end
 end
