@@ -33,7 +33,6 @@ RSpec.describe Api::Internal::V2::HearingSerializer do
   context "with relationships" do
     let(:relationship_hash) { subject[:data][:relationships] }
 
-    it { expect(relationship_hash[:hearing_events][:data]).to eq([{ id: "HEARING_EVENT_UUID", type: :hearing_events }]) }
     it { expect(relationship_hash[:providers][:data]).to eq([{ id: "PROVIDER_UUID", type: :providers }]) }
   end
 

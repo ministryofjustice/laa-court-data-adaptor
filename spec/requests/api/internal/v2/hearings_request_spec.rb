@@ -25,7 +25,7 @@ RSpec.describe "Api::Internal::V2::Hearings", type: :request do
 
       parameter name: "include", in: :query, required: false, type: :string,
                 schema: {},
-                description: "Return other data through a has_many relationship </br>e.g. include=hearing_events"
+                description: "Return other data through a has_many relationship </br>e.g. include=providers"
 
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
@@ -46,18 +46,6 @@ RSpec.describe "Api::Internal::V2::Hearings", type: :request do
 
           response(200, "Success") do
             run_test!
-          end
-        end
-
-        context "with hearing_events included" do
-          let(:include) { "hearing_events" }
-
-          response(200, "Success") do
-            run_test! do |response|
-              hashed = JSON.parse(response.body, symbolize_names: true)
-              included_types = hashed[:included].pluck(:type)
-              expect(included_types).to all(eql("hearing_events"))
-            end
           end
         end
       end
