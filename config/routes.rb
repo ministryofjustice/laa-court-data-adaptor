@@ -17,7 +17,16 @@ Rails.application.routes.draw do
         resources :representation_orders, only: [:create]
         resources :hearings, only: [:show]
       end
+
+      api_version(module: "V2", path: { value: "v2" }) do
+        resources :prosecution_cases, only: [:index]
+        resources :laa_references, only: %i[create destroy], param: :defendant_id
+        resources :defendants, only: %i[update show]
+        resources :representation_orders, only: [:create]
+        resources :hearings, only: [:show]
+      end
     end
+
     namespace :external do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
         resources :hearings, only: [:create]
