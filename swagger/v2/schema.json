@@ -1,0 +1,842 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": [
+    "object"
+  ],
+  "definitions": {
+    "defendant": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Defendants",
+      "description": "Defendants",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of defendant",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "type": {
+          "description": "The defendants type",
+          "enum": [
+            "defendants"
+          ],
+          "example": "defendants",
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "readOnly": true,
+          "example": "Elaf",
+          "description": "The first name when the defendant is a person",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/defendant/definitions/id"
+        },
+        "date_of_birth": {
+          "readOnly": true,
+          "anyOf": [
+            {
+              "type": [
+                "null"
+              ]
+            },
+            {
+              "description": "The person date of birth when the defendant is a person",
+              "example": "1954-02-23",
+              "type": [
+                "string"
+              ],
+              "pattern": "^((([\\+-]?\\d{4}(?!\\d{2}\b))\\-(0[13578]|1[02])\\-(0[1-9]|[12]\\d|3[01]))|(([\\+-]?\\d{4}(?!\\d{2}\b))\\-(0[13456789]|1[012])\\-(0[1-9]|[12]\\d|30))|(([\\+-]?\\d{4}(?!\\d{2}\b))\\-02\\-(0[1-9]|1\\d|2[0-8]))|(((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))\\-02\\-29))$"
+            }
+          ]
+        },
+        "nino": {
+          "readOnly": true,
+          "anyOf": [
+            {
+              "type": [
+                "null"
+              ]
+            },
+            {
+              "description": "National Insurance Number for a person",
+              "example": "SJ336043A",
+              "type": [
+                "string"
+              ],
+              "pattern": "(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\\s*\\d\\s*){6}([A-D]|\\s)$"
+            }
+          ]
+        },
+        "resource": {
+          "description": "object representing a single defendant",
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/defendant/definitions/type"
+            },
+            "id": {
+              "$ref": "#/definitions/defendant/definitions/id"
+            },
+            "attributes": {
+              "$ref": "#/definitions/defendant/definitions/attributes"
+            }
+          }
+        },
+        "attributes": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "name": {
+              "$ref": "#/definitions/defendant/definitions/name"
+            },
+            "date_of_birth": {
+              "$ref": "#/definitions/defendant/definitions/date_of_birth"
+            },
+            "national_insurance_number": {
+              "$ref": "#/definitions/defendant/definitions/nino"
+            },
+            "arrest_summons_number": {
+              "$ref": "#/definitions/prosecution_case/definitions/arrest_summons_number"
+            }
+          }
+        }
+      },
+      "relationships": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "offences": {
+            "$ref": "#/definitions/defendant/definitions/offence_relationship"
+          }
+        }
+      },
+      "offence_relationship": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/definitions/defendant/definitions/offence"
+            },
+            "type": [
+              "array"
+            ]
+          }
+        }
+      },
+      "offence": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/offence/definitions/id"
+          },
+          "type": {
+            "$ref": "#/definitions/offence/definitions/type"
+          }
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing defendant.",
+          "href": "/defendants/{(%23%2Fdefinitions%2Fdefendant%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info",
+          "targetSchema": {
+            "$ref": "#/definitions/defendant/definitions/resource"
+          }
+        }
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/defendant/definitions/name"
+        },
+        "date_of_birth": {
+          "$ref": "#/definitions/defendant/definitions/date_of_birth"
+        },
+        "national_insurance_number": {
+          "$ref": "#/definitions/defendant/definitions/nino"
+        },
+        "arrest_summons_number": {
+          "$ref": "#/definitions/prosecution_case/definitions/arrest_summons_number"
+        }
+      }
+    },
+    "laa_reference": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "LaaReferences",
+      "description": "LaaReferences",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of laa_reference",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "type": {
+          "description": "The laa_references type",
+          "enum": [
+            "laa_references"
+          ],
+          "example": "laa_references",
+          "type": [
+            "string"
+          ]
+        },
+        "maat_reference": {
+          "example": 314159265,
+          "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
+          "type": [
+            "number"
+          ],
+          "minimum": 0,
+          "maximum": 999999999
+        },
+        "identity": {
+          "$ref": "#/definitions/laa_reference/definitions/id"
+        },
+        "new_resource": {
+          "description": "object representing a single laa_reference",
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/laa_reference/definitions/type"
+            },
+            "attributes": {
+              "$ref": "#/definitions/laa_reference/definitions/attributes"
+            },
+            "relationships": {
+              "$ref": "#/definitions/laa_reference/definitions/relationships"
+            }
+          }
+        },
+        "attributes": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "maat_reference": {
+              "$ref": "#/definitions/laa_reference/definitions/maat_reference"
+            }
+          }
+        },
+        "relationships": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "defendant": {
+              "$ref": "#/definitions/laa_reference/definitions/defendant_relationship"
+            }
+          }
+        },
+        "defendant_relationship": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/definitions/laa_reference/definitions/defendant"
+              },
+              "type": [
+                "object"
+              ]
+            }
+          }
+        },
+        "defendant": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/definitions/defendant/definitions/id"
+            },
+            "type": {
+              "$ref": "#/definitions/defendant/definitions/type"
+            }
+          }
+        }
+      },
+      "links": [
+        {
+          "description": "Create a new LaaReference.",
+          "href": "/laa_references",
+          "method": "POST",
+          "rel": "empty",
+          "title": "Create",
+          "schema": {
+            "type": [
+              "object"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/definitions/laa_reference/definitions/new_resource"
+              }
+            }
+          },
+          "http_header": {
+            "Content-Type": "application/vnd.api+json",
+            "Authorization": "Bearer <TOKEN>"
+          }
+        }
+      ],
+      "properties": {
+        "maat_reference": {
+          "$ref": "#/definitions/laa_reference/definitions/maat_reference"
+        }
+      }
+    },
+    "oauth": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "OAuth endpoints",
+      "description": "Endpoints for authentication via OAuth",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "auth_success_response": {
+          "description": "Successful Response",
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "access_token": {
+              "example": "lV_-FViUsQE2OrYnXQhVyAlzYgIc8Mal8g5YBFGs3J8",
+              "description": "Token that can be used to make authenticated requests",
+              "type": [
+                "string"
+              ]
+            },
+            "token_type": {
+              "example": "Bearer",
+              "enum": [
+                "Bearer"
+              ],
+              "description": "Type of token",
+              "type": [
+                "string"
+              ]
+            },
+            "expires_in": {
+              "example": 7200,
+              "description": "Duration of the token validity",
+              "type": [
+                "integer"
+              ]
+            },
+            "created_at": {
+              "description": "when the token was created",
+              "format": "date-time",
+              "type": [
+                "string"
+              ]
+            }
+          }
+        }
+      },
+      "links": [
+        {
+          "description": "Request a new access token.",
+          "href": "/oauth/token",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "description": "Params to request a new access token",
+            "type": [
+              "object"
+            ],
+            "properties": {
+              "grant_type": {
+                "description": "Grant type for the oauth token request.",
+                "enum": [
+                  "client_credentials"
+                ],
+                "example": "client_credentials",
+                "type": [
+                  "string"
+                ]
+              },
+              "client_id": {
+                "example": "b0e2Uw0F_Hn4uVyxcaL6vas7WkYIdCcldv1uCo_vQAY",
+                "description": "Client id for authentication",
+                "type": [
+                  "string"
+                ]
+              },
+              "client_secret": {
+                "example": "ezLn2UTPVwqSCVYWPGTeVWcgZdRIPQLmdpQaGMHuCcU",
+                "description": "Client secret for authentication",
+                "type": [
+                  "string"
+                ]
+              }
+            },
+            "required": [
+              "grant_type",
+              "client_id",
+              "client_secret"
+            ]
+          },
+          "http_header": {
+            "Content-Type": "application/json"
+          },
+          "targetSchema": {
+            "$ref": "#/definitions/oauth/definitions/auth_success_response"
+          },
+          "title": "authentication"
+        }
+      ]
+    },
+    "offence": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Offences",
+      "description": "Offences",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of offence",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "type": {
+          "description": "The offences type",
+          "enum": [
+            "offences"
+          ],
+          "example": "offences",
+          "type": [
+            "string"
+          ]
+        },
+        "code": {
+          "readOnly": true,
+          "example": "AA06001",
+          "description": "The offence code",
+          "type": [
+            "string"
+          ]
+        },
+        "order_index": {
+          "readOnly": true,
+          "example": 0,
+          "description": "The offence sequence provided by the police",
+          "type": [
+            "integer"
+          ],
+          "minimum": 0
+        },
+        "identity": {
+          "$ref": "#/definitions/offence/definitions/id"
+        },
+        "title": {
+          "readOnly": true,
+          "example": "Fail to wear protective clothing",
+          "description": "The offence title",
+          "type": [
+            "string"
+          ]
+        },
+        "mode_of_trial": {
+          "readOnly": true,
+          "anyOf": [
+            {
+              "type": [
+                "null"
+              ]
+            },
+            {
+              "description": "Indicates if the offence is either way, indictable only or summary only",
+              "example": "Indictable-Only Offence",
+              "type": [
+                "string"
+              ]
+            }
+          ]
+        },
+        "resource": {
+          "description": "object representing a single offence",
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/offence/definitions/type"
+            },
+            "id": {
+              "$ref": "#/definitions/offence/definitions/id"
+            },
+            "attributes": {
+              "$ref": "#/definitions/offence/definitions/attributes"
+            }
+          }
+        },
+        "attributes": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "code": {
+              "$ref": "#/definitions/offence/definitions/code"
+            },
+            "order_index": {
+              "$ref": "#/definitions/offence/definitions/order_index"
+            },
+            "mode_of_trial": {
+              "$ref": "#/definitions/offence/definitions/mode_of_trial"
+            },
+            "title": {
+              "$ref": "#/definitions/offence/definitions/title"
+            }
+          }
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing offence.",
+          "href": "/offences/{(%23%2Fdefinitions%2Foffence%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info",
+          "targetSchema": {
+            "$ref": "#/definitions/offence/definitions/resource"
+          }
+        }
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/offence/definitions/code"
+        },
+        "order_index": {
+          "$ref": "#/definitions/offence/definitions/order_index"
+        },
+        "mode_of_trial": {
+          "$ref": "#/definitions/offence/definitions/mode_of_trial"
+        },
+        "title": {
+          "$ref": "#/definitions/offence/definitions/title"
+        }
+      }
+    },
+    "prosecution_case": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Prosecution case search results",
+      "description": "Prosecution case search results",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "resource": {
+          "description": "object representing a single prosecution case",
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/prosecution_case/definitions/type"
+            },
+            "id": {
+              "$ref": "#/definitions/prosecution_case/definitions/id"
+            },
+            "attributes": {
+              "$ref": "#/definitions/prosecution_case/definitions/attributes"
+            },
+            "relationships": {
+              "$ref": "#/definitions/prosecution_case/definitions/relationships"
+            }
+          }
+        },
+        "relationships": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "defendants": {
+              "$ref": "#/definitions/prosecution_case/definitions/defendant_relationship"
+            }
+          }
+        },
+        "defendant_relationship": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/definitions/prosecution_case/definitions/defendant"
+              },
+              "type": [
+                "array"
+              ]
+            }
+          }
+        },
+        "defendant": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/definitions/defendant/definitions/id"
+            },
+            "type": {
+              "$ref": "#/definitions/defendant/definitions/type"
+            }
+          }
+        },
+        "resource_collection": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/definitions/prosecution_case/definitions/resource"
+              },
+              "type": [
+                "array"
+              ]
+            },
+            "included": {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/defendant/definitions/resource"
+                  },
+                  {
+                    "$ref": "#/definitions/offence/definitions/resource"
+                  }
+                ]
+              },
+              "type": [
+                "array"
+              ]
+            }
+          },
+          "required": [
+            "data"
+          ]
+        },
+        "attributes": {
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "prosecution_case_reference": {
+              "$ref": "#/definitions/prosecution_case/definitions/prosecution_case_reference"
+            }
+          }
+        },
+        "id": {
+          "description": "Unique identifier of prosecution case provided by HMCTS (prosecutionCaseId)",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "type": {
+          "description": "The prosecution cases type",
+          "enum": [
+            "prosecution_cases"
+          ],
+          "example": "prosecution_cases",
+          "type": [
+            "string"
+          ]
+        },
+        "arrest_summons_number": {
+          "readOnly": true,
+          "description": "The police arrest summons number when the defendant is a person",
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "example": "MG25A11223344"
+            }
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/prosecution_case/definitions/id"
+        },
+        "date_of_next_hearing": {
+          "description": "The date of the next hearing for the defendant",
+          "readOnly": true,
+          "anyOf": [
+            {
+              "type": [
+                "null"
+              ]
+            },
+            {
+              "example": "1954-02-23",
+              "type": [
+                "string"
+              ],
+              "pattern": "^((([\\+-]?\\d{4}(?!\\d{2}\b))\\-(0[13578]|1[02])\\-(0[1-9]|[12]\\d|3[01]))|(([\\+-]?\\d{4}(?!\\d{2}\b))\\-(0[13456789]|1[012])\\-(0[1-9]|[12]\\d|30))|(([\\+-]?\\d{4}(?!\\d{2}\b))\\-02\\-(0[1-9]|1\\d|2[0-8]))|(((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))\\-02\\-29))$"
+            }
+          ]
+        },
+        "prosecution_case_reference": {
+          "readOnly": true,
+          "example": "05PP1000915",
+          "description": "The prosecuting authorities reference for their prosecution case that is layed before court.  For example PTI-URN from police/cps cases",
+          "type": [
+            "string"
+          ]
+        },
+        "prosecution_case_search": {
+          "description": "Search query parameters",
+          "type": [
+            "object"
+          ],
+          "anyOf": [
+            {
+              "properties": {
+                "prosecution_case_reference": {
+                  "$ref": "#/definitions/prosecution_case/definitions/prosecution_case_reference"
+                }
+              }
+            },
+            {
+              "properties": {
+                "national_insurance_number": {
+                  "$ref": "#/definitions/defendant/definitions/nino"
+                }
+              }
+            },
+            {
+              "properties": {
+                "arrest_summons_number": {
+                  "$ref": "#/definitions/prosecution_case/definitions/arrest_summons_number"
+                }
+              }
+            },
+            {
+              "properties": {
+                "name": {
+                  "$ref": "#/definitions/defendant/definitions/name"
+                },
+                "date_of_birth": {
+                  "$ref": "#/definitions/defendant/definitions/date_of_birth"
+                }
+              }
+            },
+            {
+              "properties": {
+                "name": {
+                  "$ref": "#/definitions/defendant/definitions/name"
+                },
+                "date_of_next_hearing": {
+                  "$ref": "#/definitions/prosecution_case/definitions/date_of_next_hearing"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Search prosecution cases.",
+          "href": "/api/internal/v1/prosecution_cases",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List",
+          "schema": {
+            "properties": {
+              "filter": {
+                "$ref": "#/definitions/prosecution_case/definitions/prosecution_case_search"
+              }
+            },
+            "type": [
+              "object"
+            ],
+            "required": [
+              "prosecution_case"
+            ]
+          },
+          "targetSchema": {
+            "$ref": "#/definitions/prosecution_case/definitions/resource_collection"
+          },
+          "http_header": {
+            "Content-Type": "application/vnd.api+json",
+            "Authorization": "Bearer <TOKEN>"
+          }
+        }
+      ],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/prosecution_case/definitions/resource"
+        }
+      }
+    }
+  },
+  "properties": {
+    "defendant": {
+      "$ref": "#/definitions/defendant"
+    },
+    "laa_reference": {
+      "$ref": "#/definitions/laa_reference"
+    },
+    "oauth": {
+      "$ref": "#/definitions/oauth"
+    },
+    "offence": {
+      "$ref": "#/definitions/offence"
+    },
+    "prosecution_case": {
+      "$ref": "#/definitions/prosecution_case"
+    }
+  },
+  "description": "LAA Court Data Adaptor API",
+  "id": "laa-court-data-adaptor-api",
+  "links": [
+    {
+      "href": "https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk",
+      "rel": "self"
+    }
+  ],
+  "title": "LAA Court Data Adaptor API"
+}

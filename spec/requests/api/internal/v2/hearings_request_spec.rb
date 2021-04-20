@@ -3,7 +3,7 @@
 
 require "swagger_helper"
 
-RSpec.describe "Api::Internal::V2::Hearings", type: :request do
+RSpec.describe "api/internal/v2/hearings", type: :request, swagger_doc: "v2/swagger.yaml" do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }

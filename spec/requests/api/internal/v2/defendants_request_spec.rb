@@ -4,7 +4,7 @@
 require "swagger_helper"
 require "sidekiq/testing"
 
-RSpec.describe "Api::Internal::V2::Defendants", type: :request, swagger_doc: "v1/swagger.yaml" do
+RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/swagger.yaml" do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
