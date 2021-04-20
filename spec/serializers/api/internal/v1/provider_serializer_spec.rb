@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ProviderSerializer do
+RSpec.describe Api::Internal::V1::ProviderSerializer do
   subject(:serializable_hash) { described_class.new(provider).serializable_hash }
 
   let(:provider) do

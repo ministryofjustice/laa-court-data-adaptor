@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ProsecutionCaseSerializer do
+RSpec.describe Api::Internal::V1::ProsecutionCaseSerializer do
   subject { described_class.new(prosecution_case).serializable_hash }
 
   let(:prosecution_case) do

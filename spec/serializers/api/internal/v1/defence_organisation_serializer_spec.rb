@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DefenceOrganisationSerializer do
+RSpec.describe Api::Internal::V1::DefenceOrganisationSerializer do
   subject { described_class.new(defence_organisation).serializable_hash }
 
   let(:defence_organisation) do

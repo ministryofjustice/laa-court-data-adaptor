@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CrackedIneffectiveTrialSerializer do
+RSpec.describe Api::Internal::V1::CrackedIneffectiveTrialSerializer do
   subject { described_class.new(cracked_ineffective_trial).serializable_hash }
 
   let(:cracked_ineffective_trial) do

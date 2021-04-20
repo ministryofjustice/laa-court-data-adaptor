@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe HearingEventSerializer do
+RSpec.describe Api::Internal::V1::HearingEventSerializer do
   subject(:serializable_hash) { described_class.new(hearing_event).serializable_hash }
 
   let(:hearing_event) do
