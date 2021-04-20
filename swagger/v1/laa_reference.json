@@ -53,8 +53,25 @@
         }
       }
     },
-    "resource_to_destroy": {
-      "description": "object representing a single laa_reference to be destroyed",
+    "user_name": {
+      "example": "example-username",
+      "description": "The user_name of the caseworker linking or unlinking the case",
+      "type": "string"
+    },
+    "unlink_reason_code": {
+      "example": 1,
+      "description": "Id of the reason for unlinking the case",
+      "type": "number",
+      "minimum": 1,
+      "maximum": 7
+    },
+    "unlink_other_reason_text": {
+      "example": "Linked to incorrect case",
+      "description": "Text describing a reason for unlinking the case when code is 7/other",
+      "type": "string"
+    },
+    "unlink": {
+      "description": "object representing unlinking data",
       "type": "object",
       "properties": {
         "type": {
@@ -146,7 +163,7 @@
         "type": "object",
         "properties": {
           "data": {
-            "$ref": "#/definitions/resource_to_destroy"
+            "$ref": "#/definitions/unlink"
           }
         }
       },

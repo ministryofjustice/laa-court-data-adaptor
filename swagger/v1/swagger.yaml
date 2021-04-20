@@ -20,16 +20,12 @@ paths:
       responses:
         '202':
           description: Accepted
-          content: {}
         '422':
           description: Unprocessable Entity
-          content: {}
         '400':
           description: Bad Request
-          content: {}
         '401':
           description: Unauthorized
-          content: {}
       requestBody:
         content:
           application/json:
@@ -57,18 +53,16 @@ paths:
       responses:
         '202':
           description: Accepted
-          content: {}
         '400':
           description: Bad Request
-          content: {}
         '401':
           description: Unauthorized
-          content: {}
       requestBody:
         content:
           application/json:
             schema:
               "$ref": defendant.json#/definitions/resource_to_unlink
+        required: true
     get:
       summary: fetch a defendant by ID
       description: find a defendant where it exists within Court Data Adaptor
@@ -94,10 +88,8 @@ paths:
       responses:
         '200':
           description: Success
-          content: {}
         '404':
           description: Not found
-          content: {}
   "/api/internal/v1/hearings/{id}":
     get:
       summary: get hearing
@@ -125,10 +117,8 @@ paths:
       responses:
         '200':
           description: Success
-          content: {}
         '401':
           description: Unauthorized
-          content: {}
   "/api/internal/v1/laa_references":
     post:
       summary: post laa_reference
@@ -147,13 +137,10 @@ paths:
       responses:
         '202':
           description: Accepted
-          content: {}
-        '400':
-          description: Bad Request
-          content: {}
+        '422':
+          description: Unprocessable entity
         '401':
           description: Unauthorized
-          content: {}
       requestBody:
         content:
           application/json:
@@ -161,7 +148,7 @@ paths:
               "$ref": laa_reference.json#/definitions/new_resource
   "/api/internal/v1/laa_references/{defendant_id}":
     delete:
-      summary: delete a defendant's LAA Reference
+      summary: delete laa_reference
       description: Delete an LAA reference from Common Platform case
       tags:
       - Internal - available to other LAA applications
@@ -181,18 +168,16 @@ paths:
       responses:
         '202':
           description: Accepted
-          content: {}
-        '400':
-          description: Bad Request
-          content: {}
+        '422':
+          description: Unprocessable Entity
         '401':
           description: Unauthorized
-          content: {}
       requestBody:
         content:
           application/json:
             schema:
-              "$ref": laa_reference.json#/definitions/resource_to_unlink
+              "$ref": laa_reference.json#/definitions/unlink
+        required: true
   "/api/internal/v1/prosecution_cases":
     get:
       summary: search prosecution_cases
@@ -280,7 +265,6 @@ paths:
                 "$ref": prosecution_case.json#/definitions/resource_collection
         '401':
           description: Unauthorized
-          content: {}
   "/api/internal/v1/representation_orders":
     post:
       summary: post representation_order
@@ -297,18 +281,16 @@ paths:
       responses:
         '202':
           description: Accepted
-          content: {}
-        '400':
-          description: Bad Request
-          content: {}
+        '422':
+          description: Unprocessable entity
         '401':
           description: Unauthorized
-          content: {}
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               "$ref": representation_order.json#/definitions/new_resource
+        required: true
 components:
   securitySchemes:
     oAuth:

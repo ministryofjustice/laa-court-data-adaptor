@@ -158,7 +158,7 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
   end
 
   path "/api/internal/v1/laa_references/{defendant_id}" do
-    delete("laa_reference") do
+    delete("delete laa_reference") do
       description "Delete an LAA reference from Common Platform case"
       consumes "application/json"
       tags "Internal - available to other LAA applications"
@@ -173,7 +173,7 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
 
         parameter name: :laa_reference, in: :body, required: true, type: :object,
                   schema: {
-                    '$ref': "laa_reference.json#/definitions/resource_to_destroy",
+                    '$ref': "laa_reference.json#/definitions/unlink",
                   },
                   description: "Object containing the user_name, unlink_reason_code and unlink_other_reason_text"
 
