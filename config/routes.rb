@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       api_version(module: "V2", path: { value: "v2" }) do
         resources :prosecution_cases, only: [:index]
         resources :laa_references, only: %i[create destroy], param: :defendant_id
-        resources :defendants, only: %i[update show]
+        resources :defendants, only: [:show]
         resources :representation_orders, only: [:create]
         resources :hearings, only: [:show]
       end
