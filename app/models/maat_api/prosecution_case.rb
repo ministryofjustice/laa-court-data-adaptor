@@ -76,7 +76,9 @@ module MaatApi
       }
     end
 
-    def crown_court_outcome; end
+    def crown_court_outcome
+      CrownCourtOutcomeCreator.call(defendant: @defendant_data, appeal_data: nil) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
+    end
 
   private
 
@@ -170,6 +172,10 @@ module MaatApi
       return if id.blank?
 
       HmctsCommonPlatform::Reference::CourtCentre.find(id)
+    end
+
+    def result_is_a_conclusion?
+      @defendant_data[:offences]&.any? { |offence| offence[:verdict].present? }
     end
   end
 end

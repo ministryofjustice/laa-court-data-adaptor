@@ -1,8 +1,9 @@
 RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
-  let(:data) { JSON.parse(file_fixture("defendant.json").read).deep_symbolize_keys }
   let(:defendant) { described_class.new(data) }
 
-  describe "defendant" do
+  context "when the defendant has all fields" do
+    let(:data) { JSON.parse(file_fixture("defendant/all_fields.json").read).deep_symbolize_keys }
+
     it "has a proceedings concluded" do
       expect(defendant.proceedings_concluded).to be(false)
     end
@@ -74,12 +75,93 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
     it "has a secondary email" do
       expect(defendant.email_secondary).to eql("secondary@example.com")
     end
-  end
 
-  describe "offences" do
-    it "are HmctsCommonPlatform::Offence objects" do
+    it "has offences" do
       expect(defendant.offences).to all(be_a(HmctsCommonPlatform::Offence))
       expect(defendant.offences).to be_a(Array)
+    end
+  end
+
+  context "when the defendant has only required fields" do
+    let(:data) { JSON.parse(file_fixture("defendant/required_fields.json").read).deep_symbolize_keys }
+
+    it "has no proceedings concluded" do
+      expect(defendant.proceedings_concluded).to be_nil
+    end
+
+    it "has no ASN" do
+      expect(defendant.arrest_summons_number).to be_nil
+    end
+
+    it "has no first name" do
+      expect(defendant.first_name).to be_nil
+    end
+
+    it "has no last name" do
+      expect(defendant.last_name).to be_nil
+    end
+
+    it "has no date of birth" do
+      expect(defendant.date_of_birth).to be_nil
+    end
+
+    it "has no NINO" do
+      expect(defendant.nino).to be_nil
+    end
+
+    it "has documentation no language needs" do
+      expect(defendant.documentation_language_needs).to be_nil
+    end
+
+    it "has no address 1" do
+      expect(defendant.address_1).to be_nil
+    end
+
+    it "has no address 2" do
+      expect(defendant.address_2).to be_nil
+    end
+
+    it "has no address 3" do
+      expect(defendant.address_3).to be_nil
+    end
+
+    it "has no address 4" do
+      expect(defendant.address_4).to be_nil
+    end
+
+    it "has no address 5" do
+      expect(defendant.address_5).to be_nil
+    end
+
+    it "has no postcode" do
+      expect(defendant.postcode).to be_nil
+    end
+
+    it "has no home phone" do
+      expect(defendant.phone_home).to be_nil
+    end
+
+    it "has no work phone" do
+      expect(defendant.phone_work).to be_nil
+    end
+
+    it "has no mobile phone" do
+      expect(defendant.phone_mobile).to be_nil
+    end
+
+    it "has no primary email" do
+      expect(defendant.email_primary).to be_nil
+    end
+
+    it "has no secondary email" do
+      expect(defendant.email_secondary).to be_nil
+    end
+
+    describe "offences" do
+      it "are HmctsCommonPlatform::Offence objects" do
+        expect(defendant.offences).to all(be_a(HmctsCommonPlatform::Offence))
+        expect(defendant.offences).to be_a(Array)
+      end
     end
   end
 end

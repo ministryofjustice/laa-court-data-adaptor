@@ -140,16 +140,6 @@
                       "offenceLegislationWelsh": "Cyfraith Gwlad"
                     }
                   },
-                  "verdict": {
-                    "offenceId": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
-                    "verdictDate": "2021-04-10",
-                    "verdictType": {
-                      "category": "A",
-                      "categoryType": "GUILTY",
-                      "cjsVerdictCode": "1093",
-                      "verdictCode": "367A"
-                    }
-                  },
                   "laaApplnReference": {
                     "applicationReference": "A10000099",
                     "statusId": "38944fbb-c8a6-45ff-9b5c-e09e9867eabc",
