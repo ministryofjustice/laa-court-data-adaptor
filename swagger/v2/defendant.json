@@ -70,23 +70,6 @@
         }
       ]
     },
-    "user_name": {
-      "example": "example-username",
-      "description": "The user_name of the caseworker linking or unlinking the case",
-      "type": "string"
-    },
-    "unlink_reason_code": {
-      "example": 1,
-      "description": "Id of the reason for unlinking the case",
-      "type": "number",
-      "minimum": 1,
-      "maximum": 7
-    },
-    "unlink_other_reason_text": {
-      "example": "Linked to incorrect case",
-      "description": "Text describing a reason for unlinking the case when code is 7/other",
-      "type": "string"
-    },
     "representation_order_date": {
       "readOnly": true,
       "example": "1971-05-12",
@@ -127,29 +110,6 @@
         },
         "representation_order_date": {
           "$ref": "#/definitions/representation_order_date"
-        }
-      }
-    },
-    "resource_to_unlink": {
-      "description": "object representing a single laa_reference to be unlinked",
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/type"
-        },
-        "attributes": {
-          "type": "object",
-          "properties": {
-            "user_name": {
-              "$ref": "#/definitions/user_name"
-            },
-            "unlink_reason_code": {
-              "$ref": "#/definitions/unlink_reason_code"
-            },
-            "unlink_other_reason_text": {
-              "$ref": "#/definitions/unlink_other_reason_text"
-            }
-          }
         }
       }
     }
@@ -208,26 +168,6 @@
       "targetSchema": {
         "$ref": "#/definitions/resource"
       }
-    },
-    {
-      "description": "Unlink a defendant's LaaReference.",
-      "href": "/defendants/{(%23%2Fdefinitions%2Fidentity)}",
-      "method": "PATCH",
-      "rel": "empty",
-      "title": "Patch",
-      "schema": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/definitions/resource_to_unlink"
-          }
-        }
-      },
-      "http_header": {
-        "Content-Type": "application/vnd.api+json",
-        "Authorization": "Bearer <TOKEN>"
-      }
-
     }
   ],
   "properties": {
