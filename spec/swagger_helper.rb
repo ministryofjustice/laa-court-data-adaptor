@@ -48,6 +48,41 @@ RSpec.configure do |config|
         },
       },
     },
+    "v2/swagger.yaml" => {
+      openapi: "3.0.1",
+      info: {
+        title: "Court Data Adaptor",
+        description: "CDA exposes API endpoints to the LAA's View Court Data and
+                      MAAT/MLRA applications and the HMCTS Common Platform in order to
+                      exchange criminal court data between the two organisations.",
+        version: "v1",
+      },
+      paths: {},
+      components: {
+        securitySchemes: {
+          oAuth: {
+            in: :header,
+            type: :oauth2,
+            description: "OAuth2 client credentials flow",
+            flows: {
+              clientCredentials: {
+                scopes: [],
+                tokenUrl: "/oauth/token",
+              },
+            },
+          },
+        },
+        parameters: {
+          transaction_id_header: {
+            type: :uuid,
+            name: "Laa-Transaction-Id",
+            in: :header,
+            required: false,
+            description: "A unique identifier for an individual request that can be traced across multiple systems",
+          },
+        },
+      },
+    },
   }
 
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.

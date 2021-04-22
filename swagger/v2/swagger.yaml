@@ -1,0 +1,280 @@
+---
+openapi: 3.0.1
+info:
+  title: Court Data Adaptor
+  description: |-
+    CDA exposes API endpoints to the LAA's View Court Data and
+                          MAAT/MLRA applications and the HMCTS Common Platform in order to
+                          exchange criminal court data between the two organisations.
+  version: v2
+paths:
+  "/api/external/v2/hearings":
+    post:
+      summary: post hearing
+      description: Post Common Platform hearing data to CDA
+      tags:
+      - External - available to Common Platform
+      security:
+      - oAuth: []
+      parameters: []
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Unprocessable Entity
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": hearing_resulted.json#/definitions/new_resource
+  "/api/internal/v2/defendants/{id}":
+    get:
+      summary: fetch a defendant by ID
+      description: find a defendant where it exists within Court Data Adaptor
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: uuid
+        schema:
+          "$ref": defendant.json#/definitions/id
+        description: The uuid of the defendant
+      - name: include
+        in: query
+        required: false
+        type: string
+        schema: {}
+        description: Return other data through a has_many relationship </br>e.g. include=offences
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Not found
+  "/api/internal/v2/hearings/{id}":
+    get:
+      summary: get hearing
+      description: GET Common Platform hearing data
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: uuid
+        schema:
+          "$ref": hearing.json#/definitions/id
+        description: The uuid of the hearing
+      - name: include
+        in: query
+        required: false
+        type: string
+        schema: {}
+        description: Return other data through a has_many relationship </br>e.g. include=providers
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+  "/api/internal/v2/laa_references":
+    post:
+      summary: post laa_reference
+      description: Post an LAA reference to CDA to link a MAAT case to a Common Platform
+        case
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Unprocessable entity
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": laa_reference.json#/definitions/new_resource
+  "/api/internal/v2/laa_references/{defendant_id}":
+    delete:
+      summary: delete laa_reference
+      description: Delete an LAA reference from Common Platform case
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: defendant_id
+        in: path
+        required: true
+        type: uuid
+        schema:
+          "$ref": defendant.json#/definitions/id
+        description: The unique identifier of the defendant
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Unprocessable Entity
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": laa_reference.json#/definitions/unlink
+        required: true
+  "/api/internal/v2/prosecution_cases":
+    get:
+      summary: search prosecution_cases
+      description: |-
+        Search prosecution cases. Valid search combinations are: <br/><br/>
+                            1) prosecution_case_reference <br/>
+                            2) arrest_summons_number <br/>
+                            3) national_insurance_number <br/>
+                            4) name and date_of_birth <br/>
+                            5) name and date_of_next_hearing
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: filter[prosecution_case_reference]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": prosecution_case.json#/definitions/prosecution_case_reference
+        description: Searches prosecution cases by prosecution case reference
+      - name: include
+        in: query
+        required: false
+        type: string
+        schema: {}
+        description: |-
+          Return defendant and offence data through a has_many relationship </br>
+                                            eg include=defendants,defendants.offences,defendants.defence_organisation
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - name: filter[arrest_summons_number]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": prosecution_case.json#/definitions/arrest_summons_number
+        description: Searches prosecution cases by arrest summons number
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - name: filter[national_insurance_number]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/nino
+        description: Searches prosecution cases by national_insurance_number
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - name: filter[name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/name
+        description: Searches prosecution cases by name
+      - name: filter[date_of_birth]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/date_of_birth
+        description: Searches prosecution cases by date_of_birth
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - name: filter[name]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": defendant.json#/definitions/name
+        description: Searches prosecution cases by name
+      - name: filter[date_of_next_hearing]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": prosecution_case.json#/definitions/date_of_next_hearing
+        description: Searches prosecution cases by date_of_next_hearing
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": prosecution_case.json#/definitions/resource_collection
+        '401':
+          description: Unauthorized
+  "/api/internal/v2/representation_orders":
+    post:
+      summary: post representation_order
+      description: Post a Representation Order to CDA to update the status on a MAAT
+        case to a Common Platform case
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Unprocessable entity
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              "$ref": representation_order.json#/definitions/new_resource
+        required: true
+components:
+  securitySchemes:
+    oAuth:
+      in: header
+      type: oauth2
+      description: OAuth2 client credentials flow
+      flows:
+        clientCredentials:
+          scopes: []
+          tokenUrl: "/oauth/token"
+  parameters:
+    transaction_id_header:
+      type: uuid
+      name: Laa-Transaction-Id
+      in: header
+      required: false
+      description: A unique identifier for an individual request that can be traced
+        across multiple systems
