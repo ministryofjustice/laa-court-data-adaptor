@@ -3,8 +3,10 @@ module HmctsCommonPlatform
     attr_reader :data
 
     def initialize(data)
-      @data = data
+      @data = data || {}
     end
+
+    delegate :blank?, to: :data
 
     def id
       data[:id]
@@ -65,11 +67,11 @@ module HmctsCommonPlatform
     end
 
     def plea
-      HmctsCommonPlatform::Plea.new(data[:plea]) if data[:plea]
+      HmctsCommonPlatform::Plea.new(data[:plea])
     end
 
     def verdict
-      HmctsCommonPlatform::Verdict.new(data[:verdict]) if data[:verdict]
+      HmctsCommonPlatform::Verdict.new(data[:verdict])
     end
   end
 end

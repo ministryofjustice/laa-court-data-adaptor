@@ -42,16 +42,16 @@ RSpec.describe HmctsCommonPlatform::Plea, type: :model do
       expect(plea.originating_hearing_id).to be_nil
     end
 
-    it "has no delegated powers" do
-      expect(plea.delegated_powers).to be_nil
+    it "has a blank delegated powers object" do
+      expect(plea.delegated_powers).to be_blank
     end
 
     it "has no application id" do
       expect(plea.application_id).to be_nil
     end
 
-    it "has no lesser or alternative offence" do
-      expect(plea.lesser_or_alternative_offence).to be_nil
+    it "has a blank lesser or alternative offence object" do
+      expect(plea.lesser_or_alternative_offence).to be_blank
     end
   end
 
@@ -64,16 +64,16 @@ RSpec.describe HmctsCommonPlatform::Plea, type: :model do
       expect(plea.originating_hearing_id).to be_nil
     end
 
-    it "has no delegated powers" do
-      expect(plea.delegated_powers).to be_nil
+    it "has a blank delegated powers object" do
+      expect(plea.delegated_powers).to be_blank
     end
 
     it "has no offence id" do
       expect(plea.offence_id).to be_nil
     end
 
-    it "has no lesser or alternative offence" do
-      expect(plea.lesser_or_alternative_offence).to be_nil
+    it "has a blank lesser or alternative offence object" do
+      expect(plea.lesser_or_alternative_offence).to be_blank
     end
   end
 end

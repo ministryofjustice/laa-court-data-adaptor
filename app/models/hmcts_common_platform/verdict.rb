@@ -3,8 +3,10 @@ module HmctsCommonPlatform
     attr_reader :data
 
     def initialize(data)
-      @data = data
+      @data = data || {}
     end
+
+    delegate :blank?, to: :data
 
     def offence_id
       data[:offenceId]

@@ -115,12 +115,12 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
                 offenceLegislation: "Common Law",
                 offenceLegislationWelsh: "Cyfraith Gwlad",
                 offenceTitle: "Disorderly conduct",
-                offenceTitleWelsh: nil,
+                offenceTitleWelsh: "Ymddygiad afreolus",
               },
               offenceId: "e58b3a59-e5e5-4ec4-a478-2c846b9e6b6d",
               originatingHearingId: "818d572c-a9e8-4bf2-8eb7-6abf98cd7a5f",
               pleaDate: "2020-04-12",
-              pleaValue: "2020-04-12",
+              pleaValue: "NOT_GUILTY",
             },
             verdict: {
               offenceId: "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
@@ -235,8 +235,11 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
             legalAidStatusDate: nil,
             legalAidReason: nil,
             results: [],
-            plea: nil,
-            verdict: nil,
+            plea: {
+              delegatedPowers: {},
+              lesserOrAlternativeOffence: {},
+            },
+            verdict: {},
           },
         ],
       }

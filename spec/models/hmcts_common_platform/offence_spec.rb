@@ -128,11 +128,11 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has no plea" do
-      expect(offence.plea).to be_nil
+      expect(offence.plea).to be_blank
     end
 
     it "has no verdict" do
-      expect(offence.verdict).to be_nil
+      expect(offence.verdict).to be_blank
     end
   end
 end

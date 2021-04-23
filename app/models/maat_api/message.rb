@@ -8,7 +8,7 @@ module MaatApi
 
     def generate
       {
-        maatId: object.maat_reference,
+        maatId: object.maat_reference.to_i,
         caseUrn: object.case_urn,
         jurisdictionType: object.jurisdiction_type,
         asn: object.defendant_asn,

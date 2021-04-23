@@ -3,11 +3,13 @@ module HmctsCommonPlatform
     attr_reader :data
 
     def initialize(data)
-      @data = data
+      @data = data || {}
     end
 
+    delegate :blank?, to: :data
+
     def arrest_summons_number
-      data&.dig(:arrestSummonsNumber)
+      data.dig(:arrestSummonsNumber)
     end
 
     def first_name
@@ -85,7 +87,7 @@ module HmctsCommonPlatform
     end
 
     def person_details
-      data&.dig(:personDetails)
+      data.dig(:personDetails)
     end
   end
 end

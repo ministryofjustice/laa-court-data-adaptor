@@ -119,22 +119,18 @@ module MaatApi
     end
 
     def plea(data)
-      return if data.nil?
-
       {
         originatingHearingId: data.originating_hearing_id,
         delegatedPowers: delegated_powers(data.delegated_powers),
         offenceId: data.offence_id,
         applicationId: data.application_id,
         pleaDate: data.plea_date,
-        pleaValue: data.plea_date,
+        pleaValue: data.plea_value,
         lesserOrAlternativeOffence: lesser_or_alternative_offence(data.lesser_or_alternative_offence),
-      }
+      }.compact
     end
 
     def verdict(data)
-      return if data.nil?
-
       {
         offenceId: data.offence_id,
         verdictDate: data.verdict_date,
@@ -142,7 +138,7 @@ module MaatApi
         categoryType: data.verdict_type_category_type,
         cjsVerdictCode: data.verdict_type_cjs_verdict_code,
         verdictCode: data.verdict_type_verdict_code,
-      }
+      }.compact
     end
 
     def delegated_powers(data)
@@ -150,7 +146,7 @@ module MaatApi
         userId: data.user_id,
         firstName: data.first_name,
         lastName: data.last_name,
-      }
+      }.compact
     end
 
     def lesser_or_alternative_offence(data)
@@ -161,7 +157,7 @@ module MaatApi
         offenceTitleWelsh: data.offence_title_welsh,
         offenceLegislation: data.offence_legislation,
         offenceLegislationWelsh: data.offence_legislation_welsh,
-      }
+      }.compact
     end
 
     def court_centre

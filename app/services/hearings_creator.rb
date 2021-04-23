@@ -32,7 +32,6 @@ private
           defendant_data,
           laa_reference.maat_reference,
         )
-
         Sqs::MessagePublisher.call(
           message: MaatApi::Message.new(prosecution_case).generate,
           queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,

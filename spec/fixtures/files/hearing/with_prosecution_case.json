@@ -137,7 +137,8 @@
                       "offenceCode": "1245",
                       "offenceTitle": "Disorderly conduct",
                       "offenceLegislation": "Common Law",
-                      "offenceLegislationWelsh": "Cyfraith Gwlad"
+                      "offenceLegislationWelsh": "Cyfraith Gwlad",
+                      "offenceTitleWelsh": "Ymddygiad afreolus"
                     }
                   },
                   "verdict": {

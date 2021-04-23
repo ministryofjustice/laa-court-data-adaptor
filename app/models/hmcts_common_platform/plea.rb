@@ -3,15 +3,17 @@ module HmctsCommonPlatform
     attr_reader :data
 
     def initialize(data)
-      @data = data
+      @data = data || {}
     end
+
+    delegate :blank?, to: :data
 
     def originating_hearing_id
       data[:originatingHearingId]
     end
 
     def delegated_powers
-      HmctsCommonPlatform::DelegatedPowers.new(data[:delegatedPowers]) if data[:delegatedPowers]
+      HmctsCommonPlatform::DelegatedPowers.new(data[:delegatedPowers])
     end
 
     def offence_id
@@ -31,7 +33,7 @@ module HmctsCommonPlatform
     end
 
     def lesser_or_alternative_offence
-      HmctsCommonPlatform::LesserOrAlternativeOffence.new(data[:lesserOrAlternativeOffence]) if data[:lesserOrAlternativeOffence]
+      HmctsCommonPlatform::LesserOrAlternativeOffence.new(data[:lesserOrAlternativeOffence])
     end
   end
 end
