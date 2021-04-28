@@ -1,0 +1,89 @@
+{
+    "id": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
+    "offenceDefinitionId": "084cc312-8e01-485e-a836-c52273e83d5a",
+    "offenceCode": "LA12505",
+    "offenceTitle": "Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable",
+    "offenceTitleWelsh": "some welsh for that offence",
+    "offenceLegislation": "Common law",
+    "offenceLegislationWelsh": "Firearms Act 1968 s.2",
+    "modeOfTrial": "Either way",
+    "wording": "Random string",
+    "wordingWelsh": "Llinyn ar hap",
+    "startDate": "2019-10-17",
+    "endDate": "2019-10-17",
+    "arrestDate": "2019-10-17",
+    "chargeDate": "2019-10-17",
+    "laidDate": "2019-10-17",
+    "dateOfInformation": "2019-10-17",
+    "orderIndex": 1,
+    "count": 1,
+    "convictionDate": "2019-10-17",
+    "allocationDecision": {
+        "originatingHearingId": "7084b980-d09d-40bc-b856-ea1fafd401bf",
+        "offenceId": "e58b3a59-e5e5-4ec4-a478-2c846b9e6b6d",
+        "motReasonId": "d47268e9-db2e-3aa3-827b-ba3afb7ff94a",
+        "motReasonDescription": "Court directs trial by jury",
+        "motReasonCode": "5",
+        "sequenceNumber": 20,
+        "allocationDecisionDate": "2020-02-13",
+        "courtIndicatedSentence": {
+            "courtIndicatedSentenceTypeId": "f7f76e0b-366b-4746-b0b0-4d8a46c6ad4e",
+            "courtIndicatedSentenceDescription": "Aut laborum quia et."
+        }
+    },
+    "plea": {
+        "originatingHearingId": "818d572c-a9e8-4bf2-8eb7-6abf98cd7a5f",
+        "delegatedPowers": {
+            "userId": "sd22b110-0pbc-3136-a076-e4bb40d0a986",
+            "firstName": "Ada",
+            "lastName": "Lovelace"
+        },
+        "offenceId": "e58b3a59-e5e5-4ec4-a478-2c846b9e6b6d",
+        "applicationId": "b71b3a59-82sx-8ebz-a478-bb846b9kd8s6",
+        "pleaDate": "2020-04-12",
+        "pleaValue": "NOT_GUILTY",
+        "lesserOrAlternativeOffence": {
+            "offenceDefinitionId": "o18d572c-3aa3-a076-82sx-ba3afb7ff94a",
+            "offenceCode": "1245",
+            "offenceTitle": "Disorderly conduct",
+            "offenceLegislation": "Common Law",
+            "offenceLegislationWelsh": "Cyfraith Gwlad"
+        }
+    },
+    "verdict": {
+        "offenceId": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
+        "verdictDate": "2021-04-10",
+        "verdictType": {
+            "category": "A",
+            "categoryType": "Type A",
+            "cjsVerdictCode": "1093",
+            "verdictCode": "367A"
+        }
+    },
+    "aquittalDate": "2019-10-17",
+    "judicialResults": [
+        {
+            "cjsCode": "4600",
+            "label": "Found guilty on all charges",
+            "resultText": "Result",
+            "qualifier": "Qualifier",
+            "nextHearing": {
+                "courtCentre": {
+                    "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
+                },
+                "listedStartDateTime": "2019-10-23T16:19:15.000Z"
+            }
+        }
+    ],
+    "isDiscontinued": false,
+    "laaApplnReference": {
+        "applicationReference": "A10000099",
+        "statusId": "38944fbb-c8a6-45ff-9b5c-e09e9867eabc",
+        "statusCode": "AP",
+        "statusDescription": "FAKE NEWS",
+        "statusDate": "2020-11-05",
+        "effectiveEndDate": "2021-04-11",
+        "laaContractNumber": "27900"
+    },
+    "proceedingsConcluded": false
+  }

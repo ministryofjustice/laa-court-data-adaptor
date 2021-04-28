@@ -3,7 +3,7 @@
 RSpec.describe MaatApi::Message do
   let(:expected_payload) do
     {
-      maatId: "maat reference",
+      maatId: 1_209_485,
       caseUrn: "case urn",
       jurisdictionType: "jurisdiction type",
       asn: "asn",
@@ -50,7 +50,7 @@ class Messageable
   end
 
   def maat_reference
-    attrs[:maat_reference] || "maat reference"
+    attrs[:maat_reference] || "1209485"
   end
 
   def case_urn

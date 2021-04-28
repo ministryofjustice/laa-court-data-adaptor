@@ -3,8 +3,10 @@ module HmctsCommonPlatform
     attr_reader :data
 
     def initialize(data)
-      @data = data
+      @data = data || {}
     end
+
+    delegate :blank?, to: :data
 
     def code
       data[:cjsCode]
@@ -20,6 +22,10 @@ module HmctsCommonPlatform
 
     def qualifier
       data[:qualifier]
+    end
+
+    def ordered_date
+      data[:orderedDate]
     end
 
     def next_hearing_court_centre_id

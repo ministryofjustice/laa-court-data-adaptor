@@ -1,0 +1,96 @@
+    {
+      "id": "70d0817b-2a48-4751-b4a9-b6323874a310",
+      "prosecutionCaseId": "4028f014-3a57-4e59-b014-f4d4502f7b73",
+      "defenceOrganisation": {
+      },
+      "offences": [
+        {
+          "id": "b8ffe7db-f994-45a0-9c06-9ec953eeffd7",
+          "offenceDefinitionId": "4023c959-fad1-3e47-b678-ff7f0c0c1f48",
+          "offenceCode": "CA03010",
+          "offenceTitle": "Use / install a television set without a licence",
+          "wording": "Has a violent past and fear that he will commit further offences and\n interfere with witnesses",
+          "startDate": "2021-02-09",
+          "offenceLegislation": "Contrary to section 363(2) and (4) of the Communications Act 2003.",
+          "modeOfTrial": "Summary",
+          "arrestDate": "2021-02-09",
+          "chargeDate": "2021-02-09",
+          "orderIndex": 1,
+          "count": 0,
+          "laaApplnReference": {
+            "applicationReference": "LAA-552244",
+            "effectiveEndDate": "2019-12-12",
+            "effectiveStartDate": "2019-09-12",
+            "laaContractNumber": "99998888",
+            "offenceLevelStatus": "Granted",
+            "statusCode": "GR",
+            "statusDate": "2019-12-16",
+            "statusDescription": "Granted (One Advocate)",
+            "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5"
+          }
+        },
+        {
+          "id": "b8ffe7db-f994-45a0-9c06-9ec953eeff99",
+          "offenceDefinitionId": "4023c959-fad1-3e47-b678-ff7f0c0c1f37",
+          "offenceCode": "CA03020",
+          "offenceTitle": "Use / install a television set without a licence",
+          "wording": "Has a violent past and fear that he will commit further offences and\n interfere with witnesses",
+          "startDate": "2021-03-09",
+          "offenceLegislation": "Contrary to section 363(2) and (4) of the Communications Act 2003.",
+          "modeOfTrial": "Summary",
+          "arrestDate": "2021-03-09",
+          "chargeDate": "2021-03-10",
+          "orderIndex": 2,
+          "count": 0,
+          "laaApplnReference": {
+            "applicationReference": "LAA-552242",
+            "effectiveEndDate": "2021-12-12",
+            "effectiveStartDate": "2021-03-09",
+            "laaContractNumber": "99998889",
+            "offenceLevelStatus": "Granted",
+            "statusCode": "GR",
+            "statusDate": "2021-03-16",
+            "statusDescription": "Granted (One Advocate)",
+            "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5"
+          }
+        }
+      ],
+      "prosecutionAuthorityReference": "TFL",
+      "personDefendant": {
+        "arrestSummonsNumber": "TFL1",
+        "bailConditions": "",
+        "bailStatus": {
+          "code": "C",
+          "description": "Custody or remanded into custody",
+          "id": "12e69486-4d01-3403-a50a-7419ca040635"
+        },
+        "personDetails": {
+          "address": {
+            "address1": "Address Line 1",
+            "address2": "Address Line 2",
+            "address3": "Address Line 3",
+            "address4": "Address Line 4",
+            "address5": "Address Line 5",
+            "postcode": "SW1 W12"
+          },
+          "contact": {
+            "home": "000-000-0000",
+            "work": "111-111-1111",
+            "mobile": "222-222-2222",
+            "primaryEmail": "primary@example.com",
+            "secondaryEmail": "secondary@example.com"
+          },
+          "dateOfBirth": "1990-01-01",
+          "documentationLanguageNeeds": "ENGLISH",
+          "firstName": "John",
+          "gender": "MALE",
+          "lastName": "Yundt",
+          "title": "Mr",
+          "nationalInsuranceNumber": "123456789A"
+        }
+      },
+      "pncId": "999998882",
+      "masterDefendantId": "70d0817b-2a48-4751-b4a9-b6323874a310",
+      "proceedingsConcluded": false,
+      "isYouth": false
+    }
