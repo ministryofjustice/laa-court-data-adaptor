@@ -1,4 +1,4 @@
-{
+  {
   "hearingId": "2c24f897-ffc4-439f-9c4a-ec60c7715cd0",
   "hasActiveHearing": true,
   "events": [
@@ -8,6 +8,7 @@
       "recordedLabel": "Hearing started",
       "eventTime": "2020-04-30T16:17:58.610Z",
       "lastModifiedTime": "2020-04-29T16:17:59.409Z",
+      "note": "Test note 1",
       "alterable": false
     },
     {
@@ -16,6 +17,7 @@
       "recordedLabel": "Hearing type changed to Plea",
       "eventTime": "2020-04-30T16:18:06.633Z",
       "lastModifiedTime": "2020-04-29T16:18:06.906Z",
+      "note": "Test note 2",
       "alterable": true
     },
     {
@@ -24,6 +26,7 @@
       "recordedLabel": "Hearing paused",
       "eventTime": "2020-04-30T16:18:07.635Z",
       "lastModifiedTime": "2020-04-29T16:18:08.476Z",
+      "note": "Test note 1",
       "alterable": false
     },
     {
@@ -32,6 +35,7 @@
       "recordedLabel": "Hearing resumed",
       "eventTime": "2020-04-30T16:18:16.664Z",
       "lastModifiedTime": "2020-04-29T16:18:16.692Z",
+      "note": "Test note 1",
       "alterable": false
     },
     {
@@ -40,6 +44,7 @@
       "recordedLabel": "Hearing type changed to Plea and Trial Preparation",
       "eventTime": "2020-04-30T16:18:29.704Z",
       "lastModifiedTime": "2020-04-29T16:18:30.380Z",
+      "note": "Test note 1",
       "alterable": true
     }
   ]

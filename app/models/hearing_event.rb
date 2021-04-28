@@ -16,4 +16,8 @@ class HearingEvent
   def occurred_at
     body["eventTime"]
   end
+
+  def note
+    body["note"]
+  end
 end

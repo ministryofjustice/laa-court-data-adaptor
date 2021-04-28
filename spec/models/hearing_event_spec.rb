@@ -11,4 +11,5 @@ RSpec.describe HearingEvent, type: :model do
 
   it { expect(defendant.description).to eq("Hearing started") }
   it { expect(defendant.occurred_at).to eq("2020-04-30T16:17:58.610Z") }
+  it { expect(defendant.note).to eq("Test note 1") }
 end
