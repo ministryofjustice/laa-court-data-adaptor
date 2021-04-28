@@ -9,6 +9,7 @@ module Api
 
         attributes :description
         attributes :occurred_at
+        attributes :note
       end
     end
   end
