@@ -1,0 +1,18 @@
+{
+  "hearingId": "9b8df2aa-802d-413a-82b3-89eff25cde7b",
+  "jurisdictionType": "MAGISTRATES",
+  "defendantIds": [
+    "562dc2de-2258-4476-8be4-69cf15623f83",
+    "b760daba-0d38-4bae-ad57-fbfd8419aefe"
+  ],
+  "hearingType": {
+    "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776",
+    "description": "First hearing"
+  },
+  "courtCentre": {
+    "id": "14876ea1-5f7c-32ef-9fbd-aa0b63193550",
+    "name": "Derby Justice Centre (aka Derby St Mary Adult)",
+    "roomId": "2fc95ce0-79e5-33c6-901a-733c90905e59",
+    "roomName": "Courtroom 08"
+  }
+}
