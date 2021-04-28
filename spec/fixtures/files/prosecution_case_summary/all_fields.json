@@ -1,0 +1,138 @@
+{
+  "caseStatus": "ACTIVE",
+  "prosecutionCaseId": "46def95e-3088-4e8c-b7c9-83b2208f7800",
+  "prosecutionCaseReference": "30DI0570888",
+  "defendantSummary": [
+    {
+      "proceedingsConcluded": false,
+      "defendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
+      "masterDefendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
+      "defendantASN": "2100000000000267128K",
+      "defendantFirstName": "Bob",
+      "defendantMiddleName": "Steven",
+      "defendantLastName": "Smith",
+      "defendantDOB": "1986-11-10",
+      "defendantNINO": "SJ12345678",
+      "offenceSummary": [
+        {
+          "offenceId": "9aca847f-da4e-444b-8f5a-2ce7d776ab75",
+          "offenceCode": "TH68026C",
+          "offenceTitle": "Conspire to commit a burglary dwelling with intent to steal",
+          "offenceShortTitle": "Conspire to commit a burglary dwelling with intent to steal",
+          "offenceLegislation": "Contrary to section 1(1) of the    Criminal Law Act 1977.",
+          "proceedingsConcluded": false,
+          "arrestDate": "2021-03-23",
+          "startDate": "2021-03-06",
+          "chargeDate": "2021-03-24",
+          "modeOfTrial": "Indictable",
+          "orderIndex": 1,
+          "wording": "In the county of DERBYSHIRE, conspired together with John Doe to enter as a trespasser",
+          "laaApplnReference": {}
+        },
+        {
+          "offenceId": "4a852bd1-0068-422c-994f-78a5373ecd75",
+          "offenceCode": "CJ88149",
+          "offenceTitle": "Assault by beating of an emergency worker",
+          "offenceLegislation": "Contrary to section 39 of the Criminal Justice Act 1988 and section 1 of the Assaults on Emergency Workers (Offences) Act 2018.",
+          "proceedingsConcluded": false,
+          "arrestDate": "2021-03-23",
+          "startDate": "2021-03-23",
+          "chargeDate": "2021-03-24",
+          "modeOfTrial": "Either Way",
+          "orderIndex": 2,
+          "wording": "On 23.05.2021 at DERBY in the county of DERBYSHIRE assaulted an emergency worker, namely Police Constable",
+          "laaApplnReference": {}
+        }
+      ]
+    },
+    {
+      "proceedingsConcluded": false,
+      "representationOrder": {
+        "applicationReference": "6960540",
+        "effectiveFromDate": "2021-04-06",
+        "effectiveToDate": "2021-04-06",
+        "laaContractNumber": "2C101J"
+      },
+      "defendantId": "562dc2de-2258-4476-8be4-69cf15623f83",
+      "masterDefendantId": "4007c394-1845-48c3-9597-17ee1e38e522",
+      "defendantASN": "2100000000000266764M",
+      "defendantFirstName": "John",
+      "defendantMiddleName": " ",
+      "defendantLastName": "Doe",
+      "defendantDOB": "1992-07-27",
+      "offenceSummary": [
+        {
+          "offenceId": "a6437f6a-bdac-44ca-898a-486bdacc9625",
+          "offenceCode": "TH68026C",
+          "offenceTitle": "Conspire to commit a burglary dwelling with intent to steal",
+          "offenceLegislation": "Contrary to section 1(1) of the Criminal Law Act 1977.",
+          "proceedingsConcluded": false,
+          "arrestDate": "2021-03-23",
+          "startDate": "2021-03-06",
+          "chargeDate": "2021-03-24",
+          "modeOfTrial": "Indictable",
+          "orderIndex": 1,
+          "wording": "Between 06.03.2021 and 22.03.2021 at DERBY in the county of DERBYSHIRE, conspired together with Harry Potter to enter as a trespasser, a number of dwellings within the CHADDESDEN and LITTLEOVER areas of DERBY, with intent to steal therein\n'Contrary to section 1(1) of the Criminal Law Act 1977.'\n -- CCCJS CODE: 'TH68026C'",
+          "laaApplnReference": {
+            "applicationReference": "6960540",
+            "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5",
+            "statusCode": "GR",
+            "statusDescription": "Granted (One Advocate)"
+          }
+        }
+      ]
+    }
+  ],
+  "hearingSummary": [
+    {
+      "hearingId": "9b8df2aa-802d-413a-82b3-89eff25cde7b",
+      "jurisdictionType": "MAGISTRATES",
+      "defendantIds": [
+        "562dc2de-2258-4476-8be4-69cf15623f83",
+        "b760daba-0d38-4bae-ad57-fbfd8419aefe"
+      ],
+      "hearingDays": [
+        {
+          "sittingDay": "2021-03-25T09:30:00.000Z",
+          "listingSequence": 8,
+          "listedDurationMinutes": 20
+        }
+      ],
+      "hearingType": {
+        "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776",
+        "description": "First hearing"
+      },
+      "courtCentre": {
+        "id": "14876ea1-5f7c-32ef-9fbd-aa0b63193550",
+        "name": "Derby Justice Centre (aka Derby St Mary Adult)",
+        "roomId": "2fc95ce0-79e5-33c6-901a-733c90905e59",
+        "roomName": "Courtroom 08"
+      }
+    },
+    {
+      "hearingId": "2816b8d4-f141-4c39-82fc-a98c6fb3fcfa",
+      "jurisdictionType": "CROWN",
+      "defendantIds": [
+        "b760daba-0d38-4bae-ad57-fbfd8419aefe",
+        "562dc2de-2258-4476-8be4-69cf15623f83"
+      ],
+      "hearingDays": [
+        {
+          "sittingDay": "2021-05-20T09:30:00.000Z",
+          "listingSequence": 4,
+          "listedDurationMinutes": 30
+        }
+      ],
+      "hearingType": {
+        "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
+        "description": "Plea and Trial Preparation"
+      },
+      "courtCentre": {
+        "id": "6131bd34-33d9-3d1e-8152-8b5a2084f1bd",
+        "name": "Derby Crown Court",
+        "roomId": "594d6332-9806-38ab-830d-5941e671e0bb",
+        "roomName": "Courtroom 01"
+      }
+    }
+  ]
+}
