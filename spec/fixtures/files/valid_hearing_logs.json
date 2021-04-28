@@ -26,7 +26,7 @@
       "recordedLabel": "Hearing paused",
       "eventTime": "2020-04-30T16:18:07.635Z",
       "lastModifiedTime": "2020-04-29T16:18:08.476Z",
-      "note": "Test note 1",
+      "note": "Test note 3",
       "alterable": false
     },
     {
@@ -35,7 +35,7 @@
       "recordedLabel": "Hearing resumed",
       "eventTime": "2020-04-30T16:18:16.664Z",
       "lastModifiedTime": "2020-04-29T16:18:16.692Z",
-      "note": "Test note 1",
+      "note": "Test note 4",
       "alterable": false
     },
     {
@@ -44,7 +44,7 @@
       "recordedLabel": "Hearing type changed to Plea and Trial Preparation",
       "eventTime": "2020-04-30T16:18:29.704Z",
       "lastModifiedTime": "2020-04-29T16:18:30.380Z",
-      "note": "Test note 1",
+      "note": "Test note 5",
       "alterable": true
     }
   ]
