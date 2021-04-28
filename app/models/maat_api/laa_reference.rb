@@ -26,11 +26,11 @@ module MaatApi
     end
 
     def cjs_location
-      nearest_in_time_hearing_summary.short_oucode
+      relevant_hearing_summary.court_centre_short_oucode
     end
 
     def cjs_area_code
-      nearest_in_time_hearing_summary.oucode_l2_code
+      relevant_hearing_summary.court_centre_oucode_l2_code
     end
 
     def defendant
@@ -40,45 +40,61 @@ module MaatApi
         surname: defendant_summary.last_name,
         dateOfBirth: defendant_summary.date_of_birth,
         nino: defendant_summary.national_insurance_number,
-        offences: offences_map,
+        offences: offences,
       }
     end
 
     def sessions
       prosecution_case_summary.hearing_summaries.map do |hearing_summary|
         {
-          courtLocation: hearing_summary.short_oucode,
-          dateOfHearing: hearing_summary.date_of_hearing&.strftime("%Y-%m-%d"),
+          courtLocation: hearing_summary.court_centre_short_oucode,
+          dateOfHearing: hearing_summary.hearing_days.map(&:sitting_day).max&.to_date&.strftime("%Y-%m-%d"),
         }
       end
     end
 
   private
 
-    def nearest_in_time_hearing_summary
-      return hearing_summaries_with_hearing_days.max_by(&:hearing_days) if all_hearings_in_past?
-      return hearing_summaries_with_hearing_days.min_by(&:hearing_days) if all_hearings_in_future?
+    def relevant_hearing_summary
+      return latest_hearing_summary if all_hearings_in_past?
+      return next_upcoming_hearing_summary if all_hearings_in_future?
 
-      hearing_summaries_with_hearing_days.reject(&:hearing_in_future?).max_by(&:hearing_days)
+      latest_of_past_hearing_summaries
+    end
+
+    def latest_of_past_hearing_summaries
+      past_hearing_summaries.max_by { |hs| hs.hearing_days.map(&:sitting_day) }
+    end
+
+    def next_upcoming_hearing_summary
+      hearing_summaries_with_hearing_days.min_by { |hs| hs.hearing_days.map(&:sitting_day) }
+    end
+
+    def latest_hearing_summary
+      hearing_summaries_with_hearing_days.max_by { |hs| hs.hearing_days.map(&:sitting_day) }
+    end
+
+    def past_hearing_summaries
+      hearing_summaries_with_hearing_days.select { |hs| hs.hearing_days.map(&:sitting_day).max&.to_date&.past? }
+    end
+
+    def all_hearings_in_past?
+      hearing_summaries_with_hearing_days.all? do |hearing_summary|
+        hearing_summary.hearing_days.map(&:sitting_day).max&.to_date&.past?
+      end
+    end
+
+    def all_hearings_in_future?
+      hearing_summaries_with_hearing_days.all? do |hearing_summary|
+        hearing_summary.hearing_days.map(&:sitting_day).max&.to_date&.future?
+      end
     end
 
     def hearing_summaries_with_hearing_days
       prosecution_case_summary.hearing_summaries.reject { |summary| summary.hearing_days.blank? }
     end
 
-    def all_hearings_in_past?
-      hearing_summaries_with_hearing_days.all? do |hearing_summary|
-        hearing_summary.hearing_days.max&.to_date.past?
-      end
-    end
-
-    def all_hearings_in_future?
-      hearing_summaries_with_hearing_days.all? do |hearing_summary|
-        hearing_summary.hearing_days.max&.to_date.future?
-      end
-    end
-
-    def offences_map
+    def offences
       defendant_summary.offence_summaries.map do |offence_summary|
         {
           offenceId: offence_summary.offence_id,

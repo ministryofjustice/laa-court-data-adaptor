@@ -14,6 +14,8 @@ RSpec.describe MaatApi::LaaReference, type: :model do
     )
   end
 
+  include ActiveSupport::Testing::TimeHelpers
+
   it "has a maat_reference" do
     expect(laa_reference.maat_reference).to eql("123")
   end
@@ -78,18 +80,27 @@ RSpec.describe MaatApi::LaaReference, type: :model do
     expect(laa_reference.defendant).to eql(expected)
   end
 
-  it "has a sessions payload" do
-    expected = [
-      {
-        courtLocation: "B30PI",
-        dateOfHearing: "2021-03-25",
-      },
-      {
-        courtLocation: "C30DE",
-        dateOfHearing: "2021-05-20",
-      },
-    ]
+  context "when all hearings are in the past" do
+    it "has cjs_location" do
+      expect(laa_reference.cjs_location).to eql("B30PI")
+    end
 
-    expect(laa_reference.sessions).to eql(expected)
+    it "has cjs_area_code" do
+      expect(laa_reference.cjs_area_code).to eql("30")
+    end
+  end
+
+  context "when all hearings are in the future" do
+    it "has cjs_location" do
+      travel_to(Date.new(2007, 5, 12)) do
+        expect(laa_reference.cjs_location).to eql("B30PI")
+      end
+    end
+
+    it "has cjs_area_code" do
+      travel_to(Date.new(2007, 5, 12)) do
+        expect(laa_reference.cjs_area_code).to eql("30")
+      end
+    end
   end
 end
