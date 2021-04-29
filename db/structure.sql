@@ -25,6 +25,8 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 SET default_tablespace = '';
 
+SET default_table_access_method = heap;
+
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
@@ -47,6 +49,38 @@ CREATE SEQUENCE public.dummy_maat_reference_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
+
+
+--
+-- Name: feature_flags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feature_flags (
+    id bigint NOT NULL,
+    name character varying,
+    enabled boolean,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: feature_flags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feature_flags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feature_flags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feature_flags_id_seq OWNED BY public.feature_flags.id;
 
 
 --
@@ -200,11 +234,26 @@ CREATE TABLE public.users (
 
 
 --
+-- Name: feature_flags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_flags ALTER COLUMN id SET DEFAULT nextval('public.feature_flags_id_seq'::regclass);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: feature_flags feature_flags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_flags
+    ADD CONSTRAINT feature_flags_pkey PRIMARY KEY (id);
 
 
 --
@@ -292,6 +341,13 @@ ALTER TABLE ONLY public.users
 --
 
 CREATE INDEX index_case_defendant_offences_on_prosecution_case ON public.prosecution_case_defendant_offences USING btree (prosecution_case_id);
+
+
+--
+-- Name: index_feature_flags_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feature_flags_on_name ON public.feature_flags USING btree (name);
 
 
 --
@@ -430,6 +486,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200519141938'),
 ('20200720123025'),
 ('20200723141728'),
-('20210311145419');
+('20210311145419'),
+('20210427164141');
 
 

@@ -48,5 +48,7 @@ module LaaCourtDataAdaptor
     config.x.maat_api.api_url = ENV["MAAT_API_API_URL"]
 
     config.active_record.schema_format = :sql
+
+    config.autoload_paths << config.root.join("lib")
   end
 end
