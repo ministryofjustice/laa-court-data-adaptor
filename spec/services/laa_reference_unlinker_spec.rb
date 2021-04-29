@@ -32,13 +32,18 @@ RSpec.describe LaaReferenceUnlinker do
     expect(linked_laa_reference.reload).not_to be_linked
   end
 
-  it "calls the Sqs::PublishUnlinkLaaReference service once" do
-    expect(Sqs::PublishUnlinkLaaReference).to receive(:call)
+  it "calls the Sqs::MessagePublisher service once" do
+    message = {
+      maatId: "101010",
+      userId: user_name,
+      reasonId: unlink_reason_code,
+      otherReasonText: unlink_other_reason_text,
+    }
+
+    expect(Sqs::MessagePublisher).to receive(:call)
       .once
-      .with(maat_reference: "101010",
-            user_name: user_name,
-            unlink_reason_code: unlink_reason_code,
-            unlink_other_reason_text: unlink_other_reason_text)
+      .with(message: message, queue_url: Rails.configuration.x.aws.sqs_url_unlink)
+
     create_unlinker
   end
 
@@ -49,13 +54,18 @@ RSpec.describe LaaReferenceUnlinker do
                                               offence_id: SecureRandom.uuid)
     end
 
-    it "calls the Sqs::PublishUnlinkLaaReference service once" do
-      expect(Sqs::PublishUnlinkLaaReference).to receive(:call)
+    it "calls the Sqs::MessagePublisher service once" do
+      message = {
+        maatId: "101010",
+        userId: user_name,
+        reasonId: unlink_reason_code,
+        otherReasonText: unlink_other_reason_text,
+      }
+
+      expect(Sqs::MessagePublisher).to receive(:call)
         .once
-        .with(maat_reference: "101010",
-              user_name: user_name,
-              unlink_reason_code: unlink_reason_code,
-              unlink_other_reason_text: unlink_other_reason_text)
+        .with(message: message, queue_url: Rails.configuration.x.aws.sqs_url_unlink)
+
       create_unlinker
     end
 
@@ -70,8 +80,8 @@ RSpec.describe LaaReferenceUnlinker do
       linked_laa_reference.update!(maat_reference: "Z10000000")
     end
 
-    it "does not call the Sqs::PublishUnlinkLaaReference service" do
-      expect(Sqs::PublishUnlinkLaaReference).not_to receive(:call)
+    it "does not call the Sqs::MessagePublisher service" do
+      expect(Sqs::MessagePublisher).not_to receive(:call)
       create_unlinker
     end
 
