@@ -44,7 +44,6 @@ gem "faraday_middleware"
 gem "hmcts_common_platform", github: "ministryofjustice/hmcts_common_platform", tag: "0.1.0"
 gem "jsonapi_parameters"
 gem "jsonapi-serializer"
-gem "json-schema"
 gem "oauth2"
 gem "prmd"
 gem "prometheus-client"
@@ -61,7 +60,6 @@ group :development, :test do
   gem "dotenv-rails"
   gem "pry-byebug"
   gem "pry-rails", "~> 0.3.9"
-  gem "rspec-rails", "~> 5.0.1"
   gem "rswag-specs"
   gem "rubocop-govuk"
   gem "rubocop-performance"
@@ -77,7 +75,10 @@ group :development do
 end
 
 group :test do
+  gem "json-schema-rspec"
   gem "rspec_junit_formatter"
+  gem "rspec-rails", "~> 5.0.1"
   gem "shoulda-matchers"
   gem "simplecov"
+  gem "sinatra"
 end

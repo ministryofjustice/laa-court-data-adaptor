@@ -134,6 +134,9 @@ GEM
     jmespath (1.4.0)
     json-schema (2.8.1)
       addressable (>= 2.4)
+    json-schema-rspec (0.0.4)
+      json-schema (~> 2.5)
+      rspec
     json_schema (0.21.0)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
@@ -157,6 +160,8 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     nio4r (2.5.7)
     nokogiri (1.11.2)
       mini_portile2 (~> 2.5.0)
@@ -188,6 +193,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-protection (2.1.0)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails-dom-testing (2.0.3)
@@ -209,6 +216,10 @@ GEM
     redis (4.2.5)
     regexp_parser (2.1.1)
     rexml (3.2.5)
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -291,11 +302,17 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.2)
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
     thor (1.1.0)
+    tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.7.0)
@@ -337,6 +354,7 @@ DEPENDENCIES
   faraday_middleware
   hmcts_common_platform!
   json-schema
+  json-schema-rspec
   jsonapi-serializer
   jsonapi_parameters
   listen (>= 3.0.5, < 3.6)
@@ -361,6 +379,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   simplecov
+  sinatra
   spring
   spring-watcher-listen (~> 2.0.0)
   vcr
