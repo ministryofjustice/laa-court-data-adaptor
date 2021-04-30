@@ -2,6 +2,10 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
   let(:data) { JSON.parse(file_fixture("judicial_result/all_fields.json").read).deep_symbolize_keys }
   let(:judicial_result) { described_class.new(data) }
 
+  it "matches the HMCTS Common Platform schema" do
+    expect(data).to match_json_schema(:judicial_result)
+  end
+
   it "has a code" do
     expect(judicial_result.code).to eql("4600")
   end
@@ -18,8 +22,8 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
     expect(judicial_result.qualifier).to eql("")
   end
 
-  it "has a next hearing date" do
-    expect(judicial_result.next_hearing_date).to eql("2020-03-01")
+  it "has a next hearing datetime" do
+    expect(judicial_result.next_hearing_date).to eql("2021-03-09T15:54:09.871Z")
   end
 
   it "has a next hearing court centre ID" do
@@ -29,6 +33,10 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
   context "when there is no next hearing object" do
     let(:data) do
       JSON.parse(file_fixture("judicial_result/required_fields.json").read).deep_symbolize_keys
+    end
+
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:judicial_result)
     end
 
     it "has no next hearing date" do
