@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiProsecutionCaseIdentifier.json",
+  "type": "object",
+  "properties": {
+    "prosecutionAuthorityId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "prosecutionAuthorityCode": {
+      "type": "string"
+    },
+    "prosecutionAuthorityName": {
+      "type": "string",
+      "description": "The name of the prosecution authority from reference data.  Required for documentation purposes.  Required to be enriched when publishing hearing results"
+    },
+    "prosecutionAuthorityOUCode": {
+      "type": "string"
+    },
+    "majorCreditorCode": {
+      "type": "string"
+    },
+    "address": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiAddress.json"
+    },
+    "contact": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiContactNumber.json"
+    }   
+  },
+  "required": [
+    "prosecutionAuthorityId",
+    "prosecutionAuthorityCode"
+  ],
+  "additionalProperties": true,
+  "oneOf": [
+    {
+      "properties": {
+        "caseURN": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "caseURN"
+      ]
+    },
+    {
+      "properties": {
+        "prosecutionAuthorityReference": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "prosecutionAuthorityReference"
+      ]
+    }
+  ]
+}

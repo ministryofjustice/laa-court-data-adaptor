@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/core/courts/external/apiCompanyRepresentative.json",
+    "type": "object",
+    "properties": {
+        "id": {
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "title": {
+            "description": "The representative title",
+            "type": "string"
+        },
+        "firstName": {
+            "description": "The representative first name",
+            "type": "string"
+        },
+        "lastName": {
+            "description": "The representative last name",
+            "type": "string"
+        },
+        "position": {
+            "description": "The position held in the company",
+            "type": "string",
+            "enum": [
+                "DIRECTOR",
+                "SECRETARY"
+            ]
+        },
+        "defendants": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+            }
+        },
+        "attendanceDays": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+            }
+        }
+    },
+    "required": [
+        "id",
+        "firstName",
+        "lastName",
+        "position",
+        "defendants",
+        "attendanceDays"
+    ],
+    "additionalProperties": false
+}

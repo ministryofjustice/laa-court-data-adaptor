@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiJudicialResultPromptDurationElement.json",
+  "description": "The duration element for the result prompt",
+  "type": "object",
+  "properties": {
+    "primaryDurationUnit": {
+      "description": "The result prompt primary duration unit provided from reference data during the resulting process",
+      "type": "string"
+    },
+    "primaryDurationValue": {
+      "description": "The result prompt primary duration value",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 999
+    },
+    "primaryLabel": {
+      "type": "string"
+    },
+    "secondaryDurationUnit": {
+      "description": "The result prompt secondary duration unit provided from reference data during the resulting process",
+      "type": "string"
+    },
+    "secondaryDurationValue": {
+      "description": "The result prompt secondary duration value",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 999
+    },
+    "tertiaryDurationUnit": {
+      "description": "The result prompt tertiary duration unit provided from reference data during the resulting process",
+      "type": "string"
+    },
+    "tertiaryDurationValue": {
+      "description": "The result prompt tertiary duration value",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 999
+    },
+    "durationStartDate": {
+      "description": "The start date of the duration",
+      "type": "string",
+      "format": "date"
+    },
+    "durationEndDate": {
+      "description": "The end date of the duration",
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "primaryDurationUnit",
+        "primaryDurationValue"
+      ]
+    },
+    {
+      "required": [
+        "durationStartDate",
+        "durationEndDate"
+      ]
+    }
+  ],
+  "additionalProperties": false
+}

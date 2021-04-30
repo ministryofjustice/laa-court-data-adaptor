@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiAllocationDecision.json",
+  "description": "The allocation decision made regarding the jurisdiction required or elected for dealing with the offence in question",
+  "type": "object",
+  "properties": {
+    "originatingHearingId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "offenceId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "motReasonId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "motReasonDescription": {
+      "type": "string"
+    },
+    "motReasonCode": {
+      "type": "string"
+    },
+    "allocationDecisionDate": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "courtIndicatedSentence": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtIndicatedSentence.json#"
+    },
+    "sequenceNumber": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "offenceId",
+    "motReasonId",
+    "motReasonDescription",
+    "motReasonCode",
+    "sequenceNumber"
+  ],
+  "additionalProperties": false
+}

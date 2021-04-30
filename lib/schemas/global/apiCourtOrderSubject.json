@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiCourtOrderSubject.json",
+  "description": "The details of the defendant that is the subject of the court order.  These details are required for future defendant matching purposes",
+  "type": "object",
+  "properties": {
+    "masterDefendantId": {
+      "description": "The defendant that is the subject of the order",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "organisationName": {
+      "description": "The defendants name when the defendant is a corporation",
+      "type": "string"
+    },
+    "title": {
+      "description": "The defendants title",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/personTitle"
+    },
+    "firstName": {
+      "description": "The defendants fore name",
+      "type": "string"
+    },
+    "middleName": {
+      "description": "The defendants middle name",
+      "type": "string"
+    },
+    "lastName": {
+      "description": "The defendants last name",
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "description": "The defendants date of birth",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "addressLine1": {
+      "description": "The first line of the defendants address",
+      "type": "string"
+    },
+    "pncId": {
+      "description": "The defendants identifier on PNC",
+      "type": "string"
+    },
+    "croNumber": {
+      "description": "National Identification Service (formerly Criminal Records Office) Number (fingerprint number)",
+      "type": "string"
+    }
+  },
+  "required": [
+    "masterDefendantId"
+  ],
+  "additionalProperties": false
+}

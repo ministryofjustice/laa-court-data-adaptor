@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiOrganisation.json",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name of the organisation",
+      "type": "string"
+    },
+    "incorporationNumber": {
+      "description": "The incorporation details of teh organisationorganisation",
+      "type": "string"
+    },
+    "registeredCharityNumber": {
+      "description": "The registered charity details",
+      "type": "string"
+    },
+    "address": {
+      "description": "The organisation address details",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiAddress.json"
+    },
+    "contact": {
+      "description": "The organisation contact details",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiContactNumber.json"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}

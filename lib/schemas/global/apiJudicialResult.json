@@ -1,0 +1,198 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/core/courts/external/apiJudicialResult.json",
+    "description": "The result that was ordered by the judiciary",
+    "type": "object",
+    "properties": {
+        "judicialResultId": {
+            "description": "The shared result line identifier",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "judicialResultTypeId": {
+            "description": "The result definition type from reference data.  Required for rollup and Nows purposes",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "orderedHearingId": {
+            "description": "The hearing in which the result was ordered",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "label": {
+            "description": "The result label provided from reference data during the resulting process",
+            "type": "string"
+        },
+        "welshLabel": {
+            "description": "The corresponding welsh language result label provided from reference data during the resulting process",
+            "type": "string"
+        },
+        "isAdjournmentResult": {
+            "description": "Indicates if the result is provided as part of an adjournment",
+            "type": "boolean"
+        },
+        "isFinancialResult": {
+            "description": "Indicates if the result is provided as part of a financial order",
+            "type": "boolean"
+        },
+        "isConvictedResult": {
+            "description": "Indicates if the provision of this result determines that the defendant has been convicted",
+            "type": "boolean"
+        },
+        "isAvailableForCourtExtract": {
+            "description": "Indicates if the result can be entered into a court extract",
+            "type": "boolean"
+        },
+        "isDeleted": {
+            "description": "Indicates if a result amendment is a delete action",
+            "type": "boolean"
+        },
+        "amendmentReasonId": {
+            "description": "The reference data identifier for the amendment reason",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "amendmentReason": {
+            "description": "The description of the amendment reason",
+            "type": "string"
+        },
+        "amendmentDate": {
+            "description": "Indicates if the result is amended and the date of amendment",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+        },
+        "qualifier": {
+            "description": "Further qualifies the meaning of the result",
+            "type": "string"
+        },
+        "resultText": {
+            "description": "Formatted Result Test - an aggregate of result label, prompt labels and their values ordered by prompt sequence",
+            "type": "string"
+        },
+        "cjsCode": {
+            "description": "The corresponding CJS data standard code",
+            "type": "string"
+        },
+        "rank": {
+            "description": "The rank of the result for sequencing purposes",
+            "type": "number"
+        },
+        "orderedDate": {
+            "description": "The date that the result was ordered",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+        },
+        "lastSharedDateTime": {
+            "type": "string"
+        },
+        "courtClerk": {
+            "description": "The court clerk that was responsible for recording result",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiDelegatedPowers.json#"
+        },
+        "delegatedPowers": {
+            "description": "When the results was ordered by delegated powers the details of teh user with delegate authority",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiDelegatedPowers.json#"
+        },
+        "fourEyesApproval": {
+            "description": "The details of the user that has approved an amended result",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiDelegatedPowers.json#"
+        },
+        "approvedDate": {
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+        },
+        "usergroups": {
+            "description": "The user groups that are authorised to view the result",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "category": {
+            "description": "The category of a result indicates if it is final, intermediate or ancilliary",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/judicialResultCategory"
+        },
+        "nextHearing": {
+            "description": "When the result is a next hearing result, the definition of the next hearing i.e. the output from processing the result prompts, etc",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiNextHearing.json#"
+        },
+        "durationElement": {
+            "description": "structured representation of the prompt value",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiJudicialResultPromptDurationElement.json"
+        },
+        "judicialResultPrompts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "http://justice.gov.uk/core/courts/external/apiJudicialResultPrompt.json"
+            }
+        },
+        "terminatesOffenceProceedings": {
+            "description": "Determines that when this result is ordered that the proceedings for the given offence are terminated",
+            "type": "boolean"
+        },
+        "lifeDuration": {
+            "description": "Indicates that the result is a life duration sentence",
+            "type": "boolean"
+        },
+        "publishedAsAPrompt": {
+            "description": "Determines that when this result published it is published as a prompt when it forms part of a group",
+            "type": "boolean"
+        },
+        "excludedFromResults": {
+            "description": "Determines that when this result is within a group result that it is never included in any resulting i.e. only its child results are recorded/ordered in court",
+            "type": "boolean"
+        },
+        "alwaysPublished": {
+            "description": "Determines that when this result is not transformed i.e. made into a prompt, collapsed onto a parent, etc and is always published without transformation",
+            "type": "boolean"
+        },
+        "urgent": {
+            "description": "Determines that the result requires urgent processing",
+            "type": "boolean"
+        },
+        "d20": {
+            "description": "Determines that the result is a D20 result",
+            "type": "boolean"
+        },
+        "parentJudicialResultId": {
+          "description": "The shared result line identifier for the root result element",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "parentJudicialResultTypeId": {
+          "description": "The result definition type from reference data for the root result element.  Required for rollup and Nows purposes",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "rootJudicialResultId": {
+          "description": "The shared result line identifier for the root result element",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "rootJudicialResultTypeId": {
+          "description": "The result definition type from reference data for the root result element.  Required for rollup and Nows purposes",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "postHearingCustodyStatus": {
+          "description": "The bail status following the hearing",
+          "type": "string"
+        },
+        "canBeSubjectOfVariation": {
+          "type": "boolean"
+        },
+        "canBeSubjectOfBreach": {
+          "type": "boolean"
+        },
+        "resultWording": {
+          "type": "string"
+        },
+        "welshResultWording": {
+          "type": "string"
+        },
+        "level": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "orderedHearingId",
+        "label",
+        "isAdjournmentResult",
+        "isFinancialResult",
+        "isConvictedResult",
+        "isAvailableForCourtExtract",
+        "orderedDate",
+        "category"
+    ],
+    "additionalProperties": false
+}
