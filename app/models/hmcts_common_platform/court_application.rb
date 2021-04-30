@@ -2,11 +2,11 @@ module HmctsCommonPlatform
   class CourtApplication
     attr_reader :data
 
-    def initialize(data)
-      @data = data || {}
-    end
-
     delegate :blank?, to: :data
+
+    def initialize(data)
+      @data = HashWithIndifferentAccess.new(data || {})
+    end
 
     def type_id
       data.dig(:type, :id)

@@ -1,5 +1,5 @@
 RSpec.describe HmctsCommonPlatform::DelegatedPowers, type: :model do
-  let(:data) { JSON.parse(file_fixture("delegated_powers.json").read).deep_symbolize_keys }
+  let(:data) { JSON.parse(file_fixture("delegated_powers.json").read) }
   let(:delegated_powers) { described_class.new(data) }
 
   it "has a user id" do

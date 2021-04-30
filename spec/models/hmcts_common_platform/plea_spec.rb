@@ -2,7 +2,7 @@ RSpec.describe HmctsCommonPlatform::Plea, type: :model do
   let(:plea) { described_class.new(data) }
 
   context "when plea has al fields" do
-    let(:data) { JSON.parse(file_fixture("plea/all_fields.json").read).deep_symbolize_keys }
+    let(:data) { JSON.parse(file_fixture("plea/all_fields.json").read) }
 
     it "has an originating hearing id" do
       expect(plea.originating_hearing_id).to eql("pd22b110-4dbc-3036-a076-e4bb40d0a82t")

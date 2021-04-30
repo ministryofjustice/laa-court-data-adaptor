@@ -2,11 +2,11 @@ module HmctsCommonPlatform
   class Verdict
     attr_reader :data
 
-    def initialize(data)
-      @data = data || {}
-    end
-
     delegate :blank?, to: :data
+
+    def initialize(data)
+      @data = HashWithIndifferentAccess.new(data || {})
+    end
 
     def offence_id
       data[:offenceId]

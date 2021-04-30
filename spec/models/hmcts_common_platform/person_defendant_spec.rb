@@ -1,5 +1,5 @@
 RSpec.describe HmctsCommonPlatform::PersonDefendant, type: :model do
-  let(:data) { JSON.parse(file_fixture("person_defendant.json").read).deep_symbolize_keys }
+  let(:data) { JSON.parse(file_fixture("person_defendant.json").read) }
   let(:person_defendant) { described_class.new(data) }
 
   it "has an ASN" do

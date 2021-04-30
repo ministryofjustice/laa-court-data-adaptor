@@ -1,5 +1,5 @@
 RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
-  let(:data) { JSON.parse(file_fixture("court_application.json").read).deep_symbolize_keys }
+  let(:data) { JSON.parse(file_fixture("court_application.json").read) }
   let(:court_application) { described_class.new(data) }
 
   it "has a type id" do

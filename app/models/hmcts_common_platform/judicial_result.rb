@@ -2,11 +2,11 @@ module HmctsCommonPlatform
   class JudicialResult
     attr_reader :data
 
-    def initialize(data)
-      @data = data || {}
-    end
-
     delegate :blank?, to: :data
+
+    def initialize(data)
+      @data = HashWithIndifferentAccess.new(data || {})
+    end
 
     def code
       data[:cjsCode]

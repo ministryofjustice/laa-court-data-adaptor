@@ -3,7 +3,7 @@ module HmctsCommonPlatform
     attr_reader :data
 
     def initialize(data)
-      @data = data || {}
+      @data = HashWithIndifferentAccess.new(data || {})
     end
 
     delegate :blank?, to: :data

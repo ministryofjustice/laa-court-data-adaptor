@@ -7,7 +7,7 @@ module HmctsCommonPlatform
     delegate :arrest_summons_number, :first_name, :last_name, :date_of_birth, :documentation_language_needs, :address_1, :address_2, :address_3, :address_4, :address_5, :postcode, :nino, :phone_home, :phone_work, :phone_mobile, :email_primary, :email_secondary, to: :person_defendant
 
     def initialize(data)
-      @data = data || {}
+      @data = HashWithIndifferentAccess.new(data || {})
     end
 
     def proceedings_concluded

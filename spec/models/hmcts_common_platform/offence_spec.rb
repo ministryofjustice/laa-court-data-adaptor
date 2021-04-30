@@ -2,7 +2,7 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
   let(:offence) { described_class.new(data) }
 
   context "when offence has all fields" do
-    let(:data) { JSON.parse(file_fixture("offence/all_fields.json").read).deep_symbolize_keys }
+    let(:data) { JSON.parse(file_fixture("offence/all_fields.json").read) }
 
     it "has an id" do
       expect(offence.id).to eql("3f153786-f3cf-4311-bc0c-2d6f48af68a1")
