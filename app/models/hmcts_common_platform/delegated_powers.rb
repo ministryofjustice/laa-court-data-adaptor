@@ -2,11 +2,11 @@ module HmctsCommonPlatform
   class DelegatedPowers
     attr_reader :data
 
+    delegate :blank?, to: :data
+
     def initialize(data)
       @data = HashWithIndifferentAccess.new(data || {})
     end
-
-    delegate :blank?, to: :data
 
     def user_id
       data[:userId]

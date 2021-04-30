@@ -2,11 +2,11 @@ module HmctsCommonPlatform
   class Hearing
     attr_reader :data
 
+    delegate :blank?, to: :data
+
     def initialize(data)
       @data = HashWithIndifferentAccess.new(data || {})
     end
-
-    delegate :blank?, to: :data
 
     def jurisdiction_type
       data[:jurisdictionType]
