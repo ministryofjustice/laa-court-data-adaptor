@@ -16,41 +16,37 @@
   "isConvictedResult": false,
   "isDeleted": false,
   "isFinancialResult": false,
-  "isUnscheduled": false,
   "judicialResultId": "be225605-fc15-47aa-b74c-efb8629db58e",
   "judicialResultPrompts": [
     {
-      "courtExtract": "Y",
       "isFinancialImposition": false,
       "judicialResultPromptTypeId": "1745ee94-1564-48b3-9eca-4a34e1baf706",
       "label": "Grant of legal aid transferred to (new firm name)",
+      "isAvailableForCourtExtract": true,
       "promptReference": "grantOfLegalAidTransferredToNewFirmName",
       "promptSequence": 100,
-      "type": "TXT",
       "usergroups": [],
       "value": "Joe Bloggs Solicitors Ltd, London",
       "welshValue": "Joe Bloggs Solicitors Ltd, London"
     },
     {
-      "courtExtract": "Y",
       "isFinancialImposition": false,
       "judicialResultPromptTypeId": "df6fe61a-b209-4fb1-9bbf-eadb2acb7c22",
       "label": "Additional reasons",
+      "isAvailableForCourtExtract": true,
       "promptReference": "additionalReasons",
       "promptSequence": 200,
-      "type": "TXT",
       "usergroups": [],
       "value": "Defendant's choice",
       "welshValue": "Defendant's choice"
     },
     {
-      "courtExtract": "Y",
       "isFinancialImposition": false,
       "judicialResultPromptTypeId": "de946ead-b69e-4096-9008-dfecb6014e2d",
       "label": "New firm's LAA account reference",
+      "isAvailableForCourtExtract": true,
       "promptReference": "newFirmsLAAAccountReference",
       "promptSequence": 300,
-      "type": "TXT",
       "usergroups": [],
       "value": "55558888",
       "welshValue": "55558888"
@@ -65,17 +61,20 @@
     "courtCentre": {
       "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
     },
-    "listedStartDateTime": "2020-03-01"
+    "type": {
+      "id": "f0a970dc-ddac-48e6-b76c-ccfaa4c0e8a0",
+      "description": "Description of next hearing"
+    },
+    "listedStartDateTime": "2021-03-09T15:54:09.871Z",
+    "estimatedMinutes": 10
   },
   "orderedDate": "2021-03-10",
   "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
   "postHearingCustodyStatus": "A",
   "publishedAsAPrompt": false,
-  "publishedForNows": false,
   "qualifier": "",
   "rank": 49500,
   "resultText": "Legal Aid Transfer Granted\nGrant of legal aid transferred to (new firm name) Joe Bloggs Solicitors Ltd, London\nAdditional reasons Defendant's choice\nNew firm's LAA account reference 55558888",
-  "rollUpPrompts": true,
   "rootJudicialResultId": "be225605-fc15-47aa-b74c-efb8629db58e",
   "rootJudicialResultTypeId": "c5520033-7389-4815-a5c9-bf28fcebb134",
   "terminatesOffenceProceedings": false,

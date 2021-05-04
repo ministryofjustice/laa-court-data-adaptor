@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiCourtOrder.json",
+  "description": "The details of any court orders that are made and can be subject of future proceedings e.g. breach.  Orders are collected from shared results",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The generated identifier of the order",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "defendantIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "masterDefendantId": {
+      "description": "Master defendant id",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "judicialResultTypeId": {
+      "description": "The type of order made",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "label": {
+      "description": "The label of the type of order made",
+      "type": "string"
+    },
+    "orderDate": {
+      "description": "The date that the order was made",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "startDate": {
+      "description": "The date that the order commenced, typically the date that the order was made",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "endDate": {
+      "description": "The date that the order completes, typically calculated based on a duration result.  The absence of an end date determines that the order remains active indefinately",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "orderingCourt": {
+      "description": "The court centre that made the order",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtCentre.json"
+    },
+    "orderingHearingId": {
+      "description": "The reference to the court hearing or sjp session that made the order",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "isSJPOrder": {
+      "description": "Indicates if the order has been made based on a decision at an SJP session",
+      "type": "boolean"
+    },
+    "canBeSubjectOfBreachProceedings": {
+      "description": "Indicates if the order can be the subject of future breach proceedings",
+      "type": "boolean"
+    },
+    "canBeSubjectOfVariationProceedings": {
+      "description": "Indicates if the order can be the subject of future variation proceedings",
+      "type": "boolean"
+    },
+    "courtOrderOffences": {
+      "description": "The offences that were matters heard when the court order was made",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiCourtOrderOffence.json"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "judicialResultTypeId",
+    "label",
+    "orderDate",
+    "startDate",
+    "orderingCourt",
+    "orderingHearingId",
+    "isSJPOrder",
+    "canBeSubjectOfBreachProceedings",
+    "canBeSubjectOfVariationProceedings",
+    "courtOrderOffences"
+  ],
+  "additionalProperties": false
+}

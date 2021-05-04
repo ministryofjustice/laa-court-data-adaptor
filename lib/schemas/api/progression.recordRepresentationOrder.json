@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/progression/courts/api/progression.recordRepresentationOrder.json",
+    "description": "Records the details of a representation order against the court case details.  Supports create and update command instructions",
+    "type": "object",
+    "properties": {
+        "prosecutionCaseId": {
+            "description": "The identifier of the prosecution case",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "defendantId": {
+            "description": "The identifier of the defendant",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "offenceId": {
+            "description": "The identifier of the offence",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "statusCode": {
+            "description": "The status of the application that aligns to the reference data",
+            "type": "string"
+        },
+        "applicationReference": {
+            "description": "The LAA issued reference to the application.  Currently known as the MAAT Id",
+            "type": "string"
+        },
+        "statusDate": {
+          "description": "The date that the status was recorded",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+        },
+        "effectiveStartDate": {
+          "description": "The start date for legal aid",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+        },
+        "effectiveEndDate": {
+          "description": "The end date for legal aid",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+        },
+        "defenceOrganisation": {
+          "description": "The associated defence representation details",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiDefenceOrganisation.json"
+        }
+    },
+    "required": [
+        "prosecutionCaseId", "defendantId", "offenceId", "statusCode", "applicationReference", "statusDate", "effectiveStartDate", "defenceOrganisation"
+    ],
+    "additionalProperties": false
+}

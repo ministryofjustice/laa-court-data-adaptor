@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Identifies the attendance of an applicant or respondent at an application hearing",
+  "id": "http://justice.gov.uk/core/courts/external/apiCourtApplicationPartyAttendance.json",
+  "type": "object",
+  "properties": {
+    "courtApplicationPartyId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "attendanceDays": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiAttendanceDay.json"
+      }
+    }
+  },
+  "required": [
+    "courtApplicationPartyId",
+    "attendanceDays"
+  ],
+  "additionalProperties": false
+}

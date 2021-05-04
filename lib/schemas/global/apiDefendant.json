@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiDefendant.json",
+  "type": "object",
+  "description": "The defendant for an individual prosecution case.  Defendant details are NOT associated to multiple prosecution cases.  HMCTS business does not have authority to merge defendant details or recognise a single view of defendant",
+  "properties": {
+    "id": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "masterDefendantId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid",
+      "description": "Technical identifier that uniquely identifies the defendant on CPP i.e. across prosecution cases.  Case defendants that are the same person will be matched and provided the same defendantMasterId"
+    },
+    "prosecutionCaseId": {
+      "description": "The prosecution case technical identifier",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "numberOfPreviousConvictionsCited": {
+      "description": "The number of previous convictions cited by the case prosecuting authority",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/positiveInteger"
+    },
+    "prosecutionAuthorityReference": {
+      "description": "The prosecuting authorities reference for the defendant for the given case",
+      "type": "string"
+    },
+    "witnessStatement": {
+      "type": "string"
+    },
+    "witnessStatementWelsh": {
+      "type": "string"
+    },
+    "mitigation": {
+      "type": "string"
+    },
+    "mitigationWelsh": {
+      "type": "string"
+    },
+    "offences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiOffence.json"
+      }
+    },
+    "associatedPersons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiAssociatedPerson.json"
+      }
+    },
+    "defenceOrganisation": {
+      "description": "The organisation details of the defence representation",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiOrganisation.json"
+    },
+    "associatedDefenceOrganisation": {
+      "description": "The collection of associated defence representation details",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiAssociatedDefenceOrganisation.json"
+    },
+    "personDefendant": {
+      "description": "When the defendant is a person the additional person specific details for the defendant",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiPersonDefendant.json"
+    },
+    "legalEntityDefendant": {
+      "description": "When the defendant is a legal entity the additional legal entity specific details for the defendant",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiLegalEntityDefendant.json"
+    },
+    "aliases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiDefendantAlias.json#"
+      }
+    },
+    "judicialResults": {
+      "description": "A record of any judicial decisions and results made against the defendant",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiJudicialResult.json"
+      }
+    },
+    "croNumber": {
+      "description": "National Identification Service (formerly Criminal Records Office) Number (fingerprint number)",
+      "type": "string"
+    },
+    "pncId": {
+      "type": "string"
+    },
+    "legalAidStatus": {
+      "type": "string"
+    },
+    "proceedingsConcluded": {
+      "description": "Indicates that proceedings for the defendant have been concluded i.e. all offences have been disposed with final results or have been withdrawn by the prosecuting authority",
+      "type": "boolean"
+    },
+    "isYouth": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "prosecutionCaseId",
+    "offences"
+  ],
+  "additionalProperties": false
+}

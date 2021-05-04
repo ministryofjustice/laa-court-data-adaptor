@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/results/courts/api/hearingResultedResponse.json",
+    "type": "object",
+    "properties": {
+        "hearing": {
+            "description": "The details of the resulted hearing, its case details and the results",
+            "$ref": "http://justice.gov.uk/core/courts/external/hearing.json#"
+        },
+        "sharedTime": {
+            "description": "The date and time that teh results were shared by HMCTS",
+            "format": "date-time"
+        }
+    },
+    "additionalProperties": false
+}

@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/unified_search_query/courts/external/prosecutionCaseResponse.json",
+    "type": "object",
+    "properties": {
+        "cases": {
+            "description": "The prosecution cases matched by the search query",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "http://justice.gov.uk/core/courts/external/search/prosecutionCaseSummary.json#"
+            }
+        },
+        "totalResults": {
+            "description": "The count of the displayed results",
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false
+}

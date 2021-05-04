@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiAssociatedPerson.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "person": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiPerson.json#"
+    },
+    "role": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "person"
+  ]
+}

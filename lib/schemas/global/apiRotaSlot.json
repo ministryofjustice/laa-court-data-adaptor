@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiRotaSlot.json",
+  "type": "object",
+  "properties": {
+    "startTime": {
+      "description": "Start time of hearing slot.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "duration": {
+      "description": "Duration of the hearing slot.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "courtScheduleId": {
+      "description": "Court schedule ID from Rota Schedule slot.",
+      "type": "string"
+    },
+    "session": {
+      "description": "All Day (AD), Morning (AM), Afternoon (PM)",
+      "type": "string"
+    },
+    "oucode": {
+      "description": "OU code from Rota Schedule slot.",
+      "type": "string"
+    },
+    "courtRoomId": {
+      "description": "ID of the courtroom.",
+      "type": "integer"
+    },
+    "courtCentreId": {
+      "type": "string"
+    },
+    "roomId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "startTime"
+  ],
+  "additionalProperties": false
+}

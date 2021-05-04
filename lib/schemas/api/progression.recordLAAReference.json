@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/progression/courts/external/progression.recordLAAReference.json",
+  "description": "Records a reference to the legal aid application against the court case details",
+  "type": "object",
+  "properties": {
+    "prosecutionCaseId": {
+      "description": "The identifier of the prosecution case",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "defendantId": {
+      "description": "The identifier of the defendant",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "offenceId": {
+      "description": "The identifier of the offence",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "statusCode": {
+      "description": "The status of the application that aligns to the reference data",
+      "type": "string"
+    },
+    "applicationReference": {
+      "description": "The LAA issued reference to the application.  Currently known as the MAAT Id",
+      "type": "string"
+    },
+    "statusDate": {
+      "description": "The date that the status was recorded",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    }
+  },
+  "required": [
+    "prosecutionCaseId",
+    "defendantId",
+    "offenceId",
+    "statusCode",
+    "applicationReference",
+    "statusDate"
+  ],
+  "additionalProperties": false
+}

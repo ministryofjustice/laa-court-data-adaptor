@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiJudicialRole.json",
+  "type": "object",
+  "properties": {
+    "judicialId": {
+      "description": "The reference data identify for the judicial role.",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "title": {
+      "description": "The judicial role persons title",
+      "type": "string"
+    },
+    "firstName": {
+      "description": "The judicial role persons fore name",
+      "type": "string"
+    },
+    "middleName": {
+      "description": "The judicial role persons middle name",
+      "type": "string"
+    },
+    "lastName": {
+      "description": "The judicial role persons last name",
+      "type": "string"
+    },
+    "judicialRoleType": {
+      "description": "The classification of the judicial role",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiJudicialRoleType.json#"
+    },
+    "isDeputy": {
+      "description": "Indicates if the judiciary acts as a deputy.  This is applicable to circuit and district judges",
+      "type": "boolean"
+    },
+    "isBenchChairman": {
+      "description": "Indicates if the magistrate acts as a bench chairman.  This is only applicable to magistrate roles",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "judicialId",
+    "judicialRoleType"
+  ],
+  "additionalProperties": false
+}
