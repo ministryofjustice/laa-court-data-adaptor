@@ -353,6 +353,7 @@ DEPENDENCIES
   dry-validation
   faraday_middleware
   hmcts_common_platform!
+  json-schema
   json-schema-rspec
   jsonapi-serializer
   jsonapi_parameters
