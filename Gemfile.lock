@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/ministryofjustice/hmcts_common_platform.git
-  revision: 07298c429c6d3acfcd41cce19b1a08f906f5cb8d
-  tag: 0.1.0
+  revision: f45aa2fddd05e238493c0c3e202de309ae93acb4
+  tag: v0.2.0
   specs:
     hmcts_common_platform (0.1.0)
 
