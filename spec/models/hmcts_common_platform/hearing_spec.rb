@@ -1,6 +1,6 @@
 RSpec.describe HmctsCommonPlatform::Hearing, type: :model do
-  let(:data) { JSON.parse(file_fixture("hearing/all_fields.json").read).deep_symbolize_keys }
-  let(:hearing) { described_class.new(data[:hearing]) }
+  let(:data) { JSON.parse(file_fixture("hearing/all_fields.json").read) }
+  let(:hearing) { described_class.new(data) }
 
   it "has a jurisdiction type" do
     expect(hearing.jurisdiction_type).to eql("CROWN")

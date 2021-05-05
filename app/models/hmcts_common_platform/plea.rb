@@ -2,11 +2,11 @@ module HmctsCommonPlatform
   class Plea
     attr_reader :data
 
-    def initialize(data)
-      @data = data || {}
-    end
-
     delegate :blank?, to: :data
+
+    def initialize(data)
+      @data = HashWithIndifferentAccess.new(data || {})
+    end
 
     def originating_hearing_id
       data[:originatingHearingId]

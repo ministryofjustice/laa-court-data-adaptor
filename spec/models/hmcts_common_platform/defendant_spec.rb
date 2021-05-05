@@ -2,7 +2,7 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
   let(:defendant) { described_class.new(data) }
 
   context "when the defendant has all fields" do
-    let(:data) { JSON.parse(file_fixture("defendant/all_fields.json").read).deep_symbolize_keys }
+    let(:data) { JSON.parse(file_fixture("defendant/all_fields.json").read) }
 
     it "has a proceedings concluded" do
       expect(defendant.proceedings_concluded).to be(false)

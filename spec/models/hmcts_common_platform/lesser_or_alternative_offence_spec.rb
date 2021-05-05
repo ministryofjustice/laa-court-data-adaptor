@@ -2,7 +2,7 @@ RSpec.describe HmctsCommonPlatform::LesserOrAlternativeOffence, type: :model do
   let(:lesser_or_alternative_offence) { described_class.new(data) }
 
   context "when lesser or alternative offence has all fields" do
-    let(:data) { JSON.parse(file_fixture("lesser_or_alternative_offence/all_fields.json").read).deep_symbolize_keys }
+    let(:data) { JSON.parse(file_fixture("lesser_or_alternative_offence/all_fields.json").read) }
 
     it "has an offence definition id" do
       expect(lesser_or_alternative_offence.offence_definition_id).to eql("pd22b110-4dbc-3036-a076-e4bb40d0a82t")

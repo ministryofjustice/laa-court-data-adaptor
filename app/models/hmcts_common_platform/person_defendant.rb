@@ -2,11 +2,11 @@ module HmctsCommonPlatform
   class PersonDefendant
     attr_reader :data
 
-    def initialize(data)
-      @data = data || {}
-    end
-
     delegate :blank?, to: :data
+
+    def initialize(data)
+      @data = HashWithIndifferentAccess.new(data || {})
+    end
 
     def arrest_summons_number
       data.dig(:arrestSummonsNumber)

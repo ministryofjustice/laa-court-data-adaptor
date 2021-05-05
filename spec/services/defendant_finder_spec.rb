@@ -10,7 +10,7 @@ RSpec.describe DefendantFinder do
   let(:prosecution_cases_hash) { JSON.parse(prosecution_cases_json) }
   let(:prosecution_case) { prosecution_cases_hash["cases"][0] }
 
-  let(:hearing_json) { file_fixture("hearing/all_fields.json").read }
+  let(:hearing_json) { file_fixture("hearing_resulted.json").read }
 
   before do
     ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case)
