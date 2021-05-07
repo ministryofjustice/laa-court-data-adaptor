@@ -14,10 +14,17 @@ class MaatLinkCreator < ApplicationService
 private
 
   def publish_laa_reference_to_queue
-    Sqs::PublishLaaReference.call(defendant_id: laa_reference.defendant_id,
-                                  prosecution_case_id: prosecution_case_id,
-                                  user_name: laa_reference.user_name,
-                                  maat_reference: laa_reference.maat_reference)
+    maat_api_laa_reference = MaatApi::LaaReference.new(
+      maat_reference: laa_reference.maat_reference,
+      user_name: laa_reference.user_name,
+      defendant_summary: prosecution_case_summary.defendant_summaries.find { |d| d.defendant_id == laa_reference.defendant_id },
+      prosecution_case_summary: prosecution_case_summary,
+    )
+
+    Sqs::MessagePublisher.call(
+      message: MaatApi::LaaReferenceMessage.new(maat_api_laa_reference).generate,
+      queue_url: Rails.configuration.x.aws.sqs_url_link,
+    )
   end
 
   def post_laa_references_to_common_platform
@@ -47,6 +54,10 @@ private
 
   def prosecution_case_id
     @prosecution_case_id ||= offences.first.prosecution_case_id
+  end
+
+  def prosecution_case_summary
+    @prosecution_case_summary ||= HmctsCommonPlatform::ProsecutionCaseSummary.new(ProsecutionCase.find(prosecution_case_id).body)
   end
 
   attr_reader :laa_reference
