@@ -18,7 +18,7 @@ commands:
 jobs:
   test:
     docker:
-      - image: circleci/ruby:2.7.2
+      - image: circleci/ruby:2.7.3
         environment:
           DATABASE_URL: postgres://postgres@localhost/laa_court_data_adaptor_test
           RAILS_ENV: test
