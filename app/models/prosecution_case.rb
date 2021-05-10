@@ -4,10 +4,10 @@ class ProsecutionCase < ApplicationRecord
   validates :body, presence: true
 
   def defendants
-    body["defendantSummary"].map do |defendant|
+    body["defendantSummary"].map do |defendant_summary_data|
       Defendant.new(
-        body: defendant,
-        details: defendant_details[defendant["defendantId"]],
+        body: defendant_summary_data,
+        details: defendant_details[defendant_summary_data["defendantId"]],
         prosecution_case_id: id,
       )
     end

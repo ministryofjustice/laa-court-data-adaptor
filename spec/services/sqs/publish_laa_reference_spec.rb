@@ -20,8 +20,7 @@ RSpec.describe Sqs::PublishLaaReference do
       isActive: false,
       defendant: {
         defendantId: "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3",
-        forename: "George",
-        surname: "Walsh",
+        name: "George Andrew Walsh",
         dateOfBirth: "1980-01-01",
         nino: "HB133542A",
         offences: [

@@ -10,19 +10,7 @@ class Defendant
   end
 
   def name
-    [first_name, middle_name, last_name].join(" ").squish
-  end
-
-  def first_name
-    body["defendantFirstName"]
-  end
-
-  def middle_name
-    body["defendantMiddleName"]
-  end
-
-  def last_name
-    body["defendantLastName"]
+    body["defendantName"]
   end
 
   def date_of_birth

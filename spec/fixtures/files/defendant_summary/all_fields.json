@@ -3,9 +3,7 @@
   "defendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
   "masterDefendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
   "defendantASN": "2100000000000267128K",
-  "defendantFirstName": "Bob",
-  "defendantMiddleName": "Steven",
-  "defendantLastName": "Smith",
+  "defendantName": "Bob Smith",
   "defendantDOB": "1986-11-10",
   "defendantNINO": "SJ12345678",
   "offenceSummary": [

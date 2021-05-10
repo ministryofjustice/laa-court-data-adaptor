@@ -14,14 +14,6 @@ module HmctsCommonPlatform
       data[:defendantName]
     end
 
-    def first_name
-      data[:defendantFirstName]
-    end
-
-    def last_name
-      data[:defendantLastName]
-    end
-
     def arrest_summons_number
       data[:defendantASN]
     end

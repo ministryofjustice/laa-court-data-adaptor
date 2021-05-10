@@ -193,7 +193,7 @@
         {
           "properties": {
             "name": {
-              "$ref": "defendant.json#/definitions/name"
+              "type": "string"
             },
             "date_of_birth": {
               "$ref": "defendant.json#/definitions/date_of_birth"

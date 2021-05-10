@@ -36,9 +36,8 @@ module Sqs
 
     def defendant_hash
       {
+        name: defendant.name,
         defendantId: defendant.id,
-        forename: defendant.first_name,
-        surname: defendant.last_name,
         dateOfBirth: defendant.date_of_birth,
         nino: defendant.national_insurance_number,
         offences: offences_map,
