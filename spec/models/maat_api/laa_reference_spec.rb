@@ -103,4 +103,22 @@ RSpec.describe MaatApi::LaaReference, type: :model do
       end
     end
   end
+
+  context "when the closest hearing in time is the present day" do
+    let(:first_sitting_day) do
+      Time.zone.parse(prosecution_case_summary.hearing_summaries.first.hearing_days.first.sitting_day)
+    end
+
+    it "has a cjs_location" do
+      travel_to(first_sitting_day + 1.minute) do
+        expect(laa_reference.cjs_location).to eql("B30PI")
+      end
+    end
+
+    it "has a cjs_area_code" do
+      travel_to(first_sitting_day + 1.minute) do
+        expect(laa_reference.cjs_area_code).to eql("30")
+      end
+    end
+  end
 end

@@ -75,18 +75,20 @@ module MaatApi
     end
 
     def past_hearing_summaries
-      hearing_summaries_with_hearing_days.select { |hs| hs.hearing_days.map(&:sitting_day).max&.to_date&.past? }
+      hearing_summaries_with_hearing_days.select do |hs|
+        hs.hearing_days.map(&:sitting_day).max&.to_datetime&.past?
+      end
     end
 
     def all_hearings_in_past?
       hearing_summaries_with_hearing_days.all? do |hearing_summary|
-        hearing_summary.hearing_days.map(&:sitting_day).max&.to_date&.past?
+        hearing_summary.hearing_days.map(&:sitting_day).max&.to_datetime&.past?
       end
     end
 
     def all_hearings_in_future?
       hearing_summaries_with_hearing_days.all? do |hearing_summary|
-        hearing_summary.hearing_days.map(&:sitting_day).max&.to_date&.future?
+        hearing_summary.hearing_days.map(&:sitting_day).max&.to_datetime&.future?
       end
     end
 
