@@ -5,7 +5,11 @@ module Api
     module V1
       class HearingsController < ApplicationController
         def show
-          @hearing = CommonPlatform::Api::GetHearingResults.call(hearing_id: params[:id])
+          @hearing = CommonPlatform::Api::GetHearingResults.call(
+            hearing_id: params[:id],
+            hearing_day: params[:hearing_day],
+          )
+
           render json: HearingSerializer.new(@hearing, serialization_options)
         end
 

@@ -18,7 +18,9 @@ class ProsecutionCase < ApplicationRecord
   end
 
   def hearing_summaries
-    body["hearingSummary"]&.map { |hearing_summary| HearingSummary.new(body: hearing_summary) } || []
+    Array(body["hearingSummary"]).map do |hearing_summary|
+      HearingSummary.new(body: hearing_summary)
+    end
   end
 
   def hearing_summary_ids
@@ -57,8 +59,13 @@ private
   end
 
   def hearing_results
-    @hearing_results ||= hearing_summary_ids.map { |hearing_id|
-      CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id)
+    @hearing_results ||= hearing_summaries.flat_map { |hearing_summary|
+      hearing_summary.hearing_days.map do |hearing_day|
+        CommonPlatform::Api::GetHearingResults.call(
+          hearing_id: hearing_summary.id,
+          hearing_day: hearing_day,
+        )
+      end
     }.compact
   end
 end

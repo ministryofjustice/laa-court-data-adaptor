@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/hearing/results?hearingId=4d01840d-5959-4539-a450-d39f57171036"
+    uri: "<COMMON_PLATFORM_URL>/hearing/results?hearingId=4d01840d-5959-4539-a450-d39f57171037&sittingDay=2021-05-21"
     body:
       encoding: US-ASCII
       string: ''
@@ -21,14 +21,14 @@ http_interactions:
       content-type:
       - text/plain; charset=utf-8
       request-context:
-      - appId=cid-v1:e7545c86-6eab-4a30-bf6d-7ed8b5691e3e
+      - appId=cid-v1:e7545c86-6eab-4a30-bf6d-7ed8b5691e3f
       date:
       - Fri, 04 Sep 2020 11:01:36 GMT
       x-frame-options:
       - SAMEORIGIN
     body:
       encoding: UTF-8
-      string: "{\r\n  \"hearing\": {\r\n    \"id\": \"4d01840d-5959-4539-a450-d39f57171036\",\r\n
+      string: "{\r\n  \"hearing\": {\r\n    \"id\": \"4d01840d-5959-4539-a450-d39f57171037\",\r\n
         \   \"jurisdictionType\": \"MAGISTRATES\",\r\n    \"courtCentre\": {\r\n      \"address\":
         {\r\n        \"address1\": \"176A Lavender Hill\",\r\n        \"address2\":
         \"London\",\r\n        \"address3\": \"\",\r\n        \"address4\": \"\",\r\n
@@ -39,7 +39,7 @@ http_interactions:
         Hill Magistrates' Court\",\r\n      \"roomId\": \"9e4932f7-97b2-3010-b942-ddd2624e4dd8\",\r\n
         \     \"roomName\": \"Courtroom 01\"\r\n    },\r\n    \"hearingDays\": [\r\n
         \     {\r\n        \"listedDurationMinutes\": 20,\r\n        \"listingSequence\":
-        0,\r\n        \"sittingDay\": \"2020-08-17T09:01:01.001Z\"\r\n      }\r\n
+        0,\r\n        \"sittingDay\": \"2021-05-21T09:01:01.001Z\"\r\n      }\r\n
         \   ],\r\n    \"type\": {\r\n      \"description\": \"First hearing\",\r\n
         \     \"id\": \"4a0e892d-c0c5-3c51-95b8-704d8c781776\"\r\n    },\r\n    \"hearingLanguage\":
         \"ENGLISH\",\r\n    \"prosecutionCases\": [\r\n      {\r\n        \"id\":

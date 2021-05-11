@@ -37,3 +37,6 @@ spec/examples.txt
 
 # Ignore local-history files
 .history
+
+# Ignore node modules
+/node_modules

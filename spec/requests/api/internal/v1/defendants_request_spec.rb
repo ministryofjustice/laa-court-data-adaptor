@@ -9,6 +9,7 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
   let(:token) { access_token }
   let(:id) { "23d7f10a-067a-476e-bba6-bb855674e23b" }
   let(:include) {}
+
   let(:defendant) do
     {
       data: {
@@ -20,6 +21,10 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
         },
       },
     }
+  end
+
+  before do
+    allow(CommonPlatform::Api::GetHearingResults).to receive(:call)
   end
 
   around do |example|

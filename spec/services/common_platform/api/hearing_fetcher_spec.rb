@@ -1,42 +1,80 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::Api::HearingFetcher do
-  subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id) }
+  context "when fetching result by hearing id only" do
+    subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, hearing_day: nil) }
 
-  let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
+    let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
 
-  it "returns the requested hearing info" do
-    VCR.use_cassette("hearing_result_fetcher/success") do
-      expect(fetch_hearing.body["hearing"]["id"]).to eq(hearing_id)
-    end
-  end
-
-  context "with a incorrect key" do
-    subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, connection: connection) }
-
-    let(:connection) { CommonPlatform::Connection.call }
-
-    before do
-      connection.headers["Ocp-Apim-Subscription-Key"] = "INCORRECT KEY"
+    it "returns the requested hearing info" do
+      VCR.use_cassette("hearing_result_fetcher/success") do
+        expect(fetch_hearing.body["hearing"]["id"]).to eq(hearing_id)
+      end
     end
 
-    it "returns an unauthorised response" do
-      VCR.use_cassette("hearing_result_fetcher/unauthorised") do
-        expect(fetch_hearing.status).to eq(401)
+    context "with a incorrect key" do
+      subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, hearing_day: nil, connection: connection) }
+
+      let(:connection) { CommonPlatform::Connection.call }
+
+      before do
+        connection.headers["Ocp-Apim-Subscription-Key"] = "INCORRECT KEY"
+      end
+
+      it "returns an unauthorised response" do
+        VCR.use_cassette("hearing_result_fetcher/unauthorised") do
+          expect(fetch_hearing.status).to eq(401)
+        end
+      end
+    end
+
+    context "with connection" do
+      subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, hearing_day: nil, connection: connection) }
+
+      let(:connection) { double("CommonPlatformConnection") }
+      let(:url) { "hearing/results" }
+      let(:params) { { hearingId: hearing_id } }
+
+      it "makes a get request" do
+        expect(connection).to receive(:get).with(url, params)
+        fetch_hearing
       end
     end
   end
 
-  context "with connection" do
-    subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, connection: connection) }
+  context "when fetching result with hearing_id and hearing_day query params" do
+    subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, hearing_day: hearing_day) }
+
+    let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171037" }
+    let(:hearing_day) { "2021-05-21" }
 
     let(:connection) { double("CommonPlatform::Connection") }
     let(:url) { "hearing/results" }
     let(:params) { { hearingId: hearing_id } }
 
-    it "makes a get request" do
-      expect(connection).to receive(:get).with(url, params)
-      fetch_hearing
+    it "returns the requested hearing info" do
+      VCR.use_cassette("hearing_result_fetcher/success_specified_hearing_day") do
+        expect(fetch_hearing.body["hearing"]["id"]).to eq(hearing_id)
+      end
+    end
+
+    it "returns the requested hearing date" do
+      VCR.use_cassette("hearing_result_fetcher/success_specified_hearing_day") do
+        expect(fetch_hearing.body["hearing"]["hearingDays"][0]["sittingDay"]).to eq("2021-05-21T09:01:01.001Z")
+      end
+    end
+
+    context "with connection" do
+      subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, hearing_day: hearing_day, connection: connection) }
+
+      let(:connection) { double("CommonPlatformConnection") }
+      let(:url) { "hearing/results" }
+      let(:params) { { hearingId: hearing_id, sittingDay: hearing_day } }
+
+      it "makes a get request" do
+        expect(connection).to receive(:get).with(url, params)
+        fetch_hearing
+      end
     end
   end
 end
