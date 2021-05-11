@@ -11,7 +11,7 @@ class LaaReferenceUnlinker < ApplicationService
 
   def call
     unlink_maat_reference!
-    push_to_sqs unless laa_reference.dummy_maat_reference?
+    push_to_queue unless laa_reference.dummy_maat_reference?
     update_offences_on_common_platform
   end
 
@@ -21,12 +21,15 @@ private
     laa_reference.unlink!
   end
 
-  def push_to_sqs
-    Sqs::PublishUnlinkLaaReference.call(
-      maat_reference: laa_reference.maat_reference,
-      user_name: user_name,
-      unlink_reason_code: unlink_reason_code,
-      unlink_other_reason_text: unlink_other_reason_text,
+  def push_to_queue
+    Sqs::MessagePublisher.call(
+      message: {
+        maatId: laa_reference.maat_reference,
+        userId: user_name,
+        reasonId: unlink_reason_code,
+        otherReasonText: unlink_other_reason_text,
+      },
+      queue_url: Rails.configuration.x.aws.sqs_url_unlink,
     )
   end
 
