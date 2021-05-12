@@ -8,7 +8,11 @@ module HmctsCommonPlatform
       @data = HashWithIndifferentAccess.new(data || {})
     end
 
-    def code
+    def id
+      data[:judicialResultId]
+    end
+
+    def cjs_code
       data[:cjsCode]
     end
 

@@ -2,24 +2,28 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
   let(:data) { JSON.parse(file_fixture("court_application.json").read) }
   let(:court_application) { described_class.new(data) }
 
+  it "has an id" do
+    expect(court_application.id).to eql("c5266a93-389c-4331-a56a-dd000b361cef")
+  end
+
   it "has a type id" do
-    expect(court_application.type_id).to eql("74b72f6f-414a-3464-a4a2-d91397b4c439")
+    expect(court_application.court_application_type_id).to eql("74b72f6f-414a-3464-a4a2-d91397b4c439")
   end
 
   it "has a type name" do
-    expect(court_application.type_name).to eql("Application for transfer of legal aid")
+    expect(court_application.court_application_type_description).to eql("Application for transfer of legal aid")
   end
 
   it "has a type code" do
-    expect(court_application.type_code).to eql("LA12505")
+    expect(court_application.court_application_type_code).to eql("LA12505")
   end
 
   it "has a type category code" do
-    expect(court_application.type_category_code).to eql("CO")
+    expect(court_application.court_application_type_category_code).to eql("CO")
   end
 
   it "has a type legislation" do
-    expect(court_application.type_legislation).to eql("Pursuant to Regulation 14 of the Criminal Legal Aid")
+    expect(court_application.court_application_type_legislation).to eql("Pursuant to Regulation 14 of the Criminal Legal Aid")
   end
 
   it "has an application particulars" do
@@ -97,6 +101,12 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
 
     it "has a secondary email" do
       expect(court_application.defendant_email_secondary).to eql("secondary@example.com")
+    end
+  end
+
+  describe "respondents" do
+    it "are HmctsCommonPlatform::CourtApplicationParty objects" do
+      expect(court_application.respondents).to all(be_a(HmctsCommonPlatform::CourtApplicationParty))
     end
   end
 
