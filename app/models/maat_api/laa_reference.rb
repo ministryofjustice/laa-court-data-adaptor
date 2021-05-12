@@ -81,19 +81,19 @@ module MaatApi
     end
 
     def all_hearings_in_past?
-      hearing_summaries_with_hearing_days.all? do |hearing_summary|
-        hearing_summary.hearing_days.map(&:sitting_day).max&.to_datetime&.past?
+      hearing_summaries_with_hearing_days.all? do |hs|
+        hs.hearing_days.map(&:sitting_day).max&.to_datetime&.past?
       end
     end
 
     def all_hearings_in_future?
-      hearing_summaries_with_hearing_days.all? do |hearing_summary|
-        hearing_summary.hearing_days.map(&:sitting_day).max&.to_datetime&.future?
+      hearing_summaries_with_hearing_days.all? do |hs|
+        hs.hearing_days.map(&:sitting_day).max&.to_datetime&.future?
       end
     end
 
     def hearing_summaries_with_hearing_days
-      prosecution_case_summary.hearing_summaries.reject { |summary| summary.hearing_days.blank? }
+      prosecution_case_summary.hearing_summaries.reject { |hs| hs.hearing_days.blank? }
     end
 
     def offences
