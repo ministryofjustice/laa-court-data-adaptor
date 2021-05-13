@@ -106,7 +106,7 @@ module MaatApi
     def judicial_results(offence)
       offence.results&.map do |judicial_result|
         {
-          resultCode: judicial_result.code,
+          resultCode: judicial_result.cjs_code,
           resultShortTitle: judicial_result.label,
           resultText: judicial_result.text,
           resultCodeQualifiers: judicial_result.qualifier,

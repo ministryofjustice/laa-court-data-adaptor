@@ -24,6 +24,13 @@
     "summonsTemplateType": "NOT_APPLICABLE",
     "type": "Application for transfer of legal aid"
   },
+  "respondents": [
+    {
+      "id": "4f59e8d5-53d5-4175-b9b3-d46363671d03",
+      "summonsRequired": false,
+      "notificationRequired": true
+    }
+  ],
   "applicationReceivedDate": "2021-03-09",
   "applicant": {
     "id": "80ae2f05-04dd-4f7e-aa11-802fbf585efe",

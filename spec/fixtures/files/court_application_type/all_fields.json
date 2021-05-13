@@ -1,0 +1,23 @@
+{
+  "id": "74b72f6f-414a-3464-a4a2-d91397b4c439",
+  "appealFlag": false,
+  "applicantAppellantFlag": false,
+  "boxworkNotifTemplate": "NOT_APPLICABLE",
+  "breachType": "NOT_APPLICABLE",
+  "categoryCode": "CO",
+  "code": "LA12505",
+  "commrOfOathFlag": false,
+  "courtExtractAvlFlag": true,
+  "courtOfAppealFlag": false,
+  "hearingCode": "APN",
+  "jurisdiction": "EITHER",
+  "legislation": "Pursuant to Regulation 14 of the Criminal Legal Aid",
+  "linkType": "LINKED",
+  "listingNotifTemplate": "POSTAL_NOTIFICATION",
+  "offenceActiveOrder": "NOT_APPLICABLE",
+  "pleaApplicableFlag": false,
+  "prosecutorThirdPartyFlag": false,
+  "spiOutApplicableFlag": true,
+  "summonsTemplateType": "NOT_APPLICABLE",
+  "type": "Application for transfer of legal aid"
+}
