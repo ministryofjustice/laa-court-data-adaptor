@@ -25,7 +25,7 @@ RSpec.describe "api/internal/v2/hearings", type: :request, swagger_doc: "v2/swag
 
       parameter name: "include", in: :query, required: false, type: :string,
                 schema: {},
-                description: "Return other data through a has_many relationship </br>e.g. include=providers"
+                description: "Return other data through a has_many or has_one relationship </br>e.g. include=providers,court_applications.respondents"
 
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
