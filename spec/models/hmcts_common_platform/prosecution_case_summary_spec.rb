@@ -4,6 +4,10 @@ RSpec.describe HmctsCommonPlatform::ProsecutionCaseSummary, type: :model do
   context "with all fields" do
     let(:data) { JSON.parse(file_fixture("prosecution_case_summary/all_fields.json").read) }
 
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:prosecution_case_summary)
+    end
+
     it { expect(prosecution_case_summary.prosecution_case_reference).to eq("30DI0570888") }
     it { expect(prosecution_case_summary.case_status).to eq("ACTIVE") }
     it { expect(prosecution_case_summary.defendant_summaries).to all be_an(HmctsCommonPlatform::DefendantSummary) }
@@ -12,6 +16,10 @@ RSpec.describe HmctsCommonPlatform::ProsecutionCaseSummary, type: :model do
 
   context "with required fields only" do
     let(:data) { JSON.parse(file_fixture("prosecution_case_summary/required_fields.json").read) }
+
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:prosecution_case_summary)
+    end
 
     it { expect(prosecution_case_summary.prosecution_case_reference).to eq("30DI0570888") }
     it { expect(prosecution_case_summary.case_status).to eq("ACTIVE") }

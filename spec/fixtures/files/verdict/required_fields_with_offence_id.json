@@ -2,6 +2,7 @@
     "offenceId": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
     "verdictDate": "2021-04-10",
     "verdictType": {
+        "id": "da063103-7c0c-40d1-adea-0233ada30b84",
         "category": "A",
         "categoryType": "Type A"
     }

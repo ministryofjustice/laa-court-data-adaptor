@@ -19,7 +19,6 @@
       "id": "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
       "prosecutionCaseIdentifier": {
         "caseURN": "20GD0217100",
-        "prosecutionAuthorityReference": "UXJYGCVRXJ",
         "prosecutionAuthorityId": "094e3de2-a07f-472f-81ed-da9b254c6c7c",
         "prosecutionAuthorityCode": "UBTMWMUUIJ"
       },
@@ -154,7 +153,7 @@
                   "address3": "2989",
                   "address4": "North Porfirio",
                   "address5": "Palestinian Territory",
-                  "postcode": "51314-0859"
+                  "postcode": "SW1H 9EA"
                 },
                 "contact": {
                   "home": "1-867-889-8179",
@@ -220,7 +219,7 @@
                 "address3": "28301",
                 "address4": "Cinthiatown",
                 "address5": "Kyrgyz Republic",
-                "postcode": "35848-9420"
+                "postcode": "SW1H 9EA"
               },
               "contact": {
                 "home": "(376) 129-7081",

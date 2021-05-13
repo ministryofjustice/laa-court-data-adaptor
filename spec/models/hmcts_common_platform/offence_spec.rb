@@ -4,6 +4,10 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
   context "when offence has all fields" do
     let(:data) { JSON.parse(file_fixture("offence/all_fields.json").read) }
 
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:offence)
+    end
+
     it "has an id" do
       expect(offence.id).to eql("3f153786-f3cf-4311-bc0c-2d6f48af68a1")
     end
@@ -73,6 +77,10 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
   context "when offence has only required fields" do
     let(:data) do
       JSON.parse(file_fixture("offence/required_fields.json").read).deep_symbolize_keys
+    end
+
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:offence)
     end
 
     it "has an id" do

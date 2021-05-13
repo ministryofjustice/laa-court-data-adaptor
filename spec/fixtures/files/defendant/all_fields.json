@@ -2,6 +2,7 @@
       "id": "70d0817b-2a48-4751-b4a9-b6323874a310",
       "prosecutionCaseId": "4028f014-3a57-4e59-b014-f4d4502f7b73",
       "defenceOrganisation": {
+        "name": "Ashman & Curau LLP"
       },
       "offences": [
         {
@@ -71,7 +72,7 @@
             "address3": "Address Line 3",
             "address4": "Address Line 4",
             "address5": "Address Line 5",
-            "postcode": "SW1 W12"
+            "postcode": "SW1H 9EA"
           },
           "contact": {
             "home": "000-000-0000",
@@ -86,7 +87,7 @@
           "gender": "MALE",
           "lastName": "Yundt",
           "title": "Mr",
-          "nationalInsuranceNumber": "123456789A"
+          "nationalInsuranceNumber": "AA123456C"
         }
       },
       "pncId": "999998882",

@@ -2,6 +2,7 @@
     "offenceId": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
     "verdictDate": "2021-04-10",
     "verdictType": {
+        "id": "f8df61d4-6e89-4b3f-85b4-5bfbc137a0b7",
         "category": "A",
         "categoryType": "Type A",
         "cjsVerdictCode": "1093",
