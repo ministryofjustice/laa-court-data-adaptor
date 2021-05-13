@@ -5,7 +5,6 @@ module Api
     module V2
       class ProviderSerializer
         include JSONAPI::Serializer
-        set_type :providers
 
         attributes :name, :role
       end

@@ -14,7 +14,7 @@ RSpec.describe Api::Internal::V2::ProviderSerializer do
     subject(:data) { serializable_hash[:data] }
 
     it { is_expected.to include(id: "PROVIDER_UUID") }
-    it { is_expected.to include(type: :providers) }
+    it { is_expected.to include(type: :provider) }
     it { is_expected.to have_key(:attributes) }
   end
 
