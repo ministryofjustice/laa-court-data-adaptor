@@ -146,38 +146,6 @@ paths:
           application/json:
             schema:
               "$ref": laa_reference.json#/definitions/new_resource
-  "/api/internal/v1/laa_references/{defendant_id}":
-    delete:
-      summary: delete laa_reference
-      description: Delete an LAA reference from Common Platform case
-      tags:
-      - Internal - available to other LAA applications
-      security:
-      - oAuth: []
-      parameters:
-      - name: defendant_id
-        in: path
-        required: true
-        type: uuid
-        schema:
-          "$ref": defendant.json#/definitions/id
-        description: The unique identifier of the defendant
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      responses:
-        '202':
-          description: Accepted
-        '422':
-          description: Unprocessable Entity
-        '401':
-          description: Unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": laa_reference.json#/definitions/unlink
-        required: true
   "/api/internal/v1/prosecution_cases":
     get:
       summary: search prosecution_cases
