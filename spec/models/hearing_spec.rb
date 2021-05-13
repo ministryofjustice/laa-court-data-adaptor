@@ -117,5 +117,22 @@ RSpec.describe Hearing, type: :model do
         it { is_expected.to respond_to(:id, :code, :description, :type) }
       end
     end
+
+    context "with court applications data available" do
+      let(:hearing_data) { JSON.parse(file_fixture("hearing/with_court_application.json").read).deep_symbolize_keys }
+      let(:hearing) { described_class.new(body: hearing_data) }
+
+      describe "#court_applications" do
+        subject { hearing.court_applications }
+
+        it { is_expected.to all be_a(HmctsCommonPlatform::CourtApplication) }
+      end
+
+      describe "#court_application_ids" do
+        subject { hearing.court_application_ids }
+
+        it { is_expected.to eql(%w[c5266a93-389c-4331-a56a-dd000b361cef]) }
+      end
+    end
   end
 end

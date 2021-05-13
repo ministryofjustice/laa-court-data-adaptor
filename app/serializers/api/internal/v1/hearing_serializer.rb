@@ -15,9 +15,10 @@ module Api
                    :prosecution_advocate_names,
                    :defence_advocate_names
 
-        has_many :hearing_events, record_type: :hearing_events
-        has_many :providers, record_type: :providers
-        has_one :cracked_ineffective_trial, record_type: :cracked_ineffective_trial
+        has_many :hearing_events
+        has_many :providers
+        has_many :court_applications
+        has_one :cracked_ineffective_trial
       end
     end
   end

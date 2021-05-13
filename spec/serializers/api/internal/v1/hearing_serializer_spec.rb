@@ -15,6 +15,7 @@ RSpec.describe Api::Internal::V1::HearingSerializer do
                     prosecution_advocate_names: ["John Rob"],
                     defence_advocate_names: ["Neil Griffiths"],
                     provider_ids: %w[PROVIDER_UUID],
+                    court_application_ids: %w[COURT_APPLICATION_UUID],
                     cracked_ineffective_trial_id: "CRACKED_INEFFECTIVE_TRIAL_UUID")
   end
 
@@ -33,8 +34,10 @@ RSpec.describe Api::Internal::V1::HearingSerializer do
   context "with relationships" do
     let(:relationship_hash) { subject[:data][:relationships] }
 
-    it { expect(relationship_hash[:hearing_events][:data]).to eq([{ id: "HEARING_EVENT_UUID", type: :hearing_events }]) }
-    it { expect(relationship_hash[:providers][:data]).to eq([{ id: "PROVIDER_UUID", type: :providers }]) }
+    it { expect(relationship_hash[:hearing_events][:data]).to eq([{ id: "HEARING_EVENT_UUID", type: :hearing_event }]) }
+    it { expect(relationship_hash[:providers][:data]).to eq([{ id: "PROVIDER_UUID", type: :provider }]) }
+    it { expect(relationship_hash[:court_applications][:data]).to eq([{ id: "COURT_APPLICATION_UUID", type: :court_application }]) }
+    it { expect(relationship_hash[:cracked_ineffective_trial][:data]).to eq({ id: "CRACKED_INEFFECTIVE_TRIAL_UUID", type: :cracked_ineffective_trial }) }
   end
 
   context "with required fields only" do
