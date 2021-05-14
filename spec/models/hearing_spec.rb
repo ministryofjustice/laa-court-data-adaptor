@@ -49,6 +49,7 @@ RSpec.describe Hearing, type: :model do
         end
 
         it { expect(hearing.hearing_events).to all be_a(HearingEvent) }
+        it { expect(hearing.hearing_event_ids).to eql %w[a6e53c75-7d42-4187-956a-0d1d80884832] }
 
         context "with blank hearing events" do
           let(:hearing_events) { [hearing_event_recording, nil] }
