@@ -5,6 +5,7 @@ module Api
     module V1
       class ProsecutionCasesController < ApplicationController
         def index
+          Sentry.capture_message("test message")
           @prosecution_cases = Api::SearchProsecutionCase.call(transformed_params)
           render json: Api::Internal::V1::ProsecutionCaseSerializer.new(@prosecution_cases, serialization_options)
         end
