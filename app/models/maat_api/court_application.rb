@@ -79,10 +79,10 @@ module MaatApi
 
     def offence
       {
-        offenceId: court_application.court_application_type_id,
-        offenceCode: court_application.court_application_type_code,
-        offenceShortTitle: court_application.court_application_type_description,
-        offenceClassification: court_application.court_application_type_category_code,
+        offenceId: court_application.type_id,
+        offenceCode: court_application.type_code,
+        offenceShortTitle: court_application.type_description,
+        offenceClassification: court_application.type_category_code,
         offenceDate: court_application.received_date,
         offenceWording: offence_wording,
         results: judicial_results,
@@ -103,7 +103,7 @@ module MaatApi
     end
 
     def offence_wording
-      [court_application.application_particulars, court_application.court_application_type_legislation].compact.join(" - ").presence
+      [court_application.application_particulars, court_application.type_legislation].compact.join(" - ").presence
     end
 
     def court_centre_short_ou_code

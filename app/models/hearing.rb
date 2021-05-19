@@ -65,6 +65,16 @@ class Hearing < ApplicationRecord
     common_platform_cracked_ineffective_trial&.fetch("id", nil)
   end
 
+  def court_application_ids
+    court_applications.map(&:id)
+  end
+
+  def court_applications
+    Array(hearing_body["courtApplications"]).map do |court_application_data|
+      HmctsCommonPlatform::CourtApplication.new(court_application_data)
+    end
+  end
+
 private
 
   def hearing_body

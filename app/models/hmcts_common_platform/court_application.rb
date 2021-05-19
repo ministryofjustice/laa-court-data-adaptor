@@ -4,7 +4,7 @@ module HmctsCommonPlatform
 
     delegate :blank?, to: :data
 
-    delegate :id, :description, :code, :category_code, :legislation, to: :court_application_type, prefix: true
+    delegate :id, :description, :code, :category_code, :legislation, to: :type, prefix: true
 
     def initialize(data)
       @data = HashWithIndifferentAccess.new(data || {})
@@ -90,10 +90,18 @@ module HmctsCommonPlatform
       person_defendant.email_secondary
     end
 
+    def respondent_ids
+      respondents.map(&:id)
+    end
+
     def respondents
       Array(data[:respondents]).map do |respondent_data|
         HmctsCommonPlatform::CourtApplicationParty.new(respondent_data)
       end
+    end
+
+    def judicial_result_ids
+      judicial_results.map(&:id)
     end
 
     def judicial_results
@@ -108,7 +116,7 @@ module HmctsCommonPlatform
       HmctsCommonPlatform::PersonDefendant.new(data.dig(:applicant, :masterDefendant, :personDefendant))
     end
 
-    def court_application_type
+    def type
       HmctsCommonPlatform::CourtApplicationType.new(data[:type])
     end
   end

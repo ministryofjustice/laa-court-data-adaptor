@@ -49,6 +49,7 @@ RSpec.describe Hearing, type: :model do
         end
 
         it { expect(hearing.hearing_events).to all be_a(HearingEvent) }
+        it { expect(hearing.hearing_event_ids).to eql %w[a6e53c75-7d42-4187-956a-0d1d80884832] }
 
         context "with blank hearing events" do
           let(:hearing_events) { [hearing_event_recording, nil] }
@@ -115,6 +116,23 @@ RSpec.describe Hearing, type: :model do
 
         it { is_expected.to be_a(CrackedIneffectiveTrial) }
         it { is_expected.to respond_to(:id, :code, :description, :type) }
+      end
+    end
+
+    context "with court applications data available" do
+      let(:hearing_data) { JSON.parse(file_fixture("hearing/with_court_application.json").read).deep_symbolize_keys }
+      let(:hearing) { described_class.new(body: hearing_data) }
+
+      describe "#court_applications" do
+        subject { hearing.court_applications }
+
+        it { is_expected.to all be_a(HmctsCommonPlatform::CourtApplication) }
+      end
+
+      describe "#court_application_ids" do
+        subject { hearing.court_application_ids }
+
+        it { is_expected.to eql(%w[c5266a93-389c-4331-a56a-dd000b361cef]) }
       end
     end
   end

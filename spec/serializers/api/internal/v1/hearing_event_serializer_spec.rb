@@ -15,7 +15,7 @@ RSpec.describe Api::Internal::V1::HearingEventSerializer do
     subject(:data) { serializable_hash[:data] }
 
     it { is_expected.to include(id: "UUID") }
-    it { is_expected.to include(type: :hearing_events) }
+    it { is_expected.to include(type: :hearing_event) }
     it { is_expected.to have_key(:attributes) }
   end
 

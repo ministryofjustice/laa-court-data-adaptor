@@ -7,23 +7,23 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
   end
 
   it "has a type id" do
-    expect(court_application.court_application_type_id).to eql("74b72f6f-414a-3464-a4a2-d91397b4c439")
+    expect(court_application.type_id).to eql("74b72f6f-414a-3464-a4a2-d91397b4c439")
   end
 
   it "has a type name" do
-    expect(court_application.court_application_type_description).to eql("Application for transfer of legal aid")
+    expect(court_application.type_description).to eql("Application for transfer of legal aid")
   end
 
   it "has a type code" do
-    expect(court_application.court_application_type_code).to eql("LA12505")
+    expect(court_application.type_code).to eql("LA12505")
   end
 
   it "has a type category code" do
-    expect(court_application.court_application_type_category_code).to eql("CO")
+    expect(court_application.type_category_code).to eql("CO")
   end
 
   it "has a type legislation" do
-    expect(court_application.court_application_type_legislation).to eql("Pursuant to Regulation 14 of the Criminal Legal Aid")
+    expect(court_application.type_legislation).to eql("Pursuant to Regulation 14 of the Criminal Legal Aid")
   end
 
   it "has an application particulars" do

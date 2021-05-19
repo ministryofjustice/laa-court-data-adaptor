@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 module Api
   module Internal
     module V1
-      class ProviderSerializer
+      class JudicialResultSerializer
         include JSONAPI::Serializer
 
-        attributes :name, :role
+        attributes :id, :cjs_code, :text
       end
     end
   end
