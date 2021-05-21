@@ -33,7 +33,7 @@ RSpec.describe MaatApi::LaaReference, type: :model do
   end
 
   it "has a cjs location" do
-    expect(laa_reference.cjs_location).to eql("B30PI")
+    expect(laa_reference.cjs_location).to eql("C30DE")
   end
 
   it "has a user name" do
@@ -82,7 +82,7 @@ RSpec.describe MaatApi::LaaReference, type: :model do
 
   context "when all hearings are in the past" do
     it "has cjs_location" do
-      expect(laa_reference.cjs_location).to eql("B30PI")
+      expect(laa_reference.cjs_location).to eql("C30DE")
     end
 
     it "has cjs_area_code" do
