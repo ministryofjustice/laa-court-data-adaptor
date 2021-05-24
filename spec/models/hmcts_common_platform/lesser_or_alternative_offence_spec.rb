@@ -4,8 +4,12 @@ RSpec.describe HmctsCommonPlatform::LesserOrAlternativeOffence, type: :model do
   context "when lesser or alternative offence has all fields" do
     let(:data) { JSON.parse(file_fixture("lesser_or_alternative_offence/all_fields.json").read) }
 
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:lesser_or_alternative_offence)
+    end
+
     it "has an offence definition id" do
-      expect(lesser_or_alternative_offence.offence_definition_id).to eql("pd22b110-4dbc-3036-a076-e4bb40d0a82t")
+      expect(lesser_or_alternative_offence.offence_definition_id).to eql("62bbc890-1e3e-4b98-b2fe-107d07f75259")
     end
 
     it "has an offence code" do
@@ -32,6 +36,10 @@ RSpec.describe HmctsCommonPlatform::LesserOrAlternativeOffence, type: :model do
   context "when lesser or alternative offence has only required fields" do
     let(:data) do
       JSON.parse(file_fixture("lesser_or_alternative_offence/required_fields.json").read).deep_symbolize_keys
+    end
+
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:lesser_or_alternative_offence)
     end
 
     it "has no offence title Welsh" do

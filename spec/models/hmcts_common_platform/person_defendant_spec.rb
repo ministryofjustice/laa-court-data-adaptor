@@ -2,6 +2,10 @@ RSpec.describe HmctsCommonPlatform::PersonDefendant, type: :model do
   let(:data) { JSON.parse(file_fixture("person_defendant.json").read) }
   let(:person_defendant) { described_class.new(data) }
 
+  it "matches the HMCTS Common Platform schema" do
+    expect(data).to match_json_schema(:person_defendant)
+  end
+
   it "has an ASN" do
     expect(person_defendant.arrest_summons_number).to eql("TFL1")
   end
@@ -19,7 +23,7 @@ RSpec.describe HmctsCommonPlatform::PersonDefendant, type: :model do
   end
 
   it "has a NINO" do
-    expect(person_defendant.nino).to eql("123456789A")
+    expect(person_defendant.nino).to eql("AA123456C")
   end
 
   it "has documentation language needs" do
@@ -47,7 +51,7 @@ RSpec.describe HmctsCommonPlatform::PersonDefendant, type: :model do
   end
 
   it "has a postcode" do
-    expect(person_defendant.postcode).to eql("SW1 W11")
+    expect(person_defendant.postcode).to eql("SW1H 9EA")
   end
 
   it "has a home phone" do

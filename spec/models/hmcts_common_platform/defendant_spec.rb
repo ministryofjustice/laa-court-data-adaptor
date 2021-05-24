@@ -4,6 +4,10 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
   context "when the defendant has all fields" do
     let(:data) { JSON.parse(file_fixture("defendant/all_fields.json").read) }
 
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:defendant)
+    end
+
     it "has a proceedings concluded" do
       expect(defendant.proceedings_concluded).to be(false)
     end
@@ -25,7 +29,7 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
     end
 
     it "has a NINO" do
-      expect(defendant.nino).to eql("123456789A")
+      expect(defendant.nino).to eql("AA123456C")
     end
 
     it "has documentation language needs" do
@@ -53,7 +57,7 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
     end
 
     it "has a postcode" do
-      expect(defendant.postcode).to eql("SW1 W12")
+      expect(defendant.postcode).to eql("SW1H 9EA")
     end
 
     it "has a home phone" do
@@ -84,6 +88,10 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
 
   context "when the defendant has only required fields" do
     let(:data) { JSON.parse(file_fixture("defendant/required_fields.json").read).deep_symbolize_keys }
+
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:defendant)
+    end
 
     it "has no proceedings concluded" do
       expect(defendant.proceedings_concluded).to be_nil

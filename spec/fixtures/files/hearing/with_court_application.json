@@ -328,14 +328,14 @@
                 "id": "12e69486-4d01-3403-a50a-7419ca040635"
               },
               "personDetails": {
-                "nationalInsuranceNumber": "123456789A",
+                "nationalInsuranceNumber": "AA123456C",
                 "address": {
                   "address1": "Address Line 1",
                   "address2": "Address Line 2",
                   "address3": "Address Line 3",
                   "address4": "Address Line 4",
                   "address5": "Address Line 5",
-                  "postcode": "SW1 W11"
+                  "postcode": "SW1H 9EA"
                 },
                 "contact": {
                   "home": "000-000-0000",

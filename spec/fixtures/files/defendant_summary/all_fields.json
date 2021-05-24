@@ -1,13 +1,12 @@
 {
   "proceedingsConcluded": false,
   "defendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
-  "masterDefendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
   "defendantASN": "2100000000000267128K",
   "defendantFirstName": "Bob",
   "defendantMiddleName": "Steven",
   "defendantLastName": "Smith",
   "defendantDOB": "1986-11-10",
-  "defendantNINO": "SJ12345678",
+  "defendantNINO": "AA123456C",
   "offenceSummary": [
     {
       "offenceId": "9aca847f-da4e-444b-8f5a-2ce7d776ab75",
@@ -21,7 +20,13 @@
       "modeOfTrial": "Indictable",
       "orderIndex": 1,
       "wording": "Between 06.03.2021 and 22.03.2021 at DERBY in the county of DERBYSHIRE, conspired together with John Doe to enter as a trespasser, a number of dwellings within the CHADDESDEN and LITTLEOVER areas of DERBY, with intent to steal therein\n'Contrary to section 1(1) of the Criminal Law Act 1977.'\n -- CCCJS CODE: 'TH68026C'",
-      "laaApplnReference": {}
+      "laaApplnReference": {
+        "applicationReference": "1b49ffbe-eb42-4748-96b9-ce80b4c49803",
+        "statusId": "04741935-488e-4c1a-bf81-cf20a7562b23",
+        "statusCode": "1",
+        "statusDescription": "description",
+        "statusDate": "2021-04-09"
+      }
     },
     {
       "offenceId": "4a852bd1-0068-422c-994f-78a5373ecd75",
@@ -35,7 +40,13 @@
       "modeOfTrial": "Either Way",
       "orderIndex": 2,
       "wording": "On 23.03.2021 at DERBY in the county of DERBYSHIRE assaulted an emergency worker, namely Police Constable, acting in the exercise of his functions as such a worker, by beating him\n'Contrary to section 39 of the Criminal Justice Act 1988 and section 1 of the Assaults on Emergency Workers (Offences) Act 2018.'\n -- CCCJS CODE: 'CJ88149'",
-      "laaApplnReference": {}
+      "laaApplnReference": {
+        "applicationReference": "d2a07f11-ebbc-4344-966a-58f6ed0eabfd",
+        "statusId": "c744dfc5-1f22-486b-a749-2502e73fa5be",
+        "statusCode": "1",
+        "statusDescription": "description",
+        "statusDate": "2021-04-11"
+      }
     }
   ]
 }

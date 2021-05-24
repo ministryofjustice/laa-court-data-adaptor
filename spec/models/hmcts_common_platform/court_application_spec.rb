@@ -2,6 +2,10 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
   let(:data) { JSON.parse(file_fixture("court_application.json").read) }
   let(:court_application) { described_class.new(data) }
 
+  it "matches the HMCTS Common Platform schema" do
+    expect(data).to match_json_schema(:court_application)
+  end
+
   it "has an id" do
     expect(court_application.id).to eql("c5266a93-389c-4331-a56a-dd000b361cef")
   end
@@ -52,7 +56,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
     end
 
     it "has a NINO" do
-      expect(court_application.defendant_nino).to eql("123456789A")
+      expect(court_application.defendant_nino).to eql("AA123456C")
     end
 
     it "has documentation language needs" do
@@ -80,7 +84,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
     end
 
     it "has a postcode" do
-      expect(court_application.defendant_postcode).to eql("SW1 W11")
+      expect(court_application.defendant_postcode).to eql("SW1H 9EA")
     end
 
     it "has a home phone" do

@@ -1,7 +1,8 @@
 {
-    "applicationId": "4f15sja6-g2cf-4esa-2wgc-lj3s48af699a",
+    "applicationId": "9fe44029-6550-4651-baa3-affdb6c5703f",
     "verdictDate": "2021-04-10",
     "verdictType": {
+        "id": "da063103-7c0c-40d1-adea-0233ada30b84",
         "category": "A",
         "categoryType": "Type A"
     }

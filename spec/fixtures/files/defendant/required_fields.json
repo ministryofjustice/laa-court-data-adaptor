@@ -59,6 +59,14 @@
         },
         "judicialResults": [
           {
+            "orderedHearingId": "e27846e0-4efa-4d6b-9e8e-9cffee865d07",
+
+            "isAdjournmentResult": true,
+            "isFinancialResult": true,
+            "isConvictedResult": true,
+            "isAvailableForCourtExtract": true,
+            "orderedDate": "2020-07-01",
+            "category": "FINAL",
             "cjsCode": "4600",
             "label": "Legal Aid Transfer Granted",
             "resultText": "Legal Aid Transfer Granted\nGrant of legal aid transferred to (new firm name) Joe Bloggs Solicitors Ltd, London\nAdditional reasons Defendant's choice\nNew firm's LAA account reference 55558888",
@@ -68,7 +76,12 @@
               "courtCentre": {
                 "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
               },
-              "listedStartDateTime": "2020-03-01"
+              "listedStartDateTime": "2020-03-01T13:45:30.0000000Z",
+              "estimatedMinutes": 20,
+              "type":{
+                "id": "42971758-98ce-40c4-bb73-78b6245fa898",
+                "description": "Trial"
+              }
             }
           }
         ],

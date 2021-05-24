@@ -4,6 +4,10 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
   context "with all fields" do
     let(:data) { JSON.parse(file_fixture("court_centre/all_fields.json").read) }
 
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:court_centre)
+    end
+
     it { expect(court_centre.id).to eq("14876ea1-5f7c-32ef-9fbd-aa0b63193550") }
     it { expect(court_centre.name).to eq("Derby Justice Centre (aka Derby St Mary Adult)") }
     it { expect(court_centre.room_id).to eq("2fc95ce0-79e5-33c6-901a-733c90905e59") }
@@ -12,6 +16,10 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
 
   context "with required fields only" do
     let(:data) { JSON.parse(file_fixture("court_centre/required_fields.json").read) }
+
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:court_centre)
+    end
 
     it { expect(court_centre.id).to eq("14876ea1-5f7c-32ef-9fbd-aa0b63193550") }
     it { expect(court_centre.name).to be_nil }

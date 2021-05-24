@@ -6,19 +6,17 @@
     {
       "proceedingsConcluded": false,
       "defendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
-      "masterDefendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
       "defendantASN": "2100000000000267128K",
       "defendantFirstName": "Bob",
       "defendantMiddleName": "Steven",
       "defendantLastName": "Smith",
       "defendantDOB": "1986-11-10",
-      "defendantNINO": "SJ12345678",
+      "defendantNINO": "AA123456C",
       "offenceSummary": [
         {
           "offenceId": "9aca847f-da4e-444b-8f5a-2ce7d776ab75",
           "offenceCode": "TH68026C",
           "offenceTitle": "Conspire to commit a burglary dwelling with intent to steal",
-          "offenceShortTitle": "Conspire to commit a burglary dwelling with intent to steal",
           "offenceLegislation": "Contrary to section 1(1) of the    Criminal Law Act 1977.",
           "proceedingsConcluded": false,
           "arrestDate": "2021-03-23",
@@ -27,7 +25,13 @@
           "modeOfTrial": "Indictable",
           "orderIndex": 1,
           "wording": "In the county of DERBYSHIRE, conspired together with John Doe to enter as a trespasser",
-          "laaApplnReference": {}
+          "laaApplnReference": {
+            "statusId": "18e86937-9652-32a3-a9fb-dbd01eda86a5",
+            "statusCode": "GR",
+            "statusDescription": "Granted (One Advocate)",
+            "statusDate": "2021-05-02",
+            "applicationReference": "6960540"
+          }
         },
         {
           "offenceId": "4a852bd1-0068-422c-994f-78a5373ecd75",
@@ -41,20 +45,19 @@
           "modeOfTrial": "Either Way",
           "orderIndex": 2,
           "wording": "On 23.05.2021 at DERBY in the county of DERBYSHIRE assaulted an emergency worker, namely Police Constable",
-          "laaApplnReference": {}
+          "laaApplnReference": {
+            "statusId": "18e86937-9652-32a3-a9fb-dbd01eda86a5",
+            "statusCode": "GR",
+            "statusDescription": "Granted (One Advocate)",
+            "statusDate": "2021-05-02",
+            "applicationReference": "6960540"
+          }
         }
       ]
     },
     {
       "proceedingsConcluded": false,
-      "representationOrder": {
-        "applicationReference": "6960540",
-        "effectiveFromDate": "2021-04-06",
-        "effectiveToDate": "2021-04-06",
-        "laaContractNumber": "2C101J"
-      },
       "defendantId": "562dc2de-2258-4476-8be4-69cf15623f83",
-      "masterDefendantId": "4007c394-1845-48c3-9597-17ee1e38e522",
       "defendantASN": "2100000000000266764M",
       "defendantFirstName": "John",
       "defendantMiddleName": " ",
@@ -74,10 +77,11 @@
           "orderIndex": 1,
           "wording": "Between 06.03.2021 and 22.03.2021 at DERBY in the county of DERBYSHIRE, conspired together with Harry Potter to enter as a trespasser, a number of dwellings within the CHADDESDEN and LITTLEOVER areas of DERBY, with intent to steal therein\n'Contrary to section 1(1) of the Criminal Law Act 1977.'\n -- CCCJS CODE: 'TH68026C'",
           "laaApplnReference": {
-            "applicationReference": "6960540",
-            "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5",
+            "statusId": "18e86937-9652-32a3-a9fb-dbd01eda86a5",
             "statusCode": "GR",
-            "statusDescription": "Granted (One Advocate)"
+            "statusDescription": "Granted (One Advocate)",
+            "statusDate": "2021-05-02",
+            "applicationReference": "6960540"
           }
         }
       ]

@@ -4,6 +4,10 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
   context "with all fields" do
     let(:data) { JSON.parse(file_fixture("offence_summary/all_fields.json").read) }
 
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:offence_summary)
+    end
+
     it { expect(offence_summary.offence_id).to eq("9aca847f-da4e-444b-8f5a-2ce7d776ab75") }
     it { expect(offence_summary.offence_code).to eq("TH68026C") }
     it { expect(offence_summary.title).to eq("Conspire to commit a burglary dwelling with intent to steal") }
@@ -15,6 +19,10 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
 
   context "with required fields only" do
     let(:data) { JSON.parse(file_fixture("offence_summary/required_fields.json").read) }
+
+    it "matches the HMCTS Common Platform schema" do
+      expect(data).to match_json_schema(:offence_summary)
+    end
 
     it { expect(offence_summary.offence_id).to eq("9aca847f-da4e-444b-8f5a-2ce7d776ab75") }
     it { expect(offence_summary.offence_code).to eq("TH68026C") }

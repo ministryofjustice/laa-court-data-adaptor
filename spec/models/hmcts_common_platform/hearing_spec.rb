@@ -2,6 +2,10 @@ RSpec.describe HmctsCommonPlatform::Hearing, type: :model do
   let(:data) { JSON.parse(file_fixture("hearing/all_fields.json").read) }
   let(:hearing) { described_class.new(data) }
 
+  it "matches the HMCTS Common Platform schema" do
+    expect(data).to match_json_schema(:hearing)
+  end
+
   it "has a jurisdiction type" do
     expect(hearing.jurisdiction_type).to eql("CROWN")
   end

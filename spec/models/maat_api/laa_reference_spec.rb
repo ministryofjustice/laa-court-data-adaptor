@@ -53,7 +53,7 @@ RSpec.describe MaatApi::LaaReference, type: :model do
       dateOfBirth: "1986-11-10",
       defendantId: "b760daba-0d38-4bae-ad57-fbfd8419aefe",
       forename: "Bob",
-      nino: "SJ12345678",
+      nino: "AA123456C",
       surname: "Smith",
       offences: [
         {
