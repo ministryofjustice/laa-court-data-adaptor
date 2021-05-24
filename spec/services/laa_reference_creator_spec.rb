@@ -19,7 +19,6 @@ RSpec.describe LaaReferenceCreator do
                                             defendant_id: defendant_id,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
 
-    allow(Sqs::PublishLaaReference).to receive(:call)
     allow(Api::RecordLaaReference).to receive(:call)
     allow(Api::GetHearingResults).to receive(:call)
   end

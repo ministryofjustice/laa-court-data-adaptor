@@ -101,7 +101,7 @@ RSpec.describe HearingsCreator do
         [defendant_one, defendant_two]
       end
 
-      it "calls the Sqs::PublishLaaReference service twice" do
+      it "calls the Sqs::MessagePublisher service twice" do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a888", linked: true, maat_reference: "123", user_name: "Bob")
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a899", linked: true, maat_reference: "456", user_name: "Steve")
 

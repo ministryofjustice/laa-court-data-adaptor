@@ -23,7 +23,6 @@ RSpec.describe MaatLinkCreatorWorker, type: :worker do
                                             defendant_id: defendant_id,
                                             offence_id: offence_id)
 
-    allow(Sqs::PublishLaaReference).to receive(:call)
     allow(Api::RecordLaaReference).to receive(:call)
     allow(Api::GetHearingResults).to receive(:call)
   end
