@@ -11,7 +11,22 @@
       "type": "string"
     },
     "name": {
-      "description": "The name of the authority",
+      "description": "The name of the Organization Prosecution authority",
+      "type": "string"
+    },
+    "firstName": {
+      "description": "The first name of the person Prosecution authority",
+      "type": "string"
+    },
+    "middleName": {
+      "description": "The middle name of the person Prosecution authority",
+      "type": "string"
+    },
+    "lastName": {
+      "description": "The last name of the person Prosecution authority",
+      "type": "string"
+    },
+    "prosecutorCategory": {
       "type": "string"
     },
     "accountCode": {

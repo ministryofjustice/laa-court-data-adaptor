@@ -16,6 +16,9 @@
     "prosecutionAuthorityOUCode": {
       "type": "string"
     },
+    "prosecutorCategory": {
+      "type": "string"
+    },
     "majorCreditorCode": {
       "type": "string"
     },
@@ -24,7 +27,7 @@
     },
     "contact": {
       "$ref": "http://justice.gov.uk/core/courts/external/apiContactNumber.json"
-    }   
+    }
   },
   "required": [
     "prosecutionAuthorityId",
