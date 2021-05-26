@@ -180,7 +180,7 @@ RSpec.describe MaatApi::CourtApplication, type: :model do
             offenceId: "74b72f6f-414a-3464-a4a2-d91397b4c439",
             offenceShortTitle: "Application for transfer of legal aid",
             offenceWording: nil,
-            results: nil,
+            results: [],
           },
         ],
       }
