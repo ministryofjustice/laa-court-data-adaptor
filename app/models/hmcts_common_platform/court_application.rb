@@ -105,7 +105,7 @@ module HmctsCommonPlatform
     end
 
     def judicial_results
-      data[:judicialResults]&.map do |judicial_result_data|
+      Array(data[:judicialResults]).map do |judicial_result_data|
         HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
       end
     end
