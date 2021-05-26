@@ -51,7 +51,7 @@ RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc:
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { "19GD1001816" }
-          let(:include) { "defendants,defendants.offences,defendants.defence_organisation,hearing_summaries.hearing_type" }
+          let(:include) { "defendants,defendants.offences,defendants.defence_organisation,hearing_summaries" }
 
           run_test!
         end
