@@ -6,13 +6,13 @@ class LaaReferenceUnlinker < ApplicationService
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
-    @laa_reference = LaaReference.find_by(defendant_id: defendant_id, linked: true)
+    @laa_reference = LaaReference.find_by!(defendant_id: defendant_id, linked: true)
   end
 
   def call
-    unlink_maat_reference!
     push_to_queue unless laa_reference.dummy_maat_reference?
     update_offences_on_common_platform
+    unlink_maat_reference!
   end
 
 private

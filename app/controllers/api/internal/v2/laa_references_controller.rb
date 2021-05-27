@@ -8,9 +8,12 @@ module Api
           contract = NewLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
 
-          LaaReferenceCreator.call(defendant_id: transformed_params[:defendant_id],
-                                   user_name: transformed_params[:user_name],
-                                   maat_reference: transformed_params[:maat_reference])
+          MaatLinkCreatorWorker.perform_async(
+            Current.request_id,
+            transformed_params[:defendant_id],
+            transformed_params[:user_name],
+            transformed_params[:maat_reference],
+          )
 
           render status: :accepted
         end
