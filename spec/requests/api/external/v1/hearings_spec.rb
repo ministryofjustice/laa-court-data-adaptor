@@ -22,7 +22,7 @@ RSpec.describe "api/external/v1/hearings", type: :request do
                   description: "The minimal Hearing Resulted payload"
 
         let(:Authorization) { "Bearer #{token.token}" }
-        let(:hearing) { JSON.parse(file_fixture("hearing/valid.json").read) }
+        let(:hearing) { JSON.parse(file_fixture("hearing_resulted/valid.json").read) }
 
         before do
           expect(HearingsCreatorWorker).to receive(:perform_async)
@@ -34,7 +34,7 @@ RSpec.describe "api/external/v1/hearings", type: :request do
       context "when entity is unprocessable" do
         response("422", "Unprocessable Entity") do
           let(:Authorization) { "Bearer #{token.token}" }
-          let(:hearing) { JSON.parse(file_fixture("hearing/unprocessable.json").read) }
+          let(:hearing) { JSON.parse(file_fixture("hearing_resulted/unprocessable.json").read) }
 
           run_test!
         end
@@ -43,7 +43,7 @@ RSpec.describe "api/external/v1/hearings", type: :request do
       context "when data is invalid" do
         response("400", "Bad Request") do
           let(:Authorization) { "Bearer #{token.token}" }
-          let(:hearing) { JSON.parse(file_fixture("hearing/invalid.json").read) }
+          let(:hearing) { JSON.parse(file_fixture("hearing_resulted/invalid.json").read) }
 
           run_test!
         end

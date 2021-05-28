@@ -5,9 +5,9 @@ RSpec.describe Api::External::V2::HearingsController, type: :controller do
 
   before { authorise_requests! }
 
-  let(:valid_attributes) { JSON.parse(file_fixture("hearing/valid.json").read) }
-  let(:invalid_attributes) { JSON.parse(file_fixture("hearing/invalid.json").read) }
-  let(:unprocessable_attributes) { JSON.parse(file_fixture("hearing/unprocessable.json").read) }
+  let(:valid_attributes) { JSON.parse(file_fixture("hearing_resulted/valid.json").read) }
+  let(:invalid_attributes) { JSON.parse(file_fixture("hearing_resulted/invalid.json").read) }
+  let(:unprocessable_attributes) { JSON.parse(file_fixture("hearing_resulted/unprocessable.json").read) }
 
   describe "POST #create" do
     context "with valid params" do

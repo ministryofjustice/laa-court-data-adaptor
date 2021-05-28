@@ -6,7 +6,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
   let(:prosecution_case) { described_class.new(hearing_body, case_urn, defendant_data, maat_reference) }
 
   context "when prosecution case has all fields" do
-    let(:hearing_body) { JSON.parse(file_fixture("hearing/with_prosecution_case.json").read).deep_symbolize_keys }
+    let(:hearing_body) { JSON.parse(file_fixture("hearing_resulted/with_prosecution_case.json").read).deep_symbolize_keys }
 
     it "has a maat_reference" do
       expect(prosecution_case.maat_reference).to eql("123")
@@ -152,7 +152,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
   end
 
   context "when the hearing body has only required fields" do
-    let(:hearing_body) { JSON.parse(file_fixture("hearing/with_prosecution_case_required_only.json").read).deep_symbolize_keys }
+    let(:hearing_body) { JSON.parse(file_fixture("hearing_resulted/with_prosecution_case_required_only.json").read).deep_symbolize_keys }
 
     it "has a maat_reference" do
       expect(prosecution_case.maat_reference).to eql("123")

@@ -120,7 +120,7 @@ RSpec.describe Hearing, type: :model do
     end
 
     context "with court applications data available" do
-      let(:hearing_data) { JSON.parse(file_fixture("hearing/with_court_application.json").read).deep_symbolize_keys }
+      let(:hearing_data) { JSON.parse(file_fixture("hearing_resulted/with_court_application.json").read).deep_symbolize_keys }
       let(:hearing) { described_class.new(body: hearing_data) }
 
       describe "#court_applications" do

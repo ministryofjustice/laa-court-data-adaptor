@@ -6,7 +6,7 @@ RSpec.describe HearingRecorder do
   subject(:record_hearing) { described_class.call(hearing_id: hearing_id, body: body, publish_to_queue: true) }
 
   let(:hearing_id) { "fa78c710-6a49-4276-bbb3-ad34c8d4e313" }
-  let(:body) { JSON.parse(file_fixture("hearing/valid.json").read) }
+  let(:body) { JSON.parse(file_fixture("hearing_resulted/valid.json").read) }
 
   it "creates a Hearing" do
     expect {
