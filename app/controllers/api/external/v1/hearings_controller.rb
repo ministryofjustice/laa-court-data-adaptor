@@ -26,7 +26,7 @@ module Api
         end
 
         def contract
-          HearingContract.new.call(**transformed_params)
+          HearingResultedContract.new.call(**transformed_params)
         end
 
         # Only allow a trusted parameter "white list" through.
