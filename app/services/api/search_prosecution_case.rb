@@ -13,6 +13,10 @@ module Api
   private
 
     def search_results?
+      if response.body.include?("<html>")
+        Sentry.capture_message("Response body contains HTML")
+      end
+
       response.status == 200 && response.body["totalResults"]&.positive?
     end
 

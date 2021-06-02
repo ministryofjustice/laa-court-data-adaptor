@@ -66,4 +66,13 @@ RSpec.describe Api::SearchProsecutionCase do
       search_prosecution_case
     end
   end
+
+  context "when containing HTML" do
+    let(:response_body) { "<html>" }
+
+    it "reports to Sentry" do
+      expect(Sentry).to receive(:capture_message)
+      search_prosecution_case
+    end
+  end
 end
