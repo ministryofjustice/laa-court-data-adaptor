@@ -29,6 +29,12 @@ private
   end
 
   def report_to_sentry(error)
+    # :nocov:
+    Sentry.configure_scope do |scope|
+      scope.set_context("hearing", { body: body })
+    end
+    # :nocov:
+
     Sentry.capture_exception(
       error,
       tags: {

@@ -87,6 +87,11 @@ RSpec.describe HearingRecorder do
     let(:hearing) { Hearing.create!(body: { foo: "bar" }) }
     let(:body) { "<span>Clearly not a processable hearing body</span>" }
 
+    it "reports exception to Sentry" do
+      expect(Sentry).to receive(:capture_exception)
+      record_hearing
+    end
+
     it "does not create a new record" do
       expect {
         record_hearing
