@@ -52,7 +52,7 @@ gem "rswag-api"
 gem "rswag-ui"
 gem "sentry-rails", "~> 4.5.0"
 gem "sentry-ruby", "~> 4.5.1"
-gem "sentry-sidekiq", "~> 4.5.0"
+gem "sentry-sidekiq", "~> 4.5.1"
 gem "sidekiq"
 gem "versionist"
 
