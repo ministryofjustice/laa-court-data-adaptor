@@ -21,12 +21,10 @@ RSpec.describe HearingContract do
   let(:type) do
     {
       id: type_id,
-      code: type_code,
       description: type_description,
     }
   end
   let(:type_id) { "2eb85d9e-8957-11ea-bc55-0242ac130003" }
-  let(:type_code) { "PLE" }
   let(:type_description) { "Plea" }
   let(:hearing_days) do
     {
@@ -127,7 +125,6 @@ RSpec.describe HearingContract do
   context "without a type id" do
     let(:type) do
       {
-        code: type_code,
         description: type_description,
       }
     end
@@ -141,32 +138,14 @@ RSpec.describe HearingContract do
     it { is_expected.not_to be_a_success }
   end
 
-  context "without a type code" do
-    let(:type) do
-      {
-        id: type_id,
-        description: type_description,
-      }
-    end
-
-    it { is_expected.to be_a_success }
-  end
-
-  context "with an invalid type code" do
-    let(:type_code) { "TEST" }
-
-    it { is_expected.not_to be_a_success }
-  end
-
   context "without a type description" do
     let(:type) do
       {
         id: type_id,
-        code: type_code,
       }
     end
 
-    it { is_expected.to be_a_success }
+    it { is_expected.not_to be_a_success }
   end
 
   context "without hearingDays" do
@@ -182,7 +161,7 @@ RSpec.describe HearingContract do
       }
     end
 
-    it { is_expected.not_to be_a_success }
+    it { is_expected.to be_a_success }
   end
 
   context "without hearingDays sittingDay" do
