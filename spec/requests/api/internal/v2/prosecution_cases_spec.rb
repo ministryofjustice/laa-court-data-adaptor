@@ -47,7 +47,7 @@ RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc:
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
-          schema "$ref" => "prosecution_case.json#/definitions/resource_collection"
+          schema "ref" => "prosecution_case.json#/definitions/resource_collection"
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { "19GD1001816" }
