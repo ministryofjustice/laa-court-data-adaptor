@@ -59,11 +59,11 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
 
         parameter name: :laa_reference, in: :body, required: false, type: :object,
                   schema: {
-                    '$ref': "laa_reference.json#/definitions/new_resource",
+                    'ref': "laa_reference.json#/definitions/new_resource",
                   },
                   description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
 
-        parameter "$ref" => "#/components/parameters/transaction_id_header"
+        parameter "ref" => "#/components/parameters/transaction_id_header"
 
         let(:Authorization) { "Bearer #{token.token}" }
 
@@ -78,7 +78,7 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
         response(202, "Accepted") do
           let(:Authorization) { "Bearer #{token.token}" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
+          parameter "ref" => "#/components/parameters/transaction_id_header"
 
           before do
             laa_reference[:data][:attributes].delete(:maat_reference)
@@ -93,7 +93,7 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
         response("422", "Unprocessable entity") do
           let(:Authorization) { "Bearer #{token.token}" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
+          parameter "ref" => "#/components/parameters/transaction_id_header"
 
           before do
             laa_reference[:data][:attributes].delete(:user_name)
@@ -109,7 +109,7 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
           let(:Authorization) { "Bearer #{token.token}" }
           before { laa_reference[:data][:attributes][:maat_reference] = "ABC123123" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
+          parameter "ref" => "#/components/parameters/transaction_id_header"
 
           before do
             expect(LaaReferenceCreator).not_to receive(:call)
@@ -123,7 +123,7 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
+          parameter "ref" => "#/components/parameters/transaction_id_header"
 
           before do
             expect(LaaReferenceCreator).not_to receive(:call)

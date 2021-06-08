@@ -19,7 +19,7 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
 
       parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
-                  '$ref': "hearing.json#/definitions/id",
+                  'ref': "hearing.json#/definitions/id",
                 },
                 description: "The uuid of the hearing"
 
@@ -27,7 +27,7 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
                 schema: {},
                 description: "Return other data through a has_many or has_one relationship </br>e.g. include=providers,court_applications.respondents"
 
-      parameter "$ref" => "#/components/parameters/transaction_id_header"
+      parameter "ref" => "#/components/parameters/transaction_id_header"
 
       context "with success" do
         let(:Authorization) { "Bearer #{token.token}" }
@@ -60,7 +60,7 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
 
           let(:Authorization) { nil }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
+          parameter "ref" => "#/components/parameters/transaction_id_header"
 
           run_test!
         end

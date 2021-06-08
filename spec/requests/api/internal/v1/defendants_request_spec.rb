@@ -39,17 +39,17 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
       response(202, "Accepted") do
         parameter name: :id, in: :path, required: true, type: :uuid,
                   schema: {
-                    '$ref': "defendant.json#/definitions/id",
+                    'ref': "defendant.json#/definitions/id",
                   },
                   description: "The unique identifier of the defendant"
 
         parameter name: :defendant, in: :body, required: true, type: :object,
                   schema: {
-                    '$ref': "defendant.json#/definitions/resource_to_unlink",
+                    'ref': "defendant.json#/definitions/resource_to_unlink",
                   },
                   description: "Object containing the user_name, unlink_reason_code and unlink_other_reason_text"
 
-        parameter "$ref" => "#/components/parameters/transaction_id_header"
+        parameter "ref" => "#/components/parameters/transaction_id_header"
 
         let(:Authorization) { "Bearer #{token.token}" }
 
@@ -65,7 +65,7 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
           let(:Authorization) { "Bearer #{token.token}" }
           let(:id) { "X" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
+          parameter "ref" => "#/components/parameters/transaction_id_header"
 
           before do
             expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
@@ -79,7 +79,7 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
+          parameter "ref" => "#/components/parameters/transaction_id_header"
 
           before do
             expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
@@ -98,7 +98,7 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
 
       parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
-                  '$ref': "defendant.json#/definitions/id",
+                  'ref': "defendant.json#/definitions/id",
                 },
                 description: "The uuid of the defendant"
 
@@ -106,7 +106,7 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
                 schema: {},
                 description: "Return other data through a has_many relationship </br>e.g. include=offences"
 
-      parameter "$ref" => "#/components/parameters/transaction_id_header"
+      parameter "ref" => "#/components/parameters/transaction_id_header"
 
       context "with success" do
         let(:Authorization) { "Bearer #{token.token}" }
