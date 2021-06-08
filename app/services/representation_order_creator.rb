@@ -17,7 +17,9 @@ private
 
   def call_common_platform_endpoint
     offences.each do |offence|
-      case_defendant_offence = ProsecutionCaseDefendantOffence.find_by!(defendant_id: defendant_id, offence_id: offence[:offence_id])
+      case_defendant_offence = ProsecutionCaseDefendantOffence.find_by(defendant_id: defendant_id, offence_id: offence[:offence_id])
+
+      next if case_defendant_offence.blank?
 
       Api::RecordRepresentationOrder.call(
         case_defendant_offence: case_defendant_offence,
