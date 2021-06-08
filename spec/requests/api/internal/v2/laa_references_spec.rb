@@ -32,6 +32,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
   end
 
   before do
+    allow(Current).to receive(:request_id).and_return("XYZ")
     allow(LinkValidator).to receive(:call).and_return(true)
   end
 
@@ -69,7 +70,8 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(LaaReferenceCreator).to receive(:call).with(defendant_id: defendant_id, user_name: "JaneDoe", maat_reference: 1_231_231).and_call_original
+          expect(MaatLinkCreatorWorker).to receive(:perform_async)
+            .with("XYZ", defendant_id, "JaneDoe", 1_231_231)
         end
 
         run_test!
@@ -83,7 +85,9 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
 
           before do
             laa_reference[:data][:attributes].delete(:maat_reference)
-            expect(LaaReferenceCreator).to receive(:call).with(defendant_id: defendant_id, user_name: "JaneDoe", maat_reference: nil).and_call_original
+
+            expect(MaatLinkCreatorWorker).to receive(:perform_async)
+              .with("XYZ", defendant_id, "JaneDoe", nil)
           end
 
           run_test!
@@ -98,7 +102,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
 
           before do
             laa_reference[:data][:attributes].delete(:user_name)
-            expect(LaaReferenceCreator).not_to receive(:call)
+            expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!
@@ -113,7 +117,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
-            expect(LaaReferenceCreator).not_to receive(:call)
+            expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!
@@ -127,21 +131,10 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
-            expect(LaaReferenceCreator).not_to receive(:call)
+            expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!
-        end
-      end
-
-      context "when we are attempting to create an LaaReference that already exists" do
-        it "includes error message in JSON response" do
-          LaaReference.create!(defendant_id: defendant_id, maat_reference: 1_231_231, user_name: "JaneDoe")
-
-          post "/api/internal/v2/laa_references", params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
-
-          expect(response).to have_http_status :bad_request
-          expect(JSON.parse(response.body)).to eql({ "error" => "Validation failed: Maat reference has already been taken" })
         end
       end
 
@@ -149,7 +142,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
         before { laa_reference[:data][:relationships][:defendant][:data][:id] = "foo" }
 
         it "renders a JSON response with an unprocessable_entity error" do
-          post "/api/internal/v2/laa_references", params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+          post api_internal_v2_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
           expect(response.body).to include("is not a valid uuid")
           expect(response).to have_http_status(:unprocessable_entity)

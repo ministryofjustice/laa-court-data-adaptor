@@ -6,7 +6,6 @@ class ApplicationController < ActionController::API
 
   ERROR_MAPPINGS = {
     ActionController::ParameterMissing => :bad_request,
-    ActiveRecord::RecordInvalid => :bad_request,
     Errors::ContractError => :unprocessable_entity,
   }.freeze
 
