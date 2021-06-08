@@ -100,7 +100,7 @@
               },
               {
                 "$ref": "hearing_summary.json#/definitions/resource"
-              },
+              }
             ]
           },
           "type": "array"
