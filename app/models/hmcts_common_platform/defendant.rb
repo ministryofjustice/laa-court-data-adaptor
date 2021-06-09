@@ -10,6 +10,10 @@ module HmctsCommonPlatform
       @data = HashWithIndifferentAccess.new(data || {})
     end
 
+    def id
+      data[:id]
+    end
+
     def proceedings_concluded
       data[:proceedingsConcluded]
     end
