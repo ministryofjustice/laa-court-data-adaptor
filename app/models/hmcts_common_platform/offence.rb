@@ -4,6 +4,8 @@ module HmctsCommonPlatform
 
     delegate :blank?, to: :data
 
+    delegate :application_reference, :status_code, :status_date, :status_description, :laa_contract_number, :effective_end_date, to: :laa_reference, prefix: true
+
     def initialize(data)
       @data = HashWithIndifferentAccess.new(data || {})
     end
@@ -40,26 +42,6 @@ module HmctsCommonPlatform
       data.dig(:allocationDecision, :motReasonCode)
     end
 
-    def laa_appln_reference_status_code
-      data.dig(:laaApplnReference, :statusCode)
-    end
-
-    def laa_appln_reference_status_date
-      data.dig(:laaApplnReference, :statusDate)
-    end
-
-    def laa_appln_reference_end_date
-      data.dig(:laaApplnReference, :effectiveEndDate)
-    end
-
-    def laa_appln_reference_status_description
-      data.dig(:laaApplnReference, :statusDescription)
-    end
-
-    def laa_appln_reference_laa_contract_number
-      data.dig(:laaApplnReference, :laaContractNumber)
-    end
-
     def results
       Array(data[:judicialResults]).map do |judicial_result_data|
         HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
@@ -72,6 +54,12 @@ module HmctsCommonPlatform
 
     def verdict
       HmctsCommonPlatform::Verdict.new(data[:verdict])
+    end
+
+  private
+
+    def laa_reference
+      HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference])
     end
   end
 end
