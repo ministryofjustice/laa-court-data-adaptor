@@ -24,7 +24,9 @@ private
       prosecution_case_data[:defendants].each do |defendant_data|
         next if defendant_data[:offences].any? { |offence| offence.dig(:laaApplnReference, :applicationReference)&.start_with?("A", "Z") }
 
-        laa_reference = LaaReference.find_by!(defendant_id: defendant_data[:id], linked: true)
+        laa_reference = LaaReference.find_by(defendant_id: defendant_data[:id], linked: true)
+
+        next if laa_reference.blank?
 
         prosecution_case = MaatApi::ProsecutionCase.new(
           hearing_body,
