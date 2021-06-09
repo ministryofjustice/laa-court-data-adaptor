@@ -35,6 +35,12 @@
   "applicant": {
     "id": "80ae2f05-04dd-4f7e-aa11-802fbf585efe",
     "masterDefendant": {
+      "defendantCase": [
+        {
+          "defendantId": "eafdd97b-7e81-41cc-b92e-fb86fbcb2ebf",
+          "caseId": "80e9955f-f41d-486a-b12e-afda4e51b713"
+        }
+      ],
       "isYouth": false,
       "masterDefendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5",
       "personDefendant": {

@@ -14,6 +14,15 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
     expect(court_application.type_id).to eql("74b72f6f-414a-3464-a4a2-d91397b4c439")
   end
 
+  it "has an application reference" do
+    expect(court_application.application_reference).to eql("90GDAPPS314")
+  end
+
+  it "has defendant cases" do
+    expected = [{ "caseId" => "80e9955f-f41d-486a-b12e-afda4e51b713", "defendantId" => "eafdd97b-7e81-41cc-b92e-fb86fbcb2ebf" }]
+    expect(court_application.defendant_cases).to eql(expected)
+  end
+
   it "has a type name" do
     expect(court_application.type_description).to eql("Application for transfer of legal aid")
   end
