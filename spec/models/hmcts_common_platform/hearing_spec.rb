@@ -17,4 +17,12 @@ RSpec.describe HmctsCommonPlatform::Hearing, type: :model do
   it "has a first sitting day date" do
     expect(hearing.first_sitting_day_date).to eql("2019-10-25T10:45:00.000Z")
   end
+
+  it "has prosecution cases" do
+    expect(hearing.prosecution_cases).to all be_a(HmctsCommonPlatform::ProsecutionCase)
+  end
+
+  it "has court applications" do
+    expect(hearing.court_applications).to all be_a(HmctsCommonPlatform::CourtApplication)
+  end
 end
