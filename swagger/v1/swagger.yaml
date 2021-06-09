@@ -45,11 +45,11 @@ paths:
         required: true
         type: uuid
         schema:
-          "$ref": defendant.json#/definitions/id
+          ref: defendant.json#/definitions/id
         description: The unique identifier of the defendant
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
       responses:
         '202':
           description: Accepted
@@ -61,7 +61,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": defendant.json#/definitions/resource_to_unlink
+              ref: defendant.json#/definitions/resource_to_unlink
         required: true
     get:
       summary: fetch a defendant by ID
@@ -76,7 +76,7 @@ paths:
         required: true
         type: uuid
         schema:
-          "$ref": defendant.json#/definitions/id
+          ref: defendant.json#/definitions/id
         description: The uuid of the defendant
       - name: include
         in: query
@@ -84,7 +84,7 @@ paths:
         type: string
         schema: {}
         description: Return other data through a has_many relationship </br>e.g. include=offences
-      - "$ref": "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
       responses:
         '200':
           description: Success
@@ -104,7 +104,7 @@ paths:
         required: true
         type: uuid
         schema:
-          "$ref": hearing.json#/definitions/id
+          ref: hearing.json#/definitions/id
         description: The uuid of the hearing
       - name: include
         in: query
@@ -113,8 +113,8 @@ paths:
         schema: {}
         description: Return other data through a has_many or has_one relationship
           </br>e.g. include=providers,court_applications.respondents
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
       responses:
         '200':
           description: Success
@@ -130,11 +130,11 @@ paths:
       security:
       - oAuth: []
       parameters:
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
       responses:
         '202':
           description: Accepted
@@ -146,7 +146,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": laa_reference.json#/definitions/new_resource
+              ref: laa_reference.json#/definitions/new_resource
   "/api/internal/v1/prosecution_cases":
     get:
       summary: search prosecution_cases
@@ -176,7 +176,7 @@ paths:
         schema: {}
         description: |-
           Return defendant and offence data through a has_many relationship </br>
-                                            eg include=defendants,defendants.offences,defendants.defence_organisation,hearings.providers
+                                            eg include=defendants,defendants.offences,defendants.defence_organisation,hearings.providers,hearing_summaries
       - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[arrest_summons_number]
         in: query
@@ -244,9 +244,9 @@ paths:
       security:
       - oAuth: []
       parameters:
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
+      - ref: "#/components/parameters/transaction_id_header"
       responses:
         '202':
           description: Accepted
@@ -258,7 +258,7 @@ paths:
         content:
           application/vnd.api+json:
             schema:
-              "$ref": representation_order.json#/definitions/new_resource
+              ref: representation_order.json#/definitions/new_resource
         required: true
 components:
   securitySchemes:
