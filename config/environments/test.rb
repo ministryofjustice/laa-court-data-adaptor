@@ -38,7 +38,7 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :test
 
-  config.logger = Logger.new(STDOUT)
+  config.logger = Logger.new($stdout)
   config.log_level = :warn
 
   # Raises error for missing translations.

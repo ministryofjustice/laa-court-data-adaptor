@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
         error,
         tags: {
           request_id: Current.request_id,
-          defendant_id: params.dig(:defendant_id),
+          defendant_id: params[:defendant_id],
           hearing_id: params.dig(:hearing, :id),
         },
       )

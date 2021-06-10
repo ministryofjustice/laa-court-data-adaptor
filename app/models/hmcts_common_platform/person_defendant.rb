@@ -9,7 +9,7 @@ module HmctsCommonPlatform
     end
 
     def arrest_summons_number
-      data.dig(:arrestSummonsNumber)
+      data[:arrestSummonsNumber]
     end
 
     def first_name
@@ -87,7 +87,7 @@ module HmctsCommonPlatform
     end
 
     def person_details
-      data.dig(:personDetails)
+      data[:personDetails]
     end
   end
 end

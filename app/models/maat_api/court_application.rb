@@ -1,6 +1,7 @@
 module MaatApi
   class CourtApplication
     attr_reader :hearing, :court_application, :maat_reference
+
     delegate :jurisdiction_type, to: :hearing
 
     def initialize(hearing_body, court_application_data, maat_reference)

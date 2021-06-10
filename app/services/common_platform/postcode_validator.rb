@@ -13,6 +13,7 @@ module CommonPlatform
   private
 
     attr_reader :postcode
+
     def schema
       {
         "description": "UK Gov post code validation following CJS Data Standards",
