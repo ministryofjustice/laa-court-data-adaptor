@@ -97,6 +97,9 @@
               },
               {
                 "$ref": "offence.json#/definitions/resource"
+              },
+              {
+                "$ref": "hearing_summary.json#/definitions/resource"
               }
             ]
           },
