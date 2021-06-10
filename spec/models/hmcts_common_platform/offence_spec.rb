@@ -41,23 +41,23 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has an laa appln reference status code" do
-      expect(offence.laa_appln_reference_status_code).to eql("AP")
+      expect(offence.laa_reference_status_code).to eql("AP")
     end
 
     it "has an laa appln reference status date" do
-      expect(offence.laa_appln_reference_status_date).to eql("2020-11-05")
+      expect(offence.laa_reference_status_date).to eql("2020-11-05")
     end
 
     it "has an laa appln reference end date" do
-      expect(offence.laa_appln_reference_end_date).to eql("2021-04-11")
+      expect(offence.laa_reference_effective_end_date).to eql("2021-04-11")
     end
 
     it "has an laa appln reference status description" do
-      expect(offence.laa_appln_reference_status_description).to eql("FAKE NEWS")
+      expect(offence.laa_reference_status_description).to eql("FAKE NEWS")
     end
 
     it "has an laa appln reference laa contract number" do
-      expect(offence.laa_appln_reference_laa_contract_number).to eql("27900")
+      expect(offence.laa_reference_laa_contract_number).to eql("27900")
     end
 
     it "has results" do
@@ -69,7 +69,7 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
       expect(offence.plea).to be_a(HmctsCommonPlatform::Plea)
     end
 
-    it "has a verdict offence id" do
+    it "has a verdict" do
       expect(offence.verdict).to be_a(HmctsCommonPlatform::Verdict)
     end
   end
@@ -116,19 +116,19 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has no laa appln reference status code" do
-      expect(offence.laa_appln_reference_status_code).to be_nil
+      expect(offence.laa_reference_status_code).to be_nil
     end
 
     it "has no laa appln reference status date" do
-      expect(offence.laa_appln_reference_status_date).to be_nil
+      expect(offence.laa_reference_status_date).to be_nil
     end
 
     it "has no laa appln reference end date" do
-      expect(offence.laa_appln_reference_end_date).to be_nil
+      expect(offence.laa_reference_effective_end_date).to be_nil
     end
 
     it "has no laa appln reference status description" do
-      expect(offence.laa_appln_reference_status_description).to be_nil
+      expect(offence.laa_reference_status_description).to be_nil
     end
 
     it "has no results" do

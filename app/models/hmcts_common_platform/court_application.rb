@@ -18,6 +18,10 @@ module HmctsCommonPlatform
       data[:applicationParticulars]
     end
 
+    def application_reference
+      data[:applicationReference]
+    end
+
     def received_date
       data[:applicationReceivedDate]
     end
@@ -108,6 +112,10 @@ module HmctsCommonPlatform
       Array(data[:judicialResults]).map do |judicial_result_data|
         HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
       end
+    end
+
+    def defendant_cases
+      Array(data.dig(:applicant, :masterDefendant, :defendantCase))
     end
 
   private

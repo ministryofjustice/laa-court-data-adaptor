@@ -14,6 +14,59 @@
     "id": "63003e58-d753-46e2-a2c8-47fd15341592",
     "description": "Mention - Defendant to Attend (MDA)"
   },
+  "courtApplications": [
+    {
+      "id": "c5266a93-389c-4331-a56a-dd000b361cef",
+      "type": {
+        "id": "74b72f6f-414a-3464-a4a2-d91397b4c439",
+        "type": "Application for transfer of legal aid",
+        "categoryCode": "CO",
+        "linkType": "LINKED",
+        "jurisdiction": "EITHER",
+        "summonsTemplateType": "NOT_APPLICABLE",
+        "breachType": "NOT_APPLICABLE",
+        "appealFlag": false,
+        "applicantAppellantFlag": false,
+        "pleaApplicableFlag": false,
+        "commrOfOathFlag": false,
+        "courtOfAppealFlag": false,
+        "courtExtractAvlFlag": true,
+        "prosecutorThirdPartyFlag": false,
+        "spiOutApplicableFlag": true,
+        "offenceActiveOrder": "NOT_APPLICABLE"
+      },
+      "applicationReceivedDate": "2021-03-09",
+      "applicant": {
+        "id": "80ae2f05-04dd-4f7e-aa11-802fbf585efe",
+        "masterDefendant": {
+          "masterDefendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+          "personDefendant": {
+            "personDetails": {
+              "gender": "MALE",
+              "lastName": "WilliamsonConnelly"
+            }
+          }
+        },
+        "notificationRequired": true,
+        "summonsRequired": false
+      },
+      "subject": {
+        "id": "80ae2f05-04dd-4f7e-aa11-802fbf585efe",
+        "masterDefendant": {
+          "masterDefendantId": "9d106baa-407e-4737-ace4-b16fc494f9a5",
+          "personDefendant": {
+            "personDetails": {
+              "gender": "MALE",
+              "lastName": "WilliamsonConnelly"
+            }
+          }
+        },
+        "notificationRequired": true,
+        "summonsRequired": false
+      },
+      "applicationStatus": "LISTED"
+    }
+  ],
   "prosecutionCases": [
     {
       "id": "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
@@ -287,9 +340,9 @@
       "status": "Junior counsel",
       "defendants": [
         "b17e6c2d-1439-4f02-9179-1ff9935729a7"
-        ],
-        "attendanceDays": [
-          "2019-10-24"
+      ],
+      "attendanceDays": [
+        "2019-10-24"
         ]
     },
     {
@@ -301,9 +354,9 @@
       "status": "Junior counsel",
       "defendants": [
         "d6900d6a-3d36-4d21-9723-d6bb21a5a6db"
-        ],
-        "attendanceDays": [
-          "2019-10-24"
+      ],
+      "attendanceDays": [
+        "2019-10-24"
         ]
     }
   ],

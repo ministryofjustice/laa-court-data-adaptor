@@ -8,6 +8,10 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
       expect(data).to match_json_schema(:defendant)
     end
 
+    it "has an ID" do
+      expect(defendant.id).to eql("70d0817b-2a48-4751-b4a9-b6323874a310")
+    end
+
     it "has a proceedings concluded" do
       expect(defendant.proceedings_concluded).to be(false)
     end
@@ -88,6 +92,10 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
 
   context "when the defendant has only required fields" do
     let(:data) { JSON.parse(file_fixture("defendant/required_fields.json").read).deep_symbolize_keys }
+
+    it "has an ID" do
+      expect(defendant.id).to eql("5aa2ba71-01d6-481b-82d3-228d61e6e73d")
+    end
 
     it "matches the HMCTS Common Platform schema" do
       expect(data).to match_json_schema(:defendant)
