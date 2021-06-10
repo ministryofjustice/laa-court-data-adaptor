@@ -77,7 +77,7 @@ module MaatApi
     end
 
     def crown_court_outcome
-      CrownCourtOutcomeCreator.call(defendant: @defendant_data, appeal_data: nil) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
+      CrownCourtOutcomeCreator.call(defendant: @defendant_data) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
     end
 
   private
