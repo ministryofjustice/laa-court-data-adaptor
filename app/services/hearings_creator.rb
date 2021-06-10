@@ -15,20 +15,25 @@ class HearingsCreator < ApplicationService
 private
 
   def push_prosecution_cases
-    hearing[:prosecutionCases]&.each do |prosecution_case_data|
-      prosecution_case_data[:defendants].each do |defendant_data|
-        next if defendant_data[:offences].any? { |offence| offence.dig(:laaApplnReference, :applicationReference)&.start_with?("A", "Z") }
+    hearing_resulted.hearing.prosecution_cases.each do |prosecution_case|
+      prosecution_case.defendants.each do |defendant|
+        next if defendant.offences.any? do |offence|
+          LaaReference.new(maat_reference: offence.laa_reference_application_reference).dummy_maat_reference?
+        end
 
-        laa_reference = LaaReference.find_by!(defendant_id: defendant_data[:id], linked: true)
+        laa_reference = LaaReference.find_by(defendant_id: defendant.id, linked: true)
 
-        prosecution_case = MaatApi::ProsecutionCase.new(
-          hearing_body,
-          prosecution_case_data[:prosecutionCaseIdentifier][:caseURN],
-          defendant_data,
+        next if laa_reference.blank?
+
+        maat_api_prosecution_case = MaatApi::ProsecutionCase.new(
+          hearing_resulted,
+          prosecution_case.urn,
+          defendant,
           laa_reference.maat_reference,
         )
+
         Sqs::MessagePublisher.call(
-          message: MaatApi::Message.new(prosecution_case).generate,
+          message: MaatApi::Message.new(maat_api_prosecution_case).generate,
           queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
         )
       end
@@ -36,27 +41,23 @@ private
   end
 
   def push_applications
-    hearing[:courtApplications]&.each do |court_application_data|
-      defendant_cases = court_application_data.dig(:applicant, :masterDefendant, :defendantCase) || []
-
-      defendant_cases.each do |defendant_case|
-        laa_reference = LaaReference.find_by(defendant_id: defendant_case[:defendantId], linked: true)
+    hearing_resulted.hearing.court_applications.each do |court_application|
+      court_application.defendant_cases.each do |defendant_case|
+        laa_reference = LaaReference.find_by(defendant_id: defendant_case.defendant_id, linked: true)
 
         next if laa_reference.blank?
 
-        court_application = MaatApi::CourtApplication.new(
-          hearing_body,
-          court_application_data,
+        maat_api_court_application = MaatApi::CourtApplication.new(
+          hearing_resulted,
+          court_application,
           laa_reference.maat_reference,
         )
 
         Sqs::MessagePublisher.call(
-          message: MaatApi::Message.new(court_application).generate,
+          message: MaatApi::Message.new(maat_api_court_application).generate,
           queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
         )
       end
     end
   end
-
-  attr_reader :shared_time, :hearing
 end
