@@ -13,7 +13,6 @@ class HearingsCreator < ApplicationService
 
   def call
     push_prosecution_cases
-    push_appeals
     push_applications
   end
 
@@ -40,23 +39,6 @@ private
     end
   end
 
-  def push_appeals
-    hearing[:courtApplications]&.each do |appeal|
-      defendant = appeal.dig(:applicant, :defendant)
-
-      next if defendant.nil?
-      next if defendant[:offences].map { |offence| offence.dig(:laaApplnReference, :applicationReference)&.start_with?("A", "Z") }.any?
-
-      push_to_sqs(shared_time: shared_time,
-                  case_urn: appeal[:applicationReference],
-                  defendant: defendant,
-                  appeal_data: {
-                    appeal_type: appeal.dig(:type, :applicationCode),
-                    appeal_outcome: appeal[:applicationOutcomes],
-                  })
-    end
-  end
-
   def push_applications
     hearing[:courtApplications]&.each do |court_application_data|
       defendant_cases = court_application_data.dig(:applicant, :masterDefendant, :defendantCase) || []
@@ -78,19 +60,6 @@ private
         )
       end
     end
-  end
-
-  def push_to_sqs(shared_time:, case_urn:, defendant:, appeal_data:)
-    Sqs::PublishHearing.call(shared_time: shared_time,
-                             jurisdiction_type: jurisdiction_type,
-                             case_urn: case_urn,
-                             defendant: defendant,
-                             court_centre_id: hearing[:courtCentre][:id],
-                             appeal_data: appeal_data)
-  end
-
-  def jurisdiction_type
-    @jurisdiction_type ||= hearing[:jurisdictionType]
   end
 
   attr_reader :shared_time, :hearing
