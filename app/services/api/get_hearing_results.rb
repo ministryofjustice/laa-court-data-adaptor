@@ -12,7 +12,7 @@ module Api
       if successful_response?
         HearingRecorder.call(
           hearing_id: hearing_id,
-          body: response.body,
+          hearing_resulted_data: response.body,
           publish_to_queue: publish_to_queue,
         )
       end

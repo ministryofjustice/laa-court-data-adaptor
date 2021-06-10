@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 
 class HearingsCreator < ApplicationService
-  def initialize(hearing_id:)
-    @hearing_id = hearing_id
-    @hearing = hearing_body[:hearing]
-    @shared_time = hearing_body[:sharedTime]
-  end
+  attr_reader :hearing_resulted
 
-  def hearing_body
-    Hearing.find(@hearing_id).body.deep_symbolize_keys
+  def initialize(hearing_resulted_data:)
+    @hearing_resulted = HmctsCommonPlatform::HearingResulted.new(hearing_resulted_data)
   end
 
   def call

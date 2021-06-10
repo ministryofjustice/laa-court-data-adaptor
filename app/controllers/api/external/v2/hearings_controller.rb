@@ -9,7 +9,7 @@ module Api
 
           HearingRecorder.call(
             hearing_id: params[:hearing][:id],
-            body: transformed_params,
+            hearing_resulted_data: transformed_params,
             publish_to_queue: true,
           )
 

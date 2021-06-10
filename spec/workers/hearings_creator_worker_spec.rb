@@ -3,26 +3,18 @@
 require "sidekiq/testing"
 
 RSpec.describe HearingsCreatorWorker, type: :worker do
-  subject(:work) do
-    described_class.perform_async(request_id, hearing_id)
-  end
+  subject(:work) { described_class.perform_async(request_id, hearing_resulted_data) }
 
-  let(:hearing_id) { "04180ff1-99b0-40b7-9929-ca05bdc767d8" }
+  let(:hearing_resulted_data) { "some data" }
   let(:request_id) { "XYZ" }
 
-  before do
-    Hearing.create!(id: hearing_id, body: JSON.parse(file_fixture("hearing/valid.json").read))
-  end
-
   it "queues the job" do
-    expect {
-      work
-    }.to change(described_class.jobs, :size).by(1)
+    expect { work }.to change(described_class.jobs, :size).by(1)
   end
 
   it "creates a HearingsCreator and calls with a transformed hash" do
     Sidekiq::Testing.inline! do
-      expect(HearingsCreator).to receive(:call).once.with(hearing_id: hearing_id).and_call_original
+      expect(HearingsCreator).to receive(:call).once.with(hearing_resulted_data: "some data")
       work
     end
   end

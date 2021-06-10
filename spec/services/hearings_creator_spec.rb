@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe HearingsCreator do
-  subject(:create_hearings) { described_class.call(hearing_id: hearing.id) }
+  subject(:create_hearings) { described_class.call(hearing_resulted_data: hearing_resulted_data) }
 
   let(:defendant_array) { [defendant_one] }
   let(:offence_array) { [offence_one, offence_two] }
@@ -65,7 +65,7 @@ RSpec.describe HearingsCreator do
       },
     ]
   end
-  let(:hearing_body) do
+  let(:hearing_resulted_data) do
     {
       "hearing": {
         "jurisdictionType": "MAGISTRATES",
@@ -79,7 +79,7 @@ RSpec.describe HearingsCreator do
     }
   end
 
-  let(:hearing) { Hearing.create!(body: hearing_body) }
+  let(:hearing) { Hearing.create!(body: hearing_resulted_data) }
 
   before { allow(Sqs::MessagePublisher).to receive(:call) }
 
@@ -139,7 +139,7 @@ RSpec.describe HearingsCreator do
     end
 
     context "with a crown court hearing" do
-      let(:hearing_body) do
+      let(:hearing_resulted_data) do
         {
           "hearing": {
             "jurisdictionType": "CROWN",
