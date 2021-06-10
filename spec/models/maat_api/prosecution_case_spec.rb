@@ -1,5 +1,4 @@
 RSpec.describe MaatApi::ProsecutionCase, type: :model do
-  let(:shared_time) { "2021-03-09T15:54:09.871Z" }
   let(:maat_reference) { "123" }
   let(:prosecution_case_data) { hearing_resulted_data.dig(:hearing, :prosecutionCases).first }
   let(:case_urn) { prosecution_case_data[:prosecutionCaseIdentifier][:caseURN] }
