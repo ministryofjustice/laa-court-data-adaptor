@@ -1,6 +1,7 @@
 module MaatApi
   class ProsecutionCase
-    attr_reader :hearing, :hmcts_common_platform_defendant, :maat_reference
+    attr_reader :hearing, :hmcts_common_platform_defendant, :maat_reference, :case_urn
+
     delegate :jurisdiction_type, to: :hearing
 
     def initialize(hearing_body, case_urn, defendant_data, maat_reference)
@@ -11,8 +12,6 @@ module MaatApi
       @hmcts_common_platform_defendant = HmctsCommonPlatform::Defendant.new(defendant_data)
       @maat_reference = maat_reference
     end
-
-    attr_reader :case_urn
 
     def defendant_asn
       hmcts_common_platform_defendant.arrest_summons_number
