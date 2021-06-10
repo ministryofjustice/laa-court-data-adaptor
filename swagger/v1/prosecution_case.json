@@ -33,6 +33,36 @@
         },
         "hearing_summaries": {
           "$ref": "#/definitions/hearing_summary_relationship"
+        },
+        "hearings": {
+          "$ref": "#/definitions/hearing_relationship"
+        }
+      }
+    },
+    "hearing_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/hearing"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "hearing": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "hearing.json#/definitions/id"
+        },
+        "type": {
+          "description": "The hearings type",
+          "enum": [
+            "hearings"
+          ],
+          "example": "hearings",
+          "type": "string"
         }
       }
     },
@@ -97,6 +127,9 @@
               },
               {
                 "$ref": "offence.json#/definitions/resource"
+              },
+              {
+                "$ref": "hearing_summary.json#/definitions/resource"
               }
             ]
           },
