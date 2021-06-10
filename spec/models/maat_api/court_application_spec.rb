@@ -1,11 +1,9 @@
 RSpec.describe MaatApi::CourtApplication, type: :model do
-  let(:shared_time) { "2021-03-09T15:54:09.871Z" }
   let(:maat_reference) { "123" }
 
   let(:court_application) do
     described_class.new(
-      shared_time,
-      HmctsCommonPlatform::Hearing.new(hearing_resulted_data[:hearing]),
+      HmctsCommonPlatform::HearingResulted.new(hearing_resulted_data),
       HmctsCommonPlatform::CourtApplication.new(hearing_resulted_data.dig(:hearing, :courtApplications).first),
       maat_reference,
     )
