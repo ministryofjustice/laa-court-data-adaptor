@@ -25,7 +25,18 @@ module Api
         end
 
         def create_params
-          params.from_jsonapi.require(:representation_order).permit!
+          params.from_jsonapi.require(:representation_order).permit(
+            :maat_reference,
+            :defendant_id,
+            defence_organisation: {},
+            offences: %i[
+              offence_id
+              status_code
+              status_date
+              effective_start_date
+              effective_end_date
+            ],
+          )
         end
 
         def transformed_params
