@@ -1,15 +1,11 @@
 module MaatApi
   class ProsecutionCase
-    attr_reader :hearing, :hmcts_common_platform_defendant, :maat_reference, :case_urn
+    attr_reader :hearing_resulted, :hmcts_common_platform_defendant, :maat_reference, :case_urn
 
-    delegate :jurisdiction_type, to: :hearing
-
-    def initialize(hearing_body, case_urn, defendant_data, maat_reference)
-      @shared_time = hearing_body[:sharedTime]
+    def initialize(hearing_resulted, case_urn, defendant, maat_reference)
+      @hearing_resulted = hearing_resulted
       @case_urn = case_urn
-      @hearing = HmctsCommonPlatform::Hearing.new(hearing_body[:hearing])
-      @defendant_data = defendant_data
-      @hmcts_common_platform_defendant = HmctsCommonPlatform::Defendant.new(defendant_data)
+      @hmcts_common_platform_defendant = defendant
       @maat_reference = maat_reference
     end
 
@@ -22,7 +18,7 @@ module MaatApi
     end
 
     def case_creation_date
-      @shared_time.to_date.strftime("%Y-%m-%d")
+      hearing_resulted.shared_time.to_date.strftime("%Y-%m-%d")
     end
 
     def cjs_location
@@ -43,6 +39,10 @@ module MaatApi
 
     def function_type
       "OFFENCE"
+    end
+
+    def jurisdiction_type
+      hearing_resulted.hearing_jurisdiction_type
     end
 
     def defendant
@@ -70,13 +70,13 @@ module MaatApi
       {
         courtLocation: court_centre.short_oucode,
         dateOfHearing: hmcts_common_platform_defendant.offences&.first&.results&.first&.ordered_date,
-        postHearingCustody: PostHearingCustodyCalculator.call(offences: @defendant_data[:offences]),
+        postHearingCustody: PostHearingCustodyCalculator.call(offences: hmcts_common_platform_defendant.data[:offences]),
         sessionValidateDate: hmcts_common_platform_defendant.offences&.first&.results&.first&.ordered_date,
       }
     end
 
     def crown_court_outcome
-      CrownCourtOutcomeCreator.call(defendant: @defendant_data) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
+      CrownCourtOutcomeCreator.call(defendant: hmcts_common_platform_defendant.data) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
     end
 
   private
@@ -160,7 +160,7 @@ module MaatApi
     end
 
     def court_centre
-      find_court_centre_by_id(hearing.court_centre_id)
+      find_court_centre_by_id(hearing_resulted.hearing_court_centre_id)
     end
 
     def find_court_centre_by_id(id)
@@ -170,7 +170,7 @@ module MaatApi
     end
 
     def result_is_a_conclusion?
-      @defendant_data[:offences]&.any? { |offence| offence[:verdict].present? }
+      hmcts_common_platform_defendant.offences.any? { |offence| offence.verdict.present? }
     end
   end
 end

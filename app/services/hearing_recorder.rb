@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class HearingRecorder < ApplicationService
-  def initialize(hearing_id:, body:, publish_to_queue:)
+  def initialize(hearing_id:, hearing_resulted_data:, publish_to_queue:)
     @hearing = Hearing.find_or_initialize_by(id: hearing_id)
-    @body = body
+    @hearing_resulted_data = hearing_resulted_data
     @publish_to_queue = publish_to_queue
   end
 
   def call
     begin
       enforce_contract!
-      hearing.update!(body: body)
+      hearing.update!(body: hearing_resulted_data)
       publish_hearing_to_queue if publish_to_queue
     rescue Errors::ContractError => e
       report_to_sentry(e)
@@ -31,7 +31,7 @@ private
   def report_to_sentry(error)
     # :nocov:
     Sentry.configure_scope do |scope|
-      scope.set_context("hearing", { body: body })
+      scope.set_context("hearing", { body: hearing_resulted_data })
     end
     # :nocov:
 
@@ -39,18 +39,18 @@ private
       error,
       tags: {
         request_id: Current.request_id,
-        hearing_id: @hearing.id,
+        hearing_id: hearing.id,
       },
     )
   end
 
   def hearing_contract
-    HearingContract.new.call(body)
+    HearingContract.new.call(hearing_resulted_data)
   end
 
   def publish_hearing_to_queue
-    HearingsCreatorWorker.perform_async(Current.request_id, hearing.id)
+    HearingsCreatorWorker.perform_async(Current.request_id, hearing_resulted_data)
   end
 
-  attr_reader :hearing, :body, :publish_to_queue
+  attr_reader :hearing, :hearing_resulted_data, :publish_to_queue
 end

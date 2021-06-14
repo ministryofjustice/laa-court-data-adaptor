@@ -3,9 +3,9 @@
 class HearingsCreatorWorker
   include Sidekiq::Worker
 
-  def perform(request_id, hearing_id)
+  def perform(request_id, hearing_resulted_data)
     Current.set(request_id: request_id) do
-      HearingsCreator.call(hearing_id: hearing_id)
+      HearingsCreator.call(hearing_resulted_data: hearing_resulted_data)
     end
   end
 end

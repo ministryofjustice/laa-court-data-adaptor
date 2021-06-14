@@ -115,7 +115,9 @@ module HmctsCommonPlatform
     end
 
     def defendant_cases
-      Array(data.dig(:applicant, :masterDefendant, :defendantCase))
+      Array(data.dig(:applicant, :masterDefendant, :defendantCase)).map do |defendant_case_data|
+        HmctsCommonPlatform::DefendantCase.new(defendant_case_data)
+      end
     end
 
   private

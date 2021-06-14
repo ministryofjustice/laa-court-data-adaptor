@@ -1,12 +1,20 @@
 RSpec.describe MaatApi::ProsecutionCase, type: :model do
   let(:maat_reference) { "123" }
-  let(:prosecution_case_data) { hearing_body.dig(:hearing, :prosecutionCases).first }
+  let(:prosecution_case_data) { hearing_resulted_data.dig(:hearing, :prosecutionCases).first }
   let(:case_urn) { prosecution_case_data[:prosecutionCaseIdentifier][:caseURN] }
   let(:defendant_data) { prosecution_case_data[:defendants].first }
-  let(:prosecution_case) { described_class.new(hearing_body, case_urn, defendant_data, maat_reference) }
+
+  let(:prosecution_case) do
+    described_class.new(
+      HmctsCommonPlatform::HearingResulted.new(hearing_resulted_data),
+      case_urn,
+      HmctsCommonPlatform::Defendant.new(defendant_data),
+      maat_reference,
+    )
+  end
 
   context "when prosecution case has all fields" do
-    let(:hearing_body) { JSON.parse(file_fixture("hearing/with_prosecution_case.json").read).deep_symbolize_keys }
+    let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing/with_prosecution_case.json").read).deep_symbolize_keys }
 
     it "has a maat_reference" do
       expect(prosecution_case.maat_reference).to eql("123")
@@ -152,7 +160,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
   end
 
   context "when the hearing body has only required fields" do
-    let(:hearing_body) { JSON.parse(file_fixture("hearing/with_prosecution_case_required_only.json").read).deep_symbolize_keys }
+    let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing/with_prosecution_case_required_only.json").read).deep_symbolize_keys }
 
     it "has a maat_reference" do
       expect(prosecution_case.maat_reference).to eql("123")
