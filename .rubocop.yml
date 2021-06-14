@@ -11,3 +11,7 @@ inherit_gem:
 inherit_mode:
   merge:
     - Exclude
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/services/**/*.rb'
