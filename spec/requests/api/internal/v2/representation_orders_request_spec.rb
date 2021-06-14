@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# rubocop:disable all
 
 require "swagger_helper"
 require "sidekiq/testing"
@@ -157,4 +156,3 @@ RSpec.describe "api/internal/v2/representation_orders", type: :request, swagger_
     end
   end
 end
-# rubocop:enable all
