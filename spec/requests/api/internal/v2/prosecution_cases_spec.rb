@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# rubocop:disable all
 
 require "swagger_helper"
 
@@ -175,4 +174,3 @@ RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc:
     end
   end
 end
-# rubocop:enable all

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# rubocop:disable all
 
 require "swagger_helper"
 require "sidekiq/testing"
@@ -160,4 +159,3 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
     end
   end
 end
-# rubocop:enable all
