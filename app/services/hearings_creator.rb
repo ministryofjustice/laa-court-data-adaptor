@@ -11,13 +11,15 @@ class HearingsCreator < ApplicationService
     # :nocov:
     if hearing_resulted_data.is_a?(String)
       hearing_id = hearing_resulted_data
-      HmctsCommonPlatform::HearingResulted.new(Hearing.find(hearing_id).body)
+      result = HmctsCommonPlatform::HearingResulted.new(Hearing.find(hearing_id).body)
     end
     # :nocov:
 
     if hearing_resulted_data.is_a?(Hash)
-      HmctsCommonPlatform::HearingResulted.new(hearing_resulted_data)
+      result = HmctsCommonPlatform::HearingResulted.new(hearing_resulted_data)
     end
+
+    result
   end
 
   def call
