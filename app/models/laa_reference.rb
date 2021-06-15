@@ -10,6 +10,8 @@ class LaaReference < ApplicationRecord
   end
 
   def dummy_maat_reference?
+    return false if maat_reference.nil?
+
     maat_reference.start_with?("A", "Z")
   end
 

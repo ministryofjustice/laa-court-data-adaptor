@@ -41,8 +41,16 @@ RSpec.describe LaaReference, type: :model do
       expect(described_class.new(maat_reference: "A123")).to be_dummy_maat_reference
     end
 
-    it "returns true when MAAT reference is a unlinking dummy maat reference" do
+    it "returns true when MAAT reference is an unlinking dummy maat reference" do
       expect(described_class.new(maat_reference: "Z123")).to be_dummy_maat_reference
+    end
+
+    it "returns false when MAAT reference is a legitimate one" do
+      expect(described_class.new(maat_reference: "GH12345")).not_to be_dummy_maat_reference
+    end
+
+    it "returns false when MAAT reference is nil" do
+      expect(described_class.new(maat_reference: nil)).not_to be_dummy_maat_reference
     end
   end
 end
