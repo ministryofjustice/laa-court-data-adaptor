@@ -1,23 +1,10 @@
 # frozen_string_literal: true
 
 class HearingsCreator < ApplicationService
-  attr_reader :hearing_resulted_data
+  attr_reader :hearing_resulted
 
   def initialize(hearing_resulted_data:)
-    @hearing_resulted_data = hearing_resulted_data
-  end
-
-  def hearing_resulted
-    # :nocov:
-    if hearing_resulted_data.is_a?(String)
-      hearing_id = hearing_resulted_data
-      HmctsCommonPlatform::HearingResulted.new(Hearing.find(hearing_id).body)
-    end
-    # :nocov:
-
-    if hearing_resulted_data.is_a?(Hash)
-      HmctsCommonPlatform::HearingResulted.new(hearing_resulted_data)
-    end
+    @hearing_resulted = HmctsCommonPlatform::HearingResulted.new(hearing_resulted_data)
   end
 
   def call
