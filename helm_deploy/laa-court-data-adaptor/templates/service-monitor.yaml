@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-court-data-adaptor-service
+spec:
+  selector:
+    matchLabels:
+      app: laa-court-data-adaptor-service
+  endpoints:
+  - port: http
+    interval: 15s
