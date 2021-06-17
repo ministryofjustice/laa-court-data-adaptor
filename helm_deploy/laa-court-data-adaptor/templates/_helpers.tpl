@@ -47,6 +47,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "laa-court-data-adaptor.selectorLabels" -}}
+app: {{ include "laa-court-data-adaptor.name" . }}
 app.kubernetes.io/name: {{ include "laa-court-data-adaptor.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

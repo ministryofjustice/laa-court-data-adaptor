@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "laa-court-data-adaptor.fullname" . }}
   labels:
-    {{- include "laa-court-data-adaptor.labels" . | nindent 4 }}
+    app: laa-court-data-adaptor-service
 spec:
   type: {{ .Values.service.type }}
   ports:
