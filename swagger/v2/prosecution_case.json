@@ -11,11 +11,11 @@
       "description": "object representing a single prosecution case",
       "type": "object",
       "properties": {
-        "type": {
-          "$ref": "#/definitions/type"
-        },
         "id": {
           "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
@@ -80,6 +80,39 @@
         }
       }
     },
+    "hearing_summary_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/hearing_summary"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "defendant_offence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "offence.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "offence.json#/definitions/type"
+        }
+      }
+    },
+    "defendant_offence_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/offence"
+          },
+          "type": "array"
+        }
+      }
+    },
     "resource_collection": {
       "type": "object",
       "properties": {
@@ -93,10 +126,10 @@
           "items": {
             "anyOf":[
               {
-                "$ref": "defendant.json#/definitions/resource"
+                "$ref": "offence.json#/definitions/resource"
               },
               {
-                "$ref": "offence.json#/definitions/resource"
+                "$ref": "defendant.json#/definitions/resource"
               },
               {
                 "$ref": "hearing_summary.json#/definitions/resource"
@@ -122,7 +155,8 @@
       "description": "Unique identifier of prosecution case provided by HMCTS (prosecutionCaseId)",
       "readOnly": true,
       "format": "uuid",
-      "type": "string"
+      "type": "string",
+      "example": "b43a99e1-51e4-4938-a410-a189281353d1"
     },
     "type": {
       "description": "The prosecution cases type",

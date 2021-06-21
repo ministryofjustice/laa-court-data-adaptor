@@ -16,8 +16,9 @@
       "enum": [
         "defence_organisations"
       ],
-      "example": "defence_organisations",
-      "type": "string"
+      "example": "defence_organisation",
+      "type": "string",
+      "example": "62a36cc0-0eae-446d-b933-4538e4072810"
     },
     "name": {
       "readOnly": true,

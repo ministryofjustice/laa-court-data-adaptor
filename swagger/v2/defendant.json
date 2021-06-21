@@ -60,33 +60,48 @@
       ]
     },
     "maat_reference": {
-      "example": 314159265,
-      "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
-      "anyOf":[
-        {
-          "$ref": "laa_reference.json#/definitions/maat_reference"
-        },{
-          "type": "null"
-        }
-      ]
-    },
+     "example": 314159265,
+     "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
+     "anyOf":[
+       {
+         "$ref": "laa_reference.json#/definitions/maat_reference"
+       },{
+         "type": "null"
+       }
+     ]
+   },
     "representation_order_date": {
       "readOnly": true,
       "example": "1971-05-12",
       "type": "date"
     },
+    "prosecution_case_id": {
+      "readOnly": true,
+      "example": "acabbe56-1e3c-4c2a-81dd-15d685c12f3f",
+      "description": "The unique identifier for the prosecution case",
+      "type": "uuid"
+    },
+    "post_hearing_custody_statuses": {
+      "readOnly": true,
+      "example": ["R"],
+      "description": "The unique identifier for the prosecution case",
+      "type": "uuid"
+    },
     "resource": {
       "description": "object representing a single defendant",
       "type": "object",
       "properties": {
-        "type": {
-          "$ref": "#/definitions/type"
-        },
         "id": {
           "$ref": "#/definitions/id"
         },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
         "attributes": {
           "$ref": "#/definitions/attributes"
+        },
+        "relationships": {
+          "$ref": "#/definitions/relationships"
         }
       }
     },
@@ -102,62 +117,83 @@
         "national_insurance_number": {
           "$ref": "#/definitions/nino"
         },
-        "maat_reference": {
-          "$ref": "#/definitions/maat_reference"
-        },
         "arrest_summons_number": {
           "$ref": "prosecution_case.json#/definitions/arrest_summons_number"
         },
+        "maat_reference": {
+          "$ref": "#/definitions/maat_reference"
+        },
         "representation_order_date": {
           "$ref": "#/definitions/representation_order_date"
+        },
+        "prosecution_case_id": {
+          "$ref": "#/definitions/prosecution_case_id"
+        },
+        "post_hearing_custody_statuses": {
+          "$ref": "#/definitions/post_hearing_custody_statuses"
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "offences": {
+          "$ref": "#/definitions/offence_relationship"
+        },
+        "defence_organisation": {
+          "$ref": "#/definitions/defence_organisation_relationship"
+        },
+        "prosecution_case": {
+          "$ref": "#/definitions/prosecution_case_relationship"
+        }
+      }
+    },
+    "offence_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/offence"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "offence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "offence.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "offence.json#/definitions/type"
+        }
+      }
+    },
+    "defence_organisation_relationship": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "defence_organisation.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "defence_organisation.json#/definitions/type"
+        }
+      }
+    },
+    "prosecution_case_relationship": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "prosecution_case.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "prosecution_case.json#/definitions/type"
         }
       }
     }
   },
-  "relationships": {
-    "type": "object",
-    "properties": {
-      "offences": {
-        "$ref": "#/definitions/offence_relationship"
-      },
-      "defence_organisation": {
-        "$ref": "#/definitions/defence_organisation_relationship"
-      }
-    }
-  },
-  "offence_relationship": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "items": {
-          "$ref": "#/definitions/offence"
-        },
-        "type": "array"
-      }
-    }
-  },
-  "offence": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "$ref": "offence.json#/definitions/id"
-      },
-      "type": {
-        "$ref": "offence.json#/definitions/type"
-      }
-    }
-  },
-  "defence_organisation_relationship": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "$ref": "defence_organisation.json#/definitions/id"
-      },
-      "type": {
-        "$ref": "defence_organisation.json#/definitions/type"
-      }
-    }
-  },
+
   "links": [
     {
       "description": "Info for existing defendant.",

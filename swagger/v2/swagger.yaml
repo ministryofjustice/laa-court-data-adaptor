@@ -175,8 +175,8 @@ paths:
         type: string
         schema: {}
         description: |-
-          Return defendant, offence and hearing data through a has_many relationship </br>
-                                            eg include=defendants,defendants.offences,defendants.defence_organisation,hearing_summaries
+          Can return defendant and hearing summary data through a has_many relationship. Offences, defence organisation and prosecution case data related to defendants in turn can also be returned due to has_many and has_one relationships. </br>
+                                            eg include=defendants,hearing_summaries,defendants.offences
       - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[arrest_summons_number]
         in: query
