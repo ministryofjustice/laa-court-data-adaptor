@@ -47,6 +47,8 @@ module LaaCourtDataAdaptor
     config.x.maat_api.client_secret = ENV["MAAT_API_CLIENT_SECRET"]
     config.x.maat_api.api_url = ENV["MAAT_API_API_URL"]
 
+    config.x.metrics_service_host = ENV.fetch("METRICS_SERVICE_HOST", "localhost")
+
     config.active_record.schema_format = :sql
 
     config.autoload_paths << config.root.join("lib")
