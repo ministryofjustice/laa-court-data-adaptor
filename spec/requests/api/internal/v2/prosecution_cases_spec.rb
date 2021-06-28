@@ -41,7 +41,7 @@ RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc:
 
           parameter name: "include", in: :query, required: false, type: :string,
                     schema: {},
-                    description: 'Can return defendant and hearing summary data through a has_many relationship. Offences, defence organisation and prosecution case data related to defendants in turn can also be returned due to has_many and has_one relationships. </br>
+                    description: 'Can return defendant and hearing summary data as they both have a relationship with prosecution case. Offences, defence organisation and prosecution case data is related to defendants so in turn can also be included. </br>
                                   eg include=defendants,hearing_summaries,defendants.offences,'
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
@@ -50,7 +50,7 @@ RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc:
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { "19GD1001816" }
-          let(:include) { "defendants,hearing_summaries" }
+          let(:include) { "defendants,hearing_summaries,defendants.offences" }
 
           run_test!
         end

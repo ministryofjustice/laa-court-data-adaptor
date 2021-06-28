@@ -171,11 +171,11 @@
       "description": "The police arrest summons number when the defendant is a person",
       "anyOf": [
         {
-          "type": "null"
-        },
-        {
           "type": "string",
           "example": "MG25A11223344"
+        },
+        {
+          "type": "null"
         }
       ]
     },
@@ -253,7 +253,7 @@
   "links": [
     {
       "description": "Search prosecution cases.",
-      "href": "/api/internal/v1/prosecution_cases",
+      "href": "/api/internal/v2/prosecution_cases",
       "method": "GET",
       "rel": "instances",
       "title": "List",

@@ -72,7 +72,7 @@
    },
     "representation_order_date": {
       "readOnly": true,
-      "example": "1971-05-12",
+      "example": "2020-03-01",
       "type": "date"
     },
     "prosecution_case_id": {
@@ -173,15 +173,31 @@
     "defence_organisation_relationship": {
       "type": "object",
       "properties": {
-        "id": {
-          "$ref": "defence_organisation.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "defence_organisation.json#/definitions/type"
-        }
+          "data": {
+            "$ref": "#definitions/defence_organisation"
+         }
+      }
+    },
+    "defence_organisation": {
+      "type": "object",
+      "properties": {
+          "id": {
+            "$ref": "defence_organisation.json#/definitions/id"
+          },
+          "type": {
+            "$ref": "defence_organisation.json#/definitions/type"
+          }
       }
     },
     "prosecution_case_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+            "$ref": "#definitions/prosecution_case"
+        }
+      }
+    },
+    "prosecution_case": {
       "type": "object",
       "properties": {
         "id": {
@@ -193,7 +209,6 @@
       }
     }
   },
-
   "links": [
     {
       "description": "Info for existing defendant.",
