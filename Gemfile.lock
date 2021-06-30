@@ -188,7 +188,8 @@ GEM
     prmd (0.14.0)
       erubis (~> 2.7)
       json_schema (~> 0.3, >= 0.3.1)
-    prometheus-client (2.1.0)
+    prometheus_exporter (0.7.0)
+      webrick
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -335,6 +336,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
+    webrick (1.7.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -372,7 +374,7 @@ DEPENDENCIES
   oauth2
   pg (>= 0.18, < 2.0)
   prmd
-  prometheus-client
+  prometheus_exporter
   pry-byebug
   pry-rails (~> 0.3.9)
   puma (~> 5.3)

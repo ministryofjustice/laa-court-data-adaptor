@@ -75,4 +75,6 @@ env:
     value: {{ .Values.sentry_dsn }}
   - name: SENTRY_CURRENT_ENV
     value: {{ .Values.rails.host_env }}
+  - name: METRICS_SERVICE_HOST
+    value: {{ include "laa-court-data-adaptor.fullname" . }}
 {{- end -}}
