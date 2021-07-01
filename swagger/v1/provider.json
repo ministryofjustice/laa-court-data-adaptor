@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Provider",
+  "description": "Provider",
+  "id": "provider",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "unique identifier of the provider",
+      "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "The provider",
+      "enum": [
+        "provider"
+      ],
+      "example": "providers",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the provider",
+      "example": "Neil Griffiths",
+      "type": "string"
+    },
+    "role": {
+      "description": "The role of the provider",
+      "example": "Neil Griffiths",
+      "type": "string"
+    },
+    "resource": {
+      "description": "object representing a single hearing_event",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "role": {
+          "$ref": "#/definitions/role"
+        }
+      }
+    }
+  }
+}

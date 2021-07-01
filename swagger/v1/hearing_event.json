@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Hearing Event",
+  "description": "Hearing Event",
+  "id": "hearing_event",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "unique identifier of hearing_event",
+      "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "The hearing_event type",
+      "enum": [
+        "hearing_events"
+      ],
+      "example": "hearing_events",
+      "type": "string"
+    },
+    "description": {
+      "description": "description of hearing",
+      "example": "Hearing started",
+      "type": "string"
+    },
+    "occurred_at": {
+      "description": "when event happened",
+      "example": "2020-04-30T16:17:58.610Z",
+      "type": "date"
+    },
+    "note": {
+      "description": "additional notes on hearing event",
+      "example": "Test note 1",
+      "type": "string"
+    },
+    "resource": {
+      "description": "object representing a single hearing_event",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "$ref": "#/definitions/description"
+        },
+        "occurred_at": {
+          "$ref": "#/definitions/occurred_at"
+        },
+        "note": {
+          "$ref": "#/definitions/note"
+        }
+      }
+    }
+  }
+}
