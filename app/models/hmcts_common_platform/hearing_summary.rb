@@ -2,6 +2,8 @@ module HmctsCommonPlatform
   class HearingSummary
     attr_accessor :data
 
+    delegate :short_oucode, :oucode_l2_code, to: :court_centre, prefix: true
+
     def initialize(data)
       @data = HashWithIndifferentAccess.new(data || {})
     end
@@ -22,20 +24,6 @@ module HmctsCommonPlatform
 
     def court_centre
       HmctsCommonPlatform::CourtCentre.new(data[:courtCentre])
-    end
-
-    def court_centre_short_oucode
-      hmcts_common_platform_reference_court_centre.short_oucode
-    end
-
-    def court_centre_oucode_l2_code
-      hmcts_common_platform_reference_court_centre.oucode_l2_code
-    end
-
-  private
-
-    def hmcts_common_platform_reference_court_centre
-      @hmcts_common_platform_reference_court_centre ||= HmctsCommonPlatform::Reference::CourtCentre.find(court_centre.id)
     end
   end
 end
