@@ -175,8 +175,9 @@ paths:
         type: string
         schema: {}
         description: |-
-          Can return defendant and hearing summary data as they both have a relationship with prosecution case. Offences, defence organisation and prosecution case data is related to defendants so in turn can also be included. </br>
-                                            eg include=defendants,hearing_summaries,defendants.offences
+          Include top-level and nested associations for a prosecution case.
+          All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+          e.g. to include hearing summaries as well as defendants and their offences: include=hearing_summaries,defendants,defendants.offences
       - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[arrest_summons_number]
         in: query

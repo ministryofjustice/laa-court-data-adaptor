@@ -41,8 +41,9 @@ RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc:
 
           parameter name: "include", in: :query, required: false, type: :string,
                     schema: {},
-                    description: 'Can return defendant and hearing summary data as they both have a relationship with prosecution case. Offences, defence organisation and prosecution case data is related to defendants so in turn can also be included. </br>
-                                  eg include=defendants,hearing_summaries,defendants.offences,'
+                    description: 'Include top-level and nested associations for a prosecution case.
+                                  All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+                                  e.g. to include hearing summaries as well as defendants and their offences: include=hearing_summaries,defendants,defendants.offences </br>
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
@@ -50,7 +51,7 @@ RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc:
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { "19GD1001816" }
-          let(:include) { "defendants,hearing_summaries,defendants.offences" }
+          let(:include) { "hearing_summaries,defendants,defendants.offences" }
 
           run_test!
         end
