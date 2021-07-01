@@ -173,7 +173,8 @@ paths:
         in: query
         required: false
         type: string
-        schema: {}
+        schema:
+          "$ref": prosecution_case.json#/definitions/example_included_query_parameters
         description: |-
           Include top-level and nested associations for a prosecution case.
           All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
@@ -279,3 +280,4 @@ components:
       required: false
       description: A unique identifier for an individual request that can be traced
         across multiple systems
+      example: 281d48b7-0add-421c-b093-4c51060433f0

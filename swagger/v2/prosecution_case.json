@@ -143,6 +143,11 @@
         "data"
       ]
     },
+    "example_included_query_parameters": {
+      "description": "an example of parameters that can be included in the query",
+      "type": "string",
+      "example": "hearing_summaries,defendants,defendants.offences"
+    },
     "attributes": {
       "type": "object",
       "properties": {
@@ -169,6 +174,7 @@
     "arrest_summons_number": {
       "readOnly": true,
       "description": "The police arrest summons number when the defendant is a person",
+      "example": "MG25A11223344",
       "anyOf": [
         {
           "type": "string",

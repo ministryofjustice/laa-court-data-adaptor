@@ -40,7 +40,9 @@ RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc:
                     description: "Searches prosecution cases by prosecution case reference"
 
           parameter name: "include", in: :query, required: false, type: :string,
-                    schema: {},
+                    schema: {
+                      "$ref": "prosecution_case.json#/definitions/example_included_query_parameters",
+                    },
                     description: 'Include top-level and nested associations for a prosecution case.
                                   All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
                                   e.g. to include hearing summaries as well as defendants and their offences: </br> include=hearing_summaries,defendants,defendants.offences'
