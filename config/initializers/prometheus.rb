@@ -1,4 +1,4 @@
-unless Rails.env.test?
+if Rails.env.production?
   require "prometheus_exporter/instrumentation"
   require "prometheus_exporter/middleware"
 
