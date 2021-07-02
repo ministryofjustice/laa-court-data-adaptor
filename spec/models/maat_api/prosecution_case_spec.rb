@@ -105,7 +105,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
                 resultText: "Result",
                 resultCodeQualifiers: "Qualifier",
                 nextHearingDate: "2019-10-23",
-                nextHearingLocation: "B21JI",
+                nextHearingLocation: "B01LY",
                 laaOfficeAccount: "092874",
                 legalAidWithdrawalDate: "2021-04-11",
               },

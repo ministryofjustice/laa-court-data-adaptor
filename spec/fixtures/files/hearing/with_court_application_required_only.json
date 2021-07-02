@@ -3,8 +3,7 @@
       "id": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
       "jurisdictionType": "MAGISTRATES",
       "courtCentre": {
-        "id": "f8254db1-1683-483e-afb3-b87fde5a0a26",
-        "code": "B01LY00"
+        "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
       },
       "type": {
         "description": "First hearing",

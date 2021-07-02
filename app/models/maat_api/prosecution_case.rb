@@ -14,7 +14,7 @@ module MaatApi
     end
 
     def cjs_area_code
-      hearing_resulted.hearing_court_centre.oucode_l2_code
+      court_centre.oucode_l2_code
     end
 
     def case_creation_date
@@ -22,7 +22,7 @@ module MaatApi
     end
 
     def cjs_location
-      hearing_resulted.hearing_court_centre.short_oucode
+      court_centre.short_oucode
     end
 
     def doc_language
@@ -68,7 +68,7 @@ module MaatApi
 
     def session
       {
-        courtLocation: hearing_resulted.hearing_court_centre.short_oucode,
+        courtLocation: court_centre.short_oucode,
         dateOfHearing: hmcts_common_platform_defendant.offences&.first&.results&.first&.ordered_date,
         postHearingCustody: PostHearingCustodyCalculator.call(offences: hmcts_common_platform_defendant.data[:offences]),
         sessionValidateDate: hmcts_common_platform_defendant.offences&.first&.results&.first&.ordered_date,
@@ -110,7 +110,7 @@ module MaatApi
           resultText: judicial_result.text,
           resultCodeQualifiers: judicial_result.qualifier,
           nextHearingDate: judicial_result.next_hearing_date&.to_date&.strftime("%Y-%m-%d"),
-          nextHearingLocation: judicial_result.next_hearing_court_centre.short_oucode,
+          nextHearingLocation: find_court_centre_by_id(judicial_result.next_hearing_court_centre_id)&.short_oucode,
           laaOfficeAccount: offence.laa_reference_laa_contract_number,
           legalAidWithdrawalDate: offence.laa_reference_effective_end_date,
         }
@@ -157,6 +157,16 @@ module MaatApi
         offenceLegislation: data.offence_legislation,
         offenceLegislationWelsh: data.offence_legislation_welsh,
       }.compact
+    end
+
+    def court_centre
+      find_court_centre_by_id(hearing_resulted.hearing_court_centre_id)
+    end
+
+    def find_court_centre_by_id(id)
+      return if id.blank?
+
+      HmctsCommonPlatform::Reference::CourtCentre.find(id)
     end
 
     def result_is_a_conclusion?
