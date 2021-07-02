@@ -110,7 +110,8 @@
         "id": "14876ea1-5f7c-32ef-9fbd-aa0b63193550",
         "name": "Derby Justice Centre (aka Derby St Mary Adult)",
         "roomId": "2fc95ce0-79e5-33c6-901a-733c90905e59",
-        "roomName": "Courtroom 08"
+        "roomName": "Courtroom 08",
+        "code": "B30PI00"
       }
     },
     {
@@ -135,7 +136,8 @@
         "id": "6131bd34-33d9-3d1e-8152-8b5a2084f1bd",
         "name": "Derby Crown Court",
         "roomId": "594d6332-9806-38ab-830d-5941e671e0bb",
-        "roomName": "Courtroom 01"
+        "roomName": "Courtroom 01",
+        "code": "C30DE00"
       }
     }
   ]

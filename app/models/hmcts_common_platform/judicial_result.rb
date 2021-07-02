@@ -36,6 +36,10 @@ module HmctsCommonPlatform
       data.dig(:nextHearing, :courtCentre, :id)
     end
 
+    def next_hearing_court_centre
+      HmctsCommonPlatform::CourtCentre.new(data.dig(:nextHearing, :courtCentre))
+    end
+
     def next_hearing_date
       data.dig(:nextHearing, :listedStartDateTime)
     end
