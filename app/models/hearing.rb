@@ -4,7 +4,7 @@ class Hearing < ApplicationRecord
   validates :body, presence: true
 
   def court_name
-    court_centre.name
+    court_centre.oucode_l3_name
   end
 
   def hearing_type
@@ -100,7 +100,7 @@ private
   end
 
   def court_centre
-    HmctsCommonPlatform::CourtCentre.new(hearing_body["courtCentre"])
+    @court_centre ||= HmctsCommonPlatform::Reference::CourtCentre.find(hearing_body["courtCentre"]["id"])
   end
 
   def common_platform_cracked_ineffective_trial

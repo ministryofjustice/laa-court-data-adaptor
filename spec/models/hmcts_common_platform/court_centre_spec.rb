@@ -12,9 +12,6 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
     it { expect(court_centre.name).to eq("Derby Justice Centre (aka Derby St Mary Adult)") }
     it { expect(court_centre.room_id).to eq("2fc95ce0-79e5-33c6-901a-733c90905e59") }
     it { expect(court_centre.room_name).to eq("Courtroom 08") }
-    it { expect(court_centre.code).to eq("A07AF00") }
-    it { expect(court_centre.short_oucode).to eq("A07AF") }
-    it { expect(court_centre.oucode_l2_code).to eq("7") }
   end
 
   context "with required fields only" do
@@ -28,8 +25,5 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
     it { expect(court_centre.name).to be_nil }
     it { expect(court_centre.room_id).to be_nil }
     it { expect(court_centre.room_name).to be_nil }
-    it { expect(court_centre.code).to be_nil }
-    it { expect(court_centre.short_oucode).to be_nil }
-    it { expect(court_centre.oucode_l2_code).to be_nil }
   end
 end

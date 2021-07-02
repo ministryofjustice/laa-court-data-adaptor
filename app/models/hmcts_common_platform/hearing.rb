@@ -31,9 +31,5 @@ module HmctsCommonPlatform
         HmctsCommonPlatform::CourtApplication.new(court_application_data)
       end
     end
-
-    def court_centre
-      HmctsCommonPlatform::CourtCentre.new(data[:courtCentre])
-    end
   end
 end

@@ -4,7 +4,7 @@ module HmctsCommonPlatform
 
     delegate :blank?, to: :data
 
-    delegate :jurisdiction_type, :court_centre_id, :court_centre, :first_sitting_day_date, to: :hearing, prefix: true
+    delegate :jurisdiction_type, :court_centre_id, :first_sitting_day_date, to: :hearing, prefix: true
 
     def initialize(data)
       @data = HashWithIndifferentAccess.new(data || {})
