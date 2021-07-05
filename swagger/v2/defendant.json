@@ -60,16 +60,17 @@
       ]
     },
     "maat_reference": {
-     "example": 314159265,
-     "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
-     "anyOf":[
-       {
-         "$ref": "laa_reference.json#/definitions/maat_reference"
-       },{
-         "type": "null"
-       }
-     ]
-   },
+      "example": 314159265,
+      "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
+      "anyOf":[
+        {
+          "$ref": "laa_reference.json#/definitions/maat_reference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "representation_order_date": {
       "readOnly": true,
       "example": "2020-03-01",
