@@ -9,7 +9,8 @@
   "definitions": {
     "id": {
       "description": "unique identifier of defence_organisation known internally as laa_contract_number",
-      "type": "string"
+      "type": "string",
+      "example": "0Q319P"
     },
     "type": {
       "description": "The defence_organisations type",
