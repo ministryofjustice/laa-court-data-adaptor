@@ -14,6 +14,11 @@ module Api
 
     def search_results?
       if response.body.include?("<html>")
+        # :nocov:
+        Sentry.configure_scope do |scope|
+          scope.set_context("response", { body: response.body })
+        end
+        # :nocov:
         Sentry.capture_message("Response body contains HTML")
       end
 
