@@ -8,7 +8,7 @@
   "type": "object",
   "definitions": {
     "id": {
-      "description": "unique identifier of hearing_event",
+      "description": "The unique identifier of hearing_event",
       "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
       "format": "uuid",
       "type": "string"
@@ -24,7 +24,7 @@
       "type": "string"
     },
     "resource": {
-      "description": "object representing a single court application",
+      "description": "An object representing a single court application",
       "type": "object",
       "properties": {
         "id": {

@@ -117,7 +117,7 @@
       }
     },
     "resource": {
-      "description": "object representing a single offence",
+      "description": "An object representing a single offence",
       "type": "object",
       "properties": {
         "id": {

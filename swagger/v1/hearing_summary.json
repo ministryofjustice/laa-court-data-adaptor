@@ -43,7 +43,7 @@
       "type": "string"
     },
     "resource": {
-      "description": "object representing a single hearing_summary",
+      "description": "An object representing a single hearing_summary",
       "type": "object",
       "properties": {
         "id": {

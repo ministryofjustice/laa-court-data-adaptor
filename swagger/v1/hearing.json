@@ -36,7 +36,7 @@
       "example": ["Joe Bloggs"]
     },
     "resource": {
-      "description": "object representing a single hearing",
+      "description": "An object representing a single hearing",
       "type": "object",
       "properties": {
         "id": {
@@ -237,13 +237,13 @@
       }
     },
     "id": {
-      "description": "unique identifier of a hearing",
+      "description": "The unique identifier of a hearing",
       "example": "04180ff1-99b0-40b7-9929-ca05bdc767d8",
       "format": "uuid",
       "type": "string"
     },
     "type": {
-      "description": "Description of the hearing type",
+      "description": "The hearing type",
       "example": "hearings",
       "type": "string"
     },

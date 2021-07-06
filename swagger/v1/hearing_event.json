@@ -8,7 +8,7 @@
   "type": "object",
   "definitions": {
     "id": {
-      "description": "unique identifier of hearing_event",
+      "description": "The unique identifier of hearing_event",
       "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
       "format": "uuid",
       "type": "string"
@@ -22,22 +22,22 @@
       "type": "string"
     },
     "description": {
-      "description": "description of hearing",
+      "description": "The description of hearing_event",
       "example": "Hearing started",
       "type": "string"
     },
     "occurred_at": {
-      "description": "when event happened",
+      "description": "The time the event happened",
       "example": "2020-04-30T16:17:58.610Z",
-      "type": "date"
+      "type": "date-time"
     },
     "note": {
-      "description": "additional notes on hearing event",
+      "description": "Any additional notes on hearing event",
       "example": "Test note 1",
       "type": "string"
     },
     "resource": {
-      "description": "object representing a single hearing_event",
+      "description": "An object representing a single hearing_event",
       "type": "object",
       "properties": {
         "id": {

@@ -8,16 +8,13 @@
   "type": "object",
   "definitions": {
     "id": {
-      "description": "unique identifier of the provider",
+      "description": "The unique identifier of the provider",
       "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
       "format": "uuid",
       "type": "string"
     },
     "type": {
       "description": "The provider",
-      "enum": [
-        "provider"
-      ],
       "example": "providers",
       "type": "string"
     },
@@ -28,11 +25,11 @@
     },
     "role": {
       "description": "The role of the provider",
-      "example": "Neil Griffiths",
+      "example": "Junior counsel",
       "type": "string"
     },
     "resource": {
-      "description": "object representing a single hearing_event",
+      "description": "An object representing a single hearing_event",
       "type": "object",
       "properties": {
         "id": {

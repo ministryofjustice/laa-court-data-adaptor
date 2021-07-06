@@ -8,7 +8,7 @@
   "type": "object",
   "definitions": {
     "resource": {
-      "description": "object representing a single prosecution case",
+      "description": "An object representing a single prosecution case",
       "type": "object",
       "properties": {
         "id": {
@@ -161,7 +161,7 @@
       ]
     },
     "example_included_query_parameters": {
-      "description": "an example of parameters that can be included in the query",
+      "description": "An example of parameters that can be included in the query",
       "type": "string",
       "example": "hearing_summaries,hearings,defendants,defendants.offences"
     },
