@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Cracked Ineffective Trial",
+  "description": "Cracked Ineffective Trial",
+  "id": "cracked_ineffective_trial",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "The unique identifier of cracked_ineffective_trial",
+      "example": "fcc1a759-88d2-4260-8b3e-92c2749ecbb1",
+      "format": "uuid",
+      "type": "string"
+    },
+    "code": {
+      "description": "The code of cracked_ineffective_trial type",
+      "example": "A",
+      "type": "string"
+    },
+    "type": {
+      "description": "The cracked_ineffective_trial type",
+      "example": "cracked_ineffective_trial",
+      "type": "string"
+    },
+    "description": {
+      "description": "The description of cracked ineffective trial",
+      "example": "On the date of trial the defendant, for the first time, enters a guilty plea which the prosecution accepts.",
+      "type": "string"
+    },
+    "resource": {
+      "description": "An object representing a single hearing_event",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "code": {
+          "$ref": "#/definitions/code"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "description": {
+          "$ref": "#/definitions/description"
+        }
+      }
+    }
+  }
+}

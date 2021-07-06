@@ -62,12 +62,19 @@
       "type": "object",
       "properties": {
         "description": {
-          "type": "string"
+          "type": "string",
+          "example": "Court directs trial by jury"
         },
         "code": {
-          "type": "string"
+          "type": "string",
+          "example": "05"
         }
       }
+    },
+    "mode_of_trial": {
+      "readOnly": true,
+      "example": "Either way",
+      "type": "string"
     },
     "pleas": {
       "readOnly": true,
@@ -110,14 +117,14 @@
       }
     },
     "resource": {
-      "description": "object representing a single offence",
+      "description": "An object representing a single offence",
       "type": "object",
       "properties": {
-        "type": {
-          "$ref": "#/definitions/type"
-        },
         "id": {
           "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
@@ -133,14 +140,17 @@
         "order_index": {
           "$ref": "#/definitions/order_index"
         },
-        "mode_of_trial_reasons": {
-          "$ref": "#/definitions/mode_of_trial_reasons"
-        },
         "title": {
           "$ref": "#/definitions/title"
         },
         "legislation": {
           "$ref": "#/definitions/legislation"
+        },
+        "mode_of_trial": {
+          "$ref": "#/definitions/mode_of_trial"
+        },
+        "mode_of_trial_reasons": {
+          "$ref": "#/definitions/mode_of_trial_reasons"
         },
         "pleas": {
           "$ref": "#/definitions/pleas"

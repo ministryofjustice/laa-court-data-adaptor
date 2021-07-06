@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Hearing Event",
+  "description": "Hearing Event",
+  "id": "hearing_event",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "The unique identifier of hearing_event",
+      "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "The court_application_type type",
+      "example": "court_application",
+      "type": "string"
+    },
+    "received_date": {
+      "description": "The date of receipt",
+      "example": "2021-03-09",
+      "type": "string"
+    },
+    "resource": {
+      "description": "An object representing a single court application",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "received_date": {
+          "$ref": "#/definitions/received_date"
+        }
+      }
+    }
+  }
+}

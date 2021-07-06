@@ -8,14 +8,14 @@
   "type": "object",
   "definitions": {
     "resource": {
-      "description": "object representing a single prosecution case",
+      "description": "An object representing a single prosecution case",
       "type": "object",
       "properties": {
-        "type": {
-          "$ref": "#/definitions/type"
-        },
         "id": {
           "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
@@ -57,12 +57,7 @@
           "$ref": "hearing.json#/definitions/id"
         },
         "type": {
-          "description": "The hearings type",
-          "enum": [
-            "hearings"
-          ],
-          "example": "hearings",
-          "type": "string"
+          "$ref": "hearing.json#/definitions/type"
         }
       }
     },
@@ -110,6 +105,28 @@
         }
       }
     },
+    "defendant_offence_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/offence"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "defendant_offence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "offence.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "offence.json#/definitions/type"
+        }
+      }
+    },
     "resource_collection": {
       "type": "object",
       "properties": {
@@ -123,13 +140,16 @@
           "items": {
             "anyOf":[
               {
-                "$ref": "defendant.json#/definitions/resource"
-              },
-              {
                 "$ref": "offence.json#/definitions/resource"
               },
               {
+                "$ref": "defendant.json#/definitions/resource"
+              },
+              {
                 "$ref": "hearing_summary.json#/definitions/resource"
+              },
+              {
+                "$ref": "hearing.json#/definitions/resource"
               }
             ]
           },
@@ -139,6 +159,11 @@
       "required": [
         "data"
       ]
+    },
+    "example_included_query_parameters": {
+      "description": "An example of parameters that can be included in the query",
+      "type": "string",
+      "example": "hearing_summaries,hearings,defendants,defendants.offences"
     },
     "attributes": {
       "type": "object",
@@ -165,18 +190,24 @@
     "arrest_summons_number": {
       "readOnly": true,
       "description": "The police arrest summons number when the defendant is a person",
+      "example": "MG25A11223344",
       "anyOf": [
-        {
-          "type": "null"
-        },
         {
           "type": "string",
           "example": "MG25A11223344"
+        },
+        {
+          "type": "null"
         }
       ]
     },
     "identity": {
       "$ref": "#/definitions/id"
+    },
+    "defendant_names": {
+      "readOnly": true,
+      "type": "string",
+      "example": "Chad Stroman"
     },
     "date_of_next_hearing": {
       "description": "The date of the next hearing for the defendant",

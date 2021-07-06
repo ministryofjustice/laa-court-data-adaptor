@@ -43,14 +43,14 @@
       "type": "string"
     },
     "resource": {
-      "description": "object representing a single hearing_summary",
+      "description": "An object representing a single hearing_summary",
       "type": "object",
       "properties": {
-        "type": {
-          "$ref": "#/definitions/type"
-        },
         "id": {
           "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
