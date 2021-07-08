@@ -137,7 +137,7 @@
                 "$ref": "offence.json#/definitions/resource"
               },
               {
-                "$ref": "defence_organisation.json#/definitions/resource"
+                "$ref": "defence_organisation.json#/definitions/included_resource"
               },
               {
                 "$ref": "prosecution_case.json#/definitions/included_resource"

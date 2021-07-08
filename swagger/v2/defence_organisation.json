@@ -20,6 +20,11 @@
       "example": "defence_organisation",
       "type": "string"
     },
+    "included_type": {
+      "description": "Defence organisation is referred to in the plural form when displayed in the payload's included section",
+      "example": "defence_organisations",
+      "type": "string"
+    },
     "name": {
       "readOnly": true,
       "example": "The Johnson Partnership",
@@ -67,6 +72,23 @@
         },
         "type": {
           "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "included_resource": {
+      "description": "An object representing a single defence organisation when included as part of an API query",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "description": "The defence organisations type",
+          "example": "defence_organisations",
+          "type": "string"
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
