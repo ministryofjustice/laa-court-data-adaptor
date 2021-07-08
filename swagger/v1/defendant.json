@@ -7,14 +7,195 @@
   "strictProperties": true,
   "type": "object",
   "definitions": {
+    "resource": {
+      "description": "An object representing a single defendant",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        },
+        "relationships": {
+          "$ref": "#/definitions/relationships"
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "offences": {
+          "$ref": "#/definitions/offence_relationship"
+        },
+        "defence_organisation": {
+          "$ref": "#/definitions/defence_organisation_relationship"
+        },
+        "prosecution_case": {
+          "$ref": "#/definitions/prosecution_case_relationship"
+        }
+      }
+    },
+    "offence_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/offence"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "offence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "offence.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "offence.json#/definitions/type"
+        }
+      }
+    },
+    "defence_organisation_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/defence_organisation"
+        }
+      }
+    },
+    "defence_organisation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "defence_organisation.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "defence_organisation.json#/definitions/type"
+        }
+      }
+    },
+    "prosecution_case_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+            "$ref": "#/definitions/prosecution_case"
+        }
+      }
+    },
+    "prosecution_case": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "prosecution_case.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "prosecution_case.json#/definitions/type"
+        }
+      }
+    },
+    "prosecution_case_hearing_summary_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/hearing_summary"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "prosecution_case_hearing_summary": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "hearing_summary.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "hearing_summary.json#/definitions/type"
+        }
+      }
+    },
+    "resource_collection": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/resource"
+          },
+          "type": "array"
+        },
+        "included": {
+          "items": {
+            "anyOf":[
+              {
+                "$ref": "offence.json#/definitions/resource"
+              },
+              {
+                "$ref": "defence_organisation.json#/definitions/included_resource"
+              },
+              {
+                "$ref": "prosecution_case.json#/definitions/included_resource"
+              },
+              {
+                "$ref": "hearing_summary.json#/definitions/resource"
+              }
+            ]
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "example_included_query_parameters": {
+      "description": "An example of parameters that can be included in the query",
+      "type": "string",
+      "example": "offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "date_of_birth": {
+          "$ref": "#/definitions/date_of_birth"
+        },
+        "national_insurance_number": {
+          "$ref": "#/definitions/nino"
+        },
+        "arrest_summons_number": {
+          "$ref": "prosecution_case.json#/definitions/arrest_summons_number"
+        },
+        "maat_reference": {
+          "$ref": "#/definitions/maat_reference"
+        },
+        "representation_order_date": {
+          "$ref": "#/definitions/representation_order_date"
+        },
+        "prosecution_case_id": {
+          "$ref": "#/definitions/prosecution_case_id"
+        },
+        "post_hearing_custody_statuses": {
+          "$ref": "#/definitions/post_hearing_custody_statuses"
+        }
+      }
+    },
     "id": {
-      "description": "unique identifier of defendant",
-      "example": "61b1f98c-f58e-46ab-bde8-f09ad92df927",
+      "description": "The unique identifier of defendant",
+      "example": "410fd8f7-58f0-4a15-986f-5a9ff3c37470",
       "format": "uuid",
       "type": "string"
     },
     "type": {
-      "description": "The defendants type",
+      "description": "The type of defendant",
       "enum": [
         "defendants"
       ],
@@ -86,167 +267,6 @@
       "example": ["R"],
       "description": "The unique identifier for the prosecution case",
       "type": "uuid"
-    },
-    "user_name": {
-      "example": "example-username",
-      "description": "The user_name of the caseworker linking or unlinking the case",
-      "type": "string"
-    },
-    "unlink_reason_code": {
-      "example": 1,
-      "description": "Id of the reason for unlinking the case",
-      "type": "number",
-      "minimum": 1,
-      "maximum": 7
-    },
-    "unlink_other_reason_text": {
-      "example": "Linked to incorrect case",
-      "description": "Text describing a reason for unlinking the case when code is 7/other",
-      "type": "string"
-    },
-    "resource": {
-      "description": "object representing a single defendant",
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "type": {
-          "$ref": "#/definitions/type"
-        },
-        "attributes": {
-          "$ref": "#/definitions/attributes"
-        },
-        "relationships": {
-          "$ref": "#/definitions/relationships"
-        }
-      }
-    },
-    "attributes": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "$ref": "#/definitions/name"
-        },
-        "date_of_birth": {
-          "$ref": "#/definitions/date_of_birth"
-        },
-        "national_insurance_number": {
-          "$ref": "#/definitions/nino"
-        },
-        "arrest_summons_number": {
-          "$ref": "prosecution_case.json#/definitions/arrest_summons_number"
-        },
-        "maat_reference": {
-          "$ref": "#/definitions/maat_reference"
-        },
-        "representation_order_date": {
-          "$ref": "#/definitions/representation_order_date"
-        },
-        "prosecution_case_id": {
-          "$ref": "#/definitions/prosecution_case_id"
-        },
-        "post_hearing_custody_statuses": {
-          "$ref": "#/definitions/post_hearing_custody_statuses"
-        }
-      }
-    },
-    "resource_to_unlink": {
-      "description": "object representing a single laa_reference to be unlinked",
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/type"
-        },
-        "attributes": {
-          "type": "object",
-          "properties": {
-            "user_name": {
-              "$ref": "#/definitions/user_name"
-            },
-            "unlink_reason_code": {
-              "$ref": "#/definitions/unlink_reason_code"
-            },
-            "unlink_other_reason_text": {
-              "$ref": "#/definitions/unlink_other_reason_text"
-            }
-          }
-        }
-      }
-    },
-    "relationships": {
-      "type": "object",
-      "properties": {
-        "offences": {
-          "$ref": "#/definitions/offence_relationship"
-        },
-        "defence_organisation": {
-          "$ref": "#/definitions/defence_organisation_relationship"
-        },
-        "prosecution_case": {
-          "$ref": "#/definitions/prosecution_case_relationship"
-        }
-      }
-    },
-    "offence_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/offence"
-          },
-          "type": "array"
-        }
-      }
-    },
-    "offence": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "offence.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "offence.json#/definitions/type"
-        }
-      }
-    },
-    "defence_organisation_relationship": {
-      "type": "object",
-      "properties": {
-          "data": {
-            "$ref": "#definitions/defence_organisation"
-         }
-      }
-    },
-    "defence_organisation": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "defence_organisation.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "defence_organisation.json#/definitions/type"
-        }
-      }
-    },
-    "prosecution_case_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-            "$ref": "#definitions/prosecution_case"
-        }
-      }
-    },
-    "prosecution_case": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "prosecution_case.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "prosecution_case.json#/definitions/type"
-        }
-      }
     }
   },
   "links": [
@@ -259,43 +279,11 @@
       "targetSchema": {
         "$ref": "#/definitions/resource"
       }
-    },
-    {
-      "description": "Unlink a defendant's LaaReference.",
-      "href": "/defendants/{(%23%2Fdefinitions%2Fidentity)}",
-      "method": "PATCH",
-      "rel": "empty",
-      "title": "Patch",
-      "schema": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/definitions/resource_to_unlink"
-          }
-        }
-      },
-      "http_header": {
-        "Content-Type": "application/vnd.api+json",
-        "Authorization": "Bearer <TOKEN>"
-      }
-
     }
   ],
   "properties": {
-    "name": {
-      "$ref": "#/definitions/name"
-    },
-    "date_of_birth": {
-      "$ref": "#/definitions/date_of_birth"
-    },
-    "national_insurance_number": {
-      "$ref": "#/definitions/nino"
-    },
-    "maat_reference": {
-      "$ref": "#/definitions/maat_reference"
-    },
-    "arrest_summons_number": {
-      "$ref": "prosecution_case.json#/definitions/arrest_summons_number"
+    "data": {
+      "$ref": "#/definitions/resource"
     }
   }
 }

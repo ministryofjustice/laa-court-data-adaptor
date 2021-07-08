@@ -25,6 +25,26 @@
         }
       }
     },
+    "included_resource": {
+      "description": "An object representing a single prosecution case when included as part of an API query",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "description": "The prosecution cases type",
+          "example": "prosecution_cases",
+          "type": "string"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        },
+        "relationships": {
+          "$ref": "#/definitions/relationships"
+        }
+      }
+    },
     "relationships": {
       "type": "object",
       "properties": {
@@ -181,11 +201,12 @@
     },
     "type": {
       "description": "The prosecution cases type",
-      "enum": [
-        "prosecution_cases"
-      ],
-      "example": "prosecution_cases",
+      "example": "prosecution_case",
       "type": "string"
+    },
+    "included_type": {
+     "description": "Prosecution case is referred to in the plural form when displayed in the payload's included section",
+     "example": "prosecution_cases"
     },
     "arrest_summons_number": {
       "readOnly": true,
