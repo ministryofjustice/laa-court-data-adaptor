@@ -8,7 +8,7 @@
   "type": "object",
   "definitions": {
     "id": {
-      "description": "unique identifier of hearing_summary",
+      "description": "The unique identifier of the hearing summary",
       "example": "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4",
       "format": "uuid",
       "type": "string"
@@ -43,7 +43,7 @@
       "type": "string"
     },
     "resource": {
-      "description": "object representing a single hearing_summary",
+      "description": "An object representing a single hearing_summary",
       "type": "object",
       "properties": {
         "id": {
@@ -54,6 +54,42 @@
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "offences": {
+          "$ref": "#/definitions/offence_relationship"
+        },
+        "defence_organisation": {
+          "$ref": "#/definitions/defence_organisation_relationship"
+        },
+        "prosecution_case": {
+          "$ref": "#/definitions/prosecution_case_relationship"
+        }
+      }
+    },
+    "offence_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/offence"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "offence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "offence.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "offence.json#/definitions/type"
         }
       }
     },

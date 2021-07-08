@@ -8,7 +8,7 @@
   "type": "object",
   "definitions": {
     "resource": {
-      "description": "object representing a single prosecution case",
+      "description": "An object representing a single prosecution case",
       "type": "object",
       "properties": {
         "id": {
@@ -16,6 +16,26 @@
         },
         "type": {
           "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        },
+        "relationships": {
+          "$ref": "#/definitions/relationships"
+        }
+      }
+    },
+    "included_resource": {
+      "description": "An object representing a single prosecution case when included as part of an API query",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "description": "The prosecution cases type",
+          "example": "prosecution_cases",
+          "type": "string"
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
@@ -80,12 +100,12 @@
         }
       }
     },
-    "hearing_summary_relationship": {
+    "defendant_offence_relationship": {
       "type": "object",
       "properties": {
         "data": {
           "items": {
-            "$ref": "#/definitions/hearing_summary"
+            "$ref": "#/definitions/offence"
           },
           "type": "array"
         }
@@ -99,17 +119,6 @@
         },
         "type": {
           "$ref": "offence.json#/definitions/type"
-        }
-      }
-    },
-    "defendant_offence_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/offence"
-          },
-          "type": "array"
         }
       }
     },
@@ -144,7 +153,7 @@
       ]
     },
     "example_included_query_parameters": {
-      "description": "an example of parameters that can be included in the query",
+      "description": "An example of parameters that can be included in the query",
       "type": "string",
       "example": "hearing_summaries,defendants,defendants.offences"
     },
@@ -157,7 +166,7 @@
       }
     },
     "id": {
-      "description": "Unique identifier of prosecution case provided by HMCTS (prosecutionCaseId)",
+      "description": "The unique identifier of prosecution case provided by HMCTS (prosecutionCaseId)",
       "readOnly": true,
       "format": "uuid",
       "type": "string",
@@ -165,11 +174,12 @@
     },
     "type": {
       "description": "The prosecution cases type",
-      "enum": [
-        "prosecution_cases"
-      ],
-      "example": "prosecution_cases",
+      "example": "prosecution_case",
       "type": "string"
+    },
+    "included_type": {
+      "description": "Prosecution case is referred to in the plural form when displayed in the payload's included section ",
+      "example": "prosecution_cases"
     },
     "arrest_summons_number": {
       "readOnly": true,
@@ -205,11 +215,11 @@
     "prosecution_case_reference": {
       "readOnly": true,
       "example": "TFL12345",
-      "description": "The prosecuting authorities reference for their prosecution case that is layed before court.  For example PTI-URN from police/cps cases",
+      "description": "The prosecuting authorities' reference for their prosecution case that is layed before court.  For example PTI-URN from police/cps cases",
       "type": "string"
     },
     "prosecution_case_search": {
-      "description": "Search query parameters",
+      "description": "The search query parameters",
       "type": "object",
       "anyOf": [
         {

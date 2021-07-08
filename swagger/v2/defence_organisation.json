@@ -15,9 +15,9 @@
     "type": {
       "description": "The defence_organisations type",
       "enum": [
-        "defence_organisations"
+        "defence_organisation"
       ],
-      "example": "defence_organisations",
+      "example": "defence_organisation",
       "type": "string"
     },
     "name": {
@@ -27,26 +27,32 @@
     },
     "address1": {
       "readOnly": true,
+      "example": "104",
       "type": "string"
     },
     "address2": {
       "readOnly": true,
+      "example": "Road Street",
       "type": "string"
     },
     "address3": {
       "readOnly": true,
+      "example": "Westminster",
       "type": "string"
     },
     "address4": {
       "readOnly": true,
+      "example": "London",
       "type": "string"
     },
     "address5": {
       "readOnly": true,
+      "example": "UK",
       "type": "string"
     },
     "postcode": {
       "readOnly": true,
+      "example": "SW1 1AB",
       "type": "string"
     },
     "identity": {
@@ -56,11 +62,11 @@
       "description": "object representing a single defence_organisation",
       "type": "object",
       "properties": {
-        "type": {
-          "$ref": "#/definitions/type"
-        },
         "id": {
           "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
