@@ -38,13 +38,13 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
       response(202, "Accepted") do
         parameter name: :id, in: :path, required: true, type: :uuid,
                   schema: {
-                    '$ref': "defendant.json#/definitions/id",
+                    "$ref": "defendant.json#/definitions/id",
                   },
                   description: "The unique identifier of the defendant"
 
         parameter name: :defendant, in: :body, required: true, type: :object,
                   schema: {
-                    '$ref': "defendant.json#/definitions/resource_to_unlink",
+                    "$ref": "defendant.json#/definitions/resource_to_unlink",
                   },
                   description: "Object containing the user_name, unlink_reason_code and unlink_other_reason_text"
 
@@ -96,13 +96,16 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
 
       parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
-                  '$ref': "defendant.json#/definitions/id",
+                  "$ref": "defendant.json#/definitions/id",
                 },
                 description: "The uuid of the defendant"
 
       parameter name: "include", in: :query, required: false, type: :string,
                 schema: {},
-                description: "Return other data through a has_many relationship </br>e.g. include=offences"
+                description: "Include top-level and nested associations for a defendant.
+                              All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+                              For example to include offences, defence organisation as well as prosecution case and its associated hearing summaries:
+                              include=offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries"
 
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 

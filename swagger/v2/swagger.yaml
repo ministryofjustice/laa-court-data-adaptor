@@ -82,13 +82,22 @@ paths:
         in: query
         required: false
         type: string
-        schema: {}
-        description: Return other data through a has_many relationship </br>e.g. include=offences
+        schema:
+          "$ref": prosecution_case.json#/definitions/example_included_query_parameters
+        description: |-
+          Include top-level and nested associations for a defendant.
+          All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+          For example to include offences, defence organisation as well as prosecution case and its associated hearing summaries:
+          include=offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        '200':
+        "200":
           description: Success
-        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": defendant.json#/definitions/resource_collection
+        "404":
           description: Not found
   "/api/internal/v2/hearings/{id}":
     get:
