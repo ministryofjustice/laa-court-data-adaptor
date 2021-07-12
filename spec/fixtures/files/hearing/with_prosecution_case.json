@@ -7,7 +7,8 @@
         "id": "bc4864ca-4b22-3449-9716-a8db1db89905",
         "name": "Warrington CCU (Decom)",
         "roomId": "bc4864ca-4b22-3449-9716-a8db1db89905",
-        "roomName": "Warrington CCU (Decom)"
+        "roomName": "Warrington CCU (Decom)",
+        "code": "A07AF00"
       },
       "hearingLanguage": "WELSH",
       "hasSharedResults": false,
@@ -115,7 +116,11 @@
                       "postHearingCustodyStatus": "B",
                       "nextHearing": {
                         "courtCentre": {
-                          "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
+                          "id": "bab6ad2d-e25c-367c-9b4f-4a4d6b1d1edb",
+                          "name": "North Staffordshire Justice Centre",
+                          "roomId": "4e1b2465-6694-3cae-9887-1c1fc61c9668",
+                          "roomName": "Courtroom 03",
+                          "code": "B21JI00"
                         },
                         "listedStartDateTime": "2019-10-23T16:19:15.000Z"
                       }

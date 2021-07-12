@@ -456,7 +456,8 @@
             "lifeDuration": false,
             "nextHearing": {
               "courtCentre": {
-                "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
+                "id": "f8254db1-1683-483e-afb3-b87fde5a0a26",
+                "code": "B01LY00"
               },
               "listedStartDateTime": "2020-03-01"
             },
