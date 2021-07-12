@@ -8,15 +8,12 @@
   "type": "object",
   "definitions": {
     "id": {
-      "description": "unique identifier of defence_organisation known internally as laa_contract_number",
+      "description": "The unique identifier of the defence organisation known internally as laa contract number",
       "type": "string",
       "example": "d1edc824-1668-4efa-870d-70d4a4cdccf4"
     },
     "type": {
-      "description": "The defence_organisations type",
-      "enum": [
-        "defence_organisations"
-      ],
+      "description": "The defence organisation's type",
       "example": "defence_organisation",
       "type": "string"
     },
@@ -26,34 +23,40 @@
       "type": "string"
     },
     "address1": {
-      "readOnly": true,
-      "type": "string"
+    "readOnly": true,
+    "example": "104",
+    "type": "string"
     },
     "address2": {
       "readOnly": true,
+      "example": "Road Street",
       "type": "string"
     },
     "address3": {
       "readOnly": true,
+      "example": "Westminster",
       "type": "string"
     },
     "address4": {
       "readOnly": true,
+      "example": "London",
       "type": "string"
     },
     "address5": {
       "readOnly": true,
+      "example": "UK",
       "type": "string"
     },
     "postcode": {
       "readOnly": true,
+      "example": "SW1 1AB",
       "type": "string"
     },
     "identity": {
       "$ref": "defence_organisation.json#/definitions/id"
     },
     "resource": {
-      "description": "object representing a single defence_organisation",
+      "description": "An object representing a single defence organisation",
       "type": "object",
       "properties": {
         "type": {
@@ -67,6 +70,23 @@
         }
       }
     },
+    "included_resource": {
+     "description": "An object representing a single defence organisation when included as part of an API query",
+     "type": "object",
+     "properties": {
+       "id": {
+         "$ref": "#/definitions/id"
+       },
+       "type": {
+         "description": "The defence organisations' type",
+         "example": "defence_organisations",
+         "type": "string"
+       },
+       "attributes": {
+         "$ref": "#/definitions/attributes"
+       }
+     }
+   },
     "attributes": {
       "type": "object",
       "properties": {
