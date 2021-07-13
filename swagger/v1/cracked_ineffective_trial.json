@@ -19,8 +19,13 @@
       "type": "string"
     },
     "type": {
-      "description": "The cracked_ineffective_trial type",
+      "description": "The cracked ineffective trial type",
       "example": "cracked_ineffective_trial",
+      "type": "string"
+    },
+    "attributes_type": {
+      "description": "The cracked ineffective trial type when called as an attribute",
+      "example": "cracked",
       "type": "string"
     },
     "description": {
@@ -53,7 +58,7 @@
           "$ref": "#/definitions/code"
         },
         "type": {
-          "$ref": "#/definitions/type"
+          "$ref": "#/definitions/attributes_type"
         },
         "description": {
           "$ref": "#/definitions/description"

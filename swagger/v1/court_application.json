@@ -41,12 +41,6 @@
     "attributes": {
       "type": "object",
       "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "type": {
-          "$ref": "#/definitions/type"
-        },
         "received_date": {
           "$ref": "#/definitions/received_date"
         }
