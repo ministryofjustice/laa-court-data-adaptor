@@ -127,6 +127,10 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": hearing.json#/definitions/resource_collection
         '401':
           description: Unauthorized
   "/api/internal/v1/laa_references":
