@@ -196,6 +196,9 @@
                 "$ref": "provider.json#/definitions/resource"
               },
               {
+                "$ref": "judicial_result.json#/definitions/resource"
+              },
+              {
                 "$ref": "court_application.json#/definitions/resource"
               },
               {
