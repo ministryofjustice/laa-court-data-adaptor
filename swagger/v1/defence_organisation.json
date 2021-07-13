@@ -10,10 +10,10 @@
     "id": {
       "description": "The unique identifier of the defence organisation known internally as laa contract number",
       "type": "string",
-      "example": "d1edc824-1668-4efa-870d-70d4a4cdccf4"
+      "example": "0Q319P"
     },
     "type": {
-      "description": "The defence organisation's type",
+      "description": "The type of defence organisation",
       "example": "defence_organisation",
       "type": "string"
     },
