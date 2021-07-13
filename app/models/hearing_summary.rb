@@ -38,6 +38,6 @@ class HearingSummary
 private
 
   def court_centre
-    @court_centre ||= HmctsCommonPlatform::Reference::CourtCentre.find(body["courtCentre"]["id"])
+    HmctsCommonPlatform::CourtCentre.new(body["courtCentre"])
   end
 end

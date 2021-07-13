@@ -15,11 +15,11 @@ module MaatApi
     end
 
     def cjs_area_code
-      find_court_centre_by_id(hearing_resulted.hearing_court_centre_id).oucode_l2_code
+      hearing_resulted.hearing_court_centre.oucode_l2_code
     end
 
     def cjs_location
-      court_centre_short_ou_code
+      hearing_resulted.hearing_court_centre.short_oucode
     end
 
     def case_creation_date
@@ -71,7 +71,7 @@ module MaatApi
 
     def session
       {
-        courtLocation: court_centre_short_ou_code,
+        courtLocation: hearing_resulted.hearing_court_centre.short_oucode,
         dateOfHearing: hearing_first_sitting_day_date,
         sessionValidateDate: hearing_first_sitting_day_date,
       }
@@ -99,7 +99,7 @@ module MaatApi
           resultText: judicial_result.text,
           resultCodeQualifiers: judicial_result.qualifier,
           nextHearingDate: judicial_result.next_hearing_date&.to_date&.strftime("%Y-%m-%d"),
-          nextHearingLocation: find_court_centre_by_id(judicial_result.next_hearing_court_centre_id)&.short_oucode,
+          nextHearingLocation: judicial_result.next_hearing_court_centre.short_oucode,
         }
       end
     end
@@ -108,18 +108,8 @@ module MaatApi
       [court_application.application_particulars, court_application.type_legislation].compact.join(" - ").presence
     end
 
-    def court_centre_short_ou_code
-      find_court_centre_by_id(hearing_resulted.hearing_court_centre_id).short_oucode
-    end
-
     def hearing_first_sitting_day_date
       hearing_resulted.hearing_first_sitting_day_date&.to_date&.strftime("%Y-%m-%d")
-    end
-
-    def find_court_centre_by_id(id)
-      return if id.blank?
-
-      HmctsCommonPlatform::Reference::CourtCentre.find(id)
     end
   end
 end
