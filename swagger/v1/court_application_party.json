@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Court Application Party",
+  "description": "Court application party",
+  "id": "Court_application_party",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "The unique identifier of the court application party",
+      "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "The court application party",
+      "example": "court_application_party",
+      "type": "string"
+    },
+    "synonym": {
+      "description": "Additional explanation of an applicant or respondent e.g. appellant, complainant, appellee, suspect",
+      "example": "Appellant",
+      "type": "string"
+    },
+    "resource": {
+      "description": "An object representing a single court application party",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "synonym": {
+          "$ref": "#/definitions/synonym"
+        }
+      }
+    }
+  }
+}

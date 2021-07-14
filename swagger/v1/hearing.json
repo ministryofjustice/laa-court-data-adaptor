@@ -155,25 +155,25 @@
         }
       }
     },
-    "defendant_offence": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "offence.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "offence.json#/definitions/type"
-        }
-      }
-    },
-    "defendant_offence_relationship": {
+    "court_application_judicial_result_relationship": {
       "type": "object",
       "properties": {
         "data": {
           "items": {
-            "$ref": "#/definitions/defendant_offence"
+            "$ref": "#/definitions/court_application_judicial_result"
           },
           "type": "array"
+        }
+      }
+    },
+    "court_application_judicial_result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "judicial_result.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "judicial_result.json#/definitions/type"
         }
       }
     },
@@ -281,12 +281,12 @@
         },
         "listingSequence": {
           "description": "Sequence number for the hearing",
-          "example": 1,
+          "example": "1",
           "type": "number"
         },
         "listedDurationMinutes": {
           "description": "Duration of the hearing in minutes",
-          "example": 120,
+          "example": "120",
           "type": "number"
         }
       }
