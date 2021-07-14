@@ -18,13 +18,13 @@ paths:
       - oAuth: []
       parameters: []
       responses:
-        '202':
+        "202":
           description: Accepted
-        '422':
+        "422":
           description: Unprocessable Entity
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
       requestBody:
         content:
@@ -51,11 +51,11 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        '202':
+        "202":
           description: Accepted
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
       requestBody:
         content:
@@ -134,7 +134,7 @@ paths:
             application/vnd.api+json:
               schema:
                 "$ref": hearing.json#/definitions/resource_collection
-        '401':
+        "401":
           description: Unauthorized
   "/api/internal/v1/laa_references":
     post:
@@ -152,11 +152,11 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        '202':
+        "202":
           description: Accepted
-        '422':
+        "422":
           description: Unprocessable entity
-        '401':
+        "401":
           description: Unauthorized
       requestBody:
         content:
@@ -245,13 +245,13 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/vnd.api+json:
               schema:
                 "$ref": prosecution_case.json#/definitions/resource_collection
-        '401':
+        "401":
           description: Unauthorized
   "/api/internal/v1/representation_orders":
     post:
@@ -267,11 +267,11 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        '202':
+        "202":
           description: Accepted
-        '422':
+        "422":
           description: Unprocessable entity
-        '401':
+        "401":
           description: Unauthorized
       requestBody:
         content:

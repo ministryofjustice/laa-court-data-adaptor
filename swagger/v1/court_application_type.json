@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Court Application Type",
   "description": "Court application type",
-  "id": "Court_application_type",
+  "id": "court_application_type",
   "stability": "prototype",
   "strictProperties": true,
   "type": "object",
@@ -39,7 +39,7 @@
       "type": "string"
     },
     "applicant_appellant_flag": {
-      "description": "The flag indicated whether the applicant is an appellant",
+      "description": "The flag indicating whether the applicant is an appellant",
       "example": "false",
       "type": "string"
     },

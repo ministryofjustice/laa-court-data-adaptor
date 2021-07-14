@@ -29,7 +29,7 @@
       "type": "string"
     },
     "resource": {
-      "description": "An object representing a single hearing_event",
+      "description": "An object representing a single provider",
       "type": "object",
       "properties": {
         "id": {

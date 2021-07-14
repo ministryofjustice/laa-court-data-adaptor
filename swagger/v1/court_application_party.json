@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Court Application Party",
   "description": "Court application party",
-  "id": "Court_application_party",
+  "id": "court_application_party",
   "stability": "prototype",
   "strictProperties": true,
   "type": "object",
