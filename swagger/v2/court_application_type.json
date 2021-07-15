@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Court Application Type",
+  "description": "Court application type",
+  "id": "court_application_type",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "The unique identifier of the court application type",
+      "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "The court application type",
+      "example": "court_application_type",
+      "type": "string"
+    },
+    "description": {
+      "description": "The description of the court application type",
+      "example": "Application for transfer of legal aid",
+      "type": "string"
+    },
+    "code": {
+      "description": "The code of the application type",
+      "example": "LA12505",
+      "type": "string"
+    },
+    "category_code": {
+      "description": "The category code of the application type",
+      "example": "CO",
+      "type": "string"
+    },
+    "legislation": {
+      "description": "The legislation related to the application type",
+      "example": "Pursuant to Regulation 14 of the Criminal Legal Aid",
+      "type": "string"
+    },
+    "applicant_appellant_flag": {
+      "description": "The flag indicating whether the applicant is an appellant",
+      "example": "false",
+      "type": "string"
+    },
+    "resource": {
+      "description": "An object representing a single court application",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "description": {
+          "$ref": "#/definitions/description"
+        },
+        "code": {
+          "$ref": "#/definitions/code"
+        },
+        "category_code": {
+          "$ref": "#/definitions/category_code"
+        },
+        "legislation": {
+          "$ref": "#/definitions/legislation"
+        },
+        "applicant_appellant_flag": {
+          "$ref": "#/definitions/applicant_appellant_flag"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Court Application",
+  "description": "Court application",
+  "id": "court_application",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "resource": {
+      "description": "An object representing a single court application",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        },
+        "relationships": {
+          "$ref": "#/definitions/relationships"
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type_relationship"
+        },
+        "respondents": {
+          "$ref": "#/definitions/respondent_relationship"
+        },
+        "judicial_results": {
+          "$ref": "#/definitions/judicial_result_relationship"
+        }
+      }
+    },
+    "type_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/court_application_type"
+        }
+      }
+    },
+    "court_application_type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "court_application_type.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "court_application_type.json#/definitions/type"
+        }
+      }
+    },
+    "respondent_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/court_application_party"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "court_application_party": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "court_application_party.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "court_application_party.json#/definitions/type"
+        }
+      }
+    },
+    "judicial_result_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/judicial_result"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "judicial_result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "judicial_result.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "judicial_result.json#/definitions/type"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "received_date": {
+          "$ref": "#/definitions/received_date"
+        }
+      }
+    },
+    "id": {
+      "description": "The unique identifier of the court application",
+      "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "The court application type",
+      "example": "court_application",
+      "type": "string"
+    },
+    "received_date": {
+      "description": "The date of receipt",
+      "example": "2021-03-09",
+      "type": "string"
+    }
+  }
+}
