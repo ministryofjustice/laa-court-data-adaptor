@@ -196,6 +196,11 @@
         "data"
       ]
     },
+    "example_included_query_parameters": {
+      "description": "An example of parameters that can be included in the query",
+      "type": "string",
+      "example": "providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results"
+    },
     "attributes": {
       "type": "object",
       "properties": {
