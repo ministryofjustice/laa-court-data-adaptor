@@ -23,8 +23,13 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
                 description: "The uuid of the hearing"
 
       parameter name: "include", in: :query, required: false, type: :string,
-                schema: {},
-                description: "Return other data through a has_many or has_one relationship </br>e.g. include=providers,court_applications.respondents"
+                schema: {
+                  "$ref": "hearing.json#/definitions/example_included_query_parameters",
+                },
+                description: "Include top-level and nested associations for a hearing.
+                              All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+                              For example to include hearing events, providers, cracked ineffective trial as well as court applications and associated judicial results:
+                              include=hearing_events,providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results"
 
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 

@@ -14,11 +14,8 @@
       "type": "string"
     },
     "type": {
-      "description": "The hearing_event type",
-      "enum": [
-        "hearing_events"
-      ],
-      "example": "hearing_events",
+      "description": "The hearing event type",
+      "example": "hearing_event",
       "type": "string"
     },
     "description": {

@@ -8,15 +8,12 @@
   "type": "object",
   "definitions": {
     "id": {
-      "description": "unique identifier of defence_organisation known internally as laa_contract_number",
+      "description": "The unique identifier of the defence organisation known internally as laa contract number",
       "type": "string",
       "example": "0Q319P"
     },
     "type": {
-      "description": "The defence_organisations type",
-      "enum": [
-        "defence_organisation"
-      ],
+      "description": "The type of defence organisation",
       "example": "defence_organisation",
       "type": "string"
     },
