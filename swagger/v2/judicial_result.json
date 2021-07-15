@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Judicial Result",
+  "description": "Judicial result",
+  "id": "judicial_result",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "The unique identifier of the judicial result",
+      "example": "fcc1a759-88d2-4260-8b3e-92c2749ecbb1",
+      "format": "uuid",
+      "type": "string"
+    },
+    "cjs_code": {
+      "description": "The code of the judicial result",
+      "example": "2507",
+      "type": "string"
+    },
+    "type": {
+      "description": "The judicial result type",
+      "example": "judicial_result",
+      "type": "string"
+    },
+    "text": {
+      "description": "Text of the judicial result",
+      "example": "NOT GUILTY",
+      "type": "string"
+    },
+    "resource": {
+      "description": "An object representing a single judicial result",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "cjs_code": {
+          "$ref": "#/definitions/cjs_code"
+        },
+        "text": {
+          "$ref": "#/definitions/text"
+        }
+      }
+    }
+  }
+}
