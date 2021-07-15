@@ -110,7 +110,7 @@ module MaatApi
           resultText: judicial_result.text,
           resultCodeQualifiers: judicial_result.qualifier,
           nextHearingDate: judicial_result.next_hearing_date&.to_date&.strftime("%Y-%m-%d"),
-          nextHearingLocation: judicial_result.next_hearing_court_centre.short_oucode,
+          nextHearingLocation: judicial_result.next_hearing_court_centre&.short_oucode,
           laaOfficeAccount: offence.laa_reference_laa_contract_number,
           legalAidWithdrawalDate: offence.laa_reference_effective_end_date,
         }
