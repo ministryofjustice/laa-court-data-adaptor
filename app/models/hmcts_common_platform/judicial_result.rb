@@ -37,7 +37,7 @@ module HmctsCommonPlatform
     end
 
     def next_hearing_court_centre
-      HmctsCommonPlatform::CourtCentre.new(data.dig(:nextHearing, :courtCentre))
+      HmctsCommonPlatform::CourtCentre.new(data.dig(:nextHearing, :courtCentre)) if data[:nextHearing]
     end
 
     def next_hearing_date
