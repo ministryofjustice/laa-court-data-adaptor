@@ -286,12 +286,12 @@
         },
         "listingSequence": {
           "description": "Sequence number for the hearing",
-          "example": "1",
+          "example": 1,
           "type": "number"
         },
         "listedDurationMinutes": {
           "description": "Duration of the hearing in minutes",
-          "example": "120",
+          "example": 120,
           "type": "number"
         }
       }
