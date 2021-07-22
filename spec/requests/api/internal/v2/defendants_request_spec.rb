@@ -101,7 +101,9 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
                 description: "The uuid of the defendant"
 
       parameter name: "include", in: :query, required: false, type: :string,
-                schema: {},
+                schema: {
+                  "$ref": "defendants.json#/definitions/example_included_query_parameters",
+                },
                 description: "Include top-level and nested associations for a defendant.
                               All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
                               For example to include offences, defence organisation as well as prosecution case and its associated hearing summaries:
