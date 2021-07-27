@@ -1,35 +1,30 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Provider",
-  "description": "Provider",
-  "id": "provider",
+  "title": "Court Application Party",
+  "description": "Court application party",
+  "id": "court_application_party",
   "stability": "prototype",
   "strictProperties": true,
   "type": "object",
   "definitions": {
     "id": {
-      "description": "The unique identifier of the provider",
+      "description": "The unique identifier of the court application party",
       "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
       "format": "uuid",
       "type": "string"
     },
     "type": {
-      "description": "The provider",
-      "example": "provider",
+      "description": "The court application party",
+      "example": "court_application_party",
       "type": "string"
     },
-    "name": {
-      "description": "The name of the provider",
-      "example": "Neil Griffiths",
-      "type": "string"
-    },
-    "role": {
-      "description": "The role of the provider",
-      "example": "Junior counsel",
+    "synonym": {
+      "description": "Additional explanation of an applicant or respondent e.g. appellant, complainant, appellee, suspect",
+      "example": "Appellant",
       "type": "string"
     },
     "resource": {
-      "description": "An object representing a single provider",
+      "description": "An object representing a single court application party",
       "type": "object",
       "properties": {
         "id": {
@@ -46,11 +41,8 @@
     "attributes": {
       "type": "object",
       "properties": {
-        "name": {
-          "$ref": "#/definitions/name"
-        },
-        "role": {
-          "$ref": "#/definitions/role"
+        "synonym": {
+          "$ref": "#/definitions/synonym"
         }
       }
     }

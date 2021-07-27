@@ -8,28 +8,33 @@
   "type": "object",
   "definitions": {
     "id": {
-      "description": "The unique identifier of cracked_ineffective_trial",
+      "description": "The unique identifier of the cracked ineffective trial",
       "example": "fcc1a759-88d2-4260-8b3e-92c2749ecbb1",
       "format": "uuid",
       "type": "string"
     },
     "code": {
-      "description": "The code of cracked_ineffective_trial type",
+      "description": "The code of the cracked ineffective trial type",
       "example": "A",
       "type": "string"
     },
     "type": {
-      "description": "The cracked_ineffective_trial type",
+      "description": "The cracked ineffective trial type",
       "example": "cracked_ineffective_trial",
       "type": "string"
     },
+    "attributes_type": {
+      "description": "The cracked ineffective trial type when called as an attribute",
+      "example": "cracked",
+      "type": "string"
+    },
     "description": {
-      "description": "The description of cracked ineffective trial",
+      "description": "The description of the cracked ineffective trial",
       "example": "On the date of trial the defendant, for the first time, enters a guilty plea which the prosecution accepts.",
       "type": "string"
     },
     "resource": {
-      "description": "An object representing a single hearing_event",
+      "description": "An object representing a single cracked ineffective trial",
       "type": "object",
       "properties": {
         "id": {
@@ -53,7 +58,7 @@
           "$ref": "#/definitions/code"
         },
         "type": {
-          "$ref": "#/definitions/type"
+          "$ref": "#/definitions/attributes_type"
         },
         "description": {
           "$ref": "#/definitions/description"

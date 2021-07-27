@@ -155,25 +155,25 @@
         }
       }
     },
-    "defendant_offence": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "offence.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "offence.json#/definitions/type"
-        }
-      }
-    },
-    "defendant_offence_relationship": {
+    "court_application_judicial_result_relationship": {
       "type": "object",
       "properties": {
         "data": {
           "items": {
-            "$ref": "#/definitions/defendant_offence"
+            "$ref": "#/definitions/court_application_judicial_result"
           },
           "type": "array"
+        }
+      }
+    },
+    "court_application_judicial_result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "judicial_result.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "judicial_result.json#/definitions/type"
         }
       }
     },
@@ -196,6 +196,9 @@
                 "$ref": "provider.json#/definitions/resource"
               },
               {
+                "$ref": "judicial_result.json#/definitions/resource"
+              },
+              {
                 "$ref": "court_application.json#/definitions/resource"
               },
               {
@@ -209,6 +212,11 @@
       "required": [
         "data"
       ]
+    },
+    "example_included_query_parameters": {
+      "description": "An example of parameters that can be included in the query",
+      "type": "string",
+      "example": "hearing_events,providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results"
     },
     "attributes": {
       "type": "object",
