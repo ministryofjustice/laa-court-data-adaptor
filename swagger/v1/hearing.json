@@ -269,8 +269,23 @@
       "properties": {
         "id": {
           "description": "Unique id of the court",
+          "example": "54534e9b-59cc-44a3-8b61-c9dcfe1c4e83",
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "resulted_type": {
+      "properties": {
+        "id": {
+          "description": "Unique id of the type",
           "example": "dd9bf969-f55e-43f1-a08a-7b475a9aa914",
           "format": "uuid",
+          "type": "string"
+        },
+        "description": {
+          "description": "Hearing type",
+          "example": "First hearing",
           "type": "string"
         }
       }
