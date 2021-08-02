@@ -42,6 +42,7 @@ module LaaCourtDataAdaptor
     config.x.aws.sqs_url_link = ENV["AWS_LINK_QUEUE_URL"]
     config.x.aws.sqs_url_unlink = ENV["AWS_UNLINK_QUEUE_URL"]
     config.x.aws.sqs_url_hearing_resulted = ENV["AWS_HEARING_RESULTED_QUEUE_URL"]
+    config.x.aws.sqs_url_prosecution_concluded = ENV["AWS_PROSECUTION_CONCLUDED_QUEUE_URL"]
     config.x.maat_api.oauth_url = ENV["MAAT_API_OAUTH_URL"]
     config.x.maat_api.client_id = ENV["MAAT_API_CLIENT_ID"]
     config.x.maat_api.client_secret = ENV["MAAT_API_CLIENT_SECRET"]

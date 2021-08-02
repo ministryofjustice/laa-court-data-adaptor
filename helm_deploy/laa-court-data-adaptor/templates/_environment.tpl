@@ -48,6 +48,11 @@ env:
       secretKeyRef:
         name: cda-messaging-queues-output
         key: sqs_url_hearing_resulted
+  - name: AWS_PROSECUTION_CONCLUDED_QUEUE_URL
+    valueFrom:
+      secretKeyRef:
+        name: cda-messaging-queues-output
+        key: sqs_url_prosecution_concluded
   - name: AWS_ACCESS_KEY_ID
     valueFrom:
       secretKeyRef:
