@@ -25,8 +25,11 @@
     },
     "user_name": {
       "example": "example-username",
-      "description": "The user_name of the caseworker linking or unlinking the case",
+      "description": "The user name of the caseworker linking or unlinking the case",
       "type": "string"
+    },
+    "defendant_id": {
+      "example": "b98ba5e8-8b8c-443e-b728-c72d179b70fd"
     },
     "maat_reference": {
       "example": 314159265,
@@ -39,24 +42,24 @@
       "$ref": "#/definitions/id"
     },
     "new_resource": {
-      "description": "object representing a single laa_reference",
+      "description": "The object representing a single LAA reference",
+      "type": "object",
+      "properties": {
+        "data": { 
+          "$ref": "#/definitions/laa_reference"
+        }
+      }
+    },
+    "laa_reference":{
       "type": "object",
       "properties": {
         "type": {
           "$ref": "#/definitions/type"
         },
         "attributes": {
-          "$ref": "#/definitions/attributes"
-        },
-        "relationships": {
-          "$ref": "#/definitions/relationships"
-        }
+           "$ref": "#/definitions/attributes"
+         }
       }
-    },
-    "user_name": {
-      "example": "example-username",
-      "description": "The user_name of the caseworker linking or unlinking the case",
-      "type": "string"
     },
     "unlink_reason_code": {
       "example": 1,
@@ -96,11 +99,14 @@
     "attributes": {
       "type": "object",
       "properties": {
-        "maat_reference": {
-          "$ref": "#/definitions/maat_reference"
+        "defendant_id": {
+          "$ref": "#/definitions/defendant_id"
         },
         "user_name": {
           "$ref": "#/definitions/user_name"
+        },
+          "maat_reference": {
+            "$ref": "#/definitions/maat_reference"
         }
       }
     },
