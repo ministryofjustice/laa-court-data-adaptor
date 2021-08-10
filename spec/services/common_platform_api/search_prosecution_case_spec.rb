@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::SearchProsecutionCase do
+RSpec.describe CommonPlatformApi::SearchProsecutionCase do
   subject(:search_prosecution_case) { described_class.call(params) }
 
   let(:params) { { howdy: "hello" } }

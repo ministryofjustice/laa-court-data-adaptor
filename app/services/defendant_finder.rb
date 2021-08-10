@@ -20,7 +20,7 @@ private
     return unless prosecution_case_urn
 
     # fetch details needed to include plea and mode of trial reason, at least
-    @common_platform_prosecution_case ||= Api::SearchProsecutionCase
+    @common_platform_prosecution_case ||= CommonPlatformApi::SearchProsecutionCase
                                           .call(prosecution_case_reference: prosecution_case_urn)
                                           &.first
                                           &.tap(&:fetch_details)

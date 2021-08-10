@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::RecordRepresentationOrder do
+RSpec.describe CommonPlatformApi::RecordRepresentationOrder do
   subject(:record_representation_order) { described_class.call(params) }
 
   let(:prosecution_case) { ProsecutionCase.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}") }

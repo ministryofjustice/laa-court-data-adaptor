@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::RecordLaaReference do
+RSpec.describe CommonPlatformApi::RecordLaaReference do
   subject(:record_reference) { described_class.call(params) }
 
   let(:prosecution_case) { ProsecutionCase.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}") }

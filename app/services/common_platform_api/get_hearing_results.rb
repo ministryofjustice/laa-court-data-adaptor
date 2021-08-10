@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module CommonPlatformApi
   class GetHearingResults < ApplicationService
     def initialize(hearing_id:, publish_to_queue: false)
       @hearing_id = hearing_id

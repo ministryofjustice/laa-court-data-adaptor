@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module CommonPlatformApi
   class RecordLaaReference < ApplicationService
     def initialize(prosecution_case_id:,
                    defendant_id:,

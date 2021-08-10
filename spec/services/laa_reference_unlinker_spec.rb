@@ -19,11 +19,11 @@ RSpec.describe LaaReferenceUnlinker do
                                             defendant_id: defendant_id,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE dummy_maat_reference_seq RESTART;")
-    allow(Api::RecordLaaReference).to receive(:call)
+    allow(CommonPlatformApi::RecordLaaReference).to receive(:call)
   end
 
   it "creates a dummy maat_reference starting with Z" do
-    expect(Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: "Z10000000"))
+    expect(CommonPlatformApi::RecordLaaReference).to receive(:call).with(hash_including(application_reference: "Z10000000"))
     create_unlinker
   end
 
@@ -69,8 +69,8 @@ RSpec.describe LaaReferenceUnlinker do
       create_unlinker
     end
 
-    it "calls the Api::RecordLaaReference service multiple times" do
-      expect(Api::RecordLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
+    it "calls the CommonPlatformApi::RecordLaaReference service multiple times" do
+      expect(CommonPlatformApi::RecordLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
       create_unlinker
     end
   end
@@ -85,8 +85,8 @@ RSpec.describe LaaReferenceUnlinker do
       create_unlinker
     end
 
-    it "calls the Api::RecordLaaReference service" do
-      expect(Api::RecordLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
+    it "calls the CommonPlatformApi::RecordLaaReference service" do
+      expect(CommonPlatformApi::RecordLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
       create_unlinker
     end
   end

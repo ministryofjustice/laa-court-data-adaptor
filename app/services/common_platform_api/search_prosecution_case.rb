@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module CommonPlatformApi
   class SearchProsecutionCase < ApplicationService
     def initialize(params)
       @response = ProsecutionCaseSearcher.call(params)

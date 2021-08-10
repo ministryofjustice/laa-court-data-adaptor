@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module CommonPlatformApi
   class RecordRepresentationOrder < ApplicationService
     def initialize(case_defendant_offence:,
                    defendant_id:,

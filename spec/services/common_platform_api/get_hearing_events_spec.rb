@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::GetHearingEvents do
+RSpec.describe CommonPlatformApi::GetHearingEvents do
   subject(:get_hearing_events) { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date) }
 
   let(:hearing_id) { "ceb158e3-7171-40ce-915b-441e2c4e3f75" }

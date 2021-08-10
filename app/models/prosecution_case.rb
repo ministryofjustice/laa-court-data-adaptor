@@ -58,7 +58,7 @@ private
 
   def hearing_results
     @hearing_results ||= hearing_summary_ids.map { |hearing_id|
-      Api::GetHearingResults.call(hearing_id: hearing_id)
+      CommonPlatformApi::GetHearingResults.call(hearing_id: hearing_id)
     }.compact
   end
 end
