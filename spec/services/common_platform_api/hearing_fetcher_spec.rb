@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe HearingFetcher do
+RSpec.describe CommonPlatformApi::HearingFetcher do
   subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id) }
 
   let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
@@ -14,7 +14,7 @@ RSpec.describe HearingFetcher do
   context "with a incorrect key" do
     subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, connection: connection) }
 
-    let(:connection) { CommonPlatformConnection.call }
+    let(:connection) { CommonPlatformApi::CommonPlatformConnection.call }
 
     before do
       connection.headers["Ocp-Apim-Subscription-Key"] = "INCORRECT KEY"
@@ -30,7 +30,7 @@ RSpec.describe HearingFetcher do
   context "with connection" do
     subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, connection: connection) }
 
-    let(:connection) { double("CommonPlatformConnection") }
+    let(:connection) { double("CommonPlatformApi::CommonPlatformConnection") }
     let(:url) { "hearing/results" }
     let(:params) { { hearingId: hearing_id } }
 

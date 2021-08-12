@@ -10,7 +10,7 @@ RSpec.describe CommonPlatformApi::SearchProsecutionCase do
   let(:response_body) { JSON.parse(file_fixture("prosecution_case_search_result.json").read) }
 
   before do
-    allow(ProsecutionCaseSearcher).to receive(:call).and_return(search_results)
+    allow(CommonPlatformApi::ProsecutionCaseSearcher).to receive(:call).and_return(search_results)
   end
 
   it "records ProsecutionCase" do

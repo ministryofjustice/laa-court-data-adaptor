@@ -43,10 +43,10 @@ RSpec/VerifiedDoubles:
   Exclude:
     - 'spec/services/common_platform_api/get_hearing_events_spec.rb'
     - 'spec/services/common_platform_api/get_hearing_results_spec.rb'
+    - 'spec/services/common_platform_api/hearing_events_fetcher_spec.rb'
+    - 'spec/services/common_platform_api/hearing_fetcher_spec.rb'
+    - 'spec/services/common_platform_api/prosecution_case_searcher_spec.rb'
     - 'spec/services/common_platform_api/record_laa_reference_spec.rb'
     - 'spec/services/common_platform_api/record_representation_order_spec.rb'
     - 'spec/services/common_platform_api/search_prosecution_case_spec.rb'
-    - 'spec/services/hearing_events_fetcher_spec.rb'
-    - 'spec/services/hearing_fetcher_spec.rb'
     - 'spec/services/maat_api/connection_spec.rb'
-    - 'spec/services/prosecution_case_searcher_spec.rb'

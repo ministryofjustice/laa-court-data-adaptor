@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ProsecutionCaseHearingsFetcher do
+RSpec.describe CommonPlatformApi::ProsecutionCaseHearingsFetcher do
   subject(:fetch_hearings) { described_class.call(prosecution_case_id: prosecution_case_id) }
 
   let(:prosecution_case_id) { "5edd67eb-9d8c-44f2-a57e-c8d026defaa4" }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RepresentationOrderCreator do
+RSpec.describe CommonPlatformApi::RepresentationOrderCreator do
   subject(:create_rep_order) do
     described_class.call(
       maat_reference: maat_reference,

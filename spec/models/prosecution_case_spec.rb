@@ -63,7 +63,7 @@ RSpec.describe ProsecutionCase, type: :model do
   describe "Common Platform search" do
     let(:prosecution_case_result) do
       VCR.use_cassette("search_prosecution_case/by_prosecution_case_reference_success") do
-        ProsecutionCaseSearcher.call(prosecution_case_reference: "19GD1001816")
+        CommonPlatformApi::ProsecutionCaseSearcher.call(prosecution_case_reference: "19GD1001816")
       end
     end
 

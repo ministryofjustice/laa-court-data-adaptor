@@ -9,7 +9,7 @@ RSpec.describe CommonPlatformApi::GetHearingEvents do
   let(:response) { double(body: { amazing_body: true }.to_json, status: 200) }
 
   before do
-    allow(HearingEventsFetcher).to receive(:call).with(hearing_id: hearing_id, hearing_date: hearing_date).and_return(response)
+    allow(CommonPlatformApi::HearingEventsFetcher).to receive(:call).with(hearing_id: hearing_id, hearing_date: hearing_date).and_return(response)
   end
 
   it "calls the HearingEventsRecorder service" do

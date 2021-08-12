@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe ProsecutionCaseSearcher do
+RSpec.describe CommonPlatformApi::ProsecutionCaseSearcher do
   let(:prosecution_case_reference) { "19GD1001816" }
 
   context "with an incorrect key" do
     subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference, connection: connection) }
 
-    let(:connection) { CommonPlatformConnection.call }
+    let(:connection) { CommonPlatformApi::CommonPlatformConnection.call }
 
     before do
       connection.headers["Ocp-Apim-Subscription-Key"] = "INCORRECT KEY"
@@ -86,7 +86,7 @@ RSpec.describe ProsecutionCaseSearcher do
   context "with connection" do
     subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference, connection: connection) }
 
-    let(:connection) { double("CommonPlatformConnection") }
+    let(:connection) { double("CommonPlatformApi::CommonPlatformConnection") }
     let(:url) { "prosecutionCases" }
     let(:params) { { prosecutionCaseReference: prosecution_case_reference } }
 
