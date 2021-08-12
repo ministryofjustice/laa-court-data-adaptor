@@ -18,11 +18,11 @@ RSpec.describe ProsecutionCaseHearingsFetcher do
     )
   end
 
-  it "triggers a call to Api::GetHearingResults" do
-    expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id, publish_to_queue: true)
-    expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_2, publish_to_queue: true)
-    expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_3, publish_to_queue: true)
-    expect(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_4, publish_to_queue: true)
+  it "triggers a call to CommonPlatformApi::GetHearingResults" do
+    expect(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_id, publish_to_queue: true)
+    expect(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_2, publish_to_queue: true)
+    expect(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_3, publish_to_queue: true)
+    expect(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_4, publish_to_queue: true)
 
     fetch_hearings
   end
@@ -40,8 +40,8 @@ RSpec.describe ProsecutionCaseHearingsFetcher do
       }
     end
 
-    it "does not trigger a call to Api::GetHearingResults" do
-      expect(Api::GetHearingResults).not_to receive(:call)
+    it "does not trigger a call to CommonPlatformApi::GetHearingResults" do
+      expect(CommonPlatformApi::GetHearingResults).not_to receive(:call)
       fetch_hearings
     end
   end

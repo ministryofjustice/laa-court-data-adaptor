@@ -21,7 +21,7 @@ private
 
       next if case_defendant_offence.blank?
 
-      Api::RecordRepresentationOrder.call(
+      CommonPlatformApi::RecordRepresentationOrder.call(
         case_defendant_offence: case_defendant_offence,
         defendant_id: defendant_id,
         offence_id: offence[:offence_id],

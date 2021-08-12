@@ -92,8 +92,8 @@ RSpec.describe ProsecutionCase, type: :model do
 
       before do
         allow(prosecution_case).to receive(:hearing_summary_ids).and_return(hearing_ids)
-        allow(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[0]).and_return(hearing_one)
-        allow(Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[1]).and_return(hearing_two)
+        allow(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[0]).and_return(hearing_one)
+        allow(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[1]).and_return(hearing_two)
       end
 
       describe "#hearing_ids" do

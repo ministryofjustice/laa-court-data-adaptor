@@ -12,7 +12,7 @@ class ProsecutionCaseHearingsFetcher < ApplicationService
 private
 
   def get_hearing_results(hearing)
-    Api::GetHearingResults.call(
+    CommonPlatformApi::GetHearingResults.call(
       hearing_id: hearing["hearingId"],
       publish_to_queue: true,
     )
