@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ProsecutionConclusion",
+  "description": "ProsecutionConclusion",
+  "id": "prosecution-conclusion",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "prosecutionConcluded": {
+      "type": "object",
+      "properties": {
+        "prosecutionCaseId": {
+          "$ref": "prosecutionCase.json#/definitions/id"
+        },
+        "defendantId": {
+          "$ref": "defendant.json#/definitions/id"
+        },
+        "isConcluded": {
+          "$ref": ""
+        },
+        "hearingIdWhereChangeOccured": {
+          "$ref": "hearing.json#/definitions/id"
+        },
+        "concludedOffenceSummary": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": ""
+          }
+        }
+      }
+    },
+    "new_resource": {
+      "description": "object representing a single prosecution conclusion",
+      "type": "object",
+      "properties": {
+        "prosecutionConcluded": {
+          "$ref": "#/definitions/hearing"
+        }
+      }
+    }
+  },
+  "required": [
+    "prosecutionConcluded"
+  ]
+}
