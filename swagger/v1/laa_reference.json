@@ -8,7 +8,7 @@
   "type": "object",
   "definitions": {
     "id": {
-      "description": "unique identifier of laa_reference",
+      "description": "The unique identifier of LAA Reference",
       "readOnly": true,
       "format": "uuid",
       "type": [
@@ -16,7 +16,7 @@
       ]
     },
     "type": {
-      "description": "The laa_references type",
+      "description": "The LAA Reference type",
       "enum": [
         "laa_references"
       ],
@@ -24,7 +24,7 @@
       "type": "string"
     },
     "user_name": {
-      "example": "example-username",
+      "example": "foobar",
       "description": "The user name of the caseworker linking or unlinking the case",
       "type": "string"
     },
@@ -32,7 +32,7 @@
       "example": "b98ba5e8-8b8c-443e-b728-c72d179b70fd"
     },
     "maat_reference": {
-      "example": 314159265,
+      "example": 3141592,
       "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
       "type": "number",
       "minimum": 0,
@@ -74,7 +74,7 @@
       "type": "string"
     },
     "unlink": {
-      "description": "object representing unlinking data",
+      "description": "The object representing unlinking data",
       "type": "object",
       "properties": {
         "type": {
