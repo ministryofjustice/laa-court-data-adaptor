@@ -102,19 +102,33 @@
         },
         "status_code": {
           "$ref": "#/definitions/status_code"
+        },
+        "status_date": {
+          "$ref": "#/definitions/status_date"
+        },
+        "effective_start_date": {
+          "$ref": "#/definitions/effective_start_date"
         }
       },
       "required": [
         "offence_id",
-        "status_code",
-        "status_date",
-        "effective_start_date"
+        "status_code"
       ]
     },
     "identity": {
       "$ref": "#/definitions/id"
     },
     "new_resource": {
+      "description": "The object representing a rep order",
+      "type": "object",
+      "properties": {
+        "data": { 
+          "$ref": "#/definitions/representation_order"
+        }
+      }
+    },
+ 
+    "representation_order": {
       "description": "object representing a single representation_order",
       "type": "object",
       "properties": {
@@ -123,10 +137,7 @@
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
-        },
-        "relationships": {
-          "$ref": "#/definitions/relationships"
-        }
+        } 
       }
     },
     "attributes": {
