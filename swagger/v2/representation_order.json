@@ -76,7 +76,8 @@
           "properties": {
             "name": {
               "description": "The name of the organisation",
-              "type": "string"
+              "type": "string",
+              "example": "The Johnson Partnership"
             }
           },
           "required": [
@@ -85,7 +86,8 @@
         },
         "laa_contract_number": {
           "description": "When the organisation is a defence organisation that is authorised to conduct legal aid work; the contract reference that firm has with Legal Aid Agency",
-          "type": "string"
+          "type": "string",
+          "example": "11223344"
         }
       },
       "required": [
