@@ -9,7 +9,7 @@ module CommonPlatformApi
                    name: nil,
                    date_of_birth: nil,
                    date_of_next_hearing: nil,
-                   connection: CommonPlatformApi::CommonPlatformConnection.call)
+                   connection: CommonPlatformApi::Connection.call)
       @connection = connection
       @params = { prosecutionCaseReference: prosecution_case_reference,
                   defendantASN: arrest_summons_number,

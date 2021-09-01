@@ -8,7 +8,7 @@ module CommonPlatformApi
                    status_code:,
                    application_reference:,
                    status_date:,
-                   connection: CommonPlatformApi::CommonPlatformConnection.call)
+                   connection: CommonPlatformApi::Connection.call)
 
       @offence_id = offence_id
       @status_code = status_code

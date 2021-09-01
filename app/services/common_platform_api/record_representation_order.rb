@@ -11,7 +11,7 @@ module CommonPlatformApi
                    effective_start_date:,
                    defence_organisation:,
                    effective_end_date: nil,
-                   connection: CommonPlatformApi::CommonPlatformConnection.call)
+                   connection: CommonPlatformApi::Connection.call)
 
       @case_defendant_offence = case_defendant_offence
       @offence_id = offence_id

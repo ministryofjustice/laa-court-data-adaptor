@@ -43,7 +43,7 @@ RSpec.describe CommonPlatformApi::RecordRepresentationOrder do
   end
 
   context "with connection" do
-    let(:connection) { double("CommonPlatformApi::CommonPlatformConnection") }
+    let(:connection) { double("CommonPlatformApi::Connection") }
     let(:request_params) do
       {
         statusCode: "ABCDEF",
