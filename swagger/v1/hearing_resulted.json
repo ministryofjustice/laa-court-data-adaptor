@@ -26,14 +26,7 @@
           "$ref": "hearing.json#/definitions/courtCentre"
         },
         "type": {
-          "$ref": "hearing.json#/definitions/type"
-        },
-        "hearingDays": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "hearing.json#/definitions/hearingDay"
-          }
+          "$ref": "hearing.json#/definitions/resulted_type"
         }
       }
     },
