@@ -76,78 +76,8 @@
           "properties": {
             "name": {
               "description": "The name of the organisation",
-              "type": "string"
-            },
-            "incorporation_number": {
-              "description": "The incorporation details of teh organisationorganisation",
-              "type": "string"
-            },
-            "registered_charity_number": {
-              "description": "The registered charity details",
-              "type": "string"
-            },
-            "address": {
-              "description": "The organisation address details",
-              "type": "object",
-              "properties": {
-                "address1": {
-                  "description": "The address1",
-                  "type": "string"
-                },
-                "address2": {
-                  "description": "The address2",
-                  "type": "string"
-                },
-                "address3": {
-                  "description": "The address3",
-                  "type": "string"
-                },
-                "address4": {
-                  "description": "The address4",
-                  "type": "string"
-                },
-                "address5": {
-                  "description": "The address5",
-                  "type": "string"
-                },
-                "postcode": {
-                  "description": "The post code",
-                  "$ref": "#/definitions/uk_gov_post_code"
-                }
-              },
-              "required": [
-                "address1"
-              ]
-            },
-            "contact": {
-              "description": "The organisation contact details",
-              "type": "object",
-              "properties": {
-                "home": {
-                  "description": "The home telephone number",
-                  "$ref": "#/definitions/phone"
-                },
-                "work": {
-                  "description": "The work telephone number is free format to allow the specification of extensions, etc",
-                  "type": "string"
-                },
-                "mobile": {
-                  "description": "The mobile number",
-                  "$ref": "#/definitions/phone"
-                },
-                "primary_email": {
-                  "description": "The primary email address",
-                  "$ref": "#/definitions/email"
-                },
-                "secondary_email": {
-                  "description": "The secondary email address",
-                  "$ref": "#/definitions/email"
-                },
-                "fax": {
-                  "description": "The fax number",
-                  "type": "string"
-                }
-              }
+              "type": "string",
+              "example": "The Johnson Partnership"
             }
           },
           "required": [
@@ -156,15 +86,8 @@
         },
         "laa_contract_number": {
           "description": "When the organisation is a defence organisation that is authorised to conduct legal aid work; the contract reference that firm has with Legal Aid Agency",
-          "type": "string"
-        },
-        "sra_number": {
-          "description": "When the organisation is a defence organisation, the registration number of that firm with the Solicitors Regulation Authority",
-          "type": "string"
-        },
-        "bar_council_membership_number": {
-          "description": "When the organisation is a defence organisation, the firms membership reference with teh bar council",
-          "type": "string"
+          "type": "string",
+          "example": "11223344"
         }
       },
       "required": [
@@ -187,22 +110,27 @@
         },
         "effective_start_date": {
           "$ref": "#/definitions/effective_start_date"
-        },
-        "effective_end_date": {
-          "$ref": "#/definitions/effective_end_date"
         }
       },
       "required": [
         "offence_id",
-        "status_code",
-        "status_date",
-        "effective_start_date"
+        "status_code"
       ]
     },
     "identity": {
       "$ref": "#/definitions/id"
     },
     "new_resource": {
+      "description": "The object representing a rep order",
+      "type": "object",
+      "properties": {
+        "data": { 
+          "$ref": "#/definitions/representation_order"
+        }
+      }
+    },
+ 
+    "representation_order": {
       "description": "object representing a single representation_order",
       "type": "object",
       "properties": {
@@ -211,10 +139,7 @@
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
-        },
-        "relationships": {
-          "$ref": "#/definitions/relationships"
-        }
+        } 
       }
     },
     "attributes": {
@@ -232,6 +157,9 @@
         },
         "defence_organisation": {
           "$ref": "#/definitions/defence_organisation"
+        },
+        "defendant_id": {
+          "$ref": "defendant.json#/definitions/id"
         }
       }
     },
