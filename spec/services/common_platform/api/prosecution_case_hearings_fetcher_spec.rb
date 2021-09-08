@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatformApi::ProsecutionCaseHearingsFetcher do
+RSpec.describe CommonPlatform::Api::ProsecutionCaseHearingsFetcher do
   subject(:fetch_hearings) { described_class.call(prosecution_case_id: prosecution_case_id) }
 
   let(:prosecution_case_id) { "5edd67eb-9d8c-44f2-a57e-c8d026defaa4" }
@@ -18,11 +18,11 @@ RSpec.describe CommonPlatformApi::ProsecutionCaseHearingsFetcher do
     )
   end
 
-  it "triggers a call to CommonPlatformApi::GetHearingResults" do
-    expect(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_id, publish_to_queue: true)
-    expect(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_2, publish_to_queue: true)
-    expect(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_3, publish_to_queue: true)
-    expect(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_4, publish_to_queue: true)
+  it "triggers a call to CommonPlatform::Api::GetHearingResults" do
+    expect(CommonPlatform::Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id, publish_to_queue: true)
+    expect(CommonPlatform::Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_2, publish_to_queue: true)
+    expect(CommonPlatform::Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_3, publish_to_queue: true)
+    expect(CommonPlatform::Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_id_4, publish_to_queue: true)
 
     fetch_hearings
   end
@@ -40,8 +40,8 @@ RSpec.describe CommonPlatformApi::ProsecutionCaseHearingsFetcher do
       }
     end
 
-    it "does not trigger a call to CommonPlatformApi::GetHearingResults" do
-      expect(CommonPlatformApi::GetHearingResults).not_to receive(:call)
+    it "does not trigger a call to CommonPlatform::Api::GetHearingResults" do
+      expect(CommonPlatform::Api::GetHearingResults).not_to receive(:call)
       fetch_hearings
     end
   end

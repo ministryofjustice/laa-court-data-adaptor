@@ -38,7 +38,7 @@ private
   end
 
   def update_offence_on_common_platform(offence)
-    CommonPlatformApi::RecordLaaReference.call(
+    CommonPlatform::Api::RecordLaaReference.call(
       prosecution_case_id: offence.prosecution_case_id,
       defendant_id: offence.defendant_id,
       offence_id: offence.offence_id,

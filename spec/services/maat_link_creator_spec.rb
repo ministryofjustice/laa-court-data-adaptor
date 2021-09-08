@@ -27,7 +27,7 @@ RSpec.describe MaatLinkCreator do
     )
 
     allow(Sqs::MessagePublisher).to receive(:call)
-    allow(CommonPlatformApi::RecordLaaReference).to receive(:call)
+    allow(CommonPlatform::Api::RecordLaaReference).to receive(:call)
   end
 
   it "enqueues a PastHearingsFetcherWorker" do
@@ -41,8 +41,8 @@ RSpec.describe MaatLinkCreator do
     end
   end
 
-  it "calls the CommonPlatformApi::RecordLaaReference service once" do
-    expect(CommonPlatformApi::RecordLaaReference).to receive(:call).once.with(hash_including(application_reference: "12345678"))
+  it "calls the CommonPlatform::Api::RecordLaaReference service once" do
+    expect(CommonPlatform::Api::RecordLaaReference).to receive(:call).once.with(hash_including(application_reference: "12345678"))
     create_maat_link
   end
 
@@ -63,8 +63,8 @@ RSpec.describe MaatLinkCreator do
       create_maat_link
     end
 
-    it "calls the CommonPlatformApi::RecordLaaReference service multiple times" do
-      expect(CommonPlatformApi::RecordLaaReference).to receive(:call).twice.with(hash_including(application_reference: "12345678"))
+    it "calls the CommonPlatform::Api::RecordLaaReference service multiple times" do
+      expect(CommonPlatform::Api::RecordLaaReference).to receive(:call).twice.with(hash_including(application_reference: "12345678"))
       create_maat_link
     end
   end
@@ -100,7 +100,7 @@ RSpec.describe MaatLinkCreator do
     end
 
     it "creates a dummy maat_reference" do
-      expect(CommonPlatformApi::RecordLaaReference).to receive(:call).with(hash_including(application_reference: "A10000000"))
+      expect(CommonPlatform::Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: "A10000000"))
       create_maat_link
     end
   end

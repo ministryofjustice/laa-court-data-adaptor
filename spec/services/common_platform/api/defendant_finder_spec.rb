@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatformApi::DefendantFinder do
+RSpec.describe CommonPlatform::Api::DefendantFinder do
   let(:prosecution_case_id) { "5edd67eb-9d8c-44f2-a57e-c8d026defaa4" }
   let(:prosecution_case_reference) { "20GD0217100" }
   let(:defendant_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }

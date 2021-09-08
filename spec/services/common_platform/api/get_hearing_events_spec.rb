@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatformApi::GetHearingEvents do
+RSpec.describe CommonPlatform::Api::GetHearingEvents do
   subject(:get_hearing_events) { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date) }
 
   let(:hearing_id) { "ceb158e3-7171-40ce-915b-441e2c4e3f75" }
@@ -9,7 +9,7 @@ RSpec.describe CommonPlatformApi::GetHearingEvents do
   let(:response) { double(body: { amazing_body: true }.to_json, status: 200) }
 
   before do
-    allow(CommonPlatformApi::HearingEventsFetcher).to receive(:call).with(hearing_id: hearing_id, hearing_date: hearing_date).and_return(response)
+    allow(CommonPlatform::Api::HearingEventsFetcher).to receive(:call).with(hearing_id: hearing_id, hearing_date: hearing_date).and_return(response)
   end
 
   it "calls the HearingEventsRecorder service" do

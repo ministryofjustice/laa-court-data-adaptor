@@ -22,7 +22,7 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
                                             defendant_id: defendant_id,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
-    allow(CommonPlatformApi::RecordLaaReference).to receive(:call)
+    allow(CommonPlatform::Api::RecordLaaReference).to receive(:call)
   end
 
   it "queues the job" do

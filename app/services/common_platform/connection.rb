@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module CommonPlatformApi
+module CommonPlatform
   class Connection < ApplicationService
     def initialize(
       host: Rails.configuration.x.common_platform_url,
