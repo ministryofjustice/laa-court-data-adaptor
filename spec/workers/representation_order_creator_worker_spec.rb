@@ -19,9 +19,9 @@ RSpec.describe RepresentationOrderCreatorWorker, type: :worker do
     }.to change(described_class.jobs, :size).by(1)
   end
 
-  it "creates a RepresentationOrderCreator and calls it" do
+  it "creates a CommonPlatform::Api::RepresentationOrderCreator and calls it" do
     Sidekiq::Testing.inline! do
-      expect(RepresentationOrderCreator).to receive(:call).once.with(
+      expect(CommonPlatform::Api::RepresentationOrderCreator).to receive(:call).once.with(
         defendant_id: defendant_id,
         offences: offences,
         maat_reference: maat_reference,

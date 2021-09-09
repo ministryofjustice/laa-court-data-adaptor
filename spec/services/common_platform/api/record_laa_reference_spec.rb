@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatformApi::RecordLaaReference do
+RSpec.describe CommonPlatform::Api::RecordLaaReference do
   subject(:record_reference) { described_class.call(params) }
 
   let(:prosecution_case) { ProsecutionCase.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}") }
@@ -33,7 +33,7 @@ RSpec.describe CommonPlatformApi::RecordLaaReference do
   end
 
   context "with connection" do
-    let(:connection) { double("CommonPlatformConnection") }
+    let(:connection) { double("CommonPlatform::Connection") }
     let(:request_params) do
       {
         statusCode: "ABCDEF",

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatformApi::SearchProsecutionCase do
+RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
   subject(:search_prosecution_case) { described_class.call(params) }
 
   let(:params) { { howdy: "hello" } }
@@ -10,7 +10,7 @@ RSpec.describe CommonPlatformApi::SearchProsecutionCase do
   let(:response_body) { JSON.parse(file_fixture("prosecution_case_search_result.json").read) }
 
   before do
-    allow(ProsecutionCaseSearcher).to receive(:call).and_return(search_results)
+    allow(CommonPlatform::Api::ProsecutionCaseSearcher).to receive(:call).and_return(search_results)
   end
 
   it "records ProsecutionCase" do

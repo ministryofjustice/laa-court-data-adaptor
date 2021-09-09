@@ -15,7 +15,7 @@ module Api
         end
 
         def show
-          defendant = DefendantFinder.call(defendant_id: params[:id])
+          defendant = CommonPlatform::Api::DefendantFinder.call(defendant_id: params[:id])
 
           if defendant.present?
             render json: DefendantSerializer.new(defendant, serialization_options)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatformConnection do
+RSpec.describe CommonPlatform::Connection do
   subject(:connect_to_common_platform) { described_class.call(host: host) }
 
   let(:host) { "https://example.com" }

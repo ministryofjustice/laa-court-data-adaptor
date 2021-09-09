@@ -29,7 +29,7 @@ RSpec.describe PastHearingsFetcherWorker, type: :worker do
 
   it "calls ProsecutionCaseHearingsFetcher with the provided prosecution_case_id" do
     Sidekiq::Testing.inline! do
-      expect(ProsecutionCaseHearingsFetcher).to receive(:call).once.with(prosecution_case_id: prosecution_case_id)
+      expect(CommonPlatform::Api::ProsecutionCaseHearingsFetcher).to receive(:call).once.with(prosecution_case_id: prosecution_case_id)
       work
     end
   end

@@ -91,7 +91,7 @@ private
 
   def hearing_event_recordings
     @hearing_event_recordings ||= Array(hearing_body["hearingDays"]).flat_map { |hearing_day|
-      CommonPlatformApi::GetHearingEvents.call(hearing_id: id, hearing_date: hearing_day["sittingDay"].to_date)
+      CommonPlatform::Api::GetHearingEvents.call(hearing_id: id, hearing_date: hearing_day["sittingDay"].to_date)
     }.compact
   end
 

@@ -5,7 +5,7 @@ module Api
     module V2
       class ProsecutionCasesController < ApplicationController
         def index
-          @prosecution_cases = CommonPlatformApi::SearchProsecutionCase.call(transformed_params)
+          @prosecution_cases = CommonPlatform::Api::SearchProsecutionCase.call(transformed_params)
           render json: ProsecutionCaseSerializer.new(@prosecution_cases, serialization_options)
         end
 

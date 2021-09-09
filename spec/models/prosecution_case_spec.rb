@@ -63,7 +63,7 @@ RSpec.describe ProsecutionCase, type: :model do
   describe "Common Platform search" do
     let(:prosecution_case_result) do
       VCR.use_cassette("search_prosecution_case/by_prosecution_case_reference_success") do
-        ProsecutionCaseSearcher.call(prosecution_case_reference: "19GD1001816")
+        CommonPlatform::Api::ProsecutionCaseSearcher.call(prosecution_case_reference: "19GD1001816")
       end
     end
 
@@ -92,8 +92,8 @@ RSpec.describe ProsecutionCase, type: :model do
 
       before do
         allow(prosecution_case).to receive(:hearing_summary_ids).and_return(hearing_ids)
-        allow(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[0]).and_return(hearing_one)
-        allow(CommonPlatformApi::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[1]).and_return(hearing_two)
+        allow(CommonPlatform::Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[0]).and_return(hearing_one)
+        allow(CommonPlatform::Api::GetHearingResults).to receive(:call).with(hearing_id: hearing_ids[1]).and_return(hearing_two)
       end
 
       describe "#hearing_ids" do

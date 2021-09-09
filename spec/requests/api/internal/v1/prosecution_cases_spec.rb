@@ -9,7 +9,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", type: :request, swagger_doc:
   let(:include) {}
 
   before do
-    allow(CommonPlatformApi::GetHearingResults).to receive(:call)
+    allow(CommonPlatform::Api::GetHearingResults).to receive(:call)
   end
 
   path "/api/internal/v1/prosecution_cases" do

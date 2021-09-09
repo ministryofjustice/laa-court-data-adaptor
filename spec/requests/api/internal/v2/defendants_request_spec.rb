@@ -123,7 +123,7 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
           # for beforehand, which seems risky (albeit that VCD should always have queried the
           # case first via its searchinng options).
           #
-          CommonPlatformApi::SearchProsecutionCase.call(prosecution_case_reference: "19GD1001816")
+          CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: "19GD1001816")
         end
 
         around do |example|
