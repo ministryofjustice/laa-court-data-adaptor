@@ -1,0 +1,26 @@
+name: Run sonar scanner
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  run-scan:
+    name: Sonarqube Scan 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup sonarqube
+        uses: warchant/setup-sonar-scanner@v3
+
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Run sonar scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # to get access to secrets.SONAR_TOKEN, provide GITHUB_TOKEN
+        run: sonar-scanner
+          -Dsonar.host.url=${{ secrets.SONAR_URL }}
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.projectKey=${{ github.repository }}:${{ github.head_ref }}
