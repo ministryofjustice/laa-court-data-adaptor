@@ -14,7 +14,7 @@ module HmctsCommonPlatform
       data[:id]
     end
 
-    def offence_code
+    def code
       data[:offenceCode]
     end
 
@@ -22,7 +22,7 @@ module HmctsCommonPlatform
       data[:orderIndex]
     end
 
-    def offence_title
+    def title
       data[:offenceTitle]
     end
 
@@ -42,7 +42,19 @@ module HmctsCommonPlatform
       data.dig(:allocationDecision, :motReasonCode)
     end
 
-    def results
+    def allocation_decision_mot_reason_description
+      data.dig(:allocationDecision, :motReasonDescription)
+    end
+
+    def legislation
+      data[:offenceLegislation]
+    end
+
+    def judicial_result_ids
+      judicial_results.map(&:id)
+    end
+
+    def judicial_results
       Array(data[:judicialResults]).map do |judicial_result_data|
         HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
       end

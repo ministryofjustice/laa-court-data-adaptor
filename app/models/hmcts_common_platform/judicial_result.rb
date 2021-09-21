@@ -20,6 +20,14 @@ module HmctsCommonPlatform
       data[:label]
     end
 
+    def is_adjournment_result
+      data[:isAdjournmentResult]
+    end
+
+    def is_financial_result
+      data[:isFinancialResult]
+    end
+
     def text
       data[:resultText]
     end

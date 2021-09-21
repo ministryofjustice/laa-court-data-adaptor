@@ -6,7 +6,7 @@ class Offence
   attr_accessor :body, :details
 
   def id
-    body["offenceId"]
+    body["id"]
   end
 
   def code
