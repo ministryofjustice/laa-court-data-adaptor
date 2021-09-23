@@ -73,6 +73,7 @@
             "isAvailableForCourtExtract": true,
             "isConvictedResult": false,
             "isFinancialResult": false,
+            "judicialResultId": "5cb61858-7095-42d6-8a52-966593f17db0",
             "orderedDate": "2021-03-10",
             "category": "FINAL",
             "nextHearing": {

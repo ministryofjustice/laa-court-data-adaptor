@@ -12,7 +12,8 @@ module Api
                    :legislation,
                    :mode_of_trial,
                    :mode_of_trial_reasons,
-                   :pleas
+                   :pleas,
+                   :judicial_results
       end
     end
   end
