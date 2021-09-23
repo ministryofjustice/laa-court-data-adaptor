@@ -1,29 +1,42 @@
-# frozen_string_literal: true
-
 RSpec.describe Api::Internal::V1::OffenceSerializer do
-  subject { described_class.new(offence).serializable_hash }
+  let(:serialized_data) do
+    offence_data = JSON.parse(file_fixture("offence/all_fields.json").read)
+    offence = Offence.new(body: offence_data, details: [offence_data])
 
-  let(:offence) do
-    instance_double("Offence",
-                    id: "UUID",
-                    code: "AA06001",
-                    order_index: "0",
-                    title: "Fail to wear protective clothing",
-                    legislation: "Offences against the Person Act 1861 s.24",
-                    mode_of_trial: "Indictable-Only Offence",
-                    mode_of_trial_reasons: [{ description: "Court directs trial by jury", code: "5" }],
-                    pleas: %w[GUILTY NOT_GUILTY])
+    described_class.new(offence).serializable_hash[:data]
   end
 
-  context "with attributes" do
-    let(:attribute_hash) { subject[:data][:attributes] }
+  describe "offence serialized data" do
+    describe "attributes" do
+      let(:attributes) { serialized_data[:attributes] }
 
-    it { expect(attribute_hash[:code]).to eq("AA06001") }
-    it { expect(attribute_hash[:order_index]).to eq("0") }
-    it { expect(attribute_hash[:title]).to eq("Fail to wear protective clothing") }
-    it { expect(attribute_hash[:legislation]).to eq("Offences against the Person Act 1861 s.24") }
-    it { expect(attribute_hash[:mode_of_trial]).to eq("Indictable-Only Offence") }
-    it { expect(attribute_hash[:mode_of_trial_reasons]).to eq([{ description: "Court directs trial by jury", code: "5" }]) }
-    it { expect(attribute_hash[:pleas]).to eq(%w[GUILTY NOT_GUILTY]) }
+      it "code" do
+        expect(attributes[:code]).to eql("LA12505")
+      end
+
+      it "order_index" do
+        expect(attributes[:order_index]).to be(1)
+      end
+
+      it "title" do
+        expect(attributes[:title]).to eql("Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable")
+      end
+
+      it "legislation" do
+        expect(attributes[:legislation]).to eql("Common law")
+      end
+
+      it "mode_of_trial" do
+        expect(attributes[:mode_of_trial]).to eq("Either way")
+      end
+
+      it "mode_of_trial_reasons" do
+        expect(attributes[:mode_of_trial_reasons]).to eq([{ description: "Court directs trial by jury", code: "5" }])
+      end
+
+      it "pleas" do
+        expect(attributes[:pleas]).to eq([{ pleaded_at: "2020-04-12", code: "NOT_GUILTY" }])
+      end
+    end
   end
 end
