@@ -36,21 +36,13 @@ class Offence
     }.uniq
   end
 
-  def judicial_results
-    return [] if details.blank?
+  def judicial_result_ids
+    judicial_results.map(&:id)
+  end
 
-    judicial_results_array.map do |judicial_result|
-      {
-        cjs_code: judicial_result["cjsCode"],
-        is_adjournement_result: judicial_result["isAdjournmentResult"],
-        is_available_for_court_extract: judicial_result["isAvailableForCourtExtract"],
-        is_convicted_result: judicial_result["isConvictedResult"],
-        is_financial_result: judicial_result["isFinancialResult"],
-        label: judicial_result["label"],
-        ordered_date: judicial_result["orderedDate"],
-        qualifier: judicial_result["qualifier"],
-        result_text: judicial_result["resultText"],
-      }
+  def judicial_results
+    judicial_results_array.map do |judicial_result_data|
+      HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
     end
   end
 
@@ -80,6 +72,8 @@ private
   end
 
   def judicial_results_array
+    return [] if details.blank?
+
     details.flat_map { |detail| detail["judicialResults"] }.uniq.compact
   end
 

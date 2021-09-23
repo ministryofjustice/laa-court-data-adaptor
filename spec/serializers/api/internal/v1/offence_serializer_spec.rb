@@ -37,21 +37,18 @@ RSpec.describe Api::Internal::V1::OffenceSerializer do
       it "pleas" do
         expect(attributes[:pleas]).to eq([{ pleaded_at: "2020-04-12", code: "NOT_GUILTY" }])
       end
+    end
+
+    describe "relationships" do
+      let(:relationships) { serialized_data[:relationships] }
 
       it "judicial_results" do
         expected = [{
-          cjs_code: "4600",
-          is_adjournement_result: false,
-          is_available_for_court_extract: true,
-          is_convicted_result: false,
-          is_financial_result: false,
-          label: "Found guilty on all charges",
-          ordered_date: "2021-03-10",
-          qualifier: "Qualifier",
-          result_text: "Result",
+          id: "5cb61858-7095-42d6-8a52-966593f17db0",
+          type: :judicial_result,
         }]
 
-        expect(attributes[:judicial_results]).to eq(expected)
+        expect(relationships[:judicial_results][:data]).to eq(expected)
       end
     end
   end
