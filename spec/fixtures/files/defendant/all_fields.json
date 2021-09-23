@@ -56,6 +56,19 @@
           }
         }
       ],
+      "judicialResults": [
+        {
+          "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+          "label": "Legal Aid Transfer Granted",
+          "isAdjournmentResult": false,
+          "isFinancialResult": false,
+          "judicialResultId": "be225605-fc15-47aa-b74c-efb8629db58e",
+          "isConvictedResult": false,
+          "isAvailableForCourtExtract": true,
+          "orderedDate": "2021-03-10",
+          "category": "FINAL"
+        }
+      ],
       "prosecutionAuthorityReference": "TFL",
       "personDefendant": {
         "arrestSummonsNumber": "TFL1",

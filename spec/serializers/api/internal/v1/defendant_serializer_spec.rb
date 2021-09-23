@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::Internal::V1::DefendantSerializer do
-    let(:defendant) do
-      defendant_summary_data = JSON.parse(file_fixture("defendant_summary/all_fields.json").read)
-      defendant_data = JSON.parse(file_fixture("defendant/all_fields.json").read)
-      Defendant.new(body: defendant_summary_data, details: [defendant_data], prosecution_case_id: "123")
-    end
+  let(:defendant) do
+    defendant_summary_data = JSON.parse(file_fixture("defendant_summary/all_fields.json").read)
+    defendant_data = JSON.parse(file_fixture("defendant/all_fields.json").read)
+    Defendant.new(body: defendant_summary_data, details: [defendant_data], prosecution_case_id: "123")
+  end
 
   let(:serialized_data) do
     described_class.new(defendant).serializable_hash[:data]
@@ -56,7 +56,7 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
           {
             id: "4a852bd1-0068-422c-994f-78a5373ecd75",
             type: :offences,
-          }
+          },
         ]
 
         expect(relationships[:offences][:data]).to eq(expected)
@@ -70,6 +70,10 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
       it "prosecution_case" do
         allow(defendant).to receive(:prosecution_case).and_return(ProsecutionCase.new(id: "123"))
         expect(relationships[:prosecution_case][:data]).to eq({ id: "123", type: :prosecution_case })
+      end
+
+      it "judicial_results" do
+        expect(relationships[:judicial_results][:data]).to eq([{ id: "be225605-fc15-47aa-b74c-efb8629db58e", type: :judicial_results }])
       end
     end
   end
