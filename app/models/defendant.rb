@@ -42,7 +42,7 @@ class Defendant
   end
 
   def defence_organisation
-    return unless case_reference.present?
+    return if case_reference.blank?
 
     DefenceOrganisation.new(body: case_reference.defence_organisation) if case_reference.defence_organisation.present?
   end

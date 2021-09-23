@@ -37,19 +37,19 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
     end
 
     it "has is_financial_result" do
-      expect(judicial_result.is_financial_result).to eql(false)
+      expect(judicial_result.is_financial_result).to be(false)
     end
 
     it "has is_available_for_court_extract" do
-      expect(judicial_result.is_available_for_court_extract).to eql(true)
+      expect(judicial_result.is_available_for_court_extract).to be(true)
     end
 
     it "has is_convicted_result" do
-      expect(judicial_result.is_convicted_result).to eql(false)
+      expect(judicial_result.is_convicted_result).to be(false)
     end
 
     it "has is_adjournement_result" do
-      expect(judicial_result.is_adjournement_result).to eql(false)
+      expect(judicial_result.is_adjournement_result).to be(false)
     end
   end
 
