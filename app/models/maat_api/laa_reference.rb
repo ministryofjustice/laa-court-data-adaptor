@@ -100,7 +100,7 @@ module MaatApi
       defendant_summary.offence_summaries.map do |offence_summary|
         {
           offenceId: offence_summary.offence_id,
-          offenceCode: offence_summary.offence_code,
+          offenceCode: offence_summary.code,
           asnSeq: offence_summary.order_index,
           offenceClassification: offence_summary.mode_of_trial,
           offenceDate: offence_summary.start_date,

@@ -14,7 +14,7 @@ module HmctsCommonPlatform
       data[:id]
     end
 
-    def offence_code
+    def code
       data[:offenceCode]
     end
 
@@ -22,8 +22,12 @@ module HmctsCommonPlatform
       data[:orderIndex]
     end
 
-    def offence_title
+    def title
       data[:offenceTitle]
+    end
+
+    def legislation
+      data[:offenceLegislation]
     end
 
     def mode_of_trial
