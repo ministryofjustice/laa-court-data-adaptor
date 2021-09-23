@@ -35,11 +35,6 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
         expect(attributes[:maat_reference]).to eq("LAA-552244")
       end
 
-      it "representation_order_date" do
-        allow(ProsecutionCaseDefendantOffence).to receive(:find_by).and_return(ProsecutionCaseDefendantOffence.new(status_date: Date.new(2020, 12, 12)))
-        expect(attributes[:representation_order_date]).to eq("2020-12-12")
-      end
-
       it "prosecution_case_id" do
         expect(attributes[:prosecution_case_id]).to eq("123")
       end

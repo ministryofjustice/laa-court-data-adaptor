@@ -42,15 +42,9 @@ class Defendant
   end
 
   def defence_organisation
-    return unless representation_order_exists?
+    return unless case_reference.present?
 
     DefenceOrganisation.new(body: case_reference.defence_organisation) if case_reference.defence_organisation.present?
-  end
-
-  def representation_order_date
-    return unless representation_order_exists?
-
-    case_reference&.status_date
   end
 
   def offence_ids
@@ -92,14 +86,6 @@ private
     raise "Too many maat references" if refs.size > 1
 
     refs&.first
-  end
-
-  def representation_order_hash
-    body["representationOrder"] if valid_maat_reference?
-  end
-
-  def representation_order_exists?
-    representation_order_hash.present? && case_reference.present?
   end
 
   def case_reference

@@ -8,7 +8,7 @@ module Api
         set_type :defendants
 
         attributes :name, :date_of_birth, :national_insurance_number,
-                   :arrest_summons_number, :maat_reference, :representation_order_date,
+                   :arrest_summons_number, :maat_reference,
                    :prosecution_case_id, :post_hearing_custody_statuses
 
         has_many :offences, record_type: :offences
