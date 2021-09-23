@@ -72,7 +72,7 @@
   "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
   "postHearingCustodyStatus": "A",
   "publishedAsAPrompt": false,
-  "qualifier": "",
+  "qualifier": "qualifier",
   "rank": 49500,
   "resultText": "Legal Aid Transfer Granted\nGrant of legal aid transferred to (new firm name) Joe Bloggs Solicitors Ltd, London\nAdditional reasons Defendant's choice\nNew firm's LAA account reference 55558888",
   "rootJudicialResultId": "be225605-fc15-47aa-b74c-efb8629db58e",

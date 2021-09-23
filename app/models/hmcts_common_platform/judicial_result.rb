@@ -16,6 +16,22 @@ module HmctsCommonPlatform
       data[:cjsCode]
     end
 
+    def is_adjournement_result
+      data[:isAdjournmentResult]
+    end
+
+    def is_available_for_court_extract
+      data[:isAvailableForCourtExtract]
+    end
+
+    def is_financial_result
+      data[:isFinancialResult]
+    end
+
+    def is_convicted_result
+      data[:isConvictedResult]
+    end
+
     def label
       data[:label]
     end
