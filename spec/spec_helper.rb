@@ -17,9 +17,16 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require "simplecov"
+require "simplecov_json_formatter"
+
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::JSONFormatter,
+])
 
 unless ENV["NOCOVERAGE"]
   SimpleCov.start "rails" do
+    enable_coverage :branch
     minimum_coverage 100
     add_group "Serializers", "app/serializers"
     add_group "Services", "app/services"

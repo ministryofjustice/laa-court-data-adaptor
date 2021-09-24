@@ -1,26 +1,56 @@
 name: Run sonar scanner
-
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
 
 jobs:
   run-scan:
-    name: Sonarqube Scan 
+    name: Sonarqube Scan
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Setup sonarqube
-        uses: warchant/setup-sonar-scanner@v3
-
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Run sonar scanner
+    services:
+      db:
+        image: postgres:11
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # to get access to secrets.SONAR_TOKEN, provide GITHUB_TOKEN
-        run: sonar-scanner
-          -Dsonar.host.url=${{ secrets.SONAR_URL }}
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-          -Dsonar.projectKey=${{ github.repository }}:${{ github.head_ref }}
+          POSTGRES_DB: laa_court_data_adaptor_test
+          POSTGRES_PASSWORD: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby 2.7
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+
+    - name: Build and test with Rake
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost/laa_court_data_adaptor_test
+        RAILS_ENV: test
+      run: |
+        sudo apt-get -yqq install libpq-dev
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bundle exec rails db:create
+        bundle exec rails db:migrate
+        bundle exec rspec
+        # to transform the resultset file into a format that Sonarqube expects:
+        ruby -rjson -e 'sqube = JSON.load(File.read("coverage/.resultset.json"))["RSpec"]["coverage"].transform_values {|lines| lines["lines"]}; total = { "RSpec" => { "coverage" => sqube, "timestamp" => Time.now.to_i }}; puts JSON.dump(total)' > coverage/.resultset.solarqube.json
+    - name: Setup sonarqube
+      uses: warchant/setup-sonar-scanner@v3
+
+    - name: Run sonar scanner
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # to get access to secrets.SONAR_TOKEN, provide GITHUB_TOKEN
+      run: sonar-scanner
+        -Dsonar.host.url=${{ secrets.SONAR_URL }}
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        -Dsonar.projectKey=${{ github.repository }}:${{ github.head_ref }}
+        -Dsonar.inclusions=app/**
+        -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.solarqube.json
