@@ -1,7 +1,8 @@
 RSpec.describe Api::Internal::V1::OffenceSerializer do
   let(:serialized_data) do
+    offence_summary_data = JSON.parse(file_fixture("offence_summary/all_fields.json").read)
     offence_data = JSON.parse(file_fixture("offence/all_fields.json").read)
-    offence = Offence.new(body: offence_data, details: [offence_data])
+    offence = Offence.new(body: offence_summary_data, details: [offence_data])
 
     described_class.new(offence).serializable_hash[:data]
   end
@@ -11,7 +12,7 @@ RSpec.describe Api::Internal::V1::OffenceSerializer do
       let(:attributes) { serialized_data[:attributes] }
 
       it "code" do
-        expect(attributes[:code]).to eql("LA12505")
+        expect(attributes[:code]).to eql("TH68026C")
       end
 
       it "order_index" do
@@ -19,15 +20,15 @@ RSpec.describe Api::Internal::V1::OffenceSerializer do
       end
 
       it "title" do
-        expect(attributes[:title]).to eql("Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable")
+        expect(attributes[:title]).to eql("Conspire to commit a burglary dwelling with intent to steal")
       end
 
       it "legislation" do
-        expect(attributes[:legislation]).to eql("Common law")
+        expect(attributes[:legislation]).to eql("Contrary to section 1(1) of the    Criminal Law Act 1977.")
       end
 
       it "mode_of_trial" do
-        expect(attributes[:mode_of_trial]).to eq("Either way")
+        expect(attributes[:mode_of_trial]).to eq("Indictable")
       end
 
       it "mode_of_trial_reasons" do
