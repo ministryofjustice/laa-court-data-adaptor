@@ -1,4 +1,4 @@
-FROM ruby:2.7.4-alpine
+FROM ruby:2.7.3-alpine
 MAINTAINER crime apps team
 
 # fail early and print all commands
@@ -30,17 +30,11 @@ WORKDIR /usr/src/app
 ######################
 # DEPENDENCIES START #
 ######################
-# Env vars needed for dependency install and asset precompilation
-ARG BUNDLE_DEPLOYMENT
-ENV BUNDLE_DEPLOYMENT ${BUNDLE_DEPLOYMENT:-true}
-ARG BUNDLE_WITHOUT
-ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT:-'development test'}
 
 COPY Gemfile* ./
 
-
-RUN gem install bundler:2.1.4 -N \
-&& bundle install --path=vendor/bundle
+RUN gem install bundler:2.2.28
+RUN bundle config set --local deployment 'true' without 'development:test' && bundle install --jobs 4
 
 ####################
 # DEPENDENCIES END #
