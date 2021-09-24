@@ -36,7 +36,7 @@ jobs:
       - run:
           name: install bundle
           command: |
-            gem install bundler -N
+            sudo gem install bundler -N
 
       - run:
           name: install dependencies
