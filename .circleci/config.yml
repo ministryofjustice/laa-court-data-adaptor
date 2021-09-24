@@ -18,7 +18,7 @@ commands:
 jobs:
   test:
     docker:
-      - image: circleci/ruby:2.7.4
+      - image: circleci/ruby:2.7.3
         environment:
           DATABASE_URL: postgres://postgres@localhost/laa_court_data_adaptor_test
           RAILS_ENV: test
@@ -41,7 +41,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            bundle check --path vendor/bundle || bundle install --jobs=4 --retry=3 --path vendor/bundle
+            bundle check || bundle install --jobs=4 --retry=3
 
       - save_cache:
           paths:
