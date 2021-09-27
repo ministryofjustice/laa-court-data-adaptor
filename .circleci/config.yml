@@ -193,37 +193,37 @@ workflows:
             branches:
               only:
                 - master
+      - hold_install_on_dev:
+          type: approval
+          requires:
+          - build-and-push-app
       - install_on_dev:
           requires:
-            - build-and-push-app
+            - hold_install_on_dev
       - hold_install_on_test:
           type: approval
           requires:
-          - install_on_dev
+          - build-and-push-app
       - install_on_test:
           requires:
           - hold_install_on_test
       - hold_install_on_uat:
           type: approval
           requires:
-          - install_on_test
+          - build-and-push-app
       - install_on_uat:
           requires:
           - hold_install_on_uat
       - hold_install_on_stage:
           type: approval
           requires:
-          - install_on_uat
+          - build-and-push-app
       - install_on_stage:
           requires:
           - hold_install_on_stage
-      - hold_install_on_prod:
-          type: approval
-          requires:
-          - install_on_stage
       - install_on_prod:
           requires:
-          - hold_install_on_prod
+          - build-and-push-app
 
   test-branch:
     jobs:
