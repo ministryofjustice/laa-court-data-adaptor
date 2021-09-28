@@ -42,15 +42,9 @@ class Defendant
   end
 
   def defence_organisation
-    return unless representation_order_exists?
+    return if case_reference.blank?
 
     DefenceOrganisation.new(body: case_reference.defence_organisation) if case_reference.defence_organisation.present?
-  end
-
-  def representation_order_date
-    return unless representation_order_exists?
-
-    case_reference&.status_date
   end
 
   def offence_ids
@@ -59,6 +53,16 @@ class Defendant
 
   def defence_organisation_id
     defence_organisation&.id
+  end
+
+  def judicial_result_ids
+    judicial_results.map(&:id)
+  end
+
+  def judicial_results
+    judicial_results_array.map do |judicial_result_data|
+      HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
+    end
   end
 
   def maat_reference
@@ -83,6 +87,12 @@ private
     details.flat_map { |detail| detail["offences"] }.group_by { |offence| offence["id"] }
   end
 
+  def judicial_results_array
+    return [] if details.blank?
+
+    details.flat_map { |detail| detail["judicialResults"] }.uniq.compact
+  end
+
   def valid_maat_reference?
     _maat_reference.present? && !_maat_reference.start_with?("Z")
   end
@@ -92,14 +102,6 @@ private
     raise "Too many maat references" if refs.size > 1
 
     refs&.first
-  end
-
-  def representation_order_hash
-    body["representationOrder"] if valid_maat_reference?
-  end
-
-  def representation_order_exists?
-    representation_order_hash.present? && case_reference.present?
   end
 
   def case_reference

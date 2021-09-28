@@ -1,29 +1,56 @@
-# frozen_string_literal: true
-
 RSpec.describe Api::Internal::V1::OffenceSerializer do
-  subject { described_class.new(offence).serializable_hash }
+  let(:serialized_data) do
+    offence_summary_data = JSON.parse(file_fixture("offence_summary/all_fields.json").read)
+    offence_data = JSON.parse(file_fixture("offence/all_fields.json").read)
+    offence = Offence.new(body: offence_summary_data, details: [offence_data])
 
-  let(:offence) do
-    instance_double("Offence",
-                    id: "UUID",
-                    code: "AA06001",
-                    order_index: "0",
-                    title: "Fail to wear protective clothing",
-                    legislation: "Offences against the Person Act 1861 s.24",
-                    mode_of_trial: "Indictable-Only Offence",
-                    mode_of_trial_reasons: [{ description: "Court directs trial by jury", code: "5" }],
-                    pleas: %w[GUILTY NOT_GUILTY])
+    described_class.new(offence).serializable_hash[:data]
   end
 
-  context "with attributes" do
-    let(:attribute_hash) { subject[:data][:attributes] }
+  describe "offence serialized data" do
+    describe "attributes" do
+      let(:attributes) { serialized_data[:attributes] }
 
-    it { expect(attribute_hash[:code]).to eq("AA06001") }
-    it { expect(attribute_hash[:order_index]).to eq("0") }
-    it { expect(attribute_hash[:title]).to eq("Fail to wear protective clothing") }
-    it { expect(attribute_hash[:legislation]).to eq("Offences against the Person Act 1861 s.24") }
-    it { expect(attribute_hash[:mode_of_trial]).to eq("Indictable-Only Offence") }
-    it { expect(attribute_hash[:mode_of_trial_reasons]).to eq([{ description: "Court directs trial by jury", code: "5" }]) }
-    it { expect(attribute_hash[:pleas]).to eq(%w[GUILTY NOT_GUILTY]) }
+      it "code" do
+        expect(attributes[:code]).to eql("TH68026C")
+      end
+
+      it "order_index" do
+        expect(attributes[:order_index]).to be(1)
+      end
+
+      it "title" do
+        expect(attributes[:title]).to eql("Conspire to commit a burglary dwelling with intent to steal")
+      end
+
+      it "legislation" do
+        expect(attributes[:legislation]).to eql("Contrary to section 1(1) of the    Criminal Law Act 1977.")
+      end
+
+      it "mode_of_trial" do
+        expect(attributes[:mode_of_trial]).to eq("Indictable")
+      end
+
+      it "mode_of_trial_reasons" do
+        expect(attributes[:mode_of_trial_reasons]).to eq([{ description: "Court directs trial by jury", code: "5" }])
+      end
+
+      it "pleas" do
+        expect(attributes[:pleas]).to eq([{ pleaded_at: "2020-04-12", code: "NOT_GUILTY" }])
+      end
+    end
+
+    describe "relationships" do
+      let(:relationships) { serialized_data[:relationships] }
+
+      it "judicial_results" do
+        expected = [{
+          id: "5cb61858-7095-42d6-8a52-966593f17db0",
+          type: :judicial_result,
+        }]
+
+        expect(relationships[:judicial_results][:data]).to eq(expected)
+      end
+    end
   end
 end

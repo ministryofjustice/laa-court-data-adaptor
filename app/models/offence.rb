@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Offence
   include ActiveModel::Model
 
@@ -38,6 +36,16 @@ class Offence
     }.uniq
   end
 
+  def judicial_result_ids
+    judicial_results.map(&:id)
+  end
+
+  def judicial_results
+    judicial_results_array.map do |judicial_result_data|
+      HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
+    end
+  end
+
   def maat_reference
     laa_reference["applicationReference"] if laa_reference.present?
   end
@@ -61,6 +69,12 @@ private
     return [] if details.blank?
 
     details.flat_map { |detail| detail["plea"] }.uniq.compact
+  end
+
+  def judicial_results_array
+    return [] if details.blank?
+
+    details.flat_map { |detail| detail["judicialResults"] }.uniq.compact
   end
 
   def allocation_decisions

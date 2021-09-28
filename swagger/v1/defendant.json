@@ -177,9 +177,6 @@
         "maat_reference": {
           "$ref": "#/definitions/maat_reference"
         },
-        "representation_order_date": {
-          "$ref": "#/definitions/representation_order_date"
-        },
         "prosecution_case_id": {
           "$ref": "#/definitions/prosecution_case_id"
         },
@@ -250,11 +247,6 @@
           "type": "null"
         }
       ]
-    },
-    "representation_order_date": {
-      "readOnly": true,
-      "example": "2020-03-01",
-      "type": "date"
     },
     "prosecution_case_id": {
       "readOnly": true,

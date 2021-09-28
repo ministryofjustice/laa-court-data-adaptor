@@ -12,23 +12,23 @@ module HmctsCommonPlatform
       data[:offenceDefinitionId]
     end
 
-    def offence_code
+    def code
       data[:offenceCode]
     end
 
-    def offence_title
+    def title
       data[:offenceTitle]
     end
 
-    def offence_title_welsh
+    def title_welsh
       data[:offenceTitleWelsh]
     end
 
-    def offence_legislation
+    def legislation
       data[:offenceLegislation]
     end
 
-    def offence_legislation_welsh
+    def legislation_welsh
       data[:offenceLegislationWelsh]
     end
   end

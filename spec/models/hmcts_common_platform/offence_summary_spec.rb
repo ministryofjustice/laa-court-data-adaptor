@@ -9,7 +9,7 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
     end
 
     it { expect(offence_summary.offence_id).to eq("9aca847f-da4e-444b-8f5a-2ce7d776ab75") }
-    it { expect(offence_summary.offence_code).to eq("TH68026C") }
+    it { expect(offence_summary.code).to eq("TH68026C") }
     it { expect(offence_summary.title).to eq("Conspire to commit a burglary dwelling with intent to steal") }
     it { expect(offence_summary.order_index).to eq(1) }
     it { expect(offence_summary.mode_of_trial).to eq("Indictable") }
@@ -25,7 +25,7 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
     end
 
     it { expect(offence_summary.offence_id).to eq("9aca847f-da4e-444b-8f5a-2ce7d776ab75") }
-    it { expect(offence_summary.offence_code).to eq("TH68026C") }
+    it { expect(offence_summary.code).to eq("TH68026C") }
     it { expect(offence_summary.title).to eq("Conspire to commit a burglary dwelling with intent to steal") }
     it { expect(offence_summary.order_index).to be_nil }
     it { expect(offence_summary.mode_of_trial).to be_nil }

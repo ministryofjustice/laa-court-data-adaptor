@@ -25,7 +25,7 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
     end
 
     it "has a qualifier" do
-      expect(judicial_result.qualifier).to eql("")
+      expect(judicial_result.qualifier).to eql("qualifier")
     end
 
     it "has a next hearing datetime" do
@@ -34,6 +34,22 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
 
     it "has a next hearing court centre ID" do
       expect(judicial_result.next_hearing_court_centre_id).to eql("f8254db1-1683-483e-afb3-b87fde5a0a26")
+    end
+
+    it "has is_financial_result" do
+      expect(judicial_result.is_financial_result).to be(false)
+    end
+
+    it "has is_available_for_court_extract" do
+      expect(judicial_result.is_available_for_court_extract).to be(true)
+    end
+
+    it "has is_convicted_result" do
+      expect(judicial_result.is_convicted_result).to be(false)
+    end
+
+    it "has is_adjournement_result" do
+      expect(judicial_result.is_adjournement_result).to be(false)
     end
   end
 

@@ -10,7 +10,7 @@ module HmctsCommonPlatform
       data[:offenceId]
     end
 
-    def offence_code
+    def code
       data[:offenceCode]
     end
 

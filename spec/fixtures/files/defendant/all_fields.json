@@ -44,7 +44,7 @@
           "orderIndex": 2,
           "count": 0,
           "laaApplnReference": {
-            "applicationReference": "LAA-552242",
+            "applicationReference": "LAA-552244",
             "effectiveEndDate": "2021-12-12",
             "effectiveStartDate": "2021-03-09",
             "laaContractNumber": "99998889",
@@ -54,6 +54,19 @@
             "statusDescription": "Granted (One Advocate)",
             "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5"
           }
+        }
+      ],
+      "judicialResults": [
+        {
+          "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+          "label": "Legal Aid Transfer Granted",
+          "isAdjournmentResult": false,
+          "isFinancialResult": false,
+          "judicialResultId": "be225605-fc15-47aa-b74c-efb8629db58e",
+          "isConvictedResult": false,
+          "isAvailableForCourtExtract": true,
+          "orderedDate": "2021-03-10",
+          "category": "FINAL"
         }
       ],
       "prosecutionAuthorityReference": "TFL",

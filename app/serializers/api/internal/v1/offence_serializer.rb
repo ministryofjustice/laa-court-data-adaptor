@@ -13,6 +13,8 @@ module Api
                    :mode_of_trial,
                    :mode_of_trial_reasons,
                    :pleas
+
+        has_many :judicial_results
       end
     end
   end

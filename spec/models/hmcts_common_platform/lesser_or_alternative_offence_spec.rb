@@ -13,23 +13,23 @@ RSpec.describe HmctsCommonPlatform::LesserOrAlternativeOffence, type: :model do
     end
 
     it "has an offence code" do
-      expect(lesser_or_alternative_offence.offence_code).to eql("AAA")
+      expect(lesser_or_alternative_offence.code).to eql("AAA")
     end
 
     it "has an offence title" do
-      expect(lesser_or_alternative_offence.offence_title).to eql("Drunkenness in a public place")
+      expect(lesser_or_alternative_offence.title).to eql("Drunkenness in a public place")
     end
 
     it "has an offence title Welsh" do
-      expect(lesser_or_alternative_offence.offence_title_welsh).to eql("Meddwdod mewn man cyhoeddus")
+      expect(lesser_or_alternative_offence.title_welsh).to eql("Meddwdod mewn man cyhoeddus")
     end
 
     it "has an offence legislation" do
-      expect(lesser_or_alternative_offence.offence_legislation).to eql("Criminal Justice Act 1967")
+      expect(lesser_or_alternative_offence.legislation).to eql("Criminal Justice Act 1967")
     end
 
     it "has an offence legislation Welsh" do
-      expect(lesser_or_alternative_offence.offence_legislation_welsh).to eql("Deddf Cyfiawnder Troseddol 1967")
+      expect(lesser_or_alternative_offence.legislation_welsh).to eql("Deddf Cyfiawnder Troseddol 1967")
     end
   end
 
@@ -43,11 +43,11 @@ RSpec.describe HmctsCommonPlatform::LesserOrAlternativeOffence, type: :model do
     end
 
     it "has no offence title Welsh" do
-      expect(lesser_or_alternative_offence.offence_title_welsh).to be_nil
+      expect(lesser_or_alternative_offence.title_welsh).to be_nil
     end
 
     it "has no offence legislation Welsh" do
-      expect(lesser_or_alternative_offence.offence_legislation_welsh).to be_nil
+      expect(lesser_or_alternative_offence.legislation_welsh).to be_nil
     end
   end
 end

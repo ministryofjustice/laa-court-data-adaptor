@@ -78,7 +78,6 @@ RSpec.describe Defendant, type: :model do
     end
 
     it { expect(defendant.maat_reference).to be_nil }
-    it { expect(defendant.representation_order_date).to be_nil }
     it { expect(defendant.defence_organisation).to be_nil }
 
     context "when a maat_reference is linked" do
@@ -91,7 +90,6 @@ RSpec.describe Defendant, type: :model do
       end
 
       it { expect(defendant.maat_reference).to eq("123123") }
-      it { expect(defendant.representation_order_date).to be_nil }
       it { expect(defendant.defence_organisation_id).to be_nil }
 
       context "when a representation_order is recorded" do
@@ -112,7 +110,6 @@ RSpec.describe Defendant, type: :model do
           }
         end
 
-        it { expect(defendant.representation_order_date).to eq("2019-12-12") }
         it { expect(defendant.defence_organisation_id).to eq("CONTRACT REFERENCE") }
       end
     end
@@ -155,7 +152,6 @@ RSpec.describe Defendant, type: :model do
       end
 
       it { expect(defendant.maat_reference).to be_nil }
-      it { expect(defendant.representation_order_date).to be_nil }
       it { expect(defendant.defence_organisation).to be_nil }
     end
   end

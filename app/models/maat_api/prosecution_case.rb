@@ -85,9 +85,9 @@ module MaatApi
       hmcts_common_platform_defendant.offences.map do |offence|
         {
           offenceId: offence.id,
-          offenceCode: offence.offence_code,
+          offenceCode: offence.code,
           asnSeq: offence.order_index,
-          offenceShortTitle: offence.offence_title,
+          offenceShortTitle: offence.title,
           offenceClassification: offence.mode_of_trial,
           offenceDate: offence.start_date,
           offenceWording: offence.wording,
@@ -151,11 +151,11 @@ module MaatApi
     def lesser_or_alternative_offence(data)
       {
         offenceDefinitionId: data.offence_definition_id,
-        offenceCode: data.offence_code,
-        offenceTitle: data.offence_title,
-        offenceTitleWelsh: data.offence_title_welsh,
-        offenceLegislation: data.offence_legislation,
-        offenceLegislationWelsh: data.offence_legislation_welsh,
+        offenceCode: data.code,
+        offenceTitle: data.title,
+        offenceTitleWelsh: data.title_welsh,
+        offenceLegislation: data.legislation,
+        offenceLegislationWelsh: data.legislation_welsh,
       }.compact
     end
 

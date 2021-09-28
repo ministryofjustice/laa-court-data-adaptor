@@ -13,7 +13,7 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has an offence code" do
-      expect(offence.offence_code).to eql("LA12505")
+      expect(offence.code).to eql("LA12505")
     end
 
     it "has an order index" do
@@ -21,7 +21,11 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has an offence title" do
-      expect(offence.offence_title).to eql("Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable")
+      expect(offence.title).to eql("Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable")
+    end
+
+    it "has an offence legislation" do
+      expect(offence.legislation).to eql("Common law")
     end
 
     it "has a mode of trial" do
@@ -88,7 +92,7 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has an offence code" do
-      expect(offence.offence_code).to eql("LA12505")
+      expect(offence.code).to eql("LA12505")
     end
 
     it "has no order index" do
@@ -96,7 +100,11 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has an offence title" do
-      expect(offence.offence_title).to eql("Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable")
+      expect(offence.title).to eql("Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable")
+    end
+
+    it "has no offence legislation" do
+      expect(offence.legislation).to be_nil
     end
 
     it "has no mode of trial" do
