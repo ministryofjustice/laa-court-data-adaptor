@@ -15,7 +15,7 @@ class MaatLinkCreator < ApplicationService
     publish_laa_reference_to_queue unless laa_reference.dummy_maat_reference?
     post_laa_references_to_common_platform
     fetch_past_hearings
-    persist_laa_reference!
+    persist_laa_reference
   end
 
 private
@@ -49,8 +49,8 @@ private
     )
   end
 
-  def persist_laa_reference!
-    laa_reference.save!
+  def persist_laa_reference
+    laa_reference.save
   end
 
   def fetch_past_hearings
