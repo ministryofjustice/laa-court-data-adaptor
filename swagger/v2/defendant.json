@@ -140,10 +140,10 @@
                 "$ref": "defence_organisation.json#/definitions/included_resource"
               },
               {
-                "$ref": "prosecution_case.json#/definitions/included_resource"
+                "$ref": "hearing_summary.json#/definitions/resource"
               },
               {
-                "$ref": "hearing_summary.json#/definitions/resource"
+                "$ref": "prosecution_case.json#/definitions/included_resource"
               }
             ]
           },

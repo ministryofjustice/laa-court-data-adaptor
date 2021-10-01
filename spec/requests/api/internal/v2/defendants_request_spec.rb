@@ -94,6 +94,8 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
 
+      produces "application/vnd.api+json"
+
       parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
                   "$ref": "defendant.json#/definitions/id",
@@ -102,7 +104,7 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
 
       parameter name: "include", in: :query, required: false, type: :string,
                 schema: {
-                  "$ref": "defendants.json#/definitions/example_included_query_parameters",
+                  "$ref": "defendant.json#/definitions/example_included_query_parameters",
                 },
                 description: "Include top-level and nested associations for a defendant.
                               All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
@@ -136,6 +138,7 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
           let(:include) {}
 
           response(200, "Success") do
+            schema "$ref" => "defendant.json#/definitions/resource_collection"
             run_test!
           end
         end
