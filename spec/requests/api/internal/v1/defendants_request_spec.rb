@@ -139,7 +139,6 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
           let(:include) {}
 
           response(200, "Success") do
-            schema "$ref" => "defendant.json#/definitions/resource_collection"
             run_test!
           end
         end
@@ -153,6 +152,13 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
               included_types = hashed[:included].pluck(:type)
               expect(included_types).to all(eql("offences"))
             end
+          end
+        end
+
+        context "with the inclusion of offences, defence organisation, prosecution case and its associated hearing summaries" do
+          response(200, "Success") do
+            schema "$ref" => "defendant.json#/definitions/resource_collection"
+            run_test!
           end
         end
       end

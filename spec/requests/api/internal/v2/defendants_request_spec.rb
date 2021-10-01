@@ -154,6 +154,13 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
             end
           end
         end
+
+        context "with the inclusion of offences, defence organisation, prosecution case and its associated hearing summaries" do
+          response(200, "Success") do
+            schema "$ref" => "defendant.json#/definitions/resource_collection"
+            run_test!
+          end
+        end
       end
 
       context "when not found" do
