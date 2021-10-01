@@ -72,12 +72,6 @@ RSpec.describe MaatLinkCreator do
   context "when an LaaReference exists" do
     let!(:existing_laa_reference) { LaaReference.create!(defendant_id: SecureRandom.uuid, user_name: "MrDoe", maat_reference: maat_reference) }
 
-    it "raises an ActiveRecord::RecordInvalid error" do
-      expect {
-        create_maat_link
-      }.to raise_error(ActiveRecord::RecordInvalid)
-    end
-
     context "and it is no longer linked" do
       before do
         existing_laa_reference.update!(linked: false)
