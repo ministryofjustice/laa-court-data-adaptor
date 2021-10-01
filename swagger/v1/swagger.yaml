@@ -83,7 +83,7 @@ paths:
         required: false
         type: string
         schema:
-          "$ref": defendants.json#/definitions/example_included_query_parameters
+          "$ref": defendant.json#/definitions/example_included_query_parameters
         description: |-
           Include top-level and nested associations for a defendant.
                                         All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
@@ -93,6 +93,10 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": defendant.json#/definitions/resource_collection
         '404':
           description: Not found
   "/api/internal/v1/hearings/{id}":
