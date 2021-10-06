@@ -22,15 +22,6 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
                 },
                 description: "The uuid of the hearing"
 
-      parameter name: "include", in: :query, required: false, type: :string,
-                schema: {
-                  "$ref": "hearing.json#/definitions/example_included_query_parameters",
-                },
-                description: "Include top-level and nested associations for a hearing.
-                              All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-                              For example to include hearing events, providers, cracked ineffective trial as well as court applications and associated judicial results:
-                              include=hearing_events,providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results"
-
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
       context "with success" do
@@ -49,6 +40,26 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
           let(:include) {}
 
           response(200, "Success") do
+            run_test!
+          end
+        end
+
+        context "with the inclusion of hearing events, providers, court applications, cracked ineffective trial and judicial results" do
+          response(200, "Success") do
+
+            produces "application/vnd.api+json"
+
+            parameter name: "include", in: :query, required: false, type: :string,
+                      schema: {
+                        "$ref": "hearing.json#/definitions/example_included_query_parameters",
+                      },
+                      description: "Include top-level and nested associations for a hearing.
+                                    All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+                                    For example to include hearing events, providers, cracked ineffective trial as well as court applications and associated judicial results:
+                                    include=hearing_events,providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results"
+
+            schema "$ref" => "hearing.json#/definitions/resource_collection"
+
             run_test!
           end
         end

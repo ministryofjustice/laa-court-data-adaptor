@@ -167,10 +167,7 @@
         "type": "object",
         "properties": {
           "data": {
-            "items": {
-              "$ref": "#/definitions/resource"
-            },
-            "type": "array"
+            "$ref": "#/definitions/resource"
           },
           "included": {
             "items": {
@@ -191,10 +188,7 @@
             },
             "type": "array"
           }
-        },
-        "required": [
-          "data"
-        ]
+        }
       },
       "example_included_query_parameters": {
         "description": "An example of parameters that can be included in the query",

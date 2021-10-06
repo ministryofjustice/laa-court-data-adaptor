@@ -139,9 +139,7 @@
     "cracked_ineffective_trial_relationship": {
       "type": "object",
       "properties": {
-        "data": {
-            "$ref": "#/definitions/cracked_ineffective_trial"
-        }
+          "$ref": "#/definitions/cracked_ineffective_trial"
       }
     },
     "cracked_ineffective_trial": {
@@ -181,10 +179,7 @@
       "type": "object",
       "properties": {
         "data": {
-          "items": {
-            "$ref": "#/definitions/resource"
-          },
-          "type": "array"
+          "$ref": "#/definitions/resource"
         },
         "included": {
           "items": {
@@ -208,10 +203,7 @@
           },
           "type": "array"
         }
-      },
-      "required": [
-        "data"
-      ]
+      }
     },
     "example_included_query_parameters": {
       "description": "An example of parameters that can be included in the query",
