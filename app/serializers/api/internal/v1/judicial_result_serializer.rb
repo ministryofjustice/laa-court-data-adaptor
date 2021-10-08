@@ -6,7 +6,7 @@ module Api
 
         attributes :id,
                    :cjs_code,
-                   :is_adjournement_result,
+                   :is_adjournment_result,
                    :is_available_for_court_extract,
                    :is_convicted_result,
                    :is_financial_result,

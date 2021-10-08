@@ -6,7 +6,7 @@ RSpec.describe Api::Internal::V1::JudicialResultSerializer do
 
   it { expect(attributes_hash[:id]).to eql("be225605-fc15-47aa-b74c-efb8629db58e") }
   it { expect(attributes_hash[:cjs_code]).to eql("4600") }
-  it { expect(attributes_hash[:is_adjournement_result]).to be(false) }
+  it { expect(attributes_hash[:is_adjournment_result]).to be(false) }
   it { expect(attributes_hash[:is_financial_result]).to be(false) }
   it { expect(attributes_hash[:is_available_for_court_extract]).to be(true) }
   it { expect(attributes_hash[:is_convicted_result]).to be(false) }
