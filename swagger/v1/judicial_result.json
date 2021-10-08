@@ -20,7 +20,7 @@
     },
     "type": {
       "description": "The judicial result type",
-      "example": "judicial_result",
+      "example": "judicial_results",
       "type": "string"
     },
     "text": {

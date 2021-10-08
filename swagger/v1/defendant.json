@@ -31,6 +31,9 @@
         "offences": {
           "$ref": "#/definitions/offence_relationship"
         },
+        "judicial_results": {
+          "$ref": "#/definitions/judicial_result_relationship"
+        },
         "defence_organisation": {
           "$ref": "#/definitions/defence_organisation_relationship"
         },
@@ -61,13 +64,33 @@
         }
       }
     },
-    "defence_organisation_relationship": {
+    "judicial_result_relationship": {
       "type": "object",
       "properties": {
         "data": {
           "items": {
+            "$ref": "#/definitions/judicial_result"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "judicial_result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "judicial_result.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "judicial_result.json#/definitions/type"
+        }
+      }
+    },
+    "defence_organisation_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
             "$ref": "#/definitions/defence_organisation"
-          }
         }
       }
     },

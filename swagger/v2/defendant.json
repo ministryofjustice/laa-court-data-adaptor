@@ -65,9 +65,7 @@
       "type": "object",
       "properties": {
           "data": {
-            "items": {
               "$ref": "#/definitions/defence_organisation"
-            }
          }
       }
     },
