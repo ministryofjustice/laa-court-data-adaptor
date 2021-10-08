@@ -139,7 +139,9 @@
     "cracked_ineffective_trial_relationship": {
       "type": "object",
       "properties": {
+        "data": {
           "$ref": "#/definitions/cracked_ineffective_trial"
+        }
       }
     },
     "cracked_ineffective_trial": {
@@ -191,7 +193,7 @@
                 "$ref": "provider.json#/definitions/resource"
               },
               {
-                "$ref": "judicial_result.json#/definitions/resource"
+                "$ref": "judicial_result.json#/definitions/included_resource"
               },
               {
                 "$ref": "court_application.json#/definitions/resource"
