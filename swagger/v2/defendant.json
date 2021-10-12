@@ -70,7 +70,6 @@
       }
     },
     "defence_organisation": {
-      "type": "object",
       "properties": {
           "id": {
             "$ref": "defence_organisation.json#/definitions/id"

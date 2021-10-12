@@ -90,12 +90,11 @@
       "type": "object",
       "properties": {
         "data": {
-            "$ref": "#/definitions/defence_organisation"
+          "$ref": "#/definitions/defence_organisation"
         }
       }
     },
     "defence_organisation": {
-      "type": "object",
       "properties": {
         "id": {
           "$ref": "defence_organisation.json#/definitions/id"
@@ -109,7 +108,7 @@
       "type": "object",
       "properties": {
         "data": {
-            "$ref": "#/definitions/prosecution_case"
+          "$ref": "#/definitions/prosecution_case"
         }
       }
     },
