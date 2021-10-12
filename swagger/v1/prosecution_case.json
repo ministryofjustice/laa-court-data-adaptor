@@ -160,16 +160,16 @@
           "items": {
             "anyOf":[
               {
-                "$ref": "offence.json#/definitions/resource"
-              },
-              {
-                "$ref": "defendant.json#/definitions/resource"
-              },
-              {
                 "$ref": "hearing_summary.json#/definitions/resource"
               },
               {
                 "$ref": "hearing.json#/definitions/resource"
+              },
+              {
+                "$ref": "offence.json#/definitions/resource"
+              },
+              {
+                "$ref": "defendant.json#/definitions/resource"
               }
             ]
           },

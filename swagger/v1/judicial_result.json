@@ -58,7 +58,7 @@
       "type": "string"
     },
     "included_type": {
-     "description": "Judicial result is referred to in the plural form when displayed in the payload when included as part of the API query or when displayed as a relationship to another object",
+     "description": "Judicial result is referred to in the singular form when displayed in the payload when displayed as a relationship to another object",
      "example": "judicial_result"
     },
     "text": {

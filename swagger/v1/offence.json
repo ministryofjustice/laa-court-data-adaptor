@@ -186,7 +186,7 @@
           "$ref": "judicial_result.json#/definitions/id"
         },
         "type": {
-          "$ref": "judicial_result.json#/definitions/type"
+          "$ref": "judicial_result.json#/definitions/included_type"
         }
       }
     }
