@@ -16,7 +16,7 @@ module HmctsCommonPlatform
       data[:cjsCode]
     end
 
-    def is_adjournement_result
+    def is_adjournment_result
       data[:isAdjournmentResult]
     end
 
