@@ -48,8 +48,8 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
       expect(judicial_result.is_convicted_result).to be(false)
     end
 
-    it "has is_adjournement_result" do
-      expect(judicial_result.is_adjournement_result).to be(false)
+    it "has is_adjournment_result" do
+      expect(judicial_result.is_adjournment_result).to be(false)
     end
   end
 
