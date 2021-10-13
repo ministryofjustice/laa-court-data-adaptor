@@ -46,7 +46,6 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
 
         context "with the inclusion of hearing events, providers, court applications, cracked ineffective trial and judicial results" do
           response(200, "Success") do
-
             produces "application/vnd.api+json"
 
             parameter name: "include", in: :query, required: false, type: :string,

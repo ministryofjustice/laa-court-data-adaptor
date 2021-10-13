@@ -146,7 +146,6 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
 
         context "with the inclusion of offences, defence organisation, prosecution case and its associated hearing summaries" do
           response(200, "Success") do
-
             produces "application/vnd.api+json"
 
             parameter name: "include", in: :query, required: false, type: :string,
