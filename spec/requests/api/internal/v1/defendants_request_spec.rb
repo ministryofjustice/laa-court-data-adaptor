@@ -101,15 +101,6 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
                 },
                 description: "The uuid of the defendant"
 
-      parameter name: "include", in: :query, required: false, type: :string,
-                schema: {
-                  "$ref": "defendants.json#/definitions/example_included_query_parameters",
-                },
-                description: "Include top-level and nested associations for a defendant.
-                              All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-                              For example to include offences, defence organisation as well as prosecution case and its associated hearing summaries:
-                              include=offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries"
-
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
       context "with success" do
@@ -150,6 +141,25 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
               included_types = hashed[:included].pluck(:type)
               expect(included_types).to all(eql("offences"))
             end
+          end
+        end
+
+        context "with the inclusion of offences, defence organisation, prosecution case and its associated hearing summaries" do
+          response(200, "Success") do
+            produces "application/vnd.api+json"
+
+            parameter name: "include", in: :query, required: false, type: :string,
+                      schema: {
+                        "$ref": "defendant.json#/definitions/example_included_query_parameters",
+                      },
+                      description: "Include top-level and nested associations for a defendant.
+                                    All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+                                    For example to include offences, defence organisation as well as prosecution case and its associated hearing summaries:
+                                    include=offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries"
+
+            schema "$ref" => "defendant.json#/definitions/resource_collection"
+
+            run_test!
           end
         end
       end

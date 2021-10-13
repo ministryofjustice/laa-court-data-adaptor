@@ -128,6 +128,9 @@
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
+        },
+        "relationships": {
+         "$ref": "#/definitions/relationships"
         }
       }
     },
@@ -154,6 +157,36 @@
         },
         "pleas": {
           "$ref": "#/definitions/pleas"
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "judicial_results": {
+          "$ref": "#/definitions/judicial_result_relationship"
+        }
+      }
+    },
+    "judicial_result_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/judicial_result"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "judicial_result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "judicial_result.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "judicial_result.json#/definitions/relationship_type"
         }
       }
     }

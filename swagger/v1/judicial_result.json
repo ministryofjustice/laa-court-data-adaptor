@@ -20,6 +20,11 @@
     },
     "type": {
       "description": "The judicial result type",
+      "example": "judicial_results",
+      "type": "string"
+    },
+    "relationship_type": {
+      "description": "The judicial results type is referred to in the singular form when referenced as a relationship",
       "example": "judicial_result",
       "type": "string"
     },
