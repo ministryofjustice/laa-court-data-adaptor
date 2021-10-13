@@ -131,7 +131,6 @@
        }
      },
      "cracked_ineffective_trial": {
-       "type": "object",
        "properties": {
          "id": {
            "$ref": "cracked_ineffective_trial.json#/definitions/id"
