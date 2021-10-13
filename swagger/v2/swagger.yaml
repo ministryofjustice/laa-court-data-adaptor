@@ -18,13 +18,13 @@ paths:
       - oAuth: []
       parameters: []
       responses:
-        "202":
+        '202':
           description: Accepted
-        "422":
+        '422':
           description: Unprocessable Entity
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
       requestBody:
         content:
@@ -51,11 +51,11 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        "202":
+        '202':
           description: Accepted
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
       requestBody:
         content:
@@ -83,21 +83,17 @@ paths:
         required: false
         type: string
         schema:
-          "$ref": prosecution_case.json#/definitions/example_included_query_parameters
+          "$ref": defendants.json#/definitions/example_included_query_parameters
         description: |-
           Include top-level and nested associations for a defendant.
-          All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-          For example to include offences, defence organisation as well as prosecution case and its associated hearing summaries:
-          include=offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries
+                                        All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+                                        For example to include offences, defence organisation as well as prosecution case and its associated hearing summaries:
+                                        include=offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        "200":
+        '200':
           description: Success
-          content:
-            application/vnd.api+json:
-              schema:
-                "$ref": defendant.json#/definitions/resource_collection
-        "404":
+        '404':
           description: Not found
   "/api/internal/v2/hearings/{id}":
     get:
@@ -122,20 +118,16 @@ paths:
         schema:
           "$ref": hearing.json#/definitions/example_included_query_parameters
         description: |-
-          Include top-level and nested associations for a hearing.
-          All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-          For example to include providers, cracked ineffective trial as well as court applications and associated judicial results:
-          include=providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results
+          Include top-level and nested associations for a hearing. All top-level and nested
+                                        associations available for inclusion are listed under the relationships keys of the response body.
+                                        For example to include providers, cracked ineffective trial as well as court applications and associated judicial results:
+                                        include=providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        "200":
+        '200':
           description: Success
-          content:
-            application/vnd.api+json:
-              schema:
-                "$ref": hearing.json#/definitions/resource_collection
-        "401":
+        '401':
           description: Unauthorized
   "/api/internal/v2/laa_references":
     post:
@@ -153,11 +145,11 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        "202":
+        '202':
           description: Accepted
-        "422":
+        '422':
           description: Unprocessable entity
-        "401":
+        '401':
           description: Unauthorized
       requestBody:
         content:
@@ -194,8 +186,8 @@ paths:
           "$ref": prosecution_case.json#/definitions/example_included_query_parameters
         description: |-
           Include top-level and nested associations for a prosecution case.
-          All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-          e.g. to include hearing summaries as well as defendants and their offences: include=hearing_summaries,defendants,defendants.offences
+                                            All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+                                            e.g. to include hearing summaries as well as defendants and their offences: </br> include=hearing_summaries,defendants,defendants.offences
       - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[arrest_summons_number]
         in: query
@@ -245,13 +237,13 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        "200":
+        '200':
           description: Success
           content:
             application/vnd.api+json:
               schema:
                 "$ref": prosecution_case.json#/definitions/resource_collection
-        "401":
+        '401':
           description: Unauthorized
   "/api/internal/v2/representation_orders":
     post:
@@ -267,11 +259,11 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        "202":
+        '202':
           description: Accepted
-        "422":
+        '422':
           description: Unprocessable entity
-        "401":
+        '401':
           description: Unauthorized
       requestBody:
         content:
@@ -297,4 +289,3 @@ components:
       required: false
       description: A unique identifier for an individual request that can be traced
         across multiple systems
-      example: 281d48b7-0add-421c-b093-4c51060433f0

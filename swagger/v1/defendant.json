@@ -259,6 +259,40 @@
       "example": ["R"],
       "description": "The unique identifier for the prosecution case",
       "type": "uuid"
+    },
+    "resource_to_unlink": {
+    "description": "The object representing the data to remove a LAA reference",
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/unlink_laa_reference"
+        }
+      }
+    },
+    "unlink_laa_reference":{
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+           "$ref": "#/definitions/unlink_attributes"
+         }
+      }
+    },
+    "unlink_attributes": {
+      "type": "object",
+      "properties": {
+        "user_name": {
+          "$ref": "laa_reference.json#/definitions/user_name"
+        },
+        "unlink_reason_code": {
+          "$ref": "laa_reference.json#/definitions/unlink_reason_code"
+        },
+        "defendant_id": {
+          "$ref": "defendant.json#/definitions/id"
+        }
+      }
     }
   },
   "links": [

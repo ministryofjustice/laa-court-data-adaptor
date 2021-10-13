@@ -46,7 +46,7 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
                   schema: {
                     "$ref": "defendant.json#/definitions/resource_to_unlink",
                   },
-                  description: "Object containing the user_name, unlink_reason_code and unlink_other_reason_text"
+                  description: "Object containing the user_name, unlink_reason_code and defendant_id"
 
         parameter "$ref" => "#/components/parameters/transaction_id_header"
 

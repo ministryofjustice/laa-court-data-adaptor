@@ -55,7 +55,7 @@ RSpec.configure do |config|
         description: "CDA exposes API endpoints to the LAA's View Court Data and
                       MAAT/MLRA applications and the HMCTS Common Platform in order to
                       exchange criminal court data between the two organisations.",
-        version: "v1",
+        version: "v2",
       },
       paths: {},
       components: {
