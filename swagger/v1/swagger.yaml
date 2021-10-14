@@ -115,6 +115,7 @@ paths:
         schema:
           "$ref": hearing.json#/definitions/id
         description: The uuid of the hearing
+      - "$ref": "#/components/parameters/transaction_id_header"
       - name: include
         in: query
         required: false
@@ -123,14 +124,17 @@ paths:
           "$ref": hearing.json#/definitions/example_included_query_parameters
         description: |-
           Include top-level and nested associations for a hearing.
-                                        All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-                                        For example to include hearing events, providers, cracked ineffective trial as well as court applications and associated judicial results:
-                                        include=hearing_events,providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results
-      - "$ref": "#/components/parameters/transaction_id_header"
+                                             All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+                                             For example to include hearing events, providers, cracked ineffective trial as well as court applications and associated judicial results:
+                                             include=hearing_events,providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '200':
           description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": hearing.json#/definitions/resource_collection
         '401':
           description: Unauthorized
   "/api/internal/v1/laa_references":
