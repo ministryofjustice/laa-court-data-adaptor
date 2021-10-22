@@ -52,10 +52,10 @@ RSpec.describe "api/internal/v2/hearings", type: :request, swagger_doc: "v2/swag
                       schema: {
                         "$ref": "hearing.json#/definitions/example_included_query_parameters",
                       },
-                      description: "Include top-level and nested associations for a hearing. All top-level and nested
-                                   associations available for inclusion are listed under the relationships keys of the response body.
-                                   For example to include providers, cracked ineffective trial as well as court applications and associated judicial results:
-                                   include=providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results"
+                      description: "Include top-level and nested associations for a hearing.
+                                    All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
+                                    For example to include providers, cracked ineffective trial as well as court applications and associated judicial results:
+                                    include=providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results"
 
             schema "$ref" => "hearing.json#/definitions/resource_collection"
 

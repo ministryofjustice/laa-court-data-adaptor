@@ -93,7 +93,7 @@ RSpec.describe "api/internal/v2/representation_orders", type: :request, swagger_
 
         parameter name: :representation_order, in: :body, required: true, type: :object,
                   schema: {
-                    '$ref': "representation_order.json#/definitions/new_resource",
+                    "$ref": "representation_order.json#/definitions/new_resource",
                   },
                   description: "The Representation Order for an offence"
 
