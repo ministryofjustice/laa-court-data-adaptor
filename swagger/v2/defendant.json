@@ -64,27 +64,26 @@
     "defence_organisation_relationship": {
       "type": "object",
       "properties": {
-          "data": {
-            "$ref": "#/definitions/defence_organisation"
-         }
+        "data": {
+          "$ref": "#/definitions/defence_organisation"
+        }
       }
     },
     "defence_organisation": {
-      "type": "object",
       "properties": {
-          "id": {
-            "$ref": "defence_organisation.json#/definitions/id"
-          },
-          "type": {
-            "$ref": "defence_organisation.json#/definitions/type"
-          }
+        "id": {
+          "$ref": "defence_organisation.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "defence_organisation.json#/definitions/type"
+        }
       }
     },
     "prosecution_case_relationship": {
       "type": "object",
       "properties": {
         "data": {
-            "$ref": "#/definitions/prosecution_case"
+          "$ref": "#/definitions/prosecution_case"
         }
       }
     },
@@ -125,10 +124,7 @@
       "type": "object",
       "properties": {
         "data": {
-          "items": {
-            "$ref": "#/definitions/resource"
-          },
-          "type": "array"
+          "$ref": "#/definitions/resource"
         },
         "included": {
           "items": {
@@ -140,19 +136,16 @@
                 "$ref": "defence_organisation.json#/definitions/included_resource"
               },
               {
-                "$ref": "prosecution_case.json#/definitions/included_resource"
+                "$ref": "hearing_summary.json#/definitions/resource"
               },
               {
-                "$ref": "hearing_summary.json#/definitions/resource"
+                "$ref": "prosecution_case.json#/definitions/included_resource"
               }
             ]
           },
           "type": "array"
         }
-      },
-      "required": [
-        "data"
-      ]
+      }
     },
     "example_included_query_parameters": {
       "description": "An example of parameters that can be included in the query",
@@ -258,6 +251,40 @@
       "readOnly": true,
       "example": ["R"],
       "type": "array"
+    },
+    "resource_to_unlink": {
+    "description": "The object representing the data to remove a LAA reference",
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/unlink_laa_reference"
+        }
+      }
+    },
+    "unlink_laa_reference":{
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+           "$ref": "#/definitions/unlink_attributes"
+         }
+      }
+    },
+    "unlink_attributes": {
+      "type": "object",
+      "properties": {
+        "user_name": {
+          "$ref": "laa_reference.json#/definitions/user_name"
+        },
+        "unlink_reason_code": {
+          "$ref": "laa_reference.json#/definitions/unlink_reason_code"
+        },
+        "defendant_id": {
+          "$ref": "defendant.json#/definitions/id"
+        }
+      }
     }
   },
   "links": [

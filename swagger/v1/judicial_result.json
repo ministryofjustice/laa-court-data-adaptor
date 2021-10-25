@@ -18,8 +18,51 @@
       "example": "2507",
       "type": "string"
     },
+    "is_adjournment_result": {
+      "description": "Whether the result is from an adjournment",
+      "example": false,
+      "type": "boolean"
+    },
+    "is_available_for_court_extract":{
+      "description": "Whether the result can be entered into a court extract",
+      "example": false,
+      "type": "boolean"
+    },
+    "is_convicted_result": {
+      "description": "Whether the result determines the defendant has been convicted",
+      "example": false,
+      "type": "boolean"
+    },
+    "is_financial_result": {
+      "description": "Whether the result is provided as part of a financial order",
+      "example": false,
+      "type": "boolean"
+    },
+    "label": {
+      "description": "Result label provided from reference data during the resulting process",
+      "example": "Random String",
+      "type": "string"
+    },
+    "ordered_date": {
+      "description": "The date the result was ordered",
+      "example": "2019-10-16"
+    },
+    "qualifier": {
+      "description": "Adds further qualification to the meaning of the result",
+      "example": "Random String",
+      "type": "string"
+    },
     "type": {
       "description": "The judicial result type",
+      "example": "judicial_results",
+      "type": "string"
+    },
+    "included_type": {
+     "description": "Judicial result is referred to in the singular form when displayed in the payload when included as part of the API query or when displayed as a relationship to another object",
+     "example": "judicial_result"
+    },
+    "relationship_type": {
+      "description": "The judicial results type is referred to in the singular form when referenced as a relationship",
       "example": "judicial_result",
       "type": "string"
     },
@@ -43,6 +86,21 @@
         }
       }
     },
+    "included_resource": {
+      "description": "An object representing a single judicial result when included in an API query",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/included_type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
     "attributes": {
       "type": "object",
       "properties": {
@@ -51,6 +109,27 @@
         },
         "cjs_code": {
           "$ref": "#/definitions/cjs_code"
+        },
+        "is_adjournment_result": {
+        "$ref": "#/definitions/is_adjournment_result"
+        },
+        "is_available_for_court_extract":{
+          "$ref": "#/definitions/is_available_for_court_extract"
+        },
+        "is_convicted_result": {
+          "$ref": "#/definitions/is_convicted_result"
+        },
+        "is_financial_result": {
+          "$ref": "#/definitions/is_financial_result"
+        },
+        "label": {
+          "$ref": "#/definitions/label"
+        },
+        "ordered_date": {
+          "$ref": "#/definitions/ordered_date"
+        },
+        "qualifier": {
+          "$ref": "#/definitions/qualifier"
         },
         "text": {
           "$ref": "#/definitions/text"

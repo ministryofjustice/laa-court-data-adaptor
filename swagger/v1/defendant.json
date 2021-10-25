@@ -31,6 +31,9 @@
         "offences": {
           "$ref": "#/definitions/offence_relationship"
         },
+        "judicial_results": {
+          "$ref": "#/definitions/judicial_result_relationship"
+        },
         "defence_organisation": {
           "$ref": "#/definitions/defence_organisation_relationship"
         },
@@ -61,11 +64,35 @@
         }
       }
     },
+    "judicial_result_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/judicial_result"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "judicial_result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "judicial_result.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "judicial_result.json#/definitions/type"
+        }
+      }
+    },
     "defence_organisation_relationship": {
       "type": "object",
       "properties": {
         "data": {
-          "$ref": "#/definitions/defence_organisation"
+          "items":{
+            "$ref": "#/definitions/defence_organisation"
+          }
         }
       }
     },
@@ -125,10 +152,7 @@
       "type": "object",
       "properties": {
         "data": {
-          "items": {
-            "$ref": "#/definitions/resource"
-          },
-          "type": "array"
+          "$ref": "#/definitions/resource"
         },
         "included": {
           "items": {
@@ -140,19 +164,16 @@
                 "$ref": "defence_organisation.json#/definitions/included_resource"
               },
               {
-                "$ref": "prosecution_case.json#/definitions/included_resource"
+                "$ref": "hearing_summary.json#/definitions/resource"
               },
               {
-                "$ref": "hearing_summary.json#/definitions/resource"
+                "$ref": "prosecution_case.json#/definitions/included_resource"
               }
             ]
           },
           "type": "array"
         }
-      },
-      "required": [
-        "data"
-      ]
+      }
     },
     "example_included_query_parameters": {
       "description": "An example of parameters that can be included in the query",
@@ -259,6 +280,40 @@
       "example": ["R"],
       "description": "The unique identifier for the prosecution case",
       "type": "uuid"
+    },
+    "resource_to_unlink": {
+    "description": "The object representing the data to remove a LAA reference",
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/unlink_laa_reference"
+        }
+      }
+    },
+    "unlink_laa_reference":{
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+           "$ref": "#/definitions/unlink_attributes"
+         }
+      }
+    },
+    "unlink_attributes": {
+      "type": "object",
+      "properties": {
+        "user_name": {
+          "$ref": "laa_reference.json#/definitions/user_name"
+        },
+        "unlink_reason_code": {
+          "$ref": "laa_reference.json#/definitions/unlink_reason_code"
+        },
+        "defendant_id": {
+          "$ref": "defendant.json#/definitions/id"
+        }
+      }
     }
   },
   "links": [

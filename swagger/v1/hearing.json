@@ -139,13 +139,12 @@
     "cracked_ineffective_trial_relationship": {
       "type": "object",
       "properties": {
-        "data": {
-            "$ref": "#/definitions/cracked_ineffective_trial"
+        "data":{
+          "$ref": "#/definitions/cracked_ineffective_trial"
         }
       }
     },
     "cracked_ineffective_trial": {
-      "type": "object",
       "properties": {
         "id": {
           "$ref": "cracked_ineffective_trial.json#/definitions/id"
@@ -181,10 +180,7 @@
       "type": "object",
       "properties": {
         "data": {
-          "items": {
-            "$ref": "#/definitions/resource"
-          },
-          "type": "array"
+          "$ref": "#/definitions/resource"
         },
         "included": {
           "items": {
@@ -196,7 +192,7 @@
                 "$ref": "provider.json#/definitions/resource"
               },
               {
-                "$ref": "judicial_result.json#/definitions/resource"
+                "$ref": "judicial_result.json#/definitions/included_resource"
               },
               {
                 "$ref": "court_application.json#/definitions/resource"
@@ -208,10 +204,7 @@
           },
           "type": "array"
         }
-      },
-      "required": [
-        "data"
-      ]
+      }
     },
     "example_included_query_parameters": {
       "description": "An example of parameters that can be included in the query",

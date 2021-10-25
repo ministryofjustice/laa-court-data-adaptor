@@ -14,7 +14,7 @@
     },
     "type": {
       "description": "The type of defence organisation",
-      "example": "defence_organisation",
+      "example": "defence_organisations",
       "type": "string"
     },
     "included_type": {
@@ -84,7 +84,7 @@
         },
         "type": {
           "description": "The defence organisations type",
-          "example": "defence_organisations",
+          "example": "defence_organisation",
           "type": "string"
         },
         "attributes": {
