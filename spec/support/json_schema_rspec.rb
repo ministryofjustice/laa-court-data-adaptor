@@ -23,6 +23,7 @@ RSpec.configure do |config|
   config.json_schemas[:person_defendant] = "#{schema_path}/global/apiPersonDefendant.json"
   config.json_schemas[:plea] = "#{schema_path}/global/apiPlea.json"
   config.json_schemas[:prosecution_case] = "#{schema_path}/global/apiProsecutionCase.json"
+  config.json_schemas[:prosecution_conclusion] = "#{schema_path}/api/progression.api.prosecutionConcludedRequest.json"
   config.json_schemas[:prosecution_case_summary] = "#{schema_path}/global/search/apiProsecutionCaseSummary.json"
   config.json_schemas[:verdict] = "#{schema_path}/global/apiVerdict.json"
 end

@@ -32,12 +32,13 @@ module Api
               :prosecutionCaseId,
               :defendantId,
               :isConcluded,
-              :hearingIdWhereChangeOccured,
+              :hearingIdWhereChangeOccurred,
               {
-                concludedOffenceSummary: [
+                offenceSummary: [
                   :offenceId,
                   :offenceCode,
                   :proceedingsConcluded,
+                  :proceedingsConcludedChangedDate,
                   {
                     plea: %i[
                       originatingHearingId

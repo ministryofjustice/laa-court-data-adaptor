@@ -1,15 +1,16 @@
 class ProsecutionConclusionContract < Dry::Validation::Contract
   json do
-    required(:prosecutionConcluded).hash do
+    required(:prosecutionConcluded).array(:hash) do
       required(:prosecutionCaseId).value(:string)
       required(:defendantId).value(:string)
       required(:isConcluded).value(:bool)
-      required(:hearingIdWhereChangeOccured).value(:string)
+      required(:hearingIdWhereChangeOccurred).value(:string)
 
-      required(:concludedOffenceSummary).array(:hash) do
+      required(:offenceSummary).array(:hash) do
         required(:offenceId).value(:string)
         required(:offenceCode).value(:string)
         required(:proceedingsConcluded).value(:bool)
+        required(:proceedingsConcludedChangedDate).value(:string)
 
         required(:plea).value(:hash) do
           required(:originatingHearingId).value(:string)

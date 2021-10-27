@@ -17,7 +17,7 @@ RSpec.describe "api/external/v2/prosecution_conclusions", type: :request, swagge
       response(202, "Accepted") do
         parameter name: :prosecution_conclusion, in: :body, required: false, type: :object,
                   schema: {
-                    '$ref': "prosecution_conclusion.json#/definitions/new_resource",
+                    '$ref': "prosecution_conclusion.json#/definitions/prosecution_concluded.json",
                   },
                   description: "The minimal prosecution concluded payload"
 
