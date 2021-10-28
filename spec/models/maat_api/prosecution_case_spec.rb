@@ -16,6 +16,10 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
   context "when prosecution case has all fields" do
     let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing/with_prosecution_case.json").read).deep_symbolize_keys }
 
+    it "has a hearing ID" do
+      expect(prosecution_case.hearing_id).to eql("b935a64a-6d03-4da4-bba6-4d32cc2e7fb4")
+    end
+
     it "has a maat_reference" do
       expect(prosecution_case.maat_reference).to eql("123")
     end
@@ -161,6 +165,10 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
 
   context "when the hearing body has only required fields" do
     let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing/with_prosecution_case_required_only.json").read).deep_symbolize_keys }
+
+    it "has a hearing ID" do
+      expect(prosecution_case.hearing_id).to eql("b935a64a-6d03-4da4-bba6-4d32cc2e7fb4")
+    end
 
     it "has a maat_reference" do
       expect(prosecution_case.maat_reference).to eql("123")

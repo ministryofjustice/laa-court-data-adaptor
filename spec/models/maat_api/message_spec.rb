@@ -3,6 +3,7 @@
 RSpec.describe MaatApi::Message do
   let(:expected_payload) do
     {
+      hearingId: "1234",
       maatId: 1_209_485,
       caseUrn: "case urn",
       jurisdictionType: "jurisdiction type",
@@ -47,6 +48,10 @@ class Messageable
 
   def initialize(attrs = {})
     @attrs = attrs
+  end
+
+  def hearing_id
+    attrs[:hearing_id] || "1234"
   end
 
   def maat_reference

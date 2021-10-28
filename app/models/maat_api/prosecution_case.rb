@@ -9,6 +9,10 @@ module MaatApi
       @maat_reference = maat_reference
     end
 
+    def hearing_id
+      hearing_resulted.hearing.id
+    end
+
     def defendant_asn
       hmcts_common_platform_defendant.arrest_summons_number
     end
