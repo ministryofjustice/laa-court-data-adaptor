@@ -5,9 +5,19 @@ module Api
     module V1
       class HearingSummarySerializer
         include JSONAPI::Serializer
-        set_type :hearing_summaries
+        attributes :hearing_type
 
-        attributes :hearing_type, :hearing_days
+        attribute :hearing_days do |hearing_summary|
+          hearing_summary.sitting_days.map do |day|
+            Date.parse(day).to_formatted_s(:db)
+          end
+        end
+
+        attribute :court_centre do |hearing_summary|
+          {
+            name: hearing_summary.court_centre.name,
+          }
+        end
       end
     end
   end
