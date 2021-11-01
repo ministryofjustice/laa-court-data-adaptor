@@ -34,6 +34,7 @@ RSpec.describe LaaReferenceUnlinker do
 
   it "calls the Sqs::MessagePublisher service once" do
     message = {
+      defendantId: "8cd0ba7e-df89-45a3-8c61-4008a2186d64",
       maatId: "101010",
       userId: user_name,
       reasonId: unlink_reason_code,
@@ -56,6 +57,7 @@ RSpec.describe LaaReferenceUnlinker do
 
     it "calls the Sqs::MessagePublisher service once" do
       message = {
+        defendantId: "8cd0ba7e-df89-45a3-8c61-4008a2186d64",
         maatId: "101010",
         userId: user_name,
         reasonId: unlink_reason_code,
