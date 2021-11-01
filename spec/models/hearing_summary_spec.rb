@@ -14,16 +14,8 @@ RSpec.describe HearingSummary, type: :model do
   it { expect(hearing_summary.id).to eq("b935a64a-6d03-4da4-bba6-4d32cc2e7fb4") }
   it { expect(hearing_summary.hearing_type).to eq("First hearing") }
   it { expect(hearing_summary.estimated_duration).to eq("20") }
-  it { expect(hearing_summary.sitting_days).to eq(["2020-02-17T15:00:00Z"]) }
+  it { expect(hearing_summary.hearing_days).to all be_a(HmctsCommonPlatform::HearingDay) }
+  it { expect(hearing_summary.court_centre).to be_a(HmctsCommonPlatform::CourtCentre) }
   it { expect(hearing_summary.short_oucode).to eq("B01BH") }
   it { expect(hearing_summary.oucode_l2_code).to eq("1") }
-  it { expect(hearing_summary.resulted?).to eq false }
-  it { expect(hearing_summary.hearing_in_past?).to eq true }
-  it { expect(hearing_summary.hearing_in_future?).to eq false }
-
-  context "when hearing has resulted" do
-    before { Hearing.create!(id: hearing_summary.id, body: { hearing_body: true }) }
-
-    it { expect(hearing_summary.resulted?).to eq true }
-  end
 end

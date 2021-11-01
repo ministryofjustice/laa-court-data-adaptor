@@ -5,30 +5,20 @@ class HearingSummary
 
   attr_accessor :body, :hearing_date
 
+  delegate :short_oucode, :oucode_l2_code, to: :court_centre
+
   def id
     body["hearingId"]
   end
-
-  delegate :short_oucode, :oucode_l2_code, to: :court_centre
 
   def hearing_type
     body["hearingType"]["description"]
   end
 
-  def sitting_days
-    hearing_days.map(&:sitting_day)
-  end
-
-  def hearing_in_past?
-    date_of_hearing.past?
-  end
-
-  def hearing_in_future?
-    date_of_hearing.future?
-  end
-
-  def resulted?
-    Hearing.find_by(id: id).present?
+  def hearing_days
+    Array(body["hearingDays"]).map do |hearing_day_data|
+      HmctsCommonPlatform::HearingDay.new(hearing_day_data)
+    end
   end
 
   def date_of_hearing
@@ -49,10 +39,8 @@ class HearingSummary
 
 private
 
-  def hearing_days
-    Array(body["hearingDays"]).map do |hearing_day_data|
-      HmctsCommonPlatform::HearingDay.new(hearing_day_data)
-    end
+  def sitting_days
+    hearing_days.map(&:sitting_day)
   end
 
   def defence_counsels

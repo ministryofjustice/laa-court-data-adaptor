@@ -1,5 +1,6 @@
 {
   "sittingDay": "2021-03-25T09:30:00.000Z",
   "listingSequence": 8,
-  "listedDurationMinutes": 20
+  "listedDurationMinutes": 20,
+  "hasSharedResults": true
 }

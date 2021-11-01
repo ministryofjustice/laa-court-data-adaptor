@@ -12,8 +12,7 @@ RSpec.describe Api::Internal::V2::HearingSummarySerializer do
     let(:attributes) { serialized_data[:attributes] }
 
     it { expect(attributes[:hearing_type]).to eq("First hearing") }
-    it { expect(attributes[:hearing_days]).to eq(%w[2021-03-25]) }
-    it { expect(attributes[:sitting_days]).to eq(%w[2021-03-25]) }
+    it { expect(attributes[:hearing_days]).to eq([{ has_shared_results: true, sitting_day: "2021-03-25" }]) }
     it { expect(attributes[:court_centre][:name]).to eq("Derby Justice Centre (aka Derby St Mary Adult)") }
     it { expect(attributes[:estimated_duration]).to eq("20") }
   end

@@ -56,9 +56,16 @@
       }
     },
     "hearing_day": {
-      "example": "2020-04-07T09:00:00Z",
-      "description": "The sitting day of the hearing",
-      "type": "string"
+      "sitting_day": {
+        "example": "2020-04-07T09:00:00Z",
+        "description": "The sitting day of the hearing",
+        "type": "string"
+      },
+      "has_shared_results": {
+        "example": "true",
+        "description": "Whether the hearing result has been shared",
+        "type": "boolean"
+      }
     },
     "resource": {
       "description": "An object representing a single hearing_summary",
