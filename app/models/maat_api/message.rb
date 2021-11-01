@@ -8,6 +8,7 @@ module MaatApi
 
     def generate
       {
+        hearingId: object.hearing_id,
         maatId: object.maat_reference.to_i,
         caseUrn: object.case_urn,
         jurisdictionType: object.jurisdiction_type,

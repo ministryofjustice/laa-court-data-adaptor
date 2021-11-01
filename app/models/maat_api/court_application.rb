@@ -8,6 +8,10 @@ module MaatApi
       @maat_reference = maat_reference
     end
 
+    def hearing_id
+      hearing_resulted.hearing.id
+    end
+
     def case_urn; end
 
     def defendant_asn

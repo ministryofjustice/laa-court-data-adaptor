@@ -6,6 +6,10 @@ RSpec.describe HmctsCommonPlatform::Hearing, type: :model do
     expect(data).to match_json_schema(:hearing)
   end
 
+  it "has an ID" do
+    expect(hearing.id).to eql("b935a64a-6d03-4da4-bba6-4d32cc2e7fb4")
+  end
+
   it "has a jurisdiction type" do
     expect(hearing.jurisdiction_type).to eql("CROWN")
   end
