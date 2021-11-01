@@ -27,6 +27,18 @@
       "description": "A description of the hearing type",
       "type": "string"
     },
+    "court_centre": {
+      "readOnly": true,
+      "description": "An object representing court centre details",
+      "type": "object",
+      "properties": {
+        "name": {
+          "example": "Derby Justice Centre",
+          "description": "The name of the court centre",
+          "type": "string"
+        }
+      }
+    },
     "identity": {
       "$ref": "#/definitions/id"
     },
@@ -101,6 +113,9 @@
         },
         "hearing_days": {
           "$ref": "#/definitions/hearing_days"
+        },
+        "court_centre": {
+          "$ref": "#/definitions/court_centre"
         }
       }
     }

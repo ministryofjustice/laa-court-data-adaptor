@@ -1,19 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::Internal::V1::HearingSummarySerializer do
-  subject { described_class.new(hearing_summary).serializable_hash }
+  subject(:attributes_hash) { described_class.new(hearing_summary).serializable_hash[:data][:attributes] }
 
-  let(:hearing_summary) do
-    instance_double("HearingSummary",
-                    id: "UUID",
-                    hearing_type: "Committal for Sentencing",
-                    hearing_days: %w[2020-02-01])
-  end
+  let(:hearing_summary_data) { JSON.parse(file_fixture("hearing_summary/all_fields.json").read) }
+  let(:hearing_summary) { HearingSummary.new(body: hearing_summary_data) }
 
-  context "with attributes" do
-    let(:attribute_hash) { subject[:data][:attributes] }
-
-    it { expect(attribute_hash[:hearing_type]).to eq("Committal for Sentencing") }
-    it { expect(attribute_hash[:hearing_days]).to eq(%w[2020-02-01]) }
-  end
+  it { expect(attributes_hash[:hearing_type]).to eq("First hearing") }
+  it { expect(attributes_hash[:hearing_days]).to eq(%w[2021-03-25]) }
+  it { expect(attributes_hash[:court_centre][:name]).to eq("Derby Justice Centre (aka Derby St Mary Adult)") }
 end

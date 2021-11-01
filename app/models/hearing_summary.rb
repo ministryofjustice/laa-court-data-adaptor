@@ -15,8 +15,8 @@ class HearingSummary
     body["hearingType"]["description"]
   end
 
-  def hearing_days
-    body["hearingDays"].map { |hearing_day| hearing_day["sittingDay"] }
+  def sitting_days
+    hearing_days.map(&:sitting_day)
   end
 
   def hearing_in_past?
@@ -32,12 +32,18 @@ class HearingSummary
   end
 
   def date_of_hearing
-    hearing_days.max&.to_date
+    sitting_days.max&.to_date
+  end
+
+  def court_centre
+    HmctsCommonPlatform::CourtCentre.new(body["courtCentre"])
   end
 
 private
 
-  def court_centre
-    HmctsCommonPlatform::CourtCentre.new(body["courtCentre"])
+  def hearing_days
+    Array(body["hearingDays"]).map do |hearing_day_data|
+      HmctsCommonPlatform::HearingDay.new(hearing_day_data)
+    end
   end
 end
