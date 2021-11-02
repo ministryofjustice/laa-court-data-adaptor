@@ -24,6 +24,7 @@ private
   def push_to_queue
     Sqs::MessagePublisher.call(
       message: {
+        defendantId: defendant_id,
         maatId: laa_reference.maat_reference,
         userId: user_name,
         reasonId: unlink_reason_code,
