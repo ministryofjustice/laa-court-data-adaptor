@@ -35,6 +35,10 @@ class HearingSummary
     sitting_days.max&.to_date
   end
 
+  def estimated_duration
+    body["estimatedDuration"]
+  end
+
   def court_centre
     HmctsCommonPlatform::CourtCentre.new(body["courtCentre"])
   end
