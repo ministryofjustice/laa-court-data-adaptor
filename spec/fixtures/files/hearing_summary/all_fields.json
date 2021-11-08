@@ -1,6 +1,7 @@
 {
   "hearingId": "9b8df2aa-802d-413a-82b3-89eff25cde7b",
   "jurisdictionType": "MAGISTRATES",
+  "estimatedDuration": "20",
   "defendantIds": [
     "562dc2de-2258-4476-8be4-69cf15623f83",
     "b760daba-0d38-4bae-ad57-fbfd8419aefe"

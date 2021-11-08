@@ -5,7 +5,7 @@ module Api
     module V1
       class HearingSummarySerializer
         include JSONAPI::Serializer
-        attributes :hearing_type
+        attributes :hearing_type, :estimated_duration
 
         attribute :hearing_days do |hearing_summary|
           hearing_summary.sitting_days.map do |day|
