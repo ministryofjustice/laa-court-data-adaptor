@@ -27,6 +27,12 @@
       "description": "A description of the hearing type",
       "type": "string"
     },
+    "estimated_duration": {
+      "readOnly": true,
+      "example": "20",
+      "description": "Estimated duration of the hearing",
+      "type": "string"
+    },
     "court_centre": {
       "readOnly": true,
       "description": "An object representing court centre details",
@@ -111,6 +117,9 @@
         "hearing_type": {
           "$ref": "#/definitions/hearing_type"
         },
+        "estimated_duration": {
+          "$ref": "#/definitions/estimated_duration"
+        },
         "hearing_days": {
           "$ref": "#/definitions/hearing_days"
         },
@@ -135,6 +144,9 @@
   "properties": {
     "hearing_type": {
       "$ref": "#/definitions/hearing_type"
+    },
+    "estimated_duration": {
+      "$ref": "#/definitions/estimated_duration"
     },
     "hearing_days": {
       "$ref": "#/definitions/hearing_days"
