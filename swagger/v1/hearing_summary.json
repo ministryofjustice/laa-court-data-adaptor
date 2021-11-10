@@ -72,6 +72,9 @@
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
+        },
+        "relationships": {
+          "$ref": "#/definitions/relationships"
         }
       }
     },
@@ -91,6 +94,36 @@
           "$ref": "#/definitions/court_centre"
         }
       }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "defence_counsels": {
+          "$ref": "#/definitions/defence_counsel_relationship"
+        }
+      }
+    },
+    "defence_counsel_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/defence_counsel"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "defence_counsel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "defence_counsel.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "defence_counsel.json#/definitions/type"
+        }
+      }
     }
   },
   "links": [
@@ -106,14 +139,8 @@
     }
   ],
   "properties": {
-    "hearing_type": {
-      "$ref": "#/definitions/hearing_type"
-    },
-    "estimated_duration": {
-      "$ref": "#/definitions/estimated_duration"
-    },
-    "hearing_days": {
-      "$ref": "#/definitions/hearing_days"
+    "data": {
+      "$ref": "#/definitions/resource"
     }
   }
 }

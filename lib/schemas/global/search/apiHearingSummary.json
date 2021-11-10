@@ -20,6 +20,12 @@
       "description": "The type of hearing that has been listed",
       "$ref": "http://justice.gov.uk/core/courts/external/apiHearingType.json#"
     },
+    "defenceCounsel": {
+      "type": "array",
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiDefenceCounsel.json"
+      }
+    },
     "defendantIds": {
       "description": "The identifiers of the defendants that were heard",
       "type": "array",
