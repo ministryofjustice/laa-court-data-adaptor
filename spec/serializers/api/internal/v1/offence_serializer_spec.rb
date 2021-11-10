@@ -40,7 +40,19 @@ RSpec.describe Api::Internal::V1::OffenceSerializer do
       end
 
       it "verdict" do
-        expect(attributes[:verdict]).to eq({ verdict_date: "2020-04-12", originating_hearing_id: "dda833bb-4956-4c9a-a553-59c6af5c15a6" })
+        expected = {
+          verdict_date: "2020-04-12",
+          originating_hearing_id: "dda833bb-4956-4c9a-a553-59c6af5c15a6",
+          verdict_type: {
+            id: "f8df61d4-6e89-4b3f-85b4-5bfbc137a0b7",
+            description: "A verdict type description",
+            category: "A",
+            category_type: "Type A",
+            sequence: 1,
+          },
+        }
+
+        expect(attributes[:verdict]).to eq(expected)
       end
     end
 

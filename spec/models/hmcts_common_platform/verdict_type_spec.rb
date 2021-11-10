@@ -29,7 +29,7 @@ RSpec.describe HmctsCommonPlatform::VerdictType, type: :model do
     end
 
     it "has a sequence" do
-      expect(verdict_type.sequence).to eql(1)
+      expect(verdict_type.sequence).to be(1)
     end
 
     it "has a description" do
