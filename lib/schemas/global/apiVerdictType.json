@@ -26,7 +26,7 @@
     "verdictCode": {
       "description": "The code of the verdict.  Required for documentation purposes and also for publishing to LAA.  Required to be enriched when publishing hearing results",
       "type": "string"
-    }   
+    }
   },
   "additionalProperties": false,
   "required": [

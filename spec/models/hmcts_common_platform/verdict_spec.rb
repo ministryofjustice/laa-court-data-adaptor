@@ -32,6 +32,10 @@ RSpec.describe HmctsCommonPlatform::Verdict, type: :model do
       expect(verdict.verdict_type_verdict_code).to eql("367A")
     end
 
+    it "has a verdict originating hearing ID" do
+      expect(verdict.originating_hearing_id).to eql("7084b980-d09d-40bc-b856-ea1fafd401bf")
+    end
+
     context "when verdict has only required fields with offence id option" do
       let(:data) do
         JSON.parse(file_fixture("verdict/required_fields_with_offence_id.json").read).deep_symbolize_keys

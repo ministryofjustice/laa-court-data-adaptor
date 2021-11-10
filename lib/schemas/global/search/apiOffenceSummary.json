@@ -59,6 +59,9 @@
         "laaApplnReference": {
             "description": "A reference to the LAA application relevant for this offence",
             "$ref": "http://justice.gov.uk/core/courts/external/apiLaaReference.json#"
+        },
+        "verdict": {
+            "$ref": "http://justice.gov.uk/core/courts/external/apiVerdict.json"
         }
     },
     "required": [

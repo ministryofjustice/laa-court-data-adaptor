@@ -59,6 +59,10 @@ class Offence
     end
   end
 
+  def verdict
+    HmctsCommonPlatform::Verdict.new(body["verdict"])
+  end
+
 private
 
   def laa_reference
