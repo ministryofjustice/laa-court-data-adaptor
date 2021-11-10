@@ -116,6 +116,21 @@
         }
       }
     },
+    "verdict": {
+      "readOnly": true,
+      "description": "The defendant's verdict for a specific offence",
+      "type": "object",
+      "properties": {
+        "verdict_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "originating_hearing_id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
     "resource": {
       "description": "object representing a single offence",
       "type": "object",
@@ -154,6 +169,9 @@
         },
         "pleas": {
           "$ref": "#/definitions/pleas"
+        },
+        "verdict": {
+          "$ref": "#/definitions/verdict"
         }
       }
     }
@@ -188,6 +206,9 @@
     },
     "pleas": {
       "$ref": "#/definitions/pleas"
+    },
+    "verdict": {
+      "$ref": "#/definitions/verdict"
     }
   }
 }
