@@ -8,7 +8,7 @@
   "type": "object",
   "definitions": {
     "id": {
-      "description": "The unique identifier of the hearing summary",
+      "description": "unique identifier of hearing_summary",
       "example": "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4",
       "format": "uuid",
       "type": "string"
@@ -25,6 +25,12 @@
       "readOnly": true,
       "example": "First hearing",
       "description": "A description of the hearing type",
+      "type": "string"
+    },
+    "estimated_duration": {
+      "readOnly": true,
+      "example": "20",
+      "description": "Estimated duration of the hearing",
       "type": "string"
     },
     "court_centre": {
@@ -66,42 +72,9 @@
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
-        }
-      }
-    },
-    "relationships": {
-      "type": "object",
-      "properties": {
-        "offences": {
-          "$ref": "#/definitions/offence_relationship"
         },
-        "defence_organisation": {
-          "$ref": "#/definitions/defence_organisation_relationship"
-        },
-        "prosecution_case": {
-          "$ref": "#/definitions/prosecution_case_relationship"
-        }
-      }
-    },
-    "offence_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/offence"
-          },
-          "type": "array"
-        }
-      }
-    },
-    "offence": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "offence.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "offence.json#/definitions/type"
+        "relationships": {
+          "$ref": "#/definitions/relationships"
         }
       }
     },
@@ -111,11 +84,44 @@
         "hearing_type": {
           "$ref": "#/definitions/hearing_type"
         },
+        "estimated_duration": {
+          "$ref": "#/definitions/estimated_duration"
+        },
         "hearing_days": {
           "$ref": "#/definitions/hearing_days"
         },
         "court_centre": {
           "$ref": "#/definitions/court_centre"
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "defence_counsels": {
+          "$ref": "#/definitions/defence_counsel_relationship"
+        }
+      }
+    },
+    "defence_counsel_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/defence_counsel"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "defence_counsel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "defence_counsel.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "defence_counsel.json#/definitions/type"
         }
       }
     }
@@ -133,11 +139,8 @@
     }
   ],
   "properties": {
-    "hearing_type": {
-      "$ref": "#/definitions/hearing_type"
-    },
-    "hearing_days": {
-      "$ref": "#/definitions/hearing_days"
+    "data": {
+      "$ref": "#/definitions/resource"
     }
   }
 }

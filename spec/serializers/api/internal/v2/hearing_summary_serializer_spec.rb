@@ -1,12 +1,25 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::Internal::V2::HearingSummarySerializer do
-  subject(:attributes_hash) { described_class.new(hearing_summary).serializable_hash[:data][:attributes] }
+  let(:serialized_data) do
+    hearing_summary_data = JSON.parse(file_fixture("hearing_summary/all_fields.json").read)
+    hearing_summary = HearingSummary.new(body: hearing_summary_data)
 
-  let(:hearing_summary_data) { JSON.parse(file_fixture("hearing_summary/all_fields.json").read) }
-  let(:hearing_summary) { HearingSummary.new(body: hearing_summary_data) }
+    described_class.new(hearing_summary).serializable_hash[:data]
+  end
 
-  it { expect(attributes_hash[:hearing_type]).to eq("First hearing") }
-  it { expect(attributes_hash[:hearing_days]).to eq(%w[2021-03-25]) }
-  it { expect(attributes_hash[:court_centre][:name]).to eq("Derby Justice Centre (aka Derby St Mary Adult)") }
+  context "with attributes" do
+    let(:attributes) { serialized_data[:attributes] }
+
+    it { expect(attributes[:hearing_type]).to eq("First hearing") }
+    it { expect(attributes[:hearing_days]).to eq(%w[2021-03-25]) }
+    it { expect(attributes[:court_centre][:name]).to eq("Derby Justice Centre (aka Derby St Mary Adult)") }
+    it { expect(attributes[:estimated_duration]).to eq("20") }
+  end
+
+  context "with relationships" do
+    let(:relationships) { serialized_data[:relationships] }
+
+    it { expect(relationships[:defence_counsels][:data]).to eq([{ id: "e84facce-a2df-4e57-bfe3-f5cd48c43ddc", type: :defence_counsel }]) }
+  end
 end

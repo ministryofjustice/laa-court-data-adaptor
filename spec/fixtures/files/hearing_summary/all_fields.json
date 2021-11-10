@@ -1,6 +1,7 @@
 {
   "hearingId": "9b8df2aa-802d-413a-82b3-89eff25cde7b",
   "jurisdictionType": "MAGISTRATES",
+  "estimatedDuration": "20",
   "defendantIds": [
     "562dc2de-2258-4476-8be4-69cf15623f83",
     "b760daba-0d38-4bae-ad57-fbfd8419aefe"
@@ -21,5 +22,21 @@
     "name": "Derby Justice Centre (aka Derby St Mary Adult)",
     "roomId": "2fc95ce0-79e5-33c6-901a-733c90905e59",
     "roomName": "Courtroom 08"
-  }
+  },
+  "defenceCounsel": [
+    {
+      "id": "e84facce-a2df-4e57-bfe3-f5cd48c43ddc",
+      "title": "Mr.",
+      "lastName": "Fitzgerald",
+      "firstName": "Francis",
+      "middleName": "Scott",
+      "status": "status",
+      "attendanceDays": [
+        "2018-10-25"
+      ],
+      "defendants": [
+        "baff62ee-ae6e-4f6a-92f8-063a1269453c"
+      ]
+    }
+  ]
 }
