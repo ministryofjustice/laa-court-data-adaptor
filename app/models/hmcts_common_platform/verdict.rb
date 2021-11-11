@@ -4,6 +4,16 @@ module HmctsCommonPlatform
 
     delegate :blank?, to: :data
 
+    delegate :id,
+             :description,
+             :category,
+             :category_type,
+             :cjs_verdict_code,
+             :verdict_code,
+             :sequence,
+             to: :verdict_type,
+             prefix: true
+
     def initialize(data)
       @data = HashWithIndifferentAccess.new(data || {})
     end
@@ -20,20 +30,8 @@ module HmctsCommonPlatform
       data[:originatingHearingId]
     end
 
-    def verdict_type_category
-      data.dig(:verdictType, :category)
-    end
-
-    def verdict_type_category_type
-      data.dig(:verdictType, :categoryType)
-    end
-
-    def verdict_type_cjs_verdict_code
-      data.dig(:verdictType, :cjsVerdictCode)
-    end
-
-    def verdict_type_verdict_code
-      data.dig(:verdictType, :verdictCode)
+    def verdict_type
+      HmctsCommonPlatform::VerdictType.new(data[:verdictType])
     end
   end
 end

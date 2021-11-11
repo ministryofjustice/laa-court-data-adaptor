@@ -19,6 +19,13 @@ module Api
           {
             verdict_date: offence.verdict.verdict_date,
             originating_hearing_id: offence.verdict.originating_hearing_id,
+            verdict_type: {
+              id: offence.verdict.verdict_type_id,
+              description: offence.verdict.verdict_type_description,
+              category: offence.verdict.verdict_type_category,
+              category_type: offence.verdict.verdict_type_category_type,
+              sequence: offence.verdict.verdict_type_sequence,
+            },
           }
         end
 
