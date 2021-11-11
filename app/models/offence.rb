@@ -55,6 +55,7 @@ class Offence
       {
         code: plea["pleaValue"],
         pleaded_at: plea["pleaDate"],
+        originating_hearing_id: plea["originatingHearingId"],
       }
     end
   end

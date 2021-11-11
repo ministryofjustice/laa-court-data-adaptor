@@ -36,7 +36,7 @@ RSpec.describe Api::Internal::V1::OffenceSerializer do
       end
 
       it "pleas" do
-        expect(attributes[:pleas]).to eq([{ pleaded_at: "2020-04-12", code: "NOT_GUILTY" }])
+        expect(attributes[:pleas]).to eq([{ pleaded_at: "2020-04-12", code: "NOT_GUILTY", originating_hearing_id: "dda833bb-4956-4c9a-a553-59c6af5c15a6" }])
       end
 
       it "verdict" do

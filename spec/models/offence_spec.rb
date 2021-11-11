@@ -62,6 +62,7 @@ RSpec.describe Offence, type: :model do
           "plea" => {
             "pleaDate" => "2020-04-25",
             "pleaValue" => "NOT_GUILTY",
+            "originatingHearingId" => "uuid-for-first-hearing",
           },
         }]
       end
@@ -70,6 +71,7 @@ RSpec.describe Offence, type: :model do
         [{
           "code": "NOT_GUILTY",
           "pleaded_at": "2020-04-25",
+          "originating_hearing_id" => "uuid-for-first-hearing",
         }]
       end
 
@@ -82,12 +84,14 @@ RSpec.describe Offence, type: :model do
           "plea" => {
             "pleaDate" => "2020-04-24",
             "pleaValue" => "NOT_GUILTY",
+            "originatingHearingId" => "uuid-for-first-hearing",
           },
         },
          {
            "plea" => {
              "pleaDate" => "2020-12-24",
              "pleaValue" => "GUILTY",
+             "originatingHearingId" => "uuid-for-second-hearing",
            },
          }]
       end
@@ -96,10 +100,12 @@ RSpec.describe Offence, type: :model do
         [{
           "code": "NOT_GUILTY",
           "pleaded_at": "2020-04-24",
+          "originating_hearing_id" => "uuid-for-first-hearing",
         },
          {
            "code": "GUILTY",
            "pleaded_at": "2020-12-24",
+           "originating_hearing_id" => "uuid-for-second-hearing",
          }]
       end
 
@@ -112,12 +118,14 @@ RSpec.describe Offence, type: :model do
           "plea" => {
             "pleaDate" => "2020-04-24",
             "pleaValue" => "NOT_GUILTY",
+            "originatingHearingId" => "uuid-for-first-hearing",
           },
         },
          {
            "plea" => {
              "pleaDate" => "2020-04-24",
              "pleaValue" => "NOT_GUILTY",
+             "originatingHearingId" => "uuid-for-first-hearing",
            },
          }]
       end
@@ -126,6 +134,7 @@ RSpec.describe Offence, type: :model do
         [{
           "code": "NOT_GUILTY",
           "pleaded_at": "2020-04-24",
+          "originating_hearing_id" => "uuid-for-first-hearing",
         }]
       end
 
