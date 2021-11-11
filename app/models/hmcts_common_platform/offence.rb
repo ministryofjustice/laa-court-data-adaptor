@@ -53,9 +53,7 @@ module HmctsCommonPlatform
     end
 
     def plea
-      Array(data[:pleas]).map do |plea_data|
-        HmctsCommonPlatform::Plea.new(plea_data)
-      end
+      HmctsCommonPlatform::Plea.new(plea_data)
     end
 
     def verdict

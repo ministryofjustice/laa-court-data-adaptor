@@ -32,7 +32,7 @@
     }
   },
   "plea": {
-    "originatingHearingId": "uuid-for-first-hearing",
+    "originatingHearingId": "dda833bb-4956-4c9a-a553-59c6af5c15a6",
     "delegatedPowers": {
       "userId": "9532fdad-2ada-4f26-8929-b0389febec8d",
       "firstName": "Ada",

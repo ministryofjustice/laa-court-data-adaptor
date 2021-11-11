@@ -71,7 +71,7 @@ RSpec.describe Offence, type: :model do
         [{
           "code": "NOT_GUILTY",
           "pleaded_at": "2020-04-25",
-          "originating_hearing_id" => "uuid-for-first-hearing",
+          "originating_hearing_id": "uuid-for-first-hearing",
         }]
       end
 
@@ -100,12 +100,12 @@ RSpec.describe Offence, type: :model do
         [{
           "code": "NOT_GUILTY",
           "pleaded_at": "2020-04-24",
-          "originating_hearing_id" => "uuid-for-first-hearing",
+          "originating_hearing_id": "uuid-for-first-hearing",
         },
          {
            "code": "GUILTY",
            "pleaded_at": "2020-12-24",
-           "originating_hearing_id" => "uuid-for-second-hearing",
+           "originating_hearing_id": "uuid-for-second-hearing",
          }]
       end
 
@@ -134,7 +134,7 @@ RSpec.describe Offence, type: :model do
         [{
           "code": "NOT_GUILTY",
           "pleaded_at": "2020-04-24",
-          "originating_hearing_id" => "uuid-for-first-hearing",
+          "originating_hearing_id": "uuid-for-first-hearing",
         }]
       end
 
