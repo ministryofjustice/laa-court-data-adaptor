@@ -53,7 +53,7 @@ module HmctsCommonPlatform
     end
 
     def plea
-      HmctsCommonPlatform::Plea.new(plea_data)
+      HmctsCommonPlatform::Plea.new(data[:plea])
     end
 
     def verdict
