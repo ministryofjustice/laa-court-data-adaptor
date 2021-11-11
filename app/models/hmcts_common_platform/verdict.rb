@@ -16,6 +16,10 @@ module HmctsCommonPlatform
       data[:verdictDate]
     end
 
+    def originating_hearing_id
+      data[:originatingHearingId]
+    end
+
     def verdict_type_category
       data.dig(:verdictType, :category)
     end

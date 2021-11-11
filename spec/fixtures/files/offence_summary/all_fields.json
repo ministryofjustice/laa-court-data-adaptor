@@ -16,5 +16,15 @@
     "statusCode": "A",
     "statusDescription": "description",
     "statusDate": "2021-05-01"
+  },
+  "verdict": {
+    "offenceId": "9aca847f-da4e-444b-8f5a-2ce7d776ab75",
+    "verdictDate": "2020-04-12",
+    "verdictType": {
+      "id": "f8df61d4-6e89-4b3f-85b4-5bfbc137a0b7",
+      "category": "A",
+      "categoryType": "Type A"
+    },
+    "originatingHearingId": "dda833bb-4956-4c9a-a553-59c6af5c15a6"
   }
 }

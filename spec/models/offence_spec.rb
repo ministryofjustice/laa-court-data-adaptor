@@ -18,6 +18,10 @@ RSpec.describe Offence, type: :model do
       "startDate" => "2020-02-01",
       "endDate" => "2020-02-01",
       "proceedingsConcluded" => false,
+      "verdict" => {
+        "verdictDate" => "2020-04-12",
+        "originatingHearingId" => "dda833bb-4956-4c9a-a553-59c6af5c15a6",
+      },
     }
   end
 
