@@ -71,9 +71,11 @@ private
   end
 
   def pleas_array
-    return [] if details.blank?
-
-    details.flat_map { |detail| detail["plea"] }.uniq.compact
+    if details.blank?
+      body["plea"] ||= []
+    else
+      details.flat_map { |detail| detail["plea"] }.uniq.compact
+    end
   end
 
   def judicial_results_array
