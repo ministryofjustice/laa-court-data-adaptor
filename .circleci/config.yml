@@ -18,11 +18,12 @@ commands:
 jobs:
   test:
     docker:
-      - image: circleci/ruby:2.7.3
+      - image: cimg/ruby:2.7.3
         environment:
+          PAGER: cat
           DATABASE_URL: postgres://postgres@localhost/laa_court_data_adaptor_test
           RAILS_ENV: test
-      - image: circleci/postgres:11.5-alpine
+      - image: cimg/postgres:11.12
         environment:
           POSTGRES_DB: laa_court_data_adaptor_test
     steps:
