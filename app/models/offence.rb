@@ -55,6 +55,7 @@ class Offence
       {
         code: plea["pleaValue"],
         pleaded_at: plea["pleaDate"],
+        originating_hearing_id: plea["originatingHearingId"],
       }
     end
   end
@@ -70,9 +71,11 @@ private
   end
 
   def pleas_array
-    return [] if details.blank?
-
-    details.flat_map { |detail| detail["plea"] }.uniq.compact
+    if details.blank?
+      body["plea"] ||= []
+    else
+      details.flat_map { |detail| detail["plea"] }.uniq.compact
+    end
   end
 
   def judicial_results_array
