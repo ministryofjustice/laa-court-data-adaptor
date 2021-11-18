@@ -32,7 +32,7 @@ private
     defendant[:offences]&.map do |offence|
       verdict_dates << offence.dig(:verdict, :verdictDate)
     end
-    verdict_dates.max
+    verdict_dates.compact.max
   end
 
   attr_reader :defendant

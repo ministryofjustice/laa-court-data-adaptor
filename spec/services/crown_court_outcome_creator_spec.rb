@@ -11,6 +11,14 @@ RSpec.describe CrownCourtOutcomeCreator do
       },
     }
   end
+  let(:guilty_verdict_two) do
+    {
+      'verdictDate': "2018-10-26",
+      'verdictType': {
+        'categoryType': "GUILTY_CONVICTED",
+      },
+    }
+  end
   let(:not_guilty_verdict) do
     {
       'verdictDate': "2018-10-26",
@@ -27,6 +35,15 @@ RSpec.describe CrownCourtOutcomeCreator do
       },
     }
   end
+  let(:not_guilty_verdict_no_date) do
+    {
+      'verdictDate': nil,
+      'verdictType': {
+        'categoryType': "NOT_GUILTY",
+      },
+    }
+  end
+
   let(:defendant) do
     {
       'offences': [
@@ -104,6 +121,28 @@ RSpec.describe CrownCourtOutcomeCreator do
 
       it "results in a PART CONVICTED result" do
         expect(create).to eq({ caseEndDate: "2018-10-27", ccooOutcome: "PART CONVICTED" })
+      end
+    end
+
+    context "with a mixed verdicts, same dates and nil value date" do
+      let(:defendant) do
+        {
+          'offences': [
+            {
+              'verdict': guilty_verdict_two,
+            },
+            {
+              'verdict': not_guilty_verdict,
+            },
+            {
+              'verdict': not_guilty_verdict_no_date,
+            },
+          ],
+        }
+      end
+
+      it "results in a PART CONVICTED result" do
+        expect(create).to eq({ caseEndDate: "2018-10-26", ccooOutcome: "PART CONVICTED" })
       end
     end
   end
