@@ -28,7 +28,11 @@ private
   end
 
   def trial_end_date
-    defendant.dig(:offences, 0, :verdict, :verdictDate)
+    verdict_dates = []
+    defendant[:offences]&.map do |offence|
+      verdict_dates << offence.dig(:verdict, :verdictDate)
+    end
+    verdict_dates.max
   end
 
   attr_reader :defendant

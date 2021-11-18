@@ -13,7 +13,15 @@ RSpec.describe CrownCourtOutcomeCreator do
   end
   let(:not_guilty_verdict) do
     {
-      'verdictDate': "2018-10-25",
+      'verdictDate': "2018-10-26",
+      'verdictType': {
+        'categoryType': "NOT_GUILTY",
+      },
+    }
+  end
+  let(:not_guilty_verdict_two) do
+    {
+      'verdictDate': "2018-10-27",
       'verdictType': {
         'categoryType': "NOT_GUILTY",
       },
@@ -54,11 +62,11 @@ RSpec.describe CrownCourtOutcomeCreator do
       end
 
       it "results in a AQUITTED result" do
-        expect(create).to eq({ caseEndDate: "2018-10-25", ccooOutcome: "AQUITTED" })
+        expect(create).to eq({ caseEndDate: "2018-10-26", ccooOutcome: "AQUITTED" })
       end
     end
 
-    context "with a mix of guity and not guilty trial verdicts" do
+    context "with a mix of guilty and not guilty trial verdicts" do
       let(:defendant) do
         {
           'offences': [
@@ -73,7 +81,29 @@ RSpec.describe CrownCourtOutcomeCreator do
       end
 
       it "results in a PART CONVICTED result" do
-        expect(create).to eq({ caseEndDate: "2018-10-25", ccooOutcome: "PART CONVICTED" })
+        expect(create).to eq({ caseEndDate: "2018-10-26", ccooOutcome: "PART CONVICTED" })
+      end
+    end
+
+    context "with a mix of three verdicts, guilty and not guilty" do
+      let(:defendant) do
+        {
+          'offences': [
+            {
+              'verdict': guilty_verdict,
+            },
+            {
+              'verdict': not_guilty_verdict,
+            },
+            {
+              'verdict': not_guilty_verdict_two,
+            },
+          ],
+        }
+      end
+
+      it "results in a PART CONVICTED result" do
+        expect(create).to eq({ caseEndDate: "2018-10-27", ccooOutcome: "PART CONVICTED" })
       end
     end
   end
