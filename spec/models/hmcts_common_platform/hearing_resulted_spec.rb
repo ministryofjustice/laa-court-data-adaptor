@@ -7,7 +7,7 @@ RSpec.describe HmctsCommonPlatform::HearingResulted, type: :model do
   end
 
   it "has a hearing" do
-    expect(hearing_resulted.hearing).to be_a(HmctsCommonPlatform::Hearing)
+    expect(hearing_resulted.hearing).to be_an(HmctsCommonPlatform::Hearing)
   end
 
   it "has a shared time" do

@@ -19,7 +19,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
   end
 
   it "has defendant cases" do
-    expect(court_application.defendant_cases).to all(be_a(HmctsCommonPlatform::DefendantCase))
+    expect(court_application.defendant_cases).to all(be_an(HmctsCommonPlatform::DefendantCase))
   end
 
   it "has a type name" do
@@ -118,13 +118,13 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
 
   describe "respondents" do
     it "are HmctsCommonPlatform::CourtApplicationParty objects" do
-      expect(court_application.respondents).to all(be_a(HmctsCommonPlatform::CourtApplicationParty))
+      expect(court_application.respondents).to all(be_an(HmctsCommonPlatform::CourtApplicationParty))
     end
   end
 
   describe "judicial results" do
     it "are HmctsCommonPlatform::JudicialResult objects" do
-      expect(court_application.judicial_results).to all(be_a(HmctsCommonPlatform::JudicialResult))
+      expect(court_application.judicial_results).to all(be_an(HmctsCommonPlatform::JudicialResult))
     end
   end
 end
