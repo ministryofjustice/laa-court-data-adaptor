@@ -36,6 +36,10 @@ module HmctsCommonPlatform
       data[:label]
     end
 
+    def category
+      data[:category]
+    end
+
     def text
       data[:resultText]
     end

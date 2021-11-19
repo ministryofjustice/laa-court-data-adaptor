@@ -110,6 +110,7 @@
                     {
                       "cjsCode": "4600",
                       "label": "Found guilty on all charges",
+                      "category": "A",
                       "resultText": "Result",
                       "qualifier": "Qualifier",
                       "orderedDate": "2021-03-10",

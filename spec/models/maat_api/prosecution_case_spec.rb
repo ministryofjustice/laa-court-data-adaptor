@@ -107,6 +107,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
                 resultCode: "4600",
                 resultShortTitle: "Found guilty on all charges",
                 resultText: "Result",
+                category: "A",
                 resultCodeQualifiers: "Qualifier",
                 nextHearingDate: "2019-10-23",
                 nextHearingLocation: "B21JI",
