@@ -126,7 +126,7 @@ RSpec.describe Hearing, type: :model do
       describe "#court_applications" do
         subject { hearing.court_applications }
 
-        it { is_expected.to all be_a(HmctsCommonPlatform::CourtApplication) }
+        it { is_expected.to all be_an(HmctsCommonPlatform::CourtApplication) }
       end
 
       describe "#court_application_ids" do

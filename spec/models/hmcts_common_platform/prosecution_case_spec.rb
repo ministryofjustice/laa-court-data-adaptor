@@ -13,7 +13,7 @@ RSpec.describe HmctsCommonPlatform::ProsecutionCase, type: :model do
     end
 
     it "has defendants" do
-      expect(prosecution_case.defendants).to all(be_a(HmctsCommonPlatform::Defendant))
+      expect(prosecution_case.defendants).to all(be_an(HmctsCommonPlatform::Defendant))
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe HmctsCommonPlatform::ProsecutionCase, type: :model do
     end
 
     it "has defendants" do
-      expect(prosecution_case.defendants).to all(be_a(HmctsCommonPlatform::Defendant))
+      expect(prosecution_case.defendants).to all(be_an(HmctsCommonPlatform::Defendant))
     end
   end
 end

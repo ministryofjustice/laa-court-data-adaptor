@@ -65,16 +65,16 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has results" do
-      expect(offence.results).to all(be_a(HmctsCommonPlatform::JudicialResult))
-      expect(offence.results).to be_a(Array)
+      expect(offence.results).to all(be_an(HmctsCommonPlatform::JudicialResult))
+      expect(offence.results).to be_an(Array)
     end
 
     it "has a plea" do
-      expect(offence.plea).to be_a(HmctsCommonPlatform::Plea)
+      expect(offence.plea).to be_an(HmctsCommonPlatform::Plea)
     end
 
     it "has a verdict" do
-      expect(offence.verdict).to be_a(HmctsCommonPlatform::Verdict)
+      expect(offence.verdict).to be_an(HmctsCommonPlatform::Verdict)
     end
   end
 

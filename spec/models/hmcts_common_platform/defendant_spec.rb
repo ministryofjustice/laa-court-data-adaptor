@@ -85,8 +85,8 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
     end
 
     it "has offences" do
-      expect(defendant.offences).to all(be_a(HmctsCommonPlatform::Offence))
-      expect(defendant.offences).to be_a(Array)
+      expect(defendant.offences).to all(be_an(HmctsCommonPlatform::Offence))
+      expect(defendant.offences).to be_an(Array)
     end
   end
 
@@ -175,8 +175,8 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
 
     describe "offences" do
       it "are HmctsCommonPlatform::Offence objects" do
-        expect(defendant.offences).to all(be_a(HmctsCommonPlatform::Offence))
-        expect(defendant.offences).to be_a(Array)
+        expect(defendant.offences).to all(be_an(HmctsCommonPlatform::Offence))
+        expect(defendant.offences).to be_an(Array)
       end
     end
   end

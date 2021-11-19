@@ -23,10 +23,10 @@ RSpec.describe HmctsCommonPlatform::Hearing, type: :model do
   end
 
   it "has prosecution cases" do
-    expect(hearing.prosecution_cases).to all be_a(HmctsCommonPlatform::ProsecutionCase)
+    expect(hearing.prosecution_cases).to all be_an(HmctsCommonPlatform::ProsecutionCase)
   end
 
   it "has court applications" do
-    expect(hearing.court_applications).to all be_a(HmctsCommonPlatform::CourtApplication)
+    expect(hearing.court_applications).to all be_an(HmctsCommonPlatform::CourtApplication)
   end
 end

@@ -13,7 +13,7 @@ RSpec.describe HmctsCommonPlatform::Plea, type: :model do
     end
 
     it "has a delegated powers" do
-      expect(plea.delegated_powers).to be_a(HmctsCommonPlatform::DelegatedPowers)
+      expect(plea.delegated_powers).to be_an(HmctsCommonPlatform::DelegatedPowers)
     end
 
     it "has an offence id" do
@@ -33,7 +33,7 @@ RSpec.describe HmctsCommonPlatform::Plea, type: :model do
     end
 
     it "has a lesser or alternative offence" do
-      expect(plea.lesser_or_alternative_offence).to be_a(HmctsCommonPlatform::LesserOrAlternativeOffence)
+      expect(plea.lesser_or_alternative_offence).to be_an(HmctsCommonPlatform::LesserOrAlternativeOffence)
     end
   end
 
