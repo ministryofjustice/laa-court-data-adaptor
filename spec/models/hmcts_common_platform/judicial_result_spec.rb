@@ -20,6 +20,10 @@ RSpec.describe HmctsCommonPlatform::JudicialResult, type: :model do
       expect(judicial_result.label).to eql("Legal Aid Transfer Granted")
     end
 
+    it "has a category" do
+      expect(judicial_result.category).to eql("FINAL")
+    end
+
     it "has text" do
       expect(judicial_result.text).to eql("Legal Aid Transfer Granted\nGrant of legal aid transferred to (new firm name) Joe Bloggs Solicitors Ltd, London\nAdditional reasons Defendant's choice\nNew firm's LAA account reference 55558888")
     end

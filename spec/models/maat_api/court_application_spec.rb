@@ -93,6 +93,7 @@ RSpec.describe MaatApi::CourtApplication, type: :model do
               {
                 nextHearingDate: "2020-03-01",
                 nextHearingLocation: "B01LY",
+                category: "FINAL",
                 resultCode: "4600",
                 resultCodeQualifiers: "",
                 resultShortTitle: "Legal Aid Transfer Granted",

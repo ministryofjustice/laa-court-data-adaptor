@@ -112,6 +112,7 @@ module MaatApi
           resultCode: judicial_result.cjs_code,
           resultShortTitle: judicial_result.label,
           resultText: judicial_result.text,
+          category: judicial_result.category,
           resultCodeQualifiers: judicial_result.qualifier,
           nextHearingDate: judicial_result.next_hearing_date&.to_date&.strftime("%Y-%m-%d"),
           nextHearingLocation: judicial_result.next_hearing_court_centre&.short_oucode,
