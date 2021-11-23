@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Verdict Type",
+  "description": "Verdict types",
+  "id": "verdict_type",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "id": {
+      "description": "unique identifier",
+      "format": "uuid",
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "example": "A"
+    },
+    "category_type": {
+      "type": "string",
+      "example": "Type A"
+    },
+    "cjs_verdict_code": {
+      "type": "string",
+      "example": "1093"
+    },
+    "description": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "integer",
+      "example": 1
+    },
+    "verdict_code": {
+      "type": "string",
+      "example": "367A"
+    }
+  }
+}

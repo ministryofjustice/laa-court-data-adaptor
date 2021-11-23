@@ -132,6 +132,31 @@
         "originating_hearing_id": {
           "type": "string",
           "format": "uuid"
+        },
+        "verdict_type": {
+          "properties": {
+            "id": {
+              "$ref": "verdict_type.json#/definitions/id"
+            },
+            "category": {
+              "$ref": "verdict_type.json#/definitions/category"
+            },
+            "category_type": {
+              "$ref": "verdict_type.json#/definitions/category_type"
+            },
+            "cjs_verdict_code": {
+              "$ref": "verdict_type.json#/definitions/cjs_verdict_code"
+            },
+            "verdict_code": {
+              "$ref": "verdict_type.json#/definitions/verdict_code"
+            },
+            "description": {
+              "$ref": "verdict_type.json#/definitions/description"
+            },
+            "sequence": {
+              "$ref": "verdict_type.json#/definitions/sequence"
+            }
+          }
         }
       }
     },
