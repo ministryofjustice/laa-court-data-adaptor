@@ -13,6 +13,7 @@ RSpec.describe Api::Internal::V2::HearingSummarySerializer do
 
     it { expect(attributes[:hearing_type]).to eq("First hearing") }
     it { expect(attributes[:hearing_days]).to eq(%w[2021-03-25]) }
+    it { expect(attributes[:sitting_days]).to eq(%w[2021-03-25]) }
     it { expect(attributes[:court_centre][:name]).to eq("Derby Justice Centre (aka Derby St Mary Adult)") }
     it { expect(attributes[:estimated_duration]).to eq("20") }
   end
