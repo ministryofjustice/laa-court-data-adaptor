@@ -14,7 +14,7 @@ RSpec.describe HearingsCreatorWorker, type: :worker do
 
   it "creates a HearingsCreator and calls with a transformed hash" do
     Sidekiq::Testing.inline! do
-      expect(HearingsCreator).to receive(:call).once.with(hearing_resulted_data: "some data")
+      expect(HearingsCreator).to receive(:call).once.with(hearing_resulted_data: "some data", queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted)
       work
     end
   end

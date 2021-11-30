@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe HearingsCreator do
-  subject(:create_hearings) { described_class.call(hearing_resulted_data: hearing_resulted_data) }
+  subject(:create_hearings) { described_class.call(hearing_resulted_data: hearing_resulted_data, queue_url: "url") }
 
   let(:defendant_array) { [defendant_one] }
   let(:offence_array) { [offence_one, offence_two] }
@@ -90,7 +90,7 @@ RSpec.describe HearingsCreator do
       it "calls the Sqs::MessagePublisher service once" do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a888", linked: true, maat_reference: "123", user_name: "Bob")
 
-        expect(Sqs::MessagePublisher).to receive(:call).once
+        expect(Sqs::MessagePublisher).to receive(:call).once.with(hash_including(queue_url: "url"))
 
         create_hearings
       end
@@ -105,7 +105,7 @@ RSpec.describe HearingsCreator do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a888", linked: true, maat_reference: "123", user_name: "Bob")
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a899", linked: true, maat_reference: "456", user_name: "Steve")
 
-        expect(Sqs::MessagePublisher).to receive(:call).twice
+        expect(Sqs::MessagePublisher).to receive(:call).twice.with(hash_including(queue_url: "url"))
 
         create_hearings
       end
@@ -132,7 +132,7 @@ RSpec.describe HearingsCreator do
       it "calls the Sqs::MessagePublisher service twice" do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a888", linked: true, maat_reference: "123", user_name: "Bob")
 
-        expect(Sqs::MessagePublisher).to receive(:call).twice
+        expect(Sqs::MessagePublisher).to receive(:call).twice.with(hash_including(queue_url: "url"))
 
         create_hearings
       end
@@ -155,7 +155,7 @@ RSpec.describe HearingsCreator do
       it "calls the Sqs::MessagePublisher service" do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a888", linked: true, maat_reference: "123", user_name: "Bob")
 
-        expect(Sqs::MessagePublisher).to receive(:call).once
+        expect(Sqs::MessagePublisher).to receive(:call).once.with(hash_including(queue_url: "url"))
 
         create_hearings
       end
@@ -200,7 +200,7 @@ RSpec.describe HearingsCreator do
       it "calls the Sqs::MessagePublisher service once" do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
 
-        expect(Sqs::MessagePublisher).to receive(:call).once
+        expect(Sqs::MessagePublisher).to receive(:call).once.with(hash_including(queue_url: "url"))
 
         create_hearings
       end
@@ -214,7 +214,7 @@ RSpec.describe HearingsCreator do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
         LaaReference.create!(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: true, maat_reference: "456", user_name: "Steve")
 
-        expect(Sqs::MessagePublisher).to receive(:call).twice
+        expect(Sqs::MessagePublisher).to receive(:call).twice.with(hash_including(queue_url: "url"))
 
         create_hearings
       end
@@ -228,7 +228,7 @@ RSpec.describe HearingsCreator do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
         LaaReference.create!(defendant_id: "ad22b110-7fbc-3036-a076-e4bb40d0a667", linked: false, maat_reference: "456", user_name: "Steve")
 
-        expect(Sqs::MessagePublisher).to receive(:call).once
+        expect(Sqs::MessagePublisher).to receive(:call).once.with(hash_including(queue_url: "url"))
 
         create_hearings
       end

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class HearingsCreator < ApplicationService
-  attr_reader :hearing_resulted
+  attr_reader :hearing_resulted, :queue_url
 
-  def initialize(hearing_resulted_data:)
+  def initialize(hearing_resulted_data:, queue_url:)
     @hearing_resulted = HmctsCommonPlatform::HearingResulted.new(hearing_resulted_data)
+    @queue_url = queue_url
   end
 
   def call
@@ -34,7 +35,7 @@ private
 
         Sqs::MessagePublisher.call(
           message: MaatApi::Message.new(maat_api_prosecution_case).generate,
-          queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
+          queue_url: queue_url,
         )
       end
     end
@@ -55,7 +56,7 @@ private
 
         Sqs::MessagePublisher.call(
           message: MaatApi::Message.new(maat_api_court_application).generate,
-          queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
+          queue_url: queue_url,
         )
       end
     end

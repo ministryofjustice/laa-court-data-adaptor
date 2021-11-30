@@ -49,7 +49,10 @@ private
   end
 
   def publish_hearing_to_queue
-    HearingsCreatorWorker.perform_async(Current.request_id, hearing_resulted_data)
+    HearingsCreatorWorker.perform_async(
+      Current.request_id,
+      hearing_resulted_data,
+    )
   end
 
   attr_reader :hearing, :hearing_resulted_data, :publish_to_queue
