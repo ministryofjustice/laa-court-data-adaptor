@@ -73,9 +73,9 @@ module MaatApi
     def session
       {
         courtLocation: hearing_resulted.hearing_court_centre.short_oucode,
-        dateOfHearing: hmcts_common_platform_defendant.offences&.first&.results&.first&.ordered_date,
+        dateOfHearing: hearing_first_sitting_day_date,
         postHearingCustody: PostHearingCustodyCalculator.call(offences: hmcts_common_platform_defendant.data[:offences]),
-        sessionValidateDate: hmcts_common_platform_defendant.offences&.first&.results&.first&.ordered_date,
+        sessionValidateDate: hearing_first_sitting_day_date,
       }
     end
 
@@ -166,6 +166,10 @@ module MaatApi
 
     def result_is_a_conclusion?
       hmcts_common_platform_defendant.offences.any? { |offence| offence.verdict.present? }
+    end
+
+    def hearing_first_sitting_day_date
+      hearing_resulted.hearing_first_sitting_day_date&.to_date&.strftime("%Y-%m-%d")
     end
   end
 end
