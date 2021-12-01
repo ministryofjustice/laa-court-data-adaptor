@@ -306,8 +306,8 @@ GEM
     sentry-ruby-core (4.8.1)
       concurrent-ruby
       faraday
-    sentry-sidekiq (4.8.0)
-      sentry-ruby-core (~> 4.8.0)
+    sentry-sidekiq (4.8.1)
+      sentry-ruby-core (~> 4.8.1)
       sidekiq (>= 3.0)
     shoulda-matchers (5.0.0)
       activesupport (>= 5.2.0)
@@ -398,7 +398,7 @@ DEPENDENCIES
   rubocop-performance
   sentry-rails (~> 4.8.1)
   sentry-ruby (~> 4.8.1)
-  sentry-sidekiq (~> 4.8.0)
+  sentry-sidekiq (~> 4.8.1)
   shoulda-matchers
   sidekiq
   simplecov
