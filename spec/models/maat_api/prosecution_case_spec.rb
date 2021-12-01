@@ -155,9 +155,9 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
 
       expected = {
         courtLocation: "A07AF",
-        dateOfHearing: "2021-03-10",
+        dateOfHearing: "2019-10-25",
         postHearingCustody: "B",
-        sessionValidateDate: "2021-03-10",
+        sessionValidateDate: "2019-10-25",
       }
 
       expect(prosecution_case.session).to eql(expected)
