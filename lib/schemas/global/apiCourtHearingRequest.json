@@ -68,6 +68,10 @@
       "items": {
         "$ref": "http://justice.gov.uk/core/courts/external/apiJudicialRole.json"
       }
+    },
+    "estimatedDuration": {
+      "description": "Value from the Estimated Duration prompt",
+      "type": "string"
     }
   },
   "additionalProperties": false

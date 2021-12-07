@@ -7,15 +7,18 @@
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
     },
     "jurisdictionType": {
+      "description": "The jurisdiction of the the hearing",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/jurisdictionType"
     },
     "reportingRestrictionReason": {
       "type": "string"
     },
     "courtCentre": {
+      "description": "The court centre venue for the hearing",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtCentre.json#"
     },
     "hearingLanguage": {
+      "description": "A record of the language for the court proceedings",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/hearingLanguage"
     },
     "prosecutionCases": {
@@ -27,6 +30,7 @@
       }
     },
     "defendantJudicialResults": {
+      "description": "A collection of defendant level results i.e. the results ordered in court for a defendant independently of specific offences or case details",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -46,6 +50,7 @@
       }
     },
     "defendantReferralReasons": {
+      "description": "A record of the reasons for referring a defendant from an SJP judicial process to a court hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -53,6 +58,7 @@
       }
     },
     "hearingCaseNotes": {
+      "description": "A record of private notes made by legal adviser or court clerk in a hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -60,9 +66,11 @@
       }
     },
     "type": {
+      "description": "A record of the type of hearing that is listed",
       "$ref": "http://justice.gov.uk/core/courts/external/apiHearingType.json#"
     },
     "hearingDays": {
+      "description": "A collection of sitting days that are listed for a hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -70,6 +78,7 @@
       }
     },
     "judiciary": {
+      "description": "A collection of the judiciary that are listed for the hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -77,6 +86,7 @@
       }
     },
     "applicantCounsels": {
+      "description": "A collection of counsel representing the applicant for an application hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -84,6 +94,7 @@
       }
     },
     "respondentCounsels": {
+      "description": "A collection of counsel representing the respondent(s) for an application hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -91,6 +102,7 @@
       }
     },
     "prosecutionCounsels": {
+      "description": "A collection of counsel representing the prosecution for a prosecution case in a hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -98,6 +110,7 @@
       }
     },
     "defenceCounsels": {
+      "description": "A collection of counsel representing a defendant(s) for a prosecution case in a hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -105,6 +118,7 @@
       }
     },
     "applicationPartyCounsels": {
+      "description": "A collection of counsel representing other parties for an application hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -112,6 +126,7 @@
       }
     },
     "defendantAttendance": {
+      "description": "Records the sitting day attendance of a defendant in a hearing",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -119,6 +134,7 @@
       }
     },
     "defendantHearingYouthMarkers": {
+      "description": "A record of the calculation of whether a defendant is a youth based on teh hearing start date and the defendants date of birth for each hearing on a case",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -126,6 +142,7 @@
       }
     },
     "courtApplicationPartyAttendance": {
+      "description": "A collection of ap[plication parties attendantce on a per sitting day basis",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -145,6 +162,7 @@
       "type": "boolean"
     },
     "companyRepresentatives": {
+      "description": "The representative for a company in a legal entity prosecution i.e. the person that is speaking for the company e,g, CEO, etc",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -152,6 +170,7 @@
       }
     },
     "isVacatedTrial": {
+      "description": "Indicates that this trial hearing has been vacated",
       "type": "boolean"
     },
     "approvalsRequested": {

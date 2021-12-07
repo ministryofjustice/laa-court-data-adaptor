@@ -17,12 +17,14 @@
     "statusDescription": "description",
     "statusDate": "2021-05-01"
   },
-  "plea": {
+  "plea": [
+    {
       "offenceId": "9aca847f-da4e-444b-8f5a-2ce7d776ab75",
       "pleaValue": "GUILTY",
       "pleaDate": "2021-04-12",
       "originatingHearingId": "dda833bb-4956-4c9a-a553-59c6af5c15a6"
-  },
+    }
+  ],
   "verdict": {
     "offenceId": "9aca847f-da4e-444b-8f5a-2ce7d776ab75",
     "verdictDate": "2020-04-12",

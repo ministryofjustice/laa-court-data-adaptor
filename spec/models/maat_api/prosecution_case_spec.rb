@@ -14,7 +14,11 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
   end
 
   context "when prosecution case has all fields" do
-    let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing/with_prosecution_case.json").read).deep_symbolize_keys }
+    let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing/with_prosecution_case_new_schema.json").read).deep_symbolize_keys }
+
+    it "matches the HMCTS Common Platform schema" do
+      expect(hearing_resulted_data).to match_json_schema(:hearing_resulted)
+    end
 
     it "has a hearing ID" do
       expect(prosecution_case.hearing_id).to eql("b935a64a-6d03-4da4-bba6-4d32cc2e7fb4")
@@ -82,7 +86,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
         addressLine3: "28301",
         addressLine4: "Cinthiatown",
         addressLine5: "Kyrgyz Republic",
-        postcode: "35848-9420",
+        postcode: "SW1A 1AA",
         nino: "JC123456A",
         telephoneHome: "02070000000",
         telephoneMobile: "07000000000",
@@ -107,24 +111,24 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
                 resultCode: "4600",
                 resultShortTitle: "Found guilty on all charges",
                 resultText: "Result",
-                category: "A",
+                category: "FINAL",
                 resultCodeQualifiers: "Qualifier",
                 nextHearingDate: "2019-10-23",
-                nextHearingLocation: "B21JI",
+                nextHearingLocation: "B01LY",
                 laaOfficeAccount: "092874",
                 legalAidWithdrawalDate: "2021-04-11",
               },
             ],
             plea: {
-              applicationId: "b71b3a59-82sx-8ebz-a478-bb846b9kd8s6",
+              applicationId: "a5bf5423-0346-4251-9003-28360eed7b34",
               delegatedPowers: {
                 firstName: "Ada",
                 lastName: "Lovelace",
-                userId: "sd22b110-0pbc-3136-a076-e4bb40d0a986",
+                userId: "f23af500-3b79-4af9-9fd1-c55434acc8fb",
               },
               lesserOrAlternativeOffence: {
                 offenceCode: "1245",
-                offenceDefinitionId: "o18d572c-3aa3-a076-82sx-ba3afb7ff94a",
+                offenceDefinitionId: "684f5ce4-7026-4356-9659-39edff79d769",
                 offenceLegislation: "Common Law",
                 offenceLegislationWelsh: "Cyfraith Gwlad",
                 offenceTitle: "Disorderly conduct",
@@ -138,7 +142,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
             verdict: {
               offenceId: "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
               verdictDate: "2021-04-10",
-              category: "A",
+              category: "FINAL",
               categoryType: "GUILTY",
               cjsVerdictCode: "1093",
               verdictCode: "367A",
@@ -166,6 +170,10 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
 
   context "when the hearing body has only required fields" do
     let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing/with_prosecution_case_required_only.json").read).deep_symbolize_keys }
+
+    it "matches the HMCTS Common Platform schema" do
+      expect(hearing_resulted_data).to match_json_schema(:hearing_resulted)
+    end
 
     it "has a hearing ID" do
       expect(prosecution_case.hearing_id).to eql("b935a64a-6d03-4da4-bba6-4d32cc2e7fb4")

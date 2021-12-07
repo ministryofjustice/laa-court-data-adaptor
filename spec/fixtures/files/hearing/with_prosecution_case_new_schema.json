@@ -133,28 +133,26 @@
                       }
                     }
                   ],
-                  "plea": [
-                    {
-                      "originatingHearingId": "818d572c-a9e8-4bf2-8eb7-6abf98cd7a5f",
-                      "delegatedPowers": {
-                        "userId": "f23af500-3b79-4af9-9fd1-c55434acc8fb",
-                        "firstName": "Ada",
-                        "lastName": "Lovelace"
-                      },
-                      "offenceId": "e58b3a59-e5e5-4ec4-a478-2c846b9e6b6d",
-                      "applicationId": "a5bf5423-0346-4251-9003-28360eed7b34",
-                      "pleaDate": "2020-04-12",
-                      "pleaValue": "NOT_GUILTY",
-                      "lesserOrAlternativeOffence": {
-                        "offenceDefinitionId": "684f5ce4-7026-4356-9659-39edff79d769",
-                        "offenceCode": "1245",
-                        "offenceTitle": "Disorderly conduct",
-                        "offenceLegislation": "Common Law",
-                        "offenceLegislationWelsh": "Cyfraith Gwlad",
-                        "offenceTitleWelsh": "Ymddygiad afreolus"
-                      }
+                  "plea": {
+                    "originatingHearingId": "818d572c-a9e8-4bf2-8eb7-6abf98cd7a5f",
+                    "delegatedPowers": {
+                      "userId": "f23af500-3b79-4af9-9fd1-c55434acc8fb",
+                      "firstName": "Ada",
+                      "lastName": "Lovelace"
+                    },
+                    "offenceId": "e58b3a59-e5e5-4ec4-a478-2c846b9e6b6d",
+                    "applicationId": "a5bf5423-0346-4251-9003-28360eed7b34",
+                    "pleaDate": "2020-04-12",
+                    "pleaValue": "NOT_GUILTY",
+                    "lesserOrAlternativeOffence": {
+                      "offenceDefinitionId": "684f5ce4-7026-4356-9659-39edff79d769",
+                      "offenceCode": "1245",
+                      "offenceTitle": "Disorderly conduct",
+                      "offenceLegislation": "Common Law",
+                      "offenceLegislationWelsh": "Cyfraith Gwlad",
+                      "offenceTitleWelsh": "Ymddygiad afreolus"
                     }
-                  ],
+                  },
                   "verdict": {
                     "offenceId": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
                     "verdictDate": "2021-04-10",

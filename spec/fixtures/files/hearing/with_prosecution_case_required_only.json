@@ -18,7 +18,8 @@
           "id": "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
           "prosecutionCaseIdentifier": {
             "caseURN": "20GD0217100",
-            "prosecutionAuthorityReference": "UXJYGCVRXJ"
+            "prosecutionAuthorityCode": "UXJYGCVRXJ",
+            "prosecutionAuthorityId": "7c61f866-aa59-4c3f-9968-6c431995ea64"
           },
           "initiationCode": "O",
           "defendants": [
@@ -42,4 +43,3 @@
     },
     "sharedTime": "2021-03-09T15:54:09.871Z"
   }
-  
