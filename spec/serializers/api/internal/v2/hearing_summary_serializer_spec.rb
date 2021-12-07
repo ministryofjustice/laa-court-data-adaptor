@@ -3,7 +3,7 @@
 RSpec.describe Api::Internal::V2::HearingSummarySerializer do
   let(:serialized_data) do
     hearing_summary_data = JSON.parse(file_fixture("hearing_summary/all_fields.json").read)
-    hearing_summary = HearingSummary.new(body: hearing_summary_data)
+    hearing_summary = HmctsCommonPlatform::HearingSummary.new(hearing_summary_data)
 
     described_class.new(hearing_summary).serializable_hash[:data]
   end

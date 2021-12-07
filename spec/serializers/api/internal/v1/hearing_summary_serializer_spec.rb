@@ -3,7 +3,7 @@
 RSpec.describe Api::Internal::V1::HearingSummarySerializer do
   let(:serialized_data) do
     hearing_summary_data = JSON.parse(file_fixture("hearing_summary/all_fields.json").read)
-    hearing_summary = HearingSummary.new(body: hearing_summary_data)
+    hearing_summary = HmctsCommonPlatform::HearingSummary.new(hearing_summary_data)
 
     described_class.new(hearing_summary).serializable_hash[:data]
   end
@@ -20,8 +20,6 @@ RSpec.describe Api::Internal::V1::HearingSummarySerializer do
   context "with relationships" do
     let(:relationships) { serialized_data[:relationships] }
 
-    it do
-      expect(relationships[:defence_counsels][:data]).to eq([{ id: "e84facce-a2df-4e57-bfe3-f5cd48c43ddc", type: :defence_counsel }])
-    end
+    it { expect(relationships[:defence_counsels][:data]).to eq([{ id: "e84facce-a2df-4e57-bfe3-f5cd48c43ddc", type: :defence_counsel }]) }
   end
 end
