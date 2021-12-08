@@ -8,7 +8,7 @@ info:
                           exchange criminal court data between the two organisations.
   version: v2
 paths:
-  "/api/external/v2/hearings":
+  "/api/external/v2/hearing_results":
     post:
       summary: post hearing
       description: Post Common Platform hearing data to CDA

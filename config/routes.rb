@@ -38,7 +38,7 @@ Rails.application.routes.draw do
       end
 
       api_version(module: "V2", path: { value: "v2" }) do
-        resources :hearings, only: [:create]
+        resources :hearing_results, only: [:create]
         resources :prosecution_conclusions, only: [:create]
       end
     end
