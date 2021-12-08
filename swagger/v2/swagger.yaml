@@ -8,7 +8,7 @@ info:
                           exchange criminal court data between the two organisations.
   version: v2
 paths:
-  "/api/external/v2/hearings":
+  "/api/external/v2/hearing_results":
     post:
       summary: post hearing
       description: Post Common Platform hearing data to CDA
@@ -99,7 +99,7 @@ paths:
                 "$ref": defendant.json#/definitions/resource_collection
         '404':
           description: Not found
-  "/api/internal/v2/hearings/{id}":
+  "/api/internal/v2/hearing_results/{hearing_id}":
     get:
       summary: get hearing
       description: GET Common Platform hearing data

@@ -2,8 +2,8 @@
 
 module Api
   module Internal
-    module V2
-      class HearingsController < ApplicationController
+    module V1
+      class HearingResultsController < ApplicationController
         def show
           @hearing = CommonPlatform::Api::GetHearingResults.call(hearing_id: params[:id])
           render json: HearingSerializer.new(@hearing, serialization_options)

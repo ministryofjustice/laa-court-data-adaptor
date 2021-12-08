@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::External::V1::HearingsController, type: :controller do
+RSpec.describe Api::External::V1::HearingResultsController, type: :controller do
   include AuthorisedRequestHelper
 
   before { authorise_requests! }

@@ -2,21 +2,21 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/internal/v2/hearings", type: :request, swagger_doc: "v2/swagger.yaml" do
+RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "v2/swagger.yaml" do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
   let(:include) {}
-  let(:id) { "4d01840d-5959-4539-a450-d39f57171036" }
+  let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
 
-  path "/api/internal/v2/hearings/{id}" do
+  path "/api/internal/v2/hearing_results/{hearing_id}" do
     get("get hearing") do
       description "GET Common Platform hearing data"
       consumes "application/json"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
 
-      parameter name: :id, in: :path, required: true, type: :uuid,
+      parameter name: :hearing_id, in: :path, required: true, type: :uuid,
                 schema: {
                   '$ref': "hearing.json#/definitions/id",
                 },

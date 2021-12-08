@@ -3,7 +3,7 @@
 module Api
   module External
     module V2
-      class HearingsController < ApplicationController
+      class HearingResultsController < ApplicationController
         def create
           enforce_contract!
 
