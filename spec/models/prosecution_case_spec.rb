@@ -84,7 +84,7 @@ RSpec.describe ProsecutionCase, type: :model do
     end
 
     describe "#hearing_summaries" do
-      it { expect(prosecution_case.hearing_summaries).to all be_a(HearingSummary) }
+      it { expect(prosecution_case.hearing_summaries).to all be_an(HmctsCommonPlatform::HearingSummary) }
     end
 
     context "when requesting hearing resulted" do

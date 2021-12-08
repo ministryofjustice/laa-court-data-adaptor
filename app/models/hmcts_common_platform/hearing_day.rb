@@ -17,5 +17,9 @@ module HmctsCommonPlatform
     def listed_duration_minutes
       data[:listedDurationMinutes]
     end
+
+    def has_shared_results
+      data[:hasSharedResults]
+    end
   end
 end

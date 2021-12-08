@@ -18,7 +18,9 @@ class ProsecutionCase < ApplicationRecord
   end
 
   def hearing_summaries
-    body["hearingSummary"]&.map { |hearing_summary| HearingSummary.new(body: hearing_summary) } || []
+    Array(body["hearingSummary"]).map do |hearing_summary_data|
+      HmctsCommonPlatform::HearingSummary.new(hearing_summary_data)
+    end
   end
 
   def hearing_summary_ids
