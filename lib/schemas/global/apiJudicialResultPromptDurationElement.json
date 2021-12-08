@@ -57,7 +57,17 @@
     },
     {
       "required": [
-        "durationStartDate",
+        "secondaryDurationUnit",
+        "secondaryDurationValue"
+      ]
+    },
+    {
+      "required": [
+        "durationStartDate"
+      ]
+    },
+    {
+      "required": [
         "durationEndDate"
       ]
     }

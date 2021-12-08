@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://justice.gov.uk/core/courts/external/apiDefendantCase.json",
   "type": "object",
-  "description": "The summary details of a defendant and case",
+  "description": "The summary details of a defendant case",
   "properties": {
     "defendantId": {
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid",

@@ -38,6 +38,9 @@
         "recordedLabel": {
           "type": "string"
         },
+        "note": {
+          "type": "string"
+        },
         "eventTime": {
           "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/date-time"
         },

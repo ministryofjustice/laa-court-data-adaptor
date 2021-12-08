@@ -77,12 +77,7 @@
     },
     "courtApplicationStatus": {
       "description": "Indicates the status of an application",
-      "type": "string",
-      "enum": [
-        "DRAFT",
-        "LISTED",
-        "FINALISED"
-      ]
+      "type": "string"
     },
     "applicationJurisdictionType": {
       "description": "Indicates the jurisdiction that is required to consider the application",

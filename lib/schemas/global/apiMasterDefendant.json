@@ -16,6 +16,13 @@
       "description": "When the defendant is a legal entity the additional legal entity specific details for the defendant",
       "$ref": "http://justice.gov.uk/core/courts/external/apiLegalEntityDefendant.json"
     },
+    "defendantCase": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiDefendantCase.json"
+      }
+    },
     "associatedPersons": {
       "type": "array",
       "minItems": 1,
@@ -32,13 +39,6 @@
     "prosecutionAuthorityReference": {
       "description": "The prosecuting authorities reference for the defendant for the given case",
       "type": "string"
-    },
-    "defendantCase": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "$ref": "http://justice.gov.uk/core/courts/external/apiDefendantCase.json"
-      }
     }
   },
   "oneOf": [

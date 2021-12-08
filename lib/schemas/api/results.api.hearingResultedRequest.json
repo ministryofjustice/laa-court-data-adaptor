@@ -3,13 +3,17 @@
     "id": "http://justice.gov.uk/results/courts/api/hearingResultedRequest.json",
     "type": "object",
     "properties": {
-        "hearingId": {
-          "description": "The identifier of the resulted hearing",
-          "$ref": "http://justice.gov.uk/core/courts/external/courtsDefinitions.json#/definitions/uuid"
-        }
+      "hearingId": {
+        "description": "The identifier of the resulted hearing",
+        "$ref": "http://justice.gov.uk/core/courts/external/courtsDefinitions.json#/definitions/uuid"
+      },
+      "hearingDate": {
+        "description": "The date the hearing took place",
+        "$ref": "http://justice.gov.uk/core/courts/external/courtsDefinitions.json#/definitions/datePattern"
+      }
     },
     "required": [
-        "hearingId"
-      ],
+      "hearingId"
+    ],
     "additionalProperties": false
 }
