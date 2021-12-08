@@ -27,7 +27,7 @@ Rails.application.routes.draw do
         resources :laa_references, only: %i[create destroy], param: :defendant_id
         resources :defendants, only: %i[update show]
         resources :representation_orders, only: [:create]
-        resources :hearings, only: [:show]
+        resources :hearing_results, only: [:show]
       end
     end
 
