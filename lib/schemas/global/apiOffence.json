@@ -1,4 +1,4 @@
-l{
+{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://justice.gov.uk/core/courts/external/apiOffence.json",
   "type": "object",
