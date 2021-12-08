@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
     namespace :external do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
-        resources :hearings, only: [:create]
+        resources :hearing_results, path: "hearings", only: [:create]
         resources :prosecution_conclusions, only: [:create]
       end
 
