@@ -61,29 +61,8 @@
       "$ref": "http://justice.gov.uk/core/courts/external/apiLaaReference.json#"
     },
     "verdict": {
-      "verdictDate": {
-        "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
-      },
-      "originatingHearingId": {
-        "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
-      },
-      "verdictType": {
-        "description": {
-          "type": "string"
-        },
-        "category": {
-          "type": "string"
-        },
-        "categoryType": {
-          "type": "string"
-        },
-        "sequence": {
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/positiveInteger"
-        },
-        "verdictTypeId": {
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
-        }
-      }
+      "description": "A verdict",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiVerdict.json#"
     },
     "plea": {
       "description": "A plea",
