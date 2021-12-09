@@ -6,16 +6,20 @@ module HmctsCommonPlatform
       @data = HashWithIndifferentAccess.new(data || {})
     end
 
-    def defendant_id
+    def id
       data[:defendantId]
     end
 
     def name
-      data[:defendantName]
+      data[:defendantName] || [first_name, middle_name, last_name].join(" ").squish
     end
 
     def first_name
       data[:defendantFirstName]
+    end
+
+    def middle_name
+      data[:defendantMiddleName]
     end
 
     def last_name

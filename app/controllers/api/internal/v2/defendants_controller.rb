@@ -15,10 +15,13 @@ module Api
         end
 
         def show
-          defendant = CommonPlatform::Api::DefendantFinder.call(defendant_id: params[:id])
+          defendant_summary = CommonPlatform::Api::DefendantSummary.get(
+            prosecution_case_reference: params[:prosecution_case_id],
+            defendant_id: params[:id],
+          )
 
-          if defendant.present?
-            render json: DefendantSerializer.new(defendant, serialization_options)
+          if defendant_summary.present?
+            render json: DefendantSummarySerializer.new(defendant_summary)
           else
             render status: :not_found
           end
@@ -45,17 +48,7 @@ module Api
         end
 
         def transformed_params
-          @transformed_params ||= unlink_params.slice(*allowed_params).to_hash.transform_keys(&:to_sym).merge(defendant_id: params[:id])
-        end
-
-        def serialization_options
-          return { include: inclusions } if params[:include].present?
-
-          {}
-        end
-
-        def inclusions
-          params[:include].split(",")
+          @transformed_params ||= unlink_params.slice(*allowed_params).to_hash.deep_symbolize_keys.merge(defendant_id: params[:id])
         end
       end
     end

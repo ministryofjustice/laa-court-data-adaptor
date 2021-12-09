@@ -60,7 +60,7 @@ private
   end
 
   def defendant_summary
-    prosecution_case_summary.defendant_summaries.find { |d| d.defendant_id == laa_reference.defendant_id }
+    prosecution_case_summary.defendant_summaries.find { |ds| ds.id == laa_reference.defendant_id }
   end
 
   def prosecution_case_summary
