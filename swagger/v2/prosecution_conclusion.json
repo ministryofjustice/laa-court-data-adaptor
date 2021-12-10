@@ -1,40 +1,26 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://justice.gov.uk/hearing/courts/api/prosecutionConcludedRequest.json",
+  "id": "prosecution-conclusion",
   "type": "object",
-  "properties": {
-    "prosecutionConcluded": {
-      "description": "A list of prosecution cases that have been concluded or un-concluded",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "$ref": "#/definitions/prosecutionConcluded"
-      }
-    }
-  },
-  "required": [
-    "prosecutionConcluded"
-  ],
   "additionalProperties": false,
   "definitions": {
-    "prosecutionConcluded": {
+    "resource": {
+      "description": "object representing a single prosecution conclusion",
       "type": "object",
       "properties": {
         "prosecutionCaseId": {
-          "description": "The identifier of the prosecution case",
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+          "format": "uuid",
+          "type": "string"
         },
         "defendantId": {
-          "description": "The identifier of the defendant",
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+          "$ref": "defendant.json#/definitions/id"
         },
         "isConcluded": {
           "description": "Is true if this defendant has no pending unresolved offence",
           "type": "boolean"
         },
         "hearingIdWhereChangeOccurred": {
-          "description": "The identifier of the hearing where the proceedingConcluded change has occurred",
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+          "$ref": "hearing.json#/definitions/id"
         },
         "offenceSummary": {
           "description": "A list of all the offences of the current defendant",
@@ -58,12 +44,10 @@
       "type": "object",
       "properties": {
         "offenceId": {
-          "description": "The identifier of the offence",
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+          "$ref": "offence.json#/definitions/id"
         },
         "offenceCode": {
-          "description": "The CJS code of the offence",
-          "type": "string"
+          "$ref": "offence.json#/definitions/code"
         },
         "proceedingsConcluded": {
           "description": "Indicate whether this offence has been concluded or not",
@@ -71,7 +55,8 @@
         },
         "proceedingsConcludedChangedDate": {
           "description": "The latest result order date for the offence",
-          "$ref": "http://justice.gov.uk/core/courts/courtsDefinitions.json#/definitions/datePattern"
+          "type": "string",
+          "format": "date"
         },
         "plea": {
           "description": "The plea of the current offence",
@@ -94,8 +79,7 @@
       "type": "object",
       "properties": {
         "originatingHearingId": {
-          "description": "The identifier of the originating hearing",
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+          "$ref": "hearing.json#/definitions/id"
         },
         "value": {
           "description": "The value of this plea i.e. GUILTY, etc",
@@ -118,8 +102,7 @@
       "type": "object",
       "properties": {
         "originatingHearingId": {
-          "description": "The identifier of the originating hearing",
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+          "$ref": "hearing.json#/definitions/id"
         },
         "verdictDate": {
           "description": "The date the verdict was reached by the court",
@@ -143,7 +126,8 @@
       "properties": {
         "verdictTypeId": {
           "description": "The identifier of the verdict type",
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+          "format": "uuid",
+          "type": "string"
         },
         "description": {
           "description": "The description of the verdict type",

@@ -31,6 +31,29 @@ paths:
           application/json:
             schema:
               "$ref": hearing_resulted.json#/definitions/new_resource
+  "/api/external/v2/prosecution_conclusions":
+    post:
+      summary: post prosecution conclusion
+      description: Post Common Platform prosecution concluded data to CDA
+      tags:
+      - External - available to Common Platform
+      security:
+      - oAuth: []
+      parameters: []
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Unprocessable Entity
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": prosecution_concluded_request.json#/definitions/resource
   "/api/internal/v2/defendants/{id}":
     patch:
       summary: patch defendant relationships
@@ -108,7 +131,7 @@ paths:
       security:
       - oAuth: []
       parameters:
-      - name: id
+      - name: hearing_id
         in: path
         required: true
         type: uuid
