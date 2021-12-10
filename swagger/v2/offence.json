@@ -23,7 +23,6 @@
       "type": "string"
     },
     "code": {
-      "readOnly": true,
       "example": "AA06001",
       "description": "The offence code",
       "type": "string"

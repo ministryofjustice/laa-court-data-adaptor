@@ -10,9 +10,7 @@
     "id": {
       "description": "unique identifier of offence",
       "format": "uuid",
-      "type": [
-        "string"
-      ]
+      "type": "string"
     },
     "type": {
       "description": "The offences type",
@@ -23,7 +21,6 @@
       "type": "string"
     },
     "code": {
-      "readOnly": true,
       "example": "AA06001",
       "description": "The offence code",
       "type": "string"

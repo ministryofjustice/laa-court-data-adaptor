@@ -53,7 +53,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": prosecution_conclusion.json#/definitions/new_resource
+              "$ref": prosecution_concluded_request.json#/definitions/resource
   "/api/internal/v2/defendants/{id}":
     patch:
       summary: patch defendant relationships

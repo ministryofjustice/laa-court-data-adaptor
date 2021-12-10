@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "prosecution-concluded-request",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "resource": {
+      "description": "object representing a prosecution concluded request payload",
+      "type": "object",
+      "properties": {
+        "prosecutionConcluded": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "prosecution_conclusion.json#/definitions/resource"
+          }
+        }
+      }
+    }
+  }
+}
