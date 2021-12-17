@@ -15,19 +15,30 @@ RSpec.describe "api/external/v1/prosecution_conclusions", type: :request, swagge
       security [{ oAuth: [] }]
 
       response(202, "Accepted") do
-        parameter name: :prosecution_conclusion, in: :body, required: false, type: :object,
-                  schema: {
-                    '$ref': "prosecution_concluded_request.json#/definitions/resource",
-                  },
+        parameter name: :prosecution_conclusion,
+                  in: :body,
+                  required: true,
+                  type: :object,
+                  schema: { "$ref" => "prosecution_concluded_request.json#/definitions/resource" },
                   description: "The minimal prosecution concluded payload"
 
         let(:Authorization) { "Bearer #{token.token}" }
         let(:prosecution_conclusion) { JSON.parse(file_fixture("prosecution_conclusion/valid.json").read) }
 
         before do
+          LaaReference.create!(
+            user_name: "test-user",
+            defendant_id: "67d948d1-1792-4565-a522-8ab2425827e8",
+            maat_reference: "700111",
+            linked: true,
+          )
+
+          expected_message = { "prosecutionConcluded" => [prosecution_conclusion["prosecutionConcluded"].first.merge("maatId" => "700111")] }
+
           expect(Sqs::MessagePublisher).to receive(:call)
+            .once
             .with(
-              message: prosecution_conclusion,
+              message: expected_message,
               queue_url: Rails.configuration.x.aws.sqs_url_prosecution_concluded,
             )
         end
@@ -55,6 +66,7 @@ RSpec.describe "api/external/v1/prosecution_conclusions", type: :request, swagge
 
       context "when request is unauthorized" do
         response("401", "Unauthorized") do
+          let(:prosecution_conclusion) {}
           let(:Authorization) { nil }
 
           run_test!

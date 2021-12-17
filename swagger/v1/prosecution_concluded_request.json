@@ -15,7 +15,10 @@
             "$ref": "prosecution_conclusion.json#/definitions/resource"
           }
         }
-      }
+      },
+      "required": [
+        "prosecutionConcluded"
+      ]
     }
   }
 }
