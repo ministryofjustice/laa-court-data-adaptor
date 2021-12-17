@@ -54,6 +54,7 @@ paths:
           application/json:
             schema:
               "$ref": prosecution_concluded_request.json#/definitions/resource
+        required: true
   "/api/internal/v2/defendants/{id}":
     patch:
       summary: patch defendant relationships
