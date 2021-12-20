@@ -69,9 +69,19 @@ class Hearing < ApplicationRecord
     court_applications.map(&:id)
   end
 
+  def defendant_judicial_result_ids
+    defendant_judicial_results.map(&:id)
+  end
+
   def court_applications
     Array(hearing_body["courtApplications"]).map do |court_application_data|
       HmctsCommonPlatform::CourtApplication.new(court_application_data)
+    end
+  end
+
+  def defendant_judicial_results
+    Array(hearing_body["defendantJudicialResults"]).map do |defendant_judicial_result_data|
+      HmctsCommonPlatform::JudicialResult.new(defendant_judicial_result_data)
     end
   end
 
