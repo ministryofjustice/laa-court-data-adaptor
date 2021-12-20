@@ -8,6 +8,10 @@ module HmctsCommonPlatform
       @data = HashWithIndifferentAccess.new(data || {})
     end
 
+    def id
+      data[:id]
+    end
+
     def urn
       data.dig(:prosecutionCaseIdentifier, :caseURN)
     end

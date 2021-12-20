@@ -69,6 +69,10 @@ class Hearing < ApplicationRecord
     court_applications.map(&:id)
   end
 
+  def prosecution_case_ids
+    prosecution_cases.map(&:id)
+  end
+
   def defendant_judicial_result_ids
     defendant_judicial_results.map(&:id)
   end
@@ -76,6 +80,12 @@ class Hearing < ApplicationRecord
   def court_applications
     Array(hearing_body["courtApplications"]).map do |court_application_data|
       HmctsCommonPlatform::CourtApplication.new(court_application_data)
+    end
+  end
+
+  def prosecution_cases
+    Array(prosecution_cases_data).map do |prosecution_case_data|
+      HmctsCommonPlatform::ProsecutionCase.new(prosecution_case_data)
     end
   end
 
@@ -91,12 +101,12 @@ private
     body["hearing"]
   end
 
-  def prosecution_cases
+  def prosecution_cases_data
     hearing_body["prosecutionCases"]
   end
 
   def defendants
-    Array(prosecution_cases).flat_map { |prosecution_case| prosecution_case["defendants"] }
+    Array(prosecution_cases_data).flat_map { |prosecution_case| prosecution_case["defendants"] }
   end
 
   def hearing_event_recordings
