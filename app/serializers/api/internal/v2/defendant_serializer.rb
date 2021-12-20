@@ -16,6 +16,7 @@ module Api
                    :post_hearing_custody_statuses
 
         has_many :offences, record_type: :offences
+        has_many :judicial_results, record_type: :judicial_results
         has_one :defence_organisation, record_type: :defence_organisations
         has_one :prosecution_case, record_type: :prosecution_case
       end

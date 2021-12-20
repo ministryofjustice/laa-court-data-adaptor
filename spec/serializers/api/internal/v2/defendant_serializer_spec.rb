@@ -14,6 +14,7 @@ RSpec.describe Api::Internal::V2::DefendantSerializer do
                     offence_ids: %w[55555],
                     defence_organisation_id: "88888",
                     prosecution_case_id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
+                    judicial_result_ids: %w[be225605-fc15-47aa-b74c-efb8629db58e],
                     post_hearing_custody_statuses: %w[A])
   end
 
@@ -35,5 +36,6 @@ RSpec.describe Api::Internal::V2::DefendantSerializer do
     it { expect(relationship_hash[:offences][:data]).to eq([{ id: "55555", type: :offences }]) }
     it { expect(relationship_hash[:defence_organisation][:data]).to eq({ id: "88888", type: :defence_organisations }) }
     it { expect(relationship_hash[:prosecution_case][:data]).to eq({ id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", type: :prosecution_case }) }
+    it { expect(relationship_hash[:judicial_results][:data]).to eq([{ id: "be225605-fc15-47aa-b74c-efb8629db58e", type: :judicial_results }]) }
   end
 end
