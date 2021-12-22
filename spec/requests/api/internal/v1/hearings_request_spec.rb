@@ -44,7 +44,7 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
           end
         end
 
-        context "with the inclusion of hearing events, providers, court applications, cracked ineffective trial and judicial results" do
+        context "with the inclusion of hearing events, providers, court applications, prosecution cases, cracked ineffective trial and defendant judicial results" do
           response(200, "Success") do
             produces "application/vnd.api+json"
 
@@ -54,8 +54,8 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
                       },
                       description: "Include top-level and nested associations for a hearing.
                                     All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-                                    For example to include hearing events, providers, cracked ineffective trial as well as court applications and associated judicial results:
-                                    include=hearing_events,providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results"
+                                    For example to include hearing events, providers, prosecution cases, cracked ineffective trial as well as court applications and associated judicial results:
+                                    include=hearing_events,providers,court_applications,prosecution_cases,cracked_ineffective_trial,court_applications.judicial_results"
 
             schema "$ref" => "hearing.json#/definitions/resource_collection"
 
