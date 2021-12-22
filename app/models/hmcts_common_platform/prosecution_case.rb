@@ -12,6 +12,10 @@ module HmctsCommonPlatform
       data[:id]
     end
 
+    def prosecution_case_reference
+      data[:prosecutionCaseReference]
+    end
+
     def urn
       data.dig(:prosecutionCaseIdentifier, :caseURN)
     end
