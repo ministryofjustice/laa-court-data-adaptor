@@ -202,6 +202,59 @@
           "$ref": "#/definitions/verdict"
         }
       }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "judicial_results": {
+          "$ref": "#/definitions/judicial_result_relationship"
+        }
+      }
+    },
+    "judicial_result_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/judicial_result"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "judicial_result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "judicial_result.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "judicial_result.json#/definitions/included_type"
+        }
+      }
+    },
+    "resource_collection": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/resource"
+        },
+        "included": {
+          "items": {
+            "anyOf":[
+              {
+                "$ref": "judicial_result.json#/definitions/resource"
+              }
+            ]
+          },
+          "type": "array"
+        }
+      }
+    },
+    "example_included_query_parameters": {
+      "description": "An example of parameters that can be included in the query",
+      "type": "string",
+      "example": "judicial_results"
     }
   },
   "links": [

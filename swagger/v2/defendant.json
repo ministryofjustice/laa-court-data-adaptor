@@ -31,6 +31,9 @@
         "offences": {
           "$ref": "#/definitions/offence_relationship"
         },
+        "judicial_results": {
+          "$ref": "#/definitions/judicial_result_relationship"
+        },
         "defence_organisation": {
           "$ref": "#/definitions/defence_organisation_relationship"
         },
@@ -58,6 +61,28 @@
         },
         "type": {
           "$ref": "offence.json#/definitions/type"
+        }
+      }
+    },
+    "judicial_result_relationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/judicial_result"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "judicial_result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "judicial_result.json#/definitions/id"
+        },
+        "type": {
+          "$ref": "judicial_result.json#/definitions/type"
         }
       }
     },
@@ -133,6 +158,9 @@
                 "$ref": "offence.json#/definitions/resource"
               },
               {
+                "$ref": "judicial_result.json#/definitions/resource"
+              },
+              {
                 "$ref": "defence_organisation.json#/definitions/included_resource"
               },
               {
@@ -150,7 +178,7 @@
     "example_included_query_parameters": {
       "description": "An example of parameters that can be included in the query",
       "type": "string",
-      "example": "offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries"
+      "example": "offences,judicial_results,defence_organisation,prosecution_case,prosecution_case.hearing_summaries"
     },
     "attributes": {
       "type": "object",
