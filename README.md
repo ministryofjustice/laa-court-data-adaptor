@@ -4,9 +4,11 @@
 
 # LAA Court Data Adaptor
 
-The laa-court-data-adaptor acts as a proxy between the HMCTS Common Platform and LAA systems.
+This application is an adaptor or anti-corruption layer that connects to HMCTS’ Common Platform and transmits data between HMCTS Common Platform and various LAA systems.
 
 Its main function is data translation / adaptation, and queueing of requests.
+
+The application is commonly referred to by its acronym "CDA".
 
 ## Table of Contents
 - [**Contact the team**](#contact-the-team)
@@ -103,6 +105,9 @@ $ bundle exec sidekiq
 ## API Authentication
 
 Create an OAuth Application for each system that needs to authenticate to the adaptor via the console.
+```
+rails console
+```
 ```ruby
 application = Doorkeeper::Application.create(name: 'HMCTS Common Platform')
 ```
@@ -143,19 +148,12 @@ Add the following to `.env.development.local`
 ```
 COMMON_PLATFORM_URL=http://localhost:3001
 SHARED_SECRET_KEY=super-secret-key
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=password
 LAA_DEV_API_URL=http://localhost:3000
 LAA_DEV_OAUTH_URL=http://localhost:3000/v1/oauth/token
 ```
 
 Run the hmcts-common-platform-mock-api in parallel to the Court Data Adaptor on port 3001 to mock the Common Platform API.
 
-Common Platform Mock Tool local login:
-```
-username: admin
-password: password
-```
 ## Environments
 Information about other environments can be found on [this](https://dsdmoj.atlassian.net/wiki/spaces/ASLST/pages/edit-v2/2811068434) Confluence page
 
