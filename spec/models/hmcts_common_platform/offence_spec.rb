@@ -64,13 +64,20 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
       expect(offence.laa_reference_laa_contract_number).to eql("27900")
     end
 
+    it "has result ids" do
+      expect(offence.judicial_result_ids).to eql(%w[5cb61858-7095-42d6-8a52-966593f17db0])
+    end
+
     it "has results" do
-      expect(offence.results).to all(be_an(HmctsCommonPlatform::JudicialResult))
-      expect(offence.results).to be_an(Array)
+      expect(offence.judicial_results).to all(be_an(HmctsCommonPlatform::JudicialResult))
     end
 
     it "has a plea" do
       expect(offence.plea).to be_an(HmctsCommonPlatform::Plea)
+    end
+
+    it "has pleas" do
+      expect(offence.pleas).to all(be_an(HmctsCommonPlatform::Plea))
     end
 
     it "has a verdict" do
@@ -140,7 +147,7 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has no results" do
-      expect(offence.results).to eql([])
+      expect(offence.judicial_results).to eql([])
     end
 
     it "has no plea" do

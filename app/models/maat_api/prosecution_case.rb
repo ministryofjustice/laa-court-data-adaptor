@@ -107,7 +107,7 @@ module MaatApi
     end
 
     def judicial_results(offence)
-      offence.results&.map do |judicial_result|
+      offence.judicial_results&.map do |judicial_result|
         {
           resultCode: judicial_result.cjs_code,
           resultShortTitle: judicial_result.label,
