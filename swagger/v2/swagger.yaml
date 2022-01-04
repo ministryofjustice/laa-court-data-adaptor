@@ -150,7 +150,7 @@ paths:
           Include top-level and nested associations for a hearing.
                                               All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
                                               For example to include providers, cracked ineffective trial as well as court applications and associated judicial results:
-                                              include=providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results
+                                              include=providers,court_applications,prosecution_cases,cracked_ineffective_trial,court_applications.judicial_results
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '200':
