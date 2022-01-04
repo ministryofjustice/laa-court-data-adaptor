@@ -91,7 +91,7 @@ class Hearing < ApplicationRecord
 
   def defendant_judicial_results
     Array(hearing_body["defendantJudicialResults"]).map do |defendant_judicial_result_data|
-      HmctsCommonPlatform::JudicialResult.new(defendant_judicial_result_data)
+      HmctsCommonPlatform::DefendantJudicialResult.new(defendant_judicial_result_data)
     end
   end
 

@@ -92,7 +92,7 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
       expect(defendant.offences).to all(be_an(HmctsCommonPlatform::Offence))
     end
 
-    it "has judicial resutl ids" do
+    it "has judicial result ids" do
       expect(defendant.judicial_result_ids).to eql(%w[be225605-fc15-47aa-b74c-efb8629db58e])
     end
 

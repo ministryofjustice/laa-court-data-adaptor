@@ -82,7 +82,7 @@ RSpec.describe Hearing, type: :model do
       it { expect(hearing.prosecution_advocate_names).to eq(["andrew smith"]) }
       it { expect(hearing.defence_advocate_names).to eq(["joe bloggs"]) }
       it { expect(hearing.providers).to all be_a(Provider) }
-      it { expect(hearing.defendant_judicial_results).to all be_a(HmctsCommonPlatform::JudicialResult) }
+      it { expect(hearing.defendant_judicial_results).to all be_a(HmctsCommonPlatform::DefendantJudicialResult) }
       it { expect(hearing.provider_ids).to eq(%w[536abfd5-8671-4672-bf33-aa54de5d6a24]) }
       it { expect(hearing.hearing_days).to eq(["2020-08-18T09:00:00.000Z"]) }
 
