@@ -296,9 +296,9 @@ GEM
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sentry-rails (4.8.1)
+    sentry-rails (4.8.2)
       railties (>= 5.0)
-      sentry-ruby-core (~> 4.8.1)
+      sentry-ruby-core (~> 4.8.2)
     sentry-ruby (4.8.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       faraday (~> 1.0)
@@ -330,7 +330,7 @@ GEM
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
-    thor (1.1.0)
+    thor (1.2.1)
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -349,7 +349,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     yard (0.9.26)
-    zeitwerk (2.5.1)
+    zeitwerk (2.5.3)
 
 PLATFORMS
   ruby
@@ -396,7 +396,7 @@ DEPENDENCIES
   rswag-ui
   rubocop-govuk
   rubocop-performance
-  sentry-rails (~> 4.8.1)
+  sentry-rails (~> 4.8.2)
   sentry-ruby (~> 4.8.2)
   sentry-sidekiq (~> 4.8.1)
   shoulda-matchers
