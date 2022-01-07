@@ -17,6 +17,8 @@ module Api
 
         has_many :providers
         has_many :court_applications
+        has_many :prosecution_cases
+        has_many :defendant_judicial_results
         has_one :cracked_ineffective_trial
       end
     end

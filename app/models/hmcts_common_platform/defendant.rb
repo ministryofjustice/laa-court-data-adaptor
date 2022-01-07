@@ -18,11 +18,39 @@ module HmctsCommonPlatform
       data[:proceedingsConcluded]
     end
 
+    def offence_ids
+      offences.map(&:id)
+    end
+
     def offences
       Array(data[:offences]).map do |offence_data|
         HmctsCommonPlatform::Offence.new(offence_data)
       end
     end
+
+    def judicial_result_ids
+      judicial_results.map(&:id)
+    end
+
+    def judicial_results
+      Array(data[:judicialResults]).map do |judicial_result_data|
+        HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
+      end
+    end
+
+    def prosecution_case; end
+
+    def name; end
+
+    def national_insurance_number; end
+
+    def maat_reference; end
+
+    def post_hearing_custody_statuses; end
+
+    def defence_organisation_id; end
+
+    def prosecution_case_id; end
 
   private
 

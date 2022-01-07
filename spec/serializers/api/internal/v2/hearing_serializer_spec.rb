@@ -15,7 +15,9 @@ RSpec.describe Api::Internal::V2::HearingSerializer do
                     prosecution_advocate_names: ["John Rob"],
                     defence_advocate_names: ["Neil Griffiths"],
                     provider_ids: %w[PROVIDER_UUID],
+                    defendant_judicial_result_ids: %w[DEFENDANT_JUDICIAL_RESULT_UUID],
                     court_application_ids: %w[COURT_APPLICATION_UUID],
+                    prosecution_case_ids: %w[PROSECUTION_CASE_UUID],
                     cracked_ineffective_trial_id: "CRACKED_INEFFECTIVE_TRIAL_UUID")
   end
 
@@ -36,6 +38,8 @@ RSpec.describe Api::Internal::V2::HearingSerializer do
 
     it { expect(relationship_hash[:providers][:data]).to eq([{ id: "PROVIDER_UUID", type: :provider }]) }
     it { expect(relationship_hash[:court_applications][:data]).to eq([{ id: "COURT_APPLICATION_UUID", type: :court_application }]) }
+    it { expect(relationship_hash[:defendant_judicial_results][:data]).to eq([{ id: "DEFENDANT_JUDICIAL_RESULT_UUID", type: :defendant_judicial_result }]) }
+    it { expect(relationship_hash[:prosecution_cases][:data]).to eq([{ id: "PROSECUTION_CASE_UUID", type: :prosecution_cases }]) }
     it { expect(relationship_hash[:cracked_ineffective_trial][:data]).to eq({ id: "CRACKED_INEFFECTIVE_TRIAL_UUID", type: :cracked_ineffective_trial }) }
   end
 

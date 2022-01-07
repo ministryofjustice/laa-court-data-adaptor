@@ -161,6 +161,9 @@
                 "$ref": "offence.json#/definitions/resource"
               },
               {
+                "$ref": "judicial_result.json#/definitions/resource"
+              },
+              {
                 "$ref": "defence_organisation.json#/definitions/included_resource"
               },
               {
@@ -178,7 +181,7 @@
     "example_included_query_parameters": {
       "description": "An example of parameters that can be included in the query",
       "type": "string",
-      "example": "offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries"
+      "example": "offences,judicial_results,defence_organisation,prosecution_case,prosecution_case.hearing_summaries"
     },
     "attributes": {
       "type": "object",

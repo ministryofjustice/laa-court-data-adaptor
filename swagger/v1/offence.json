@@ -235,6 +235,29 @@
       }
     }
   },
+  "resource_collection": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/definitions/resource"
+      },
+      "included": {
+        "items": {
+          "anyOf":[
+            {
+              "$ref": "judicial_result.json#/definitions/resource"
+            }
+          ]
+        },
+        "type": "array"
+      }
+    }
+  },
+  "example_included_query_parameters": {
+    "description": "An example of parameters that can be included in the query",
+    "type": "string",
+    "example": "judicial_results"
+  },
   "links": [
     {
       "description": "Info for existing offence.",

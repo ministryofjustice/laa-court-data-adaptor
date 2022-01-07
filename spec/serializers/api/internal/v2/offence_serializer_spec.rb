@@ -54,5 +54,18 @@ RSpec.describe Api::Internal::V2::OffenceSerializer do
         expect(attributes[:verdict]).to eq(expected)
       end
     end
+
+    describe "relationships" do
+      let(:relationships) { serialized_data[:relationships] }
+
+      it "judicial_results" do
+        expected = [{
+          id: "5cb61858-7095-42d6-8a52-966593f17db0",
+          type: :judicial_result,
+        }]
+
+        expect(relationships[:judicial_results][:data]).to eq(expected)
+      end
+    end
   end
 end

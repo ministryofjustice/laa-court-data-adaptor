@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Defendant Judicial Result",
+  "description": "Defendant judicial result",
+  "id": "defendant_judicial_result",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "defendant_id": {
+      "description": "The unique identifier of the defendant this judicial result applies to",
+      "example": "07127d2e-badc-4298-86d8-9b2dff9bff91",
+      "format": "uuid",
+      "type": "string"
+    },
+    "id": {
+      "description": "The unique identifier of the judicial result",
+      "example": "fcc1a759-88d2-4260-8b3e-92c2749ecbb1",
+      "format": "uuid",
+      "type": "string"
+    },
+    "cjs_code": {
+      "description": "The code of the judicial result",
+      "example": "2507",
+      "type": "string"
+    },
+    "ordered_date": {
+      "description": "The date the result was ordered",
+      "example": "2019-10-16"
+    },
+    "type": {
+      "description": "The defendant judicial result type",
+      "example": "defendant_judicial_results",
+      "type": "string"
+    },
+    "included_type": {
+     "description": "Defendant judicial result is referred to in the singular form when displayed in the payload when included as part of the API query or when displayed as a relationship to another object",
+     "example": "defendant_judicial_result"
+    },
+    "relationship_type": {
+      "description": "The defendant judicial results type is referred to in the singular form when referenced as a relationship",
+      "example": "defendant_judicial_result",
+      "type": "string"
+    },
+    "text": {
+      "description": "Text of the judicial result",
+      "example": "NOT GUILTY",
+      "type": "string"
+    },
+    "resource": {
+      "description": "An object representing a single defendant judicial result",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "included_resource": {
+      "description": "An object representing a single judicial result when included in an API query",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "$ref": "#/definitions/included_type"
+        },
+        "attributes": {
+          "$ref": "#/definitions/attributes"
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "defendant_id": {
+          "$ref": "#/definitions/defendant_id"
+        },
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "cjs_code": {
+          "$ref": "#/definitions/cjs_code"
+        },
+        "ordered_date": {
+          "$ref": "#/definitions/ordered_date"
+        },
+        "text": {
+          "$ref": "#/definitions/text"
+        }
+      }
+    }
+  }
+}

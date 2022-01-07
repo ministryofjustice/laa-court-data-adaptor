@@ -46,7 +46,11 @@ module HmctsCommonPlatform
       data.dig(:allocationDecision, :motReasonCode)
     end
 
-    def results
+    def judicial_result_ids
+      judicial_results.map(&:id)
+    end
+
+    def judicial_results
       Array(data[:judicialResults]).map do |judicial_result_data|
         HmctsCommonPlatform::JudicialResult.new(judicial_result_data)
       end
@@ -56,9 +60,17 @@ module HmctsCommonPlatform
       HmctsCommonPlatform::Plea.new(data[:plea])
     end
 
+    def pleas
+      Array(data[:plea]).map do |plea_data|
+        HmctsCommonPlatform::Plea.new(plea_data)
+      end
+    end
+
     def verdict
       HmctsCommonPlatform::Verdict.new(data[:verdict])
     end
+
+    def mode_of_trial_reasons; end
 
   private
 

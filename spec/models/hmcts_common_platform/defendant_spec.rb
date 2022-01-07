@@ -84,9 +84,20 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
       expect(defendant.email_secondary).to eql("secondary@example.com")
     end
 
+    it "has offence ids" do
+      expect(defendant.offence_ids).to eql(%w[b8ffe7db-f994-45a0-9c06-9ec953eeffd7 b8ffe7db-f994-45a0-9c06-9ec953eeff99])
+    end
+
     it "has offences" do
       expect(defendant.offences).to all(be_an(HmctsCommonPlatform::Offence))
-      expect(defendant.offences).to be_an(Array)
+    end
+
+    it "has judicial result ids" do
+      expect(defendant.judicial_result_ids).to eql(%w[be225605-fc15-47aa-b74c-efb8629db58e])
+    end
+
+    it "has judicial results" do
+      expect(defendant.judicial_results).to all(be_an(HmctsCommonPlatform::JudicialResult))
     end
   end
 
@@ -173,10 +184,13 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
       expect(defendant.email_secondary).to be_nil
     end
 
+    it "has no judicial results" do
+      expect(defendant.judicial_results).to be_empty
+    end
+
     describe "offences" do
       it "are HmctsCommonPlatform::Offence objects" do
         expect(defendant.offences).to all(be_an(HmctsCommonPlatform::Offence))
-        expect(defendant.offences).to be_an(Array)
       end
     end
   end

@@ -28,6 +28,8 @@ module Api
             },
           }
         end
+
+        has_many :judicial_results
       end
     end
   end
