@@ -13,34 +13,34 @@ class NewRepresentationOrderContract < Dry::Validation::Contract
         required(:name).filled(:string)
         optional(:address).hash do
           required(:address1).filled(:string)
-          optional(:address2).filled(:string)
-          optional(:address3).filled(:string)
-          optional(:address4).filled(:string)
-          optional(:address5).filled(:string)
-          optional(:postcode).filled(:string)
+          optional(:address2).maybe(:string)
+          optional(:address3).maybe(:string)
+          optional(:address4).maybe(:string)
+          optional(:address5).maybe(:string)
+          optional(:postcode).maybe(:string)
         end
         optional(:contact).hash do
-          optional(:home).filled(:string)
-          optional(:work).filled(:string)
-          optional(:mobile).filled(:string)
-          optional(:primary_email).filled(:string)
-          optional(:secondary_email).filled(:string)
-          optional(:fax).filled(:string)
+          optional(:home).maybe(:string)
+          optional(:work).maybe(:string)
+          optional(:mobile).maybe(:string)
+          optional(:primary_email).maybe(:string)
+          optional(:secondary_email).maybe(:string)
+          optional(:fax).maybe(:string)
         end
       end
       required(:laa_contract_number).filled(:string)
-      optional(:sra_number).filled(:string)
-      optional(:bar_council_membership_number).filled(:string)
-      optional(:incorporation_number).filled(:string)
-      optional(:registered_charity_number).filled(:string)
+      optional(:sra_number).maybe(:string)
+      optional(:bar_council_membership_number).maybe(:string)
+      optional(:incorporation_number).maybe(:string)
+      optional(:registered_charity_number).maybe(:string)
     end
     required(:defendant_id).value(:string)
     required(:offences).array(:hash) do
       required(:offence_id).value(:string)
       required(:status_code).value(:string)
-      optional(:status_date).value(:date)
-      optional(:effective_start_date).value(:date)
-      optional(:effective_end_date).value(:date)
+      optional(:status_date).maybe(:date)
+      optional(:effective_start_date).maybe(:date)
+      optional(:effective_end_date).maybe(:date)
     end
   end
 

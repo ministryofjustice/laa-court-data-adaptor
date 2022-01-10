@@ -168,9 +168,36 @@ RSpec.describe NewRepresentationOrderContract do
     it { is_expected.to be_a_success }
   end
 
-  context "with unexpected keys" do
-    before { defence_organisation[:organisation][:contact][:additional_info] = "Hello" }
+  context "with nil values on optional keys" do
+    let(:defence_organisation) do
+      {
+        laa_contract_number: "CONTRACT REFERENCE",
+        sra_number: nil,
+        bar_council_membership_number: nil,
+        incorporation_number: nil,
+        registered_charity_number: nil,
+        organisation: {
+          name: "SOME ORGANISATION",
+          address: {
+            address1: "String",
+            address2: nil,
+            address3: nil,
+            address4: nil,
+            address5: nil,
+            postcode: nil,
+          },
+          contact: {
+            home: nil,
+            work: nil,
+            mobile: nil,
+            primary_email: nil,
+            secondary_email: nil,
+            fax: nil,
+          },
+        },
+      }
+    end
 
-    it { is_expected.not_to be_a_success }
+    it { is_expected.to be_a_success }
   end
 end
