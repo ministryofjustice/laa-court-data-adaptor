@@ -133,7 +133,7 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
-    faraday-multipart (1.0.2)
+    faraday-multipart (1.0.3)
       multipart-post (>= 1.2, < 3)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
@@ -300,18 +300,18 @@ GEM
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sentry-rails (4.8.3)
+    sentry-rails (4.9.0)
       railties (>= 5.0)
-      sentry-ruby-core (~> 4.8.3)
-    sentry-ruby (4.8.3)
+      sentry-ruby-core (~> 4.9.0)
+    sentry-ruby (4.9.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       faraday (~> 1.0)
-      sentry-ruby-core (= 4.8.3)
-    sentry-ruby-core (4.8.3)
+      sentry-ruby-core (= 4.9.0)
+    sentry-ruby-core (4.9.0)
       concurrent-ruby
       faraday
-    sentry-sidekiq (4.8.3)
-      sentry-ruby-core (~> 4.8.3)
+    sentry-sidekiq (4.9.0)
+      sentry-ruby-core (~> 4.9.0)
       sidekiq (>= 3.0)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
@@ -400,9 +400,9 @@ DEPENDENCIES
   rswag-ui
   rubocop-govuk
   rubocop-performance
-  sentry-rails (~> 4.8.3)
-  sentry-ruby (~> 4.8.3)
-  sentry-sidekiq (~> 4.8.3)
+  sentry-rails (~> 4.9.0)
+  sentry-ruby (~> 4.9.0)
+  sentry-sidekiq (~> 4.9.0)
   shoulda-matchers
   sidekiq
   simplecov
