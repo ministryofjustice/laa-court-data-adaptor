@@ -179,12 +179,12 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
-    nokogiri (1.13.0)
+    nokogiri (1.13.1)
       mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
-    nokogiri (1.13.0-x86_64-darwin)
+    nokogiri (1.13.1-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.0-x86_64-linux)
+    nokogiri (1.13.1-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -299,9 +299,9 @@ GEM
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sentry-rails (4.9.0)
+    sentry-rails (4.9.1)
       railties (>= 5.0)
-      sentry-ruby-core (~> 4.9.0)
+      sentry-ruby-core (~> 4.9.1)
     sentry-ruby (4.9.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       faraday (~> 1.0)
@@ -398,7 +398,7 @@ DEPENDENCIES
   rswag-ui
   rubocop-govuk
   rubocop-performance
-  sentry-rails (~> 4.9.0)
+  sentry-rails (~> 4.9.1)
   sentry-ruby (~> 4.9.1)
   sentry-sidekiq (~> 4.9.0)
   shoulda-matchers
