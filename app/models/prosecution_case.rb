@@ -59,8 +59,15 @@ private
   end
 
   def hearing_results
-    @hearing_results ||= hearing_summary_ids.map { |hearing_id|
-      CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id)
+    @hearing_results ||= hearing_summaries.flat_map { |hearing_summary|
+      hearing_summary.hearing_days.map do |hearing_day|
+        next unless hearing_day.has_shared_results
+
+        CommonPlatform::Api::GetHearingResults.call(
+          hearing_id: hearing_summary.id,
+          sitting_day: hearing_day.sitting_day,
+        )
+      end
     }.compact
   end
 end

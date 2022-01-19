@@ -5,8 +5,8 @@ module CommonPlatform
     class HearingFetcher < ApplicationService
       URL = "hearing/results"
 
-      def initialize(hearing_id:, connection: CommonPlatform::Connection.call)
-        @params = { hearingId: hearing_id }
+      def initialize(hearing_id:, sitting_day:, connection: CommonPlatform::Connection.call)
+        @params = { hearingId: hearing_id, sittingDay: sitting_day }.compact
         @connection = connection
       end
 

@@ -22,6 +22,10 @@ RSpec.describe "Api::Internal::V1::Defendants", type: :request, swagger_doc: "v1
     }
   end
 
+  before do
+    allow(CommonPlatform::Api::GetHearingResults).to receive(:call)
+  end
+
   around do |example|
     Sidekiq::Testing.fake! do
       example.run
