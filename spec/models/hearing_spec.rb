@@ -16,7 +16,7 @@ RSpec.describe Hearing, type: :model do
       let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
       let(:hearing) do
         VCR.use_cassette("hearing_result_fetcher/success") do
-          CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id)
+          CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id, hearing_day: nil)
         end
       end
 
@@ -35,11 +35,9 @@ RSpec.describe Hearing, type: :model do
       it { expect(hearing.defendant_judicial_results).to be_blank }
 
       context "with hearing events" do
-        let(:hearing_day) { "2020-08-17" }
-
         let(:hearing_event_recording) do
           VCR.use_cassette("hearing_logs_fetcher/success") do
-            CommonPlatform::Api::GetHearingEvents.call(hearing_id: hearing_id, hearing_date: hearing_day)
+            CommonPlatform::Api::GetHearingEvents.call(hearing_id: hearing_id, hearing_date: "2020-08-17")
           end
         end
 
@@ -70,7 +68,7 @@ RSpec.describe Hearing, type: :model do
       let(:hearing_id) { "29b73d8f-7683-4e27-9069-f7a031672c35" }
       let(:hearing) do
         VCR.use_cassette("hearing_result_fetcher/success_hearing_attendees") do
-          CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id)
+          CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id, hearing_day: nil)
         end
       end
 
@@ -103,7 +101,7 @@ RSpec.describe Hearing, type: :model do
       let(:hearing_id) { "da124701-048f-408c-85b4-81138316ddce" }
       let(:hearing) do
         VCR.use_cassette("hearing_result_fetcher/success_hearing_cracked_trial") do
-          CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id)
+          CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id, hearing_day: nil)
         end
       end
 
