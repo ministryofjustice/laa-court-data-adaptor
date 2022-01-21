@@ -1,0 +1,24 @@
+# TIP: to check file encryption status the repo, run git-crypt status.
+
+# Documentation: https://github.com/AGWA/git-crypt#gitattributes-file
+
+### ENCRYPT ###
+
+# encrypt all .yaml files in current and subdirectories
+*.yaml filter=git-crypt diff=git-crypt
+
+# encrypt all .yml files in current and subdirectories
+*.yml filter=git-crypt diff=git-crypt
+
+# encrypt all .key files in current and subdirectories
+*.key filter=git-crypt diff=git-crypt
+
+# encrypt all .crt files in current and subdirectories
+*.crt filter=git-crypt diff=git-crypt
+
+### DO NOT ENCRYPT ###
+
+.gitattributes !filter !diff
+.helmignore !filter !diff
+Chart.yaml !filter !diff
+templates/** !filter !diff
