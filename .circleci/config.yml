@@ -110,6 +110,33 @@ jobs:
           values: ./helm_deploy/laa-court-data-adaptor/live-1/dev/values-dev.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
+  install_on_dev_live:
+    executor: aws-eks/python
+    steps:
+      - checkout_and_decrypt
+      - kubernetes/install-kubeconfig:
+          kubeconfig: ENCODED_KUBECONFIG_DEV
+      - kubernetes/install-kubectl
+      - helm/install-helm-client:
+          version: 'v3.2.4'
+      - run:
+          name: Authenticate to LIVE cluster
+          command: |
+            echo -n ${CLUSTER_CERT_LIVE} | base64 -d > ./live_ca.crt
+            kubectl config set-cluster ${CLUSTER_NAME_LIVE} --certificate-authority=./live_ca.crt --server=https://${CLUSTER_NAME_LIVE}
+            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_LIVE}
+            kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=laa-court-data-adaptor-dev
+            kubectl config use-context ${CLUSTER_NAME_LIVE}
+            kubectl config current-context
+            kubectl --namespace=laa-court-data-adaptor-dev get pods
+      - helm/upgrade-helm-chart:
+          namespace: laa-court-data-adaptor-dev
+          update-repositories: false
+          chart: ./helm_deploy/laa-court-data-adaptor
+          release-name: laa-court-data-adaptor
+          values: ./helm_deploy/laa-court-data-adaptor/live/dev/values-dev.yaml
+          values-to-override: image.tag=$CIRCLE_SHA1
+
   install_on_test:
     executor: aws-eks/python
     steps:
@@ -273,3 +300,22 @@ workflows:
       - install_on_stage:
           requires:
           - hold_install_on_stage
+
+  build-deploy-branch-to-live-cluster:
+    jobs:
+      - branch-build-approval:
+          type: approval
+          filters:
+            branches:
+              ignore:
+                - master
+      - build-and-push-app:
+          requires:
+            - branch-build-approval
+      - hold_install_on_dev:
+          type: approval
+          requires:
+          - build-and-push-app
+      - install_on_dev_live:
+          requires:
+          - hold_install_on_dev
