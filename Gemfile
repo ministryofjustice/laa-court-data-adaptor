@@ -78,7 +78,7 @@ end
 group :test do
   gem "json-schema-rspec"
   gem "rspec_junit_formatter"
-  gem "rspec-rails", "~> 5.0.2"
+  gem "rspec-rails", "~> 5.1.0"
   gem "shoulda-matchers"
   gem "simplecov"
   gem "sinatra"
