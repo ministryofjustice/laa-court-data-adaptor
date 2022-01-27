@@ -114,8 +114,6 @@ jobs:
     executor: aws-eks/python
     steps:
       - checkout_and_decrypt
-      - kubernetes/install-kubeconfig:
-          kubeconfig: ENCODED_KUBECONFIG_DEV
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: 'v3.2.4'
