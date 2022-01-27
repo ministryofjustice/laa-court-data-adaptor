@@ -122,7 +122,7 @@ jobs:
           command: |
             echo -n ${CLUSTER_CERT_LIVE} | base64 -d > ./live_ca.crt
             kubectl config set-cluster ${CLUSTER_NAME_LIVE} --certificate-authority=./live_ca.crt --server=https://${CLUSTER_NAME_LIVE}
-            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_LIVE}
+            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_DEV_LIVE}
             kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=laa-court-data-adaptor-dev
             kubectl config use-context ${CLUSTER_NAME_LIVE}
             kubectl config current-context
@@ -147,7 +147,7 @@ jobs:
           command: |
             echo -n ${CLUSTER_CERT_LIVE} | base64 -d > ./live_ca.crt
             kubectl config set-cluster ${CLUSTER_NAME_LIVE} --certificate-authority=./live_ca.crt --server=https://${CLUSTER_NAME_LIVE}
-            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_LIVE}
+            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_TEST_LIVE}
             kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=laa-court-data-adaptor-test
             kubectl config use-context ${CLUSTER_NAME_LIVE}
             kubectl config current-context
@@ -172,7 +172,7 @@ jobs:
           command: |
             echo -n ${CLUSTER_CERT_LIVE} | base64 -d > ./live_ca.crt
             kubectl config set-cluster ${CLUSTER_NAME_LIVE} --certificate-authority=./live_ca.crt --server=https://${CLUSTER_NAME_LIVE}
-            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_LIVE}
+            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_STAGE_LIVE}
             kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=laa-court-data-adaptor-stage
             kubectl config use-context ${CLUSTER_NAME_LIVE}
             kubectl config current-context
@@ -197,7 +197,7 @@ jobs:
           command: |
             echo -n ${CLUSTER_CERT_LIVE} | base64 -d > ./live_ca.crt
             kubectl config set-cluster ${CLUSTER_NAME_LIVE} --certificate-authority=./live_ca.crt --server=https://${CLUSTER_NAME_LIVE}
-            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_LIVE}
+            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_UAT_LIVE}
             kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=laa-court-data-adaptor-uat
             kubectl config use-context ${CLUSTER_NAME_LIVE}
             kubectl config current-context
