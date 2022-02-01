@@ -25,4 +25,17 @@ RSpec.describe HmctsCommonPlatform::HearingDay, type: :model do
     it { expect(hearing_day.listing_sequence).to be_nil }
     it { expect(hearing_day.listed_duration_minutes).to eq(20) }
   end
+
+  describe "#to_json" do
+    let(:data) { JSON.parse(file_fixture("hearing_day/all_fields.json").read) }
+
+    it "generates a JSON representation of the data" do
+      json = hearing_day.to_json
+
+      expect(json["sitting_day"]).to eql("2021-03-25T09:30:00.000Z")
+      expect(json["listing_sequence"]).to be(8)
+      expect(json["listed_duration_minutes"]).to be(20)
+      expect(json["has_shared_results"]).to be true
+    end
+  end
 end

@@ -39,5 +39,22 @@ module HmctsCommonPlatform
         HmctsCommonPlatform::DefenceCounsel.new(defence_counsel_data)
       end
     end
+
+    def to_json(*_args)
+      to_builder.attributes!
+    end
+
+  private
+
+    def to_builder
+      Jbuilder.new do |hearing_summary|
+        hearing_summary.id id
+        hearing_summary.hearing_type hearing_type
+        hearing_summary.estimated_duration estimated_duration
+        hearing_summary.court_centre court_centre.to_json
+        hearing_summary.hearing_days hearing_days.map(&:to_json)
+        hearing_summary.defence_counsels defence_counsels.map(&:to_json)
+      end
+    end
   end
 end

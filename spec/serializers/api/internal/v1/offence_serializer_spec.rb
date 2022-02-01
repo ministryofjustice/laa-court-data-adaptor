@@ -24,7 +24,7 @@ RSpec.describe Api::Internal::V1::OffenceSerializer do
       end
 
       it "legislation" do
-        expect(attributes[:legislation]).to eql("Contrary to section 1(1) of the    Criminal Law Act 1977.")
+        expect(attributes[:legislation]).to eql("Contrary to section 1(1) of the Criminal Law Act 1977.")
       end
 
       it "mode_of_trial" do

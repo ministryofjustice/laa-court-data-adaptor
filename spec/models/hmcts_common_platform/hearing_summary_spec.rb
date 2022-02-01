@@ -28,4 +28,19 @@ RSpec.describe HmctsCommonPlatform::HearingSummary, type: :model do
     it { expect(hearing_summary.hearing_days).to be_empty }
     it { expect(hearing_summary.court_centre).to be_an(HmctsCommonPlatform::CourtCentre) }
   end
+
+  describe "#to_json" do
+    let(:data) { JSON.parse(file_fixture("hearing_summary/all_fields.json").read) }
+
+    it "generates a JSON representation of the data" do
+      json = hearing_summary.to_json
+
+      expect(json["id"]).to eql("9b8df2aa-802d-413a-82b3-89eff25cde7b")
+      expect(json["hearing_type"]).to eql("First hearing")
+      expect(json["estimated_duration"]).to eql("20")
+      expect(json["court_centre"]).to be_present
+      expect(json["hearing_days"].count).to be(1)
+      expect(json["defence_counsels"].count).to be(1)
+    end
+  end
 end

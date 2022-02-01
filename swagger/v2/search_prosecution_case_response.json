@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "search_prosecution_case_response",
+  "type": "object",
+  "properties": {
+    "total_results": {
+      "description": "The count of the displayed results",
+      "type": "integer",
+      "example": 1
+    },
+    "results": {
+      "description": "The prosecution cases matched by the search query",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "prosecution_case_summary.json#"
+      }
+  },
+  "additionalProperties": false
+  }
+}

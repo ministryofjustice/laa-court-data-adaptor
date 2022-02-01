@@ -37,4 +37,21 @@ RSpec.describe HmctsCommonPlatform::DefenceCounsel, type: :model do
   it "has defendants" do
     expect(defence_counsel.defendants).to eql(%w[baff62ee-ae6e-4f6a-92f8-063a1269453c])
   end
+
+  describe "#to_json" do
+    let(:data) { JSON.parse(file_fixture("defence_counsel/all_fields.json").read) }
+
+    it "generates a JSON representation of the data" do
+      json = defence_counsel.to_json
+
+      expect(json["id"]).to eql("e84facce-a2df-4e57-bfe3-f5cd48c43ddc")
+      expect(json["title"]).to eql("Mr.")
+      expect(json["first_name"]).to eql("Francis")
+      expect(json["middle_name"]).to eql("Scott")
+      expect(json["last_name"]).to eql("Fitzgerald")
+      expect(json["status"]).to eql("status")
+      expect(json["attendance_days"]).to eql(%w[2018-10-25])
+      expect(json["defendants"]).to eql(%w[baff62ee-ae6e-4f6a-92f8-063a1269453c])
+    end
+  end
 end

@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiLesserOrAlternativeOffence.json",
+  "description": "The details of a lesserOrAlternativeOffence verdict",
+  "type": "object",
+  "properties": {
+    "offence_definition_id": {
+      "description": "The identifier of the offence from reference data",
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "code": {
+        "type": "string"
+    },
+    "title": {
+        "type": "string"
+    },
+    "title_welsh": {
+        "type": "string"
+    },
+    "legislation": {
+        "type": "string"
+    },
+    "legislation_welsh": {
+        "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "offence_definition_id",
+    "code",
+    "title",
+    "legislation"
+  ]
+}

@@ -3,23 +3,12 @@
   "title": "Hearing Summary",
   "description": "Hearing Summary",
   "id": "hearing_summary",
-  "stability": "prototype",
   "strictProperties": true,
   "type": "object",
-  "definitions": {
+  "properties": {
     "id": {
-      "description": "unique identifier of hearing_summary",
-      "example": "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4",
-      "format": "uuid",
-      "type": "string"
-    },
-    "type": {
-      "description": "The hearing_summaries type",
-      "enum": [
-        "hearing_summaries"
-      ],
-      "example": "hearing_summaries",
-      "type": "string"
+      "description": "The identifier of the defendant",
+      "$ref": "definitions.json#/definitions/uuid"
     },
     "hearing_type": {
       "readOnly": true,
@@ -45,109 +34,18 @@
         }
       }
     },
-    "identity": {
-      "$ref": "#/definitions/id"
-    },
     "hearing_days": {
       "readOnly": true,
       "type": "array",
       "items": {
-        "$ref": "#/definitions/hearing_day"
+        "$ref": "hearing_day.json#"
       }
     },
-    "hearing_day": {
-      "sitting_day": {
-        "example": "2020-04-07T09:00:00Z",
-        "description": "The sitting day of the hearing",
-        "type": "string"
-      },
-      "has_shared_results": {
-        "example": "true",
-        "description": "Whether the hearing result has been shared",
-        "type": "boolean"
+    "defence_counsels": {
+      "type": "array",
+      "items": {
+        "$ref": "defence_counsel.json#"
       }
-    },
-    "resource": {
-      "description": "An object representing a single hearing_summary",
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "type": {
-          "$ref": "#/definitions/type"
-        },
-        "attributes": {
-          "$ref": "#/definitions/attributes"
-        },
-        "relationships": {
-          "$ref": "#/definitions/relationships"
-        }
-      }
-    },
-    "attributes": {
-      "type": "object",
-      "properties": {
-        "hearing_type": {
-          "$ref": "#/definitions/hearing_type"
-        },
-        "estimated_duration": {
-          "$ref": "#/definitions/estimated_duration"
-        },
-        "hearing_days": {
-          "$ref": "#/definitions/hearing_days"
-        },
-        "court_centre": {
-          "$ref": "#/definitions/court_centre"
-        }
-      }
-    },
-    "relationships": {
-      "type": "object",
-      "properties": {
-        "defence_counsels": {
-          "$ref": "#/definitions/defence_counsel_relationship"
-        }
-      }
-    },
-    "defence_counsel_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/defence_counsel"
-          },
-          "type": "array"
-        }
-      }
-    },
-    "defence_counsel": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "defence_counsel.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "defence_counsel.json#/definitions/type"
-        }
-      }
-    }
-  },
-  "links": [
-    {
-      "description": "Info for existing hearing_summary.",
-      "href": "/hearing_summaries/{(%23%2Fdefinitions%2Fidentity)}",
-      "method": "GET",
-      "rel": "self",
-      "title": "Info",
-      "targetSchema": {
-        "$ref": "#/definitions/resource"
-      }
-    }
-  ],
-  "properties": {
-    "data": {
-      "$ref": "#/definitions/resource"
     }
   }
 }

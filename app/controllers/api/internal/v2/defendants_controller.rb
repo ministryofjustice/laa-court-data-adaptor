@@ -8,7 +8,7 @@ module Api
           contract = UnlinkDefendantContract.new.call(**transformed_params)
           if contract.success?
             enqueue_unlink
-            render status: :accepted
+            head :accepted
           else
             render json: contract.errors.to_hash, status: :bad_request
           end
@@ -20,7 +20,7 @@ module Api
           if defendant.present?
             render json: DefendantSerializer.new(defendant, serialization_options)
           else
-            render status: :not_found
+            render json: {}, status: :not_found
           end
         end
 

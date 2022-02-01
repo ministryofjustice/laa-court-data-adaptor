@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "delegated_powers",
+  "description": "Provided when judicial decisions are recorded with delegated powers",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "first_name",
+    "last_name"
+  ],
+  "additionalProperties": false
+}

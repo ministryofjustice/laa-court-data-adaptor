@@ -150,7 +150,7 @@ paths:
           Include top-level and nested associations for a hearing.
                                               All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
                                               For example to include providers, cracked ineffective trial as well as court applications and associated judicial results:
-                                              include=providers,court_applications,prosecution_cases,cracked_ineffective_trial,court_applications.judicial_results
+                                              include=providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '200':
@@ -190,7 +190,7 @@ paths:
               "$ref": laa_reference.json#/definitions/new_resource
   "/api/internal/v2/prosecution_cases":
     get:
-      summary: search prosecution_cases
+      summary: search prosecution cases
       description: |-
         Search prosecution cases. Valid search combinations are: <br/><br/>
                             1) prosecution_case_reference <br/>
@@ -210,16 +210,6 @@ paths:
         schema:
           "$ref": prosecution_case.json#/definitions/prosecution_case_reference
         description: Searches prosecution cases by prosecution case reference
-      - name: include
-        in: query
-        required: false
-        type: string
-        schema:
-          "$ref": prosecution_case.json#/definitions/example_included_query_parameters
-        description: |-
-          Include top-level and nested associations for a prosecution case.
-                                            All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-                                            e.g. to include hearing summaries as well as defendants and their offences: </br> include=hearing_summaries,defendants,defendants.offences
       - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[arrest_summons_number]
         in: query
@@ -274,7 +264,7 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                "$ref": prosecution_case.json#/definitions/resource_collection
+                "$ref": search_prosecution_case_response.json#
         '401':
           description: Unauthorized
   "/api/internal/v2/representation_orders":
