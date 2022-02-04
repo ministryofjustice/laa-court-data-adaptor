@@ -33,7 +33,7 @@ RSpec.describe "api/external/v2/prosecution_conclusions", type: :request, swagge
             linked: true,
           )
 
-          expected_message = { "prosecutionConcluded" => [prosecution_conclusion["prosecutionConcluded"].first.merge("maatId" => "700111")] }
+          expected_message = prosecution_conclusion["prosecutionConcluded"].first.merge("maatId" => "700111")
 
           expect(Sqs::MessagePublisher).to receive(:call)
             .once
