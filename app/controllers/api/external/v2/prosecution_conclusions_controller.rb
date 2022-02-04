@@ -11,7 +11,7 @@ module Api
             next if laa_reference.blank?
 
             Sqs::MessagePublisher.call(
-              message: { "prosecutionConcluded" => [pc.to_h.merge("maatId" => laa_reference.maat_reference)] },
+              message: pc.to_h.merge("maatId" => laa_reference.maat_reference),
               queue_url: Rails.configuration.x.aws.sqs_url_prosecution_concluded,
             )
           end
