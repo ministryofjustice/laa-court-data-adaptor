@@ -18,6 +18,26 @@ module HmctsCommonPlatform
       data[:orderIndex]
     end
 
+    def title
+      data[:offenceTitle]
+    end
+
+    def legislation
+      data[:offenceLegislation]
+    end
+
+    def wording
+      data[:wording]
+    end
+
+    def arrest_date
+      data[:arrestDate]
+    end
+
+    def charge_date
+      data[:chargeDate]
+    end
+
     def mode_of_trial
       data[:modeOfTrial]
     end
@@ -26,12 +46,30 @@ module HmctsCommonPlatform
       data[:startDate]
     end
 
-    def title
-      data[:offenceTitle]
+    def proceedings_concluded
+      data[:proceedingsConcluded]
     end
 
-    def wording
-      data[:wording]
+    def to_json(*_args)
+      to_builder.attributes!
+    end
+
+  private
+
+    def to_builder
+      Jbuilder.new do |offence_summary|
+        offence_summary.id offence_id
+        offence_summary.code code
+        offence_summary.order_index order_index
+        offence_summary.mode_of_trial mode_of_trial
+        offence_summary.start_date start_date
+        offence_summary.title title
+        offence_summary.wording wording
+        offence_summary.proceedings_concluded proceedings_concluded
+        offence_summary.legislation legislation
+        offence_summary.arrest_date arrest_date
+        offence_summary.charge_date charge_date
+      end
     end
   end
 end

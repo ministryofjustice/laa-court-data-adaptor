@@ -4,7 +4,7 @@ class StatusController < ApplicationController
   skip_before_action :doorkeeper_authorize!, only: %i[index ping]
 
   def index
-    render head: :ok
+    head :ok
   end
 
   def ping

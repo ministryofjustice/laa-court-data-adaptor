@@ -2,18 +2,17 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc: "v2/swagger.yaml" do
+RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: "v2/swagger.yaml" do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:include) {}
 
   before do
     allow(CommonPlatform::Api::GetHearingResults).to receive(:call)
   end
 
   path "/api/internal/v2/prosecution_cases" do
-    get("search prosecution_cases") do
+    get("search prosecution cases") do
       description "Search prosecution cases. Valid search combinations are: <br/><br/>
                     1) prosecution_case_reference <br/>
                     2) arrest_summons_number <br/>
@@ -39,21 +38,10 @@ RSpec.describe "api/internal/v2/prosecution_cases", type: :request, swagger_doc:
                     },
                     description: "Searches prosecution cases by prosecution case reference"
 
-          parameter name: "include", in: :query, required: false, type: :string,
-                    schema: {
-                      "$ref": "prosecution_case.json#/definitions/example_included_query_parameters",
-                    },
-                    description: "Include top-level and nested associations for a prosecution case.
-                                  All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-                                  e.g. to include hearing summaries as well as defendants and their offences: </br> include=hearing_summaries,defendants,defendants.offences"
-
           parameter "$ref" => "#/components/parameters/transaction_id_header"
-
-          schema "$ref" => "prosecution_case.json#/definitions/resource_collection"
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { "19GD1001816" }
-          let(:include) { "hearing_summaries,defendants,defendants.offences" }
 
           run_test!
         end

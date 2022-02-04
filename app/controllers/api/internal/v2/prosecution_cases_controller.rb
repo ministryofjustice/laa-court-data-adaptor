@@ -5,11 +5,20 @@ module Api
     module V2
       class ProsecutionCasesController < ApplicationController
         def index
-          @prosecution_cases = CommonPlatform::Api::SearchProsecutionCase.call(transformed_params)
-          render json: ProsecutionCaseSummarySerializer.new(@prosecution_cases, serialization_options)
+          case_summaries = CommonPlatform::Api::SearchProsecutionCase.call(transformed_params)
+
+          case_summaries_json = case_summaries.map do |case_summary|
+            HmctsCommonPlatform::ProsecutionCaseSummary.new(case_summary.body).to_json
+          end
+
+          render json: { total_results: case_summaries_json.count, results: case_summaries_json }
         end
 
       private
+
+        def transformed_params
+          filtered_params.to_hash.deep_symbolize_keys
+        end
 
         def filtered_params
           params.require(:filter).permit(:prosecution_case_reference,
@@ -18,20 +27,6 @@ module Api
                                          :date_of_birth,
                                          :date_of_next_hearing,
                                          :national_insurance_number)
-        end
-
-        def transformed_params
-          filtered_params.to_hash.transform_keys(&:to_sym)
-        end
-
-        def serialization_options
-          return { include: inclusions } if inclusions.present?
-
-          {}
-        end
-
-        def inclusions
-          params[:include]&.split(",")
         end
       end
     end

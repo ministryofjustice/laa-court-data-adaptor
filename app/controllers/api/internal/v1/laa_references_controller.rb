@@ -15,7 +15,7 @@ module Api
             transformed_params[:maat_reference],
           )
 
-          render status: :accepted
+          head :accepted
         end
 
       private

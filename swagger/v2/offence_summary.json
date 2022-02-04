@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "offence_summary",
+  "description": "A summary of offence details",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The identifier of the offence",
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "code": {
+      "description": "The offence code from reference data",
+      "type": "string"
+    },
+    "order_index": {
+      "description": "The offence sequence provided by the Police",
+      "$ref": "definitions.json#/definitions/positiveInteger"
+    },
+    "title": {
+      "description": "The offence title from reference data",
+      "type": "string"
+    },
+    "legislation": {
+      "description": "The offence legislation from reference data",
+      "type": "string"
+    },
+    "wording": {
+      "description": "The particulars of the accused charges",
+      "type": "string"
+    },
+    "arrest_date": {
+      "description": "The date that the defendant was arrested in relation to this matter",
+      "$ref": "definitions.json#/definitions/datePattern"
+    },
+    "charge_date": {
+      "description": "The date that the defendant was charged in relation to this matter",
+      "$ref": "definitions.json#/definitions/datePattern"
+    },
+    "mode_of_trial": {
+      "description": "Indicates if the offence is either way, indictable only or summary only",
+      "type": "string"
+    },
+    "start_date": {
+      "description": "The date that the defendant is accused to have started committing this charge",
+      "$ref": "definitions.json#/definitions/datePattern"
+    },
+    "proceedings_concluded": {
+      "description": "Indicates that proceedings for this offence have been conckuded i.e. it has been disposed with final results or withdrawn by the prosecuting authority",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "code",
+    "title"
+  ],
+  "additionalProperties": false
+}

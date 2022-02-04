@@ -32,4 +32,24 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
     it { expect(offence_summary.start_date).to be_nil }
     it { expect(offence_summary.wording).to be_nil }
   end
+
+  describe "#to_json" do
+    let(:data) { JSON.parse(file_fixture("offence_summary/all_fields.json").read) }
+
+    it "generates a JSON representation of the data" do
+      json = offence_summary.to_json
+
+      expect(json["id"]).to eql("9aca847f-da4e-444b-8f5a-2ce7d776ab75")
+      expect(json["code"]).to eql("TH68026C")
+      expect(json["order_index"]).to be(1)
+      expect(json["title"]).to eql("Conspire to commit a burglary dwelling with intent to steal")
+      expect(json["legislation"]).to eql("Contrary to section 1(1) of the Criminal Law Act 1977.")
+      expect(json["wording"]).to eql("Between 06.03.2021 and 22.03.2021 at DERBY in the county of DERBYSHIRE, conspired together with John Doe to enter as a trespasser")
+      expect(json["arrest_date"]).to eql("2021-03-23")
+      expect(json["charge_date"]).to eql("2021-03-24")
+      expect(json["mode_of_trial"]).to eql("Indictable")
+      expect(json["start_date"]).to eql("2021-03-06")
+      expect(json["proceedings_concluded"]).to be false
+    end
+  end
 end

@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Defendant summary",
+  "id": "defendant_summary",
+  "strictProperties": true,
+  "description": "A summary of defendant details",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The identifier of the defendant",
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "national_insurance_number": {
+      "description": "The person nino when the defendant is a person",
+      "$ref": "definitions.json#/definitions/nino"
+    },
+    "arrest_summons_number": {
+      "description": "The police arrest summons number when the defendant is a person",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the defendant",
+      "type": "string",
+      "example": "John Smith"
+    },
+    "first_name": {
+      "description": "The firstname of the defendant",
+      "type": "string",
+      "example": "John"
+    },
+    "middle_name": {
+      "description": "The middle name of the defendant",
+      "type": "string"
+    },
+    "last_name": {
+      "description": "The last name of the defendant",
+      "type": "string",
+      "example": "John"
+    },
+    "date_of_birth": {
+      "description": "The person date of birth when the defendant is a person",
+      "$ref": "definitions.json#/definitions/datePattern",
+      "example": "2020-04-07T09:00:00Z"
+    },
+    "proceedings_concluded": {
+      "description": "Indicates that proceedings for the defendant have been conckuded i.e. all offences have been disposed with final results or have been withdrawn by the prosecuting authority",
+      "type": "boolean"
+    },
+    "offence_summaries": {
+      "description": "The offences for this defendant",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "offence_summary.json#"
+      }
+    }
+  }
+}

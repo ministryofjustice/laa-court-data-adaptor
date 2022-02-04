@@ -147,6 +147,9 @@ GEM
     hashdiff (1.0.1)
     i18n (1.9.1)
       concurrent-ruby (~> 1.0)
+    jbuilder (2.11.5)
+      actionview (>= 5.0.0)
+      activesupport (>= 5.0.0)
     jmespath (1.4.0)
     json-schema (2.8.1)
       addressable (>= 2.4)
@@ -376,6 +379,7 @@ DEPENDENCIES
   dry-validation
   faraday_middleware
   hmcts_common_platform!
+  jbuilder (~> 2.11)
   json-schema
   json-schema-rspec
   jsonapi-serializer

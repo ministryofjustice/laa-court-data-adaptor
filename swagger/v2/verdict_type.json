@@ -6,7 +6,7 @@
   "stability": "prototype",
   "strictProperties": true,
   "type": "object",
-  "definitions": {
+  "properties": {
     "id": {
       "description": "unique identifier",
       "format": "uuid",

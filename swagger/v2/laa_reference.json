@@ -24,7 +24,7 @@
       "type": "string"
     },
     "user_name": {
-      "example": "foobar",
+      "example": "jon-5",
       "description": "The user name of the caseworker linking or unlinking the case",
       "type": "string"
     },

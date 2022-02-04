@@ -8,7 +8,7 @@ module Api
           enforce_contract!
           enqueue_representation_order
 
-          render status: :accepted
+          head :accepted
         end
 
       private
