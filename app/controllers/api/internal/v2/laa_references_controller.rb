@@ -52,7 +52,7 @@ module Api
         end
 
         def create_params
-          params.from_jsonapi.require(:laa_reference).permit(allowed_params)
+          params.require(:laa_reference).permit(allowed_params)
         end
 
         def allowed_params

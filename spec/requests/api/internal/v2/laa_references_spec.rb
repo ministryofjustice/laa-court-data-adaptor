@@ -10,22 +10,12 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
   let(:defendant_id) { SecureRandom.uuid }
   let(:laa_reference) do
     {
-      data: {
-        type: "laa_references",
-        attributes: {
-          maat_reference: 1_231_231,
-          user_name: "JaneDoe",
-          unlink_reason_code: 1,
-          unlink_other_reason_text: "",
-        },
-        relationships: {
-          defendant: {
-            data: {
-              type: "defendants",
-              id: defendant_id,
-            },
-          },
-        },
+      laa_reference: {
+        maat_reference: 1_231_231,
+        user_name: "JaneDoe",
+        unlink_reason_code: 1,
+        unlink_other_reason_text: "",
+        defendant_id: defendant_id,
       },
     }
   end
@@ -59,10 +49,10 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
         end
 
         parameter name: :laa_reference, in: :body, required: false, type: :object,
-          schema: {
-            "$ref": "laa_reference.json#/definitions/new_resource",
-          },
-          description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
+                  schema: {
+                    "$ref": "laa_reference_post_request_body.json#",
+                  },
+                  description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
 
         parameter "$ref" => "#/components/parameters/transaction_id_header"
 
@@ -83,7 +73,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
-            laa_reference[:data][:attributes].delete(:maat_reference)
+            laa_reference[:laa_reference].delete(:maat_reference)
 
             expect(MaatLinkCreatorWorker).to receive(:perform_async)
               .with("XYZ", defendant_id, "JaneDoe", nil)
@@ -100,7 +90,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
-            laa_reference[:data][:attributes].delete(:user_name)
+            laa_reference[:laa_reference].delete(:user_name)
             expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
           end
 
@@ -111,7 +101,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
       context "with an invalid maat_reference" do
         response("422", "Unprocessable entity") do
           let(:Authorization) { "Bearer #{token.token}" }
-          before { laa_reference[:data][:attributes][:maat_reference] = "ABC123123" }
+          before { laa_reference[:laa_reference][:maat_reference] = "ABC123123" }
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
@@ -138,7 +128,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
       end
 
       context "with a failing LAA Reference contract" do
-        before { laa_reference[:data][:relationships][:defendant][:data][:id] = "foo" }
+        let(:defendant_id) { "X" }
 
         it "renders a JSON response with an unprocessable_entity error" do
           post api_internal_v2_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
@@ -164,17 +154,17 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
             end
           end
 
-          parameter name: :defendant_id, in: :path, required: true, type: :uuid,
-            schema: {
-              "$ref": "defendant.json#/definitions/id",
-            },
-            description: "The unique identifier of the defendant"
+          parameter name: :defendant_id, in: :path, required: false, type: :uuid,
+                    schema: {
+                      "$ref": "defendant.json#/definitions/id",
+                    },
+                    description: "The unique identifier of the defendant"
 
-          parameter name: :laa_reference, in: :body, required: false, type: :object,
-            schema: {
-              "$ref": "laa_reference.json#/definitions/new_resource",
-            },
-            description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
+          parameter name: :laa_reference, in: :body, required: true, type: :object,
+                    schema: {
+                      "$ref": "laa_reference_patch_request_body.json#",
+                    },
+                    description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 

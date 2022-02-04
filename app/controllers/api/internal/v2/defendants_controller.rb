@@ -4,7 +4,6 @@ module Api
   module Internal
     module V2
       class DefendantsController < ApplicationController
-
         def show
           defendant = CommonPlatform::Api::DefendantFinder.call(defendant_id: params[:id])
 
@@ -16,10 +15,6 @@ module Api
         end
 
       private
-
-        def transformed_params
-          @transformed_params ||= unlink_params.slice(*allowed_params).to_hash.transform_keys(&:to_sym).merge(defendant_id: params[:id])
-        end
 
         def serialization_options
           return { include: inclusions } if params[:include].present?
