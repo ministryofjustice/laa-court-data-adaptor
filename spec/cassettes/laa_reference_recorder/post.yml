@@ -1,7 +1,7 @@
 ---
 http_interactions:
 - request:
-    method: patch
+    method: post
     uri: "<COMMON_PLATFORM_URL>/prosecutionCases/laaReference/cases/5edd67eb-9d8c-44f2-a57e-c8d026defaa4/defendant/2ecc9feb-9407-482f-b081-d9e5c8ba3ed3/offences/3f153786-f3cf-4311-bc0c-2d6f48af68a1"
     body:
       encoding: UTF-8

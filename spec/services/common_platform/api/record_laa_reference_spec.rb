@@ -27,7 +27,7 @@ RSpec.describe CommonPlatform::Api::RecordLaaReference do
   end
 
   it "returns an accepted status" do
-    VCR.use_cassette("laa_reference_recorder/update") do
+    VCR.use_cassette("laa_reference_recorder/post") do
       expect(record_reference.status).to eq(202)
     end
   end
