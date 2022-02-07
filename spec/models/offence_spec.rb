@@ -44,7 +44,7 @@ RSpec.describe Offence, type: :model do
           "applicationReference" => "AB746921",
           "statusId" => "f644b843-a0a9-4344-81c5-ec484805775c",
           "statusCode" => "GR",
-          "statusDescription" => "FAKE NEWS",
+          "statusDescription" => "LAA status description",
           "statusDate" => "1980-07-15",
         },
       }

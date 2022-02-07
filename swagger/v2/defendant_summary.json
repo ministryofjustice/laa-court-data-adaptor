@@ -16,31 +16,33 @@
     },
     "arrest_summons_number": {
       "description": "The police arrest summons number when the defendant is a person",
-      "type": "string"
+      "type": "string",
+      "example": "2000000000001125699M"
     },
     "name": {
       "description": "The name of the defendant",
       "type": "string",
-      "example": "John Smith"
+      "example": "James Earl Jones"
     },
     "first_name": {
       "description": "The firstname of the defendant",
       "type": "string",
-      "example": "John"
+      "example": "James"
     },
     "middle_name": {
       "description": "The middle name of the defendant",
-      "type": "string"
+      "type": "string",
+      "example": "Earl"
     },
     "last_name": {
       "description": "The last name of the defendant",
       "type": "string",
-      "example": "John"
+      "example": "Jones"
     },
     "date_of_birth": {
       "description": "The person date of birth when the defendant is a person",
       "$ref": "definitions.json#/definitions/datePattern",
-      "example": "2020-04-07T09:00:00Z"
+      "example": "2020-04-07"
     },
     "proceedings_concluded": {
       "description": "Indicates that proceedings for the defendant have been conckuded i.e. all offences have been disposed with final results or have been withdrawn by the prosecuting authority",

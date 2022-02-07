@@ -55,15 +55,21 @@ paths:
             schema:
               "$ref": prosecution_concluded_request.json#/definitions/resource
         required: true
-  "/api/internal/v2/defendants/{id}":
+  "/api/internal/v2/prosecution_cases/{prosecution_case_reference}/defendants/{id}":
     get:
-      summary: fetch a defendant by ID
+      summary: fetch a case defendant by ID
       description: find a defendant where it exists within Court Data Adaptor
       tags:
       - Internal - available to other LAA applications
       security:
       - oAuth: []
       parameters:
+      - name: prosecution_case_reference
+        in: path
+        required: true
+        schema:
+          "$ref": prosecution_case.json#/definitions/prosecution_case_reference
+        description: The unique reference number (URN) of the case
       - name: id
         in: path
         required: true
@@ -72,26 +78,17 @@ paths:
           "$ref": defendant.json#/definitions/id
         description: The uuid of the defendant
       - "$ref": "#/components/parameters/transaction_id_header"
-      - name: include
-        in: query
-        required: false
-        type: string
-        schema:
-          "$ref": defendant.json#/definitions/example_included_query_parameters
-        description: |-
-          Include top-level and nested associations for a defendant.
-                                              All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-                                              For example to include offences, defence organisation as well as prosecution case and its associated hearing summaries:
-                                              include=offences,defence_organisation,prosecution_case,prosecution_case.hearing_summaries
       responses:
         '200':
           description: Success
           content:
             application/vnd.api+json:
               schema:
-                "$ref": defendant.json#/definitions/resource_collection
+                "$ref": defendant_summary.json#
         '404':
           description: Not found
+        '401':
+          description: Unauthorized
   "/api/internal/v2/hearing_results/{hearing_id}":
     get:
       summary: get hearing
@@ -312,3 +309,4 @@ components:
       required: false
       description: A unique identifier for an individual request that can be traced
         across multiple systems
+      example: d7f509e8-309c-4262-a41d-ebbb44deab9e

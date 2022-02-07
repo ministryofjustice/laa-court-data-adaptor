@@ -57,7 +57,7 @@ RSpec.describe HmctsCommonPlatform::Offence, type: :model do
     end
 
     it "has an laa appln reference status description" do
-      expect(offence.laa_reference_status_description).to eql("FAKE NEWS")
+      expect(offence.laa_reference_status_description).to eql("LAA status description")
     end
 
     it "has an laa appln reference laa contract number" do

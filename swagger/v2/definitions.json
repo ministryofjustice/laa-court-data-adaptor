@@ -4,11 +4,13 @@
   "definitions": {
     "positiveInteger": {
       "type": "integer",
-      "minimum": 0
+      "minimum": 1,
+      "example": 1
     },
     "uuid": {
       "type": "string",
-      "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+      "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+      "example": "5c57df7a-0bb6-414e-873f-3c395265f6f6"
     },
     "datePattern": {
       "example": "2022-04-07T09:00:00Z",
@@ -17,7 +19,8 @@
     },
     "nino": {
       "type": "string",
-      "pattern": "(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\\s*\\d\\s*){6}([A-D]|\\s)$"
+      "pattern": "(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\\s*\\d\\s*){6}([A-D]|\\s)$",
+      "example": "QQ123456C"
     }
   }
 }
