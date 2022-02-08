@@ -10,23 +10,7 @@
           "offenceId": "fb2a3ecb-fc1a-4a80-88ac-222478bc4a92",
           "offenceCode": "PT00011",
           "proceedingsConcluded": true,
-          "proceedingsConcludedChangedDate": "2021-01-01",
-          "plea": {
-            "originatingHearingId": "badf2bc4-3041-4545-a0d1-89795c667c38",
-            "value": "Plea value",
-            "pleaDate": "11-08-2021"
-          },
-          "verdict": {
-            "verdictDate": "2021-12-01",
-            "originatingHearingId": "5ce145fa-2a0d-44a5-a8e3-65af4ce1af55",
-            "verdictType": {
-              "description": "verdict type description",
-              "category": "verdict type category",
-              "categoryType": "category type",
-              "sequence": 1,
-              "verdictTypeId": "fc0b038e-6378-4979-9f39-69ed40249bcb"
-            }
-          }
+          "proceedingsConcludedChangedDate": "2021-01-01"
         }
       ]
     }
