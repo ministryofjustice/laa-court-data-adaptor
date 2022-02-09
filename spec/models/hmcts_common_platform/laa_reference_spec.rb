@@ -61,7 +61,7 @@ RSpec.describe HmctsCommonPlatform::LaaReference, type: :model do
     end
 
     it "has no effective start date" do
-      expect(laa_reference.effective_end_date).to be_nil
+      expect(laa_reference.effective_start_date).to be_nil
     end
 
     it "has no effective end date" do

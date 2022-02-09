@@ -16,6 +16,7 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
     it { expect(defendant_summary.date_of_birth).to eql("1986-11-10") }
     it { expect(defendant_summary.national_insurance_number).to eql("AA123456C") }
     it { expect(defendant_summary.offence_summaries).to all(be_an(HmctsCommonPlatform::OffenceSummary)) }
+    it { expect(defendant_summary.representation_order).to be_an(HmctsCommonPlatform::RepresentationOrder) }
   end
 
   context "with only required fields" do
@@ -48,7 +49,8 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
       expect(json["arrest_summons_number"]).to eql("2100000000000267128K")
       expect(json["date_of_birth"]).to eql("1986-11-10")
       expect(json["national_insurance_number"]).to eql("AA123456C")
-      expect(json["national_insurance_number"]).to eql("AA123456C")
+      expect(json["proceedings_concluded"]).to be false
+      expect(json["representation_order"]).to be_present
       expect(json["offence_summaries"].count).to be(2)
     end
   end

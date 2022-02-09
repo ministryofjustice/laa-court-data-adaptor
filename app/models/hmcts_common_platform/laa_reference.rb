@@ -41,10 +41,16 @@ module HmctsCommonPlatform
     end
 
     def to_json(*_args)
-      to_builder.attributes!
+      return {} if attrs.all? { |_k, v| v.nil? }
+
+      attrs
     end
 
   private
+
+    def attrs
+      @attrs ||= to_builder.attributes!
+    end
 
     def to_builder
       Jbuilder.new do |laa_reference|

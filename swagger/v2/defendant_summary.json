@@ -48,6 +48,10 @@
       "description": "Indicates that proceedings for the defendant have been conckuded i.e. all offences have been disposed with final results or have been withdrawn by the prosecuting authority",
       "type": "boolean"
     },
+    "representation_order": {
+      "description": "The representation order for this defendant",
+      "$ref": "representation_order.json#"
+    },
     "offence_summaries": {
       "description": "The offences for this defendant",
       "type": "array",

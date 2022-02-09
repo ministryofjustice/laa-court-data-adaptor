@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "http://justice.gov.uk/core/courts/external/apiRepresentationOrder.json",
+  "type": "object",
+  "description": "The representation order for a defendant",
+  "properties": {
+    "applicationReference": {
+      "type": "string"
+    },
+    "effectiveFromDate": {
+      "type": "string",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "effectiveToDate": {
+      "type": "string",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "laaContractNumber": {
+      "type": "string"
+    }
+  }
+}

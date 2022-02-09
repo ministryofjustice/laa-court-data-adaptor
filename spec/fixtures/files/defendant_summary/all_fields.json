@@ -7,6 +7,12 @@
   "defendantLastName": "Smith",
   "defendantDOB": "1986-11-10",
   "defendantNINO": "AA123456C",
+  "representationOrder": {
+    "applicationReference": "7555111",
+    "effectiveFromDate": "2021-12-09",
+    "effectiveToDate": "2021-12-09",
+    "laaContractNumber": "0N824P"
+  },
   "offenceSummary": [
     {
       "offenceId": "9aca847f-da4e-444b-8f5a-2ce7d776ab75",
