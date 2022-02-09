@@ -393,13 +393,9 @@ workflows:
       - install_on_stage_live:
           requires:
           - hold_install_on_stage
-      - hold_install_on_prod:
-          type: approval
-          requires:
-          - build-and-push-app
       - install_on_prod_live:
           requires:
-          - hold_install_on_prod
+          - build-and-push-app
 
   test-branch:
     jobs:
