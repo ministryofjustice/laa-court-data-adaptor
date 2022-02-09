@@ -42,6 +42,10 @@ module HmctsCommonPlatform
       data[:proceedingsConcluded]
     end
 
+    def representation_order
+      HmctsCommonPlatform::RepresentationOrder.new(data[:representationOrder])
+    end
+
     def offence_summaries
       Array(data[:offenceSummary]).map do |offence_summary_data|
         HmctsCommonPlatform::OffenceSummary.new(offence_summary_data)
@@ -49,7 +53,7 @@ module HmctsCommonPlatform
     end
 
     def to_json(*_args)
-      to_builder.attributes!
+      to_builder.attributes!.compact
     end
 
   private
@@ -57,14 +61,15 @@ module HmctsCommonPlatform
     def to_builder
       Jbuilder.new do |defendant_summary|
         defendant_summary.id defendant_id
-        defendant_summary.national_insurance_number national_insurance_number
-        defendant_summary.arrest_summons_number arrest_summons_number
-        defendant_summary.name name
         defendant_summary.first_name first_name
         defendant_summary.middle_name middle_name
         defendant_summary.last_name last_name
+        defendant_summary.name name
+        defendant_summary.arrest_summons_number arrest_summons_number
         defendant_summary.date_of_birth date_of_birth
+        defendant_summary.national_insurance_number national_insurance_number
         defendant_summary.proceedings_concluded proceedings_concluded
+        defendant_summary.representation_order representation_order.to_json
         defendant_summary.offence_summaries(offence_summaries.map(&:to_json))
       end
     end

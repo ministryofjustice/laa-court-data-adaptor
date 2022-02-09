@@ -7,6 +7,12 @@
   "defendantLastName": "Smith",
   "defendantDOB": "1986-11-10",
   "defendantNINO": "AA123456C",
+  "representationOrder": {
+    "applicationReference": "7555111",
+    "effectiveFromDate": "2021-12-09",
+    "effectiveToDate": "2021-12-09",
+    "laaContractNumber": "0N824P"
+  },
   "offenceSummary": [
     {
       "offenceId": "9aca847f-da4e-444b-8f5a-2ce7d776ab75",
@@ -21,7 +27,7 @@
       "orderIndex": 1,
       "wording": "Between 06.03.2021 and 22.03.2021 at DERBY in the county of DERBYSHIRE, conspired together with John Doe to enter as a trespasser, a number of dwellings within the CHADDESDEN and LITTLEOVER areas of DERBY, with intent to steal therein\n'Contrary to section 1(1) of the Criminal Law Act 1977.'\n -- CCCJS CODE: 'TH68026C'",
       "laaApplnReference": {
-        "applicationReference": "LAA-552244",
+        "applicationReference": "552244",
         "statusId": "04741935-488e-4c1a-bf81-cf20a7562b23",
         "statusCode": "1",
         "statusDescription": "description",
@@ -41,7 +47,7 @@
       "orderIndex": 2,
       "wording": "On 23.03.2021 at DERBY in the county of DERBYSHIRE assaulted an emergency worker, namely Police Constable, acting in the exercise of his functions as such a worker, by beating him\n'Contrary to section 39 of the Criminal Justice Act 1988 and section 1 of the Assaults on Emergency Workers (Offences) Act 2018.'\n -- CCCJS CODE: 'CJ88149'",
       "laaApplnReference": {
-        "applicationReference": "LAA-552244",
+        "applicationReference": "552244",
         "statusId": "c744dfc5-1f22-486b-a749-2502e73fa5be",
         "statusCode": "1",
         "statusDescription": "description",

@@ -6,11 +6,13 @@
   "properties": {
     "id": {
       "description": "The identifier of the offence",
-      "$ref": "definitions.json#/definitions/uuid"
+      "$ref": "definitions.json#/definitions/uuid",
+      "format": "uuid"
     },
     "code": {
       "description": "The offence code from reference data",
-      "type": "string"
+      "type": "string",
+      "example": "AA06001"
     },
     "order_index": {
       "description": "The offence sequence provided by the Police",
@@ -18,15 +20,18 @@
     },
     "title": {
       "description": "The offence title from reference data",
-      "type": "string"
+      "type": "string",
+      "example": "Driver fail to immediately move a vehicle from a cordoned area on order of a constable"
     },
     "legislation": {
       "description": "The offence legislation from reference data",
-      "type": "string"
+      "type": "string",
+      "example": "Common Law"
     },
     "wording": {
       "description": "The particulars of the accused charges",
-      "type": "string"
+      "type": "string",
+      "example": "Between 06.03.2021 and 22.03.2021 at Derby in the county of Derbyshire, conspired together with Harry Potter to enter as a trespasser"
     },
     "arrest_date": {
       "description": "The date that the defendant was arrested in relation to this matter",
@@ -38,7 +43,8 @@
     },
     "mode_of_trial": {
       "description": "Indicates if the offence is either way, indictable only or summary only",
-      "type": "string"
+      "type": "string",
+      "example": "Either way"
     },
     "start_date": {
       "description": "The date that the defendant is accused to have started committing this charge",
@@ -47,6 +53,10 @@
     "proceedings_concluded": {
       "description": "Indicates that proceedings for this offence have been conckuded i.e. it has been disposed with final results or withdrawn by the prosecuting authority",
       "type": "boolean"
+    },
+    "laa_reference": {
+      "type": "object",
+      "$ref": "laa_reference.json#"
     }
   },
   "required": [

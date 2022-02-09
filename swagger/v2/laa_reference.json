@@ -1,16 +1,32 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Representation Order",
-  "description": "A defendant's representation order",
-  "id": "representation_order",
-  "stability": "prototype",
-  "strictProperties": true,
+  "id": "laa_reference",
   "type": "object",
+  "description": "The status of an application for legal aid funding",
   "properties": {
-    "application_reference": {
+    "reference": {
       "description": "The human readable reference to the application supplied by legal aid agency",
       "type": "string",
       "example": "7188114"
+    },
+    "id": {
+      "description": "Reference data identifer for the agreed status",
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "code": {
+      "description": "The status code from reference data",
+      "type": "string",
+      "example": "GR"
+    },
+    "description": {
+      "description": "The status description from reference data",
+      "type": "string",
+      "example": "Granted (One Advocate)"
+    },
+    "date": {
+      "description": "The date that the status was recorded",
+      "$ref": "definitions.json#/definitions/datePattern",
+      "example": "2020-03-12"
     },
     "effective_start_date": {
       "description": "The start date for legal aid, set when the status represents an approved representation order",
@@ -21,11 +37,20 @@
       "description": "The end date for legal aid, set when the status represents an approved representation order",
       "$ref": "definitions.json#/definitions/datePattern",
       "example": "2020-04-07"
+
     },
     "laa_contract_number": {
       "description": "this will be null when LAA reference is recorded and will be set when representation order is received",
       "type": "string",
       "example": "1L888C"
     }
-  }
+  },
+  "required": [
+    "applicationReference",
+    "statusId",
+    "statusCode",
+    "statusDescription",
+    "statusDate"
+  ],
+  "additionalProperties": false
 }

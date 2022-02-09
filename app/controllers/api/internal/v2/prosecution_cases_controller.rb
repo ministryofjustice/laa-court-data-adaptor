@@ -7,7 +7,7 @@ module Api
         def index
           case_summaries = CommonPlatform::Api::SearchProsecutionCase.call(transformed_params)
 
-          case_summaries_json = case_summaries.map do |case_summary|
+          case_summaries_json = Array(case_summaries).map do |case_summary|
             HmctsCommonPlatform::ProsecutionCaseSummary.new(case_summary.body).to_json
           end
 

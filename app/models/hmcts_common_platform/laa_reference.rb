@@ -12,6 +12,10 @@ module HmctsCommonPlatform
       data[:applicationReference]
     end
 
+    def status_id
+      data[:statusId]
+    end
+
     def status_code
       data[:statusCode]
     end
@@ -24,12 +28,41 @@ module HmctsCommonPlatform
       data[:statusDescription]
     end
 
+    def effective_start_date
+      data[:effectiveStartDate]
+    end
+
     def effective_end_date
       data[:effectiveEndDate]
     end
 
     def laa_contract_number
       data[:laaContractNumber]
+    end
+
+    def to_json(*_args)
+      return {} if attrs.all? { |_k, v| v.nil? }
+
+      attrs
+    end
+
+  private
+
+    def attrs
+      @attrs ||= to_builder.attributes!
+    end
+
+    def to_builder
+      Jbuilder.new do |laa_reference|
+        laa_reference.reference application_reference
+        laa_reference.id status_id
+        laa_reference.code status_code
+        laa_reference.date status_date
+        laa_reference.description status_description
+        laa_reference.effective_start_date effective_start_date
+        laa_reference.effective_end_date effective_end_date
+        laa_reference.laa_contract_number laa_contract_number
+      end
     end
   end
 end

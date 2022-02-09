@@ -113,7 +113,7 @@
                   "applicationReference": "A10000099",
                   "statusId": "38944fbb-c8a6-45ff-9b5c-e09e9867eabc",
                   "statusCode": "AP",
-                  "statusDescription": "FAKE NEWS",
+                  "statusDescription": "LAA status description",
                   "statusDate": "2020-11-05"
                 }
               }

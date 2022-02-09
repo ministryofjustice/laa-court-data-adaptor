@@ -101,7 +101,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
             modeOfTrial: "5",
             legalAidStatus: "AP",
             legalAidStatusDate: "2020-11-05",
-            legalAidReason: "FAKE NEWS",
+            legalAidReason: "LAA status description",
             results: [
               {
                 resultCode: "4600",
