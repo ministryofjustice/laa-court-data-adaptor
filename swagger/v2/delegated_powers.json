@@ -13,11 +13,5 @@
     "last_name": {
       "type": "string"
     }
-  },
-  "required": [
-    "user_id",
-    "first_name",
-    "last_name"
-  ],
-  "additionalProperties": false
+  }
 }
