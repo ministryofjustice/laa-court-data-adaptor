@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://justice.gov.uk/core/courts/external/apiPlea.json",
+  "id": "plea",
   "description": "The plea entered at a hearing",
   "type": "object",
   "properties": {
