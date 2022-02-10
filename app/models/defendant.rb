@@ -41,6 +41,10 @@ class Defendant
     body["offenceSummary"].map { |offence| Offence.new(body: offence, details: offence_details[offence["offenceId"]]) }
   end
 
+  def maat_reference
+    body.dig("representationOrder", "applicationReference")
+  end
+
   def defence_organisation
     return if case_reference.blank?
 
@@ -65,10 +69,6 @@ class Defendant
     end
   end
 
-  def maat_reference
-    _maat_reference if valid_maat_reference?
-  end
-
   def post_hearing_custody_statuses
     offence_details.deep_transform_keys(&:to_sym).flat_map do |_offence_id, offence|
       PostHearingCustodyCalculator.call(offences: offence)
@@ -91,17 +91,6 @@ private
     return [] if details.blank?
 
     details.flat_map { |detail| detail["judicialResults"] }.uniq.compact
-  end
-
-  def valid_maat_reference?
-    _maat_reference.present? && !_maat_reference.start_with?("Z")
-  end
-
-  def _maat_reference
-    refs = offences.map(&:maat_reference).uniq.compact
-    raise "Too many maat references" if refs.size > 1
-
-    refs&.first
   end
 
   def case_reference
