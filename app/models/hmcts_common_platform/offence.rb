@@ -4,7 +4,7 @@ module HmctsCommonPlatform
 
     delegate :blank?, to: :data
 
-    delegate :application_reference, :status_code, :status_date, :status_description, :laa_contract_number, :effective_end_date, to: :laa_reference, prefix: true
+    delegate :reference, :status_code, :status_date, :status_description, :laa_contract_number, :effective_end_date, to: :laa_application, prefix: true
 
     def initialize(data)
       @data = HashWithIndifferentAccess.new(data || {})
@@ -42,8 +42,10 @@ module HmctsCommonPlatform
       data[:wording]
     end
 
-    def allocation_decision_mot_reason_code
-      data.dig(:allocationDecision, :motReasonCode)
+    delegate :mot_reason_code, to: :allocation_decision, prefix: true
+
+    def allocation_decision
+      HmctsCommonPlatform::AllocationDecision.new(data[:allocationDecision])
     end
 
     def judicial_result_ids
@@ -60,21 +62,35 @@ module HmctsCommonPlatform
       HmctsCommonPlatform::Plea.new(data[:plea])
     end
 
-    def pleas
-      Array(data[:plea]).map do |plea_data|
-        HmctsCommonPlatform::Plea.new(plea_data)
-      end
-    end
-
     def verdict
       HmctsCommonPlatform::Verdict.new(data[:verdict])
     end
 
-    def mode_of_trial_reasons; end
+    def to_json(*_args)
+      to_builder.attributes!
+    end
 
   private
 
-    def laa_reference
+    def to_builder
+      Jbuilder.new do |offence|
+        offence.id id
+        offence.code code
+        offence.title title
+        offence.legislation legislation
+        offence.mode_of_trial mode_of_trial
+        offence.wording wording
+        offence.start_date start_date
+        offence.order_index order_index
+        offence.allocation_decision allocation_decision.to_json
+        offence.plea plea.to_json
+        offence.verdict verdict.to_json
+        offence.judicial_results judicial_results.map(&:to_json)
+        offence.laa_application laa_application
+      end
+    end
+
+    def laa_application
       HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference])
     end
   end
