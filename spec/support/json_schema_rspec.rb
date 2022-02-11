@@ -3,6 +3,7 @@ RSpec.configure do |config|
 
   schema_path = "lib/schemas"
 
+  config.json_schemas[:address] = "#{schema_path}/global/apiAddress.json"
   config.json_schemas[:court_application] = "#{schema_path}/global/apiCourtApplication.json"
   config.json_schemas[:court_application_party] = "#{schema_path}/global/apiCourtApplicationParty.json"
   config.json_schemas[:court_application_type] = "#{schema_path}/global/apiCourtApplicationType.json"

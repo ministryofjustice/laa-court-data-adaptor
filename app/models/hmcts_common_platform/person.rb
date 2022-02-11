@@ -44,6 +44,14 @@ module HmctsCommonPlatform
       data[:documentationLanguageNeeds]
     end
 
+    def address
+      HmctsCommonPlatform::Address.new(data[:address])
+    end
+
+    def contact_details
+      HmctsCommonPlatform::ContactDetails.new(data[:contact])
+    end
+
     def to_json(*_args)
       return {} if attrs.all? { |_k, v| v.blank? }
 
