@@ -79,5 +79,6 @@
   "rootJudicialResultTypeId": "c5520033-7389-4815-a5c9-bf28fcebb134",
   "terminatesOffenceProceedings": false,
   "urgent": false,
-  "usergroups": []
+  "usergroups": [],
+  "resultWording":"result wording"
 }
