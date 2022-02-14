@@ -10,21 +10,21 @@ ruby "2.7.5"
 
 # Remove dependency on Action Mailbox > Marcel > MimeMagic due to https://github.com/rails/rails/issues/41750,
 # by loading only the individual Rails modules we need:
-gem "actioncable"
-gem "actionmailer"
-gem "actionpack"
+gem "actioncable", ">= 6.1.4.6"
+gem "actionmailer", ">= 6.1.4.6"
+gem "actionpack", ">= 6.1.4.6"
 gem "actionview"
 gem "activejob"
 gem "activemodel"
 gem "activerecord"
 gem "activesupport"
 gem "bundler"
-gem "railties"
+gem "railties", ">= 6.1.4.6"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
-gem "puma", "~> 5.6"
+gem "puma", "~> 5.6", ">= 5.6.2"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -38,30 +38,30 @@ gem "bootsnap", ">= 1.4.2", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 gem "aws-sdk-sqs"
-gem "doorkeeper", "~> 5.5"
+gem "doorkeeper", "~> 5.5", ">= 5.5.4"
 gem "dry-validation"
 gem "faraday_middleware"
 gem "hmcts_common_platform", github: "ministryofjustice/hmcts_common_platform", tag: "v0.2.0"
 gem "jbuilder", "~> 2.11"
-gem "jsonapi_parameters"
+gem "jsonapi_parameters", ">= 2.3.0"
 gem "jsonapi-serializer"
 gem "json-schema"
 gem "oauth2"
 gem "prmd"
 gem "prometheus_exporter"
-gem "rswag-api"
-gem "rswag-ui"
+gem "rswag-api", ">= 2.4.0"
+gem "rswag-ui", ">= 2.4.0"
 gem "sentry-rails", "~> 5.0.2"
 gem "sentry-ruby", "~> 5.0.2"
 gem "sentry-sidekiq", "~> 5.0.2"
 gem "sidekiq"
-gem "versionist"
+gem "versionist", ">= 2.0.1"
 
 group :development, :test do
-  gem "dotenv-rails"
+  gem "dotenv-rails", ">= 2.7.6"
   gem "pry-byebug"
   gem "pry-rails", "~> 0.3.9"
-  gem "rswag-specs"
+  gem "rswag-specs", ">= 2.5.0"
   gem "rubocop-govuk"
   gem "rubocop-performance"
   gem "vcr"
