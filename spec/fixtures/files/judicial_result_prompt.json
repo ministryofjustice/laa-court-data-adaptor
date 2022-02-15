@@ -1,0 +1,14 @@
+{
+  "isFinancialImposition": false,
+  "judicialResultPromptTypeId": "1745ee94-1564-48b3-9eca-4a34e1baf706",
+  "label": "Grant of legal aid transferred to (new firm name)",
+  "welshLabel": "Welsh label",
+  "isAvailableForCourtExtract": true,
+  "promptReference": "grantOfLegalAidTransferredToNewFirmName",
+  "promptSequence": 100,
+  "qualifier": "qualifier",
+  "usergroups": [],
+  "value": "Joe Bloggs Solicitors Ltd, London",
+  "welshValue": "Joe Bloggs Solicitors Ltd, Cardiff",
+  "totalPenaltyPoints": 50
+}

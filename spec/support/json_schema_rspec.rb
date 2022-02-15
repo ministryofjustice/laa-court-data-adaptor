@@ -23,6 +23,7 @@ RSpec.configure do |config|
   config.json_schemas[:hearing_summary] = "#{schema_path}/global/search/apiHearingSummary.json"
   config.json_schemas[:hearing_type] = "#{schema_path}/global/apiHearingType.json"
   config.json_schemas[:judicial_result] = "#{schema_path}/global/apiJudicialResult.json"
+  config.json_schemas[:judicial_result_prompt] = "#{schema_path}/global/apiJudicialResultPrompt.json"
   config.json_schemas[:judicial_role] = "#{schema_path}/global/apiJudicialRole.json"
   config.json_schemas[:laa_reference] = "#{schema_path}/global/apiLaaReference.json"
   config.json_schemas[:lesser_or_alternative_offence] = "#{schema_path}/global/apiLesserOrAlternativeOffence.json"
