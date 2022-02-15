@@ -10,16 +10,16 @@ ruby "2.7.5"
 
 # Remove dependency on Action Mailbox > Marcel > MimeMagic due to https://github.com/rails/rails/issues/41750,
 # by loading only the individual Rails modules we need:
-gem "actioncable", "~> 6.1.4.6"
-gem "actionmailer", "~> 6.1.4.6"
-gem "actionpack", "~> 6.1.4.6"
-gem "actionview", "~> 6.1.4.6"
-gem "activejob", "~> 6.1.4.6"
-gem "activemodel", "~> 6.1.4.6"
-gem "activerecord", "~> 6.1.4.6"
-gem "activesupport", "~> 6.1.4.6"
+gem "actioncable", "~> 7.0.2.2"
+gem "actionmailer", "~> 7.0.2.2"
+gem "actionpack", "~> 7.0.2.2"
+gem "actionview", "~> 7.0.2.2"
+gem "activejob", "~> 7.0.2.2"
+gem "activemodel", "~> 7.0.2.2"
+gem "activerecord", "~> 7.0.2.2"
+gem "activesupport", "~> 7.0.2.2"
 gem "bundler"
-gem "railties", "~> 6.1.4.6"
+gem "railties", "~> 7.0.2.2"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"

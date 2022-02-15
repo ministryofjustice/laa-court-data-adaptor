@@ -8,45 +8,47 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actioncable (6.1.4.6)
-      actionpack (= 6.1.4.6)
-      activesupport (= 6.1.4.6)
+    actioncable (7.0.2.2)
+      actionpack (= 7.0.2.2)
+      activesupport (= 7.0.2.2)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
-    actionmailer (6.1.4.6)
-      actionpack (= 6.1.4.6)
-      actionview (= 6.1.4.6)
-      activejob (= 6.1.4.6)
-      activesupport (= 6.1.4.6)
+    actionmailer (7.0.2.2)
+      actionpack (= 7.0.2.2)
+      actionview (= 7.0.2.2)
+      activejob (= 7.0.2.2)
+      activesupport (= 7.0.2.2)
       mail (~> 2.5, >= 2.5.4)
+      net-imap
+      net-pop
+      net-smtp
       rails-dom-testing (~> 2.0)
-    actionpack (6.1.4.6)
-      actionview (= 6.1.4.6)
-      activesupport (= 6.1.4.6)
-      rack (~> 2.0, >= 2.0.9)
+    actionpack (7.0.2.2)
+      actionview (= 7.0.2.2)
+      activesupport (= 7.0.2.2)
+      rack (~> 2.0, >= 2.2.0)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)
-    actionview (6.1.4.6)
-      activesupport (= 6.1.4.6)
+    actionview (7.0.2.2)
+      activesupport (= 7.0.2.2)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    activejob (6.1.4.6)
-      activesupport (= 6.1.4.6)
+    activejob (7.0.2.2)
+      activesupport (= 7.0.2.2)
       globalid (>= 0.3.6)
-    activemodel (6.1.4.6)
-      activesupport (= 6.1.4.6)
-    activerecord (6.1.4.6)
-      activemodel (= 6.1.4.6)
-      activesupport (= 6.1.4.6)
-    activesupport (6.1.4.6)
+    activemodel (7.0.2.2)
+      activesupport (= 7.0.2.2)
+    activerecord (7.0.2.2)
+      activemodel (= 7.0.2.2)
+      activesupport (= 7.0.2.2)
+    activesupport (7.0.2.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
@@ -75,6 +77,7 @@ GEM
       rexml
     crass (1.0.6)
     diff-lcs (1.5.0)
+    digest (3.1.0)
     docile (1.4.0)
     doorkeeper (5.5.4)
       railties (>= 5)
@@ -145,8 +148,9 @@ GEM
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashdiff (1.0.1)
-    i18n (1.9.1)
+    i18n (1.10.0)
       concurrent-ruby (~> 1.0)
+    io-wait (0.2.1)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -181,6 +185,21 @@ GEM
     multipart-post (2.1.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
+    net-imap (0.2.3)
+      digest
+      net-protocol
+      strscan
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
+    net-protocol (0.1.2)
+      io-wait
+      timeout
+    net-smtp (0.3.1)
+      digest
+      net-protocol
+      timeout
     nio4r (2.5.8)
     nokogiri (1.13.1)
       mini_portile2 (~> 2.7.0)
@@ -226,12 +245,13 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
-    railties (6.1.4.6)
-      actionpack (= 6.1.4.6)
-      activesupport (= 6.1.4.6)
+    railties (7.0.2.2)
+      actionpack (= 7.0.2.2)
+      activesupport (= 7.0.2.2)
       method_source
-      rake (>= 0.13)
+      rake (>= 12.2)
       thor (~> 1.0)
+      zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
     rb-fsevent (0.11.0)
@@ -334,8 +354,10 @@ GEM
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
+    strscan (3.0.1)
     thor (1.2.1)
     tilt (2.0.10)
+    timeout (0.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -361,14 +383,14 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  actioncable (~> 6.1.4.6)
-  actionmailer (~> 6.1.4.6)
-  actionpack (~> 6.1.4.6)
-  actionview (~> 6.1.4.6)
-  activejob (~> 6.1.4.6)
-  activemodel (~> 6.1.4.6)
-  activerecord (~> 6.1.4.6)
-  activesupport (~> 6.1.4.6)
+  actioncable (~> 7.0.2.2)
+  actionmailer (~> 7.0.2.2)
+  actionpack (~> 7.0.2.2)
+  actionview (= 7.0.2.2)
+  activejob (~> 7.0.2.2)
+  activemodel (~> 7.0.2.2)
+  activerecord (~> 7.0.2.2)
+  activesupport (= 7.0.2.2)
   aws-sdk-sqs
   bcrypt (~> 3.1.16)
   bootsnap (>= 1.4.2)
@@ -392,7 +414,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails (~> 0.3.9)
   puma (~> 5.6)
-  railties (~> 6.1.4.6)
+  railties (~> 7.0.2.2)
   rspec-rails (~> 5.1.0)
   rspec_junit_formatter
   rswag-api
