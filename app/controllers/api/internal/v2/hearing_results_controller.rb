@@ -7,7 +7,7 @@ module Api
         def show
           hearing_result = CommonPlatform::Api::GetHearingResults.call(hearing_id: params[:id])
 
-          render json: HmctsCommonPlatform::HearingResulted.new(hearing_result.body).to_json, status: :ok
+          render json: HmctsCommonPlatform::HearingResulted.new(hearing_result&.body).to_json, status: :ok
         end
       end
     end
