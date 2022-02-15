@@ -1,0 +1,14 @@
+{
+  "id": "8e4f1764-6a73-430e-9597-fba9ab43e191",
+  "title": "Ms",
+  "firstName": "Phoebe",
+  "middleName": "Lucy",
+  "lastName": "Buffay",
+  "status": "junior counsel",
+  "prosecutionCases": [
+    "9590fb09-1074-4f67-8fb2-52922927b71e"
+  ],
+  "attendanceDays": [
+    "2021-06-01"
+  ]
+}
