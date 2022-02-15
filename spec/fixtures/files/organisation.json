@@ -1,0 +1,21 @@
+{
+  "name": "The Johnson Partnership",
+  "incorporationNumber": "1234",
+  "registeredCharityNumber": "5678",
+  "address": {
+    "address1": "104",
+    "address2": "Fleet Street",
+    "address3": "Westminster",
+    "address4": "London",
+    "address5": "GB",
+    "postcode": "EC4A 2AH"
+  },
+  "contact": {
+    "home": "1-867-889-0000",
+    "work": "1-893-936-0000",
+    "mobile": "640-287-0000",
+    "primaryEmail": "primary@example.com",
+    "secondaryEmail": "secondary@example.com",
+    "fax": "1-275-412-9791 x8048"
+  }
+}
