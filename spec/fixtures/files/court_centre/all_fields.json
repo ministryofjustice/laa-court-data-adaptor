@@ -1,7 +1,18 @@
 {
   "id": "14876ea1-5f7c-32ef-9fbd-aa0b63193550",
   "name": "Derby Justice Centre (aka Derby St Mary Adult)",
+  "welshName": "Llys Ynadon Newton Aycliffe",
   "roomId": "2fc95ce0-79e5-33c6-901a-733c90905e59",
   "roomName": "Courtroom 08",
-  "code": "B30PI00"
+  "welshRoomName": "Ystafell y llys 3",
+  "welshCourtCentre": true,
+  "code": "B30PI00",
+  "address": {
+    "address1": "10 New Street",
+    "address2": "Chelmsford",
+    "address3": "Essex",
+    "address4": "",
+    "address5": "",
+    "postcode": "CM1 1NT"
+  }
 }
