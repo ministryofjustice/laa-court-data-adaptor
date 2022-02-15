@@ -27,7 +27,7 @@ module HmctsCommonPlatform
     def to_builder
       Jbuilder.new do |person_defendant|
         person_defendant.arrest_summons_number arrest_summons_number
-        person_defendant.details person_details.to_json
+        person_defendant.person_details person_details.to_json
       end
     end
 
