@@ -1,0 +1,12 @@
+{
+  "judicialId": "8e4f1764-6a73-430e-9597-fba9ab43e191",
+  "title": "Ms",
+  "firstName": "Phoebe",
+  "middleName": "Lucy",
+  "lastName": "Buffay",
+  "isDeputy": true,
+  "isBenchChairman": true,
+  "judicialRoleType": {
+    "judiciaryType": "Judge"
+  }
+}
