@@ -10,6 +10,41 @@
   },
   "hearingLanguage": "WELSH",
   "hasSharedResults": false,
+  "prosecutionCounsels": [{
+    "id": "8e4f1764-6a73-430e-9597-fba9ab43e191",
+    "title": "Ms",
+    "firstName": "Phoebe",
+    "middleName": "Lucy",
+    "lastName": "Buffay",
+    "status": "junior counsel",
+    "prosecutionCases": [
+      "9590fb09-1074-4f67-8fb2-52922927b71e"
+    ],
+    "attendanceDays": [
+      "2021-06-01"
+    ]
+  }],
+  "judiciary": [
+    {
+      "judicialId": "8e4f1764-6a73-430e-9597-fba9ab43e191",
+      "title": "Ms",
+      "firstName": "Phoebe",
+      "middleName": "Lucy",
+      "lastName": "Buffay",
+      "isDeputy": true,
+      "isBenchChairman": true,
+      "judicialRoleType": {
+        "judiciaryType": "Judge"
+      }
+    }
+  ],
+  "crackedIneffectiveTrial": {
+    "id": "c4ca4238-a0b9-3382-8dcc-509a6f75849b",
+    "code": "A",
+    "description": "On the date of trial the defendant enters a guilty plea.",
+    "type": "Cracked",
+    "date": "2021-06-01"
+  },
   "type": {
     "id": "63003e58-d753-46e2-a2c8-47fd15341592",
     "description": "Mention - Defendant to Attend (MDA)"
@@ -343,7 +378,7 @@
       ],
       "attendanceDays": [
         "2019-10-24"
-        ]
+      ]
     },
     {
       "id": "66b5cc0d-1704-4487-a35c-6d96612b2bc2",
@@ -357,7 +392,7 @@
       ],
       "attendanceDays": [
         "2019-10-24"
-        ]
+      ]
     }
   ],
   "isEffectiveTrial": false,
@@ -367,6 +402,73 @@
       "sittingDay": "2019-10-25T10:45:00.000Z",
       "listingSequence": 1,
       "listedDurationMinutes": 1
+    }
+  ],
+  "defendantJudicialResults": [
+    {
+      "masterDefendantId": "f4e0cc61-c816-4631-8b56-94d8b720f7ea",
+      "judicialResult": {
+        "alwaysPublished": false,
+        "canBeSubjectOfBreach": false,
+        "canBeSubjectOfVariation": false,
+        "category": "FINAL",
+        "cjsCode": "4600",
+        "courtClerk": {
+          "firstName": "Erica",
+          "lastName": "Wilson",
+          "userId": "a085e359-6069-4694-8820-7810e7dfe762"
+        },
+        "d20": false,
+        "excludedFromResults": false,
+        "isAdjournmentResult": false,
+        "isAvailableForCourtExtract": true,
+        "isConvictedResult": false,
+        "isDeleted": false,
+        "isFinancialResult": false,
+        "judicialResultId": "be225605-fc15-47aa-b74c-efb8629db58e",
+        "judicialResultPrompts": [
+          {
+            "isFinancialImposition": false,
+            "judicialResultPromptTypeId": "1745ee94-1564-48b3-9eca-4a34e1baf706",
+            "label": "Grant of legal aid transferred to (new firm name)",
+            "isAvailableForCourtExtract": true,
+            "promptReference": "grantOfLegalAidTransferredToNewFirmName",
+            "promptSequence": 100,
+            "usergroups": [],
+            "value": "Joe Bloggs Solicitors Ltd, London",
+            "welshValue": "Joe Bloggs Solicitors Ltd, London"
+          }
+        ],
+        "judicialResultTypeId": "c5520033-7389-4815-a5c9-bf28fcebb134",
+        "label": "Legal Aid Transfer Granted",
+        "lastSharedDateTime": "2021-03-09",
+        "level": "O",
+        "lifeDuration": false,
+        "nextHearing": {
+          "courtCentre": {
+            "id": "f8254db1-1683-483e-afb3-b87fde5a0a26"
+          },
+          "type": {
+            "id": "f0a970dc-ddac-48e6-b76c-ccfaa4c0e8a0",
+            "description": "Description of next hearing"
+          },
+          "listedStartDateTime": "2021-03-09T15:54:09.871Z",
+          "estimatedMinutes": 10
+        },
+        "orderedDate": "2021-03-10",
+        "orderedHearingId": "dafbe7f9-2f42-4781-8bbf-24ce47d51fd5",
+        "postHearingCustodyStatus": "A",
+        "publishedAsAPrompt": false,
+        "qualifier": "qualifier",
+        "rank": 49500,
+        "resultText": "Legal Aid Transfer Granted\nGrant of legal aid transferred to (new firm name) Joe Bloggs Solicitors Ltd, London\nAdditional reasons Defendant's choice\nNew firm's LAA account reference 55558888",
+        "rootJudicialResultId": "be225605-fc15-47aa-b74c-efb8629db58e",
+        "rootJudicialResultTypeId": "c5520033-7389-4815-a5c9-bf28fcebb134",
+        "terminatesOffenceProceedings": false,
+        "urgent": false,
+        "usergroups": [],
+        "resultWording":"result wording"
+      }
     }
   ]
 }
