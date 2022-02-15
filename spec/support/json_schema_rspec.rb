@@ -10,6 +10,7 @@ RSpec.configure do |config|
   config.json_schemas[:court_application_party] = "#{schema_path}/global/apiCourtApplicationParty.json"
   config.json_schemas[:court_application_type] = "#{schema_path}/global/apiCourtApplicationType.json"
   config.json_schemas[:court_centre] = "#{schema_path}/global/apiCourtCentre.json"
+  config.json_schemas[:court_indicated_sentence] = "#{schema_path}/global/apiCourtIndicatedSentence.json"
   config.json_schemas[:cracked_ineffective_trial] = "#{schema_path}/global/apiCrackedIneffectiveTrial.json"
   config.json_schemas[:defendant] = "#{schema_path}/global/apiDefendant.json"
   config.json_schemas[:defendant_case] = "#{schema_path}/global/apiDefendantCase.json"
