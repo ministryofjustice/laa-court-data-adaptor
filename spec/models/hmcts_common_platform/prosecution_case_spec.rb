@@ -12,6 +12,10 @@ RSpec.describe HmctsCommonPlatform::ProsecutionCase, type: :model do
       expect(prosecution_case.urn).to eql("20GD0217100")
     end
 
+    it "has a prosecution case identifier" do
+      expect(prosecution_case.prosecution_case_identifier).to be_an(HmctsCommonPlatform::ProsecutionCaseIdentifier)
+    end
+
     it "has defendant ids" do
       expect(prosecution_case.defendant_ids).to eql(%w[2ecc9feb-9407-482f-b081-d9e5c8ba3ed3])
     end
@@ -30,6 +34,10 @@ RSpec.describe HmctsCommonPlatform::ProsecutionCase, type: :model do
 
     it "has a URN" do
       expect(prosecution_case.urn).to eql("20GD0217100")
+    end
+
+    it "has a prosecution case identifier" do
+      expect(prosecution_case.prosecution_case_identifier).to be_an(HmctsCommonPlatform::ProsecutionCaseIdentifier)
     end
 
     it "has defendants" do
