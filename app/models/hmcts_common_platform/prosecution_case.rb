@@ -20,6 +20,18 @@ module HmctsCommonPlatform
       HmctsCommonPlatform::ProsecutionCaseIdentifier.new(data[:prosecutionCaseIdentifier])
     end
 
+    def status
+      data[:caseStatus]
+    end
+
+    def statement_of_facts
+      data[:statementOfFacts]
+    end
+
+    def statement_of_facts_welsh
+      data[:statementOfFactsWelsh]
+    end
+
     def defendant_ids
       defendants.map(&:id)
     end
@@ -37,10 +49,13 @@ module HmctsCommonPlatform
   private
 
     def to_builder
-      Jbuilder.new do |prosecution_case|
-        prosecution_case.id id
-        prosecution_case.prosecution_case_identifier prosecution_case_identifier.to_json
-        prosecution_case.defendants defendants.map(&:to_json)
+      Jbuilder.new do |pc|
+        pc.id id
+        pc.prosecution_case_identifier prosecution_case_identifier.to_json
+        pc.status status
+        pc.statement_of_facts statement_of_facts
+        pc.statement_of_facts_welsh statement_of_facts_welsh
+        pc.defendants defendants.map(&:to_json)
       end
     end
   end
