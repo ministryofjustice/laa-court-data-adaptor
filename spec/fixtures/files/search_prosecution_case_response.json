@@ -9,58 +9,6 @@
         {
           "proceedingsConcluded": false,
           "defendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
-          "defendantASN": "2100000000000267128K",
-          "defendantFirstName": "Bob",
-          "defendantMiddleName": "Steven",
-          "defendantLastName": "Smith",
-          "defendantDOB": "1986-11-10",
-          "defendantNINO": "AA123456C",
-          "offenceSummary": [
-            {
-              "offenceId": "9aca847f-da4e-444b-8f5a-2ce7d776ab75",
-              "offenceCode": "TH68026C",
-              "offenceTitle": "Conspire to commit a burglary dwelling with intent to steal",
-              "offenceLegislation": "Contrary to section 1(1) of the    Criminal Law Act 1977.",
-              "proceedingsConcluded": false,
-              "arrestDate": "2021-03-23",
-              "startDate": "2021-03-06",
-              "chargeDate": "2021-03-24",
-              "modeOfTrial": "Indictable",
-              "orderIndex": 1,
-              "wording": "In the county of DERBYSHIRE, conspired together with John Doe to enter as a trespasser",
-              "laaApplnReference": {
-                "statusId": "18e86937-9652-32a3-a9fb-dbd01eda86a5",
-                "statusCode": "GR",
-                "statusDescription": "Granted (One Advocate)",
-                "statusDate": "2021-05-02",
-                "applicationReference": "6960540"
-              }
-            },
-            {
-              "offenceId": "4a852bd1-0068-422c-994f-78a5373ecd75",
-              "offenceCode": "CJ88149",
-              "offenceTitle": "Assault by beating of an emergency worker",
-              "offenceLegislation": "Contrary to section 39 of the Criminal Justice Act 1988 and section 1 of the Assaults on Emergency Workers (Offences) Act 2018.",
-              "proceedingsConcluded": false,
-              "arrestDate": "2021-03-23",
-              "startDate": "2021-03-23",
-              "chargeDate": "2021-03-24",
-              "modeOfTrial": "Either Way",
-              "orderIndex": 2,
-              "wording": "On 23.05.2021 at DERBY in the county of DERBYSHIRE assaulted an emergency worker, namely Police Constable",
-              "laaApplnReference": {
-                "statusId": "18e86937-9652-32a3-a9fb-dbd01eda86a5",
-                "statusCode": "GR",
-                "statusDescription": "Granted (One Advocate)",
-                "statusDate": "2021-05-02",
-                "applicationReference": "6960540"
-              }
-            }
-          ]
-        },
-        {
-          "proceedingsConcluded": false,
-          "defendantId": "562dc2de-2258-4476-8be4-69cf15623f83",
           "defendantASN": "2100000000000266764M",
           "defendantFirstName": "John",
           "defendantMiddleName": " ",
@@ -85,7 +33,93 @@
                 "statusCode": "GR",
                 "statusDescription": "Granted (One Advocate)",
                 "statusDate": "2021-05-02"
-              }
+              },
+              "plea": {
+                "originatingHearingId": "a6b07866-faa0-48d5-9faf-c18121e49aaf",
+                "delegatedPowers": {
+                  "userId": "ea3d8209-6419-4af6-a4a5-fcdd4ab4cc8d",
+                  "firstName": "Ada",
+                  "lastName": "Lovelace"
+                },
+                "offenceId": "a6437f6a-bdac-44ca-898a-486bdacc9625",
+                "applicationId": "cd6d6cb3-26ad-4df1-b1e1-1bd1a07cb292",
+                "pleaDate": "2021-03-01",
+                "pleaValue": "GUILTY",
+                "lesserOrAlternativeOffence": {
+                  "offenceDefinitionId": "b36a8dd3-03a2-48d7-b7e9-45cf3658800d",
+                  "offenceCode": "AAA",
+                  "offenceTitle": "Drunkenness in a public place",
+                  "offenceTitleWelsh": "Meddwdod mewn man cyhoeddus",
+                  "offenceLegislation": "Criminal Justice Act 1967",
+                  "offenceLegislationWelsh": "Deddf Cyfiawnder Troseddol 1967"
+                }
+              },
+              "verdict": {
+                "offenceId": "a6437f6a-bdac-44ca-898a-486bdacc9625",
+                "verdictDate": "2021-04-10",
+                "originatingHearingId": "7084b980-d09d-40bc-b856-ea1fafd401bf",
+                "verdictType": {
+                  "id": "f8df61d4-6e89-4b3f-85b4-5bfbc137a0b7",
+                  "category": "A",
+                  "categoryType": "Type A",
+                  "cjsVerdictCode": "1093",
+                  "verdictCode": "367A"
+                }
+              },
+              "hearingSummary": [
+                {
+                  "hearingId": "9b8df2aa-802d-413a-82b3-89eff25cde7b",
+                  "jurisdictionType": "MAGISTRATES",
+                  "defendantIds": [
+                    "562dc2de-2258-4476-8be4-69cf15623f83",
+                    "b760daba-0d38-4bae-ad57-fbfd8419aefe"
+                  ],
+                  "hearingDays": [
+                    {
+                      "sittingDay": "2021-03-25T09:30:00.000Z",
+                      "listingSequence": 8,
+                      "listedDurationMinutes": 20
+                    }
+                  ],
+                  "hearingType": {
+                    "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776",
+                    "description": "First hearing"
+                  },
+                  "courtCentre": {
+                    "id": "14876ea1-5f7c-32ef-9fbd-aa0b63193550",
+                    "name": "Derby Justice Centre (aka Derby St Mary Adult)",
+                    "roomId": "2fc95ce0-79e5-33c6-901a-733c90905e59",
+                    "roomName": "Courtroom 08",
+                    "code": "B30PI00"
+                  }
+                },
+                {
+                  "hearingId": "2816b8d4-f141-4c39-82fc-a98c6fb3fcfa",
+                  "jurisdictionType": "CROWN",
+                  "defendantIds": [
+                    "b760daba-0d38-4bae-ad57-fbfd8419aefe",
+                    "562dc2de-2258-4476-8be4-69cf15623f83"
+                  ],
+                  "hearingDays": [
+                    {
+                      "sittingDay": "2021-05-20T09:30:00.000Z",
+                      "listingSequence": 4,
+                      "listedDurationMinutes": 30
+                    }
+                  ],
+                  "hearingType": {
+                    "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
+                    "description": "Plea and Trial Preparation"
+                  },
+                  "courtCentre": {
+                    "id": "6131bd34-33d9-3d1e-8152-8b5a2084f1bd",
+                    "name": "Derby Crown Court",
+                    "roomId": "594d6332-9806-38ab-830d-5941e671e0bb",
+                    "roomName": "Courtroom 01",
+                    "code": "C30DE00"
+                  }
+                }
+              ]
             }
           ]
         }
