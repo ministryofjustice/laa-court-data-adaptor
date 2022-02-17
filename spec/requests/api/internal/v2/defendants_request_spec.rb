@@ -6,8 +6,7 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:id) { "23d7f10a-067a-476e-bba6-bb855674e23b" }
-  let(:prosecution_case_reference) { "19GD1001816" }
+  let(:prosecution_case_reference) { "30DI0570888" }
   let(:defendant) do
     {
       data: {
@@ -46,23 +45,26 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
 
       context "with success" do
         let(:Authorization) { "Bearer #{token.token}" }
-        let(:id) { "c6cf04b5-901d-4a89-a9ab-767eb57306e4" }
+        let(:id) { "b760daba-0d38-4bae-ad57-fbfd8419aefe" }
 
-        around do |example|
-          VCR.use_cassette("search_prosecution_case/by_prosecution_case_reference_success") do
-            example.run
-          end
+        before do
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/prosecutionCases?prosecutionCaseReference=#{prosecution_case_reference}")
+              .to_return(
+                status: 200,
+                headers: { content_type: "application/json" },
+                body: file_fixture("search_prosecution_case_response.json").read,
+              )
         end
 
         context "when success" do
           response(200, "Success") do
-            # schema "$ref" => "defendant_summary.json#"
+            schema "$ref" => "defendant_summary.json#"
             run_test!
           end
         end
 
         context "when not found" do
-          response("404", "Not found") do
+          response(404, "Not found") do
             let(:Authorization) { "Bearer #{token.token}" }
             let(:id) { "c6cf04b5" }
 
@@ -71,7 +73,7 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
         end
 
         context "when unauthorized" do
-          response("401", "Unauthorized") do
+          response(401, "Unauthorized") do
             let(:Authorization) { nil }
 
             run_test!
