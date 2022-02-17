@@ -16,6 +16,8 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
     it { expect(offence_summary.start_date).to eq("2021-03-06") }
     it { expect(offence_summary.wording).to eq("Between 06.03.2021 and 22.03.2021 at DERBY in the county of DERBYSHIRE, conspired together with John Doe to enter as a trespasser") }
     it { expect(offence_summary.laa_reference).to be_an(HmctsCommonPlatform::LaaReference) }
+    it { expect(offence_summary.verdict).to be_an(HmctsCommonPlatform::Verdict) }
+    it { expect(offence_summary.plea).to be_an(HmctsCommonPlatform::Plea) }
   end
 
   context "with required fields only" do
@@ -32,6 +34,9 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
     it { expect(offence_summary.mode_of_trial).to be_nil }
     it { expect(offence_summary.start_date).to be_nil }
     it { expect(offence_summary.wording).to be_nil }
+    it { expect(offence_summary.laa_reference).to be_blank }
+    it { expect(offence_summary.verdict).to be_blank }
+    it { expect(offence_summary.plea).to be_blank }
   end
 
   describe "#to_json" do
@@ -52,6 +57,8 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
       expect(json["start_date"]).to eql("2021-03-06")
       expect(json["proceedings_concluded"]).to be false
       expect(json["laa_application"]).to be_present
+      expect(json["verdict"]).to be_present
+      expect(json["plea"]).to be_present
     end
   end
 end
