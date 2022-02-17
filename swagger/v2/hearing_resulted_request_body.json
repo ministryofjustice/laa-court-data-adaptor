@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/results/courts/api/hearingResultedRequest.json",
+  "type": "object",
+  "properties": {
+    "hearingId": {
+      "description": "The identifier of the resulted hearing",
+      "$ref": "http://justice.gov.uk/core/courts/external/courtsDefinitions.json#/definitions/uuid"
+    }
+  },
+  "required": [
+    "hearingId"
+  ],
+  "additionalProperties": false
+}

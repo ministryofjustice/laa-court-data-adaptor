@@ -7,7 +7,7 @@
   "strictProperties": true,
   "type": "object",
   "properties": {
-    "application_reference": {
+    "laa_application_reference": {
       "description": "The human readable reference to the application supplied by legal aid agency",
       "type": "string",
       "example": "7188114"

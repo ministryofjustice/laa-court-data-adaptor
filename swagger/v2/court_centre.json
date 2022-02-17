@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "court_centre",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "code": {
+      "type": "string",
+      "example": "B11JP00"
+    },
+    "name": {
+      "type": "string",
+      "example": "Newton Aycliffe Magistrates' Court"
+    },
+    "welsh_name": {
+      "type": "string",
+      "example": "Llys Ynadon Newton Aycliffe"
+    },
+    "room_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "room_name": {
+      "type": "string",
+      "example": "Courtroom 03"
+    },
+    "welsh_room_name": {
+      "type": "string",
+      "example": "Ystafell y llys 3"
+    },
+    "address": {
+      "$ref": "address.json#"
+    },
+    "welsh_address": {
+      "$ref": "address.json#",
+      "description": "The court address in welsh language.  Required for generation of welsh documentation.  Required to be enriched when publishing hearing results"
+    },
+    "welsh_court_centre": {
+      "description": "Indicates that the court centre is located under Welsh regulation i.e. is in Wales",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "additionalProperties": false
+}

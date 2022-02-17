@@ -5,8 +5,7 @@
   "type": "object",
   "properties": {
     "prosecution_case_reference": {
-      "example": "TFL12345",
-      "description": "The prosecuting authorities reference for their prosecution case that is layed before court. For example PTI-URN from police/cps cases",
+      "$ref": "definitions.json#/definitions/caseURN",
       "type": "string"
     },
     "case_status": {

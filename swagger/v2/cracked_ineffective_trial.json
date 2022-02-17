@@ -1,69 +1,31 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Cracked Ineffective Trial",
-  "description": "Cracked Ineffective Trial",
   "id": "cracked_ineffective_trial",
-  "stability": "prototype",
-  "strictProperties": true,
+  "description": "The details of a cracked or ineffective trial",
   "type": "object",
-  "definitions": {
+  "properties": {
     "id": {
-      "description": "The unique identifier of the cracked ineffective trial",
-      "example": "fcc1a759-88d2-4260-8b3e-92c2749ecbb1",
-      "format": "uuid",
-      "type": "string"
+      "description": "The reference data id of the reason for the cracked or ineffective trail",
+      "$ref": "definitions.json#/definitions/uuid"
     },
     "code": {
-      "description": "The code of the cracked ineffective trial type",
-      "example": "A",
-      "type": "string"
-    },
-    "type": {
-      "description": "The cracked ineffective trial type",
-      "example": "cracked_ineffective_trial",
-      "type": "string"
-    },
-    "attributes_type": {
-      "description": "The cracked ineffective trial type when called as an attribute",
-      "example": "cracked",
-      "type": "string"
+      "description": "The reason code for the cracked or ineffective trail",
+      "type": "string",
+      "example": "A"
     },
     "description": {
-      "description": "The description of the cracked ineffective trial",
-      "example": "On the date of trial the defendant, for the first time, enters a guilty plea which the prosecution accepts.",
-      "type": "string"
+      "description": "The details of the reason for the cracked or ineffective trail",
+      "type": "string",
+      "example": "On the date of trial the defendant enters a guilty plea."
     },
-    "resource": {
-      "description": "An object representing a single cracked ineffective trial",
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "type": {
-          "$ref": "#/definitions/type"
-        },
-        "attributes": {
-          "$ref": "#/definitions/attributes"
-        }
-      }
+    "type": {
+      "description": "The type of the reason for the cracked or ineffective trail i.e. cracked, ineffective, vacated.  Taken from reference data",
+      "type": "string",
+      "example": "ineffective"
     },
-    "attributes": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "code": {
-          "$ref": "#/definitions/code"
-        },
-        "type": {
-          "$ref": "#/definitions/attributes_type"
-        },
-        "description": {
-          "$ref": "#/definitions/description"
-        }
-      }
+    "date": {
+      "description": "The system date on which hearing was marked cracked, ineffective, or vacated.",
+      "$ref": "definitions.json#/definitions/datePattern"
     }
   }
 }

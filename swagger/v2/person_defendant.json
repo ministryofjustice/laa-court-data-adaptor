@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "person_defendant",
+  "type": "object",
+  "properties": {
+    "person_details": {
+      "$ref": "person.json#"
+    },
+    "arrestSummonsNumber": {
+      "type": "string"
+    }
+  }
+}

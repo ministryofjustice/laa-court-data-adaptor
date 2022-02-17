@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "address",
+  "description": "The address",
+  "type": "object",
+  "properties": {
+    "address_1": {
+      "description": "The address1",
+      "type": "string",
+      "example": "Magistrates' Court"
+    },
+    "address_2": {
+      "description": "The address2",
+      "type": "string",
+      "example": "Central Avenue"
+    },
+    "address_3": {
+      "description": "The address3",
+      "type": "string",
+      "example": "Newton Aycliffe"
+    },
+    "address_4": {
+      "description": "The address4",
+      "type": "string",
+      "example": "Co. Durham"
+    },
+    "address_5": {
+      "description": "The address5",
+      "type": "string"
+    },
+    "postcode": {
+      "description": "The post code",
+      "$ref": "definitions.json#/definitions/ukGovPostCode"
+    }
+  },
+  "required": [
+    "address_1"
+  ],
+  "additionalProperties": false
+}

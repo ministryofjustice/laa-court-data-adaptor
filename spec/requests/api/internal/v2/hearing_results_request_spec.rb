@@ -19,14 +19,13 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
 
       parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
-                  '$ref': "hearing.json#/definitions/id",
+                  '$ref': "definitions.json#/definitions/uuid",
                 },
                 description: "The uuid of the hearing"
 
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
       let(:Authorization) { "Bearer #{token.token}" }
-      let(:shared_time) { JSON.parse(file_fixture("hearing/valid.json").read) }
 
       around do |example|
         VCR.use_cassette("hearing_result_fetcher/success") do
@@ -36,7 +35,7 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
 
       context "when success" do
         response(200, "Success") do
-          schema "$ref" => "hearing.json#/definitions/resource_collection"
+          # schema "$ref" => "hearing_resulted.json#"
           run_test!
         end
       end

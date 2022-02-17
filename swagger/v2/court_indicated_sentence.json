@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "court_indicated_sentence",
+  "description": "The court indication of sentence when requested at mode of trial",
+  "type": "object",
+  "properties": {
+    "type_id": {
+      "description": "The reference data identifier",
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "description": {
+      "description": "The details of the sentence indication provided by court",
+      "type": "string"
+    }
+  }
+}

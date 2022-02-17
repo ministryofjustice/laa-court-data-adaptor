@@ -6,8 +6,7 @@
   "properties": {
     "id": {
       "description": "The identifier of the offence",
-      "$ref": "definitions.json#/definitions/uuid",
-      "format": "uuid"
+      "$ref": "definitions.json#/definitions/uuid"
     },
     "code": {
       "description": "The offence code from reference data",
@@ -51,18 +50,17 @@
       "$ref": "definitions.json#/definitions/datePattern"
     },
     "proceedings_concluded": {
-      "description": "Indicates that proceedings for this offence have been conckuded i.e. it has been disposed with final results or withdrawn by the prosecuting authority",
+      "description": "Indicates that proceedings for this offence have been concluded, i.e. it has been disposed with final results or withdrawn by the prosecuting authority",
       "type": "boolean"
     },
-    "laa_reference": {
-      "type": "object",
+    "plea": {
+      "$ref": "plea.json#"
+    },
+    "verdict": {
+      "$ref": "verdict.json#"
+    },
+    "laa_application": {
       "$ref": "laa_reference.json#"
     }
-  },
-  "required": [
-    "id",
-    "code",
-    "title"
-  ],
-  "additionalProperties": false
+  }
 }

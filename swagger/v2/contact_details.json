@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiContactNumber.json",
+  "description": "Contact details",
+  "type": "object",
+  "properties": {
+    "home": {
+      "description": "The home telephone number",
+      "$ref": "definitions.json#/definitions/phone"
+    },
+    "work": {
+      "description": "The work telephone number is free format to allow the specification of extensions, etc",
+      "type": "string"
+    },
+    "mobile": {
+      "description": "The mobile number",
+      "$ref": "definitions.json#/definitions/phone"
+    },
+    "email_primary": {
+      "description": "The primary email address",
+      "$ref": "definitions.json#/definitions/email"
+    },
+    "email_secondary": {
+      "description": "The secondary email address",
+      "$ref": "definitions.json#/definitions/email"
+    },
+    "fax": {
+      "description": "The fax number",
+      "type": "string"
+    }
+  }
+}

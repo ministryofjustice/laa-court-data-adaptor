@@ -4,11 +4,14 @@
   "description": "The plea entered at a hearing",
   "type": "object",
   "properties": {
+    "date": {
+      "$ref": "definitions.json#/definitions/datePattern"
+    },
+    "value": {
+      "type": "string"
+    },
     "originating_hearing_id": {
       "$ref": "definitions.json#/definitions/uuid"
-    },
-    "delegated_powers": {
-      "$ref": "delegated_powers.json#"
     },
     "offence_id": {
       "$ref": "definitions.json#/definitions/uuid"
@@ -16,31 +19,8 @@
     "application_id": {
       "$ref": "definitions.json#/definitions/uuid"
     },
-    "plea_date": {
-      "$ref": "definitions.json#/definitions/datePattern"
-    },
-    "plea_value": {
-      "type": "string"
-    },
-    "lesser_or_alternative_offence": {
-      "$ref": "lesser_or_alternative_offence.json#"
+    "delegated_powers": {
+      "$ref": "delegated_powers.json#"
     }
-  },
-  "anyOf": [
-    {
-      "required": [
-        "offence_id",
-        "plea_date",
-        "plea_value"
-      ]
-    },
-    {
-      "required": [
-        "application_id",
-        "plea_date",
-        "plea_value"
-      ]
-    }
-  ],
-  "additionalProperties": false
+  }
 }

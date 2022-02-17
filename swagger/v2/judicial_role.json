@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiJudicialRole.json",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "The judicial role persons title",
+      "type": "string"
+    },
+    "first_name": {
+      "description": "The judicial role persons fore name",
+      "type": "string"
+    },
+    "middle_name": {
+      "description": "The judicial role persons middle name",
+      "type": "string"
+    },
+    "last_name": {
+      "description": "The judicial role persons last name",
+      "type": "string"
+    },
+    "type": {
+      "description": "The classification of the judicial role",
+      "type": "string",
+      "example": "Magistrate"
+    },
+    "is_deputy": {
+      "description": "Indicates if the judiciary acts as a deputy.  This is applicable to circuit and district judges",
+      "type": "boolean"
+    },
+    "is_bench_chairman": {
+      "description": "Indicates if the magistrate acts as a bench chairman.  This is only applicable to magistrate roles",
+      "type": "boolean"
+    }
+  }
+}

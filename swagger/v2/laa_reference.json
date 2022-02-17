@@ -13,7 +13,7 @@
       "description": "Reference data identifer for the agreed status",
       "$ref": "definitions.json#/definitions/uuid"
     },
-    "code": {
+    "status_code": {
       "description": "The status code from reference data",
       "type": "string",
       "example": "GR"
@@ -44,13 +44,5 @@
       "type": "string",
       "example": "1L888C"
     }
-  },
-  "required": [
-    "applicationReference",
-    "statusId",
-    "statusCode",
-    "statusDescription",
-    "statusDate"
-  ],
-  "additionalProperties": false
+  }
 }

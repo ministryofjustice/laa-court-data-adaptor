@@ -32,13 +32,13 @@ RSpec.describe "api/internal/v2/defendants", type: :request, swagger_doc: "v2/sw
 
       parameter name: :prosecution_case_reference, in: :path, required: true,
                 schema: {
-                  "$ref": "prosecution_case.json#/definitions/prosecution_case_reference",
+                  "$ref": "prosecution_case_identifier.json#/properties/case_urn",
                 },
                 description: "The unique reference number (URN) of the case"
 
       parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
-                  "$ref": "defendant.json#/definitions/id",
+                  "$ref": "defendant.json#/properties/id",
                 },
                 description: "The uuid of the defendant"
 
