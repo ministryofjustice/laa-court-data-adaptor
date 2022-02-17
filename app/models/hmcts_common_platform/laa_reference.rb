@@ -8,7 +8,7 @@ module HmctsCommonPlatform
       @data = HashWithIndifferentAccess.new(data || {})
     end
 
-    def application_reference
+    def reference
       data[:applicationReference]
     end
 
@@ -54,14 +54,14 @@ module HmctsCommonPlatform
 
     def to_builder
       Jbuilder.new do |laa_reference|
-        laa_reference.reference application_reference
+        laa_reference.reference reference
         laa_reference.id status_id
-        laa_reference.code status_code
-        laa_reference.date status_date
+        laa_reference.status_code status_code
+        laa_reference.status_date status_date
         laa_reference.description status_description
         laa_reference.effective_start_date effective_start_date
         laa_reference.effective_end_date effective_end_date
-        laa_reference.laa_contract_number laa_contract_number
+        laa_reference.contract_number laa_contract_number
       end
     end
   end

@@ -23,7 +23,7 @@
       "type": "string",
       "example": "Granted (One Advocate)"
     },
-    "date": {
+    "status_date": {
       "description": "The date that the status was recorded",
       "$ref": "definitions.json#/definitions/datePattern",
       "example": "2020-03-12"
