@@ -5,9 +5,6 @@ require "swagger_helper"
 RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "v2/swagger.yaml" do
   include AuthorisedRequestHelper
 
-  let(:token) { access_token }
-  let(:id) { "4d01840d-5959-4539-a450-d39f57171036" }
-
   path "/api/internal/v2/hearing_results/{id}" do
     get("get hearing") do
       description "GET Common Platform hearing data"
@@ -25,26 +22,55 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
 
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
-      let(:Authorization) { "Bearer #{token.token}" }
+      let(:Authorization) { "Bearer #{access_token.token}" }
 
-      around do |example|
-        VCR.use_cassette("hearing_result_fetcher/success") do
-          example.run
+      context "Hearing Result exists on Common Platform" do
+        let(:id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
+
+        before do
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{id}")
+            .to_return(
+              headers: { content_type: "application/json" },
+              body: file_fixture("hearing_resulted.json").read,
+            )
         end
-      end
 
-      context "when success" do
-        response(200, "Success") do
-          # schema "$ref" => "hearing_resulted.json#"
-          run_test!
+        describe "response" do
+          response(200, "Success") do
+            schema "$ref" => "hearing_result.json#"
+            parameter "$ref" => "#/components/parameters/transaction_id_header"
+            run_test!
+          end
         end
       end
 
       context "when unauthorized" do
         response(401, "Unauthorized") do
+          let(:id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
           let(:Authorization) { nil }
+
           parameter "$ref" => "#/components/parameters/transaction_id_header"
           run_test!
+        end
+      end
+
+      context "Hearing Result does not exist on Common Platform" do
+        let(:id) { "123" }
+
+        before do
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{id}")
+            .to_return(
+              status: 200,
+              headers: { content_type: "application/json" },
+              body: "{}",
+            )
+        end
+
+        describe "response" do
+          response(404, "Not found") do
+            schema "$ref" => "hearing_result.json#"
+            run_test!
+          end
         end
       end
     end

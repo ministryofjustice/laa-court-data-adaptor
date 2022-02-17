@@ -43,7 +43,7 @@ RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { "19GD1001816" }
 
-          # schema "$ref" => "search_prosecution_case_response.json#"
+          schema "$ref" => "search_prosecution_case_response.json#"
 
           run_test!
         end

@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Hearing Result",
   "description": "Hearing Result",
-  "id": "hearing-resulted",
+  "id": "hearing_result",
   "stability": "prototype",
   "strictProperties": true,
   "type": "object",
