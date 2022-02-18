@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "hearing_event_log_response",
+  "type": "object",
+  "properties": {
+    "hearing_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "has_active_hearing": {
+      "type": "boolean"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "hearing_event.json#"
+      }
+    }
+  },
+  "required": [
+    "hearing_id",
+    "events",
+    "has_active_hearing"
+  ]
+}

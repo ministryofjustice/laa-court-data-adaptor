@@ -1,10 +1,11 @@
-  {
+{
   "hearingId": "2c24f897-ffc4-439f-9c4a-ec60c7715cd0",
   "hasActiveHearing": true,
   "events": [
     {
       "hearingEventId": "b97449bb-5145-4bfc-a8ec-849082406d79",
       "hearingEventDefinitionId": "b71e7d2a-d3b3-4a55-a393-6d451767fc05",
+      "defenceCounselId": "859d95d2-e394-43d0-bef3-c0eb3b1e7cf9",
       "recordedLabel": "Hearing started",
       "eventTime": "2020-04-30T16:17:58.610Z",
       "lastModifiedTime": "2020-04-29T16:17:59.409Z",
@@ -14,6 +15,7 @@
     {
       "hearingEventId": "aa2739a2-2126-469e-bee7-e9922aa3142f",
       "hearingEventDefinitionId": "d555bd6e-15cc-41f4-9889-f46174b54050",
+      "defenceCounselId": "859d95d2-e394-43d0-bef3-c0eb3b1e7cf9",
       "recordedLabel": "Hearing type changed to Plea",
       "eventTime": "2020-04-30T16:18:06.633Z",
       "lastModifiedTime": "2020-04-29T16:18:06.906Z",
@@ -23,6 +25,7 @@
     {
       "hearingEventId": "bc78bb60-9ade-485f-a213-14ff73ec5fbb",
       "hearingEventDefinitionId": "160ecb51-29ee-4954-bbbf-daab18a24fbb",
+      "defenceCounselId": "859d95d2-e394-43d0-bef3-c0eb3b1e7cf9",
       "recordedLabel": "Hearing paused",
       "eventTime": "2020-04-30T16:18:07.635Z",
       "lastModifiedTime": "2020-04-29T16:18:08.476Z",
@@ -32,6 +35,7 @@
     {
       "hearingEventId": "037e4a99-2e5d-4d1a-a6d2-4ce6d655bf9a",
       "hearingEventDefinitionId": "64476e43-2138-46d5-b58b-848582cf9b07",
+      "defenceCounselId": "859d95d2-e394-43d0-bef3-c0eb3b1e7cf9",
       "recordedLabel": "Hearing resumed",
       "eventTime": "2020-04-30T16:18:16.664Z",
       "lastModifiedTime": "2020-04-29T16:18:16.692Z",
@@ -41,6 +45,7 @@
     {
       "hearingEventId": "ccd5cecb-5723-46a7-8aea-86a78f7ad201",
       "hearingEventDefinitionId": "d555bd6e-15cc-41f4-9889-f46174b54050",
+      "defenceCounselId": "859d95d2-e394-43d0-bef3-c0eb3b1e7cf9",
       "recordedLabel": "Hearing type changed to Plea and Trial Preparation",
       "eventTime": "2020-04-30T16:18:29.704Z",
       "lastModifiedTime": "2020-04-29T16:18:30.380Z",
