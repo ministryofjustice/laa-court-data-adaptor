@@ -65,63 +65,63 @@
                   "cjsVerdictCode": "1093",
                   "verdictCode": "367A"
                 }
-              },
-              "hearingSummary": [
-                {
-                  "hearingId": "9b8df2aa-802d-413a-82b3-89eff25cde7b",
-                  "jurisdictionType": "MAGISTRATES",
-                  "defendantIds": [
-                    "562dc2de-2258-4476-8be4-69cf15623f83",
-                    "b760daba-0d38-4bae-ad57-fbfd8419aefe"
-                  ],
-                  "hearingDays": [
-                    {
-                      "sittingDay": "2021-03-25T09:30:00.000Z",
-                      "listingSequence": 8,
-                      "listedDurationMinutes": 20
-                    }
-                  ],
-                  "hearingType": {
-                    "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776",
-                    "description": "First hearing"
-                  },
-                  "courtCentre": {
-                    "id": "14876ea1-5f7c-32ef-9fbd-aa0b63193550",
-                    "name": "Derby Justice Centre (aka Derby St Mary Adult)",
-                    "roomId": "2fc95ce0-79e5-33c6-901a-733c90905e59",
-                    "roomName": "Courtroom 08",
-                    "code": "B30PI00"
-                  }
-                },
-                {
-                  "hearingId": "2816b8d4-f141-4c39-82fc-a98c6fb3fcfa",
-                  "jurisdictionType": "CROWN",
-                  "defendantIds": [
-                    "b760daba-0d38-4bae-ad57-fbfd8419aefe",
-                    "562dc2de-2258-4476-8be4-69cf15623f83"
-                  ],
-                  "hearingDays": [
-                    {
-                      "sittingDay": "2021-05-20T09:30:00.000Z",
-                      "listingSequence": 4,
-                      "listedDurationMinutes": 30
-                    }
-                  ],
-                  "hearingType": {
-                    "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
-                    "description": "Plea and Trial Preparation"
-                  },
-                  "courtCentre": {
-                    "id": "6131bd34-33d9-3d1e-8152-8b5a2084f1bd",
-                    "name": "Derby Crown Court",
-                    "roomId": "594d6332-9806-38ab-830d-5941e671e0bb",
-                    "roomName": "Courtroom 01",
-                    "code": "C30DE00"
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      ],
+      "hearingSummary": [
+        {
+          "hearingId": "9b8df2aa-802d-413a-82b3-89eff25cde7b",
+          "jurisdictionType": "MAGISTRATES",
+          "defendantIds": [
+            "562dc2de-2258-4476-8be4-69cf15623f83",
+            "b760daba-0d38-4bae-ad57-fbfd8419aefe"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2021-03-25T09:30:00.000Z",
+              "listingSequence": 8,
+              "listedDurationMinutes": 20
+            }
+          ],
+          "hearingType": {
+            "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776",
+            "description": "First hearing"
+          },
+          "courtCentre": {
+            "id": "14876ea1-5f7c-32ef-9fbd-aa0b63193550",
+            "name": "Derby Justice Centre (aka Derby St Mary Adult)",
+            "roomId": "2fc95ce0-79e5-33c6-901a-733c90905e59",
+            "roomName": "Courtroom 08",
+            "code": "B30PI00"
+          }
+        },
+        {
+          "hearingId": "2816b8d4-f141-4c39-82fc-a98c6fb3fcfa",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [
+            "b760daba-0d38-4bae-ad57-fbfd8419aefe",
+            "562dc2de-2258-4476-8be4-69cf15623f83"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2021-05-20T09:30:00.000Z",
+              "listingSequence": 4,
+              "listedDurationMinutes": 30
+            }
+          ],
+          "hearingType": {
+            "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
+            "description": "Plea and Trial Preparation"
+          },
+          "courtCentre": {
+            "id": "6131bd34-33d9-3d1e-8152-8b5a2084f1bd",
+            "name": "Derby Crown Court",
+            "roomId": "594d6332-9806-38ab-830d-5941e671e0bb",
+            "roomName": "Courtroom 01",
+            "code": "C30DE00"
+          }
         }
       ]
     }
