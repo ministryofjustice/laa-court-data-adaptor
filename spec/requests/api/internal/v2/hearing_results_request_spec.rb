@@ -24,7 +24,7 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
 
       let(:Authorization) { "Bearer #{access_token.token}" }
 
-      context "Hearing Result exists on Common Platform" do
+      context "when Hearing Result exists on Common Platform" do
         let(:id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
 
         before do
@@ -54,7 +54,7 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
         end
       end
 
-      context "Hearing Result does not exist on Common Platform" do
+      context "when Hearing Result does not exist on Common Platform" do
         let(:id) { "123" }
 
         before do
