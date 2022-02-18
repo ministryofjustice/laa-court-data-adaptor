@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://justice.gov.uk/core/courts/external/apiContactNumber.json",
+  "id": "contact_details",
   "description": "Contact details",
   "type": "object",
   "properties": {

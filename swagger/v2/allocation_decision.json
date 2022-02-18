@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://justice.gov.uk/core/courts/external/apiAllocationDecision.json",
+  "id": "allocation_decision",
   "description": "The allocation decision made regarding the jurisdiction required or elected for dealing with the offence in question",
   "type": "object",
   "properties": {
