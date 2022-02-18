@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Representation Order Request",
+  "id": "representation_order_request",
+  "strictProperties": true,
+  "type": "object",
+  "description": "The representation order for a defendant",
+  "properties": {
+    "representation_order": {
+      "type": "object",
+      "properties": {
+        "maat_reference": {
+          "$ref": "prosecution_case_identifier.json#/properties/case_urn"
+        },
+        "defendant_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "defence_organisation": {
+          "type": "object",
+          "properties": {
+            "laa_contract_number": {
+              "$ref": "defence_organisation.json#/properties/laa_contract_number"
+            },
+            "organisation": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "$ref": "organisation.json#/properties/name"
+                }
+              }
+            }
+          }
+        },
+        "offences": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "offence_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status_code": {
+                "$ref": "laa_reference.json#/properties/status_code"
+              },
+              "status_date": {
+                "$ref": "laa_reference.json#/properties/status_date"
+              },
+              "effective_start_date": {
+                "$ref": "laa_reference.json#/properties/effective_start_date"
+              },
+              "effective_end_date": {
+                "$ref": "laa_reference.json#/properties/effective_end_date"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "maat_reference",
+    "defence_organisation",
+    "defendant_id",
+    "offences"
+  ]
+}

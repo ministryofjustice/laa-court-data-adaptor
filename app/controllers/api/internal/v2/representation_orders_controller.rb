@@ -25,7 +25,7 @@ module Api
         end
 
         def create_params
-          params.from_jsonapi.require(:representation_order).permit(
+          params.require(:representation_order).permit(
             :maat_reference,
             :defendant_id,
             defence_organisation: {},
@@ -40,7 +40,7 @@ module Api
         end
 
         def transformed_params
-          @transformed_params ||= create_params.to_hash.transform_keys(&:to_sym).compact
+          @transformed_params ||= create_params.to_hash.deep_symbolize_keys
         end
 
         def enqueue_representation_order

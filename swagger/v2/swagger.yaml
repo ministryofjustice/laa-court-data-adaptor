@@ -164,7 +164,7 @@ paths:
         required: true
         type: uuid
         schema:
-          "$ref": defendant.json#/definitions/id
+          "$ref": defendant.json#/properties/id
         description: The unique identifier of the defendant
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
@@ -285,7 +285,7 @@ paths:
         content:
           application/vnd.api+json:
             schema:
-              "$ref": representation_order.json#/definitions/new_resource
+              "$ref": representation_order_request.json#
         required: true
 components:
   securitySchemes:
