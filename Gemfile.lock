@@ -202,7 +202,7 @@ GEM
     prmd (0.14.0)
       erubis (~> 2.7)
       json_schema (~> 0.3, >= 0.3.1)
-    prometheus_exporter (1.0.1)
+    prometheus_exporter (2.0.0)
       webrick
     pry (0.13.1)
       coderay (~> 1.1)
