@@ -5,6 +5,15 @@ GIT
   specs:
     hmcts_common_platform (0.1.0)
 
+GIT
+  remote: https://github.com/voxpupuli/json-schema
+  revision: 081dfc3b6a730bcf06cab4bcaa52eeb7f8f8a9ce
+  ref: 081dfc3
+  branch: master
+  specs:
+    json-schema (2.8.1)
+      addressable (>= 2.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -151,8 +160,6 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     jmespath (1.5.0)
-    json-schema (2.8.1)
-      addressable (>= 2.4)
     json-schema-rspec (0.0.4)
       json-schema (~> 2.5)
       rspec
@@ -380,7 +387,7 @@ DEPENDENCIES
   faraday_middleware
   hmcts_common_platform!
   jbuilder (~> 2.11)
-  json-schema
+  json-schema!
   json-schema-rspec
   jsonapi-serializer
   jsonapi_parameters

@@ -45,7 +45,7 @@ gem "hmcts_common_platform", github: "ministryofjustice/hmcts_common_platform", 
 gem "jbuilder", "~> 2.11"
 gem "jsonapi_parameters"
 gem "jsonapi-serializer"
-gem "json-schema"
+gem "json-schema", git: "https://github.com/voxpupuli/json-schema", branch: "master", ref: "081dfc3"
 gem "oauth2"
 gem "prmd"
 gem "prometheus_exporter"
