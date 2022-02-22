@@ -4,7 +4,7 @@ module CommonPlatform
   module Api
     class SearchProsecutionCase < ApplicationService
       def initialize(params)
-        @response = ProsecutionCaseSearcher.call(params)
+        @response = ProsecutionCaseSearcher.call(**params)
       end
 
       def call
