@@ -33,6 +33,7 @@ RSpec.describe Hearing, type: :model do
       it { expect(hearing.cracked_ineffective_trial).to be_nil }
       it { expect(hearing.cracked_ineffective_trial_id).to be_nil }
       it { expect(hearing.defendant_judicial_results).to be_blank }
+      it { expect(hearing.prosecution_cases).to all(be_an(HmctsCommonPlatform::ProsecutionCase)) }
 
       context "with hearing events" do
         let(:hearing_day) { "2020-08-17" }
@@ -85,6 +86,7 @@ RSpec.describe Hearing, type: :model do
       it { expect(hearing.defendant_judicial_results).to all be_a(HmctsCommonPlatform::DefendantJudicialResult) }
       it { expect(hearing.provider_ids).to eq(%w[536abfd5-8671-4672-bf33-aa54de5d6a24]) }
       it { expect(hearing.hearing_days).to eq(["2020-08-18T09:00:00.000Z"]) }
+      it { expect(hearing.prosecution_cases).to all(be_an(HmctsCommonPlatform::ProsecutionCase)) }
 
       context "when prosecutionCounsels are not provided" do
         before { hearing.body["hearing"].delete("prosecutionCounsels") }
