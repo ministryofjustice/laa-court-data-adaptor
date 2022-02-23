@@ -38,8 +38,8 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
 
 ## Dependencies
 * Ruby version
-    * Ruby version 2.7.5
-    * Rails 6.1.3
+    * Ruby version 3.1.1
+    * Rails 6.1.4.6
 
 * System dependencies
     * postgres 12.1

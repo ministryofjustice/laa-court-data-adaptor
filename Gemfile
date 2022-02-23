@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.5"
+ruby "3.0.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem "rails", "~> 6.1.3"
@@ -45,7 +45,7 @@ gem "hmcts_common_platform", github: "ministryofjustice/hmcts_common_platform", 
 gem "jbuilder", "~> 2.11"
 gem "jsonapi_parameters"
 gem "jsonapi-serializer"
-gem "json-schema"
+gem "json-schema", git: "https://github.com/voxpupuli/json-schema", branch: "master", ref: "081dfc3"
 gem "oauth2"
 gem "prmd"
 gem "prometheus_exporter"
@@ -82,5 +82,5 @@ group :test do
   gem "rspec-rails", "~> 5.1.0"
   gem "shoulda-matchers"
   gem "simplecov"
-  gem "sinatra"
+  gem "sinatra", "~> 2.2.0"
 end

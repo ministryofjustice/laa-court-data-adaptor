@@ -31,7 +31,7 @@ module CommonPlatform
 
       def call
         response = connection.post(url, request_body)
-        update_database(response)
+        update_offence(response)
         response
       end
 
@@ -48,7 +48,7 @@ module CommonPlatform
         }.compact
       end
 
-      def update_database(response)
+      def update_offence(response)
         case_defendant_offence.update!(
           rep_order_status: status_code,
           status_date: status_date,

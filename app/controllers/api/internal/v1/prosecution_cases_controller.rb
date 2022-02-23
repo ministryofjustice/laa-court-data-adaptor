@@ -21,7 +21,7 @@ module Api
         end
 
         def transformed_params
-          filtered_params.to_hash.transform_keys(&:to_sym)
+          filtered_params.to_hash.deep_symbolize_keys
         end
 
         def serialization_options
