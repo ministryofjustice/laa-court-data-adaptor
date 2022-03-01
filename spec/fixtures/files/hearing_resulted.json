@@ -7,7 +7,8 @@
       "id": "bc4864ca-4b22-3449-9716-a8db1db89905",
       "name": "Warrington CCU (Decom)",
       "roomId": "bc4864ca-4b22-3449-9716-a8db1db89905",
-      "roomName": "Warrington CCU (Decom)"
+      "roomName": "Warrington CCU (Decom)",
+      "code": "B30PI00"
     },
     "hearingLanguage": "WELSH",
     "hasSharedResults": false,

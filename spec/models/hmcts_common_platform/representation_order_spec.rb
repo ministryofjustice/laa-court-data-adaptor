@@ -18,7 +18,7 @@ RSpec.describe HmctsCommonPlatform::RepresentationOrder, type: :model do
     it "generates a JSON representation of the data" do
       json = representation_order.to_json
 
-      expect(json["application_reference"]).to eql("7157555")
+      expect(json["laa_application_reference"]).to eql("7157555")
       expect(json["effective_start_date"]).to eql("2021-12-09")
       expect(json["effective_end_date"]).to eql("2021-12-10")
       expect(json["laa_contract_number"]).to eql("0N824P")

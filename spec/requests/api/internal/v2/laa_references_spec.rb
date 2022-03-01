@@ -156,7 +156,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
 
           parameter name: :defendant_id, in: :path, required: false, type: :uuid,
                     schema: {
-                      "$ref": "defendant.json#/definitions/id",
+                      "$ref": "defendant.json#/properties/id",
                     },
                     description: "The unique identifier of the defendant"
 

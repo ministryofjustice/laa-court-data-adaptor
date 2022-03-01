@@ -5,78 +5,72 @@ require "swagger_helper"
 RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "v2/swagger.yaml" do
   include AuthorisedRequestHelper
 
-  let(:token) { access_token }
-  let(:include) {}
-  let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
-
-  path "/api/internal/v2/hearing_results/{hearing_id}" do
+  path "/api/internal/v2/hearing_results/{id}" do
     get("get hearing") do
       description "GET Common Platform hearing data"
       consumes "application/json"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
 
-      parameter name: :hearing_id, in: :path, required: true, type: :uuid,
+      produces "application/vnd.api+json"
+
+      parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
-                  '$ref': "hearing.json#/definitions/id",
+                  '$ref': "definitions.json#/definitions/uuid",
                 },
                 description: "The uuid of the hearing"
 
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
-      context "with success" do
-        let(:Authorization) { "Bearer #{token.token}" }
-        let(:shared_time) { JSON.parse(file_fixture("hearing/valid.json").read) }
+      let(:Authorization) { "Bearer #{access_token.token}" }
 
-        around do |example|
-          VCR.use_cassette("hearing_result_fetcher/success") do
-            VCR.use_cassette("hearing_logs_fetcher/success") do
-              example.run
-            end
-          end
+      context "when Hearing Result exists on Common Platform" do
+        let(:id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
+
+        before do
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{id}")
+            .to_return(
+              headers: { content_type: "application/json" },
+              body: file_fixture("hearing_resulted.json").read,
+            )
         end
 
-        context "with no inclusions" do
-          let(:include) {}
-
+        describe "response" do
           response(200, "Success") do
-            run_test!
-          end
-        end
-
-        context "with the inclusion of hearing events, providers, court applications, cracked ineffective trial and judicial results" do
-          response(200, "Success") do
-            produces "application/vnd.api+json"
-
-            parameter name: "include", in: :query, required: false, type: :string,
-                      schema: {
-                        "$ref": "hearing.json#/definitions/example_included_query_parameters",
-                      },
-                      description: "Include top-level and nested associations for a hearing.
-                                    All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-                                    For example to include providers, cracked ineffective trial as well as court applications and associated judicial results:
-                                    include=providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results"
-
-            schema "$ref" => "hearing.json#/definitions/resource_collection"
-
+            schema "$ref" => "hearing_result.json#"
+            parameter "$ref" => "#/components/parameters/transaction_id_header"
             run_test!
           end
         end
       end
 
-      context "when request is unauthorized" do
-        response("401", "Unauthorized") do
-          around do |example|
-            VCR.use_cassette("hearing_result_fetcher/unauthorised") do
-              example.run
-            end
-          end
-
+      context "when unauthorized" do
+        response(401, "Unauthorized") do
+          let(:id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
           let(:Authorization) { nil }
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           run_test!
+        end
+      end
+
+      context "when Hearing Result does not exist on Common Platform" do
+        let(:id) { "123" }
+
+        before do
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{id}")
+            .to_return(
+              status: 200,
+              headers: { content_type: "application/json" },
+              body: "{}",
+            )
+        end
+
+        describe "response" do
+          response(404, "Not found") do
+            schema "$ref" => "hearing_result.json#"
+            run_test!
+          end
         end
       end
     end

@@ -8,21 +8,10 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationParty, type: :model do
       expect(data).to match_json_schema(:court_application_party)
     end
 
-    it "has an id" do
-      expect(court_application_party.id).to eql("4f59e8d5-53d5-4175-b9b3-d46363671d03")
-    end
-
-    it "has no synonym" do
-      expect(court_application_party.synonym).to be_nil
-    end
-
-    it "has a summons_required flag" do
-      expect(court_application_party.summons_required).to be false
-    end
-
-    it "has a notification_required flag" do
-      expect(court_application_party.notification_required).to be true
-    end
+    it { expect(court_application_party.id).to eql("4f59e8d5-53d5-4175-b9b3-d46363671d03") }
+    it { expect(court_application_party.synonym).to be_nil }
+    it { expect(court_application_party.summons_required).to be false }
+    it { expect(court_application_party.notification_required).to be true }
   end
 
   context "with all fields" do
@@ -32,20 +21,17 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationParty, type: :model do
       expect(data).to match_json_schema(:court_application_party)
     end
 
-    it "has an id" do
-      expect(court_application_party.id).to eql("4f59e8d5-53d5-4175-b9b3-d46363671d03")
+    it "generates a JSON representation of the data" do
+      expect(court_application_party.to_json["id"]).to eql("4f59e8d5-53d5-4175-b9b3-d46363671d03")
+      expect(court_application_party.to_json["synonym"]).to eql("suspect")
+      expect(court_application_party.to_json["summons_required"]).to be false
+      expect(court_application_party.to_json["notification_required"]).to be true
     end
 
-    it "has a synonym" do
-      expect(court_application_party.synonym).to eql("suspect")
-    end
-
-    it "has a summons_required flag" do
-      expect(court_application_party.summons_required).to be false
-    end
-
-    it "has a notification_required flag" do
-      expect(court_application_party.notification_required).to be true
-    end
+    it { expect(data).to match_json_schema(:court_application_party) }
+    it { expect(court_application_party.id).to eql("4f59e8d5-53d5-4175-b9b3-d46363671d03") }
+    it { expect(court_application_party.synonym).to eql("suspect") }
+    it { expect(court_application_party.summons_required).to be false }
+    it { expect(court_application_party.notification_required).to be true }
   end
 end

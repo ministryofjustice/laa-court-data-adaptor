@@ -14,8 +14,20 @@ module HmctsCommonPlatform
       data[:id]
     end
 
+    def prosecution_case_id
+      data[:prosecutionCaseId]
+    end
+
     def proceedings_concluded
       data[:proceedingsConcluded]
+    end
+
+    def legal_aid_status
+      data[:legalAidStatus]
+    end
+
+    def is_youth
+      data[:isYouth]
     end
 
     def offence_ids
@@ -38,21 +50,29 @@ module HmctsCommonPlatform
       end
     end
 
-    def prosecution_case; end
+    def defence_organisation
+      HmctsCommonPlatform::DefenceOrganisation.new(data[:defenceOrganisation])
+    end
 
-    def name; end
-
-    def national_insurance_number; end
-
-    def maat_reference; end
-
-    def post_hearing_custody_statuses; end
-
-    def defence_organisation_id; end
-
-    def prosecution_case_id; end
+    def to_json(*_args)
+      to_builder.attributes!
+    end
 
   private
+
+    def to_builder
+      Jbuilder.new do |defendant|
+        defendant.id id
+        defendant.prosecution_case_id prosecution_case_id
+        defendant.defendant_details person_defendant.to_json
+        defendant.offences offences.map(&:to_json)
+        defendant.judicial_results judicial_results.map(&:to_json)
+        defendant.defence_organisation defence_organisation.to_json
+        defendant.legal_aid_status legal_aid_status
+        defendant.proceedings_concluded proceedings_concluded
+        defendant.is_youth is_youth
+      end
+    end
 
     def person_defendant
       HmctsCommonPlatform::PersonDefendant.new(data[:personDefendant])

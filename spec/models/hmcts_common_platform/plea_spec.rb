@@ -8,6 +8,17 @@ RSpec.describe HmctsCommonPlatform::Plea, type: :model do
       expect(data).to match_json_schema(:plea)
     end
 
+    it "generates a JSON representation of the data" do
+      json = plea.to_json
+
+      expect(json["originating_hearing_id"]).to eql("a6b07866-faa0-48d5-9faf-c18121e49aaf")
+      expect(json["offence_id"]).to eql("5f541240-8807-4d45-a085-97693a50b15d")
+      expect(json["application_id"]).to eql("cd6d6cb3-26ad-4df1-b1e1-1bd1a07cb292")
+      expect(json["date"]).to eql("2021-03-01")
+      expect(json["value"]).to eql("GUILTY")
+      expect(json["delegated_powers"]).to be_present
+    end
+
     it "has an originating hearing id" do
       expect(plea.originating_hearing_id).to eql("a6b07866-faa0-48d5-9faf-c18121e49aaf")
     end

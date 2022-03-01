@@ -38,24 +38,8 @@
       "type": "array",
       "minItems": 1,
       "items": {
-        "$ref": "#/definitions/id"
+        "$ref": "definitions.json#/definitions/uuid"
       }
-    }
-  },
-  "definitions": {
-    "id": {
-      "description": "unique identifier of defence counsel",
-      "example": "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4",
-      "format": "uuid",
-      "type": "string"
-    },
-    "type": {
-      "description": "The defence_counsel type",
-      "enum": [
-        "defence_counsel"
-      ],
-      "example": "defence_counsel",
-      "type": "string"
     }
   }
 }

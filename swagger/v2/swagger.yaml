@@ -68,14 +68,14 @@ paths:
         in: path
         required: true
         schema:
-          "$ref": prosecution_case.json#/definitions/prosecution_case_reference
+          "$ref": prosecution_case_identifier.json#/properties/case_urn
         description: The unique reference number (URN) of the case
       - name: id
         in: path
         required: true
         type: uuid
         schema:
-          "$ref": defendant.json#/definitions/id
+          "$ref": defendant.json#/properties/id
         description: The uuid of the defendant
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
@@ -89,7 +89,7 @@ paths:
           description: Not found
         '401':
           description: Unauthorized
-  "/api/internal/v2/hearing_results/{hearing_id}":
+  "/api/internal/v2/hearing_results/{id}":
     get:
       summary: get hearing
       description: GET Common Platform hearing data
@@ -98,25 +98,15 @@ paths:
       security:
       - oAuth: []
       parameters:
-      - name: hearing_id
+      - name: id
         in: path
         required: true
         type: uuid
         schema:
-          "$ref": hearing.json#/definitions/id
+          "$ref": definitions.json#/definitions/uuid
         description: The uuid of the hearing
       - "$ref": "#/components/parameters/transaction_id_header"
-      - name: include
-        in: query
-        required: false
-        type: string
-        schema:
-          "$ref": hearing.json#/definitions/example_included_query_parameters
-        description: |-
-          Include top-level and nested associations for a hearing.
-                                              All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
-                                              For example to include providers, cracked ineffective trial as well as court applications and associated judicial results:
-                                              include=providers,court_applications,cracked_ineffective_trial,court_applications.judicial_results
+      - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '200':
@@ -124,9 +114,15 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                "$ref": hearing.json#/definitions/resource_collection
+                "$ref": hearing_result.json#
         '401':
           description: Unauthorized
+        '404':
+          description: Not found
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": hearing_result.json#
   "/api/internal/v2/laa_references":
     post:
       summary: post laa_reference
@@ -168,7 +164,7 @@ paths:
         required: true
         type: uuid
         schema:
-          "$ref": defendant.json#/definitions/id
+          "$ref": defendant.json#/properties/id
         description: The unique identifier of the defendant
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
@@ -206,7 +202,7 @@ paths:
         required: false
         type: string
         schema:
-          "$ref": prosecution_case.json#/definitions/prosecution_case_reference
+          "$ref": prosecution_case_identifier.json#/properties/case_urn
         description: Searches prosecution cases by prosecution case reference
       - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[arrest_summons_number]
@@ -214,7 +210,7 @@ paths:
         required: false
         type: string
         schema:
-          "$ref": prosecution_case.json#/definitions/arrest_summons_number
+          "$ref": defendant_summary.json#/properties/arrest_summons_number
         description: Searches prosecution cases by arrest summons number
       - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[national_insurance_number]
@@ -222,7 +218,7 @@ paths:
         required: false
         type: string
         schema:
-          "$ref": defendant.json#/definitions/nino
+          "$ref": person.json#/properties/nino
         description: Searches prosecution cases by national_insurance_number
       - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[name]
@@ -230,14 +226,14 @@ paths:
         required: false
         type: string
         schema:
-          "$ref": defendant.json#/definitions/name
+          "$ref": person.json#/properties/last_name
         description: Searches prosecution cases by name
       - name: filter[date_of_birth]
         in: query
         required: false
         type: string
         schema:
-          "$ref": defendant.json#/definitions/date_of_birth
+          "$ref": person.json#/properties/date_of_birth
         description: Searches prosecution cases by date_of_birth
       - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[name]
@@ -245,14 +241,14 @@ paths:
         required: false
         type: string
         schema:
-          "$ref": defendant.json#/definitions/name
+          "$ref": person.json#/properties/last_name
         description: Searches prosecution cases by name
       - name: filter[date_of_next_hearing]
         in: query
         required: false
         type: string
         schema:
-          "$ref": prosecution_case.json#/definitions/date_of_next_hearing
+          "$ref": definitions.json#/definitions/datePattern
         description: Searches prosecution cases by date_of_next_hearing
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
@@ -289,7 +285,7 @@ paths:
         content:
           application/vnd.api+json:
             schema:
-              "$ref": representation_order.json#/definitions/new_resource
+              "$ref": representation_order_request.json#
         required: true
 components:
   securitySchemes:

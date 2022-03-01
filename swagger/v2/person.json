@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "person",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "The person title",
+      "$ref": "definitions.json#/definitions/personTitle"
+    },
+    "first_name": {
+      "description": "The person fore name",
+      "type": "string"
+    },
+    "middle_name": {
+      "description": "The person middle name",
+      "type": "string"
+    },
+    "last_name": {
+      "description": "The person last name",
+      "type": "string"
+    },
+    "date_of_birth": {
+      "description": "The person date of birth",
+      "$ref": "definitions.json#/definitions/datePattern"
+    },
+    "gender": {
+      "description": "The person gender",
+      "$ref": "definitions.json#/definitions/gender"
+    },
+    "documentation_language_needs": {
+      "description": "The person documentation needs.  Indicates the requirement for documentation to be published in non English",
+      "$ref": "definitions.json#/definitions/hearingLanguage"
+    },
+    "nino": {
+      "description": "The person nino",
+      "$ref": "definitions.json#/definitions/nino"
+    },
+    "occupation": {
+      "description": "The person occupation",
+      "type": "string"
+    },
+    "occupation_code": {
+      "description": "The person occupation code",
+      "type": "string"
+    }
+  }
+}

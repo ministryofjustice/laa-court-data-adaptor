@@ -54,6 +54,14 @@ module HmctsCommonPlatform
       HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference])
     end
 
+    def verdict
+      HmctsCommonPlatform::Verdict.new(data[:verdict])
+    end
+
+    def plea
+      HmctsCommonPlatform::Plea.new(data[:plea])
+    end
+
     def to_json(*_args)
       to_builder.attributes!
     end
@@ -74,6 +82,8 @@ module HmctsCommonPlatform
         offence_summary.arrest_date arrest_date
         offence_summary.charge_date charge_date
         offence_summary.laa_application laa_reference.to_json
+        offence_summary.verdict verdict.to_json
+        offence_summary.plea plea.to_json
       end
     end
   end

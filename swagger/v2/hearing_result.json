@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Hearing Result",
+  "description": "Hearing Result",
+  "id": "hearing_result",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "properties": {
+    "shared_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "hearing": {
+      "type": "object",
+      "$ref": "hearing.json#"
+    }
+  }
+}

@@ -1,318 +1,89 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Hearing",
-  "description": "Hearing",
   "id": "hearing",
-  "stability": "prototype",
-  "strictProperties": true,
   "type": "object",
-  "definitions": {
+  "properties": {
     "id": {
-      "description": "The unique identifier of a hearing",
-      "example": "04180ff1-99b0-40b7-9929-ca05bdc767d8",
-      "format": "uuid",
-      "type": "string"
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "jurisdiction_type": {
+      "type": "string",
+      "enum": [
+        "MAGISTRATES",
+        "CROWN"
+      ]
+    },
+    "court_centre": {
+      "$ref": "court_centre.json#"
+    },
+    "language": {
+      "description": "The language of the hearing",
+      "enum": [
+        "ENGLISH",
+        "WELSH"
+      ]
+    },
+    "prosecution_cases": {
+      "description": "The collection of cases to be heard or the case for a linked application with respect to an application hearing",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "prosecution_case.json#"
+      }
+    },
+    "defendant_judicial_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "defendant_judicial_result.json#"
+      }
+    },
+    "has_shared_results": {
+      "description": "Indicates that the hearing has at least one result shared",
+      "type": "boolean"
+    },
+    "court_applications": {
+      "description": "The collection of applications to be heard with respect to an application hearing or the applications for a case with respect to a hearing related to the case",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "court_application.json#"
+      }
     },
     "type": {
-      "description": "The hearing type",
-      "example": "hearings",
-      "type": "string"
-    },
-    "court_name": {
-      "readOnly": true,
-      "example": "Lavender Hill Magistrates Court",
-      "description": "The name of the court",
-      "type": "string"
-    },
-    "hearing_type": {
-      "readOnly": true,
-      "example": "First hearing"
+      "$ref": "hearing_type.json#"
     },
     "hearing_days": {
-      "readOnly": true,
-      "example": ["2021-05-25T00:00:00.000Z"]
-    },
-    "defendant_names": {
-     "example": ["Kole Jaskolski"]
-    },
-    "judge_names": {
-      "readOnly": true,
-      "example": ["Andrew Gwyn Menary"]
-    },
-    "prosecution_advocate_names": {
-      "readOnly": true,
-      "example": ["Andrew Smith"]
-    },
-    "defence_advocate_names": {
-      "example": ["Joe Bloggs"]
-    },
-    "resource": {
-      "description": "An object representing a single hearing",
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "type": {
-          "$ref": "#/definitions/type"
-        },
-        "attributes": {
-          "$ref": "#/definitions/attributes"
-        },
-        "relationships": {
-          "$ref": "#/definitions/relationships"
-        }
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "hearing_day.json#"
       }
     },
-    "relationships": {
-       "type": "object",
-       "properties": {
-         "providers": {
-           "$ref": "#/definitions/provider_relationship"
-         },
-         "court_applications": {
-           "$ref": "#/definitions/court_application_relationship"
-         },
-         "prosecution_cases": {
-           "$ref": "#/definitions/prosecution_case_relationship"
-         },
-         "defendant_judicial_results": {
-           "$ref": "#/definitions/defendant_judicial_result_relationship"
-         },
-         "cracked_ineffective_trial": {
-           "$ref": "#/definitions/cracked_ineffective_trial_relationship"
-         }
-       }
-    },
-    "provider_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/provider"
-          },
-          "type": "array"
-        }
+    "judiciary": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "judicial_role.json#"
       }
     },
-    "provider": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "provider.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "provider.json#/definitions/type"
-        }
+    "prosecution_counsels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "prosecution_counsel.json#"
       }
     },
-    "court_application_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/court_application"
-          },
-          "type": "array"
-        }
-      }
-    },
-    "court_application": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "court_application.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "court_application.json#/definitions/type"
-        }
-      }
-    },
-    "prosecution_case_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/prosecution_case"
-          },
-          "type": "array"
-        }
-      }
-    },
-    "prosecution_case": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "prosecution_case.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "prosecution_case.json#/definitions/type"
-        }
-      }
-    },
-    "defendant_judicial_result_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/defendant_judicial_result"
-          },
-          "type": "array"
-        }
-      }
-    },
-    "defendant_judicial_result": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "defendant_judicial_result.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "defendant_judicial_result.json#/definitions/type"
-        }
-      }
-    },
-    "cracked_ineffective_trial_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "$ref": "#/definitions/cracked_ineffective_trial"
-        }
+    "defence_counsels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "defence_counsel.json#"
       }
     },
     "cracked_ineffective_trial": {
-      "properties": {
-        "id": {
-          "$ref": "cracked_ineffective_trial.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "cracked_ineffective_trial.json#/definitions/type"
-        }
-      }
-    },
-    "court_application_judicial_result_relationship": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/court_application_judicial_result"
-          },
-          "type": "array"
-        }
-      }
-    },
-    "court_application_judicial_result": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "judicial_result.json#/definitions/id"
-        },
-        "type": {
-          "$ref": "judicial_result.json#/definitions/type"
-        }
-      }
-    },
-    "resource_collection": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "$ref": "#/definitions/resource"
-        },
-        "included": {
-          "items": {
-            "anyOf":[
-              {
-                "$ref": "provider.json#/definitions/resource"
-              },
-              {
-                "$ref": "judicial_result.json#/definitions/resource"
-              },
-              {
-                "$ref": "court_application.json#/definitions/resource"
-              },
-              {
-                "$ref": "prosecution_case.json#/definitions/resource"
-              },
-              {
-                "$ref": "defendant_judicial_result.json#/definitions/resource"
-              },
-              {
-                "$ref": "cracked_ineffective_trial.json#/definitions/resource"
-              }
-            ]
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "data"
-      ]
-    },
-    "example_included_query_parameters": {
-      "description": "An example of parameters that can be included in the query",
-      "type": "string",
-      "example": "providers,court_applications, prosecution_cases,cracked_ineffective_trial,court_applications.judicial_results"
-    },
-    "attributes": {
-      "type": "object",
-      "properties": {
-        "court_name": {
-          "$ref": "#/definitions/court_name"
-        },
-        "hearing_type": {
-          "$ref": "#/definitions/hearing_type"
-        },
-        "hearing_days": {
-          "$ref": "#/definitions/hearing_days"
-        },
-        "defendant_names": {
-          "$ref": "#/definitions/defendant_names"
-        },
-        "judge_names": {
-          "$ref": "#/definitions/judge_names"
-        },
-        "prosecution_advocate_names": {
-          "$ref": "#/definitions/prosecution_advocate_names"
-        },
-        "defence_advocate_names": {
-          "$ref": "#/definitions/defence_advocate_names"
-        }
-      }
-    },
-   "jurisdictionType": {
-     "description": "The court type",
-     "enum": [
-       "MAGISTRATES",
-       "CROWN"
-     ],
-     "example": "MAGISTRATES",
-     "type": "string"
-   },
-   "courtCentre": {
-     "type": "object",
-     "properties": {
-       "id": {
-         "description": "Unique id of the court",
-         "example": "54534e9b-59cc-44a3-8b61-c9dcfe1c4e83",
-         "format": "uuid",
-         "type": "string"
-       }
-     }
-   },
-   "resulted_type": {
-     "properties": {
-       "id": {
-         "description": "Unique id of the type",
-         "example": "dd9bf969-f55e-43f1-a08a-7b475a9aa914",
-         "format": "uuid",
-         "type": "string"
-       },
-       "description": {
-         "description": "Hearing type",
-         "example": "First hearing",
-         "type": "string"
-       }
-     }
-   }
+      "description": "Records the description of the reason for a Cracked or Ineffective trial when the hearing is a trial type",
+      "$ref": "cracked_ineffective_trial.json#"
+    }
   }
 }

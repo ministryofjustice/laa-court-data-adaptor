@@ -17,5 +17,18 @@ module HmctsCommonPlatform
     def shared_time
       data[:sharedTime]
     end
+
+    def to_json(*_args)
+      to_builder.attributes!
+    end
+
+  private
+
+    def to_builder
+      Jbuilder.new do |hearing_result|
+        hearing_result.hearing hearing.to_json
+        hearing_result.shared_time shared_time
+      end
+    end
   end
 end

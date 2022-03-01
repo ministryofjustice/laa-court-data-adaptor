@@ -21,6 +21,51 @@
       "type": "string",
       "pattern": "(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\\s*\\d\\s*){6}([A-D]|\\s)$",
       "example": "QQ123456C"
+    },
+    "ukGovPostCode": {
+      "description": "UK Gov post code validation following CJS Data Standards",
+      "example": "DL5 5RT",
+      "type": "string",
+      "pattern": "^(([gG][iI][rR] {0,}0[aA]{2})|(([aA][sS][cC][nN]|[sS][tT][hH][lL]|[tT][dD][cC][uU]|[bB][bB][nN][dD]|[bB][iI][qQ][qQ]|[fF][iI][qQ][qQ]|[pP][cC][rR][nN]|[sS][iI][qQ][qQ]|[iT][kK][cC][aA]) {0,}1[zZ]{2})|((([a-pr-uwyzA-PR-UWYZ][a-hk-yxA-HK-XY]?[0-9][0-9]?)|(([a-pr-uwyzA-PR-UWYZ][0-9][a-hjkstuwA-HJKSTUW])|([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y][0-9][abehmnprv-yABEHMNPRV-Y]))) [0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2}))$",
+      "maxLength": 8
+    },
+    "caseURN": {
+      "type": "string",
+      "description": "The prosecuting authorities reference for their prosecution case that is layed before court. For example PTI-URN from police/cps cases",
+      "example": "TFL12345"
+    },
+    "phone": {
+      "type": "string",
+      "pattern": "^[\\+]?[0-9()\\-\\.\\s]+$"
+    },
+    "email": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$"
+    },
+    "personTitle": {
+      "type": "string",
+      "description": "A person is the base type of a defendant.  Defendants title must be constrained to remain compliant with the GOB interface"
+    },
+    "gender": {
+      "description": "The person gender",
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE",
+        "NOT_KNOWN",
+        "NOT_SPECIFIED"
+      ]
+    },
+    "hearingLanguage": {
+      "description": "The language of the hearing",
+      "enum": [
+        "ENGLISH",
+        "WELSH"
+      ]
+    },
+    "nino": {
+      "type": "string",
+      "pattern": "(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\\s*\\d\\s*){6}([A-D]|\\s)$"
     }
   }
 }

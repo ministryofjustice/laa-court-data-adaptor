@@ -5,20 +5,13 @@ module Api
     module V2
       class HearingResultsController < ApplicationController
         def show
-          @hearing = CommonPlatform::Api::GetHearingResults.call(hearing_id: params[:id])
-          render json: HearingSerializer.new(@hearing, serialization_options)
-        end
+          hearing_result = CommonPlatform::Api::GetHearingResults.call(hearing_id: params[:id])
 
-      private
-
-        def serialization_options
-          return { include: inclusions } if inclusions.present?
-
-          {}
-        end
-
-        def inclusions
-          params[:include]&.split(",")
+          if hearing_result.present?
+            render json: HmctsCommonPlatform::HearingResulted.new(hearing_result&.body).to_json, status: :ok
+          else
+            render json: {}, status: :not_found
+          end
         end
       end
     end

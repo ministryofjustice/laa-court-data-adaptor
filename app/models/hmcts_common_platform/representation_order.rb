@@ -30,7 +30,7 @@ module HmctsCommonPlatform
 
     def to_builder
       Jbuilder.new do |rep_order|
-        rep_order.application_reference application_reference
+        rep_order.laa_application_reference application_reference
         rep_order.effective_start_date effective_start_date
         rep_order.effective_end_date effective_end_date
         rep_order.laa_contract_number laa_contract_number

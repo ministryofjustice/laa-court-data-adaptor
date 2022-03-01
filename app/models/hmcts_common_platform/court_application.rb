@@ -120,7 +120,22 @@ module HmctsCommonPlatform
       end
     end
 
+    def to_json(*_args)
+      to_builder.attributes!
+    end
+
   private
+
+    def to_builder
+      Jbuilder.new do |court_application|
+        court_application.id id
+        court_application.received_date received_date
+        court_application.application_reference application_reference
+        court_application.judicial_results judicial_results.map(&:to_json)
+        court_application.respondents respondents.map(&:to_json)
+        court_application.defendant person_defendant.to_json
+      end
+    end
 
     def person_defendant
       HmctsCommonPlatform::PersonDefendant.new(data.dig(:applicant, :masterDefendant, :personDefendant))

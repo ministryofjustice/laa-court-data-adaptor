@@ -35,5 +35,28 @@ module HmctsCommonPlatform
     def lesser_or_alternative_offence
       HmctsCommonPlatform::LesserOrAlternativeOffence.new(data[:lesserOrAlternativeOffence])
     end
+
+    def to_json(*_args)
+      return {} if attrs.all? { |_k, v| v.blank? }
+
+      attrs
+    end
+
+  private
+
+    def attrs
+      @attrs ||= to_builder.attributes!
+    end
+
+    def to_builder
+      Jbuilder.new do |plea|
+        plea.date plea_date
+        plea.value plea_value
+        plea.originating_hearing_id originating_hearing_id
+        plea.offence_id offence_id
+        plea.application_id application_id
+        plea.delegated_powers delegated_powers.to_json
+      end
+    end
   end
 end

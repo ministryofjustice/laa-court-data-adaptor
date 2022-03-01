@@ -96,9 +96,9 @@ module MaatApi
           offenceDate: offence.start_date,
           offenceWording: offence.wording,
           modeOfTrial: offence.allocation_decision_mot_reason_code,
-          legalAidStatus: offence.laa_reference_status_code,
-          legalAidStatusDate: offence.laa_reference_status_date,
-          legalAidReason: offence.laa_reference_status_description,
+          legalAidStatus: offence.laa_application_status_code,
+          legalAidStatusDate: offence.laa_application_status_date,
+          legalAidReason: offence.laa_application_status_description,
           results: judicial_results(offence),
           plea: plea(offence.plea),
           verdict: verdict(offence.verdict),
@@ -116,8 +116,8 @@ module MaatApi
           resultCodeQualifiers: judicial_result.qualifier,
           nextHearingDate: judicial_result.next_hearing_date&.to_date&.strftime("%Y-%m-%d"),
           nextHearingLocation: judicial_result.next_hearing_court_centre&.short_oucode,
-          laaOfficeAccount: offence.laa_reference_laa_contract_number,
-          legalAidWithdrawalDate: offence.laa_reference_effective_end_date,
+          laaOfficeAccount: offence.laa_application_laa_contract_number,
+          legalAidWithdrawalDate: offence.laa_application_effective_end_date,
         }
       end
     end

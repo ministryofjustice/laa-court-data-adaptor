@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "allocation_decision",
+  "description": "The allocation decision made regarding the jurisdiction required or elected for dealing with the offence in question",
+  "type": "object",
+  "properties": {
+    "date": {
+      "$ref": "definitions.json#/definitions/datePattern"
+    },
+    "originating_hearing_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "offence_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "mot_reason_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "mot_reason_description": {
+      "type": "string"
+    },
+    "mot_reason_code": {
+      "type": "string"
+    },
+    "court_indicated_sentence": {
+      "$ref": "court_indicated_sentence.json#"
+    },
+    "sequence_number": {
+      "type": "integer"
+    }
+  }
+}

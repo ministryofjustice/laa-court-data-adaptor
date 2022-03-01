@@ -35,5 +35,29 @@ module HmctsCommonPlatform
     def sequence
       data[:sequence]
     end
+
+    def to_json(*_args)
+      return {} if attrs.all? { |_k, v| v.blank? }
+
+      attrs
+    end
+
+  private
+
+    def attrs
+      @attrs ||= to_builder.attributes!
+    end
+
+    def to_builder
+      Jbuilder.new do |verdict_type|
+        verdict_type.id id
+        verdict_type.description description
+        verdict_type.category category
+        verdict_type.category_type category_type
+        verdict_type.cjs_verdict_code cjs_verdict_code
+        verdict_type.verdict_code verdict_code
+        verdict_type.sequence sequence
+      end
+    end
   end
 end

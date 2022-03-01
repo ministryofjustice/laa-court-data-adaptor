@@ -1,61 +1,62 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Judicial Result",
-  "description": "Judicial result",
   "id": "judicial_result",
-  "stability": "prototype",
-  "strictProperties": true,
+  "description": "The result that was ordered by the judiciary",
   "type": "object",
-  "definitions": {
+  "properties": {
     "id": {
-      "description": "The unique identifier of the judicial result",
-      "example": "fcc1a759-88d2-4260-8b3e-92c2749ecbb1",
-      "format": "uuid",
+      "description": "The shared result line identifier",
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "label": {
+      "description": "The result label provided from reference data during the resulting process",
       "type": "string"
     },
-    "cjs_code": {
-      "description": "The code of the judicial result",
-      "example": "2507",
-      "type": "string"
+    "is_adjournment_result": {
+      "description": "Indicates if the result is provided as part of an adjournment",
+      "type": "boolean"
     },
-    "type": {
-      "description": "The judicial result type",
-      "example": "judicial_result",
+    "is_financial_result": {
+      "description": "Indicates if the result is provided as part of a financial order",
+      "type": "boolean"
+    },
+    "is_convicted_result": {
+      "description": "Indicates if the provision of this result determines that the defendant has been convicted",
+      "type": "boolean"
+    },
+    "is_available_for_court_extract": {
+      "description": "Indicates if the result can be entered into a court extract",
+      "type": "boolean"
+    },
+    "qualifier": {
+      "description": "Further qualifies the meaning of the result",
       "type": "string"
     },
     "text": {
-      "description": "Text of the judicial result",
-      "example": "NOT GUILTY",
+      "description": "Formatted Result Test - an aggregate of result label, prompt labels and their values ordered by prompt sequence",
       "type": "string"
     },
-    "resource": {
-      "description": "An object representing a single judicial result",
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "type": {
-          "$ref": "#/definitions/type"
-        },
-        "attributes": {
-          "$ref": "#/definitions/attributes"
-        }
+    "cjs_code": {
+      "description": "The corresponding CJS data standard code",
+      "type": "string"
+    },
+    "ordered_date": {
+      "description": "The date that the result was ordered",
+      "$ref": "definitions.json#/definitions/datePattern"
+    },
+    "prompts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "judicial_result_prompt.json#"
       }
     },
-    "attributes": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "cjs_code": {
-          "$ref": "#/definitions/cjs_code"
-        },
-        "text": {
-          "$ref": "#/definitions/text"
-        }
-      }
+    "post_hearing_custody_status": {
+      "description": "The bail status following the hearing",
+      "type": "string"
+    },
+    "wording": {
+      "type": "string"
     }
   }
 }

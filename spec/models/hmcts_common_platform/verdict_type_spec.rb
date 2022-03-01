@@ -8,6 +8,17 @@ RSpec.describe HmctsCommonPlatform::VerdictType, type: :model do
       expect(data).to match_json_schema(:verdict_type)
     end
 
+    it "generates a JSON representation of the data" do
+      json = verdict_type.to_json
+
+      expect(json["id"]).to eql("f8df61d4-6e89-4b3f-85b4-5bfbc137a0b7")
+      expect(json["description"]).to eql("a verdict type description")
+      expect(json["category"]).to eql("A")
+      expect(json["category_type"]).to eql("Type A")
+      expect(json["cjs_verdict_code"]).to eql("1093")
+      expect(json["sequence"]).to be(1)
+    end
+
     it "has an ID" do
       expect(verdict_type.id).to eql("f8df61d4-6e89-4b3f-85b4-5bfbc137a0b7")
     end

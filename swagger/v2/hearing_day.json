@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Hearing Summary",
-  "description": "Hearing Summary",
-  "id": "hearing_summary",
+  "title": "Hearing Day",
+  "description": "Hearing Day",
+  "id": "hearing_day",
   "stability": "prototype",
   "strictProperties": true,
   "type": "object",

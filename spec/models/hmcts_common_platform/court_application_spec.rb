@@ -6,6 +6,16 @@ RSpec.describe HmctsCommonPlatform::CourtApplication, type: :model do
     expect(data).to match_json_schema(:court_application)
   end
 
+  it "generates a JSON representation of the data" do
+    json = court_application.to_json
+
+    expect(json["id"]).to eql("c5266a93-389c-4331-a56a-dd000b361cef")
+    expect(json["application_reference"]).to eql("90GDAPPS314")
+    expect(json["respondents"].count).to be(1)
+    expect(json["received_date"]).to eql("2021-03-09")
+    expect(json["judicial_results"].count).to be(1)
+  end
+
   it "has an id" do
     expect(court_application.id).to eql("c5266a93-389c-4331-a56a-dd000b361cef")
   end

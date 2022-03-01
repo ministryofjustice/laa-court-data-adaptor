@@ -7,66 +7,47 @@ RSpec.describe "api/internal/v2/representation_orders", type: :request, swagger_
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
-  let(:defendant_id) { SecureRandom.uuid }
-
-  let(:offence_array) do
-    [
-      {
-        offence_id: SecureRandom.uuid,
-        status_code: "GR",
-        status_date: "2020-02-12",
-        effective_start_date: "2020-02-20",
-        effective_end_date: "2020-02-25",
-      },
-    ]
-  end
-
-  let(:defence_organisation) do
-    {
-      laa_contract_number: "CONTRACT REFERENCE",
-      sra_number: "SRA NUMBER",
-      bar_council_membership_number: "BAR COUNCIL NUMBER",
-      incorporation_number: "AAA",
-      registered_charity_number: "BBB",
-      organisation: {
-        name: "SOME ORGANISATION",
-        address: {
-          address1: "102",
-          address2: "Petty France",
-          address3: "Floor 5",
-          address4: "St James",
-          address5: "Westminster",
-          postcode: "EC4A 2AH",
-        },
-        contact: {
-          home: "+99999",
-          work: "CALL ME 888",
-          mobile: "+99999",
-          primary_email: "a@example.com",
-          secondary_email: "a@example.com",
-          fax: "ABC123123",
-        },
-      },
-    }
-  end
 
   let(:representation_order) do
     {
-      data: {
-        type: "representation_orders",
-        attributes: {
-          maat_reference: 1_231_231,
-          defence_organisation: defence_organisation,
-          offences: offence_array,
-        },
-        relationships: {
-          defendant: {
-            data: {
-              type: "defendants",
-              id: defendant_id,
+      representation_order: {
+        maat_reference: 123_456,
+        defendant_id: SecureRandom.uuid,
+        defence_organisation: {
+          laa_contract_number: "CONTRACT REFERENCE",
+          sra_number: "SRA NUMBER",
+          bar_council_membership_number: "BAR COUNCIL NUMBER",
+          incorporation_number: "AAA",
+          registered_charity_number: "BBB",
+          organisation: {
+            name: "SOME ORGANISATION",
+            address: {
+              address1: "102",
+              address2: "Petty France",
+              address3: "Floor 5",
+              address4: "St James",
+              address5: "Westminster",
+              postcode: "EC4A 2AH",
+            },
+            contact: {
+              home: "+99999",
+              work: "CALL ME 888",
+              mobile: "+99999",
+              primary_email: "a@example.com",
+              secondary_email: "a@example.com",
+              fax: "ABC123123",
             },
           },
         },
+        offences: [
+          {
+            offence_id: SecureRandom.uuid,
+            status_code: "GR",
+            status_date: "2020-02-12",
+            effective_start_date: "2020-02-20",
+            effective_end_date: "2020-02-25",
+          },
+        ],
       },
     }
   end
@@ -91,11 +72,14 @@ RSpec.describe "api/internal/v2/representation_orders", type: :request, swagger_
           end
         end
 
-        parameter name: :representation_order, in: :body, required: true, type: :object,
+        parameter name: :representation_order,
+                  in: :body,
+                  required: true,
+                  type: :object,
+                  description: "The Representation Order for an offence",
                   schema: {
-                    "$ref": "representation_order.json#/definitions/new_resource",
-                  },
-                  description: "The Representation Order for an offence"
+                    "$ref": "representation_order_request.json#",
+                  }
 
         parameter "$ref" => "#/components/parameters/transaction_id_header"
 
@@ -104,20 +88,20 @@ RSpec.describe "api/internal/v2/representation_orders", type: :request, swagger_
         before do
           expect(RepresentationOrderCreatorWorker).to receive(:perform_async).with(
             String,
-            defendant_id,
-            offence_array.map { |o| o.deep_transform_keys(&:to_s) },
-            1_231_231,
-            defence_organisation.deep_transform_keys(&:to_s),
-          ).and_call_original
+            representation_order.dig(:representation_order, :defendant_id),
+            representation_order.dig(:representation_order, :offences),
+            representation_order.dig(:representation_order, :maat_reference),
+            representation_order.dig(:representation_order, :defence_organisation),
+          )
         end
 
         run_test!
       end
 
       context "with an invalid maat_reference" do
-        response("422", "Unprocessable entity") do
+        response(422, "Unprocessable entity") do
           let(:Authorization) { "Bearer #{token.token}" }
-          before { representation_order[:data][:attributes][:maat_reference] = "ABC123123" }
+          before { representation_order[:representation_order][:maat_reference] = "ABC123123" }
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
 
@@ -130,7 +114,7 @@ RSpec.describe "api/internal/v2/representation_orders", type: :request, swagger_
       end
 
       context "when request is unauthorized" do
-        response("401", "Unauthorized") do
+        response(401, "Unauthorized") do
           let(:Authorization) { nil }
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
@@ -144,7 +128,7 @@ RSpec.describe "api/internal/v2/representation_orders", type: :request, swagger_
       end
 
       context "with a failing contract" do
-        before { representation_order[:data][:relationships][:defendant][:data][:id] = "foo" }
+        before { representation_order[:representation_order][:defendant_id] = 123 }
 
         it "renders a JSON response with an unprocessable_entity error" do
           post "/api/internal/v2/representation_orders", params: representation_order, headers: { "Authorization" => "Bearer #{token.token}" }

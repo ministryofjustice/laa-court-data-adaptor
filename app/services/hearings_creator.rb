@@ -19,7 +19,7 @@ private
     hearing_resulted.hearing.prosecution_cases.each do |prosecution_case|
       prosecution_case.defendants.each do |defendant|
         next if defendant.offences.any? do |offence|
-          LaaReference.new(maat_reference: offence.laa_reference_application_reference).dummy_maat_reference?
+          LaaReference.new(maat_reference: offence.laa_application_reference).dummy_maat_reference?
         end
 
         laa_reference = LaaReference.find_by(defendant_id: defendant.id, linked: true)

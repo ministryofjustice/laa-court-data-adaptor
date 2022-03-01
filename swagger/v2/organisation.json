@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "organisation",
+  "type": "object",
+  "description": "The organisation details",
+  "properties": {
+    "name": {
+      "description": "The name of the organisation",
+      "type": "string",
+      "example": "The Johnson Partnership"
+    },
+    "incorporation_number": {
+      "description": "The incorporation details of teh organisationorganisation",
+      "type": "string"
+    },
+    "registered_charity_number": {
+      "description": "The registered charity details",
+      "type": "string"
+    },
+    "address": {
+      "description": "The organisation address details",
+      "$ref": "address.json#"
+    },
+    "contact": {
+      "description": "The organisation contact details",
+      "$ref": "contact_details.json#"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}

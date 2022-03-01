@@ -6,6 +6,14 @@ RSpec.describe HmctsCommonPlatform::DelegatedPowers, type: :model do
     expect(data).to match_json_schema(:delegated_powers)
   end
 
+  it "generates a JSON representation of the data" do
+    json = delegated_powers.to_json
+
+    expect(json["user_id"]).to eql("3462c0f7-278d-4de2-9052-86ed87598961")
+    expect(json["first_name"]).to eql("Ada")
+    expect(json["last_name"]).to eql("Lovelace")
+  end
+
   it "has a user id" do
     expect(delegated_powers.user_id).to eql("3462c0f7-278d-4de2-9052-86ed87598961")
   end

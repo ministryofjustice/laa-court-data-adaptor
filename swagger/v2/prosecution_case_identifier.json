@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "prosecution_case_identifier",
+  "type": "object",
+  "properties": {
+    "case_urn": {
+      "$ref": "definitions.json#/definitions/caseURN"
+    },
+    "prosecution_authority_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "prosecution_authority_code": {
+      "type": "string"
+    },
+    "prosecution_authority_name": {
+      "type": "string",
+      "description": "The name of the prosecution authority from reference data."
+    },
+    "contact": {
+      "$ref": "contact_details.json#"
+    }
+  }
+}

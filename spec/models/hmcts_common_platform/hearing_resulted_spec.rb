@@ -13,4 +13,13 @@ RSpec.describe HmctsCommonPlatform::HearingResulted, type: :model do
   it "has a shared time" do
     expect(hearing_resulted.shared_time).to eql("2020-10-30T10:04:27.476+00:00")
   end
+
+  describe "#to_json" do
+    it "generates a JSON representation of the data" do
+      json = hearing_resulted.to_json
+
+      expect(json["hearing"]).to be_present
+      expect(json["shared_time"]).to eql("2020-10-30T10:04:27.476+00:00")
+    end
+  end
 end

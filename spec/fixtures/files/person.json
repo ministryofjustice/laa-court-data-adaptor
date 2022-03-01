@@ -1,0 +1,23 @@
+{
+  "address": {
+    "address1": "5 Privet Drive",
+    "address2": "Darlington",
+    "postcode": "DL8 8FJ"
+  },
+  "dateOfBirth": "1965-11-30",
+  "documentationLanguageNeeds": "ENGLISH",
+  "ethnicity": {
+    "observedEthnicityCode": "1",
+    "observedEthnicityDescription": "White",
+    "observedEthnicityId": "c4ca4238-a0b9-3382-8dcc-509a6f75849b",
+    "selfDefinedEthnicityCode": "W1",
+    "selfDefinedEthnicityDescription": "British",
+    "selfDefinedEthnicityId": "c4ca4238-a0b9-3382-8dcc-509a6f75849b"
+  },
+  "firstName": "John",
+  "gender": "MALE",
+  "lastName": "Smith",
+  "occupation": "Unemployed",
+  "occupationCode": "6001",
+  "title": "Mr"
+}

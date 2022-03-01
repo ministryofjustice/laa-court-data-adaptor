@@ -33,5 +33,26 @@ module HmctsCommonPlatform
     def verdict_type
       HmctsCommonPlatform::VerdictType.new(data[:verdictType])
     end
+
+    def to_json(*_args)
+      return {} if attrs.all? { |_k, v| v.blank? }
+
+      attrs
+    end
+
+  private
+
+    def attrs
+      @attrs ||= to_builder.attributes!
+    end
+
+    def to_builder
+      Jbuilder.new do |verdict|
+        verdict.date verdict_date
+        verdict.type verdict_type.to_json
+        verdict.offence_id offence_id
+        verdict.originating_hearing_id originating_hearing_id
+      end
+    end
   end
 end

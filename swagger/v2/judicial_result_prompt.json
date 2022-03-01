@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "judicial_result_prompt",
+  "description": "The prompts for the result that was ordered by the judiciary",
+  "type": "object",
+  "properties": {
+    "type_id": {
+      "description": "The result prompt type from reference data.  Required for rollup and Nows purposes",
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "label": {
+      "description": "The result prompt label provided from reference data during the resulting process",
+      "type": "string"
+    },
+    "welsh_label": {
+      "description": "The corresponding welsh language result prompt label provided from reference data during the resulting process",
+      "type": "string"
+    },
+    "is_available_for_court_extract": {
+      "description": "Indicates if the result prompt can be entered into a court extract",
+      "type": "boolean"
+    },
+    "value": {
+      "description": "The result prompt value provided by the judiciary and recorded by the person executing the resulting process",
+      "type": "string"
+    },
+    "welsh_value": {
+      "description": "The result prompt welsh value provided by the judiciary and recorded by the person executing the resulting process",
+      "type": "string"
+    },
+    "qualifier": {
+      "description": "Further qualifies the meaning of the result prompt",
+      "type": "string"
+    },
+    "duration_sequence": {
+      "description": "Determines if the prompt is describing the primary, secondary or tertiary duration in the duration element",
+      "type": "number",
+      "maximum": 9
+    },
+    "prompt_sequence": {
+      "description": "The prompt sequence for sequencing purposes",
+      "type": "number"
+    },
+    "prompt_reference": {
+      "description": "A static reference used for algorithmic processing of the result prompt",
+      "type": "string"
+    },
+    "total_penalty_points": {
+      "type": "number",
+      "description": "Provides the number of penalty points when a prompt specifies driving endorsements",
+      "maximum": 99
+    },
+    "is_financial_imposition": {
+      "description": "Indicates that the prompt value is a sterling amount",
+      "type": "boolean"
+    },
+    "usergroups": {
+      "description": "The user groups that are authorised to view the result prompt",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

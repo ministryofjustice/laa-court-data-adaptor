@@ -34,7 +34,7 @@ RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: 
 
           parameter name: "filter[prosecution_case_reference]", in: :query, required: false, type: :string,
                     schema: {
-                      "$ref": "prosecution_case.json#/definitions/prosecution_case_reference",
+                      "$ref": "prosecution_case_identifier.json#/properties/case_urn",
                     },
                     description: "Searches prosecution cases by prosecution case reference"
 
@@ -42,6 +42,8 @@ RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: 
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:'filter[prosecution_case_reference]') { "19GD1001816" }
+
+          schema "$ref" => "search_prosecution_case_response.json#"
 
           run_test!
         end
@@ -57,7 +59,7 @@ RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: 
 
           parameter name: "filter[arrest_summons_number]", in: :query, required: false, type: :string,
                     schema: {
-                      "$ref": "prosecution_case.json#/definitions/arrest_summons_number",
+                      "$ref": "defendant_summary.json#/properties/arrest_summons_number",
                     },
                     description: "Searches prosecution cases by arrest summons number"
 
@@ -80,7 +82,7 @@ RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: 
 
           parameter name: "filter[national_insurance_number]", in: :query, required: false, type: :string,
                     schema: {
-                      "$ref": "defendant.json#/definitions/nino",
+                      "$ref": "person.json#/properties/nino",
                     },
                     description: "Searches prosecution cases by national_insurance_number"
 
@@ -103,13 +105,13 @@ RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: 
 
           parameter name: "filter[name]", in: :query, required: false, type: :string,
                     schema: {
-                      "$ref": "defendant.json#/definitions/name",
+                      "$ref": "person.json#/properties/last_name",
                     },
                     description: "Searches prosecution cases by name"
 
           parameter name: "filter[date_of_birth]", in: :query, required: false, type: :string,
                     schema: {
-                      "$ref": "defendant.json#/definitions/date_of_birth",
+                      "$ref": "person.json#/properties/date_of_birth",
                     },
                     description: "Searches prosecution cases by date_of_birth"
 
@@ -133,13 +135,13 @@ RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: 
 
           parameter name: "filter[name]", in: :query, required: false, type: :string,
                     schema: {
-                      "$ref": "defendant.json#/definitions/name",
+                      "$ref": "person.json#/properties/last_name",
                     },
                     description: "Searches prosecution cases by name"
 
           parameter name: "filter[date_of_next_hearing]", in: :query, required: false, type: :string,
                     schema: {
-                      "$ref": "prosecution_case.json#/definitions/date_of_next_hearing",
+                      "$ref": "definitions.json#/definitions/datePattern",
                     },
                     description: "Searches prosecution cases by date_of_next_hearing"
 

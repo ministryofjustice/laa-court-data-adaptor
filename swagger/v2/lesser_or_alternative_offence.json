@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://justice.gov.uk/core/courts/external/apiLesserOrAlternativeOffence.json",
+  "id": "lesser_or_alternative_offence",
   "description": "The details of a lesserOrAlternativeOffence verdict",
   "type": "object",
   "properties": {
