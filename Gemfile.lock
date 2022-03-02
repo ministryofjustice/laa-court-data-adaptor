@@ -309,9 +309,9 @@ GEM
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sentry-rails (5.1.0)
+    sentry-rails (5.1.1)
       railties (>= 5.0)
-      sentry-ruby-core (~> 5.1.0)
+      sentry-ruby-core (~> 5.1.1)
     sentry-ruby (5.1.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       sentry-ruby-core (= 5.1.1)
@@ -408,7 +408,7 @@ DEPENDENCIES
   rswag-ui
   rubocop-govuk
   rubocop-performance
-  sentry-rails (~> 5.1.0)
+  sentry-rails (~> 5.1.1)
   sentry-ruby (~> 5.1.1)
   sentry-sidekiq (~> 5.1.1)
   shoulda-matchers
