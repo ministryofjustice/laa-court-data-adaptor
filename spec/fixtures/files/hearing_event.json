@@ -1,0 +1,10 @@
+{
+  "hearingEventId": "b97449bb-5145-4bfc-a8ec-849082406d79",
+  "hearingEventDefinitionId": "b71e7d2a-d3b3-4a55-a393-6d451767fc05",
+  "defenceCounselId": "859d95d2-e394-43d0-bef3-c0eb3b1e7cf9",
+  "recordedLabel": "Hearing started",
+  "eventTime": "2020-04-30T16:17:58.610Z",
+  "lastModifiedTime": "2020-04-29T16:17:59.409Z",
+  "note": "Test note 1",
+  "alterable": false
+}

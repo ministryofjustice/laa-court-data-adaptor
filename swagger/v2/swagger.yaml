@@ -89,6 +89,41 @@ paths:
           description: Not found
         '401':
           description: Unauthorized
+  "/api/internal/v2/hearings/{hearing_id}/event_log/{date}":
+    get:
+      summary: fetch the hearing events log for a hearing
+      description: fetch the hearing event logs for a hearing
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: hearing_id
+        in: path
+        required: true
+        type: uuid
+        description: The hearing UUID
+        schema:
+          "$ref": hearing.json#/properties/id
+      - name: date
+        in: path
+        type: string
+        required: true
+        description: The date of the hearing
+        schema:
+          "$ref": definitions.json#/definitions/datePattern
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": hearing_event_log_response.json#
+        '401':
+          description: Unauthorized
+        '404':
+          description: not found
   "/api/internal/v2/hearing_results/{id}":
     get:
       summary: get hearing

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         resources :laa_references, only: %i[create update], param: :defendant_id
         resources :representation_orders, only: [:create]
         resources :hearing_results, only: [:show]
+        get "hearings/:hearing_id/event_log/:hearing_date", to: "hearing_event_logs#show"
       end
     end
 

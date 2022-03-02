@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "hearing_event",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "definition_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "defence_counsel_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "recorded_label": {
+      "type": "string",
+      "example": "Hearing ended"
+    },
+    "event_time": {
+      "type": "string",
+      "$ref": "definitions.json#/definitions/date-time"
+    },
+    "last_modified_time": {
+      "type": "string",
+      "$ref": "definitions.json#/definitions/date-time"
+    },
+    "alterable": {
+      "type": "boolean"
+    },
+    "note": {
+      "type": "string",
+      "example": "checked - no order produced - HC"
+    }
+  },
+  "required": [
+    "id",
+    "definition_id",
+    "recorded_label",
+    "event_time",
+    "last_modified_time",
+    "alterable"
+  ]
+}
