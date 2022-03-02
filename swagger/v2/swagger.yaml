@@ -154,10 +154,6 @@ paths:
           description: Unauthorized
         '404':
           description: Not found
-          content:
-            application/vnd.api+json:
-              schema:
-                "$ref": hearing_result.json#
   "/api/internal/v2/laa_references":
     post:
       summary: post laa_reference

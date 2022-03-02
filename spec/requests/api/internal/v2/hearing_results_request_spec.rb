@@ -68,7 +68,6 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
 
         describe "response" do
           response(404, "Not found") do
-            schema "$ref" => "hearing_result.json#"
             run_test!
           end
         end
