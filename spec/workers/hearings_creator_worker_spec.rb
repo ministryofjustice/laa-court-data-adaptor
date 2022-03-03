@@ -4,7 +4,7 @@ require "sidekiq/testing"
 
 RSpec.describe HearingsCreatorWorker, type: :worker do
   subject(:work) do
-    described_class.perform_async("XYZ", { data: "some data" }.to_json)
+    described_class.perform_async("XYZ", { "data" => "some data" })
   end
 
   it "queues the job" do
