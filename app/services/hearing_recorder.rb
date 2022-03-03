@@ -51,7 +51,7 @@ private
   def publish_hearing_to_queue
     HearingsCreatorWorker.perform_async(
       Current.request_id,
-      hearing_resulted_data,
+      hearing_resulted_data.to_json,
     )
   end
 

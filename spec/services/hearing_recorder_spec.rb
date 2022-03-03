@@ -22,10 +22,13 @@ RSpec.describe HearingRecorder do
     expect(record_hearing.body).to eq(hearing_resulted_data.stringify_keys)
   end
 
-  it "enqueues a HearingsCreatorWorker" do
+  it "enqueues a HearingsCreatorWorker job with a JSON payload" do
     Sidekiq::Testing.fake! do
       Current.set(request_id: "XYZ") do
-        expect(HearingsCreatorWorker).to receive(:perform_async).with("XYZ", hearing_resulted_data).and_call_original
+        expect(HearingsCreatorWorker)
+          .to receive(:perform_async)
+          .with("XYZ", hearing_resulted_data.to_json)
+
         record_hearing
       end
     end
