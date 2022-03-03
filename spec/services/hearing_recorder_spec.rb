@@ -3,7 +3,13 @@
 require "sidekiq/testing"
 
 RSpec.describe HearingRecorder do
-  subject(:record_hearing) { described_class.call(hearing_id: hearing_id, hearing_resulted_data: hearing_resulted_data, publish_to_queue: true) }
+  subject(:record_hearing) do
+    described_class.call(
+      hearing_id: hearing_id,
+      hearing_resulted_data: hearing_resulted_data,
+      publish_to_queue: true,
+    )
+  end
 
   let(:hearing_id) { "fa78c710-6a49-4276-bbb3-ad34c8d4e313" }
   let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing/valid.json").read) }
@@ -19,15 +25,15 @@ RSpec.describe HearingRecorder do
   end
 
   it "saves the hearing_resulted_data on the Hearing" do
-    expect(record_hearing.body).to eq(hearing_resulted_data.stringify_keys)
+    expect(record_hearing.body).to eq(hearing_resulted_data)
   end
 
-  it "enqueues a HearingsCreatorWorker job with a JSON payload" do
+  it "enqueues a HearingsCreatorWorker job" do
     Sidekiq::Testing.fake! do
       Current.set(request_id: "XYZ") do
         expect(HearingsCreatorWorker)
           .to receive(:perform_async)
-          .with("XYZ", hearing_resulted_data.to_json)
+          .with("XYZ", hearing_resulted_data)
 
         record_hearing
       end
@@ -54,7 +60,7 @@ RSpec.describe HearingRecorder do
 
     it "updates Hearing with new response" do
       record_hearing
-      expect(hearing.reload.body).to eq(hearing_resulted_data.stringify_keys)
+      expect(hearing.reload.body).to eq(hearing_resulted_data)
     end
   end
 
