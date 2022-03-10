@@ -5,7 +5,7 @@ require "swagger_helper"
 RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "v2/swagger.yaml" do
   include AuthorisedRequestHelper
 
-  path "/api/internal/v2/hearing_results/{id}" do
+  path "/api/internal/v2/hearing_results/{hearing_id}" do
     get("get hearing") do
       description "GET Common Platform hearing data"
       consumes "application/json"
@@ -14,7 +14,7 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
 
       produces "application/vnd.api+json"
 
-      parameter name: :id, in: :path, required: true, type: :uuid,
+      parameter name: :hearing_id, in: :path, required: true, type: :uuid,
                 schema: {
                   '$ref': "definitions.json#/definitions/uuid",
                 },
@@ -25,10 +25,10 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
       let(:Authorization) { "Bearer #{access_token.token}" }
 
       context "when Hearing Result exists on Common Platform" do
-        let(:id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
+        let(:hearing_id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
 
         before do
-          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{id}")
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{hearing_id}")
             .to_return(
               headers: { content_type: "application/json" },
               body: file_fixture("hearing_resulted.json").read,
@@ -46,7 +46,7 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
 
       context "when unauthorized" do
         response(401, "Unauthorized") do
-          let(:id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
+          let(:hearing_id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
           let(:Authorization) { nil }
 
           parameter "$ref" => "#/components/parameters/transaction_id_header"
@@ -55,10 +55,10 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
       end
 
       context "when Hearing Result does not exist on Common Platform" do
-        let(:id) { "123" }
+        let(:hearing_id) { "123" }
 
         before do
-          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{id}")
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{hearing_id}")
             .to_return(
               status: 200,
               headers: { content_type: "application/json" },

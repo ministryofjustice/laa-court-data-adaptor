@@ -5,7 +5,7 @@ module Api
     module V2
       class HearingResultsController < ApplicationController
         def show
-          hearing_result = CommonPlatform::Api::GetHearingResults.call(hearing_id: params[:id])
+          hearing_result = CommonPlatform::Api::GetHearingResults.call(hearing_id: params[:hearing_id])
 
           if hearing_result.present?
             render json: HmctsCommonPlatform::HearingResulted.new(hearing_result&.body).to_json, status: :ok

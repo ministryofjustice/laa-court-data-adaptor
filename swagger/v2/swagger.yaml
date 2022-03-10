@@ -124,7 +124,7 @@ paths:
           description: Unauthorized
         '404':
           description: not found
-  "/api/internal/v2/hearing_results/{id}":
+  "/api/internal/v2/hearing_results/{hearing_id}":
     get:
       summary: get hearing
       description: GET Common Platform hearing data
@@ -133,7 +133,7 @@ paths:
       security:
       - oAuth: []
       parameters:
-      - name: id
+      - name: hearing_id
         in: path
         required: true
         type: uuid
