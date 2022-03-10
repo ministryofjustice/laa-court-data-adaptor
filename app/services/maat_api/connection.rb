@@ -10,7 +10,7 @@ module MaatApi
       return if host.blank?
 
       Faraday.new host do |connection|
-        connection.request :oauth2, access_token.token, token_type: :bearer
+        connection.request :authorization, "Bearer", access_token.token
         connection.request :json
         connection.response :json, content_type: "application/json"
         connection.adapter Faraday.default_adapter
