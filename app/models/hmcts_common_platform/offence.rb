@@ -86,7 +86,7 @@ module HmctsCommonPlatform
         offence.plea plea.to_json
         offence.verdict verdict.to_json
         offence.judicial_results judicial_results.map(&:to_json)
-        offence.laa_application laa_application
+        offence.laa_application laa_application.to_json
       end
     end
 
