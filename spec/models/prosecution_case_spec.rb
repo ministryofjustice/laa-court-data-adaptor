@@ -2,7 +2,7 @@
 
 RSpec.describe ProsecutionCase, type: :model do
   let(:hearing_one) do
-    Hearing.create(
+    Hearing.new(
       body: {
         "hearing" => {
           "id" => "HWLLOOEOEO",
@@ -24,7 +24,7 @@ RSpec.describe ProsecutionCase, type: :model do
   end
 
   let(:hearing_two_day_one) do
-    Hearing.create(
+    Hearing.new(
       body: {
         "hearing" => {
           "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b",
@@ -54,7 +54,7 @@ RSpec.describe ProsecutionCase, type: :model do
   end
 
   let(:hearing_two_day_two) do
-    Hearing.create(
+    Hearing.new(
       body: {
         "hearing" => {
           "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b",
@@ -94,7 +94,7 @@ RSpec.describe ProsecutionCase, type: :model do
       end
     end
 
-    let(:prosecution_case) { described_class.create(id: prosecution_case_id, body: prosecution_case_result.body["cases"][0]) }
+    let(:prosecution_case) { described_class.new(id: prosecution_case_id, body: prosecution_case_result.body["cases"][0]) }
     let(:prosecution_case_id) { "31cbe62d-b1ec-4e82-89f7-99dced834900" }
 
     describe "#prosecution_case_reference" do
@@ -186,9 +186,9 @@ RSpec.describe ProsecutionCase, type: :model do
           end
 
           context "with no prosecution_case reference" do
-            let(:hearing_one)         { Hearing.create(body: { "hearing" => { "id" => "311bb2df-4df5-4abe-bae3-82f144e1e5c5" } }) }
-            let(:hearing_two_day_one) { Hearing.create(body: { "hearing" => { "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b" } }) }
-            let(:hearing_two_day_two) { Hearing.create(body: { "hearing" => { "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b" } }) }
+            let(:hearing_one)         { Hearing.new(body: { "hearing" => { "id" => "311bb2df-4df5-4abe-bae3-82f144e1e5c5" } }) }
+            let(:hearing_two_day_one) { Hearing.new(body: { "hearing" => { "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b" } }) }
+            let(:hearing_two_day_two) { Hearing.new(body: { "hearing" => { "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b" } }) }
 
             it "initialises Defendants without details" do
               expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice
