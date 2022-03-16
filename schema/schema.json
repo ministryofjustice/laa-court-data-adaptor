@@ -829,7 +829,7 @@
   "id": "laa-court-data-adaptor-api",
   "links": [
     {
-      "href": "https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk",
+      "href": "https://court-data-adaptor.service.justice.gov.uk",
       "rel": "self"
     }
   ],

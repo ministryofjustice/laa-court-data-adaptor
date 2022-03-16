@@ -37,7 +37,7 @@ GET /defendants/{defendant_id}
 #### Curl Example
 
 ```bash
-$ curl -n https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/defendants/$DEFENDANT_ID
+$ curl -n https://dev.court-data-adaptor.service.justice.gov.uk/$DEFENDANT_ID
 ```
 
 
@@ -107,7 +107,7 @@ POST /laa_references
 #### Curl Example
 
 ```bash
-$ curl -n -X POST https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/laa_references \
+$ curl -n -X POST https://dev.court-data-adaptor.service.justice.gov.uk.justice.gov.uk/laa_references \
   -d '{
   "data": {
     "type": "laa_references",
@@ -173,7 +173,7 @@ POST /oauth/token
 #### Curl Example
 
 ```bash
-$ curl -n -X POST https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/oauth/token \
+$ curl -n -X POST https://dev.court-data-adaptor.service.justice.gov.uk/oauth/token \
   -d '{
   "grant_type": "client_credentials",
   "client_id": "b0e2Uw0F_Hn4uVyxcaL6vas7WkYIdCcldv1uCo_vQAY",
@@ -240,7 +240,7 @@ GET /offences/{offence_id}
 #### Curl Example
 
 ```bash
-$ curl -n https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/offences/$OFFENCE_ID
+$ curl -n https://dev.court-data-adaptor.service.justice.gov.uk.justice.gov.uk/offences/$OFFENCE_ID
 ```
 
 
@@ -311,7 +311,7 @@ GET /api/internal/v1/prosecution_cases
 #### Curl Example
 
 ```bash
-$ curl -n https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/api/internal/v1/prosecution_cases \
+$ curl -n https://dev.court-data-adaptor.service.justice.gov.uk/api/internal/v1/prosecution_cases \
  -G \
   -d filter[prosecution_case_reference]=05PP1000915 \
   -H "Content-Type: application/vnd.api+json" \
