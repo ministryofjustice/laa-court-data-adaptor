@@ -18,6 +18,6 @@ ruby_http_duration_seconds_sum{namespace="laa-court-data-ui-staging"}
 
 ### Alerting
 
-PrometheusRules for AlertManager alert conditions are defined in [prometheus.yaml](https://github.com/ministryofjustice/cloud-platform-environments/blob/main/namespaces/live-1.cloud-platform.service.justice.gov.uk/laa-court-data-adaptor-prod/08-prometheus-rule.yaml) for each namespace.
+PrometheusRules for AlertManager alert conditions are defined in [prometheus.yaml](https://github.com/ministryofjustice/cloud-platform-environments/blob/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-court-data-adaptor-prod/08-prometheus-rule.yaml) for each namespace.
 
 Changes to these alerts are applied automatically by Cloud Platform Concourse.
