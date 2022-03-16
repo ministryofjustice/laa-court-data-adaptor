@@ -151,7 +151,14 @@ paths:
                                               All top-level and nested associations available for inclusion are listed under the relationships keys of the response body.
                                               For example to include hearing events, providers, prosecution cases, cracked ineffective trial as well as court applications and associated judicial results:
                                               include=hearing_events,providers,court_applications,prosecution_cases,cracked_ineffective_trial,court_applications.judicial_results
-      - "$ref": "#/components/parameters/transaction_id_header"
+      - name: sitting_day
+        in: query
+        required: false
+        type: string
+        format: datetime
+        schema:
+          "$ref": hearing.json#/definitions/hearingDay/properties/sittingDay
+        description: The sitting day of the hearing
       responses:
         '200':
           description: Success

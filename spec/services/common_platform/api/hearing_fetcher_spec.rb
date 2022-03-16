@@ -45,8 +45,8 @@ RSpec.describe CommonPlatform::Api::HearingFetcher do
   context "when fetching result with hearing_id and hearing_day query params" do
     subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, sitting_day: sitting_day) }
 
-    let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171037" }
-    let(:sitting_day) { "2021-05-21" }
+    let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
+    let(:sitting_day) { "2020-08-17" }
 
     let(:connection) { double("CommonPlatform::Connection") }
     let(:url) { "hearing/results" }
@@ -60,7 +60,7 @@ RSpec.describe CommonPlatform::Api::HearingFetcher do
 
     it "returns the requested hearing date" do
       VCR.use_cassette("hearing_result_fetcher/success_specified_sitting_day") do
-        expect(fetch_hearing.body["hearing"]["hearingDays"][0]["sittingDay"]).to eq("2021-05-21T09:01:01.001Z")
+        expect(fetch_hearing.body["hearing"]["hearingDays"][0]["sittingDay"]).to eq("2020-08-17T09:01:01.001Z")
       end
     end
 

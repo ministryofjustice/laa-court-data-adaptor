@@ -143,6 +143,14 @@ paths:
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
       - "$ref": "#/components/parameters/transaction_id_header"
+      - name: sitting_day
+        in: query
+        required: false
+        type: string
+        format: datetime
+        schema:
+          "$ref": hearing_day.json#/properties/sitting_day
+        description: The sitting day of the hearing
       responses:
         '200':
           description: Success

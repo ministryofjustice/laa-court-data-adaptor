@@ -8,6 +8,7 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
   let(:token) { access_token }
   let(:include) {}
   let(:id) { "4d01840d-5959-4539-a450-d39f57171036" }
+  let(:sitting_day) {}
 
   path "/api/internal/v1/hearings/{id}" do
     get("get hearing") do
@@ -15,6 +16,8 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
       consumes "application/json"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
+
+      produces "application/vnd.api+json"
 
       parameter name: :id, in: :path, required: true, type: :uuid,
                 schema: {
@@ -46,9 +49,7 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
 
         context "with the inclusion of hearing events, providers, court applications, prosecution cases, cracked ineffective trial and defendant judicial results" do
           response(200, "Success") do
-            produces "application/vnd.api+json"
-
-            parameter name: "include", in: :query, required: false, type: :string,
+            parameter name: :include, in: :query, required: false, type: :string,
                       schema: {
                         "$ref": "hearing.json#/definitions/example_included_query_parameters",
                       },
@@ -65,18 +66,35 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
       end
 
       context "when request is unauthorized" do
-        response("401", "Unauthorized") do
-          around do |example|
-            VCR.use_cassette("hearing_result_fetcher/unauthorised") do
+        let(:Authorization) { nil }
+
+        response(401, "Unauthorized") do
+          run_test!
+        end
+      end
+
+      context "with sitting day query parameter" do
+        let(:Authorization) { "Bearer #{token.token}" }
+        let(:sitting_day) { "2020-08-17" }
+
+        parameter name: :sitting_day, in: :query, required: false, type: :string, format: :datetime,
+                  schema: {
+                    "$ref": "hearing.json#/definitions/hearingDay/properties/sittingDay",
+                  },
+                  description: "The sitting day of the hearing"
+
+        around do |example|
+          VCR.use_cassette("hearing_result_fetcher/success_specified_sitting_day") do
+            VCR.use_cassette("hearing_logs_fetcher/success") do
               example.run
             end
           end
+        end
 
-          let(:Authorization) { nil }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
-          run_test!
+        context "with success" do
+          response(200, "Success") do
+            run_test!
+          end
         end
       end
     end

@@ -23,6 +23,7 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
       let(:Authorization) { "Bearer #{access_token.token}" }
+      let(:sitting_day) { nil }
 
       context "when Hearing Result exists on Common Platform" do
         let(:hearing_id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
@@ -68,6 +69,32 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
 
         describe "response" do
           response(404, "Not found") do
+            run_test!
+          end
+        end
+      end
+
+      context "with sitting day query parameter" do
+        let(:hearing_id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
+        let(:sitting_day) { "2020-08-17" }
+
+        parameter name: :sitting_day, in: :query, required: false, type: :string, format: :datetime,
+                  schema: {
+                    "$ref": "hearing_day.json#/properties/sitting_day",
+                  },
+                  description: "The sitting day of the hearing"
+
+        before do
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{hearing_id}&sittingDay=#{sitting_day}")
+            .to_return(
+              status: 200,
+              headers: { content_type: "application/json" },
+              body: file_fixture("hearing_resulted.json").read,
+            )
+        end
+
+        describe "response" do
+          response(200, "Success") do
             run_test!
           end
         end
