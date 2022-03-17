@@ -119,8 +119,6 @@ RSpec.describe "api/internal/v1/representation_orders", type: :request, swagger_
           let(:Authorization) { "Bearer #{token.token}" }
           before { representation_order[:data][:attributes][:maat_reference] = "ABC123123" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           before do
             expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)
           end
@@ -132,8 +130,6 @@ RSpec.describe "api/internal/v1/representation_orders", type: :request, swagger_
       context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
             expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)
