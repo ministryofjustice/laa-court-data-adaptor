@@ -27,10 +27,20 @@
               "properties": {
                 "name": {
                   "$ref": "organisation.json#/properties/name"
+                },
+                "address": {
+                  "$ref": "organisation.json#/properties/address"
                 }
-              }
+              },
+              "required": [
+                "name"
+              ]
             }
-          }
+          },
+          "required": [
+            "organisation",
+            "laa_contract_number"
+          ]
         },
         "offences": {
           "type": "array",
@@ -56,13 +66,16 @@
             }
           }
         }
-      }
+      },
+      "required": [
+        "maat_reference",
+        "defence_organisation",
+        "defendant_id",
+        "offences"
+      ]
     }
   },
   "required": [
-    "maat_reference",
-    "defence_organisation",
-    "defendant_id",
-    "offences"
+    "representation_order"
   ]
 }
