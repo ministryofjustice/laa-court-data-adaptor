@@ -78,6 +78,38 @@
               "description": "The name of the organisation",
               "type": "string",
               "example": "The Johnson Partnership"
+            },
+            "address": {
+              "type": "object",
+              "properties": {
+                "address1": {
+                  "description": "The address_1 of the organisation",
+                  "type": "string"
+                },
+                "address2": {
+                  "description": "The address_2 of the organisation",
+                  "type": "string"
+                },
+                "address3": {
+                  "description": "The address_3 of the organisation",
+                  "type": "string"
+                },
+                "address4": {
+                  "description": "The address_4 of the organisation",
+                  "type": "string"
+                },
+                "address5": {
+                  "description": "The address_5 of the organisation",
+                  "type": "string"
+                },
+                "postcode": {
+                  "description": "The postcode of the organisation",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "address1"
+              ]
             }
           },
           "required": [
@@ -139,8 +171,12 @@
         },
         "attributes": {
           "$ref": "#/definitions/attributes"
-        } 
-      }
+        }
+      },
+      "required": [
+        "type",
+        "attributes"
+      ]
     },
     "attributes": {
       "type": "object",
@@ -161,7 +197,13 @@
         "defendant_id": {
           "$ref": "defendant.json#/definitions/id"
         }
-      }
+      },
+      "required": [
+        "maat_reference",
+        "defence_organisation",
+        "defendant_id",
+        "offences"
+      ]
     },
     "relationships": {
       "type": "object",

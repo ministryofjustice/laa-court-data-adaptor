@@ -10,14 +10,6 @@
     "laa_reference": {
       "type": "object",
       "properties": {
-        "id": {
-          "description": "The unique identifier of LAA Reference",
-          "readOnly": true,
-          "format": "uuid",
-          "type": [
-            "string"
-          ]
-        },
         "user_name": {
           "example": "jon-5",
           "description": "The user name of the caseworker linking or unlinking the case",
@@ -34,7 +26,14 @@
           "minimum": 0,
           "maximum": 999999999
         }
-      }
+      },
+      "required": [
+        "user_name",
+        "defendant_id"
+      ]
     }
-  }
+  },
+  "required": [
+    "laa_reference"
+  ]
 }

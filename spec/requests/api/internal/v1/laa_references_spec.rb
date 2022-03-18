@@ -58,9 +58,9 @@ RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v
           end
         end
 
-        parameter name: :laa_reference, in: :body, required: false, type: :object,
+        parameter name: :laa_reference, in: :body, required: true, type: :object,
                   schema: {
-                    '$ref': "laa_reference.json#/definitions/new_resource",
+                    "$ref": "laa_reference.json#/definitions/new_resource",
                   },
                   description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
 

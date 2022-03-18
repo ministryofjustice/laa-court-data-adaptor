@@ -49,9 +49,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
         end
 
         parameter name: :laa_reference, in: :body, required: false, type: :object,
-                  schema: {
-                    "$ref": "laa_reference_post_request_body.json#",
-                  },
+                  schema: { "$ref": "laa_reference_post_request_body.json#" },
                   description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
 
         parameter "$ref" => "#/components/parameters/transaction_id_header"

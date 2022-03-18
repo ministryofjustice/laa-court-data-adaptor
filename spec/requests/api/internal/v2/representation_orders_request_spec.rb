@@ -101,11 +101,9 @@ RSpec.describe "api/internal/v2/representation_orders", type: :request, swagger_
       context "with an invalid maat_reference" do
         response(422, "Unprocessable entity") do
           let(:Authorization) { "Bearer #{token.token}" }
-          before { representation_order[:representation_order][:maat_reference] = "ABC123123" }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
+            representation_order[:representation_order][:maat_reference] = "ABC123123"
             expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)
           end
 
@@ -116,8 +114,6 @@ RSpec.describe "api/internal/v2/representation_orders", type: :request, swagger_
       context "when request is unauthorized" do
         response(401, "Unauthorized") do
           let(:Authorization) { nil }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
             expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)

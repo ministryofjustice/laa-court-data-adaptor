@@ -59,7 +59,11 @@
         "attributes": {
            "$ref": "#/definitions/attributes"
          }
-      }
+      },
+      "required": [
+        "type",
+        "attributes"
+      ]
     },
     "unlink_reason_code": {
       "example": 1,
@@ -105,10 +109,14 @@
         "user_name": {
           "$ref": "#/definitions/user_name"
         },
-          "maat_reference": {
-            "$ref": "#/definitions/maat_reference"
+        "maat_reference": {
+          "$ref": "#/definitions/maat_reference"
         }
-      }
+      },
+      "required": [
+        "defendant_id",
+        "user_name"
+      ]
     },
     "relationships": {
       "type": "object",
