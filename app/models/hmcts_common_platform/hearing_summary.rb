@@ -34,6 +34,14 @@ module HmctsCommonPlatform
       defence_counsels.map(&:id)
     end
 
+    def jurisdiction_type
+      data[:jurisdictionType]
+    end
+
+    def defendant_ids
+      data[:defendantIds]
+    end
+
     def defence_counsels
       Array(data[:defenceCounsel]).map do |defence_counsel_data|
         HmctsCommonPlatform::DefenceCounsel.new(defence_counsel_data)
@@ -51,6 +59,8 @@ module HmctsCommonPlatform
         hearing_summary.id id
         hearing_summary.hearing_type hearing_type
         hearing_summary.estimated_duration estimated_duration
+        hearing_summary.defendant_ids defendant_ids
+        hearing_summary.jurisdiction_type jurisdiction_type
         hearing_summary.court_centre court_centre.to_json
         hearing_summary.hearing_days hearing_days.map(&:to_json)
         hearing_summary.defence_counsels defence_counsels.map(&:to_json)
