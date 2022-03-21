@@ -1,0 +1,17 @@
+{
+  "prosecutionConcluded": [
+    {
+      "prosecutionCaseId": "dc7d0f3e-6316-4d5e-8827-3e6a3ddfdebb",
+      "defendantId": "67d948d1-1792-4565-a522-8ab2425827e8",
+      "isConcluded": true,
+      "hearingIdWhereChangeOccurred": "96095df2-b66b-421d-881e-c45fd267e751",
+      "offenceSummary": [
+        {
+          "offenceId": "fb2a3ecb-fc1a-4a80-88ac-222478bc4a92",
+          "offenceCode": "PT00011",
+          "proceedingsConcluded": true
+        }
+      ]
+    }
+  ]
+}
