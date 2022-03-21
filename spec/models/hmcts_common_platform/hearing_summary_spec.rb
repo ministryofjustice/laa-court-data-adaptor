@@ -11,6 +11,8 @@ RSpec.describe HmctsCommonPlatform::HearingSummary, type: :model do
     it { expect(hearing_summary.id).to eql("9b8df2aa-802d-413a-82b3-89eff25cde7b") }
     it { expect(hearing_summary.hearing_type).to eql("First hearing") }
     it { expect(hearing_summary.estimated_duration).to eq("20") }
+    it { expect(hearing_summary.jurisdiction_type).to eq("MAGISTRATES") }
+    it { expect(hearing_summary.defendant_ids).to eq(%w[562dc2de-2258-4476-8be4-69cf15623f83 b760daba-0d38-4bae-ad57-fbfd8419aefe]) }
     it { expect(hearing_summary.hearing_days).to all(be_an(HmctsCommonPlatform::HearingDay)) }
     it { expect(hearing_summary.court_centre).to be_an(HmctsCommonPlatform::CourtCentre) }
     it { expect(hearing_summary.defence_counsels).to all(be_a(HmctsCommonPlatform::DefenceCounsel)) }
@@ -38,6 +40,8 @@ RSpec.describe HmctsCommonPlatform::HearingSummary, type: :model do
       expect(json["id"]).to eql("9b8df2aa-802d-413a-82b3-89eff25cde7b")
       expect(json["hearing_type"]).to eql("First hearing")
       expect(json["estimated_duration"]).to eql("20")
+      expect(json["jurisdiction_type"]).to eq("MAGISTRATES")
+      expect(json["defendant_ids"]).to eq(%w[562dc2de-2258-4476-8be4-69cf15623f83 b760daba-0d38-4bae-ad57-fbfd8419aefe])
       expect(json["court_centre"]).to be_present
       expect(json["hearing_days"].count).to be(1)
       expect(json["defence_counsels"].count).to be(1)

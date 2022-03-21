@@ -22,6 +22,20 @@
       "description": "Estimated duration of the hearing",
       "type": "string"
     },
+    "defendant_ids": {
+      "readOnly": true,
+      "type": "array",
+      "description": "The identifiers of the defendants that were heard",
+      "minItems": 1,
+      "items": {
+        "$ref": "definitions.json#/definitions/uuid"
+      }
+    },
+    "jurisdiction_type": {
+      "readOnly": true,
+      "type": "string",
+      "description": "The jurisdiction of the hearing"
+    },
     "court_centre": {
       "readOnly": true,
       "description": "An object representing court centre details",
@@ -47,5 +61,12 @@
         "$ref": "defence_counsel.json#"
       }
     }
-  }
+  },
+  "required": [
+    "hearing_id",
+    "jurisdiction_type",
+    "court_centre",
+    "hearing_type",
+    "defendant_ids"
+  ]
 }
