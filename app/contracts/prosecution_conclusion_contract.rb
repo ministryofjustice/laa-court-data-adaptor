@@ -10,7 +10,7 @@ class ProsecutionConclusionContract < Dry::Validation::Contract
         required(:offenceId).value(:string)
         required(:offenceCode).value(:string)
         required(:proceedingsConcluded).value(:bool)
-        required(:proceedingsConcludedChangedDate).value(:string)
+        optional(:proceedingsConcludedChangedDate).value(:string)
 
         optional(:plea).value(:hash) do
           required(:originatingHearingId).value(:string)

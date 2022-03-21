@@ -23,7 +23,7 @@ RSpec.describe "api/external/v2/prosecution_conclusions", type: :request, swagge
                   description: "The minimal prosecution concluded payload"
 
         let(:Authorization) { "Bearer #{token.token}" }
-        let(:prosecution_conclusion) { JSON.parse(file_fixture("prosecution_conclusion/valid.json").read) }
+        let(:prosecution_conclusion) { JSON.parse(file_fixture("prosecution_conclusion/all_fields.json").read) }
 
         before do
           LaaReference.create!(
