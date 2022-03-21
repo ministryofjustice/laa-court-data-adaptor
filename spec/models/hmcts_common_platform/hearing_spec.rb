@@ -21,6 +21,7 @@ RSpec.describe HmctsCommonPlatform::Hearing, type: :model do
     expect(hearing.to_json["defence_counsels"]).to be_present
     expect(hearing.to_json["judiciary"]).to be_present
     expect(hearing.to_json["defendant_judicial_results"]).to be_present
+    expect(hearing.to_json["defendant_attendance"]).to be_present
   end
 
   it { expect(hearing.id).to eql("b935a64a-6d03-4da4-bba6-4d32cc2e7fb4") }
@@ -39,4 +40,5 @@ RSpec.describe HmctsCommonPlatform::Hearing, type: :model do
   it { expect(hearing.hearing_type).to be_an(HmctsCommonPlatform::HearingType) }
   it { expect(hearing.cracked_ineffective_trial).to be_an(HmctsCommonPlatform::CrackedIneffectiveTrial) }
   it { expect(hearing.court_centre).to be_an(HmctsCommonPlatform::CourtCentre) }
+  it { expect(hearing.defendant_attendance).to be_an(HmctsCommonPlatform::DefendantAttendance) }
 end

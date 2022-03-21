@@ -395,6 +395,17 @@
       ]
     }
   ],
+  "defendantAttendance": [
+    {
+      "attendanceDays": [
+        {
+          "attendanceType": "IN_PERSON",
+          "day": "2021-05-11"
+        }
+      ],
+      "defendantId": "fe51e09a-56a2-4bd8-9ad9-cea8926735ec"
+    }
+  ],
   "isEffectiveTrial": false,
   "isBoxHearing": false,
   "hearingDays": [

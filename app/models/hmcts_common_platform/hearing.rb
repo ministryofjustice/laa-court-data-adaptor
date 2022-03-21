@@ -86,6 +86,10 @@ module HmctsCommonPlatform
       HmctsCommonPlatform::CrackedIneffectiveTrial.new(data[:crackedIneffectiveTrial])
     end
 
+    def defendant_attendance
+      HmctsCommonPlatform::DefendantAttendance.new(data[:defendantAttendance])
+    end
+
     def to_json(*_args)
       to_builder.attributes!
     end
@@ -108,6 +112,7 @@ module HmctsCommonPlatform
         hearing.prosecution_counsels prosecution_counsels.map(&:to_json)
         hearing.defence_counsels defence_counsels.map(&:to_json)
         hearing.cracked_ineffective_trial cracked_ineffective_trial.to_json
+        hearing.defendant_attendance defendant_attendance.to_json
       end
     end
   end
