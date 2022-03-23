@@ -16,6 +16,10 @@ module HmctsCommonPlatform
       data[:arrestSummonsNumber]
     end
 
+    def bail_conditions
+      data[:bailConditions]
+    end
+
     def to_json(*_args)
       return {} if attrs.all? { |_k, v| v.blank? }
 
@@ -27,6 +31,7 @@ module HmctsCommonPlatform
     def to_builder
       Jbuilder.new do |person_defendant|
         person_defendant.arrest_summons_number arrest_summons_number
+        person_defendant.bail_conditions bail_conditions
         person_defendant.person_details person_details.to_json
       end
     end

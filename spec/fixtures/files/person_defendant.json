@@ -1,5 +1,6 @@
 {
   "arrestSummonsNumber": "TFL1",
+  "bailConditions": "some conditions",
   "bailStatus": {
     "code": "C",
     "description": "Custody or remanded into custody",

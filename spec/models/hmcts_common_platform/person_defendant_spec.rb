@@ -8,10 +8,12 @@ RSpec.describe HmctsCommonPlatform::PersonDefendant, type: :model do
 
   it "generates a JSON representation of the data" do
     expect(person_defendant.to_json["arrest_summons_number"]).to eql("TFL1")
+    expect(person_defendant.to_json["bail_conditions"]).to eql("some conditions")
     expect(person_defendant.to_json["person_details"]).to be_present
   end
 
   it { expect(person_defendant.arrest_summons_number).to eql("TFL1") }
+  it { expect(person_defendant.bail_conditions).to eql("some conditions") }
   it { expect(person_defendant.first_name).to eql("Carlee") }
   it { expect(person_defendant.last_name).to eql("WilliamsonConnelly") }
   it { expect(person_defendant.date_of_birth).to eql("1990-01-01") }
