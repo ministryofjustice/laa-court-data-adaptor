@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "attendance_day",
+  "description": "Attendance date recorded with or without delegated powers",
+  "type": "object",
+  "properties": {
+    "day": {
+      "$ref": "definitions.json#/definitions/datePattern"
+    },
+    "attendance_type": {
+      "description": "The defendant attendance type for hearing.",
+      "type": "string",
+      "enum": [
+        "IN_PERSON",
+        "BY_VIDEO",
+        "NOT_PRESENT"
+      ]
+    }
+  },
+  "required": [
+    "day",
+    "attendance_type"
+  ],
+  "additionalProperties": false
+}

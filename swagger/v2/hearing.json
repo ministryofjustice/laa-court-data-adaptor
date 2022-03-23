@@ -84,6 +84,13 @@
     "cracked_ineffective_trial": {
       "description": "Records the description of the reason for a Cracked or Ineffective trial when the hearing is a trial type",
       "$ref": "cracked_ineffective_trial.json#"
+    },
+    "defendant_attendance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "defendant_attendance.json#"
+      }
     }
   }
 }

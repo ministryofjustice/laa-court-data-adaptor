@@ -5,6 +5,7 @@ RSpec.configure do |config|
 
   config.json_schemas[:address] = "#{schema_path}/global/apiAddress.json"
   config.json_schemas[:allocation_decision] = "#{schema_path}/global/apiAllocationDecision.json"
+  config.json_schemas[:attendance_day] = "#{schema_path}/global/apiAttendanceDay.json"
   config.json_schemas[:contact_details] = "#{schema_path}/global/apiContactNumber.json"
   config.json_schemas[:court_application] = "#{schema_path}/global/apiCourtApplication.json"
   config.json_schemas[:court_application_party] = "#{schema_path}/global/apiCourtApplicationParty.json"
@@ -13,6 +14,7 @@ RSpec.configure do |config|
   config.json_schemas[:court_indicated_sentence] = "#{schema_path}/global/apiCourtIndicatedSentence.json"
   config.json_schemas[:cracked_ineffective_trial] = "#{schema_path}/global/apiCrackedIneffectiveTrial.json"
   config.json_schemas[:defendant] = "#{schema_path}/global/apiDefendant.json"
+  config.json_schemas[:defendant_attendance] = "#{schema_path}/global/apiDefendantAttendance.json"
   config.json_schemas[:defendant_case] = "#{schema_path}/global/apiDefendantCase.json"
   config.json_schemas[:defendant_judicial_result] = "#{schema_path}/global/apiDefendantJudicialResult.json"
   config.json_schemas[:defence_counsel] = "#{schema_path}/global/apiDefenceCounsel.json"
