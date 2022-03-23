@@ -6,6 +6,7 @@ RSpec.configure do |config|
   config.json_schemas[:address] = "#{schema_path}/global/apiAddress.json"
   config.json_schemas[:allocation_decision] = "#{schema_path}/global/apiAllocationDecision.json"
   config.json_schemas[:attendance_day] = "#{schema_path}/global/apiAttendanceDay.json"
+  config.json_schemas[:bail_status] = "#{schema_path}/global/apiBailStatus.json"
   config.json_schemas[:contact_details] = "#{schema_path}/global/apiContactNumber.json"
   config.json_schemas[:court_application] = "#{schema_path}/global/apiCourtApplication.json"
   config.json_schemas[:court_application_party] = "#{schema_path}/global/apiCourtApplicationParty.json"

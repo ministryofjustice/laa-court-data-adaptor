@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "bail_status",
+  "type": "object",
+  "properties": {
+    "code":  {
+      "type": "string"
+    },
+    "description":  {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "description"
+  ],
+  "additionalProperties": false
+}
