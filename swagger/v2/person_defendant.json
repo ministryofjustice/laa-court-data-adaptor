@@ -6,8 +6,18 @@
     "person_details": {
       "$ref": "person.json#"
     },
-    "arrestSummonsNumber": {
+    "arrest_summons_number": {
       "type": "string"
-    }
+    },
+    "bail_conditions": {
+      "description": "Defines the conditions that have been applied to the Order of Bail, or Order of Remand into the care of the Local Authority",
+      "type": "string"
+    },
+    "bail_status": {
+      "$ref": "bail_status.json#"
+    },
+    "required": [
+      "person_details"
+    ]
   }
 }
