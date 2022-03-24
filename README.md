@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/ministryofjustice/laa-court-data-adaptor.svg?style=shield)](https://app.circleci.com/pipelines/github/ministryofjustice/laa-court-data-adaptor?branch=master)
 
-
+[![repo standards badge](https://img.shields.io/badge/dynamic/json?color=green&style=for-the-badge&logo=github&label=MoJ%20Compliant&query=%24.data%5B%3F%28%40.name%20%3D%3D%20%22laa-court-data-adaptor%22%29%5D.status&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fgithub_repositories)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/github_repositories#laa-court-data-adaptor "Link to report")
 
 # LAA Court Data Adaptor
 
@@ -38,7 +38,7 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
 
 ## Dependencies
 * Ruby version
-    * Ruby version 3.1.1
+    * Ruby version 3.0.3
     * Rails 6.1.4.6
 
 * System dependencies
