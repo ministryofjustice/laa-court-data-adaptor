@@ -220,20 +220,20 @@ jobs:
 
 workflows:
   version: 2
-  test-build-deploy-master-to-live-cluster:
+  test-build-deploy-main-to-live-cluster:
     jobs:
       - test:
           filters:
             branches:
               only:
-                - master
+                - main
       - build-and-push-app:
           requires:
             - test
           filters:
             branches:
               only:
-                - master
+                - main
       - hold_install_on_dev:
           type: approval
           requires:
@@ -272,7 +272,7 @@ workflows:
         filters:
           branches:
             ignore:
-              - master
+              - main
 
   build-deploy-branch-to-live-cluster:
     jobs:
@@ -281,7 +281,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
       - build-and-push-app:
           requires:
             - branch-build-approval
