@@ -1,85 +1,133 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Court Application Type",
-  "description": "Court application type",
   "id": "court_application_type",
-  "stability": "prototype",
-  "strictProperties": true,
+  "description": "The type of application made to court for judicial decision. Taken from reference data",
   "type": "object",
-  "definitions": {
+  "properties": {
     "id": {
-      "description": "The unique identifier of the court application type",
-      "example": "48c0e8f5-0522-4ecf-82ae-05363f235722",
-      "format": "uuid",
-      "type": "string"
+      "$ref": "definitions.json#/definitions/uuid"
     },
-    "type": {
-      "description": "The court application type",
-      "example": "court_application_type",
+    "code": {
       "type": "string"
     },
     "description": {
-      "description": "The description of the court application type",
-      "example": "Application for transfer of legal aid",
-      "type": "string"
-    },
-    "code": {
-      "description": "The code of the application type",
-      "example": "LA12505",
-      "type": "string"
-    },
-    "category_code": {
-      "description": "The category code of the application type",
-      "example": "CO",
       "type": "string"
     },
     "legislation": {
-      "description": "The legislation related to the application type",
-      "example": "Pursuant to Regulation 14 of the Criminal Legal Aid",
       "type": "string"
+    },
+    "category_code": {
+      "type": "string"
+    },
+    "link_type": {
+      "type": "string",
+      "enum": [
+        "STANDALONE",
+        "LINKED",
+        "SJP",
+        "FIRST_HEARING"
+      ]
+    },
+    "jurisdiction": {
+      "description": "Indicates the jurisdiction that is required to consider the application",
+      "type": "string",
+      "enum": [
+        "MAGISTRATES",
+        "CROWN",
+        "EITHER"
+      ]
+    },
+    "appeal_flag": {
+      "type": "boolean"
+    },
+    "summons_template_type": {
+      "type": "string",
+      "enum": [
+        "GENERIC_APPLICATION",
+        "BREACH",
+        "NOT_APPLICABLE",
+        "FIRST_HEARING",
+        "PARENT_GENERIC_CASE"
+      ]
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date"
+    },
+    "valid_to": {
+      "type": "string",
+      "format": "date"
     },
     "applicant_appellant_flag": {
-      "description": "The flag indicating whether the applicant is an appellant",
-      "example": "false",
+      "type": "boolean"
+    },
+    "plea_applicable_flag": {
+      "type": "boolean"
+    },
+    "offence_active_order": {
+      "type": "string",
+      "enum": [
+        "OFFENCE",
+        "COURT_ORDER",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "commr_of_oath_flag": {
+      "type": "boolean"
+    },
+    "breach_type": {
+      "type": "string",
+      "enum": [
+        "GENERIC_BREACH",
+        "COMMISSION_OF_NEW_OFFENCE_BREACH",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "court_of_appeal_flag": {
+      "type": "boolean"
+    },
+    "court_extract_avl_flag": {
+      "type": "boolean"
+    },
+    "listing_notif_template": {
       "type": "string"
     },
-    "resource": {
-      "description": "An object representing a single court application",
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "type": {
-          "$ref": "#/definitions/type"
-        },
-        "attributes": {
-          "$ref": "#/definitions/attributes"
-        }
-      }
+    "boxwork_notif_template": {
+      "type": "string"
     },
-    "attributes": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "description": {
-          "$ref": "#/definitions/description"
-        },
-        "code": {
-          "$ref": "#/definitions/code"
-        },
-        "category_code": {
-          "$ref": "#/definitions/category_code"
-        },
-        "legislation": {
-          "$ref": "#/definitions/legislation"
-        },
-        "applicant_appellant_flag": {
-          "$ref": "#/definitions/applicant_appellant_flag"
-        }
-      }
+    "type_welsh": {
+      "type": "string"
+    },
+    "legislation_welsh": {
+      "type": "string"
+    },
+    "prosecutor_third_party_flag": {
+      "type": "boolean"
+    },
+    "spi_out_applicable_flag": {
+      "type": "boolean"
+    },
+    "hearing_code": {
+      "type": "string"
     }
-  }
+  },
+  "required": [
+    "id",
+    "type",
+    "category_code",
+    "link_type",
+    "jurisdiction",
+    "summons_template_type",
+    "breach_type",
+    "appeal_flag",
+    "applicant_appellant_flag",
+    "plea_applicable_flag",
+    "commr_of_oath_flag",
+    "court_of_appeal_flag",
+    "court_extract_avl_flag",
+    "prosecutor_third_party_flag",
+    "spi_out_applicable_flag",
+    "offence_active_order"
+  ],
+  "additionalProperties": false
 }

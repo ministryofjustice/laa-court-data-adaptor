@@ -120,6 +120,10 @@ module HmctsCommonPlatform
       end
     end
 
+    def type
+      HmctsCommonPlatform::CourtApplicationType.new(data[:type])
+    end
+
     def to_json(*_args)
       to_builder.attributes!
     end
@@ -134,15 +138,12 @@ module HmctsCommonPlatform
         court_application.judicial_results judicial_results.map(&:to_json)
         court_application.respondents respondents.map(&:to_json)
         court_application.defendant person_defendant.to_json
+        court_application.type type.to_json
       end
     end
 
     def person_defendant
       HmctsCommonPlatform::PersonDefendant.new(data.dig(:applicant, :masterDefendant, :personDefendant))
-    end
-
-    def type
-      HmctsCommonPlatform::CourtApplicationType.new(data[:type])
     end
   end
 end
