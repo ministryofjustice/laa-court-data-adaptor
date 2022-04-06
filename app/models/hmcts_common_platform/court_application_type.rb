@@ -18,10 +18,6 @@ module HmctsCommonPlatform
       data[:code]
     end
 
-    def type
-      data[:type]
-    end
-
     def category_code
       data[:categoryCode]
     end
