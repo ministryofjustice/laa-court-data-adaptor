@@ -19,5 +19,7 @@
   "prosecutorThirdPartyFlag": false,
   "spiOutApplicableFlag": true,
   "summonsTemplateType": "NOT_APPLICABLE",
-  "type": "Application for transfer of legal aid"
+  "type": "Application for transfer of legal aid",
+  "validFrom": "2022-01-01",
+  "validTo": "2022-01-02"
 }

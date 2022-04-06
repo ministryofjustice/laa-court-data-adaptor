@@ -35,6 +35,9 @@
     },
     "verdict": {
       "$ref": "verdict.json#"
+    },
+    "type": {
+      "$ref": "court_application_type.json#"
     }
   }
 }
