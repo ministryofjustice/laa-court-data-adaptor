@@ -38,12 +38,12 @@ gem "bootsnap", ">= 1.4.2", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 gem "aws-sdk-sqs"
-gem "doorkeeper", "~> 5.5"
+gem "doorkeeper", "~> 5.5", ">= 5.5.4"
 gem "dry-validation"
 gem "faraday", "~> 2.2.0"
 gem "faraday-retry"
 gem "hmcts_common_platform", github: "ministryofjustice/hmcts_common_platform", tag: "v0.2.0"
-gem "jbuilder", "~> 2.11"
+gem "jbuilder", "~> 2.11", ">= 2.11.5"
 gem "jsonapi_parameters"
 gem "jsonapi-serializer"
 gem "json-schema", git: "https://github.com/voxpupuli/json-schema", branch: "master", ref: "081dfc3"
