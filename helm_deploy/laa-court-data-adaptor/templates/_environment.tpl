@@ -7,7 +7,7 @@ env:
   - name: DATABASE_URL
     valueFrom:
       secretKeyRef:
-        name: rds-instance-output
+        name: laa-court-data-adaptor-instance-output
         key: url
   - name: REDIS_URL
     valueFrom:
