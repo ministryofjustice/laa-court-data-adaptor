@@ -62,6 +62,7 @@
     },
     "hearingLanguage": {
       "description": "The language of the hearing",
+      "type": "string",
       "enum": [
         "ENGLISH",
         "WELSH"
