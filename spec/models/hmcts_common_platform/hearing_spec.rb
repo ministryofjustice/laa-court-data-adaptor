@@ -40,5 +40,5 @@ RSpec.describe HmctsCommonPlatform::Hearing, type: :model do
   it { expect(hearing.hearing_type).to be_an(HmctsCommonPlatform::HearingType) }
   it { expect(hearing.cracked_ineffective_trial).to be_an(HmctsCommonPlatform::CrackedIneffectiveTrial) }
   it { expect(hearing.court_centre).to be_an(HmctsCommonPlatform::CourtCentre) }
-  it { expect(hearing.defendant_attendance).to be_an(HmctsCommonPlatform::DefendantAttendance) }
+  it { expect(hearing.defendant_attendance).to all be_an(HmctsCommonPlatform::DefendantAttendance) }
 end
