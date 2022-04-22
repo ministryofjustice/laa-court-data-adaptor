@@ -15,9 +15,9 @@
     },
     "bail_status": {
       "$ref": "bail_status.json#"
-    },
-    "required": [
-      "person_details"
-    ]
-  }
+    }
+  },
+  "required": [
+    "person_details"
+   ]
 }
