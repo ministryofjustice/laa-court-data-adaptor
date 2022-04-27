@@ -10,16 +10,16 @@ ruby "3.0.3"
 
 # Remove dependency on Action Mailbox > Marcel > MimeMagic due to https://github.com/rails/rails/issues/41750,
 # by loading only the individual Rails modules we need:
-gem "actioncable", "~> 6.1.4.6"
-gem "actionmailer", "~> 6.1.4.6"
-gem "actionpack", "~> 6.1.4.6"
-gem "actionview", "~> 6.1.4.6"
+gem "actioncable", "~> 6.1.5.1"
+gem "actionmailer", "~> 6.1.5.1"
+gem "actionpack", "~> 6.1.5.1"
+gem "actionview", "~> 6.1.5.1"
 gem "activejob", "~> 6.1.4.6"
 gem "activemodel", "~> 6.1.4.6"
 gem "activerecord", "~> 6.1.4.6"
 gem "activesupport", "~> 6.1.4.6"
 gem "bundler"
-gem "railties", "~> 6.1.4.6"
+gem "railties", "~> 6.1.5.1"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
@@ -38,12 +38,12 @@ gem "bootsnap", ">= 1.4.2", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 gem "aws-sdk-sqs"
-gem "doorkeeper", "~> 5.5"
+gem "doorkeeper", "~> 5.5", ">= 5.5.4"
 gem "dry-validation"
 gem "faraday", "~> 2.2.0"
 gem "faraday-retry"
 gem "hmcts_common_platform", github: "ministryofjustice/hmcts_common_platform", tag: "v0.2.0"
-gem "jbuilder", "~> 2.11"
+gem "jbuilder", "~> 2.11", ">= 2.11.5"
 gem "jsonapi_parameters"
 gem "jsonapi-serializer"
 gem "json-schema", git: "https://github.com/voxpupuli/json-schema", branch: "master", ref: "081dfc3"
