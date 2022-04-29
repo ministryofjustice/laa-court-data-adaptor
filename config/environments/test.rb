@@ -36,7 +36,7 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  config.active_job.queue_adapter = :test
+  # config.active_job.queue_adapter = :test
 
   config.logger = Logger.new($stdout)
   config.log_level = :warn
