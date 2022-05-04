@@ -5,38 +5,24 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.3"
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-# gem "rails", "~> 6.1.3"
-
-# Remove dependency on Action Mailbox > Marcel > MimeMagic due to https://github.com/rails/rails/issues/41750,
-# by loading only the individual Rails modules we need:
-gem "actioncable", "~> 6.1.4.6"
-gem "actionmailer", "~> 6.1.4.6"
-gem "actionpack", "~> 6.1.4.6"
-gem "actionview", "~> 6.1.4.6"
-gem "activejob", "~> 6.1.4.6"
-gem "activemodel", "~> 6.1.4.6"
-gem "activerecord", "~> 6.1.4.6"
-gem "activesupport", "~> 6.1.4.6"
+gem "actionpack", "~> 6.1.5.1"
+gem "actionview", "~> 6.1.5.1"
+gem "activemodel", "~> 6.1.5.1"
+gem "activerecord", "~> 6.1.5.1"
+gem "activesupport", "~> 6.1.5.1"
 gem "bundler"
-gem "railties", "~> 6.1.4.6"
+gem "railties", "~> 6.1.5.1"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
 gem "puma", "~> 5.6"
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.7'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 gem "bcrypt", "~> 3.1.17"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
 gem "aws-sdk-sqs"
 gem "doorkeeper", "~> 5.5"
 gem "dry-validation"
