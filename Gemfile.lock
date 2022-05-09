@@ -110,10 +110,10 @@ GEM
       dry-schema (~> 1.9, >= 1.9.1)
     erubi (1.10.0)
     erubis (2.7.0)
-    faraday (2.2.0)
+    faraday (2.3.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
-    faraday-net_http (2.0.1)
+    faraday-net_http (2.0.2)
     faraday-retry (1.0.3)
     ffi (1.15.5)
     hashdiff (1.0.1)
@@ -338,7 +338,7 @@ DEPENDENCIES
   doorkeeper (~> 5.5)
   dotenv-rails
   dry-validation
-  faraday (~> 2.2.0)
+  faraday (~> 2.3.0)
   faraday-retry
   hmcts_common_platform!
   jbuilder (~> 2.11)
