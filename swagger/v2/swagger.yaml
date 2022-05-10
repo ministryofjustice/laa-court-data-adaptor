@@ -149,7 +149,7 @@ paths:
         type: string
         format: datetime
         schema:
-          "$ref": hearing_day.json#/properties/sitting_day
+          "$ref": definitions.json#/definitions/datePattern
         description: The sitting day of the hearing
       responses:
         '200':

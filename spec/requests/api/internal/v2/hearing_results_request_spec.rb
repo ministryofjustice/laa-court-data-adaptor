@@ -80,7 +80,7 @@ RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "
 
         parameter name: :sitting_day, in: :query, required: false, type: :string, format: :datetime,
                   schema: {
-                    "$ref": "hearing_day.json#/properties/sitting_day",
+                    "$ref": "definitions.json#/definitions/datePattern",
                   },
                   description: "The sitting day of the hearing"
 
