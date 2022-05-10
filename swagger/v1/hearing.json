@@ -344,7 +344,7 @@
       "properties": {
         "sittingDay": {
           "description": "The date and time the hearing was held",
-          "example": "2018-10-24 10:00:00",
+          "example": "2022-03-10T14:00:00.000Z",
           "format": "date-time",
           "type": "string"
         },

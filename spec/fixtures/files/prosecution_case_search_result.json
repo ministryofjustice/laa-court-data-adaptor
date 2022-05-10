@@ -55,7 +55,8 @@
             {
               "sittingDay": "2020-02-17T15:00:00Z",
               "listingSequence": 0,
-              "listedDurationMinutes": 20
+              "listedDurationMinutes": 20,
+              "hasSharedResults": true
             }
           ],
           "hearingType": {
@@ -80,7 +81,8 @@
             {
               "sittingDay": "2020-08-04T08:00:00Z",
               "listingSequence": 2,
-              "listedDurationMinutes": 30
+              "listedDurationMinutes": 30,
+              "hasSharedResults": true
             }
           ],
           "courtCentre": {
@@ -104,7 +106,8 @@
             {
               "sittingDay": "2020-09-05T08:00:00Z",
               "listingSequence": 1,
-              "listedDurationMinutes": 720
+              "listedDurationMinutes": 720,
+              "hasSharedResults": true
             }
           ],
           "courtCentre": {
