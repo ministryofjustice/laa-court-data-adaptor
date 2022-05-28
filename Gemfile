@@ -24,7 +24,7 @@ gem "bcrypt", "~> 3.1.18"
 gem "bootsnap", ">= 1.4.2", require: false
 
 gem "aws-sdk-sqs"
-gem "doorkeeper", "~> 5.5"
+gem "doorkeeper", "~> 5.5", ">= 5.5.4"
 gem "dry-validation"
 gem "faraday", "~> 2.3.0"
 gem "faraday-retry"
