@@ -335,13 +335,13 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   brakeman
   bundler
-  doorkeeper (~> 5.5)
+  doorkeeper (~> 5.5, >= 5.5.4)
   dotenv-rails
   dry-validation
   faraday (~> 2.3.0)
   faraday-retry
   hmcts_common_platform!
-  jbuilder (~> 2.11)
+  jbuilder (~> 2.11, >= 2.11.5)
   json-schema!
   json-schema-rspec
   jsonapi-serializer
