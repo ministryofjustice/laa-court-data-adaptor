@@ -16,7 +16,11 @@ module CommonPlatform
       Faraday.new host, options do |connection|
         connection.request :retry, retry_options
         connection.request :json
-        connection.response :logger, Rails.logger
+        connection.response :logger do |logger|
+          logger.filter(/(defendantName=)([^&]+)/, '\1[FILTERED]')
+          logger.filter(/(defendantDOB=)([^&]+)/, '\1[FILTERED]')
+          logger.filter(/(defendantNINO=)([^&]+)/, '\1[FILTERED]')
+        end
         connection.response :json, content_type: "application/json"
         connection.response :json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json"
         connection.response :json, content_type: "text/plain"
