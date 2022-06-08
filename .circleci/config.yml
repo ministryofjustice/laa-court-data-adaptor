@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@6.15.2
+  aws-ecr: circleci/aws-ecr@8.1.2
   aws-eks: circleci/aws-eks@0.2.1
   kubernetes: circleci/kubernetes@0.7.0
   helm: circleci/helm@1.1.2
