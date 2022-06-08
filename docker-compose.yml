@@ -31,7 +31,7 @@ services:
     environment:
       REDIS_URL: redis://redis
   postgres:
-    image: postgres:11.5-alpine
+    image: postgres:14.3-alpine
     ports:
       - 5432
     environment:
