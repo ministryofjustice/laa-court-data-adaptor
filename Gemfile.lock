@@ -340,7 +340,7 @@ DEPENDENCIES
   dotenv-rails
   dry-validation
   faraday (~> 2.3.0)
-  faraday-retry
+  faraday-retry (~> 2.0.0)
   hmcts_common_platform!
   jbuilder (~> 2.11, >= 2.11.5)
   json-schema!
