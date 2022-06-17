@@ -114,7 +114,8 @@ GEM
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (2.0.2)
-    faraday-retry (1.0.3)
+    faraday-retry (2.0.0)
+      faraday (~> 2.0)
     ffi (1.15.5)
     hashdiff (1.0.1)
     i18n (1.10.0)
@@ -339,7 +340,7 @@ DEPENDENCIES
   dotenv-rails
   dry-validation
   faraday (~> 2.3.0)
-  faraday-retry
+  faraday-retry (~> 2.0.0)
   hmcts_common_platform!
   jbuilder (~> 2.11, >= 2.11.5)
   json-schema!
