@@ -62,7 +62,10 @@
         },
         "plea": {
             "description": "The plea associated with this offence.",
-            "$ref": "http://justice.gov.uk/core/courts/external/apiPlea.json"
+            "type": "array",
+            "items": {
+              "$ref": "http://justice.gov.uk/core/courts/external/apiPlea.json"
+            }
         },
         "verdict": {
             "$ref": "http://justice.gov.uk/core/courts/external/apiVerdict.json"

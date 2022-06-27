@@ -59,7 +59,13 @@ module HmctsCommonPlatform
     end
 
     def plea
-      HmctsCommonPlatform::Plea.new(data[:plea])
+      HmctsCommonPlatform::Plea.new(Hash(data[:plea]&.first))
+    end
+
+    def pleas
+      Array(data[:plea]).map do |plea_data|
+        HmctsCommonPlatform::Plea.new(plea_data)
+      end
     end
 
     def to_json(*_args)
@@ -84,6 +90,7 @@ module HmctsCommonPlatform
         offence_summary.laa_application laa_reference.to_json
         offence_summary.verdict verdict.to_json
         offence_summary.plea plea.to_json
+        offence_summary.pleas pleas.map(&:to_json)
       end
     end
   end
