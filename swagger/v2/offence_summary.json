@@ -56,6 +56,12 @@
     "plea": {
       "$ref": "plea.json#"
     },
+    "pleas": {
+      "type": "array",
+      "items": {
+        "$ref": "plea.json#"
+      }
+    },
     "verdict": {
       "$ref": "verdict.json#"
     },

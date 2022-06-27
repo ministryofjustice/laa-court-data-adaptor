@@ -34,26 +34,28 @@
                 "statusDescription": "Granted (One Advocate)",
                 "statusDate": "2021-05-02"
               },
-              "plea": {
-                "originatingHearingId": "a6b07866-faa0-48d5-9faf-c18121e49aaf",
-                "delegatedPowers": {
-                  "userId": "ea3d8209-6419-4af6-a4a5-fcdd4ab4cc8d",
-                  "firstName": "Ada",
-                  "lastName": "Lovelace"
-                },
-                "offenceId": "a6437f6a-bdac-44ca-898a-486bdacc9625",
-                "applicationId": "cd6d6cb3-26ad-4df1-b1e1-1bd1a07cb292",
-                "pleaDate": "2021-03-01",
-                "pleaValue": "GUILTY",
-                "lesserOrAlternativeOffence": {
-                  "offenceDefinitionId": "b36a8dd3-03a2-48d7-b7e9-45cf3658800d",
-                  "offenceCode": "AAA",
-                  "offenceTitle": "Drunkenness in a public place",
-                  "offenceTitleWelsh": "Meddwdod mewn man cyhoeddus",
-                  "offenceLegislation": "Criminal Justice Act 1967",
-                  "offenceLegislationWelsh": "Deddf Cyfiawnder Troseddol 1967"
+              "plea": [
+                {
+                  "originatingHearingId": "a6b07866-faa0-48d5-9faf-c18121e49aaf",
+                  "delegatedPowers": {
+                    "userId": "ea3d8209-6419-4af6-a4a5-fcdd4ab4cc8d",
+                    "firstName": "Ada",
+                    "lastName": "Lovelace"
+                  },
+                  "offenceId": "a6437f6a-bdac-44ca-898a-486bdacc9625",
+                  "applicationId": "cd6d6cb3-26ad-4df1-b1e1-1bd1a07cb292",
+                  "pleaDate": "2021-03-01",
+                  "pleaValue": "GUILTY",
+                  "lesserOrAlternativeOffence": {
+                    "offenceDefinitionId": "b36a8dd3-03a2-48d7-b7e9-45cf3658800d",
+                    "offenceCode": "AAA",
+                    "offenceTitle": "Drunkenness in a public place",
+                    "offenceTitleWelsh": "Meddwdod mewn man cyhoeddus",
+                    "offenceLegislation": "Criminal Justice Act 1967",
+                    "offenceLegislationWelsh": "Deddf Cyfiawnder Troseddol 1967"
+                  }
                 }
-              },
+              ],
               "verdict": {
                 "offenceId": "a6437f6a-bdac-44ca-898a-486bdacc9625",
                 "verdictDate": "2021-04-10",

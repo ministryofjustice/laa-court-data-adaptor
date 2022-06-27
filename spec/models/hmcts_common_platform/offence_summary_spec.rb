@@ -18,6 +18,7 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
     it { expect(offence_summary.laa_reference).to be_an(HmctsCommonPlatform::LaaReference) }
     it { expect(offence_summary.verdict).to be_an(HmctsCommonPlatform::Verdict) }
     it { expect(offence_summary.plea).to be_an(HmctsCommonPlatform::Plea) }
+    it { expect(offence_summary.pleas).to all(be_an(HmctsCommonPlatform::Plea)) }
   end
 
   context "with required fields only" do
@@ -37,6 +38,7 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
     it { expect(offence_summary.laa_reference).to be_blank }
     it { expect(offence_summary.verdict).to be_blank }
     it { expect(offence_summary.plea).to be_blank }
+    it { expect(offence_summary.pleas).to be_empty }
   end
 
   describe "#to_json" do
@@ -59,6 +61,7 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
       expect(json["laa_application"]).to be_present
       expect(json["verdict"]).to be_present
       expect(json["plea"]).to be_present
+      expect(json["pleas"].count).to be(1)
     end
   end
 end
