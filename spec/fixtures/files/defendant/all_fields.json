@@ -97,8 +97,9 @@
           "dateOfBirth": "1990-01-01",
           "documentationLanguageNeeds": "ENGLISH",
           "firstName": "John",
-          "gender": "MALE",
+          "middleName": "Earl",
           "lastName": "Yundt",
+          "gender": "MALE",
           "title": "Mr",
           "nationalInsuranceNumber": "AA123456C"
         }

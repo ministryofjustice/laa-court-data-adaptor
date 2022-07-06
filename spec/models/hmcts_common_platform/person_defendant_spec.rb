@@ -17,7 +17,9 @@ RSpec.describe HmctsCommonPlatform::PersonDefendant, type: :model do
   it { expect(person_defendant.bail_conditions).to eql("some conditions") }
   it { expect(person_defendant.bail_status).to be_a(HmctsCommonPlatform::BailStatus) }
   it { expect(person_defendant.first_name).to eql("Carlee") }
-  it { expect(person_defendant.last_name).to eql("WilliamsonConnelly") }
+  it { expect(person_defendant.middle_name).to eql("Williamson") }
+  it { expect(person_defendant.last_name).to eql("Connelly") }
+  it { expect(person_defendant.full_name).to eql("Carlee Williamson Connelly") }
   it { expect(person_defendant.date_of_birth).to eql("1990-01-01") }
   it { expect(person_defendant.nino).to eql("AA123456C") }
   it { expect(person_defendant.documentation_language_needs).to eql("WELSH") }

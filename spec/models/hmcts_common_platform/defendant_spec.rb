@@ -27,7 +27,9 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
     it { expect(defendant.is_youth).to be false }
     it { expect(defendant.arrest_summons_number).to eql("TFL1") }
     it { expect(defendant.first_name).to eql("John") }
+    it { expect(defendant.middle_name).to eql("Earl") }
     it { expect(defendant.last_name).to eql("Yundt") }
+    it { expect(defendant.full_name).to eql("John Earl Yundt") }
     it { expect(defendant.date_of_birth).to eql("1990-01-01") }
     it { expect(defendant.nino).to eql("AA123456C") }
     it { expect(defendant.documentation_language_needs).to eql("ENGLISH") }
@@ -61,7 +63,9 @@ RSpec.describe HmctsCommonPlatform::Defendant, type: :model do
     it { expect(defendant.proceedings_concluded).to be_nil }
     it { expect(defendant.arrest_summons_number).to be_nil }
     it { expect(defendant.first_name).to be_nil }
+    it { expect(defendant.middle_name).to be_nil }
     it { expect(defendant.last_name).to be_nil }
+    it { expect(defendant.full_name).to be_blank }
     it { expect(defendant.date_of_birth).to be_nil }
     it { expect(defendant.nino).to be_nil }
     it { expect(defendant.documentation_language_needs).to be_nil }

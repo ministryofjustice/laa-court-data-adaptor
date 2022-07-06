@@ -4,9 +4,29 @@ module HmctsCommonPlatform
 
     delegate :blank?, to: :data
 
-    delegate :first_name, :last_name, :date_of_birth, :nino, :documentation_language_needs, to: :person_details
-    delegate :address_1, :address_2, :address_3, :address_4, :address_5, :postcode, to: :address
-    delegate :phone_home, :phone_work, :phone_mobile, :email_primary, :email_secondary, to: :contact_details
+    delegate :first_name,
+             :middle_name,
+             :last_name,
+             :full_name,
+             :date_of_birth,
+             :nino,
+             :documentation_language_needs,
+             to: :person_details
+
+    delegate :address_1,
+             :address_2,
+             :address_3,
+             :address_4,
+             :address_5,
+             :postcode,
+             to: :address
+
+    delegate :phone_home,
+             :phone_work,
+             :phone_mobile,
+             :email_primary,
+             :email_secondary,
+             to: :contact_details
 
     def initialize(data)
       @data = HashWithIndifferentAccess.new(data || {})
