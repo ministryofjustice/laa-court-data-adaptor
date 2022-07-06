@@ -7,7 +7,7 @@ module Api
         include JSONAPI::Serializer
         set_type :defendants
 
-        attributes :name,
+        attributes :full_name,
                    :date_of_birth,
                    :national_insurance_number,
                    :arrest_summons_number,

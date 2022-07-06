@@ -15,8 +15,8 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
     describe "attributes" do
       let(:attributes) { serialized_data[:attributes] }
 
-      it "name" do
-        expect(attributes[:name]).to eq("Bob Steven Smith")
+      it "full name" do
+        expect(attributes[:full_name]).to eq("Bob Steven Smith")
       end
 
       it "date_of_birth" do

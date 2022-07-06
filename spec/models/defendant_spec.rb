@@ -23,8 +23,8 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.prosecution_case).to be_nil }
   it { expect(defendant.post_hearing_custody_statuses).to eq([]) }
 
-  describe "#name" do
-    subject { defendant.name }
+  describe "#full_name" do
+    subject { defendant.full_name }
 
     it { is_expected.to eq("George Andrew Walsh") }
 
