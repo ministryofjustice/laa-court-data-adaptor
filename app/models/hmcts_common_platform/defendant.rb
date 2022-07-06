@@ -73,6 +73,10 @@ module HmctsCommonPlatform
       end
     end
 
+    def defence_organisation_id
+      defence_organisation.laa_contract_number
+    end
+
     def defence_organisation
       HmctsCommonPlatform::DefenceOrganisation.new(data[:defenceOrganisation])
     end
