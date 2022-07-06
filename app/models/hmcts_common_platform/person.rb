@@ -28,6 +28,10 @@ module HmctsCommonPlatform
       data[:lastName]
     end
 
+    def full_name
+      [first_name, middle_name, last_name].join(" ").squish
+    end
+
     def date_of_birth
       data[:dateOfBirth]
     end
@@ -68,9 +72,11 @@ module HmctsCommonPlatform
       Jbuilder.new do |person|
         person.title title
         person.gender gender
+        person.name full_name
         person.first_name first_name
         person.middle_name middle_name
         person.last_name last_name
+        person.full_name full_name
         person.date_of_birth date_of_birth
         person.nino nino
         person.occupation occupation
