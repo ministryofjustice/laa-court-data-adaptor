@@ -20,6 +20,10 @@ module HmctsCommonPlatform
       data[:firstName]
     end
 
+    def middle_name
+      data[:middleName]
+    end
+
     def last_name
       data[:lastName]
     end
@@ -65,6 +69,7 @@ module HmctsCommonPlatform
         person.title title
         person.gender gender
         person.first_name first_name
+        person.middle_name middle_name
         person.last_name last_name
         person.date_of_birth date_of_birth
         person.nino nino

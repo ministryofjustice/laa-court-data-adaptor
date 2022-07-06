@@ -15,8 +15,9 @@
     "selfDefinedEthnicityId": "c4ca4238-a0b9-3382-8dcc-509a6f75849b"
   },
   "firstName": "John",
-  "gender": "MALE",
+  "middleName": "Maynard",
   "lastName": "Smith",
+  "gender": "MALE",
   "occupation": "Unemployed",
   "occupationCode": "6001",
   "title": "Mr"
