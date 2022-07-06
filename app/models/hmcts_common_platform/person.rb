@@ -39,6 +39,7 @@ module HmctsCommonPlatform
     def nino
       data[:nationalInsuranceNumber]
     end
+    alias_method :national_insurance_number, :nino
 
     def occupation
       data[:occupation]
