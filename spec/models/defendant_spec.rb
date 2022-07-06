@@ -18,7 +18,7 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.middle_name).to eq("Andrew") }
   it { expect(defendant.last_name).to eq("Walsh") }
   it { expect(defendant.date_of_birth).to eq("1980-01-01") }
-  it { expect(defendant.nino).to eq("HB133542A") }
+  it { expect(defendant.national_insurance_number).to eq("HB133542A") }
   it { expect(defendant.arrest_summons_number).to eq("ARREST123") }
   it { expect(defendant.prosecution_case).to be_nil }
   it { expect(defendant.post_hearing_custody_statuses).to eq([]) }
