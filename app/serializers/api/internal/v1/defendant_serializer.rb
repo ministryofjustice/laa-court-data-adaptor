@@ -9,7 +9,7 @@ module Api
 
         attributes :full_name,
                    :date_of_birth,
-                   :national_insurance_number,
+                   :nino,
                    :arrest_summons_number,
                    :maat_reference,
                    :prosecution_case_id,

@@ -23,8 +23,8 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
         expect(attributes[:date_of_birth]).to eq("1986-11-10")
       end
 
-      it "national_insurance_number" do
-        expect(attributes[:national_insurance_number]).to eq("AA123456C")
+      it "nino" do
+        expect(attributes[:nino]).to eq("AA123456C")
       end
 
       it "arrest_summons_number" do

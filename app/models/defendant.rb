@@ -29,7 +29,7 @@ class Defendant
     body["defendantDOB"]
   end
 
-  def national_insurance_number
+  def nino
     body["defendantNINO"]
   end
 
