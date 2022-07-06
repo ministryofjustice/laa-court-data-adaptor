@@ -59,6 +59,10 @@ module HmctsCommonPlatform
       end
     end
 
+    def maat_reference
+      unique_maat_reference if valid_maat_reference?
+    end
+
     def judicial_result_ids
       judicial_results.map(&:id)
     end
@@ -95,6 +99,17 @@ module HmctsCommonPlatform
 
     def person_defendant
       HmctsCommonPlatform::PersonDefendant.new(data[:personDefendant])
+    end
+
+    def valid_maat_reference?
+      unique_maat_reference.present? && !unique_maat_reference.start_with?("Z")
+    end
+
+    def unique_maat_reference
+      refs = offences.map(&:laa_application_reference).uniq.compact
+      raise "Too many maat references" if refs.size > 1
+
+      refs&.first
     end
   end
 end
