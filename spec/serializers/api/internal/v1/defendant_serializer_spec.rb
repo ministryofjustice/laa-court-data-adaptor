@@ -38,10 +38,6 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
       it "prosecution_case_id" do
         expect(attributes[:prosecution_case_id]).to eq("123")
       end
-
-      it "post_hearing_custody_statuses" do
-        expect(attributes[:post_hearing_custody_statuses]).to eq(%w[A A])
-      end
     end
 
     describe "relationships" do
