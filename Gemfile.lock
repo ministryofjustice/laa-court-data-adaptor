@@ -146,7 +146,7 @@ GEM
     minitest (5.15.0)
     msgpack (1.5.2)
     multi_xml (0.6.0)
-    mustermann (1.1.1)
+    mustermann (1.1.2)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
     nokogiri (1.13.6)
@@ -185,7 +185,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.4)
-    rack-protection (2.2.0)
+    rack-protection (2.2.1)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -295,10 +295,10 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    sinatra (2.2.0)
+    sinatra (2.2.1)
       mustermann (~> 1.0)
       rack (~> 2.2)
-      rack-protection (= 2.2.0)
+      rack-protection (= 2.2.1)
       tilt (~> 2.0)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
@@ -373,7 +373,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq (~> 6.5.1)
   simplecov
-  sinatra (~> 2.2.0)
+  sinatra (~> 2.2.1)
   spring
   spring-watcher-listen (~> 2.0.0)
   vcr
