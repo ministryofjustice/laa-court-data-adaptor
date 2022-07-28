@@ -5,13 +5,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.4"
 
-gem "actionpack", "~> 6.1.5.1"
-gem "actionview", "~> 6.1.5.1"
-gem "activemodel", "~> 6.1.5.1"
-gem "activerecord", "~> 6.1.5.1"
-gem "activesupport", "~> 6.1.5.1"
+gem "actionpack", "~> 6.1.6.1"
+gem "actionview", "~> 6.1.6.1"
+gem "activemodel", "~> 6.1.6.1"
+gem "activerecord", "~> 6.1.6.1"
+gem "activesupport", "~> 6.1.6.1"
 gem "bundler"
-gem "railties", "~> 6.1.5.1"
+gem "railties", "~> 6.1.6.1"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
