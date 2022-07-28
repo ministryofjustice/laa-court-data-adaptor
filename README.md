@@ -37,9 +37,10 @@ View the [architecture diagram](https://structurizr.com/share/55246/diagrams#cda
 It's defined as code and [can be edited](https://github.com/ministryofjustice/laa-architecture-as-code/blob/main/src/main/kotlin/model/CDA.kt) by anyone.
 
 ## Dependencies
+
 * Ruby version
     * Ruby version 3.0.4
-    * Rails 6.1.4.6
+    * Rails 6.1.6.1
 
 * System dependencies
     * postgres 14.3
