@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::API
   before_action :set_transaction_id
   before_action :doorkeeper_authorize!
+  before_action :log_http_request_headers
 
   ERROR_MAPPINGS = {
     ActionController::ParameterMissing => :bad_request,
@@ -25,6 +26,16 @@ class ApplicationController < ActionController::API
   end
 
 private
+
+  def log_http_request_headers
+    http_request_headers = {}.tap do |envs|
+      request.headers.each do |key, value|
+        envs[key] = value if key.downcase.starts_with?("http")
+      end
+    end
+
+    Rails.logger.info(http_request_headers)
+  end
 
   def set_transaction_id
     Current.request_id = request.headers["Laa-Transaction-Id"] || request.request_id
