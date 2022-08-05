@@ -284,10 +284,10 @@ GEM
       sidekiq (>= 3.0)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
-    sidekiq (6.5.1)
+    sidekiq (6.5.3)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      redis (>= 4.2.0)
+      redis (>= 4.5.0)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -370,7 +370,7 @@ DEPENDENCIES
   sentry-ruby (~> 5.4.1)
   sentry-sidekiq (~> 5.4.1)
   shoulda-matchers
-  sidekiq (~> 6.5.1)
+  sidekiq (~> 6.5.3)
   simplecov
   sinatra (~> 2.2.2)
   spring
