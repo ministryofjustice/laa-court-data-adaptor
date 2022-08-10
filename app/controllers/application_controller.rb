@@ -38,7 +38,7 @@ private
   end
 
   def set_transaction_id
-    Current.request_id = request.headers["Laa-Transaction-Id"] || request.request_id
-    response.set_header("Laa-Transaction-Id", Current.request_id)
+    Current.request_id = request.headers["X-Request-ID"] || request.request_id
+    response.set_header("X-Request-ID", Current.request_id)
   end
 end
