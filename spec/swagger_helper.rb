@@ -40,7 +40,7 @@ RSpec.configure do |config|
         parameters: {
           transaction_id_header: {
             type: :uuid,
-            name: "Laa-Transaction-Id",
+            name: "X-Request-ID",
             in: :header,
             required: false,
             description: "A unique identifier for an individual request that can be traced across multiple systems",
@@ -76,7 +76,7 @@ RSpec.configure do |config|
         parameters: {
           transaction_id_header: {
             type: :uuid,
-            name: "Laa-Transaction-Id",
+            name: "X-Request-ID",
             in: :header,
             required: false,
             description: "A unique identifier for an individual request that can be traced across multiple systems",
