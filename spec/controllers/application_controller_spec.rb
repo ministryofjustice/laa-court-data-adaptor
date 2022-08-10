@@ -11,19 +11,19 @@ RSpec.describe ApplicationController, type: :controller do
 
   it_behaves_like "an unauthorised request"
 
-  it "returns an Laa-Transaction-Id on every request" do
+  it "returns an X-Request-ID on every request" do
     get :index
-    expect(response.headers).to include("Laa-Transaction-Id")
+    expect(response.headers).to include("X-Request-ID")
   end
 
-  context "when the Laa-Transaction-Id is included by an external service" do
+  context "when the X-Request-ID is included by an external service" do
     before do
-      request.headers["Laa-Transaction-Id"] = "XYZ"
+      request.headers["X-Request-ID"] = "XYZ"
     end
 
-    it "returns an Laa-Transaction-Id on every request" do
+    it "returns an X-Request-ID on every request" do
       get :index
-      expect(response.headers["Laa-Transaction-Id"]).to eq("XYZ")
+      expect(response.headers["X-Request-ID"]).to eq("XYZ")
     end
   end
 end
