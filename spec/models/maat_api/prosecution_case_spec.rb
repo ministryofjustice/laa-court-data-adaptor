@@ -56,14 +56,6 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
       expect(prosecution_case.proceedings_concluded).to be(false)
     end
 
-    it "has a crown_court_outcome" do
-      expected = "Crown Court Outcome"
-
-      allow(CrownCourtOutcomeCreator).to receive(:call).and_return(expected)
-
-      expect(prosecution_case.crown_court_outcome).to eql(expected)
-    end
-
     it "has an inactive" do
       expect(prosecution_case.inactive).to eql("Y")
     end
@@ -205,12 +197,6 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
 
     it "defaults proceedings_concluded to false" do
       expect(prosecution_case.proceedings_concluded).to be(false)
-    end
-
-    it "has no crown_court_outcome" do
-      allow(CrownCourtOutcomeCreator).to receive(:call).and_return(nil)
-
-      expect(prosecution_case.crown_court_outcome).to be_nil
     end
 
     it "has an inactive" do

@@ -79,10 +79,6 @@ module MaatApi
       }
     end
 
-    def crown_court_outcome
-      CrownCourtOutcomeCreator.call(defendant: hmcts_common_platform_defendant.data) if jurisdiction_type == "CROWN" && result_is_a_conclusion?
-    end
-
   private
 
     def offences
@@ -162,10 +158,6 @@ module MaatApi
         offenceLegislation: data.legislation,
         offenceLegislationWelsh: data.legislation_welsh,
       }.compact
-    end
-
-    def result_is_a_conclusion?
-      hmcts_common_platform_defendant.offences.any? { |offence| offence.verdict.present? }
     end
 
     def hearing_first_sitting_day_date
