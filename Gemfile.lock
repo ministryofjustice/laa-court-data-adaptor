@@ -277,7 +277,7 @@ GEM
     sentry-rails (5.4.1)
       railties (>= 5.0)
       sentry-ruby (~> 5.4.1)
-    sentry-ruby (5.4.1)
+    sentry-ruby (5.4.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
     sentry-sidekiq (5.4.1)
       sentry-ruby (~> 5.4.1)
@@ -367,7 +367,7 @@ DEPENDENCIES
   rubocop-govuk
   rubocop-performance
   sentry-rails (~> 5.4.1)
-  sentry-ruby (~> 5.4.1)
+  sentry-ruby (~> 5.4.2)
   sentry-sidekiq (~> 5.4.1)
   shoulda-matchers
   sidekiq (~> 6.5.4)
