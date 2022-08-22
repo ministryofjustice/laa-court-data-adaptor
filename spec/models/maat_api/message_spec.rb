@@ -17,7 +17,6 @@ RSpec.describe MaatApi::Message do
       functionType: "function type",
       defendant: "defendant",
       session: "session",
-      ccOutComeData: "crown court outcome data",
     }
   end
 
@@ -96,10 +95,6 @@ class Messageable
 
   def function_type
     attrs[:function_type] || "function type"
-  end
-
-  def crown_court_outcome
-    attrs[:crown_court_outcome] || "crown court outcome data"
   end
 
   def defendant

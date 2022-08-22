@@ -22,7 +22,6 @@ module MaatApi
         functionType: object.function_type,
         defendant: object.defendant,
         session: object.session,
-        ccOutComeData: object.crown_court_outcome,
       }.compact
     end
 

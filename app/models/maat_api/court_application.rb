@@ -38,8 +38,6 @@ module MaatApi
       false
     end
 
-    def crown_court_outcome; end
-
     def inactive
       "Y"
     end
