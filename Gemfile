@@ -41,7 +41,7 @@ gem "rswag-ui"
 gem "sentry-rails", "~> 5.4.2"
 gem "sentry-ruby", "~> 5.4.2"
 gem "sentry-sidekiq", "~> 5.4.1"
-gem "sidekiq", "~> 6.5.4"
+gem "sidekiq", "~> 6.5.5"
 gem "versionist"
 
 group :development, :test do
