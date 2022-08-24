@@ -88,7 +88,7 @@ ALTER SEQUENCE public.feature_flags_id_seq OWNED BY public.feature_flags.id;
 --
 
 CREATE TABLE public.hearing_event_recordings (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     hearing_id uuid,
     hearing_date date,
     body jsonb NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE public.hearing_event_recordings (
 --
 
 CREATE TABLE public.hearings (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     body jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -114,7 +114,7 @@ CREATE TABLE public.hearings (
 --
 
 CREATE TABLE public.laa_references (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     defendant_id uuid NOT NULL,
     maat_reference character varying NOT NULL,
     linked boolean DEFAULT true NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE public.laa_references (
 --
 
 CREATE TABLE public.oauth_access_grants (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     resource_owner_id uuid NOT NULL,
     application_id uuid NOT NULL,
     token character varying NOT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE public.oauth_access_grants (
 --
 
 CREATE TABLE public.oauth_access_tokens (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     resource_owner_id uuid,
     application_id uuid NOT NULL,
     token character varying NOT NULL,
@@ -164,7 +164,7 @@ CREATE TABLE public.oauth_access_tokens (
 --
 
 CREATE TABLE public.oauth_applications (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying NOT NULL,
     uid character varying NOT NULL,
     secret character varying NOT NULL,
@@ -172,7 +172,10 @@ CREATE TABLE public.oauth_applications (
     scopes character varying DEFAULT ''::character varying NOT NULL,
     confidential boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    contact_email character varying,
+    requester_email character varying,
+    requestee_email character varying
 );
 
 
@@ -181,7 +184,7 @@ CREATE TABLE public.oauth_applications (
 --
 
 CREATE TABLE public.prosecution_case_defendant_offences (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     prosecution_case_id uuid NOT NULL,
     defendant_id uuid NOT NULL,
     offence_id uuid NOT NULL,
@@ -204,7 +207,7 @@ CREATE TABLE public.prosecution_case_defendant_offences (
 --
 
 CREATE TABLE public.prosecution_cases (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     body jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -225,7 +228,7 @@ CREATE TABLE public.schema_migrations (
 --
 
 CREATE TABLE public.users (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     name character varying,
     auth_token_digest character varying,
     created_at timestamp(6) without time zone NOT NULL,
@@ -487,6 +490,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200720123025'),
 ('20200723141728'),
 ('20210311145419'),
-('20210427164141');
+('20210427164141'),
+('20220801171207'),
+('20220815115514'),
+('20220815120308');
 
 

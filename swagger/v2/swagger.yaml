@@ -151,6 +151,12 @@ paths:
         schema:
           "$ref": definitions.json#/definitions/datePattern
         description: The sitting day of the hearing
+      - name: publish_to_queue
+        in: query
+        required: false
+        description: Publish hearing results to MAAT API
+        schema:
+          type: boolean
       responses:
         '200':
           description: Success
