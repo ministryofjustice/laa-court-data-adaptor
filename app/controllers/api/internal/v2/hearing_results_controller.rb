@@ -5,17 +5,19 @@ module Api
     module V2
       class HearingResultsController < ApplicationController
         def show
-          hearing_result = CommonPlatform::Api::GetHearingResults.call(
+          hearing_result_data = CommonPlatform::Api::GetHearingResults.call(
             hearing_id: permitted_params[:hearing_id],
             sitting_day: permitted_params[:sitting_day],
             publish_to_queue: permitted_params[:publish_to_queue],
           )
 
-          if hearing_result.present?
-            render json: HmctsCommonPlatform::HearingResulted.new(hearing_result&.body).to_json,
-                   status: :ok
-          else
+          hearing_result = HmctsCommonPlatform::HearingResulted.new(hearing_result_data)
+
+          if hearing_result.blank?
             render json: {}, status: :not_found
+          else
+            render json: hearing_result.to_json,
+                   status: :ok
           end
         end
 

@@ -11,21 +11,25 @@ module CommonPlatform
 
       def call
         if successful_response?
-          HearingRecorder.call(
-            hearing_id: hearing_id,
-            hearing_resulted_data: response.body,
-            publish_to_queue: publish_to_queue,
-          )
+          publish_hearing_to_queue if publish_to_queue
+          response.body
         end
       end
 
     private
 
       def successful_response?
-        response.status == 200 && response.body.present?
+        response.success? && response.body.present?
       end
 
-      attr_reader :hearing_id, :response, :publish_to_queue
+      def publish_hearing_to_queue
+        HearingsCreatorWorker.perform_async(
+          Current.request_id,
+          response.body.deep_stringify_keys,
+        )
+      end
+
+      attr_reader :publish_to_queue, :response
     end
   end
 end

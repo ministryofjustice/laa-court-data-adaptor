@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe Hearing, type: :model do
-  subject { hearing }
-
-  let(:hearing) { described_class.new(body: "{}") }
-
-  it { is_expected.to validate_presence_of(:body) }
-
   context "when searching common platform" do
     before do
       allow(HearingsCreatorWorker).to receive(:perform_async)
@@ -14,11 +8,12 @@ RSpec.describe Hearing, type: :model do
 
     context "with basic hearing data available" do
       let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
-      let(:hearing) do
+      let(:hearing_result_data) do
         VCR.use_cassette("hearing_result_fetcher/success") do
           CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id, sitting_day: nil)
         end
       end
+      let(:hearing) { described_class.new(hearing_result_data["hearing"]) }
 
       it { expect(hearing.id).to eq("4d01840d-5959-4539-a450-d39f57171036") }
       it { expect(hearing.court_name).to eq("Lavender Hill Magistrates' Court") }
@@ -67,11 +62,12 @@ RSpec.describe Hearing, type: :model do
 
     context "with most hearing data available" do
       let(:hearing_id) { "29b73d8f-7683-4e27-9069-f7a031672c35" }
-      let(:hearing) do
+      let(:hearing_result_data) do
         VCR.use_cassette("hearing_result_fetcher/success_hearing_attendees") do
           CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id, sitting_day: nil)
         end
       end
+      let(:hearing) { described_class.new(hearing_result_data["hearing"]) }
 
       it { expect(hearing.id).to eq("29b73d8f-7683-4e27-9069-f7a031672c35") }
       it { expect(hearing.hearing_type).to eq("Committal for Sentence") }
@@ -87,13 +83,13 @@ RSpec.describe Hearing, type: :model do
       it { expect(hearing.prosecution_cases).to all(be_an(HmctsCommonPlatform::ProsecutionCase)) }
 
       context "when prosecutionCounsels are not provided" do
-        before { hearing.body["hearing"].delete("prosecutionCounsels") }
+        before { hearing.data.delete("prosecutionCounsels") }
 
         it { expect(hearing.prosecution_advocate_names).to eql([]) }
       end
 
       context "when defenceCounsels are not provided" do
-        before { hearing.body["hearing"].delete("defenceCounsels") }
+        before { hearing.data.delete("defenceCounsels") }
 
         it { expect(hearing.defence_advocate_names).to eql([]) }
       end
@@ -101,11 +97,12 @@ RSpec.describe Hearing, type: :model do
 
     context "with cracked ineffective trial data available" do
       let(:hearing_id) { "da124701-048f-408c-85b4-81138316ddce" }
-      let(:hearing) do
+      let(:hearing_result_data) do
         VCR.use_cassette("hearing_result_fetcher/success_hearing_cracked_trial") do
           CommonPlatform::Api::GetHearingResults.call(hearing_id: hearing_id, sitting_day: nil)
         end
       end
+      let(:hearing) { described_class.new(hearing_result_data["hearing"]) }
 
       describe "#cracked_ineffective_trial_id" do
         subject { hearing.cracked_ineffective_trial_id }
@@ -122,8 +119,8 @@ RSpec.describe Hearing, type: :model do
     end
 
     context "with court applications data available" do
-      let(:hearing_data) { JSON.parse(file_fixture("hearing/with_court_application.json").read).deep_symbolize_keys }
-      let(:hearing) { described_class.new(body: hearing_data) }
+      let(:hearing_result_data) { JSON.parse(file_fixture("hearing/with_court_application.json").read) }
+      let(:hearing) { described_class.new(hearing_result_data["hearing"]) }
 
       describe "#court_applications" do
         subject { hearing.court_applications }

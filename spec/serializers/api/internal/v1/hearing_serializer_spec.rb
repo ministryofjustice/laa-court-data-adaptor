@@ -45,8 +45,8 @@ RSpec.describe Api::Internal::V1::HearingSerializer do
   end
 
   context "with required fields only" do
-    let(:hearing_data) { JSON.parse(file_fixture("hearing/required_fields.json").read).deep_symbolize_keys }
-    let(:hearing) { Hearing.new(body: hearing_data) }
+    let(:hearing_data) { JSON.parse(file_fixture("hearing/required_fields.json").read) }
+    let(:hearing) { Hearing.new(hearing_data) }
     let(:attribute_hash) { subject[:data][:attributes] }
 
     it { expect(attribute_hash[:court_name]).to eq("Warrington CCU (Decom)") }

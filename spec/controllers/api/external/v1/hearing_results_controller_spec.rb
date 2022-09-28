@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "sidekiq/testing"
+
 RSpec.describe Api::External::V1::HearingResultsController, type: :controller do
   include AuthorisedRequestHelper
 
@@ -11,10 +13,10 @@ RSpec.describe Api::External::V1::HearingResultsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Hearing" do
-        expect {
-          post :create, params: valid_attributes, as: :json
-        }.to change(Hearing, :count).by(1)
+      it "publishes to the queue" do
+        allow(HearingsCreatorWorker).to receive(:perform_async)
+        expect(HearingsCreatorWorker).to receive(:perform_async).with(nil, valid_attributes)
+        post :create, params: valid_attributes, as: :json
       end
 
       it "renders a JSON response with an empty response" do
@@ -26,7 +28,6 @@ RSpec.describe Api::External::V1::HearingResultsController, type: :controller do
 
     context "with an invalid hearing" do
       it "renders a JSON response with an unprocessable_entity error" do
-        allow(HearingRecorder).to receive(:call).and_return(Hearing.new)
         post :create, params: unprocessable_attributes, as: :json
         expect(response.body).to include("must be an integer")
         expect(response).to have_http_status(:unprocessable_entity)

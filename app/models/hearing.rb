@@ -1,18 +1,28 @@
 # frozen_string_literal: true
 
-class Hearing < ApplicationRecord
-  validates :body, presence: true
+class Hearing
+  attr_reader :data
+
+  delegate :blank?, to: :data
+
+  def initialize(data)
+    @data = HashWithIndifferentAccess.new(data || {})
+  end
+
+  def id
+    data["id"]
+  end
 
   def court_name
     court_centre.name
   end
 
   def hearing_type
-    hearing_body["type"]["description"]
+    data["type"]["description"]
   end
 
   def hearing_days
-    Array(hearing_body["hearingDays"]).map { |hearing_day| hearing_day["sittingDay"] }
+    Array(data["hearingDays"]).map { |hearing_day| hearing_day["sittingDay"] }
   end
 
   def defendant_names
@@ -30,29 +40,29 @@ class Hearing < ApplicationRecord
   end
 
   def judge_names
-    Array(hearing_body["judiciary"]).map do |judge|
+    Array(data["judiciary"]).map do |judge|
       [judge["title"], judge["firstName"], judge["lastName"]].reject(&:blank?).join(" ")
     end
   end
 
   def prosecution_advocate_names
-    Array(hearing_body["prosecutionCounsels"]).map do |prosecution_counsel|
+    Array(data["prosecutionCounsels"]).map do |prosecution_counsel|
       "#{prosecution_counsel['firstName']} #{prosecution_counsel['lastName']}"
     end
   end
 
   def defence_advocate_names
-    Array(hearing_body["defenceCounsels"]).map do |defence_counsel|
+    Array(data["defenceCounsels"]).map do |defence_counsel|
       "#{defence_counsel['firstName']} #{defence_counsel['lastName']}"
     end
   end
 
   def providers
-    hearing_body["defenceCounsels"]&.map { |defence_counsel| Provider.new(body: defence_counsel) }
+    data["defenceCounsels"]&.map { |defence_counsel| Provider.new(body: defence_counsel) }
   end
 
   def provider_ids
-    hearing_body["defenceCounsels"]&.map { |defence_counsel| defence_counsel["id"] }
+    data["defenceCounsels"]&.map { |defence_counsel| defence_counsel["id"] }
   end
 
   def cracked_ineffective_trial
@@ -78,7 +88,7 @@ class Hearing < ApplicationRecord
   end
 
   def court_applications
-    Array(hearing_body["courtApplications"]).map do |court_application_data|
+    Array(data["courtApplications"]).map do |court_application_data|
       HmctsCommonPlatform::CourtApplication.new(court_application_data)
     end
   end
@@ -90,19 +100,15 @@ class Hearing < ApplicationRecord
   end
 
   def defendant_judicial_results
-    Array(hearing_body["defendantJudicialResults"]).map do |defendant_judicial_result_data|
+    Array(data["defendantJudicialResults"]).map do |defendant_judicial_result_data|
       HmctsCommonPlatform::DefendantJudicialResult.new(defendant_judicial_result_data)
     end
   end
 
 private
 
-  def hearing_body
-    body["hearing"]
-  end
-
   def prosecution_cases_data
-    hearing_body["prosecutionCases"]
+    data["prosecutionCases"]
   end
 
   def defendants
@@ -110,7 +116,7 @@ private
   end
 
   def hearing_event_recordings
-    @hearing_event_recordings ||= Array(hearing_body["hearingDays"]).flat_map { |hearing_day|
+    @hearing_event_recordings ||= Array(data["hearingDays"]).flat_map { |hearing_day|
       CommonPlatform::Api::GetHearingEvents.call(hearing_id: id, hearing_date: hearing_day["sittingDay"].to_date)
     }.compact
   end
@@ -120,10 +126,10 @@ private
   end
 
   def court_centre
-    HmctsCommonPlatform::CourtCentre.new(hearing_body["courtCentre"])
+    HmctsCommonPlatform::CourtCentre.new(data["courtCentre"])
   end
 
   def common_platform_cracked_ineffective_trial
-    hearing_body["crackedIneffectiveTrial"]
+    data["crackedIneffectiveTrial"]
   end
 end
