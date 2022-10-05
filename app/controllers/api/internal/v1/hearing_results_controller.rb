@@ -5,12 +5,19 @@ module Api
     module V1
       class HearingResultsController < ApplicationController
         def show
-          @hearing = CommonPlatform::Api::GetHearingResults.call(
+          hearing_result_data = CommonPlatform::Api::GetHearingResults.call(
             hearing_id: permitted_params[:id],
             sitting_day: permitted_params[:sitting_day],
           )
 
-          render json: HearingSerializer.new(@hearing, serialization_options)
+          hearing_result = HearingResult.new(hearing_result_data)
+
+          if hearing_result.blank?
+            render json: {}, status: :not_found
+          else
+            render json: HearingSerializer.new(hearing_result.hearing, serialization_options),
+                   status: :ok
+          end
         end
 
       private

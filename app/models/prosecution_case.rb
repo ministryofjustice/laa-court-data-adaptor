@@ -28,7 +28,7 @@ class ProsecutionCase < ApplicationRecord
   end
 
   def hearings
-    hearing_results.select(&:body)
+    hearing_results.map(&:hearing)
   end
   alias_method :fetch_details, :hearings
 
@@ -44,7 +44,7 @@ private
 
   def case_details
     hearings.flat_map { |hearing|
-      hearing.body.dig("hearing", "prosecutionCases")&.select { |prosecution_case| prosecution_case["id"] == id }
+      hearing.prosecution_cases.select { |prosecution_case| prosecution_case.id == id }
     }.compact
   end
 
@@ -55,17 +55,22 @@ private
   def defendant_details
     return {} unless hearings_fetched?
 
-    case_details.flat_map { |detail| detail["defendants"] }.group_by { |detail| detail["id"] }
+    case_details
+      .flat_map(&:defendants)
+      .map(&:data)
+      .group_by { |defendant| defendant["id"] }
   end
 
   def hearing_results
     @hearing_results ||= hearing_summaries.flat_map { |hearing_summary|
       hearing_summary.hearing_days.map do |hearing_day|
-        CommonPlatform::Api::GetHearingResults.call(
-          hearing_id: hearing_summary.id,
-          sitting_day: hearing_day.sitting_day,
+        HearingResult.new(
+          CommonPlatform::Api::GetHearingResults.call(
+            hearing_id: hearing_summary.id,
+            sitting_day: hearing_day.sitting_day,
+          ),
         )
       end
-    }.compact
+    }.reject(&:blank?)
   end
 end

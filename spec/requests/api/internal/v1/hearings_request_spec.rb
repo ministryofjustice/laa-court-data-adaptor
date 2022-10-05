@@ -73,6 +73,26 @@ RSpec.describe "api/internal/v1/hearings", type: :request, swagger_doc: "v1/swag
         end
       end
 
+      context "when Hearing Result does not exist on Common Platform" do
+        let(:Authorization) { "Bearer #{token.token}" }
+        let(:id) { "123" }
+
+        before do
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{id}")
+            .to_return(
+              status: 200,
+              headers: { content_type: "application/json" },
+              body: "{}",
+            )
+        end
+
+        describe "response" do
+          response(404, "Not found") do
+            run_test!
+          end
+        end
+      end
+
       context "with sitting day query parameter" do
         let(:Authorization) { "Bearer #{token.token}" }
         let(:sitting_day) { "2020-08-17" }

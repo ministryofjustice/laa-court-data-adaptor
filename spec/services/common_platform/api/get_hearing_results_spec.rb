@@ -1,47 +1,39 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::Api::GetHearingResults do
-  context "when getting result by hearing id only" do
-    subject(:get_hearing_results) { described_class.call(hearing_id: hearing_id, sitting_day: nil) }
+  subject(:get_hearing_results) { described_class.call(hearing_id: hearing_id) }
 
-    let(:hearing_id) { "ceb158e3-7171-40ce-915b-441e2c4e3f75" }
+  let(:hearing_id) { "ceb158e3-7171-40ce-915b-441e2c4e3f75" }
+  let(:response) { OpenStruct.new(body: { "amazing_body" => true }, "status" => 200, "success?" => true) }
 
-    let(:response) { double(body: { amazing_body: true }, status: 200) }
+  before do
+    Current.request_id = 123
 
-    before do
-      allow(CommonPlatform::Api::HearingFetcher).to receive(:call).with(hearing_id: hearing_id, sitting_day: nil).and_return(response)
-    end
+    allow(CommonPlatform::Api::HearingFetcher)
+      .to receive(:call)
+      .with(hearing_id: hearing_id, sitting_day: nil)
+      .and_return(response)
+  end
 
-    it "calls the HearingRecorder service" do
-      expect(HearingRecorder).to receive(:call).with(hearing_id: hearing_id, hearing_resulted_data: response.body, publish_to_queue: false)
+  context "when getting results by hearing ID only" do
+    it "calls HearingFetcher with hearing ID" do
+      expect(CommonPlatform::Api::HearingFetcher)
+        .to receive(:call)
+        .with(hearing_id: hearing_id, sitting_day: nil)
+
       get_hearing_results
     end
+  end
 
-    context "when publish_to_queue is enabled" do
-      subject(:get_hearing_results) { described_class.call(hearing_id: hearing_id, publish_to_queue: true) }
+  context "when publish_to_queue is enabled" do
+    subject(:get_hearing_results) { described_class.call(hearing_id: hearing_id, publish_to_queue: true) }
 
-      it "calls the HearingRecorder service" do
-        expect(HearingRecorder).to receive(:call).with(hearing_id: hearing_id, hearing_resulted_data: response.body, publish_to_queue: true)
-        get_hearing_results
-      end
-    end
+    it "publishes to the queue" do
+      expect(HearingsCreatorWorker)
+        .to receive(:perform_async)
+        .with(123, response.body)
 
-    context "when the body is blank" do
-      let(:response) { double(body: {}, status: 200) }
-
-      it "does not record the result" do
-        expect(HearingRecorder).not_to receive(:call)
-        get_hearing_results
-      end
-    end
-
-    context "when the status is a 404" do
-      let(:response) { double(body: {}, status: 404) }
-
-      it "does not record the result" do
-        expect(HearingRecorder).not_to receive(:call)
-        get_hearing_results
-      end
+      get_hearing_results
     end
   end
 
@@ -50,42 +42,17 @@ RSpec.describe CommonPlatform::Api::GetHearingResults do
 
     let(:hearing_id) { "ceb158e3-7171-40ce-915b-441e2c4e3f75" }
     let(:sitting_day) { "2021-05-20" }
-    let(:response) { double(body: { amazing_body: true }, status: 200) }
 
     before do
       allow(CommonPlatform::Api::HearingFetcher).to receive(:call).with(hearing_id: hearing_id, sitting_day: sitting_day).and_return(response)
     end
 
-    it "calls the HearingRecorder service" do
-      expect(HearingRecorder).to receive(:call).with(hearing_id: hearing_id, hearing_resulted_data: response.body, publish_to_queue: false)
+    it "calls HearingFetcher with hearing ID and sitting day" do
+      expect(CommonPlatform::Api::HearingFetcher)
+        .to receive(:call)
+        .with(hearing_id: hearing_id, sitting_day: sitting_day)
+
       get_hearing_results
-    end
-
-    context "when publish_to_queue is enabled" do
-      subject(:get_hearing_results) { described_class.call(hearing_id: hearing_id, sitting_day: sitting_day, publish_to_queue: true) }
-
-      it "calls the HearingRecorder service" do
-        expect(HearingRecorder).to receive(:call).with(hearing_id: hearing_id, hearing_resulted_data: response.body, publish_to_queue: true)
-        get_hearing_results
-      end
-    end
-
-    context "when the body is blank" do
-      let(:response) { double(body: {}, status: 200) }
-
-      it "does not record the result" do
-        expect(HearingRecorder).not_to receive(:call)
-        get_hearing_results
-      end
-    end
-
-    context "when the status is a 404" do
-      let(:response) { double(body: {}, status: 404) }
-
-      it "does not record the result" do
-        expect(HearingRecorder).not_to receive(:call)
-        get_hearing_results
-      end
     end
   end
 end

@@ -6,12 +6,7 @@ module Api
       class HearingResultsController < ApplicationController
         def create
           enforce_contract!
-
-          HearingRecorder.call(
-            hearing_id: params[:hearing][:id],
-            hearing_resulted_data: transformed_params,
-            publish_to_queue: true,
-          )
+          publish_hearing_to_queue
 
           head :accepted
         end
@@ -29,7 +24,6 @@ module Api
           HearingContract.new.call(**transformed_params)
         end
 
-        # Only allow a trusted parameter "white list" through.
         def hearing_params
           params.require(%i[sharedTime hearing])
           params.permit(:sharedTime, hearing: {})
@@ -37,6 +31,13 @@ module Api
 
         def transformed_params
           hearing_params.to_hash.deep_symbolize_keys.compact
+        end
+
+        def publish_hearing_to_queue
+          HearingsCreatorWorker.perform_async(
+            Current.request_id,
+            transformed_params.deep_stringify_keys,
+          )
         end
       end
     end

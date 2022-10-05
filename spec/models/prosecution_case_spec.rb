@@ -2,85 +2,91 @@
 
 RSpec.describe ProsecutionCase, type: :model do
   let(:hearing_one) do
-    Hearing.new(
-      body: {
-        "hearing" => {
-          "id" => "HWLLOOEOEO",
-          "prosecutionCases" => [{
+    {
+      "sharedTime" => "",
+      "hearing" => {
+        "id" => "HWLLOOEOEO",
+        "prosecutionCases" => [
+          {
             "id" => "31cbe62d-b1ec-4e82-89f7-99dced834900",
-            "defendants" => [{
-              "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
-              "offences": [
-                {
-                  "id": "offence-one-id",
-                },
-              ],
-            }],
-          }],
-        },
-        "sharedTime" => "2020-12-12",
+            "defendants" => [
+              {
+                "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+                "offences" => [
+                  {
+                    "id" => "offence-one-id",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
-    )
+    }
   end
 
   let(:hearing_two_day_one) do
-    Hearing.new(
-      body: {
-        "hearing" => {
-          "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b",
-          "prosecutionCases" => [{
+    {
+      "sharedTime" => "",
+      "hearing" => {
+        "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b",
+        "prosecutionCases" => [
+          {
             "id" => "31cbe62d-b1ec-4e82-89f7-99dced834900",
-            "defendants" => [{
-              "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
-              "offences": [
-                {
-                  "id": "offence-two-id",
-                },
-              ],
-            },
-                             {
-                               "id" => "b70a36e5-13d3-4bb3-bb24-94db79b7708b",
-                               "offences": [
-                                 {
-                                   "id": "offence-three-id",
-                                 },
-                               ],
-                             }],
-          }],
-        },
-        "sharedTime" => "2020-10-20",
+            "defendants" => [
+              {
+                "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+                "offences" => [
+                  {
+                    "id" => "offence-two-id",
+                  },
+                ],
+              },
+              {
+                "id" => "b70a36e5-13d3-4bb3-bb24-94db79b7708b",
+                "offences" => [
+                  {
+                    "id" => "offence-three-id",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
-    )
+    }
   end
 
   let(:hearing_two_day_two) do
-    Hearing.new(
-      body: {
-        "hearing" => {
-          "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b",
-          "prosecutionCases" => [{
+    {
+      "sharedTime" => "",
+      "hearing" => {
+        "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b",
+        "prosecutionCases" => [
+          {
             "id" => "31cbe62d-b1ec-4e82-89f7-99dced834900",
-            "defendants" => [{
-              "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
-              "offences": [
-                {
-                  "id": "offence-four-id",
-                },
-              ],
-            },
-                             {
-                               "id" => "b70a36e5-13d3-4bb3-bb24-94db79b7708b",
-                               "offences": [
-                                 {
-                                   "id": "offence-five-id",
-                                 },
-                               ],
-                             }],
-          }],
-        },
-        "sharedTime" => "2020-10-20",
+            "defendants" => [
+              {
+                "id" => "c6cf04b5-901d-4a89-a9ab-767eb57306e4",
+                "offences" => [
+                  {
+                    "id" => "offence-four-id",
+                  },
+                ],
+              },
+              {
+                "id" => "b70a36e5-13d3-4bb3-bb24-94db79b7708b",
+                "offences" => [
+                  {
+                    "id" => "offence-five-id",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
-    )
+    }
   end
 
   describe "validations" do
@@ -186,9 +192,17 @@ RSpec.describe ProsecutionCase, type: :model do
           end
 
           context "with no prosecution_case reference" do
-            let(:hearing_one)         { Hearing.new(body: { "hearing" => { "id" => "311bb2df-4df5-4abe-bae3-82f144e1e5c5" } }) }
-            let(:hearing_two_day_one) { Hearing.new(body: { "hearing" => { "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b" } }) }
-            let(:hearing_two_day_two) { Hearing.new(body: { "hearing" => { "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b" } }) }
+            let(:hearing_one) do
+              HearingResult.new({ "sharedTime" => "", "hearing" => { "id" => "311bb2df-4df5-4abe-bae3-82f144e1e5c5" } })
+            end
+
+            let(:hearing_two_day_one) do
+              HearingResult.new({ "sharedTime" => "", "hearing" => { "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b" } })
+            end
+
+            let(:hearing_two_day_two) do
+              HearingResult.new({ "sharedTime" => "", "hearing" => { "id" => "e8d88eaa-e73f-4b59-8148-d0cfbbd3520b" } })
+            end
 
             it "initialises Defendants without details" do
               expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice
