@@ -25,7 +25,7 @@ RSpec.describe "api/external/v2/hearing_results", type: :request, swagger_doc: "
         let(:hearing) { JSON.parse(file_fixture("hearing/valid.json").read) }
 
         before do
-          expect(HearingsCreatorWorker).to receive(:perform_async)
+          expect(HearingResultPublisherWorker).to receive(:perform_async)
         end
 
         run_test!

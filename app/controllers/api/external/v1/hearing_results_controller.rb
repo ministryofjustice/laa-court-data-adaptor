@@ -34,7 +34,7 @@ module Api
         end
 
         def publish_hearing_to_queue
-          HearingsCreatorWorker.perform_async(
+          HearingResultPublisherWorker.perform_async(
             Current.request_id,
             transformed_params.deep_stringify_keys,
           )

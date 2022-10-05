@@ -14,8 +14,8 @@ RSpec.describe Api::External::V2::HearingResultsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "publishes to the queue" do
-        allow(HearingsCreatorWorker).to receive(:perform_async)
-        expect(HearingsCreatorWorker).to receive(:perform_async).with(nil, valid_attributes)
+        allow(HearingResultPublisherWorker).to receive(:perform_async)
+        expect(HearingResultPublisherWorker).to receive(:perform_async).with(nil, valid_attributes)
         post :create, params: valid_attributes, as: :json
       end
 
