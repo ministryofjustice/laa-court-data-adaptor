@@ -108,4 +108,15 @@ RSpec.describe MaatLinkCreator do
       ).to be_dummy_maat_reference
     end
   end
+
+  describe "linking twice" do
+    it "marks previous record as unlinked and creates a new one marked as linked" do
+      expect {
+        described_class.call(defendant_id, user_name, maat_reference)
+        described_class.call(defendant_id, user_name, maat_reference)
+      }.to change(LaaReference, :count).by(2)
+
+      expect(LaaReference.where(linked: true).count).to be(1)
+    end
+  end
 end

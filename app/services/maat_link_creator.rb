@@ -50,7 +50,15 @@ private
   end
 
   def persist_laa_reference
-    laa_reference.save
+    existing_laa_ref = LaaReference.find_by(
+      defendant_id: laa_reference.defendant_id,
+      maat_reference: laa_reference.maat_reference,
+      linked: true,
+    )
+
+    existing_laa_ref.unlink! if existing_laa_ref.present?
+
+    laa_reference.save!
   end
 
   def fetch_past_hearings
