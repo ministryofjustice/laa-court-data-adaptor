@@ -10,20 +10,20 @@ if ENV["INLINE_SIDEKIQ"] == "true"
   Sidekiq::Testing.inline!
 end
 
-require "prometheus_exporter/instrumentation"
-
 Sidekiq.strict_args!
 
 unless Rails.env.test?
   Sidekiq.configure_server do |config|
+    require "prometheus_exporter/instrumentation"
     config.server_middleware do |chain|
       chain.add PrometheusExporter::Instrumentation::Sidekiq
     end
     config.death_handlers << PrometheusExporter::Instrumentation::Sidekiq.death_handler
-
     config.on :startup do
-      PrometheusExporter::Instrumentation::SidekiqQueue.start # monitor Queue size and latency
-      PrometheusExporter::Instrumentation::Process.start type: "sidekiq" # monitor Sidekiq process information
+      PrometheusExporter::Instrumentation::Process.start type: "sidekiq"
+      PrometheusExporter::Instrumentation::SidekiqProcess.start
+      PrometheusExporter::Instrumentation::SidekiqQueue.start
+      PrometheusExporter::Instrumentation::SidekiqStats.start
     end
   end
 end
