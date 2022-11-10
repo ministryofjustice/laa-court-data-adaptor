@@ -171,7 +171,7 @@ GEM
     prmd (0.14.0)
       erubis (~> 2.7)
       json_schema (~> 0.3, >= 0.3.1)
-    prometheus_exporter (2.0.3)
+    prometheus_exporter (2.0.4)
       webrick
     pry (0.14.1)
       coderay (~> 1.1)
@@ -272,13 +272,13 @@ GEM
       rubocop (~> 1.33)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sentry-rails (5.5.0)
+    sentry-rails (5.6.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.5.0)
-    sentry-ruby (5.5.0)
+      sentry-ruby (~> 5.6.0)
+    sentry-ruby (5.6.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.5.0)
-      sentry-ruby (~> 5.5.0)
+    sentry-sidekiq (5.6.0)
+      sentry-ruby (~> 5.6.0)
       sidekiq (>= 3.0)
     shoulda-matchers (5.2.0)
       activesupport (>= 5.2.0)
@@ -322,7 +322,7 @@ GEM
     webrick (1.7.0)
     yard (0.9.27)
       webrick (~> 1.7.0)
-    zeitwerk (2.6.5)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
@@ -355,7 +355,7 @@ DEPENDENCIES
   oauth2
   pg (>= 0.18, < 2.0)
   prmd
-  prometheus_exporter (= 2.0.3)
+  prometheus_exporter (= 2.0.4)
   pry-byebug
   pry-rails (~> 0.3.9)
   puma (~> 6.0)
@@ -367,9 +367,9 @@ DEPENDENCIES
   rswag-ui
   rubocop-govuk
   rubocop-performance
-  sentry-rails (~> 5.5.0)
-  sentry-ruby (~> 5.5.0)
-  sentry-sidekiq (~> 5.5.0)
+  sentry-rails (~> 5.6.0)
+  sentry-ruby (~> 5.6.0)
+  sentry-sidekiq (~> 5.6.0)
   shoulda-matchers
   sidekiq (~> 6.5.8)
   simplecov
