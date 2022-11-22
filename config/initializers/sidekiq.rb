@@ -14,6 +14,7 @@ Sidekiq.strict_args!
 
 unless Rails.env.test?
   Sidekiq.configure_server do |config|
+    require "sidekiq/api"
     require "prometheus_exporter/instrumentation"
     config.server_middleware do |chain|
       chain.add PrometheusExporter::Instrumentation::Sidekiq
