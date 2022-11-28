@@ -69,5 +69,5 @@ group :test do
   gem "rspec-rails", "~> 6.0.1"
   gem "shoulda-matchers"
   gem "simplecov"
-  gem "sinatra", "~> 3.0.3"
+  gem "sinatra", "~> 3.0.4"
 end
