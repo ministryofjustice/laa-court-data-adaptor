@@ -12,8 +12,8 @@ class MaatLinkCreator < ApplicationService
   end
 
   def call
-    publish_laa_reference_to_queue unless laa_reference.dummy_maat_reference?
     post_laa_references_to_common_platform
+    publish_laa_reference_to_queue unless laa_reference.dummy_maat_reference?
     fetch_past_hearings
     persist_laa_reference
   end
@@ -35,11 +35,25 @@ private
   end
 
   def post_laa_references_to_common_platform
-    offences.each { |offence| post_laa_reference_to_common_platform(offence) }
+    offences.each do |offence|
+      post_laa_reference_to_common_platform(offence)
+    rescue StandardError => e
+      Sentry.capture_exception(
+        e,
+        tags: {
+          request_id: Current.request_id,
+          defendant_id: offence.defendant_id,
+          maat_reference: laa_reference.maat_reference,
+          user_name: laa_reference.user_name,
+          offence_id: offence.offence_id,
+        },
+      )
+      raise e
+    end
   end
 
   def post_laa_reference_to_common_platform(offence)
-    CommonPlatform::Api::RecordLaaReference.call(
+    response = CommonPlatform::Api::RecordLaaReference.call(
       prosecution_case_id: offence.prosecution_case_id,
       defendant_id: offence.defendant_id,
       offence_id: offence.offence_id,
@@ -47,6 +61,8 @@ private
       application_reference: laa_reference.maat_reference,
       status_date: Time.zone.today.strftime("%Y-%m-%d"),
     )
+
+    raise StandardError, "Error posting LAA Reference to Common Platform" unless response.success?
   end
 
   def persist_laa_reference
