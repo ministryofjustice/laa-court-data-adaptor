@@ -78,9 +78,22 @@ private
   end
 
   def fetch_past_hearings
-    PastHearingsFetcherWorker.perform_at(30.seconds.from_now,
-                                         Current.request_id,
-                                         prosecution_case_id)
+    hearing_summaries.each do |hearing_summary|
+      hearing_summary.hearing_days.each do |hearing_day|
+        HearingResultFetcherWorker.perform_at(
+          30.seconds.from_now,
+          Current.request_id,
+          hearing_summary.id,
+          hearing_day.sitting_day,
+        )
+      end
+    end
+  end
+
+  def hearing_summaries
+    Array(ProsecutionCase.find(prosecution_case_id).body["hearingSummary"]).map do |hearing_summary_data|
+      HmctsCommonPlatform::HearingSummary.new(hearing_summary_data)
+    end
   end
 
   def defendant_summary

@@ -31,7 +31,7 @@ RSpec.describe MaatLinkCreator do
     allow(CommonPlatform::Api::RecordLaaReference).to receive(:call)
   end
 
-  it "enqueues a PastHearingsFetcherWorker" do
+  it "enqueues a HearingResultFetcherWorker per hearing day" do
     allow(CommonPlatform::Api::RecordLaaReference)
       .to receive(:call)
       .and_return(response)
@@ -39,10 +39,9 @@ RSpec.describe MaatLinkCreator do
     Sidekiq::Testing.fake! do
       freeze_time do
         Current.set(request_id: "XYZ") do
-          expect(PastHearingsFetcherWorker)
+          expect(HearingResultFetcherWorker)
             .to receive(:perform_at)
-            .with(30.seconds.from_now, "XYZ", prosecution_case_id)
-            .and_call_original
+            .exactly(3).times
 
           create_maat_link
         end
@@ -51,10 +50,15 @@ RSpec.describe MaatLinkCreator do
   end
 
   it "calls the CommonPlatform::Api::RecordLaaReference service once" do
-    expect(CommonPlatform::Api::RecordLaaReference)
+    allow(CommonPlatform::Api::RecordLaaReference)
       .to receive(:call)
       .once.with(hash_including(application_reference: "12345678"))
       .and_return(response)
+
+    expect(CommonPlatform::Api::RecordLaaReference)
+      .to receive(:call)
+      .once
+      .with(hash_including(application_reference: "12345678"))
 
     create_maat_link
   end
@@ -88,10 +92,14 @@ RSpec.describe MaatLinkCreator do
     end
 
     it "calls the CommonPlatform::Api::RecordLaaReference service multiple times" do
+      allow(CommonPlatform::Api::RecordLaaReference)
+        .to receive(:call)
+        .and_return(response)
+
       expect(CommonPlatform::Api::RecordLaaReference)
         .to receive(:call)
-        .twice.with(hash_including(application_reference: "12345678"))
-        .and_return(response)
+        .twice
+        .with(hash_including(application_reference: "12345678"))
 
       create_maat_link
     end
