@@ -2,6 +2,7 @@
 
 class HearingResultFetcherWorker
   include Sidekiq::Worker
+  sidekiq_options retry: 7 # with exponential backoff, this retries over ~40 minutes
 
   def perform(request_id, hearing_id, sitting_day)
     Current.set(request_id: request_id) do
