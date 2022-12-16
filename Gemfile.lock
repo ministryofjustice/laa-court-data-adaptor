@@ -341,7 +341,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   brakeman
   bundler
-  doorkeeper (~> 5.6)
+  doorkeeper (~> 5.6, >= 5.6.2)
   dotenv-rails
   dry-validation
   faraday (~> 2.7.2)
