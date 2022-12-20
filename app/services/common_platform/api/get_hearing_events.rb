@@ -10,7 +10,13 @@ module CommonPlatform
       end
 
       def call
-        HearingEventsRecorder.call(hearing_id: hearing_id, hearing_date: hearing_date, body: response.body) if successful_response?
+        if successful_response?
+          HearingEventRecording.new(
+            hearing_id: hearing_id,
+            hearing_date: hearing_date,
+            body: response.body,
+          )
+        end
       end
 
     private

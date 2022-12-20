@@ -6,32 +6,34 @@ RSpec.describe CommonPlatform::Api::GetHearingEvents do
   let(:hearing_id) { "ceb158e3-7171-40ce-915b-441e2c4e3f75" }
   let(:hearing_date) { "2020-04-30" }
 
-  let(:response) { double(body: { amazing_body: true }.to_json, status: 200) }
-
   before do
-    allow(CommonPlatform::Api::HearingEventsFetcher).to receive(:call).with(hearing_id: hearing_id, hearing_date: hearing_date).and_return(response)
+    allow(CommonPlatform::Api::HearingEventsFetcher)
+      .to receive(:call)
+      .with(hearing_id: hearing_id, hearing_date: hearing_date)
+      .and_return(response)
   end
 
-  it "calls the HearingEventsRecorder service" do
-    expect(HearingEventsRecorder).to receive(:call).with(hearing_id: hearing_id, hearing_date: hearing_date, body: response.body)
-    get_hearing_events
+  context "when the response is successful" do
+    let(:response) { instance_double("Faraday::Response", body: { some: "data" }, status: 200) }
+
+    it "returns an instance of HearingEventRecording" do
+      expect(get_hearing_events).to be_a HearingEventRecording
+    end
   end
 
   context "when the body is blank" do
-    let(:response) { double(body: {}, status: 200) }
+    let(:response) { instance_double("Faraday::Response", body: {}, status: 200) }
 
-    it "does not record the result" do
-      expect(HearingEventsRecorder).not_to receive(:call)
-      get_hearing_events
+    it "returns nil" do
+      expect(get_hearing_events).to be_nil
     end
   end
 
   context "when the status is a 404" do
-    let(:response) { double(body: {}.to_json, status: 404) }
+    let(:response) { instance_double("Faraday::Response", body: {}, status: 404) }
 
-    it "does not record the result" do
-      expect(HearingEventsRecorder).not_to receive(:call)
-      get_hearing_events
+    it "returns nil" do
+      expect(get_hearing_events).to be_nil
     end
   end
 end
