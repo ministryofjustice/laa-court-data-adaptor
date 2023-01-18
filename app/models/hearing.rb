@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Hearing
+class Hearing < ApplicationRecord
   attr_reader :data
 
   delegate :blank?, to: :data
