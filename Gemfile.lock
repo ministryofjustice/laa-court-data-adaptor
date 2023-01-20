@@ -206,7 +206,8 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.8.0)
+    redis-client (0.12.1)
+      connection_pool
     regexp_parser (2.6.1)
     rexml (3.2.5)
     rspec (3.11.0)
@@ -283,10 +284,11 @@ GEM
       sidekiq (>= 3.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
-    sidekiq (6.5.8)
-      connection_pool (>= 2.2.5, < 3)
-      rack (~> 2.0)
-      redis (>= 4.5.0, < 5)
+    sidekiq (7.0.3)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.11.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -372,7 +374,7 @@ DEPENDENCIES
   sentry-ruby (~> 5.7.0)
   sentry-sidekiq (~> 5.7.0)
   shoulda-matchers
-  sidekiq (~> 6.5.8)
+  sidekiq (~> 7.0.3)
   simplecov
   sinatra (~> 3.0.5)
   spring
