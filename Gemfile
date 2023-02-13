@@ -16,7 +16,7 @@ gem "railties", "~> 6.1.7.1"
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
-gem "puma", "~> 6.0"
+gem "puma", "~> 6.1"
 # Use Active Model has_secure_password
 gem "bcrypt", "~> 3.1.18"
 
