@@ -40,6 +40,9 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
 
 * Ruby version
     * Ruby version 3.0.4
+      To install various ruby versions, install a Ruby Version Manager.
+      Two popular are [RVM](https://rvm.io/) and [asdf](https://asdf-vm.com/).
+ 
     * Rails 6.1.6.1
 
 * System dependencies
@@ -52,7 +55,25 @@ bundle install
 ```
 ## Set up
 
-This requires your gpg key to have been added to git-crypt.  Liaise with another developer to action the steps in [git-crypt.md](docs/git-crypt.md)
+To set up  CDA in your local machine, you can run the following services manually:
+- Rails (the application server)
+- Postgres
+- Redis and Sidekiq
+
+or you can use docker-compose.
+
+### docker-compose
+
+A faster way is to use `docker-compose`, which uses the `docker-compose.yaml`.
+On your shell run:
+```
+$ docker-compose up --build
+```
+---
+
+### Decrypt the env files
+The env files has been encrypted with [git-crypt.md](docs/git-crypt.md).
+This requires your **gpg key** to have been added to git-crypt. Liaise with another developer to action the steps in [git-crypt.md](docs/git-crypt.md)
 
 Once the pull request has been merged, re-pull master and run:
 
@@ -64,7 +85,7 @@ Create an `.env.test.local` file at the root
 
 To get the tests running you will need to set the following value:
 ```
-DATABASE_URL=postgres://localhost:5432/laa_court_data_adaptor_test
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/laa_court_data_adaptor_test
 ```
 Then run:
 
@@ -75,13 +96,14 @@ $ rspec
 
 ### Run the application server
 
-Create an `.env.developement.local` file at the root
+Create an `.env.development.local` file at the root. You can copy it from `.env` and then change it based on your needs. 
 
 To get the localhost running you will need to set the following value:
 ```
-DATABASE_URL=postgres://localhost:5432/laa_court_data_adaptor_development
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/laa_court_data_adaptor_development
 ```
-Then run:
+
+Now you can manually run Rails and Redis/Sidekiq.
 
 ```
 $ RAILS_ENV=development rails db:setup
@@ -98,10 +120,12 @@ redis-server
 $ bundle exec sidekiq
 ```
 
-**Alternatively**, to process jobs inline in `.env.developement.local` set:
+**Alternatively**, to process jobs inline in `.env.development.local` set:
  ```
  INLINE_SIDEKIQ: true
  ```
+
+The other way run the services is by using docker-compose: `docker-compose up --build`
 
 ## API Authentication
 

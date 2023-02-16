@@ -5,3 +5,5 @@ set -e
 ./docker/setup_db
 
 bundle exec puma -C config/puma.rb
+# To run Rails on your local env (instead of Docker), comment out the line about,
+# and run 'Bundle exec rails server' from the shell.
