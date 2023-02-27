@@ -31,7 +31,7 @@ In the Configure New Token section, set:
 ```
 
 ## Set local variables 
-1. In laa-court-data-adaptor add a file at the root level named `.env.development.local` and copy in the following variables:
+1. In laa-court-data-adaptor add a file at the root level named `.env.developement.local` and copy in the following variables:
 ```
 COMMON_PLATFORM_URL=http://localhost:3001/
 SHARED_SECRET_KEY=super-secret-key
