@@ -12,7 +12,7 @@ end
 
 Sidekiq.strict_args!
 
-unless Rails.env.test?
+if Rails.env.production?
   Sidekiq.configure_server do |config|
     require "sidekiq/api"
     require "prometheus_exporter/instrumentation"
