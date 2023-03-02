@@ -4,7 +4,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.4"
-
+# Revert to rails 6 ...
 gem "actionpack", "~> 6.1.7.1"
 gem "actionview", "~> 6.1.7.1"
 gem "activemodel", "~> 6.1.7.1"
