@@ -16,6 +16,7 @@ services:
       - '3000:3000'
     environment:
       REDIS_URL: redis://redis
+      DATABASE_URL: ${DATABASE_URL}
   sidekiq:
     build:
       context: .
@@ -33,7 +34,7 @@ services:
   postgres:
     image: postgres:14.3-alpine
     ports:
-      - 5432
+      - '5432:5432'
     environment:
       POSTGRES_USER: 'postgres'
   redis:
