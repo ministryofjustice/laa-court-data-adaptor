@@ -5,13 +5,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.4"
 
-gem "actionpack", "~> 6.1.7.1"
-gem "actionview", "~> 6.1.7.1"
-gem "activemodel", "~> 6.1.7.1"
-gem "activerecord", "~> 6.1.7.1"
-gem "activesupport", "~> 6.1.7.1"
+gem "actionpack", "~> 6.1.7.3"
+gem "actionview", "~> 6.1.7.3"
+gem "activemodel", "~> 6.1.7.3"
+gem "activerecord", "~> 6.1.7.3"
+gem "activesupport", "~> 6.1.7.3"
 gem "bundler"
-gem "railties", "~> 6.1.7.1"
+gem "railties", "~> 6.1.7.3"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
@@ -24,7 +24,7 @@ gem "bcrypt", "~> 3.1.18"
 gem "bootsnap", ">= 1.4.2", require: false
 
 gem "aws-sdk-sqs"
-gem "doorkeeper", "~> 5.6"
+gem "doorkeeper", "~> 5.6", ">= 5.6.3"
 gem "dry-validation"
 gem "faraday", "~> 2.7.4"
 gem "faraday-retry", "~> 2.0.0"
