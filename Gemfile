@@ -5,13 +5,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.4"
 
-gem "actionpack", "~> 6.1.7.1"
-gem "actionview", "~> 6.1.7.1"
-gem "activemodel", "~> 6.1.7.1"
-gem "activerecord", "~> 6.1.7.1"
-gem "activesupport", "~> 6.1.7.1"
+gem "actionpack", "~> 7.0"
+gem "actionview", "~> 7.0"
+gem "activemodel", "~> 7.0"
+gem "activerecord", "~> 7.0"
+gem "activesupport", "~> 7.0"
 gem "bundler"
-gem "railties", "~> 6.1.7.1"
+gem "railties", "~> 7.0"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
@@ -41,7 +41,7 @@ gem "rswag-ui"
 gem "sentry-rails", "~> 5.7.0"
 gem "sentry-ruby", "~> 5.7.0"
 gem "sentry-sidekiq", "~> 5.7.0"
-gem "sidekiq", "~> 6.5.8"
+gem "sidekiq", "< 7.0"
 gem "versionist"
 
 group :development, :test do
