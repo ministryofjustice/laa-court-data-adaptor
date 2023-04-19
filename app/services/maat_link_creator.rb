@@ -62,7 +62,7 @@ private
       status_date: Time.zone.today.strftime("%Y-%m-%d"),
     )
 
-    raise StandardError, "Error posting LAA Reference to Common Platform" unless response.success?
+    raise StandardError, "Error posting LAA Reference to Common Platform" unless response.status == 200
   end
 
   def persist_laa_reference
