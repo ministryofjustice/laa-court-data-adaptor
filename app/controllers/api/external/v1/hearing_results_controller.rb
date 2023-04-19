@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# api/external/v1/hearings
 module Api
   module External
     module V1

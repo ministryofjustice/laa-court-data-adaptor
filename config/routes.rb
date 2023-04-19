@@ -1,8 +1,11 @@
 # frozen_string_literal: true
+require 'sidekiq/web'
 
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => "/api-docs"
   mount Rswag::Api::Engine => "/api-docs"
+
+  mount Sidekiq::Web => "/sidekiq"
 
   api_version(module: "V1", path: { value: "v1" }, default: true) do
     use_doorkeeper
