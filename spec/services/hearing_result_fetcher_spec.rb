@@ -51,14 +51,14 @@ RSpec.describe HearingResultFetcher do
       )
     end
 
-    it "raises an error" do
+    it "does NOT call HearingsCreator" do
       allow(CommonPlatform::Api::HearingFetcher)
         .to receive(:call)
         .and_return(response)
 
-      expected_msg = "[XYZ] - Past result for hearing ID b935a64a-6d03-4da4-bba6-4d32cc2e7fb4 is not available."
+      expect(HearingsCreator).not_to receive(:call)
 
-      expect { fetch_hearing_result }.to raise_error(StandardError, expected_msg)
+      fetch_hearing_result
     end
   end
 
@@ -71,14 +71,14 @@ RSpec.describe HearingResultFetcher do
       )
     end
 
-    it "raises an error" do
+    it "does NOT call HearingsCreator" do
       allow(CommonPlatform::Api::HearingFetcher)
         .to receive(:call)
         .and_return(response)
 
-      expected_msg = "[XYZ] - Unable to fetch past result of hearing ID b935a64a-6d03-4da4-bba6-4d32cc2e7fb4: Common Platform responded with status code 500."
+      expect(HearingsCreator).not_to receive(:call)
 
-      expect { fetch_hearing_result }.to raise_error(StandardError, expected_msg)
+      fetch_hearing_result
     end
   end
 end

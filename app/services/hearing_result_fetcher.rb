@@ -16,21 +16,19 @@ class HearingResultFetcher < ApplicationService
 
     msg = "[#{Current.request_id}] - "
 
-    if response.success? && response.body.blank?
+    # Success is true for 2xx
+    if response.success? && response.body.any?
+      HearingsCreator.call(
+        hearing_resulted_data: response.body.deep_stringify_keys,
+        queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
+      )
       msg += "Past result for hearing ID #{hearing_id} is not available."
       Rails.logger.info(msg)
-      raise StandardError, msg
     end
 
     unless response.success?
       msg += "Unable to fetch past result of hearing ID #{hearing_id}: Common Platform responded with status code #{response.status}."
       Rails.logger.info(msg)
-      raise StandardError, msg
     end
-
-    HearingsCreator.call(
-      hearing_resulted_data: response.body.deep_stringify_keys,
-      queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
-    )
   end
 end
