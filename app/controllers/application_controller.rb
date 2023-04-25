@@ -8,6 +8,7 @@ class ApplicationController < ActionController::API
   ERROR_MAPPINGS = {
     ActionController::ParameterMissing => :bad_request,
     Errors::ContractError => :unprocessable_entity,
+    Errors::DefendantError => :unprocessable_entity,
   }.freeze
 
   ERROR_MAPPINGS.each do |klass, status|

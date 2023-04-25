@@ -141,7 +141,7 @@ RSpec.describe Defendant, type: :model do
            instance_double("Offence", maat_reference: "321321")]
         end
 
-        it { expect { defendant.maat_reference }.to raise_error StandardError, "Too many maat references" }
+        it { expect { defendant.maat_reference }.to raise_error(Errors::DefendantError, 'Too many maat references: ["123123", "321321"]') }
       end
     end
 
