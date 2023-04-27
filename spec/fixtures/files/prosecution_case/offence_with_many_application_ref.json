@@ -1,0 +1,89 @@
+{
+    "totalResults": 1,
+    "cases": [
+        {
+            "caseStatus": "ACTIVE",
+            "prosecutionCaseId": "6e3b95ee-f8c8-45fd-88ef-2bdb505dbaa0",
+            "prosecutionCaseReference": "44PC1234567",
+            "defendantSummary": [
+                {
+                    "proceedingsConcluded": true,
+                    "representationOrder": {
+                        "applicationReference": "1234567",
+                        "effectiveFromDate": "2023-03-23",
+                        "effectiveToDate": "2023-03-23",
+                        "laaContractNumber": "1W541Q"
+                    },
+                    "defendantId": "501fd6c4-cc49-4ee9-b74d-4c7b30a792b6",
+                    "masterDefendantId": "9278ede7-82a2-4a53-9373-9e026a38ec25",
+                    "defendantASN": "11/0000/00/1234567A",
+                    "defendantFirstName": "John",
+                    "defendantMiddleName": "-",
+                    "defendantLastName": "Wick",
+                    "defendantDOB": "1971-07-07",
+                    "offenceSummary": [
+                        {
+                            "offenceId": "12345678-5a25-480c-a04b-3b7b13c79839",
+                            "offenceCode": "BA76005",
+                            "offenceTitle": "...",
+                            "offenceLegislation": "...",
+                            "proceedingsConcluded": false,
+                            "startDate": "2022-12-14",
+                            "modeOfTrial": "Summary",
+                            "orderIndex": 3,
+                            "wording": "...",
+                            "laaApplnReference": {
+                                "applicationReference": "Z10010492",
+                                "statusId": "31a80a9a-fb91-3043-a08b-d738abc86ef5",
+                                "statusCode": "AP",
+                                "statusDescription": "Application Pending"
+                            },
+                            "plea": []
+                        },
+                        {
+                            "offenceId": "c98251f5-7e93-48ea-8a4b-4894e8a1b388",
+                            "offenceCode": "SX03204",
+                            "offenceTitle": "...",
+                            "offenceLegislation": "...",
+                            "proceedingsConcluded": false,
+                            "arrestDate": "2022-12-09",
+                            "startDate": "2022-11-28",
+                            "chargeDate": "2022-12-09",
+                            "modeOfTrial": "Either Way",
+                            "orderIndex": 1,
+                            "wording": "...",
+                            "laaApplnReference": {
+                                "applicationReference": "1234567",
+                                "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5",
+                                "statusCode": "GR",
+                                "statusDescription": "Granted (One Advocate)"
+                            },
+                            "plea": []
+                        },
+                        {
+                            "offenceId": "6023ff4e-df4c-41e3-afdd-87c22f6d1009",
+                            "offenceCode": "SX03204",
+                            "offenceTitle": "...",
+                            "offenceLegislation": "...",
+                            "proceedingsConcluded": false,
+                            "arrestDate": "2022-12-09",
+                            "startDate": "2022-12-08",
+                            "chargeDate": "2022-12-09",
+                            "modeOfTrial": "Either Way",
+                            "orderIndex": 2,
+                            "wording": "...",
+                            "laaApplnReference": {
+                                "applicationReference": "1234567",
+                                "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5",
+                                "statusCode": "GR",
+                                "statusDescription": "Granted (One Advocate)"
+                            },
+                            "plea": []
+                        }
+                    ]
+                }
+            ],
+            "hearingSummary": []
+        }
+    ]
+}
