@@ -51,14 +51,16 @@ RSpec.describe HearingResultFetcher do
       )
     end
 
-    it "raises an error" do
+    it "logs the error" do
       allow(CommonPlatform::Api::HearingFetcher)
         .to receive(:call)
         .and_return(response)
+      allow(Rails.logger).to receive(:info)
 
-      expected_msg = "[XYZ] - Past result for hearing ID b935a64a-6d03-4da4-bba6-4d32cc2e7fb4 is not available."
+      fetch_hearing_result
 
-      expect { fetch_hearing_result }.to raise_error(StandardError, expected_msg)
+      expect(Rails.logger).to have_received(:info)
+        .with("[XYZ] - Past result for hearing ID b935a64a-6d03-4da4-bba6-4d32cc2e7fb4 is not available.")
     end
   end
 
@@ -78,7 +80,29 @@ RSpec.describe HearingResultFetcher do
 
       expected_msg = "[XYZ] - Unable to fetch past result of hearing ID b935a64a-6d03-4da4-bba6-4d32cc2e7fb4: Common Platform responded with status code 500."
 
-      expect { fetch_hearing_result }.to raise_error(StandardError, expected_msg)
+      expect { fetch_hearing_result }.to raise_error(Faraday::ServerError, expected_msg)
+    end
+  end
+
+  context "when Common Platform replies 4xx" do
+    let(:response) do
+      instance_double(
+        Faraday::Response,
+        status: 400,
+        success?: false,
+      )
+    end
+
+    it "logs the error" do
+      allow(CommonPlatform::Api::HearingFetcher)
+        .to receive(:call)
+        .and_return(response)
+      allow(Rails.logger).to receive(:info)
+
+      fetch_hearing_result
+
+      expect(Rails.logger).to have_received(:info)
+        .with("[XYZ] - Unable to fetch past result of hearing ID b935a64a-6d03-4da4-bba6-4d32cc2e7fb4: Common Platform responded with status code 400.")
     end
   end
 end

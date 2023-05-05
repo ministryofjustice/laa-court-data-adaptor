@@ -14,23 +14,33 @@ class HearingResultFetcher < ApplicationService
       sitting_day: sitting_day,
     )
 
-    msg = "[#{Current.request_id}] - "
-
-    if response.success? && response.body.blank?
-      msg += "Past result for hearing ID #{hearing_id} is not available."
-      Rails.logger.info(msg)
-      raise StandardError, msg
+    if response.success?
+      if response.body.present?
+        HearingsCreator.call(
+          hearing_resulted_data: response.body.deep_stringify_keys,
+          queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
+        )
+      else
+        msg = log_for("Past result for hearing ID #{hearing_id} is not available.")
+        Rails.logger.info(msg)
+      end
     end
 
-    unless response.success?
-      msg += "Unable to fetch past result of hearing ID #{hearing_id}: Common Platform responded with status code #{response.status}."
+    if (300..499).cover?(response.status)
+      msg = log_for("Unable to fetch past result of hearing ID #{hearing_id}: Common Platform responded with status code #{response.status}.")
       Rails.logger.info(msg)
-      raise StandardError, msg
     end
 
-    HearingsCreator.call(
-      hearing_resulted_data: response.body.deep_stringify_keys,
-      queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
-    )
+    if (500..599).cover?(response.status) # Server Error 5XX
+      msg = log_for("Unable to fetch past result of hearing ID #{hearing_id}: Common Platform responded with status code #{response.status}.")
+
+      raise Faraday::ServerError, msg # this tells Sidekiq to Retry
+    end
+  end
+
+private
+
+  def log_for(msg)
+    "[#{Current.request_id}] - #{msg}"
   end
 end
