@@ -15,7 +15,8 @@ class MaatLinkCreator < ApplicationService
     post_laa_references_to_common_platform
     publish_laa_reference_to_queue unless laa_reference.dummy_maat_reference?
     fetch_past_hearings
-    persist_laa_reference
+
+    laa_reference.adjust_link_and_save!
   end
 
 private
@@ -63,18 +64,6 @@ private
     )
 
     raise StandardError, "Error posting LAA Reference to Common Platform" unless response.success?
-  end
-
-  def persist_laa_reference
-    existing_laa_ref = LaaReference.find_by(
-      defendant_id: laa_reference.defendant_id,
-      maat_reference: laa_reference.maat_reference,
-      linked: true,
-    )
-
-    existing_laa_ref.unlink! if existing_laa_ref.present?
-
-    laa_reference.save!
   end
 
   def fetch_past_hearings

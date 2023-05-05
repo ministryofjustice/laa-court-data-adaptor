@@ -22,6 +22,62 @@ RSpec.describe LaaReference, type: :model do
     it { is_expected.to be_valid }
   end
 
+  describe "adjust_link_and_save!" do
+    context "when there are existing laa ref" do
+      let(:laa_ref1) do
+        described_class.create(user_name: "AAA",
+                               maat_reference: laa_reference.maat_reference,
+                               linked: false,
+                               created_at: 2.days.ago,
+                               defendant_id: SecureRandom.uuid)
+      end
+
+      let(:laa_ref2) do
+        described_class.create(user_name: "BBB",
+                               maat_reference: laa_reference.maat_reference,
+                               linked: true,
+                               created_at: 1.day.ago,
+                               defendant_id: SecureRandom.uuid)
+      end
+
+      before do
+        laa_ref1
+        laa_ref2
+      end
+
+      it "unlink the most recent laa ref" do
+        laa_reference.linked = false
+
+        laa_reference.adjust_link_and_save!
+
+        expect(laa_ref2.reload.linked).to be(false)
+        expect(laa_reference.linked).to be(true)
+      end
+    end
+
+    context "when there are NOT existing laa ref" do
+      it "unlink the most recent laa ref" do
+        laa_reference.linked = false
+
+        laa_reference.adjust_link_and_save!
+
+        expect(laa_reference.linked).to be(true)
+      end
+    end
+
+    context "when raises an ActiveRecord error" do
+      # This allows to capture the exception and to prevent Sidekiq to retry N times.
+
+      it "reports to Sentry" do
+        laa_reference.defendant_id = nil
+
+        expect(Sentry).to receive(:capture_exception).with(ActiveRecord::ActiveRecordError)
+
+        laa_reference.adjust_link_and_save!
+      end
+    end
+  end
+
   describe ".generate_linking_dummy_maat_reference" do
     it "starts with an A" do
       dummy_maat_reference = described_class.generate_linking_dummy_maat_reference
