@@ -63,14 +63,14 @@ RSpec.describe "api/internal/v2/hearings/{hearing_id}/event_log/{date}", type: :
         end
       end
 
-      context "when no hearing log is found" do
+      context "when no Hearing ID found" do
         let(:hearing_id) { "c6cf04b5" }
         let(:date) { "2020-02-09" }
 
         before do
           stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/hearingLog?hearingId=#{hearing_id}&date=#{date}")
             .to_return(
-              status: 200,
+              status: 500, # NOTE: Cloud Plarform returns 500 when the Hearing is not found, instead of a 404.
               headers: { content_type: "application/json" },
               body: "{}",
             )
@@ -78,7 +78,13 @@ RSpec.describe "api/internal/v2/hearings/{hearing_id}/event_log/{date}", type: :
 
         describe "responds with" do
           response(404, "not found") do
-            run_test!
+            run_test! do |response|
+              data = JSON.parse(response.body)
+
+              expect(data["error"])
+                .to eq("The hearing '#{hearing_id}' on the '#{date}' was not found, " \
+                       "or a Server Error occurred on the Common Platform API.")
+            end
           end
         end
       end
