@@ -23,29 +23,40 @@ RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: 
       security [{ oAuth: [] }]
 
       context "when searching by prosecution_case_reference" do
-        response(200, "Success") do
-          around do |example|
-            VCR.use_cassette("search_prosecution_case/by_prosecution_case_reference_success") do
-              example.run
-            end
+        around do |example|
+          VCR.use_cassette(cassette_name) do
+            example.run
           end
+        end
 
-          produces "application/vnd.api+json"
+        let(:Authorization) { "Bearer #{token.token}" }
+        let(:'filter[prosecution_case_reference]') { "19GD1001816" }
+        let(:cassette_name) { "search_prosecution_case/by_prosecution_case_reference_success" }
 
-          parameter name: "filter[prosecution_case_reference]", in: :query, required: false, type: :string,
-                    schema: {
-                      "$ref": "prosecution_case_identifier.json#/properties/case_urn",
-                    },
-                    description: "Searches prosecution cases by prosecution case reference"
+        produces "application/vnd.api+json"
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
+        parameter name: "filter[prosecution_case_reference]", in: :query, required: false, type: :string,
+                  schema: {
+                    "$ref": "prosecution_case_identifier.json#/properties/case_urn",
+                  },
+                  description: "Searches prosecution cases by prosecution case reference"
 
-          let(:Authorization) { "Bearer #{token.token}" }
-          let(:'filter[prosecution_case_reference]') { "19GD1001816" }
+        parameter "$ref" => "#/components/parameters/transaction_id_header"
 
+        response(200, "Success") do
           schema "$ref" => "search_prosecution_case_response.json#"
 
           run_test!
+        end
+
+        context "when Common Platform API returns Server Error" do
+          let(:cassette_name) { "search_prosecution_case/server_error" }
+
+          response(424, "Common Platform API Error") do
+            schema "$ref" => "search_prosecution_case_response.json#"
+
+            run_test!
+          end
         end
       end
 

@@ -9,6 +9,7 @@ class ApplicationController < ActionController::API
     ActionController::ParameterMissing => :bad_request,
     Errors::ContractError => :unprocessable_entity,
     Errors::DefendantError => :unprocessable_entity,
+    CommonPlatform::Api::Errors::FailedDependency => :failed_dependency,
   }.freeze
 
   ERROR_MAPPINGS.each do |klass, status|

@@ -8,23 +8,12 @@ module CommonPlatform
       end
 
       def call
-        record_prosecution_cases if search_results?
+        check_response_status
+
+        record_prosecution_cases
       end
 
     private
-
-      def search_results?
-        if response.body.include?("<html>")
-          # :nocov:
-          Sentry.configure_scope do |scope|
-            scope.set_context("response", { body: response.body })
-          end
-          # :nocov:
-          Sentry.capture_message("Response body contains HTML")
-        end
-
-        response.status == 200 && response.body["totalResults"]&.positive?
-      end
 
       def record_prosecution_cases
         prosecution_cases.map { |prosecution_case| record_prosecution_case(prosecution_case) }
@@ -39,6 +28,14 @@ module CommonPlatform
 
       def prosecution_cases
         response.body["cases"]
+      end
+
+      def check_response_status
+        if response.status != 200
+          message = "body: #{response.body}, status: #{response.status}"
+
+          raise CommonPlatform::Api::Errors::FailedDependency, message
+        end
       end
 
       attr_reader :response

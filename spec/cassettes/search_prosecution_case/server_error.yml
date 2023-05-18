@@ -1,0 +1,33 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?prosecutionCaseReference=19GD1001816"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
+      User-Agent:
+      - Faraday v1.0.1
+  response:
+    status:
+      code: 500
+      message: Server Error
+    headers:
+      content-length:
+      - '0'
+      content-type:
+      - application/vnd.unifiedsearch.query.laa.cases+json
+      cppid:
+      - 12345678-6d60-4a42-992b-f1ce2ab5a36a
+      date:
+      - Wed, 26 Aug 2020 16:53:43 GMT
+      x-frame-options:
+      - SAMEORIGIN
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Wed, 26 Aug 2020 16:53:43 GMT
+recorded_with: VCR 6.0.0
