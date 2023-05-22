@@ -60,12 +60,14 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
 
   context "when the response is not a 200 Success" do
     let(:response_status) { 424 }
-    let(:response_body) { "error message" }
+
+    # NOTE: In case of error, Common Platform API returns an HTML.
+    let(:response_body) { "<html<body>error message<body></html>" }
 
     it "raises FailedDependency exception" do
       expect { search_prosecution_case }.to raise_error(
         CommonPlatform::Api::Errors::FailedDependency,
-        "body: error message, status: 424",
+        "Common Platform API status: 424, body: error message",
       )
     end
   end
