@@ -3,6 +3,8 @@
 module CommonPlatform
   module Api
     class SearchProsecutionCase < ApplicationService
+      include ActionView::Helpers::SanitizeHelper
+
       def initialize(params)
         @response = ProsecutionCaseSearcher.call(**params)
       end
@@ -32,10 +34,16 @@ module CommonPlatform
 
       def check_response_status
         if response.status != 200
-          message = "body: #{response.body}, status: #{response.status}"
+          message = "Common Platform API status: #{response.status}, body: #{sanitized_response}"
 
           raise CommonPlatform::Api::Errors::FailedDependency, message
         end
+      end
+
+      # In case of error, Common Platform API returns an HTML.
+      # This sanitizes the error message to log, to reduce HTML tag noise
+      def sanitized_response
+        strip_tags(response.body.to_s).strip
       end
 
       attr_reader :response
