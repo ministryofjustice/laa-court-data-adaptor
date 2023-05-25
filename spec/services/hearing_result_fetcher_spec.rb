@@ -5,12 +5,14 @@ RSpec.describe HearingResultFetcher do
     described_class.call(
       hearing_id,
       sitting_day,
+      defendant_id,
     )
   end
 
   let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing_resulted.json").read) }
   let(:hearing_id) { hearing_resulted_data["hearing"]["id"] }
   let(:sitting_day) { "2022-12-05" }
+  let(:defendant_id) { hearing_resulted_data["hearing"]["prosecutionCases"].first["defendants"].first["id"] }
 
   let(:response) do
     instance_double(
