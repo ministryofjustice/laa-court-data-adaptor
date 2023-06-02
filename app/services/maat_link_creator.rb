@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MaatLinkCreator < ApplicationService
-  attr_reader :laa_reference
+  attr_reader :laa_reference, :defendant_id
 
   def initialize(defendant_id, user_name, maat_reference)
     @laa_reference = LaaReference.new(
@@ -9,6 +9,7 @@ class MaatLinkCreator < ApplicationService
       user_name: user_name,
       maat_reference: maat_reference.presence || LaaReference.generate_linking_dummy_maat_reference,
     )
+    @defendant_id = defendant_id
   end
 
   def call
@@ -74,6 +75,7 @@ private
           Current.request_id,
           hearing_summary.id,
           hearing_day.sitting_day,
+          defendant_id,
         )
       end
     end

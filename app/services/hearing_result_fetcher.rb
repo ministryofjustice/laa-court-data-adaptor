@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class HearingResultFetcher < ApplicationService
-  attr_reader :hearing_id, :sitting_day
+  attr_reader :hearing_id, :sitting_day, :defendant_id
 
-  def initialize(hearing_id, sitting_day)
+  def initialize(hearing_id, sitting_day, defendant_id)
     @hearing_id = hearing_id
     @sitting_day = sitting_day
+    @defendant_id = defendant_id
   end
 
   def call
@@ -17,7 +18,7 @@ class HearingResultFetcher < ApplicationService
     if response.success?
       if response.body.present?
         HearingsCreator.call(
-          hearing_resulted_data: response.body.deep_stringify_keys,
+          hearing_resulted_data: CommonPlatform::HearingResultsFilter.call(response.body, defendant_id: defendant_id),
           queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
         )
       else
