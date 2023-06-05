@@ -24,6 +24,10 @@ env:
     value: {{ .Values.common_platform_url }}
   - name: SHARED_SECRET_KEY
     value: {{ .Values.common_platform_secret_key }}
+  - name: SIDEKIQ_UI_USERNAME
+    value: {{ .Values.sidekiq_ui.username }}
+  - name: SIDEKIQ_UI_PASSWORD
+    value: {{ .Values.sidekiq_ui.password }}
   {{- if .Values.mtls_enabled }}
   - name: SSL_CLIENT_CERT
     value: |
