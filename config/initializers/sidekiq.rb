@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "sidekiq/web"
+
 # Perform Sidekiq jobs immediately in development,
 # so you don't have to run a separate process.
 # You'll also benefit from code reloading.
@@ -27,4 +29,12 @@ if Rails.env.production?
       PrometheusExporter::Instrumentation::SidekiqStats.start
     end
   end
+end
+
+Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
+  ActiveSupport::SecurityUtils.secure_compare(
+    ::Digest::SHA256.hexdigest(user), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_UI_USERNAME"])
+  ) && ActiveSupport::SecurityUtils.secure_compare(
+    ::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_UI_PASSWORD"])
+  )
 end
