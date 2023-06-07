@@ -5,15 +5,15 @@ module Api
         def create
           enforce_contract!
 
-          prosecution_conclusion_params["prosecutionConcluded"].map do |pc|
+          prosecution_conclusion_params["prosecutionConcluded"].each do |pc|
             laa_reference = LaaReference.find_by(defendant_id: pc["defendantId"], linked: true)
 
-            next if laa_reference.blank?
-
-            Sqs::MessagePublisher.call(
-              message: pc.to_h.merge("maatId" => laa_reference.maat_reference),
-              queue_url: Rails.configuration.x.aws.sqs_url_prosecution_concluded,
-            )
+            if laa_reference
+              Sqs::MessagePublisher.call(
+                message: pc.to_h.merge("maatId" => laa_reference.maat_reference),
+                queue_url: Rails.configuration.x.aws.sqs_url_prosecution_concluded,
+              )
+            end
           end
 
           head :accepted
