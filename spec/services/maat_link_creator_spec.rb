@@ -69,7 +69,15 @@ RSpec.describe MaatLinkCreator do
       .once.with(hash_including(application_reference: "12345678"))
       .and_return(response)
 
-    expect(Sqs::MessagePublisher).to receive(:call).once
+    expect(Sqs::MessagePublisher).to receive(:call).once do |arg|
+      expect(arg[:message]).to include(
+        asn: "ARREST123",
+        caseUrn: "20GD0217100",
+        cjsAreaCode: "1",
+        cjsLocation: "B01LY",
+        createdUser: "bob-smith",
+      )
+    end
 
     create_maat_link
   end

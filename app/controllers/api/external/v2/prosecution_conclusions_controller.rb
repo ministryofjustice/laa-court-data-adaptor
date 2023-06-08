@@ -8,12 +8,12 @@ module Api
           prosecution_conclusion_params["prosecutionConcluded"].each do |pc|
             laa_reference = LaaReference.find_by(defendant_id: pc["defendantId"], linked: true)
 
-            if laa_reference
-              Sqs::MessagePublisher.call(
-                message: pc.to_h.merge("maatId" => laa_reference.maat_reference),
-                queue_url: Rails.configuration.x.aws.sqs_url_prosecution_concluded,
-              )
-            end
+            next unless laa_reference
+
+            Sqs::MessagePublisher.call(
+              message: pc.to_h.merge("maatId" => laa_reference.maat_reference),
+              queue_url: Rails.configuration.x.aws.sqs_url_prosecution_concluded,
+            )
           end
 
           head :accepted
