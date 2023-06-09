@@ -33,6 +33,7 @@ private
     Sqs::MessagePublisher.call(
       message: MaatApi::LaaReferenceMessage.new(maat_api_laa_reference).generate,
       queue_url: Rails.configuration.x.aws.sqs_url_link,
+      log_info: { maat_reference: laa_reference.maat_reference },
     )
   end
 

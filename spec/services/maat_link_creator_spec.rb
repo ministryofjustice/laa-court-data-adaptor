@@ -77,6 +77,10 @@ RSpec.describe MaatLinkCreator do
         cjsLocation: "B01LY",
         createdUser: "bob-smith",
       )
+
+      expect(arg[:log_info]).to include(
+        maat_reference: "12345678",
+      )
     end
 
     create_maat_link

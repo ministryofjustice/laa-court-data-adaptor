@@ -115,6 +115,10 @@ RSpec.describe HearingsCreator do
             :defendant,
             :session,
           )
+
+          expect(arg[:log_info]).to include(
+            maat_reference: "123",
+          )
         end
 
         create_hearings

@@ -40,6 +40,7 @@ RSpec.describe "api/external/v2/prosecution_conclusions", type: :request, swagge
             .with(
               message: expected_message,
               queue_url: Rails.configuration.x.aws.sqs_url_prosecution_concluded,
+              log_info: { maat_reference: "700111" },
             )
         end
 
