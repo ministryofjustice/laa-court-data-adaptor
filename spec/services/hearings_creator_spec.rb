@@ -90,7 +90,32 @@ RSpec.describe HearingsCreator do
       it "calls the Sqs::MessagePublisher service once" do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a888", linked: true, maat_reference: "123", user_name: "Bob")
 
-        expect(Sqs::MessagePublisher).to receive(:call).once.with(hash_including(queue_url: "url"))
+        expect(Sqs::MessagePublisher).to receive(:call).once do |arg|
+          expect(arg).to include(
+            queue_url: "url",
+          )
+
+          expect(arg[:message]).to include(
+            maatId: 123,
+            caseUrn: "12345",
+            caseCreationDate: "2018-10-25",
+          )
+
+          expect(arg[:message].keys).to include(
+            :maatId,
+            :caseUrn,
+            :jurisdictionType,
+            :cjsAreaCode,
+            :caseCreationDate,
+            :cjsLocation,
+            :docLanguage,
+            :proceedingsConcluded,
+            :inActive,
+            :functionType,
+            :defendant,
+            :session,
+          )
+        end
 
         create_hearings
       end
@@ -200,7 +225,30 @@ RSpec.describe HearingsCreator do
       it "calls the Sqs::MessagePublisher service once" do
         LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "123", user_name: "Bob")
 
-        expect(Sqs::MessagePublisher).to receive(:call).once.with(hash_including(queue_url: "url"))
+        expect(Sqs::MessagePublisher).to receive(:call).once do |arg|
+          expect(arg).to include(
+            queue_url: "url",
+          )
+
+          expect(arg[:message]).to include(
+            maatId: 123,
+            caseCreationDate: "2018-10-25",
+          )
+
+          expect(arg[:message].keys).to include(
+            :maatId,
+            :jurisdictionType,
+            :cjsAreaCode,
+            :caseCreationDate,
+            :cjsLocation,
+            :docLanguage,
+            :proceedingsConcluded,
+            :inActive,
+            :functionType,
+            :defendant,
+            :session,
+          )
+        end
 
         create_hearings
       end

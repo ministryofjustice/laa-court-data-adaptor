@@ -5,10 +5,10 @@ module Api
         def create
           enforce_contract!
 
-          prosecution_conclusion_params["prosecutionConcluded"].map do |pc|
+          prosecution_conclusion_params["prosecutionConcluded"].each do |pc|
             laa_reference = LaaReference.find_by(defendant_id: pc["defendantId"], linked: true)
 
-            next if laa_reference.blank?
+            next unless laa_reference
 
             Sqs::MessagePublisher.call(
               message: pc.to_h.merge("maatId" => laa_reference.maat_reference),
