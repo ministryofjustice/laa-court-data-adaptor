@@ -43,7 +43,11 @@ RSpec.describe LaaReferenceUnlinker do
 
     expect(Sqs::MessagePublisher).to receive(:call)
       .once
-      .with(message: message, queue_url: Rails.configuration.x.aws.sqs_url_unlink)
+      .with(
+        message: message,
+        queue_url: Rails.configuration.x.aws.sqs_url_unlink,
+        log_info: { maat_reference: "101010" },
+      )
 
     create_unlinker
   end
@@ -66,7 +70,11 @@ RSpec.describe LaaReferenceUnlinker do
 
       expect(Sqs::MessagePublisher).to receive(:call)
         .once
-        .with(message: message, queue_url: Rails.configuration.x.aws.sqs_url_unlink)
+        .with(
+          message: message,
+          queue_url: Rails.configuration.x.aws.sqs_url_unlink,
+          log_info: { maat_reference: message[:maatId] },
+        )
 
       create_unlinker
     end

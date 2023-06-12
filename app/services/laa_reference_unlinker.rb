@@ -31,6 +31,7 @@ private
         otherReasonText: unlink_other_reason_text,
       },
       queue_url: Rails.configuration.x.aws.sqs_url_unlink,
+      log_info: { maat_reference: laa_reference.maat_reference },
     )
   end
 

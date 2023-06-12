@@ -2,15 +2,16 @@
 
 module Sqs
   class MessagePublisher < ApplicationService
-    def initialize(message:, queue_url: nil, sqs_client: Aws::SQS::Client.new)
+    def initialize(message:, queue_url: nil, log_info: {}, sqs_client: Aws::SQS::Client.new)
       @sqs_client = sqs_client
       @queue_url = queue_url
-      @message = message.merge({ metadata: { laaTransactionId: Current.request_id } })
+      @log_info = log_info
+      @message = message.merge(metadata: { laaTransactionId: Current.request_id })
     end
 
     def call
       if messaging_enabled?
-        Rails.logger.info("Sending message to queue: #{queue_url}, from request_id: #{Current.request_id}")
+        Rails.logger.info("Sending message: #{log_message}")
         sqs_client.send_message(queue_url: queue_url, message_body: message.to_json)
       end
     end
@@ -21,6 +22,14 @@ module Sqs
       queue_url.present?
     end
 
-    attr_reader :sqs_client, :message, :queue_url
+    def log_message
+      log_info.merge(
+        request_id: Current.request_id,
+        queue: queue_url,
+      ).map { |k, v| "#{k}: #{v}" }
+       .join(", ")
+    end
+
+    attr_reader :sqs_client, :message, :queue_url, :log_info
   end
 end

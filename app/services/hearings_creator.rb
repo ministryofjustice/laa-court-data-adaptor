@@ -36,6 +36,7 @@ private
         Sqs::MessagePublisher.call(
           message: MaatApi::Message.new(maat_api_prosecution_case).generate,
           queue_url: queue_url,
+          log_info: { maat_reference: laa_reference.maat_reference },
         )
       end
     end
@@ -57,6 +58,7 @@ private
         Sqs::MessagePublisher.call(
           message: MaatApi::Message.new(maat_api_court_application).generate,
           queue_url: queue_url,
+          log_info: { maat_reference: laa_reference.maat_reference },
         )
       end
     end
