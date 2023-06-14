@@ -147,6 +147,10 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
         response(202, "Accepted") do
           around do |example|
             Sidekiq::Testing.fake!
+            LaaReference.create!(defendant_id: defendant_id,
+                                 linked: true,
+                                 maat_reference: laa_reference[:laa_reference][:maat_reference],
+                                 user_name: "Jack")
             VCR.use_cassette("laa_reference_recorder/update") do
               example.run
             end
@@ -187,6 +191,22 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
             end
 
             run_test!
+          end
+        end
+
+        context "when defendant_id is nonexistent" do
+          response("422", "Bad Request") do
+            let(:Authorization) { "Bearer #{token.token}" }
+
+            let(:defendant_id) { "fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0" }
+
+            parameter "$ref" => "#/components/parameters/transaction_id_header"
+
+            run_test! do |response|
+              error = JSON.parse(response.body)["error"]
+
+              expect(error).to eq("Defendant 'fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0' not found!")
+            end
           end
         end
 

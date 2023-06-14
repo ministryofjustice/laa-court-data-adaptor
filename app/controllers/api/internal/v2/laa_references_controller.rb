@@ -20,6 +20,7 @@ module Api
 
         def update
           contract = UnlinkDefendantContract.new.call(**transformed_params)
+
           if contract.success?
             enqueue_unlink
             head :accepted
@@ -37,7 +38,13 @@ module Api
           end
         end
 
+        def laa_reference
+          @laa_reference ||= LaaReference.find_by(defendant_id: transformed_params[:defendant_id])
+        end
+
         def enqueue_unlink
+          check_defendant_presence!
+
           UnlinkLaaReferenceWorker.perform_async(
             Current.request_id,
             transformed_params[:defendant_id],
@@ -45,6 +52,15 @@ module Api
             transformed_params[:unlink_reason_code],
             transformed_params[:unlink_other_reason_text],
           )
+        end
+
+        def check_defendant_presence!
+          defendant_id = transformed_params[:defendant_id]
+          laa_reference = LaaReference.find_by(defendant_id: defendant_id)
+
+          if laa_reference.nil?
+            raise ActiveRecord::RecordNotFound, "Defendant '#{defendant_id}' not found!"
+          end
         end
 
         def transformed_params
