@@ -38,10 +38,6 @@ module Api
           end
         end
 
-        def laa_reference
-          @laa_reference ||= LaaReference.find_by(defendant_id: transformed_params[:defendant_id])
-        end
-
         def enqueue_unlink
           check_defendant_presence!
 
@@ -55,11 +51,10 @@ module Api
         end
 
         def check_defendant_presence!
-          defendant_id = transformed_params[:defendant_id]
-          laa_reference = LaaReference.find_by(defendant_id: defendant_id)
+          laa_reference = LaaReference.find_by(defendant_id: transformed_params[:defendant_id])
 
           if laa_reference.nil?
-            raise ActiveRecord::RecordNotFound, "Defendant '#{defendant_id}' not found!"
+            raise ActiveRecord::RecordNotFound, "Defendant not found!"
           end
         end
 

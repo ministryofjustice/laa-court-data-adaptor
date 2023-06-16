@@ -195,7 +195,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
         end
 
         context "when defendant_id is nonexistent" do
-          response("422", "Bad Request") do
+          response("404", "Defendant not found") do
             let(:Authorization) { "Bearer #{token.token}" }
 
             let(:defendant_id) { "fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0" }
@@ -205,7 +205,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
             run_test! do |response|
               error = JSON.parse(response.body)["error"]
 
-              expect(error).to eq("Defendant 'fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0' not found!")
+              expect(error).to eq("Defendant not found!")
             end
           end
         end
