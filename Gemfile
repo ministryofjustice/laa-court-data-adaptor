@@ -18,7 +18,7 @@ gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
 gem "puma", "~> 6.0"
 # Use Active Model has_secure_password
-gem "bcrypt", "~> 3.1.18"
+gem "bcrypt", "~> 3.1.19"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
