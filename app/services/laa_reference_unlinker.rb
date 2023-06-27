@@ -6,7 +6,12 @@ class LaaReferenceUnlinker < ApplicationService
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
-    @laa_reference = LaaReference.find_by!(defendant_id: defendant_id, linked: true)
+
+    @laa_reference = LaaReference.find_by(defendant_id: defendant_id)
+
+    unless laa_reference.linked
+      Rails.logger.warn("LaaReferenceUnlinker: the defendant '#{defendant_id}' is already unlinked.")
+    end
   end
 
   def call
