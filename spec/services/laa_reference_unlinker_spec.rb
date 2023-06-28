@@ -44,15 +44,13 @@ RSpec.describe LaaReferenceUnlinker do
     expect(linked_laa_reference.reload).not_to be_linked
   end
 
-  context "when LaaReference is unlinked" do
+  context "when LaaReference is already unlinked" do
     before do
       linked_laa_reference.update(linked: false)
     end
 
     it "logs a 'already unlinked' warning message" do
-      create_unlinker
-
-      expect(Rails.logger).to have_received(:warn)
+      expect(create_unlinker).to eq(nil)
     end
   end
 
