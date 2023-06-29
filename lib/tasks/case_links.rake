@@ -5,8 +5,9 @@ namespace :case_links do
         respectively.
         Example: rake case_links:unlink[1234 2]"
   task :unlink, %i[maat_id unlink_reason] => :environment do |_task, args|
-    maat_id = args[:maat_id].to_i
-    unlink_reason = args[:unlink_reason].to_i
+    puts "Args were: #{args} of class #{args.class}"
+    maat_id = args[0].to_i
+    unlink_reason = args[1].to_i
 
     puts "[INFO - #{Time.zone.now}] About to process unlinking of MAAT ID: #{maat_id} ..."
     begin
