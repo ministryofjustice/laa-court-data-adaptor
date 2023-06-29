@@ -5,8 +5,10 @@ namespace :case_links do
         respectively.
         Example: rake case_links:unlink 1234 2"
   task unlink: :environment do |_task, _args|
-    maat_id = ARGV[1].to_i
-    unlink_reason = ARGV[2].to_i
+    maat_id = ARGV[1]
+    unlink_reason = ARGV[2]
+    user = "CDA-MANUAL"
+    unlink_reason_text = ""
 
     puts "[INFO - #{Time.zone.now}] About to process unlinking of MAAT ID: #{maat_id} for reason code #{unlink_reason}..."
     begin
@@ -18,9 +20,9 @@ namespace :case_links do
       Current.set(request_id: request_id) do
         LaaReferenceUnlinker.call(
           defendant_id: laa_reference.defendant_id,
-          user_name: test,
+          user_name: user,
           unlink_reason_code: unlink_reason,
-          unlink_other_reason_text: "",
+          unlink_other_reason_text: unlink_reason_text,
         )
       end
     rescue StandardError => e
