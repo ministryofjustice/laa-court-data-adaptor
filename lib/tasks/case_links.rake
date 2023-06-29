@@ -3,13 +3,12 @@ require "securerandom"
 namespace :case_links do
   desc "Manually re-process the case unlinking where the input arguments are the MAAT ID and unlink reason code
         respectively.
-        Example: rake case_links:unlink[1234 2]"
-  task :unlink, %i[maat_id unlink_reason] => :environment do |_task, args|
-    puts "Args were: #{args} of class #{args.class}"
-    maat_id = args[0].to_i
-    unlink_reason = args[1].to_i
+        Example: rake case_links:unlink 1234 2"
+  task unlink: :environment do |_task, _args|
+    maat_id = ARGV[1].to_i
+    unlink_reason = ARGV[2].to_i
 
-    puts "[INFO - #{Time.zone.now}] About to process unlinking of MAAT ID: #{maat_id} ..."
+    puts "[INFO - #{Time.zone.now}] About to process unlinking of MAAT ID: #{maat_id} for reason code #{unlink_reason}..."
     begin
       request_id = SecureRandom.uuid
       laa_reference = LaaReference.find_by!(maat_reference: maat_id, linked: true)
