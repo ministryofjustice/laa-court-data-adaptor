@@ -7,9 +7,9 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
     Defendant.new(body: defendant_summary_data, details: [defendant_data], prosecution_case_id: "123")
   end
 
-  let(:serialized_data) do
-    described_class.new(defendant).serializable_hash[:data]
-  end
+  let(:serialized) { described_class.new(defendant, options).serializable_hash }
+  let(:serialized_data) { serialized[:data] }
+  let(:options) { {} }
 
   describe "serialized data" do
     describe "attributes" do
@@ -68,8 +68,23 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
       end
 
       it "prosecution_case" do
-        allow(defendant).to receive(:prosecution_case).and_return(ProsecutionCase.new(id: "123"))
         expect(relationships[:prosecution_case][:data]).to eq({ id: "123", type: :prosecution_case })
+      end
+
+      context "when prosecution_case is included" do
+        let(:options) { { include: [:prosecution_case] } }
+
+        before do
+          allow(defendant).to receive(:prosecution_case).and_return(
+            ProsecutionCase.new(body: { "prosecutionCaseReference" => "12AB3456789", "defendantSummary" => [] }),
+          )
+        end
+
+        it "prosecution_case" do
+          expect(serialized[:included].first).to include(
+            attributes: { prosecution_case_reference: "12AB3456789" },
+          )
+        end
       end
 
       it "judicial_results" do
