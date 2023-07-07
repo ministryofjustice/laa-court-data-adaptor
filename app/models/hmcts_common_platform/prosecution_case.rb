@@ -16,6 +16,10 @@ module HmctsCommonPlatform
       prosecution_case_identifier.case_urn
     end
 
+    def prosecution_case_reference
+      urn
+    end
+
     def prosecution_case_identifier
       HmctsCommonPlatform::ProsecutionCaseIdentifier.new(data[:prosecutionCaseIdentifier])
     end

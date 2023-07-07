@@ -7,7 +7,7 @@ module Api
         include JSONAPI::Serializer
         set_type :prosecution_cases
 
-        attribute :prosecution_case_reference, &:urn
+        attribute :prosecution_case_reference
 
         has_many :defendants, record_type: :defendants
       end
