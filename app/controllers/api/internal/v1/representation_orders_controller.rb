@@ -5,6 +5,7 @@ module Api
     module V1
       class RepresentationOrdersController < ApplicationController
         def create
+          raise StandardError, "Mock CDA Error"
           enforce_contract!
           enqueue_representation_order
 
