@@ -85,6 +85,8 @@ jobs:
   build-and-push-app:
     executor: aws-ecr/default
     steps:
+      - checkout
+
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME
           region: $ECR_REGION
