@@ -1,7 +1,8 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@8.1.2
+  aws-cli: circleci/aws-cli@4.0.0
+  aws-ecr: circleci/aws-ecr@8.2.1
   aws-eks: circleci/aws-eks@0.2.1
   kubernetes: circleci/kubernetes@0.7.0
   helm: circleci/helm@1.1.2
@@ -84,14 +85,18 @@ jobs:
   build-and-push-app:
     executor: aws-ecr/default
     steps:
-      - aws-ecr/build-and-push-image:
-          repo: laa-crime-apps-team/laa-court-data-adaptor
-          tag: "${CIRCLE_SHA1}"
-          extra-build-args: |
-            --build-arg BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) \
-            --build-arg COMMIT_ID=${CIRCLE_SHA1} \
-            --build-arg BUILD_TAG=${CIRCLE_SHA1} \
-            --build-arg APP_BRANCH=${CIRCLE_BRANCH} \
+      - checkout
+
+      - aws-cli/setup:
+          role_arn: $ECR_ROLE_TO_ASSUME
+          region: $ECR_REGION
+      - run: |
+          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
+      - aws-ecr/build-image:
+          push-image: true
+          tag: ${CIRCLE_SHA1}
+          region: $ECR_REGION
+          repo: $ECR_REPOSITORY
 
   install_on_dev_live:
     executor: aws-eks/python
