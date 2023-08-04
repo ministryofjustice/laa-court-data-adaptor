@@ -83,7 +83,9 @@ jobs:
           command: bundle exec rubocop
 
   build-and-push-app:
-    executor: aws-ecr/default
+    docker:
+      - image: cimg/ruby:3.0.4
+      - image: cimg/postgres:11.12
     steps:
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME
