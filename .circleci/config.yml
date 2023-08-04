@@ -90,14 +90,11 @@ jobs:
           region: $ECR_REGION
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
-      - aws-ecr/build-and-push-image:
-          repo: laa-crime-apps-team/laa-court-data-adaptor
-          tag: "${CIRCLE_SHA1}"
-          extra-build-args: |
-            --build-arg BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) \
-            --build-arg COMMIT_ID=${CIRCLE_SHA1} \
-            --build-arg BUILD_TAG=${CIRCLE_SHA1} \
-            --build-arg APP_BRANCH=${CIRCLE_BRANCH} \
+      - aws-ecr/build-image:
+          push-image: true
+          tag: ${CIRCLE_SHA1}
+          region: $ECR_REGION
+          repo: $ECR_REPOSITORY
 
   install_on_dev_live:
     executor: aws-eks/python
