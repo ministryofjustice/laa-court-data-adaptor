@@ -57,16 +57,6 @@ env:
       secretKeyRef:
         name: cda-messaging-queues-output
         key: sqs_url_prosecution_concluded
-  - name: AWS_ACCESS_KEY_ID
-    valueFrom:
-      secretKeyRef:
-        name: cda-messaging-queues-output
-        key: access_key_id
-  - name: AWS_SECRET_ACCESS_KEY
-    valueFrom:
-      secretKeyRef:
-        name: cda-messaging-queues-output
-        key: secret_access_key
   {{- end }}
   {{- if .Values.maat_api.validation_enabled }}
   - name: MAAT_API_OAUTH_URL
