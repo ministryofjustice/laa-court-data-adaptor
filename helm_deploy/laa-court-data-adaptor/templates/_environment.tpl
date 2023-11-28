@@ -64,9 +64,15 @@ env:
   - name: MAAT_API_API_URL
     value: {{ .Values.maat_api.api_url }}
   - name: MAAT_API_CLIENT_ID
-    value: {{ .Values.maat_api.client_id }}
+    valueFrom:
+      secretKeyRef:
+        name: maat-api-oauth-client-credentials
+        key: MAAT_API_CLIENT_ID
   - name: MAAT_API_CLIENT_SECRET
-    value: {{ .Values.maat_api.client_secret }}
+    valueFrom:
+      secretKeyRef:
+        name: maat-api-oauth-client-credentials
+        key: MAAT_API_CLIENT_SECRET
   {{- end }}
   - name: AWS_REGION
     value: {{ .Values.sqs_region }}
