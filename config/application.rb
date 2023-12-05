@@ -53,7 +53,6 @@ module LaaCourtDataAdaptor
     config.active_record.schema_format = :sql
 
     config.autoload_paths << config.root.join("lib")
-    config.active_record.legacy_connection_handling = false
 
     config.session_store :cookie_store, key: "_interslice_session"
     config.middleware.use ActionDispatch::Cookies
