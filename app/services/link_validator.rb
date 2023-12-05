@@ -6,7 +6,7 @@ class LinkValidator < ApplicationService
   end
 
   def call
-    prosecution_case&.hearing_summaries&.present? || false
+    prosecution_case&.hearing_summaries.present? || false
   end
 
 private

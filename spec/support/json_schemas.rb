@@ -2,17 +2,17 @@
 
 RSpec.configure do |config|
   def load_schema_v1(file_name)
-    return unless File.file?("#{Rails.root}/swagger/v1/#{file_name}")
+    return unless File.file?(Rails.root.join("swagger/v1/#{file_name}").to_s)
 
-    schema = JSON.parse(File.open("#{Rails.root}/swagger/v1/#{file_name}").read)
+    schema = JSON.parse(File.open(Rails.root.join("swagger/v1/#{file_name}").to_s).read)
 
     JSON::Validator.add_schema(JSON::Schema.new(schema, [file_name]))
   end
 
   def load_schema_v2(file_name)
-    return unless File.file?("#{Rails.root}/swagger/v2/#{file_name}")
+    return unless File.file?(Rails.root.join("swagger/v2/#{file_name}").to_s)
 
-    schema = JSON.parse(File.open("#{Rails.root}/swagger/v2/#{file_name}").read)
+    schema = JSON.parse(File.open(Rails.root.join("swagger/v2/#{file_name}").to_s).read)
 
     JSON::Validator.add_schema(JSON::Schema.new(schema, [file_name]))
   end
