@@ -16,7 +16,7 @@ gem "railties", "~> 7.0"
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
-gem "puma", "~> 6.0"
+gem "puma", "~> 6.3", ">= 6.3.1"
 # Use Active Model has_secure_password
 gem "bcrypt", "~> 3.1.18"
 
@@ -38,10 +38,10 @@ gem "prmd"
 gem "prometheus_exporter", "2.0.8"
 gem "rswag-api"
 gem "rswag-ui"
-gem "sentry-rails", "~> 5.9.0"
-gem "sentry-ruby", "~> 5.9.0"
-gem "sentry-sidekiq", "~> 5.9.0"
-gem "sidekiq", "< 7.0"
+gem "sentry-rails", "~> 5.10.0"
+gem "sentry-ruby", "~> 5.10.0"
+gem "sentry-sidekiq", "~> 5.10.0"
+gem "sidekiq", ">= 6.5.10", "< 7.0"
 gem "versionist"
 
 group :development, :test do
