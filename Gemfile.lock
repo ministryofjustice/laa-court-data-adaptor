@@ -135,7 +135,7 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
-    irb (1.10.0)
+    irb (1.10.1)
       rdoc
       reline (>= 0.3.8)
     jbuilder (2.11.5)
@@ -318,13 +318,13 @@ GEM
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
-    sentry-rails (5.10.0)
+    sentry-rails (5.15.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.10.0)
-    sentry-ruby (5.10.0)
+      sentry-ruby (~> 5.15.0)
+    sentry-ruby (5.15.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.10.0)
-      sentry-ruby (~> 5.10.0)
+    sentry-sidekiq (5.15.0)
+      sentry-ruby (~> 5.15.0)
       sidekiq (>= 3.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
@@ -415,9 +415,9 @@ DEPENDENCIES
   rswag-ui
   rubocop-govuk
   rubocop-performance
-  sentry-rails (~> 5.10.0)
-  sentry-ruby (~> 5.10.0)
-  sentry-sidekiq (~> 5.10.0)
+  sentry-rails (~> 5.15.0)
+  sentry-ruby (~> 5.15.0)
+  sentry-sidekiq (~> 5.15.0)
   shoulda-matchers
   sidekiq (>= 6.5.10, < 7.0)
   simplecov
