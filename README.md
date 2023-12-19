@@ -42,7 +42,7 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
     * Ruby version 3.0.4
       To install various ruby versions, install a Ruby Version Manager.
       Two popular are [RVM](https://rvm.io/) and [asdf](https://asdf-vm.com/).
- 
+
     * Rails 6.1.6.1
 
 * System dependencies
@@ -96,7 +96,7 @@ $ rspec
 
 ### Run the application server
 
-Create an `.env.development.local` file at the root. You can copy it from `.env` and then change it based on your needs. 
+Create an `.env.development.local` file at the root. You can copy it from `.env` and then change it based on your needs.
 
 To get the localhost running you will need to set the following value:
 ```
@@ -177,10 +177,10 @@ LAA_DEV_API_URL=http://localhost:3000
 LAA_DEV_OAUTH_URL=http://localhost:3000/v1/oauth/token
 ```
 
-Run the hmcts-common-platform-mock-api in parallel to the Court Data Adaptor on port 3001 to mock the Common Platform API.
+Run the `hmcts-common-platform-mock-api` in parallel to the Court Data Adaptor on port 3001 to mock the Common Platform API.
 
 ## Environments
-Information about other environments can be found on [this](https://dsdmoj.atlassian.net/wiki/spaces/ASLST/pages/edit-v2/2811068434) Confluence page
+Information about other environments can be found on [this](https://dsdmoj.atlassian.net/wiki/spaces/ASLST/pages/2811068434/Environments) Confluence page
 
 ## Monitoring and Debugging
 Kibana logs for production can be found [here](https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-7d,to:now))&_a=(columns:!(kubernetes.namespace_id,log),filters:!(),index:d4959120-0186-11ec-8311-8b9e5a9c1db5,interval:auto,query:(language:lucene,query:'kubernetes.namespace_name:%20%22laa-court-data-adaptor-prod%22%20'),sort:!(!('@timestamp',desc))))
