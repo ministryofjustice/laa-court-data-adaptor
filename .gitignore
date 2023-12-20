@@ -37,3 +37,12 @@ spec/examples.txt
 
 # Ignore local-history files
 .history
+
+### Ignore IntelliJ IDEA files ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
