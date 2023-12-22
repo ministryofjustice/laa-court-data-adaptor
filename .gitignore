@@ -38,6 +38,7 @@ spec/examples.txt
 # Ignore local-history files
 .history
 
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
