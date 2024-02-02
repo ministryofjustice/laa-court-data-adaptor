@@ -1,0 +1,135 @@
+{
+  "totalResults": 1,
+  "cases": [
+    {
+      "caseStatus": "CLOSED",
+      "prosecutionCaseId": "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
+      "prosecutionCaseReference": "20GD0217100",
+      "defendantSummary": [
+        {
+          "proceedingsConcluded": true,
+          "representationOrder": {
+            "applicationReference": "LAA-20191601",
+            "effectiveFromDate": "2019-09-12",
+            "effectiveToDate": "2019-12-12",
+            "laaContractNumber": "99998888"
+          },
+          "defendantMiddleName": "Andrew",
+          "defendantId": "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3",
+          "defendantASN": "ARREST123",
+          "offenceSummary": [
+            {
+              "offenceId": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
+              "offenceCode": "PT00011",
+              "offenceTitle": "Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable",
+              "proceedingsConcluded": false,
+              "arrestDate": "2020-02-01",
+              "startDate": "2020-02-01",
+              "chargeDate": "2020-02-01",
+              "modeOfTrial": "Summary",
+              "orderIndex": 1,
+              "wording": "Test",
+              "laaApplnReference": {
+                "applicationReference": "LAA-20191601",
+                "statusId": "58ebf081-2b7d-3b1d-8c47-149fe7dbd672",
+                "statusCode": "G2",
+                "statusDescription": "Granted for Two Advocates"
+              }
+            }
+          ]
+        }
+      ],
+      "hearingSummary": [
+        {
+          "hearingId": "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4",
+          "jurisdictionType": "MAGISTRATES",
+          "estimatedDuration": "20",
+          "defendantIds": [],
+          "hearingDays": [
+            {
+              "sittingDay": "2020-02-17T15:00:00Z",
+              "listingSequence": 0,
+              "listedDurationMinutes": 20,
+              "hasSharedResults": true
+            }
+          ],
+          "hearingType": {
+            "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776",
+            "description": "First hearing"
+          },
+          "courtCentre": {
+            "id": "7e967376-eacf-4fca-9b30-21b0c5aad427",
+            "name": "Bexley Magistrates' Court",
+            "roomId": "8e912353-3b5d-36c3-953e-ad3b94b19de3",
+            "roomName": "Courtroom 01",
+            "code": "B01BH00"
+          }
+        },
+        {
+          "hearingId": "9161049a-bde1-4150-83e5-9d5212d762c2",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [],
+          "hearingDays": [
+            {
+              "sittingDay": "2020-08-04T08:00:00Z",
+              "listingSequence": 2,
+              "listedDurationMinutes": 30,
+              "hasSharedResults": true
+            }
+          ],
+          "courtCentre": {
+            "id": "9b583616-049b-30f9-a14f-028a53b7cfe8",
+            "name": "Liverpool Crown Court",
+            "roomId": "7cb09222-49e1-3622-a5a6-ad253d2b3c39",
+            "roomName": "Crown Court 3-1"
+          },
+          "hearingType": {
+            "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
+            "description": "Plea and Trial Preparation"
+          }
+        },
+        {
+          "hearingId": "e6487eac-df3d-4175-9c41-c2e90d0a8587",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [],
+          "hearingDays": [
+            {
+              "sittingDay": "2020-09-05T08:00:00Z",
+              "listingSequence": 1,
+              "listedDurationMinutes": 720,
+              "hasSharedResults": true
+            }
+          ],
+          "courtCentre": {
+            "id": "f8254db1-1683-483e-afb3-b87fde5a0a26",
+            "name": "Lavender Hill Magistrates' Court",
+            "roomId": "9e4932f7-97b2-3010-b942-ddd2624e4dd8",
+            "roomName": "Courtroom 01"
+          },
+          "hearingType": {
+            "id": "bf8155e1-90b9-4080-b133-bfbad895d6e4",
+            "description": "Trial"
+          }
+        },
+        {
+          "hearingId": "bd84aff9-229a-4d77-bfcc-421af3f2fc1b",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [
+            "1a847ab9-3b82-4c5a-98ad-2241581377e8"
+          ],
+          "hearingDays": [],
+          "courtCentre": {
+            "id": "9b583616-049b-30f9-a14f-028a53b7cfe8",
+            "name": "Liverpool Crown Court",
+            "roomId": "7cb09222-49e1-3622-a5a6-ad253d2b3c39",
+            "roomName": "Crown Court 3-1"
+          },
+          "hearingType": {
+            "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
+            "description": "Plea and Trial Preparation"
+          }
+        }
+      ]
+    }
+  ]
+}

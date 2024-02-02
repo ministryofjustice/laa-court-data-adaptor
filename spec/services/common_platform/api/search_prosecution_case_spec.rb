@@ -58,6 +58,57 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
     end
   end
 
+  context "when contains a blank defendant" do
+    let(:response_body) { JSON.parse(file_fixture("prosecution_case_search_result_with_only_blank_defendant.json").read) }
+
+    before do
+      allow(Rails.logger).to receive(:error)
+      allow(Sentry).to receive(:capture_message)
+
+      search_prosecution_case_object = described_class.new(params)
+      search_prosecution_case_object.call
+
+      @empty_defendant = "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3"
+    end
+
+    it "logs an error" do
+      expect(Rails.logger).to have_received(:error)
+        .with("The defendant with the defendantId [" + @empty_defendant + "] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
+    end
+
+    it "sends a message to Sentry" do
+      expect(Sentry).to have_received(:capture_message).with("The defendant with the defendantId [" + @empty_defendant + "] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
+    end
+  end
+
+  context "when contains a blank defendant and a non-blank defendant" do
+    let(:response_body) { JSON.parse(file_fixture("prosecution_case_search_result_with_blank_and_non_blank_defendant.json").read) }
+
+    before do
+      allow(Rails.logger).to receive(:error)
+      allow(Sentry).to receive(:capture_message)
+
+      @empty_defendant = "77908e28-254c-4c02-858c-d012d20f1901"
+      @non_empty_defendant = "0e70b6f9-b488-4827-9658-956e4f6e3d48"
+
+      search_prosecution_case_object = described_class.new(params)
+      search_prosecution_case_object.call
+    end
+
+    it "logs an error for the blank defendant and doesnt log a warning for the non-blank defendant" do
+      expect(Rails.logger).to have_received(:error)
+        .with("The defendant with the defendantId [" + @empty_defendant + "] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
+        .exactly(1).times
+
+      expect(Rails.logger).not_to have_received(:error)
+        .with("The defendant with the defendantId [" + @non_empty_defendant + "] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
+    end
+
+    it "sends a message to Sentry" do
+      expect(Sentry).to have_received(:capture_message).with("The defendant with the defendantId [" + @empty_defendant + "] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
+    end
+  end
+
   context "when the response is not a 200 Success" do
     let(:response_status) { 424 }
 
