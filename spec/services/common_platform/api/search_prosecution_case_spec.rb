@@ -81,6 +81,29 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
     end
   end
 
+  context "when contains a blank defendant but they are present in the hearing summary" do
+    let(:response_body) { JSON.parse(file_fixture("prosecution_case_search_result_with_blank_defendant_present_in_hearing_summary.json").read) }
+
+    before do
+      allow(Rails.logger).to receive(:error)
+      allow(Sentry).to receive(:capture_message)
+
+      search_prosecution_case_object = described_class.new(params)
+      search_prosecution_case_object.call
+
+      @empty_defendant = "4e5da043-d327-429a-bb5d-ed05734caa8e"
+    end
+
+    it "does not log an error" do
+      expect(Rails.logger).not_to have_received(:error)
+                                .with("The defendant with the defendantId [" + @empty_defendant + "] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
+    end
+
+    it "does not send a message to Sentry" do
+      expect(Sentry).not_to have_received(:capture_message).with("The defendant with the defendantId [" + @empty_defendant + "] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
+    end
+  end
+
   context "when contains a blank defendant and a non-blank defendant" do
     let(:response_body) { JSON.parse(file_fixture("prosecution_case_search_result_with_blank_and_non_blank_defendant.json").read) }
 

@@ -1,0 +1,137 @@
+{
+  "totalResults": 1,
+  "cases": [
+    {
+      "caseStatus": "CLOSED",
+      "prosecutionCaseId": "2041abf3-0d06-4dd4-8650-cf01da525a0d",
+      "prosecutionCaseReference": "ABCD1234100",
+      "defendantSummary": [
+        {
+          "proceedingsConcluded": true,
+          "representationOrder": {
+            "applicationReference": "LAA-20171234",
+            "effectiveFromDate": "2018-06-12",
+            "effectiveToDate": "2018-05-12",
+            "laaContractNumber": "12345678"
+          },
+          "defendantMiddleName": "Fake",
+          "defendantId": "4e5da043-d327-429a-bb5d-ed05734caa8e",
+          "defendantASN": "ARREST123",
+          "offenceSummary": [
+            {
+              "offenceId": "209927d2-21ae-4c03-b4dd-d1c1fa1fba57",
+              "offenceCode": "AB12345",
+              "offenceTitle": "Theft of a speeder",
+              "proceedingsConcluded": false,
+              "arrestDate": "2019-04-01",
+              "startDate": "2019-05-01",
+              "chargeDate": "2019-06-01",
+              "modeOfTrial": "Summary",
+              "orderIndex": 1,
+              "wording": "Test",
+              "laaApplnReference": {
+                "applicationReference": "LAA-20171234",
+                "statusId": "e503f839-8f2a-4046-8411-ab5e33d47c2e",
+                "statusCode": "G2",
+                "statusDescription": "Granted for Two Advocates"
+              }
+            }
+          ]
+        }
+      ],
+      "hearingSummary": [
+        {
+          "hearingId": "794a1a64-6c22-4bcf-a8ec-3895d37f482a",
+          "jurisdictionType": "MAGISTRATES",
+          "estimatedDuration": "20",
+          "defendantIds": [
+            "4e5da043-d327-429a-bb5d-ed05734caa8e"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2020-02-17T15:00:00Z",
+              "listingSequence": 0,
+              "listedDurationMinutes": 20,
+              "hasSharedResults": true
+            }
+          ],
+          "hearingType": {
+            "id": "7ebdf55a-b6c4-45c8-9306-bb5ae283274d",
+            "description": "First hearing"
+          },
+          "courtCentre": {
+            "id": "032e0250-df8b-418e-b54e-74f74e3abe64",
+            "name": "Dagobah Magistrates' Court",
+            "roomId": "94997c2d-2214-47a7-bc47-5edac3c14755",
+            "roomName": "Courtroom 01",
+            "code": "B123B12"
+          }
+        },
+        {
+          "hearingId": "ed6b4079-bc65-43ce-a0d4-bbe195c0fba4",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [],
+          "hearingDays": [
+            {
+              "sittingDay": "2020-08-04T08:00:00Z",
+              "listingSequence": 2,
+              "listedDurationMinutes": 30,
+              "hasSharedResults": true
+            }
+          ],
+          "courtCentre": {
+            "id": "c56f3962-2c89-4393-9173-500245739299",
+            "name": "Dagobah Crown Court",
+            "roomId": "a64d9400-5a6a-4c02-9e76-ad3c510de46c",
+            "roomName": "Crown Court 2-1"
+          },
+          "hearingType": {
+            "id": "813beb73-e420-431d-8c35-db6e42e0c400",
+            "description": "Plea and Trial Preparation"
+          }
+        },
+        {
+          "hearingId": "c090c95f-cc4f-4dfa-8e7e-3f489a93fd4f",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [],
+          "hearingDays": [
+            {
+              "sittingDay": "2019-07-05T09:00:00Z",
+              "listingSequence": 1,
+              "listedDurationMinutes": 720,
+              "hasSharedResults": true
+            }
+          ],
+          "courtCentre": {
+            "id": "03315c5f-3e19-43c0-8945-bd181bff9503",
+            "name": "Alderaan Magistrates' Court",
+            "roomId": "3e37c0ae-e887-44f0-b961-1de4199f8868",
+            "roomName": "Courtroom 01"
+          },
+          "hearingType": {
+            "id": "a98f5c8a-c5bc-40bd-8b75-2861b6783394",
+            "description": "Trial"
+          }
+        },
+        {
+          "hearingId": "69cdd600-c542-4818-a90e-a5caaccb7658",
+          "jurisdictionType": "CROWN",
+          "defendantIds": [
+            "ef90d9ca-58a3-4843-a65a-53970a252862"
+          ],
+          "hearingDays": [],
+          "courtCentre": {
+            "id": "587e5998-a689-4708-b7bb-b93624d78212",
+            "name": "Hoth Crown Court",
+            "roomId": "34c69127-f26f-4543-b601-310c15461f5d",
+            "roomName": "Crown Court 3-1"
+          },
+          "hearingType": {
+            "id": "1fa3fd29-d6df-4838-a0dd-da1f90cb9b52",
+            "description": "Plea and Trial Preparation"
+          }
+        }
+      ]
+    }
+  ]
+}
