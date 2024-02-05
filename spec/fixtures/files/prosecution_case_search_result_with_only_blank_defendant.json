@@ -3,35 +3,35 @@
   "cases": [
     {
       "caseStatus": "CLOSED",
-      "prosecutionCaseId": "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
-      "prosecutionCaseReference": "20GD0217100",
+      "prosecutionCaseId": "2041abf3-0d06-4dd4-8650-cf01da525a0d",
+      "prosecutionCaseReference": "ABCD1234100",
       "defendantSummary": [
         {
           "proceedingsConcluded": true,
           "representationOrder": {
-            "applicationReference": "LAA-20191601",
-            "effectiveFromDate": "2019-09-12",
-            "effectiveToDate": "2019-12-12",
-            "laaContractNumber": "99998888"
+            "applicationReference": "LAA-20171234",
+            "effectiveFromDate": "2018-06-12",
+            "effectiveToDate": "2018-05-12",
+            "laaContractNumber": "12345678"
           },
-          "defendantMiddleName": "Andrew",
-          "defendantId": "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3",
+          "defendantMiddleName": "Fake",
+          "defendantId": "4e5da043-d327-429a-bb5d-ed05734caa8e",
           "defendantASN": "ARREST123",
           "offenceSummary": [
             {
-              "offenceId": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
-              "offenceCode": "PT00011",
-              "offenceTitle": "Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable",
+              "offenceId": "209927d2-21ae-4c03-b4dd-d1c1fa1fba57",
+              "offenceCode": "AB12345",
+              "offenceTitle": "Theft of a speeder",
               "proceedingsConcluded": false,
-              "arrestDate": "2020-02-01",
-              "startDate": "2020-02-01",
-              "chargeDate": "2020-02-01",
+              "arrestDate": "2019-04-01",
+              "startDate": "2019-05-01",
+              "chargeDate": "2019-06-01",
               "modeOfTrial": "Summary",
               "orderIndex": 1,
               "wording": "Test",
               "laaApplnReference": {
-                "applicationReference": "LAA-20191601",
-                "statusId": "58ebf081-2b7d-3b1d-8c47-149fe7dbd672",
+                "applicationReference": "LAA-20171234",
+                "statusId": "e503f839-8f2a-4046-8411-ab5e33d47c2e",
                 "statusCode": "G2",
                 "statusDescription": "Granted for Two Advocates"
               }
@@ -41,7 +41,7 @@
       ],
       "hearingSummary": [
         {
-          "hearingId": "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4",
+          "hearingId": "794a1a64-6c22-4bcf-a8ec-3895d37f482a",
           "jurisdictionType": "MAGISTRATES",
           "estimatedDuration": "20",
           "defendantIds": [],
@@ -54,19 +54,19 @@
             }
           ],
           "hearingType": {
-            "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776",
+            "id": "7ebdf55a-b6c4-45c8-9306-bb5ae283274d",
             "description": "First hearing"
           },
           "courtCentre": {
-            "id": "7e967376-eacf-4fca-9b30-21b0c5aad427",
-            "name": "Bexley Magistrates' Court",
-            "roomId": "8e912353-3b5d-36c3-953e-ad3b94b19de3",
+            "id": "032e0250-df8b-418e-b54e-74f74e3abe64",
+            "name": "Dagobah Magistrates' Court",
+            "roomId": "94997c2d-2214-47a7-bc47-5edac3c14755",
             "roomName": "Courtroom 01",
-            "code": "B01BH00"
+            "code": "B123B12"
           }
         },
         {
-          "hearingId": "9161049a-bde1-4150-83e5-9d5212d762c2",
+          "hearingId": "ed6b4079-bc65-43ce-a0d4-bbe195c0fba4",
           "jurisdictionType": "CROWN",
           "defendantIds": [],
           "hearingDays": [
@@ -78,54 +78,54 @@
             }
           ],
           "courtCentre": {
-            "id": "9b583616-049b-30f9-a14f-028a53b7cfe8",
-            "name": "Liverpool Crown Court",
-            "roomId": "7cb09222-49e1-3622-a5a6-ad253d2b3c39",
-            "roomName": "Crown Court 3-1"
+            "id": "c56f3962-2c89-4393-9173-500245739299",
+            "name": "Dagobah Crown Court",
+            "roomId": "a64d9400-5a6a-4c02-9e76-ad3c510de46c",
+            "roomName": "Crown Court 2-1"
           },
           "hearingType": {
-            "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
+            "id": "813beb73-e420-431d-8c35-db6e42e0c400",
             "description": "Plea and Trial Preparation"
           }
         },
         {
-          "hearingId": "e6487eac-df3d-4175-9c41-c2e90d0a8587",
+          "hearingId": "c090c95f-cc4f-4dfa-8e7e-3f489a93fd4f",
           "jurisdictionType": "CROWN",
           "defendantIds": [],
           "hearingDays": [
             {
-              "sittingDay": "2020-09-05T08:00:00Z",
+              "sittingDay": "2019-07-05T09:00:00Z",
               "listingSequence": 1,
               "listedDurationMinutes": 720,
               "hasSharedResults": true
             }
           ],
           "courtCentre": {
-            "id": "f8254db1-1683-483e-afb3-b87fde5a0a26",
-            "name": "Lavender Hill Magistrates' Court",
-            "roomId": "9e4932f7-97b2-3010-b942-ddd2624e4dd8",
+            "id": "03315c5f-3e19-43c0-8945-bd181bff9503",
+            "name": "Alderaan Magistrates' Court",
+            "roomId": "3e37c0ae-e887-44f0-b961-1de4199f8868",
             "roomName": "Courtroom 01"
           },
           "hearingType": {
-            "id": "bf8155e1-90b9-4080-b133-bfbad895d6e4",
+            "id": "a98f5c8a-c5bc-40bd-8b75-2861b6783394",
             "description": "Trial"
           }
         },
         {
-          "hearingId": "bd84aff9-229a-4d77-bfcc-421af3f2fc1b",
+          "hearingId": "69cdd600-c542-4818-a90e-a5caaccb7658",
           "jurisdictionType": "CROWN",
           "defendantIds": [
-            "1a847ab9-3b82-4c5a-98ad-2241581377e8"
+            "ef90d9ca-58a3-4843-a65a-53970a252862"
           ],
           "hearingDays": [],
           "courtCentre": {
-            "id": "9b583616-049b-30f9-a14f-028a53b7cfe8",
-            "name": "Liverpool Crown Court",
-            "roomId": "7cb09222-49e1-3622-a5a6-ad253d2b3c39",
+            "id": "587e5998-a689-4708-b7bb-b93624d78212",
+            "name": "Hoth Crown Court",
+            "roomId": "34c69127-f26f-4543-b601-310c15461f5d",
             "roomName": "Crown Court 3-1"
           },
           "hearingType": {
-            "id": "06b0c2bf-3f98-46ed-ab7e-56efaf9ecced",
+            "id": "1fa3fd29-d6df-4838-a0dd-da1f90cb9b52",
             "description": "Plea and Trial Preparation"
           }
         }

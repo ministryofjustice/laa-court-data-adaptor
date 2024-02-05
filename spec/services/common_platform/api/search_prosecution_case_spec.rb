@@ -68,7 +68,7 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
       search_prosecution_case_object = described_class.new(params)
       search_prosecution_case_object.call
 
-      @empty_defendant = "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3"
+      @empty_defendant = "4e5da043-d327-429a-bb5d-ed05734caa8e"
     end
 
     it "logs an error" do
