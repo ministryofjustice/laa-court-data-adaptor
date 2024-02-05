@@ -51,9 +51,9 @@ module CommonPlatform
       def log_error_for_blank_defendants
         if array_not_empty(@blank_defendants)
           @blank_defendants.each do |blank_defendant|
-            Rails.logger.error("The defendant with the defendantId [" + blank_defendant + "] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
+            Rails.logger.error("The defendant with the defendantId [#{blank_defendant}] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
             # Send an alert to sentry
-            Sentry.capture_message("The defendant with the defendantId [" + blank_defendant + "] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
+            Sentry.capture_message("The defendant with the defendantId [#{blank_defendant}] is blank (missing defendantFirstName, defendantLastName, defendantDOB, defendantNINO and hearingSummary)")
           end
         end
       end

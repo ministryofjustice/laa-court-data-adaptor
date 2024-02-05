@@ -60,7 +60,7 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
 
   context "when contains a blank defendant" do
     let(:response_body) { JSON.parse(file_fixture("prosecution_case_search_result_with_only_blank_defendant.json").read) }
-    let(:empty_defendant) {"4e5da043-d327-429a-bb5d-ed05734caa8e"}
+    let(:empty_defendant) { "4e5da043-d327-429a-bb5d-ed05734caa8e" }
 
     before do
       allow(Rails.logger).to receive(:error)
@@ -82,7 +82,7 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
 
   context "when contains a blank defendant but they are present in the hearing summary" do
     let(:response_body) { JSON.parse(file_fixture("prosecution_case_search_result_with_blank_defendant_present_in_hearing_summary.json").read) }
-    let(:empty_defendant) {"4e5da043-d327-429a-bb5d-ed05734caa8e"}
+    let(:empty_defendant) { "4e5da043-d327-429a-bb5d-ed05734caa8e" }
 
     before do
       allow(Rails.logger).to receive(:error)
@@ -104,8 +104,8 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
 
   context "when contains a blank defendant and a non-blank defendant" do
     let(:response_body) { JSON.parse(file_fixture("prosecution_case_search_result_with_blank_and_non_blank_defendant.json").read) }
-    let(:empty_defendant) {"77908e28-254c-4c02-858c-d012d20f1901"}
-    let(:non_empty_defendant) {"0e70b6f9-b488-4827-9658-956e4f6e3d48"}
+    let(:empty_defendant) { "77908e28-254c-4c02-858c-d012d20f1901" }
+    let(:non_empty_defendant) { "0e70b6f9-b488-4827-9658-956e4f6e3d48" }
 
     before do
       allow(Rails.logger).to receive(:error)
