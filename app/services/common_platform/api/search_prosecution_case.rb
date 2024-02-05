@@ -59,11 +59,11 @@ module CommonPlatform
       end
 
       def array_not_empty(array)
-        return !array.nil? && !array.empty?
+        array.present?
       end
 
       def defendant_is_blank(defendant)
-        return !defendant["defendantFirstName"] && !defendant["defendantLastName"] && !defendant["defendantDOB"] && !defendant["defendantNINO"]
+        !defendant["defendantFirstName"] && !defendant["defendantLastName"] && !defendant["defendantDOB"] && !defendant["defendantNINO"]
       end
 
     private
