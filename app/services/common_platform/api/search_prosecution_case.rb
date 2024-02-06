@@ -28,13 +28,13 @@ module CommonPlatform
               end
             end
 
-            check_hearing_summaries_for_blank_defendants(prosecution_case["hearingSummary"])
+            remove_defendant_with_hearing_summary_from_blank_defendants(prosecution_case["hearingSummary"])
             log_error_for_blank_defendants
           end
         end
       end
 
-      def check_hearing_summaries_for_blank_defendants(hearing_summaries)
+      def remove_defendant_with_hearing_summary_from_blank_defendants(hearing_summaries)
         if array_not_empty(hearing_summaries)
           hearing_summaries.each do |hearing_summary|
             hearing_summary["defendantIds"].each do |defendant_id|
