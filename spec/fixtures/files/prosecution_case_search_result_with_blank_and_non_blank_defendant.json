@@ -1,0 +1,95 @@
+{
+  "totalResults": 1,
+  "cases": [
+    {
+      "caseStatus": "ACTIVE",
+      "prosecutionCaseId": "793af793-c02c-4da4-a5a1-73f2b6f54749",
+      "prosecutionCaseReference": "10A10000000",
+      "defendantSummary": [
+        {
+          "proceedingsConcluded": false,
+          "defendantId": "77908e28-254c-4c02-858c-d012d20f1901",
+          "masterDefendantId": "0119b547-5179-4f8f-a920-4fee57bcc2ae",
+          "offenceSummary": [
+            {
+              "offenceId": "e1533e82-3ca5-40e3-8062-381d4d41d2fd",
+              "offenceCode": "AB12345",
+              "offenceTitle": "Taking the ring without consent",
+              "offenceLegislation": "Contrary to sections 1(1)(a) and 6 of the Mordor Protection Act 1978.",
+              "proceedingsConcluded": false,
+              "endDate": "2024-01-02",
+              "startDate": "2024-01-01",
+              "chargeDate": "2024-01-04",
+              "modeOfTrial": "Either Way",
+              "orderIndex": 1,
+              "wording": "between 01/01/2024 and 02/01/2024 took the one ring without consent CONTRARY TO SECTIONS 1(1)(A) AND 6 OF THE MORDOR PROTECTION ACT 1978",
+              "laaApplnReference": {},
+              "plea": []
+            }
+          ]
+        },
+        {
+          "proceedingsConcluded": true,
+          "representationOrder": {},
+          "defendantId": "0e70b6f9-b488-4827-9658-956e4f6e3d48",
+          "masterDefendantId": "0119b547-5179-4f8f-a920-4fee57bcc2ae",
+          "defendantASN": "2011999999999999ASND",
+          "defendantFirstName": "Frodo",
+          "defendantLastName": "Baggins",
+          "defendantDOB": "1990-01-01",
+          "defendantNINO": "AB123456C",
+          "offenceSummary": [
+            {
+              "offenceId": "e1533e82-3ca5-40e3-8062-381d4d41d2fd",
+              "offenceCode": "AB12345",
+              "offenceTitle": "Taking the ring without consent",
+              "offenceLegislation": "Contrary to sections 1(1)(a) and 6 of the Mordor Protection Act 1978.",
+              "proceedingsConcluded": false,
+              "endDate": "2024-01-02",
+              "startDate": "2024-01-01",
+              "chargeDate": "2024-01-04",
+              "modeOfTrial": "Either Way",
+              "orderIndex": 1,
+              "wording": "between 01/01/2024 and 02/01/2024 took the one ring without consent CONTRARY TO SECTIONS 1(1)(A) AND 6 OF THE MORDOR PROTECTION ACT 1978",
+              "laaApplnReference": {
+                "applicationReference": "10000000",
+                "statusId": "af4f688a-23bd-4f67-b5e3-91253f00f028",
+                "statusCode": "AP",
+                "statusDescription": "Application Pending"
+              },
+              "plea": []
+            }
+          ]
+        }
+      ],
+      "hearingSummary": [
+        {
+          "hearingId": "30df467e-3b35-40f6-9063-527f1175f071",
+          "jurisdictionType": "MAGISTRATES",
+          "defendantIds": [
+            "0e70b6f9-b488-4827-9658-956e4f6e3d48"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2024-01-10T13:00:00.000Z",
+              "listingSequence": 1,
+              "listedDurationMinutes": 20
+            }
+          ],
+          "hearingType": {
+            "id": "aae90552-93bb-43e6-af32-4e4aab15e9cd",
+            "description": "First hearing"
+          },
+          "courtCentre": {
+            "id": "edb3379f-e4c9-3bc9-956f-928adc233086",
+            "name": "South Shields Magistrates' Court",
+            "roomId": "ea50eca0-73f0-3ae1-a98e-7c3843daa159",
+            "roomName": "Courtroom 02",
+            "code": "B10LX00"
+          },
+          "defenceCounsel": []
+        }
+      ]
+    }
+  ]
+}
