@@ -83,7 +83,8 @@ jobs:
           command: bundle exec rubocop
 
   build-and-push-app:
-    executor: aws-ecr/default
+    machine:
+      image: default
     steps:
       - checkout
 
