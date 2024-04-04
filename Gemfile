@@ -5,13 +5,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.4"
 
-gem "actionpack", "~> 7.0"
-gem "actionview", "~> 7.0"
+gem "actionpack", "~> 7.1", ">= 7.1.3.1"
+gem "actionview", "~> 7.1", ">= 7.1.3"
 gem "activemodel", "~> 7.0"
 gem "activerecord", "~> 7.0"
 gem "activesupport", "~> 7.0"
 gem "bundler"
-gem "railties", "~> 7.0"
+gem "railties", "~> 7.1", ">= 7.1.3.1"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
@@ -24,7 +24,7 @@ gem "bcrypt", "~> 3.1.18"
 gem "bootsnap", ">= 1.4.2", require: false
 
 gem "aws-sdk-sqs"
-gem "doorkeeper", "~> 5.6"
+gem "doorkeeper", "~> 5.6", ">= 5.6.9"
 gem "dry-validation"
 gem "faraday", "~> 2.7.4"
 gem "faraday-retry", "~> 2.2.0"
@@ -38,18 +38,18 @@ gem "prmd"
 gem "prometheus_exporter", "2.0.8"
 gem "rswag-api"
 gem "rswag-ui"
-gem "sentry-rails", "~> 5.10.0"
+gem "sentry-rails", "~> 5.11.0"
 gem "sentry-ruby", "~> 5.10.0"
-gem "sentry-sidekiq", "~> 5.10.0"
-gem "sidekiq", ">= 6.5.10", "< 7.0"
+gem "sentry-sidekiq", "~> 5.11.0"
+gem "sidekiq", "~> 7.0"
 gem "versionist"
 
 group :development, :test do
-  gem "dotenv-rails"
+  gem "dotenv-rails", ">= 3.0.0"
   gem "pry-byebug"
   gem "pry-rails", "~> 0.3.9"
   gem "rswag-specs"
-  gem "rubocop-govuk"
+  gem "rubocop-govuk", ">= 4.13.0"
   gem "rubocop-performance"
   gem "vcr"
   gem "webmock"
@@ -66,8 +66,8 @@ end
 group :test do
   gem "json-schema-rspec"
   gem "rspec_junit_formatter"
-  gem "rspec-rails", "~> 6.0.1"
+  gem "rspec-rails", "~> 6.1.0"
   gem "shoulda-matchers"
   gem "simplecov"
-  gem "sinatra", "~> 3.0.5"
+  gem "sinatra", "~> 3.1.0"
 end
