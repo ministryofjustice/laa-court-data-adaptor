@@ -123,7 +123,7 @@ def compare_verdicts(case_urn, defendant_id, v1_offences, v2_offences)
 
   v1_offences.each do |v1_offence|
     v2_offence = v2_offences.find { |item| item.fetch("id", nil) == v1_offence.fetch("id") }
-    v1_verdict = v2_offence.fetch("attributes", nil)&.fetch("verdict", nil)&.fetch("verdict_type", nil)&.fetch("category_type", "NO_VERDICT")
+    v1_verdict = v1_offence.fetch("attributes", nil)&.fetch("verdict", nil)&.fetch("verdict_type", nil)&.fetch("category_type", "NO_VERDICT")
     v2_verdict = v2_offence.fetch("verdict", nil)&.fetch("type", nil)&.fetch("category_type", "NO_VERDICT")
 
     results.append [case_urn, defendant_id, v1_offence.fetch("id"), "VERDICT", v1_verdict, v2_verdict, v1_verdict == v2_verdict]
