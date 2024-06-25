@@ -66,7 +66,7 @@ def compare_maat_reference(case_urn, defendant_id, v1_defendant_json, v2_offence
   v1_maat_ref = v1_defendant_json.fetch("maat_reference", [])
   v2_maat_refs = v2_offences.map { |offence| offence.fetch("laa_reference", nil)&.fetch("reference") }.uniq
 
-  results.append [case_urn, defendant_id, "MAAT REFERENCE", v1_maat_ref, "[#{v2_maat_refs.join('-')}]", v2_maat_refs == [v1_maat_ref]]
+  results.append [case_urn, defendant_id, "NA", "MAAT REFERENCE", v1_maat_ref, "[#{v2_maat_refs.join('-')}]", v2_maat_refs == [v1_maat_ref]]
 end
 
 def get_v1_offences(v1_defendant_json)
@@ -83,7 +83,7 @@ end
 
 def compare_offences(case_urn, defendant_id, v1_offences, v2_offences)
   results = []
-  results.append [case_urn, defendant_id, "OFFENCE COUNT", v1_offences.count, v2_offences.count, v1_offences.count == v2_offences.count]
+  results.append [case_urn, defendant_id, "NA", "OFFENCE COUNT", v1_offences.count, v2_offences.count, v1_offences.count == v2_offences.count]
 end
 
 def compare_offence_dates(case_urn, defendant_id, v1_offences, v2_offences)
@@ -95,9 +95,9 @@ def compare_offence_data(case_urn, defendant_id, v1_offences, v2_offences, prope
 
   v1_offences.each do |v1_offence|
     v2_offence = v2_offences.find { |item| item.fetch("id", nil) == v1_offence.fetch("id") }
-    v1_offence_data = "#{v1_offence['id']}-#{v1_offence.fetch('attributes', nil)&.fetch(v1_lookup, nil)}"
-    v2_offence_data = "#{v2_offence['id']}-#{v2_offence.fetch(v2_lookup, nil)}"
-    results.append [case_urn, defendant_id, property_name, v1_offence_data, v2_offence_data, v1_offence_data == v2_offence_data]
+    v1_offence_data = "#{v1_offence.fetch('attributes', nil)&.fetch(v1_lookup, nil)}"
+    v2_offence_data = "#{v2_offence.fetch(v2_lookup, nil)}"
+    results.append [case_urn, defendant_id, v1_offence['id'], property_name, v1_offence_data, v2_offence_data, v1_offence_data == v2_offence_data]
   end
 
   results
@@ -112,10 +112,7 @@ def compare_pleas(case_urn, defendant_id, v1_offences, v2_offences)
     v1_pleas = v1_offence.fetch("attributes", nil)&.fetch("pleas", %w[NO_PLEA])&.map { |item| item["code"] }
     v2_pleas = v2_offence.fetch("pleas", %w[NO_PLEA]).map { |item| item["value"] }
 
-    v1_offence_pleas = [v1_offence.fetch("id")].concat v1_pleas
-    v2_offence_pleas = [v2_offence.fetch("id")].concat v2_pleas
-
-    results.append [case_urn, defendant_id, "PLEAS", "[#{v1_offence_pleas.join('-')}]", "[#{v2_offence_pleas.join('-')}]", v1_pleas == v2_pleas]
+    results.append [case_urn, defendant_id, v1_offence.fetch("id"), "PLEAS", "[#{v1_pleas.join('-')}]", "[#{v2_pleas.join('-')}]", v1_pleas == v2_pleas]
   end
 
   results
@@ -129,10 +126,7 @@ def compare_verdicts(case_urn, defendant_id, v1_offences, v2_offences)
     v1_verdict = v2_offence.fetch("attributes", nil)&.fetch("verdict", nil)&.fetch("verdict_type", nil)&.fetch("category_type", "NO_VERDICT")
     v2_verdict = v2_offence.fetch("verdict", nil)&.fetch("type", nil)&.fetch("category_type", "NO_VERDICT")
 
-    v1_offence_pleas = "#{v1_offence.fetch('id')}-#{v1_verdict}"
-    v2_offence_pleas = "#{v2_offence.fetch('id')}-#{v2_verdict}"
-
-    results.append [case_urn, defendant_id, "VERDICT", v1_offence_pleas, v2_offence_pleas, v1_verdict == v2_verdict]
+    results.append [case_urn, defendant_id, v1_offence.fetch('id'), "VERDICT", v1_verdict, v2_verdict, v1_verdict == v2_verdict]
   end
   results
 end
@@ -153,9 +147,9 @@ end
 
 def generate_csv_results(test_results_array)
   CSV.generate(headers: true) do |csv|
-    csv << ["CASE URN", "DEFENDANT ID", "PROPERTY", "V1-VALUE", "V2-VALUE", "MATCH"]
+    csv << ["CASE URN", "DEFENDANT ID", "OFFENCE ID" "PROPERTY", "V1-VALUE", "V2-VALUE", "MATCH"]
     test_results_array.each do |result_array|
-      csv << [result_array[0], result_array[1], result_array[2], result_array[3], result_array[4], result_array[5]]
+      csv << [result_array[0], result_array[1], result_array[2], result_array[3], result_array[4], result_array[5], result_array[6]]
     end
   end
 end
