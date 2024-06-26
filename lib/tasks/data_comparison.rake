@@ -14,16 +14,17 @@ namespace :data_comparison do
       current_case_data = get_prosecution_case(case_urn)
 
       get_case_defendants(current_case_data).each do |defendant|
-        puts "[INFO - #{Time.zone.now}] retrieving defendant response data for defendant id #{defendant}"
-        v1_defendant_json = get_v1_defendant_json(defendant)
-        v2_defendant_json = get_v2_defendant_json(current_case_data, defendant)
+        begin
+          puts "[INFO - #{Time.zone.now}] retrieving defendant response data for defendant id #{defendant}"
+          v1_defendant_json = get_v1_defendant_json(defendant)
+          v2_defendant_json = get_v2_defendant_json(current_case_data, defendant)
 
-        puts "[INFO - #{Time.zone.now}] Comparing JSON responses for defendant id #{defendant}"
-        test_results.concat compare_defendant_data(case_urn, defendant, v1_defendant_json, v2_defendant_json)
-      rescue StandardError => e
-        puts "[ERROR - #{Time.zone.now}] Error in process at CASE ID: #{case_urn} and Defendant ID: #{defendant}"
-        puts "[ERROR - #{Time.zone.now}] #{e}"
-      end
+          puts "[INFO - #{Time.zone.now}] Comparing JSON responses for defendant id #{defendant}"
+          test_results.concat compare_defendant_data(case_urn, defendant, v1_defendant_json, v2_defendant_json)
+        rescue StandardError => e
+          puts "[ERROR - #{Time.zone.now}] Error in process at CASE ID: #{case_urn} and Defendant ID: #{defendant}"
+          puts "[ERROR - #{Time.zone.now}] #{e}"
+        end
     end
     csv_data = generate_csv_results(test_results)
     puts "----------------------------"
@@ -62,11 +63,11 @@ end
 
 def compare_maat_reference(case_urn, defendant_id, v1_defendant_json, v2_offences)
   results = []
+  puts v1_defendant_json
+  v1_maat_ref = v1_defendant_json.fetch("attributes", nil)&.fetch("maat_reference", nil)
+  v2_maat_refs = v2_offences.map { |offence| offence.fetch("laa_application", nil)&.fetch("reference", nil) }&.uniq
 
-  v1_maat_ref = v1_defendant_json.fetch("maat_reference", [])
-  v2_maat_refs = v2_offences.map { |offence| offence.fetch("laa_reference", nil)&.fetch("reference") }.uniq
-
-  results.append [case_urn, defendant_id, "NA", "MAAT REFERENCE", v1_maat_ref, "[#{v2_maat_refs.join('-')}]", v2_maat_refs == [v1_maat_ref]]
+  results.append [case_urn, defendant_id, "NA", "MAAT REFERENCE", "[#{v1_maat_ref}]", "[#{v2_maat_refs.join('-')}]", v2_maat_refs == [v1_maat_ref]]
 end
 
 def get_v1_offences(v1_defendant_json)
@@ -84,6 +85,18 @@ end
 def compare_offences(case_urn, defendant_id, v1_offences, v2_offences)
   results = []
   results.append [case_urn, defendant_id, "NA", "OFFENCE COUNT", v1_offences.count, v2_offences.count, v1_offences.count == v2_offences.count]
+
+  v1_offence_ids = v1_offences.map { |offence| offence.fetch("id")}
+  v2_offence_ids = v2_offences.map { |offence| offence.fetch("id")}
+  offence_ids_match = v1_offence_ids.to_set == v2_offence_ids.to_set
+
+  results.append [case_urn, defendant_id, "NA", "OFFENCE IDS", "[#{v1_offence_ids.join("-")}]", "[#{v2_offence_ids.join("-")}]", offence_ids_match]
+
+  unless offence_ids_match
+    raise StandardError.new "Case: #{case_urn}, Defendant: #{defendant_id} has non-matching offence ids. This potentially indicates a blank defendant."
+  end
+
+  results
 end
 
 def compare_offence_dates(case_urn, defendant_id, v1_offences, v2_offences)
