@@ -13,6 +13,10 @@ namespace :data_comparison do
     case_urns.each do |case_urn|
       current_case_data = get_prosecution_case(case_urn)
 
+      unless current_case_data
+        next
+      end
+
       get_case_defendants(current_case_data).each do |defendant|
         puts "[INFO - #{Time.zone.now}] retrieving defendant response data for defendant id #{defendant}"
         v1_defendant_json = get_v1_defendant_json(defendant)
@@ -43,6 +47,12 @@ end
 def get_prosecution_case(case_urn)
   puts "[INFO - #{Time.zone.now}] Getting prosecution case: #{case_urn}."
   case_summaries = CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: case_urn)
+
+  unless case_summaries.count > 0
+    puts "[INFO - #{Time.zone.now}] No results found for Case URN: #{case_urn}. Skipping."
+    return
+  end
+
   HmctsCommonPlatform::ProsecutionCaseSummary.new(case_summaries.first.body)
 end
 
@@ -62,7 +72,7 @@ end
 
 def compare_maat_reference(case_urn, defendant_id, v1_defendant_json, v2_offences)
   results = []
-  v1_maat_ref = v1_defendant_json.fetch("attributes", nil)&.fetch("maat_reference", nil)
+  v1_maat_ref = v1_defendant_json.fetch("data", nil)&.fetch("attributes", nil)&.fetch("maat_reference", nil)
   v2_maat_refs = v2_offences.map { |offence| offence.fetch("laa_application", nil)&.fetch("reference", nil) }&.uniq
 
   results.append [case_urn, defendant_id, "NA", "MAAT REFERENCE", "[#{v1_maat_ref}]", "[#{v2_maat_refs.join('-')}]", v2_maat_refs == [v1_maat_ref]]
