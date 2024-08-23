@@ -9,7 +9,7 @@ gem "actionpack", "~> 7.0"
 gem "actionview", "~> 7.0"
 gem "activemodel", "~> 7.0"
 gem "activerecord", "~> 7.0"
-gem "activesupport", "~> 7.0"
+gem "activesupport", "~> 7.1"
 gem "bundler"
 gem "railties", "~> 7.0"
 
