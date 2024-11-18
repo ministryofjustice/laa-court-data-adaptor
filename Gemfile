@@ -49,7 +49,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails", "~> 0.3.9"
   gem "rswag-specs"
-  gem "rubocop-govuk"
+  gem "rubocop-govuk", ">= 5.0.3"
   gem "rubocop-performance"
   gem "vcr"
   gem "webmock"
@@ -69,5 +69,5 @@ group :test do
   gem "rspec-rails", "~> 6.0.1"
   gem "shoulda-matchers"
   gem "simplecov"
-  gem "sinatra", "~> 3.0.5"
+  gem "sinatra", "~> 4.1.0"
 end
