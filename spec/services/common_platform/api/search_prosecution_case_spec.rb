@@ -15,7 +15,7 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
 
   it "records ProsecutionCase" do
     expect(ProsecutionCaseRecorder).to receive(:call)
-      .with(prosecution_case_id: prosecution_case_id, body: response_body["cases"][0])
+      .with(prosecution_case_id:, body: response_body["cases"][0])
     search_prosecution_case
   end
 

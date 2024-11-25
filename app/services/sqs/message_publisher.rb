@@ -12,7 +12,7 @@ module Sqs
     def call
       if messaging_enabled?
         Rails.logger.info("Sending message: #{log_message}")
-        sqs_client.send_message(queue_url: queue_url, message_body: message.to_json)
+        sqs_client.send_message(queue_url:, message_body: message.to_json)
       end
     end
 

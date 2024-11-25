@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::Api::HearingEventsFetcher do
-  subject(:fetch_hearing_events) { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date) }
+  subject(:fetch_hearing_events) { described_class.call(hearing_id:, hearing_date:) }
 
   let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
   let(:hearing_date) { "2020-08-17" }
@@ -13,7 +13,7 @@ RSpec.describe CommonPlatform::Api::HearingEventsFetcher do
   end
 
   context "with a incorrect key" do
-    subject(:fetch_hearing_events) { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date, connection: connection) }
+    subject(:fetch_hearing_events) { described_class.call(hearing_id:, hearing_date:, connection:) }
 
     let(:connection) { CommonPlatform::Connection.call }
 
@@ -29,7 +29,7 @@ RSpec.describe CommonPlatform::Api::HearingEventsFetcher do
   end
 
   context "with a connection" do
-    subject(:fetch_hearing_events) { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date, connection: connection) }
+    subject(:fetch_hearing_events) { described_class.call(hearing_id:, hearing_date:, connection:) }
 
     let(:connection) { double("CommonPlatform::Connection") }
     let(:url) { "hearing/hearingLog" }

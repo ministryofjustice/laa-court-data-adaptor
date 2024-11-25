@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe ProsecutionCaseRecorder do
-  subject(:record) { described_class.call(prosecution_case_id: prosecution_case_id, body: body) }
+  subject(:record) { described_class.call(prosecution_case_id:, body:) }
 
   let(:prosecution_case_id) { "5edd67eb-9d8c-44f2-a57e-c8d026defaa4" }
   let(:defendant_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
@@ -32,15 +32,15 @@ RSpec.describe ProsecutionCaseRecorder do
     let!(:prosecution_case) do
       ProsecutionCase.create!(
         id: prosecution_case_id,
-        body: body,
+        body:,
       )
     end
 
     before do
       ProsecutionCaseDefendantOffence.create!(
-        prosecution_case_id: prosecution_case_id,
-        defendant_id: defendant_id,
-        offence_id: offence_id,
+        prosecution_case_id:,
+        defendant_id:,
+        offence_id:,
       )
     end
 

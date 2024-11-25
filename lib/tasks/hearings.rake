@@ -19,12 +19,12 @@ namespace :hearings do
 
         laa_reference       = LaaReference.find_by!(maat_reference: maat_id, linked: true)
         defendant_id        = laa_reference.defendant_id
-        prosecution_case_id = ProsecutionCaseDefendantOffence.where(defendant_id: defendant_id).first.prosecution_case_id
+        prosecution_case_id = ProsecutionCaseDefendantOffence.where(defendant_id:).first.prosecution_case_id
 
-        CommonPlatform::Api::ProsecutionCaseHearingsFetcher.call(prosecution_case_id: prosecution_case_id)
+        CommonPlatform::Api::ProsecutionCaseHearingsFetcher.call(prosecution_case_id:)
       rescue StandardError => e
         puts "[INFO - #{Time.zone.now}] There was an error processing MAAT ID #{maat_id}: #{e.message}."
-        errored_maat_ids << { maat_id: maat_id, error: e.message }
+        errored_maat_ids << { maat_id:, error: e.message }
 
         puts "[INFO - #{Time.zone.now}] Skipping MAAT ID #{maat_id}."
         next

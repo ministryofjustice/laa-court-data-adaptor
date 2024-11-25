@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe HearingsCreator do
-  subject(:create_hearings) { described_class.call(hearing_resulted_data: hearing_resulted_data, queue_url: "url") }
+  subject(:create_hearings) { described_class.call(hearing_resulted_data:, queue_url: "url") }
 
   let(:defendant_array) { [defendant_one] }
   let(:offence_array) { [offence_one, offence_two] }

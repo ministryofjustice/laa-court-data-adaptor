@@ -5,8 +5,8 @@ class MaatLinkCreator < ApplicationService
 
   def initialize(defendant_id, user_name, maat_reference)
     @laa_reference = LaaReference.new(
-      defendant_id: defendant_id,
-      user_name: user_name,
+      defendant_id:,
+      user_name:,
       maat_reference: maat_reference.presence || LaaReference.generate_linking_dummy_maat_reference,
     )
     @defendant_id = defendant_id
@@ -26,8 +26,8 @@ private
     maat_api_laa_reference = MaatApi::LaaReference.new(
       maat_reference: laa_reference.maat_reference,
       user_name: laa_reference.user_name,
-      defendant_summary: defendant_summary,
-      prosecution_case_summary: prosecution_case_summary,
+      defendant_summary:,
+      prosecution_case_summary:,
     )
 
     Sqs::MessagePublisher.call(

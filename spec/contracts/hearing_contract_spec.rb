@@ -9,7 +9,7 @@ RSpec.describe HearingContract do
         id: hearing_id,
         jurisdictionType: jurisdiction_type,
         courtCentre: court_centre,
-        type: type,
+        type:,
         hearingDays: [hearing_days],
       },
       sharedTime: shared_time,
@@ -46,7 +46,7 @@ RSpec.describe HearingContract do
         hearing: {
           jurisdictionType: jurisdiction_type,
           courtCentre: court_centre,
-          type: type,
+          type:,
           hearingDays: [hearing_days],
         },
         sharedTime: shared_time,
@@ -68,7 +68,7 @@ RSpec.describe HearingContract do
         hearing: {
           id: hearing_id,
           courtCentre: court_centre,
-          type: type,
+          type:,
           hearingDays: [hearing_days],
         },
         sharedTime: shared_time,
@@ -90,7 +90,7 @@ RSpec.describe HearingContract do
         hearing: {
           id: hearing_id,
           jurisdictionType: jurisdiction_type,
-          type: type,
+          type:,
           hearingDays: [hearing_days],
         },
         sharedTime: shared_time,
@@ -155,7 +155,7 @@ RSpec.describe HearingContract do
           id: hearing_id,
           jurisdictionType: jurisdiction_type,
           courtCentre: court_centre,
-          type: type,
+          type:,
         },
         sharedTime: shared_time,
       }
@@ -222,7 +222,7 @@ RSpec.describe HearingContract do
           id: hearing_id,
           jurisdictionType: jurisdiction_type,
           courtCentre: court_centre,
-          type: type,
+          type:,
           hearingDays: [hearing_days],
         },
       }

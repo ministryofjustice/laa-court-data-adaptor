@@ -6,8 +6,8 @@ module Api
       class HearingEventLogsController < ApplicationController
         def show
           hearing_event_log_response = CommonPlatform::Api::GetHearingEvents.call(
-            hearing_id: hearing_id,
-            hearing_date: hearing_date,
+            hearing_id:,
+            hearing_date:,
           )
 
           if hearing_event_log_response.present?

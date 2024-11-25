@@ -58,7 +58,7 @@ end
 
 def get_v1_defendant_json(defendant_id)
   puts "[INFO - #{Time.zone.now}] Getting defendant id: #{defendant_id} using V1."
-  defendant = CommonPlatform::Api::DefendantFinder.call(defendant_id: defendant_id)
+  defendant = CommonPlatform::Api::DefendantFinder.call(defendant_id:)
   JSON.parse(DefendantSerializer.new(defendant, include: %w[offences]).to_json)
 end
 

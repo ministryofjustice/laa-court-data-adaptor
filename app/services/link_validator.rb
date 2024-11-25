@@ -2,7 +2,7 @@
 
 class LinkValidator < ApplicationService
   def initialize(defendant_id:)
-    @prosecution_case = ProsecutionCaseDefendantOffence.find_by(defendant_id: defendant_id)&.prosecution_case
+    @prosecution_case = ProsecutionCaseDefendantOffence.find_by(defendant_id:)&.prosecution_case
   end
 
   def call

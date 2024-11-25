@@ -15,7 +15,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
         user_name: "JaneDoe",
         unlink_reason_code: 1,
         unlink_other_reason_text: "",
-        defendant_id: defendant_id,
+        defendant_id:,
       },
     }
   end
@@ -147,7 +147,7 @@ RSpec.describe "api/internal/v2/laa_references", type: :request, swagger_doc: "v
         response(202, "Accepted") do
           around do |example|
             Sidekiq::Testing.fake!
-            LaaReference.create!(defendant_id: defendant_id,
+            LaaReference.create!(defendant_id:,
                                  linked: true,
                                  maat_reference: laa_reference[:laa_reference][:maat_reference],
                                  user_name: "Jack")

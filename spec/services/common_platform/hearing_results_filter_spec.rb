@@ -1,7 +1,7 @@
 RSpec.describe CommonPlatform::HearingResultsFilter do
   describe "#call" do
     subject(:filter_call) do
-      described_class.new(body, defendant_id: defendant_id).call
+      described_class.new(body, defendant_id:).call
     end
 
     let(:body) do

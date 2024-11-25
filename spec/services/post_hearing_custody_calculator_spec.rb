@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe PostHearingCustodyCalculator do
-  subject { described_class.call(offences: offences) }
+  subject { described_class.call(offences:) }
 
   let(:offences) do
     [{

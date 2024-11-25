@@ -17,7 +17,7 @@ namespace :case_links do
 
       puts "[INFO - #{Time.zone.now}] Removing link between MAAT ID #{maat_id} and Defendant ID #{laa_reference.defendant_id} ..."
 
-      Current.set(request_id: request_id) do
+      Current.set(request_id:) do
         LaaReferenceUnlinker.call(
           defendant_id: laa_reference.defendant_id,
           user_name: user,

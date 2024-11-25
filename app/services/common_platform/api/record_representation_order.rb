@@ -51,10 +51,10 @@ module CommonPlatform
       def update_offence(response)
         case_defendant_offence.update!(
           rep_order_status: status_code,
-          status_date: status_date,
-          effective_start_date: effective_start_date,
-          effective_end_date: effective_end_date,
-          defence_organisation: defence_organisation,
+          status_date:,
+          effective_start_date:,
+          effective_end_date:,
+          defence_organisation:,
           response_status: response.status,
           response_body: response.body,
         )

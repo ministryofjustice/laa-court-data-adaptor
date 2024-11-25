@@ -40,7 +40,7 @@ module MaatApi
         surname: defendant_summary.last_name,
         dateOfBirth: defendant_summary.date_of_birth,
         nino: defendant_summary.national_insurance_number,
-        offences: offences,
+        offences:,
       }
     end
 

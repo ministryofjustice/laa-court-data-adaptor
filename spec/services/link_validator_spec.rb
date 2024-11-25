@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe LinkValidator do
-  subject(:link_validator_response) { described_class.call(defendant_id: defendant_id) }
+  subject(:link_validator_response) { described_class.call(defendant_id:) }
 
   let(:defendant_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }
   let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
@@ -13,8 +13,8 @@ RSpec.describe LinkValidator do
   end
 
   before do
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
-                                            defendant_id: defendant_id,
+    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
+                                            defendant_id:,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
   end
 

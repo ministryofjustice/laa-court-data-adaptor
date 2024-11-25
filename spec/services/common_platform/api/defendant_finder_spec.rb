@@ -15,14 +15,14 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
   before do
     ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case)
     ProsecutionCaseDefendantOffence.create!(
-      defendant_id: defendant_id,
-      prosecution_case_id: prosecution_case_id,
-      offence_id: offence_id,
+      defendant_id:,
+      prosecution_case_id:,
+      offence_id:,
     )
   end
 
   describe "#call", :stub_case_search_with_urn, :stub_hearing_result do
-    subject(:defendant) { described_class.call(defendant_id: defendant_id) }
+    subject(:defendant) { described_class.call(defendant_id:) }
 
     it "queries body from prosecutionCases endpoint" do
       defendant

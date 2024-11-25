@@ -56,7 +56,7 @@ RSpec.describe "api/internal/v1/representation_orders", type: :request, swagger_
         type: "representation_orders",
         attributes: {
           maat_reference: 1_231_231,
-          defence_organisation: defence_organisation,
+          defence_organisation:,
           offences: offence_array,
         },
         relationships: {

@@ -5,8 +5,8 @@ RSpec.describe NewRepresentationOrderContract do
 
   let(:hash_for_validation) do
     {
-      maat_reference: maat_reference,
-      defence_organisation: defence_organisation,
+      maat_reference:,
+      defence_organisation:,
       offences: offences_array,
       defendant_id: "17154890-67d2-48af-af1e-7ce7eef2b8c6",
     }

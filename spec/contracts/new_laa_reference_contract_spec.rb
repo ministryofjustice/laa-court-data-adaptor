@@ -11,9 +11,9 @@ RSpec.describe NewLaaReferenceContract do
 
   let(:hash_for_validation) do
     {
-      maat_reference: maat_reference,
-      defendant_id: defendant_id,
-      user_name: user_name,
+      maat_reference:,
+      defendant_id:,
+      user_name:,
     }
   end
   let(:maat_reference) { 123_456_789 }
@@ -79,7 +79,7 @@ RSpec.describe NewLaaReferenceContract do
 
   context "without a maat_reference" do
     let(:hash_for_validation) do
-      { defendant_id: defendant_id, user_name: user_name }
+      { defendant_id:, user_name: }
     end
 
     it { is_expected.to be_a_success }

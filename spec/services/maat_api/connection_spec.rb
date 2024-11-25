@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe MaatApi::Connection do
-  subject(:connect) { described_class.call(host: host) }
+  subject(:connect) { described_class.call(host:) }
 
   let(:host) { "https://example.com" }
 
