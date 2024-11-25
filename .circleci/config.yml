@@ -19,7 +19,7 @@ commands:
 jobs:
   test:
     docker:
-      - image: cimg/ruby:3.0.4
+      - image: cimg/ruby:3.3.6
         environment:
           PAGER: cat
           DATABASE_URL: postgres://postgres@localhost/laa_court_data_adaptor_test
