@@ -11,12 +11,12 @@ RSpec.describe ProsecutionCaseDefendantOffence, type: :model do
 
   let(:prosecution_case_defendant_offence) do
     described_class.new(
-      prosecution_case_id: prosecution_case_id,
-      defendant_id: defendant_id,
-      offence_id: offence_id,
-      rep_order_status: rep_order_status,
-      response_status: response_status,
-      response_body: response_body,
+      prosecution_case_id:,
+      defendant_id:,
+      offence_id:,
+      rep_order_status:,
+      response_status:,
+      response_body:,
     )
   end
 

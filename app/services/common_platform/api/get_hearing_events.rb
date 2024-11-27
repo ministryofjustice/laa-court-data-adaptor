@@ -6,14 +6,14 @@ module CommonPlatform
       def initialize(hearing_id:, hearing_date:)
         @hearing_id = hearing_id
         @hearing_date = hearing_date
-        @response = HearingEventsFetcher.call(hearing_id: hearing_id, hearing_date: hearing_date)
+        @response = HearingEventsFetcher.call(hearing_id:, hearing_date:)
       end
 
       def call
         if successful_response?
           HearingEventRecording.new(
-            hearing_id: hearing_id,
-            hearing_date: hearing_date,
+            hearing_id:,
+            hearing_date:,
             body: response.body,
           )
         end

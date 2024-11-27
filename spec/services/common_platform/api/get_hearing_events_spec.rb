@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::Api::GetHearingEvents do
-  subject(:get_hearing_events) { described_class.call(hearing_id: hearing_id, hearing_date: hearing_date) }
+  subject(:get_hearing_events) { described_class.call(hearing_id:, hearing_date:) }
 
   let(:hearing_id) { "ceb158e3-7171-40ce-915b-441e2c4e3f75" }
   let(:hearing_date) { "2020-04-30" }
@@ -9,7 +9,7 @@ RSpec.describe CommonPlatform::Api::GetHearingEvents do
   before do
     allow(CommonPlatform::Api::HearingEventsFetcher)
       .to receive(:call)
-      .with(hearing_id: hearing_id, hearing_date: hearing_date)
+      .with(hearing_id:, hearing_date:)
       .and_return(response)
   end
 

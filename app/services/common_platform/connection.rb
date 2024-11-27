@@ -35,10 +35,10 @@ module CommonPlatform
     end
 
     def options
-      return { headers: headers } if client_cert.blank?
+      return { headers: } if client_cert.blank?
 
       {
-        headers: headers,
+        headers:,
         ssl: {
           client_cert: OpenSSL::X509::Certificate.new(client_cert),
           client_key: OpenSSL::PKey::RSA.new(client_key),

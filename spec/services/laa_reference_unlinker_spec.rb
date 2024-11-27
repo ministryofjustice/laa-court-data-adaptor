@@ -2,10 +2,10 @@
 
 RSpec.describe LaaReferenceUnlinker do
   subject(:create_unlinker) do
-    described_class.call(defendant_id: defendant_id,
-                         user_name: user_name,
-                         unlink_reason_code: unlink_reason_code,
-                         unlink_other_reason_text: unlink_other_reason_text)
+    described_class.call(defendant_id:,
+                         user_name:,
+                         unlink_reason_code:,
+                         unlink_other_reason_text:)
   end
 
   let(:defendant_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }
@@ -14,7 +14,7 @@ RSpec.describe LaaReferenceUnlinker do
   let(:unlink_reason_code) { 1 }
   let(:unlink_other_reason_text) { "Wrong defendant" }
   let!(:linked_laa_reference) do
-    LaaReference.create(defendant_id: defendant_id,
+    LaaReference.create(defendant_id:,
                         user_name: "cpUser",
                         maat_reference: 101_010,
                         linked: true)
@@ -25,8 +25,8 @@ RSpec.describe LaaReferenceUnlinker do
       id: prosecution_case_id,
       body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
     )
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
-                                            defendant_id: defendant_id,
+    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
+                                            defendant_id:,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE dummy_maat_reference_seq RESTART;")
 
@@ -74,7 +74,7 @@ RSpec.describe LaaReferenceUnlinker do
     expect(Sqs::MessagePublisher).to receive(:call)
       .once
       .with(
-        message: message,
+        message:,
         queue_url: Rails.configuration.x.aws.sqs_url_unlink,
         log_info: { maat_reference: "101010" },
       )
@@ -84,8 +84,8 @@ RSpec.describe LaaReferenceUnlinker do
 
   context "with multiple offences" do
     before do
-      ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
-                                              defendant_id: defendant_id,
+      ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
+                                              defendant_id:,
                                               offence_id: SecureRandom.uuid)
     end
 
@@ -101,7 +101,7 @@ RSpec.describe LaaReferenceUnlinker do
       expect(Sqs::MessagePublisher).to receive(:call)
         .once
         .with(
-          message: message,
+          message:,
           queue_url: Rails.configuration.x.aws.sqs_url_unlink,
           log_info: { maat_reference: message[:maatId] },
         )

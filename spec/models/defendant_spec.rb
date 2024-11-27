@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Defendant, type: :model do
-  subject(:defendant) { described_class.new(body: defendant_hash, details: details_array, prosecution_case_id: prosecution_case_id) }
+  subject(:defendant) { described_class.new(body: defendant_hash, details: details_array, prosecution_case_id:) }
 
   let(:prosecution_case_hash) do
     JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0]
@@ -98,7 +98,7 @@ RSpec.describe Defendant, type: :model do
                                                   defendant_id: defendant_hash["defendantId"],
                                                   offence_id: SecureRandom.uuid,
                                                   status_date: "2019-12-12",
-                                                  defence_organisation: defence_organisation)
+                                                  defence_organisation:)
         end
 
         let(:defence_organisation) do
@@ -202,7 +202,7 @@ RSpec.describe Defendant, type: :model do
     let(:offences) { details_array[0].deep_transform_keys(&:to_sym)[:offences] }
 
     it "returns an applicable status" do
-      expect(PostHearingCustodyCalculator).to receive(:call).with(offences: offences).and_call_original
+      expect(PostHearingCustodyCalculator).to receive(:call).with(offences:).and_call_original
       expect(defendant.post_hearing_custody_statuses).to eq(%w[R])
     end
   end

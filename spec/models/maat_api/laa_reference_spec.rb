@@ -7,10 +7,10 @@ RSpec.describe MaatApi::LaaReference, type: :model do
 
   let(:laa_reference) do
     described_class.new(
-      prosecution_case_summary: prosecution_case_summary,
-      defendant_summary: defendant_summary,
-      user_name: user_name,
-      maat_reference: maat_reference,
+      prosecution_case_summary:,
+      defendant_summary:,
+      user_name:,
+      maat_reference:,
     )
   end
 

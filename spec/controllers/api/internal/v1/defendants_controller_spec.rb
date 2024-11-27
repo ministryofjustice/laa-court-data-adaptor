@@ -16,7 +16,7 @@ RSpec.describe Api::Internal::V1::DefendantsController, type: :controller do
     # It implies that defendants are not queryable unless their case has been searched
     # for beforehand, which seems risky (albeit that VCD should always have queried the
     # case first via its searchinng options).
-    CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: prosecution_case_reference)
+    CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference:)
   end
 
   context "when the CP /prosecutionCases API has `offenceSummary` having more than one `applicationReference` (maat_id)" do

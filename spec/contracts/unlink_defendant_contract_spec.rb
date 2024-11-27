@@ -10,10 +10,10 @@ RSpec.describe UnlinkDefendantContract do
 
   let(:hash_for_validation) do
     {
-      defendant_id: defendant_id,
-      user_name: user_name,
-      unlink_reason_code: unlink_reason_code,
-      unlink_other_reason_text: unlink_other_reason_text,
+      defendant_id:,
+      user_name:,
+      unlink_reason_code:,
+      unlink_other_reason_text:,
     }
   end
 

@@ -22,10 +22,10 @@ RSpec.describe RepresentationOrderCreatorWorker, type: :worker do
   it "creates a CommonPlatform::Api::RepresentationOrderCreator and calls it" do
     Sidekiq::Testing.inline! do
       expect(CommonPlatform::Api::RepresentationOrderCreator).to receive(:call).once.with(
-        defendant_id: defendant_id,
-        offences: offences,
-        maat_reference: maat_reference,
-        defence_organisation: defence_organisation,
+        defendant_id:,
+        offences:,
+        maat_reference:,
+        defence_organisation:,
       ).and_call_original
       work
     end

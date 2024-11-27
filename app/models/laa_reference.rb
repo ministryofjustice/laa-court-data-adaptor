@@ -11,7 +11,7 @@ class LaaReference < ApplicationRecord
 
   def adjust_link_and_save!
     # Unlink the previous laa reference
-    laa_ref_already_linked = LaaReference.find_by(maat_reference: maat_reference, linked: true)
+    laa_ref_already_linked = LaaReference.find_by(maat_reference:, linked: true)
     laa_ref_already_linked.unlink! if laa_ref_already_linked.present?
 
     self.linked = true

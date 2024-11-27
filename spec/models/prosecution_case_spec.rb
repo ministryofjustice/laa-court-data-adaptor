@@ -111,7 +111,7 @@ RSpec.describe ProsecutionCase, type: :model do
       it { expect(prosecution_case.defendants).to all be_a(Defendant) }
 
       it "initialises Defendants without details" do
-        expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice.and_call_original
+        expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id:).twice.and_call_original
         prosecution_case.defendants
       end
     end
@@ -186,8 +186,8 @@ RSpec.describe ProsecutionCase, type: :model do
           before { prosecution_case.hearings }
 
           it "initialises Defendants with detail fetched from hearings" do
-            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: defendant_one_details, prosecution_case_id: prosecution_case_id).once
-            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: defendant_two_details, prosecution_case_id: prosecution_case_id).once
+            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: defendant_one_details, prosecution_case_id:).once
+            expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: defendant_two_details, prosecution_case_id:).once
             prosecution_case.defendants
           end
 
@@ -205,7 +205,7 @@ RSpec.describe ProsecutionCase, type: :model do
             end
 
             it "initialises Defendants without details" do
-              expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id: prosecution_case_id).twice
+              expect(Defendant).to receive(:new).with(body: an_instance_of(Hash), details: nil, prosecution_case_id:).twice
               prosecution_case.defendants
             end
           end

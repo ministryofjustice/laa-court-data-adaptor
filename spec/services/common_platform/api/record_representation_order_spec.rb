@@ -3,16 +3,16 @@
 RSpec.describe CommonPlatform::Api::RecordRepresentationOrder do
   subject(:record_representation_order) do
     described_class.call(
-      case_defendant_offence: case_defendant_offence,
-      defendant_id: defendant_id,
-      offence_id: offence_id,
+      case_defendant_offence:,
+      defendant_id:,
+      offence_id:,
       status_code: "ABCDEF",
       application_reference: 999_999,
       status_date: "2019-12-12",
       effective_start_date: "2019-12-15",
       effective_end_date: "2020-12-15",
-      defence_organisation: defence_organisation,
-      connection: connection,
+      defence_organisation:,
+      connection:,
     )
   end
 
@@ -31,8 +31,8 @@ RSpec.describe CommonPlatform::Api::RecordRepresentationOrder do
 
   let!(:case_defendant_offence) do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case.id,
-                                            defendant_id: defendant_id,
-                                            offence_id: offence_id)
+                                            defendant_id:,
+                                            offence_id:)
   end
 
   let(:request_params) do

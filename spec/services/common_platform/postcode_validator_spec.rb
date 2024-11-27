@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::PostcodeValidator do
-  subject(:common_platform_postcode_validator_response) { described_class.call(postcode: postcode) }
+  subject(:common_platform_postcode_validator_response) { described_class.call(postcode:) }
 
   let(:postcode) { "EC4A 2AH" }
 

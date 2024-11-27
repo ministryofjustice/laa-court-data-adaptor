@@ -2,7 +2,7 @@
 
 RSpec.describe CommonPlatform::Api::HearingFetcher do
   context "when fetching result by hearing id only" do
-    subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, sitting_day: nil) }
+    subject(:fetch_hearing) { described_class.call(hearing_id:, sitting_day: nil) }
 
     let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
 
@@ -13,7 +13,7 @@ RSpec.describe CommonPlatform::Api::HearingFetcher do
     end
 
     context "with a incorrect key" do
-      subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, sitting_day: nil, connection: connection) }
+      subject(:fetch_hearing) { described_class.call(hearing_id:, sitting_day: nil, connection:) }
 
       let(:connection) { CommonPlatform::Connection.call }
 
@@ -29,7 +29,7 @@ RSpec.describe CommonPlatform::Api::HearingFetcher do
     end
 
     context "with connection" do
-      subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, sitting_day: nil, connection: connection) }
+      subject(:fetch_hearing) { described_class.call(hearing_id:, sitting_day: nil, connection:) }
 
       let(:connection) { double("CommonPlatformConnection") }
       let(:url) { "hearing/results" }
@@ -43,7 +43,7 @@ RSpec.describe CommonPlatform::Api::HearingFetcher do
   end
 
   context "when fetching result with hearing_id and hearing_day query params" do
-    subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, sitting_day: sitting_day) }
+    subject(:fetch_hearing) { described_class.call(hearing_id:, sitting_day:) }
 
     let(:hearing_id) { "4d01840d-5959-4539-a450-d39f57171036" }
     let(:sitting_day) { "2020-08-17" }
@@ -65,7 +65,7 @@ RSpec.describe CommonPlatform::Api::HearingFetcher do
     end
 
     context "with connection" do
-      subject(:fetch_hearing) { described_class.call(hearing_id: hearing_id, sitting_day: sitting_day, connection: connection) }
+      subject(:fetch_hearing) { described_class.call(hearing_id:, sitting_day:, connection:) }
 
       let(:connection) { double("CommonPlatformConnection") }
       let(:url) { "hearing/results" }

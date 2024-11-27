@@ -14,13 +14,13 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
   let(:request_id) { "XYZ" }
   let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
   let(:set_up_linked_prosecution_case) do
-    LaaReference.create!(defendant_id: defendant_id, user_name: "cpUser", maat_reference: 101_010)
+    LaaReference.create!(defendant_id:, user_name: "cpUser", maat_reference: 101_010)
     ProsecutionCase.create!(
       id: prosecution_case_id,
       body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
     )
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
-                                            defendant_id: defendant_id,
+    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
+                                            defendant_id:,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
     allow(CommonPlatform::Api::RecordLaaReference).to receive(:call)
   end
@@ -35,10 +35,10 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
     set_up_linked_prosecution_case
     Sidekiq::Testing.inline! do
       expect(LaaReferenceUnlinker).to receive(:call).with(
-        defendant_id: defendant_id,
-        user_name: user_name,
-        unlink_reason_code: unlink_reason_code,
-        unlink_other_reason_text: unlink_other_reason_text,
+        defendant_id:,
+        user_name:,
+        unlink_reason_code:,
+        unlink_other_reason_text:,
       ).and_call_original
       work
     end

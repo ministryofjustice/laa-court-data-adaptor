@@ -66,7 +66,7 @@ module MaatApi
         telephoneMobile: hmcts_common_platform_defendant.phone_mobile,
         email1: hmcts_common_platform_defendant.email_primary,
         email2: hmcts_common_platform_defendant.email_secondary,
-        offences: offences,
+        offences:,
       }
     end
 

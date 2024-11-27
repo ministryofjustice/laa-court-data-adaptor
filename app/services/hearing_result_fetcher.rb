@@ -11,14 +11,14 @@ class HearingResultFetcher < ApplicationService
 
   def call
     response = CommonPlatform::Api::HearingFetcher.call(
-      hearing_id: hearing_id,
-      sitting_day: sitting_day,
+      hearing_id:,
+      sitting_day:,
     )
 
     if response.success?
       if response.body.present?
         HearingsCreator.call(
-          hearing_resulted_data: CommonPlatform::HearingResultsFilter.call(response.body, defendant_id: defendant_id),
+          hearing_resulted_data: CommonPlatform::HearingResultsFilter.call(response.body, defendant_id:),
           queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
         )
       else

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::EmailValidator do
-  subject(:common_platform_email_validator_response) { described_class.call(email: email) }
+  subject(:common_platform_email_validator_response) { described_class.call(email:) }
 
   let(:email) { "abc@example.com" }
 

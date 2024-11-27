@@ -4,7 +4,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
   let(:prosecution_case_reference) { "19GD1001816" }
 
   context "with an incorrect key" do
-    subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference, connection: connection) }
+    subject(:search) { described_class.call(prosecution_case_reference:, connection:) }
 
     let(:connection) { CommonPlatform::Connection.call }
 
@@ -20,7 +20,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
   end
 
   context "when searching by ProsecutionCase Reference" do
-    subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference) }
+    subject(:search) { described_class.call(prosecution_case_reference:) }
 
     it "returns a successful response" do
       VCR.use_cassette("search_prosecution_case/by_prosecution_case_reference_success") do
@@ -32,7 +32,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
   end
 
   context "when searching by National Insurance Number" do
-    subject(:search) { described_class.call(national_insurance_number: national_insurance_number) }
+    subject(:search) { described_class.call(national_insurance_number:) }
 
     let(:national_insurance_number) { "HB133542A" }
 
@@ -45,7 +45,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
   end
 
   context "when searching by Arrest Summons Number" do
-    subject(:search) { described_class.call(arrest_summons_number: arrest_summons_number) }
+    subject(:search) { described_class.call(arrest_summons_number:) }
 
     let(:arrest_summons_number) { "arrest123" }
 
@@ -58,7 +58,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
   end
 
   context "when searching by name and date of birth" do
-    subject(:search) { described_class.call(name: "George Walsh", date_of_birth: date_of_birth) }
+    subject(:search) { described_class.call(name: "George Walsh", date_of_birth:) }
 
     let(:date_of_birth) { "1980-01-01" }
 
@@ -71,7 +71,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
   end
 
   context "when searching by name and date_of_next_hearing" do
-    subject(:search) { described_class.call(name: "George Walsh", date_of_next_hearing: date_of_next_hearing) }
+    subject(:search) { described_class.call(name: "George Walsh", date_of_next_hearing:) }
 
     let(:date_of_next_hearing) { "2020-02-17" }
 
@@ -84,7 +84,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
   end
 
   context "with connection" do
-    subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference, connection: connection) }
+    subject(:search) { described_class.call(prosecution_case_reference:, connection:) }
 
     let(:connection) { double("CommonPlatform::Connection") }
     let(:url) { "prosecutionCases" }
@@ -96,7 +96,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
     end
 
     context "when searching by ASN and Prosecution case reference" do
-      subject(:search) { described_class.call(prosecution_case_reference: prosecution_case_reference, arrest_summons_number: arrest_summons_number, connection: connection) }
+      subject(:search) { described_class.call(prosecution_case_reference:, arrest_summons_number:, connection:) }
 
       let(:arrest_summons_number) { "arrest123" }
       let(:params) { { prosecutionCaseReference: prosecution_case_reference, defendantASN: arrest_summons_number } }

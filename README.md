@@ -39,7 +39,7 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
 ## Dependencies
 
 * Ruby version
-    * Ruby version 3.0.4
+    * Ruby version 3.3.6
       To install various ruby versions, install a Ruby Version Manager.
       Two popular are [RVM](https://rvm.io/) and [asdf](https://asdf-vm.com/).
 

@@ -4,12 +4,12 @@ RSpec.describe CommonPlatform::Api::RecordLaaReference do
   subject(:record_reference) do
     described_class.call(
       prosecution_case_id: prosecution_case.id,
-      defendant_id: defendant_id,
-      offence_id: offence_id,
+      defendant_id:,
+      offence_id:,
       status_code: "ABCDEF",
       application_reference: maat_reference,
       status_date: "2019-12-12",
-      connection: connection,
+      connection:,
     )
   end
 
@@ -22,8 +22,8 @@ RSpec.describe CommonPlatform::Api::RecordLaaReference do
 
   let!(:case_defendant_offence) do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case.id,
-                                            defendant_id: defendant_id,
-                                            offence_id: offence_id)
+                                            defendant_id:,
+                                            offence_id:)
   end
 
   let(:request_params) do

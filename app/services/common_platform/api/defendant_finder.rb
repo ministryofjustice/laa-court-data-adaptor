@@ -5,7 +5,7 @@ module CommonPlatform
     class DefendantFinder < ApplicationService
       def initialize(defendant_id:)
         @defendant_id = defendant_id
-        @prosecution_case_defendant = ProsecutionCaseDefendantOffence.find_by(defendant_id: defendant_id)
+        @prosecution_case_defendant = ProsecutionCaseDefendantOffence.find_by(defendant_id:)
       end
 
       def call

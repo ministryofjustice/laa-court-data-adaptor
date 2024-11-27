@@ -36,7 +36,7 @@ RSpec.describe HearingResultFetcher do
       .to receive(:call)
       .once
       .with(
-        hearing_resulted_data: hearing_resulted_data,
+        hearing_resulted_data:,
         queue_url: Rails.configuration.x.aws.sqs_url_hearing_resulted,
       )
 

@@ -7,7 +7,7 @@ class LaaReferenceUnlinker < ApplicationService
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
 
-    @laa_reference = LaaReference.find_by(defendant_id: defendant_id, linked: true)
+    @laa_reference = LaaReference.find_by(defendant_id:, linked: true)
   end
 
   def call
@@ -54,7 +54,7 @@ private
   end
 
   def offences
-    @offences ||= ProsecutionCaseDefendantOffence.where(defendant_id: defendant_id)
+    @offences ||= ProsecutionCaseDefendantOffence.where(defendant_id:)
   end
 
   def dummy_maat_reference

@@ -3,10 +3,10 @@
 RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
   subject(:create_rep_order) do
     described_class.call(
-      maat_reference: maat_reference,
-      defendant_id: defendant_id,
-      offences: offences,
-      defence_organisation: defence_organisation,
+      maat_reference:,
+      defendant_id:,
+      offences:,
+      defence_organisation:,
     )
   end
 
@@ -45,8 +45,8 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
       id: prosecution_case_id,
       body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
     )
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
-                                            defendant_id: defendant_id,
+    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
+                                            defendant_id:,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
   end
 
@@ -68,8 +68,8 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
     let(:offences) { [offence_one, offence_two] }
 
     before do
-      ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
-                                              defendant_id: defendant_id,
+      ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
+                                              defendant_id:,
                                               offence_id: "f916e952-1c35-44d6-ba15-a149f92cc38a")
     end
 

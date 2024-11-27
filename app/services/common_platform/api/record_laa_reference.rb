@@ -39,7 +39,7 @@ module CommonPlatform
       end
 
       def update_database(response)
-        offence = ProsecutionCaseDefendantOffence.find_by(offence_id: offence_id)
+        offence = ProsecutionCaseDefendantOffence.find_by(offence_id:)
         offence.rep_order_status = status_code
         offence.status_date = status_date
         offence.response_status = response.status

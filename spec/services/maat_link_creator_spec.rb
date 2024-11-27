@@ -12,7 +12,7 @@ RSpec.describe MaatLinkCreator do
   let(:user_name) { "bob-smith" }
   let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
   let(:offence_id) { "cacbd4d4-9102-4687-98b4-d529be3d5710" }
-  let(:laa_reference) { LaaReference.create!(defendant_id: defendant_id, user_name: "caseWorker", maat_reference: maat_reference) }
+  let(:laa_reference) { LaaReference.create!(defendant_id:, user_name: "caseWorker", maat_reference:) }
   let(:response) { OpenStruct.new("status" => 200, "success?" => true) }
 
   before do
@@ -22,9 +22,9 @@ RSpec.describe MaatLinkCreator do
     )
 
     ProsecutionCaseDefendantOffence.create!(
-      prosecution_case_id: prosecution_case_id,
-      defendant_id: defendant_id,
-      offence_id: offence_id,
+      prosecution_case_id:,
+      defendant_id:,
+      offence_id:,
     )
 
     allow(Sqs::MessagePublisher).to receive(:call)
@@ -88,8 +88,8 @@ RSpec.describe MaatLinkCreator do
 
   context "with multiple offences" do
     before do
-      ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_id,
-                                              defendant_id: defendant_id,
+      ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
+                                              defendant_id:,
                                               offence_id: SecureRandom.uuid)
     end
 
@@ -118,7 +118,7 @@ RSpec.describe MaatLinkCreator do
   end
 
   context "when an LaaReference exists" do
-    let!(:existing_laa_reference) { LaaReference.create!(defendant_id: SecureRandom.uuid, user_name: "MrDoe", maat_reference: maat_reference) }
+    let!(:existing_laa_reference) { LaaReference.create!(defendant_id: SecureRandom.uuid, user_name: "MrDoe", maat_reference:) }
 
     context "and it is no longer linked" do
       before do

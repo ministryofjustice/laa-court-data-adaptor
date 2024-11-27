@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::PhoneValidator do
-  subject(:common_platform_phone_validator_response) { described_class.call(phone: phone) }
+  subject(:common_platform_phone_validator_response) { described_class.call(phone:) }
 
   let(:phone) { "+999999" }
 
