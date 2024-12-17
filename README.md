@@ -10,21 +10,28 @@ Its main function is data translation / adaptation, and queueing of requests.
 
 The application is commonly referred to by its acronym "CDA".
 
-## Table of Contents
-- [**Contact the team**](#contact-the-team)
-- [**Architecture Diagrams**](#architecture-diagram)
-- [**Environments**](#environments)
-- [**Dependencies**](#dependencies)
-- [**Set up**](#set-up)
-- [**API Authentication**](#api-authentication)
-- [**API Schema**](#api-schema)
-- [**Deployment**](#deployment)
-- [**Dev: running locally**](#dev-running-locally)
-- [**Stage**](#stage)
-- [**UAT**](#uat)
-- [**Monitoring and Debugging**](#monitoring-and-debugging)
-- [**Pre-commit Hooks**](#pre-commit-hooks)
-- [**Contributing**](#contributing)
+## Table of Contents <!-- omit from toc -->
+
+- [LAA Court Data Adaptor](#laa-court-data-adaptor)
+  - [Contact the team](#contact-the-team)
+  - [Architecture Diagram](#architecture-diagram)
+  - [Dependencies](#dependencies)
+  - [Set up](#set-up)
+    - [docker-compose](#docker-compose)
+    - [Decrypt the env files](#decrypt-the-env-files)
+    - [Run the application server](#run-the-application-server)
+  - [API Authentication](#api-authentication)
+    - [Making authenticated requests:](#making-authenticated-requests)
+  - [Postman collection](#postman-collection)
+  - [API Schema](#api-schema)
+  - [Deployment](#deployment)
+  - [Dev: running locally](#dev-running-locally)
+    - [Connect to hmcts-common-platform-mock-api](#connect-to-hmcts-common-platform-mock-api)
+  - [Environments](#environments)
+  - [Monitoring and Debugging](#monitoring-and-debugging)
+  - [Pre-commit Hooks](#pre-commit-hooks)
+  - [Sidekiq UI](#sidekiq-ui)
+  - [Contributing](#contributing)
 
 ## Contact the team
 
@@ -38,21 +45,24 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
 
 ## Dependencies
 
-* Ruby version
-    * Ruby version 3.3.6
-      To install various ruby versions, install a Ruby Version Manager.
-      Two popular are [RVM](https://rvm.io/) and [asdf](https://asdf-vm.com/).
+* Ruby
+  It is desirable to install a Ruby Version Manager.
+  Two popular are [RVM](https://rvm.io/) and [asdf](https://asdf-vm.com/).
 
-    * Rails 6.1.6.1
+  Check the Ruby version in the file `.ruby-version`
 
 * System dependencies
-    * postgres 14.3
-    * redis
+  * postgres 14.3
+  * redis
 
-Install dependencies with bundler:
-```
-bundle install
-```
+* Ruby on Rails and the other Ruby Gems
+
+  They are specified in the `Gemfile`.
+
+  Use bundler to install them:
+  ```
+  bundle install
+  ```
 ## Set up
 
 To set up  CDA in your local machine, you can run the following services manually:
@@ -132,19 +142,42 @@ The other way run the services is by using docker-compose: `docker-compose up --
 ## API Authentication
 
 Create an OAuth Application for each system that needs to authenticate to the adaptor via the console.
+
+1. Access Rails console:
+
 ```
 rails console
 ```
-```ruby
-application = Doorkeeper::Application.create(name: 'HMCTS Common Platform')
-```
-The client credentials are available against the `application` as `application.uid` and `application.secret`
-Use these credentials to generate an `access_token` by making a call to the OAuth endpoint described in the [schema](https://github.com/ministryofjustice/laa-court-data-adaptor/blob/master/schema/schema.md#oauth-endpoints-authentication).
 
+2. Create a new application entry:
+
+```ruby
+application = Doorkeeper::Application.create(name: 'My CDA Client')
+```
+
+The client credentials are available in `application.uid` and `application.secret`.
+
+3. Call POST `/oauth/token` to generate an `access_token`
+
+Use the `application.uid` and `application.secret` (see step 2)
+
+```
+$ curl -n -X POST https://dev.court-data-adaptor.service.justice.gov.uk/oauth/token \
+  -d '{
+  "grant_type": "client_credentials",
+  "client_id": <application.uid>,
+  "client_secret": <application.secret>
+}' \
+  -H "Content-Type: application/json"
+```
+
+the response contains <access_token> (see [schema](https://github.com/ministryofjustice/laa-court-data-adaptor/blob/master/schema/schema.md#oauth-endpoints-authentication) for more details)
 
 ### Making authenticated requests:
-Send the `access_token` provided by the OAuth endpoint as a Bearer Token.
-eg:
+Now that you have the `access_token` you can use it as a Bearer token to call CDA APIs:
+
+For example:
+
 ```curl
 curl --get \
 --url 'https://API_HOST/api/internal/v1/prosecution_cases' \
@@ -153,6 +186,11 @@ curl --get \
 --data-urlencode 'include=defendants' \
 --header 'Authorization: Bearer <access_token>'
 ```
+
+In CDA the authentication process is handled by the gem [doorkeeper](https://github.com/doorkeeper-gem/doorkeeper)
+
+## Postman collection
+To simplify manual API calling and testing, the team created a Postman collection: https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3713859603/Using+Postman#CDA-Collections
 
 ## API Schema
 
@@ -169,17 +207,23 @@ To add a new endpoint, run `rails generate rspec:swagger <controller_name>` to g
 The build is triggered in [CircleCI](https://circleci.com/gh/ministryofjustice/laa-court-data-adaptor) upon merging to master but requires manual approval through all environments to deploy to production.
 
 ## Dev: running locally
-As the Common Platform API does not have a sandbox to independently create test data in, we have also created a Mock of it to use when working in local development, which can be found [here](https://github.com/ministryofjustice/hmcts-common-platform-mock-api/)
 
-Add the following to `.env.development.local`
-```
-COMMON_PLATFORM_URL=http://localhost:3001
-SHARED_SECRET_KEY=super-secret-key
-LAA_DEV_API_URL=http://localhost:3000
-LAA_DEV_OAUTH_URL=http://localhost:3000/v1/oauth/token
-```
+### Connect to hmcts-common-platform-mock-api
+Since Common Platform API is deployed only on production, to assist the development and testing of CDA, we created a Common Platform Mock.
+ACD team is committed to keep the API interface in sync.
+To know more check out ([hmcts-common-platform-mock-api](https://github.com/ministryofjustice/hmcts-common-platform-mock-api/).
 
-Run the `hmcts-common-platform-mock-api` in parallel to the Court Data Adaptor on port 3001 to mock the Common Platform API.
+To run CP Mock locally:
+
+- Add the following to `.env.development.local`
+  ```
+  COMMON_PLATFORM_URL=http://localhost:3001
+  SHARED_SECRET_KEY=super-secret-key
+  LAA_DEV_API_URL=http://localhost:3000
+  LAA_DEV_OAUTH_URL=http://localhost:3000/v1/oauth/token
+  ```
+
+- Run the `hmcts-common-platform-mock-api` in parallel to the Court Data Adaptor on port 3001 to mock the Common Platform API.
 
 ## Environments
 Information about other environments can be found on [this](https://dsdmoj.atlassian.net/wiki/spaces/ASLST/pages/2811068434/Environments) Confluence page
