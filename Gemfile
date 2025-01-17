@@ -47,7 +47,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails", "~> 0.3.9"
   gem "rswag-specs"
-  gem "rubocop-govuk"
+  gem "rubocop-govuk", ">= 5.0.0"
   gem "rubocop-performance"
   gem "vcr"
   gem "webmock"
