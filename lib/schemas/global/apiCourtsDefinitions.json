@@ -89,6 +89,7 @@
     "applicationJurisdictionType": {
       "description": "Indicates the jurisdiction that is required to consider the application",
       "type": "string",
+
       "enum": [
         "MAGISTRATES",
         "CROWN",
