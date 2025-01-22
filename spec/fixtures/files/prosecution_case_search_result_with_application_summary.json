@@ -1,0 +1,495 @@
+
+{
+  "totalResults": 2,
+  "cases": [
+    {
+      "caseStatus": "ACTIVE",
+      "prosecutionCaseId": "c6d1a77f-1ff7-461b-86e4-ee89da0aa309",
+      "prosecutionCaseReference": "CPS186472",
+      "defendantSummary": [
+        {
+          "organisationName": "",
+          "proceedingsConcluded": true,
+          "representationOrder": {
+            "applicationReference": "LAA REF 809",
+            "effectiveFromDate": "2025-01-07",
+            "laaContractNumber": "LAA CONTRACT NUMBER 728"
+          },
+          "defendantId": "099664fa-555e-460f-8e97-20b99daaa442",
+          "defendantASN": "ASN 1144",
+          "defendantFirstName": "",
+          "defendantMiddleName": "",
+          "defendantLastName": "last1",
+          "offenceSummary": [
+            {
+              "offenceId": "68c9e312-b002-44f6-92a7-78f6252ac2f3",
+              "offenceCode": "OFFENCE CODE 611",
+              "offenceTitle": "OFFENCE TITLE 747",
+              "offenceLegislation": "OFFENCE LEGISLATION 854",
+              "proceedingsConcluded": true,
+              "arrestDate": "2024-11-08",
+              "dateOfInformation": "2024-10-09",
+              "endDate": "2024-10-22",
+              "startDate": "2024-11-09",
+              "chargeDate": "2024-10-22",
+              "modeOfTrial": "CROWN",
+              "orderIndex": 1,
+              "wording": "OFFENCE WORDING 813",
+              "verdict": {
+                "originatingHearingId": "0430605a-d6d3-4476-b1f0-8328b11726ae",
+                "verdictDate": "2019-01-01",
+                "verdictType": {
+                  "verdictTypeId": "c4d0986a-e82d-4890-bef1-3afb16c7d0bd",
+                  "sequence": 1,
+                  "categoryType": "CategoryType",
+                  "category": "Category",
+                  "description": "Description"
+                }
+              },
+              "laaApplnReference": {
+                "applicationReference": "LAA REF 245",
+                "statusId": "2058d5d8-1a75-4e8f-80c7-d86061934692",
+                "statusCode": "194",
+                "statusDescription": "LAA STATUS CODE 4"
+              },
+              "plea": [
+                {
+                  "originatingHearingId": "58fcfd11-41bc-48ba-b8a8-30ea5955b384",
+                  "pleaDate": "2025-01-08",
+                  "pleaValue": "Plea value 6"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "organisationName": "MOJ",
+          "proceedingsConcluded": false,
+          "representationOrder": {
+            "applicationReference": "LAA REF 466",
+            "effectiveFromDate": "2024-11-18",
+            "laaContractNumber": "LAA CONTRACT NUMBER 977"
+          },
+          "defendantId": "c4b7d054-c3eb-4cf3-9e30-80b627d1268c",
+          "defendantASN": "ASN 1759",
+          "defendantFirstName": "Joe",
+          "defendantMiddleName": "Sam",
+          "defendantLastName": "Doe",
+          "offenceSummary": [
+            {
+              "offenceId": "8c4e1c30-f6bd-4c06-9252-c6ef2ea499ab",
+              "offenceCode": "OFFENCE CODE 299",
+              "offenceTitle": "OFFENCE TITLE 363",
+              "offenceLegislation": "OFFENCE LEGISLATION 537",
+              "proceedingsConcluded": false,
+              "arrestDate": "2024-10-13",
+              "dateOfInformation": "2024-11-04",
+              "endDate": "2024-10-12",
+              "startDate": "2024-11-06",
+              "chargeDate": "2024-12-09",
+              "modeOfTrial": "CROWN",
+              "orderIndex": 1,
+              "wording": "OFFENCE WORDING 617",
+              "verdict": {
+                "originatingHearingId": "a030b74c-542a-40a4-9513-c60c70ba82ec",
+                "verdictDate": "2019-01-01",
+                "verdictType": {
+                  "verdictTypeId": "6de8fb9c-8b82-4e98-995d-49543ee5a130",
+                  "sequence": 1,
+                  "categoryType": "CategoryType",
+                  "category": "Category",
+                  "description": "Description"
+                }
+              },
+              "laaApplnReference": {
+                "applicationReference": "LAA REF 286",
+                "statusId": "f4d1934c-0395-4c3e-8cba-6a9b59789301",
+                "statusCode": "577",
+                "statusDescription": "LAA STATUS CODE 4"
+              },
+              "plea": [
+                {
+                  "originatingHearingId": "a90f5972-d044-4b31-b1ba-2016be37be87",
+                  "pleaDate": "2025-01-11",
+                  "pleaValue": "Plea value 0"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hearingSummary": [
+        {
+          "hearingId": "a5167d9b-c31f-4342-be35-798a04b86f86",
+          "jurisdictionType": "19fef8fc-15d3-4e09-9f30-e5676f60a81e",
+          "defendantIds": [
+            "8a22e212-4a43-40a3-bd99-6fbba86bd066",
+            "ad9caacf-9833-47fc-b51a-65d955f083a5"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2019-04-19T12:00:00",
+              "listingSequence": 15,
+              "listedDurationMinutes": 615,
+              "hasSharedResults": true
+            },
+            {
+              "sittingDay": "2019-03-01T09:00:00",
+              "listingSequence": 1,
+              "listedDurationMinutes": 206,
+              "hasSharedResults": true
+            }
+          ],
+          "estimatedDuration": "20 Minutes",
+          "courtCentre": {
+            "id": "399fd3e4-5231-4d88-9005-314f81456a6d",
+            "name": "Exeter Crown Court",
+            "roomId": "2f66d789-87c1-45a3-b841-410558c8ee7d",
+            "roomName": "Courtroom 4",
+            "welshName": "Courtroom 1",
+            "welshRoomName": "Courtroom 4",
+            "address": {
+              "address1": "44 Noel Avenue",
+              "address2": "Southampton",
+              "address3": "Utah",
+              "postCode": "NW22 25SW"
+            },
+            "code": "COURT CENTRE CODE  5"
+          },
+          "hearingType": {
+            "id": "aaf3379d-d6a8-4380-8e1d-626a763da14f",
+            "code": "HEARING TYPE CODE  5",
+            "description": "Trial"
+          },
+          "defenceCounsel": [
+            {
+              "id": "2ffa8961-58a3-4352-a87d-09aa45f68c7f",
+              "title": "Mr",
+              "firstName": "johnny",
+              "lastName": "robber",
+              "defendants": [
+                "2ffa8961-58a3-4352-a87d-09aa45f68c7f",
+                "2ffa8961-58a3-4352-a87d-09aa45f68c8f"
+              ],
+              "attendanceDays": [
+                "2019-01-01"
+              ]
+            }
+          ]
+        },
+        {
+          "hearingId": "adb1dbf4-79e4-4642-a006-b502eba1738c",
+          "jurisdictionType": "d43fe1af-9c0f-4510-a9a6-764b69e21b5c",
+          "defendantIds": [
+            "b36f0a87-6a76-435b-af3f-747eddd1370f",
+            "baee5932-94ef-4aaf-a257-7a52dc968586"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2019-04-24T09:00:00",
+              "listingSequence": 27,
+              "listedDurationMinutes": 658,
+              "hasSharedResults": true
+            },
+            {
+              "sittingDay": "2019-04-19T13:00:00",
+              "listingSequence": 20,
+              "listedDurationMinutes": 537,
+              "hasSharedResults": true
+            }
+          ],
+          "estimatedDuration": "20 Minutes",
+          "courtCentre": {
+            "id": "703a3a57-62cf-421d-9261-96248ac50ea9",
+            "name": "Birmingham Crown Court",
+            "roomId": "bf5175a4-3bfc-4793-84a6-30da75f2117b",
+            "roomName": "Courtroom 3",
+            "welshName": "Courtroom 3",
+            "welshRoomName": "Courtroom 5",
+            "address": {
+              "address1": "137 Legion Street",
+              "address2": "London",
+              "address3": "Nebraska",
+              "postCode": "OX62 29NW"
+            },
+            "code": "COURT CENTRE CODE  5"
+          },
+          "hearingType": {
+            "id": "aaf3379d-d6a8-4380-8e1d-626a763da14f",
+            "code": "HEARING TYPE CODE 1",
+            "description": "Trial"
+          },
+          "defenceCounsel": [
+            {
+              "id": "2ffa8961-58a3-4352-a87d-09aa45f68c7f",
+              "title": "Mr",
+              "firstName": "johnny",
+              "lastName": "robber",
+              "defendants": [
+                "2ffa8961-58a3-4352-a87d-09aa45f68c7f",
+                "2ffa8961-58a3-4352-a87d-09aa45f68c8f"
+              ],
+              "attendanceDays": [
+                "2019-01-01"
+              ]
+            }
+          ]
+        }
+      ],
+      "applicationSummary": [
+        {
+          "applicationId": "62158b87-56fc-43cc-bbdc-d957d372420f",
+          "applicationReference": "CJ03512",
+          "applicationType": "Application to amend a community order on change of residence",
+          "applicationStatus": "EJECTED",
+          "applicationExternalCreatorType": "PROSECUTOR",
+          "receivedDate": "2024-12-21",
+          "decisionDate": "2025-02-11",
+          "dueDate": "2025-01-27"
+        }
+      ]
+    },
+    {
+      "caseStatus": "ACTIVE",
+      "prosecutionCaseId": "1ba707e7-e28f-4ad6-9055-e056ccca3aee",
+      "prosecutionCaseReference": "TFL204279",
+      "defendantSummary": [
+        {
+          "organisationName": "",
+          "proceedingsConcluded": true,
+          "representationOrder": {
+            "applicationReference": "LAA REF 295",
+            "effectiveFromDate": "2024-12-10",
+            "laaContractNumber": "LAA CONTRACT NUMBER 265"
+          },
+          "defendantId": "dcdc5e5e-f8a6-4387-b048-829713f09749",
+          "defendantASN": "ASN 4246",
+          "defendantFirstName": "",
+          "defendantMiddleName": "",
+          "defendantLastName": "last3",
+          "offenceSummary": [
+            {
+              "offenceId": "d18a750e-9e31-4bd9-92cc-f699d214a6c3",
+              "offenceCode": "OFFENCE CODE 953",
+              "offenceTitle": "OFFENCE TITLE 291",
+              "offenceLegislation": "OFFENCE LEGISLATION 248",
+              "proceedingsConcluded": false,
+              "arrestDate": "2024-11-02",
+              "dateOfInformation": "2024-10-09",
+              "endDate": "2024-12-12",
+              "startDate": "2024-11-16",
+              "chargeDate": "2024-12-18",
+              "modeOfTrial": "CROWN",
+              "orderIndex": 1,
+              "wording": "OFFENCE WORDING 157",
+              "verdict": {
+                "originatingHearingId": "73211702-7822-4b1d-b38c-1e2132c2c1df",
+                "verdictDate": "2019-01-01",
+                "verdictType": {
+                  "verdictTypeId": "bafc3516-c01d-4b1a-a6dd-0304e98debee",
+                  "sequence": 1,
+                  "categoryType": "CategoryType",
+                  "category": "Category",
+                  "description": "Description"
+                }
+              },
+              "laaApplnReference": {
+                "applicationReference": "LAA REF 604",
+                "statusId": "92703440-4953-4c68-a9fd-ec9a59e6afcc",
+                "statusCode": "840",
+                "statusDescription": "LAA STATUS CODE 2"
+              },
+              "plea": [
+                {
+                  "originatingHearingId": "ca53e60b-945c-4d22-916e-0c5930ea621b",
+                  "pleaDate": "2025-01-11",
+                  "pleaValue": "Plea value 7"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "organisationName": "org1",
+          "proceedingsConcluded": true,
+          "representationOrder": {
+            "applicationReference": "LAA REF 221",
+            "effectiveFromDate": "2024-10-23",
+            "laaContractNumber": "LAA CONTRACT NUMBER 61"
+          },
+          "defendantId": "11aaedab-82ab-496c-a2b3-742517c90f88",
+          "defendantASN": "ASN 8447",
+          "defendantFirstName": "",
+          "defendantMiddleName": "",
+          "defendantLastName": "",
+          "offenceSummary": [
+            {
+              "offenceId": "e39a0204-12f7-4f6c-9508-35210600b22d",
+              "offenceCode": "OFFENCE CODE 306",
+              "offenceTitle": "OFFENCE TITLE 875",
+              "offenceLegislation": "OFFENCE LEGISLATION 223",
+              "proceedingsConcluded": false,
+              "arrestDate": "2024-12-20",
+              "dateOfInformation": "2024-11-19",
+              "endDate": "2024-12-23",
+              "startDate": "2024-12-14",
+              "chargeDate": "2025-01-02",
+              "modeOfTrial": "CROWN",
+              "orderIndex": 1,
+              "wording": "OFFENCE WORDING 856",
+              "verdict": {
+                "originatingHearingId": "5574cd68-90e7-45ca-8edb-dbfe6ad40ed1",
+                "verdictDate": "2019-01-01",
+                "verdictType": {
+                  "verdictTypeId": "646f8469-e22c-4938-89f0-f65f7cadd61c",
+                  "sequence": 1,
+                  "categoryType": "CategoryType",
+                  "category": "Category",
+                  "description": "Description"
+                }
+              },
+              "laaApplnReference": {
+                "applicationReference": "LAA REF 392",
+                "statusId": "0b4a5088-6fd7-4bdf-a6ae-0206428616b0",
+                "statusCode": "619",
+                "statusDescription": "LAA STATUS CODE 3"
+              },
+              "plea": [
+                {
+                  "originatingHearingId": "41650266-375e-4cd0-8560-d9d574a2bf9b",
+                  "pleaDate": "2025-01-09",
+                  "pleaValue": "Plea value 4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hearingSummary": [
+        {
+          "hearingId": "c399fc48-8b20-4907-897b-be8f4b978a4f",
+          "jurisdictionType": "423ee989-539d-4d28-a1ce-39e3b374a31d",
+          "defendantIds": [
+            "5e0d75bf-7b43-4093-9f44-5edba9664b09",
+            "5b0df259-10c0-4689-8aa1-4b2a20328153"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2019-05-17T11:00:00",
+              "listingSequence": 43,
+              "listedDurationMinutes": 403,
+              "hasSharedResults": true
+            }
+          ],
+          "estimatedDuration": "20 Minutes",
+          "courtCentre": {
+            "id": "170d6af6-e07f-4efb-a560-b7da4858f14e",
+            "name": "Liverpool Magistrates Court",
+            "roomId": "bf5175a4-3bfc-4793-84a6-30da75f2117b",
+            "roomName": "Courtroom 1",
+            "welshName": "Courtroom 4",
+            "welshRoomName": "Courtroom 5",
+            "address": {
+              "address1": "166 Clinton Avenue",
+              "address2": "Guildford",
+              "address3": "Rhode",
+              "address4": "Island",
+              "postCode": "PT54 71PT"
+            },
+            "code": "COURT CENTRE CODE  3"
+          },
+          "hearingType": {
+            "id": "63af1285-36ec-4fe6-a741-43129e0f0710",
+            "code": "HEARING TYPE CODE  4",
+            "description": "Trial"
+          },
+          "defenceCounsel": [
+            {
+              "id": "2ffa8961-58a3-4352-a87d-09aa45f68c7f",
+              "title": "Mr",
+              "firstName": "johnny",
+              "lastName": "robber",
+              "defendants": [
+                "2ffa8961-58a3-4352-a87d-09aa45f68c7f",
+                "2ffa8961-58a3-4352-a87d-09aa45f68c8f"
+              ],
+              "attendanceDays": [
+                "2019-01-01"
+              ]
+            }
+          ]
+        },
+        {
+          "hearingId": "a5167d9b-c31f-4342-be35-798a04b86f86",
+          "jurisdictionType": "19fef8fc-15d3-4e09-9f30-e5676f60a81e",
+          "defendantIds": [
+            "8a22e212-4a43-40a3-bd99-6fbba86bd066",
+            "ad9caacf-9833-47fc-b51a-65d955f083a5"
+          ],
+          "hearingDays": [
+            {
+              "sittingDay": "2019-04-19T12:00:00",
+              "listingSequence": 15,
+              "listedDurationMinutes": 615,
+              "hasSharedResults": true
+            },
+            {
+              "sittingDay": "2019-03-01T09:00:00",
+              "listingSequence": 1,
+              "listedDurationMinutes": 206,
+              "hasSharedResults": true
+            }
+          ],
+          "estimatedDuration": "20 Minutes",
+          "courtCentre": {
+            "id": "399fd3e4-5231-4d88-9005-314f81456a6d",
+            "name": "Exeter Crown Court",
+            "roomId": "2f66d789-87c1-45a3-b841-410558c8ee7d",
+            "roomName": "Courtroom 4",
+            "welshName": "Courtroom 1",
+            "welshRoomName": "Courtroom 4",
+            "address": {
+              "address1": "44 Noel Avenue",
+              "address2": "Southampton",
+              "address3": "Utah",
+              "postCode": "NW22 25SW"
+            },
+            "code": "COURT CENTRE CODE  5"
+          },
+          "hearingType": {
+            "id": "aaf3379d-d6a8-4380-8e1d-626a763da14f",
+            "code": "HEARING TYPE CODE  5",
+            "description": "Trial"
+          },
+          "defenceCounsel": [
+            {
+              "id": "2ffa8961-58a3-4352-a87d-09aa45f68c7f",
+              "title": "Mr",
+              "firstName": "johnny",
+              "lastName": "robber",
+              "defendants": [
+                "2ffa8961-58a3-4352-a87d-09aa45f68c7f",
+                "2ffa8961-58a3-4352-a87d-09aa45f68c8f"
+              ],
+              "attendanceDays": [
+                "2019-01-01"
+              ]
+            }
+          ]
+        }
+      ],
+      "applicationSummary": [
+        {
+          "applicationId": "6cd6494e-5409-420a-bd0b-f589dbb2466b",
+          "applicationReference": "CJ03511",
+          "applicationType": "Conviction of an offence while a community order is in force",
+          "applicationStatus": "IN_PROGRESS",
+          "applicationExternalCreatorType": "PROSECUTOR",
+          "receivedDate": "2024-12-15",
+          "decisionDate": "2025-03-01",
+          "dueDate": "2025-02-06"
+        }
+      ]
+    }
+  ]
+}

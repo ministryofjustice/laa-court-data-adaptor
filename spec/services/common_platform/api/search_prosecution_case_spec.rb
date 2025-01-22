@@ -23,6 +23,17 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
     expect(search_prosecution_case).to all(be_a(ProsecutionCase))
   end
 
+  context "when the cases contain the applicationSummary" do
+    let(:response_body) do
+      JSON.parse(file_fixture("prosecution_case_search_result_with_application_summary.json").read)
+    end
+
+    it "contains applicationSummary" do
+      expect(search_prosecution_case[0].body["applicationSummary"]).to be_present
+      expect(search_prosecution_case[1].body["applicationSummary"]).to be_present
+    end
+  end
+
   context "when containing multiple records" do
     let(:response_body) do
       {
