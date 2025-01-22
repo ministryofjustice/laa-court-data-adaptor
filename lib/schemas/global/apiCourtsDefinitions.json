@@ -81,7 +81,9 @@
       "enum": [
         "DRAFT",
         "LISTED",
-        "FINALISED"
+        "FINALISED",
+        "EJECTED",
+        "IN_PROGRESS"
       ]
     },
     "applicationJurisdictionType": {
