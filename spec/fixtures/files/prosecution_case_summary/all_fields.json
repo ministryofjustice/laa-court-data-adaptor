@@ -140,5 +140,17 @@
         "code": "C30DE00"
       }
     }
+  ],
+  "applicationSummary": [
+    {
+      "applicationId": "62158b87-56fc-43cc-bbdc-d957d372420f",
+      "applicationReference": "CJ03512",
+      "applicationType": "Application to amend a community order on change of residence",
+      "applicationStatus": "EJECTED",
+      "applicationExternalCreatorType": "PROSECUTOR",
+      "receivedDate": "2024-12-21",
+      "decisionDate": "2025-02-11",
+      "dueDate": "2025-01-27"
+    }
   ]
 }
