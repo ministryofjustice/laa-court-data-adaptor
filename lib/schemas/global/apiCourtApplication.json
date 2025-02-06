@@ -31,6 +31,10 @@
       "description": "The date that the application was received by HMCTS",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
     },
+    "applicationExternalCreatorType": {
+      "description": "Describes the generic role of the creator of the application in the HMCTS process (Prosecutor)",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/applicationExternalCreatorType"
+    },
     "allegationOrComplaintStartDate": {
       "description": "The date that the allegation or complaint is alleged to have started",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
