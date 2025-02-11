@@ -1,19 +1,21 @@
 # frozen_string_literal: true
 
 RSpec.describe CommonPlatform::Connection do
-  subject(:connect_to_common_platform) { described_class.call(host:) }
+  subject(:connect_to_common_platform) { described_class.instance.call }
 
-  let(:host) { "https://example.com" }
-  let(:request_options) do
-    { headers: { "Ocp-Apim-Subscription-Key" => "super-secret-key" } }
+  before do
+    stub_const("CommonPlatform::Connection::HOST", host)
+    stub_const("CommonPlatform::Connection::CLIENT_CERT", client_cert)
+    stub_const("CommonPlatform::Connection::CLIENT_KEY", client_key)
+    described_class.instance_variable_set(:@singleton__instance__, nil)
   end
 
+  let(:host) { "https://example.com" }
   let(:client_cert) { nil }
   let(:client_key) { nil }
 
-  before do
-    allow(Rails.configuration.x).to receive(:client_cert).and_return(client_cert)
-    allow(Rails.configuration.x).to receive(:client_key).and_return(client_key)
+  let(:request_options) do
+    { headers: { "Ocp-Apim-Subscription-Key" => "super-secret-key" } }
   end
 
   it "connects to the common platform url" do
@@ -51,11 +53,9 @@ RSpec.describe CommonPlatform::Connection do
   context "with faraday configuration" do
     let(:connection) { double }
 
-    before do
-      allow(Faraday).to receive(:new).and_yield(connection)
-    end
-
     it "initiates a json request" do
+      allow(Faraday).to receive(:new).and_yield(connection)
+
       retry_options = {
         methods: %i[delete get head options put post],
         retry_statuses: [429],

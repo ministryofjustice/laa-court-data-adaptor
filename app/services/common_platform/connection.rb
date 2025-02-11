@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
-module CommonPlatform
-  class Connection < ApplicationService
-    def initialize(
-      host: Rails.configuration.x.common_platform_url,
-      client_cert: Rails.configuration.x.client_cert,
-      client_key: Rails.configuration.x.client_key
-    )
-      @host = host
-      @client_cert = client_cert
-      @client_key = client_key
-    end
+require "singleton"
 
-    def call
-      Faraday.new host, options do |connection|
+module CommonPlatform
+  class Connection
+    include Singleton
+
+    HOST = Rails.configuration.x.common_platform_url
+    CLIENT_CERT = Rails.configuration.x.client_cert
+    CLIENT_KEY = Rails.configuration.x.client_key
+
+    def initialize
+      @connection = Faraday.new HOST, options do |connection|
         connection.request :retry, retry_options
         connection.request :json
         connection.response :logger do |logger|
@@ -28,6 +26,14 @@ module CommonPlatform
       end
     end
 
+    def call
+      @connection
+    end
+
+    def self.reset!
+      instance_variable_set(:@singleton__instance__, nil)
+    end
+
   private
 
     def headers
@@ -35,13 +41,13 @@ module CommonPlatform
     end
 
     def options
-      return { headers: } if client_cert.blank?
+      return { headers: } if CLIENT_CERT.blank?
 
       {
         headers:,
         ssl: {
-          client_cert: OpenSSL::X509::Certificate.new(client_cert),
-          client_key: OpenSSL::PKey::RSA.new(client_key),
+          client_cert: OpenSSL::X509::Certificate.new(CLIENT_CERT),
+          client_key: OpenSSL::PKey::RSA.new(CLIENT_KEY),
           ca_file: Rails.root.join("lib/ssl/ca.crt").to_s,
         },
       }
@@ -53,7 +59,5 @@ module CommonPlatform
         methods: %i[delete get head options put post],
       }
     end
-
-    attr_reader :host, :client_cert, :client_key
   end
 end

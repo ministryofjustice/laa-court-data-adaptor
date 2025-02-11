@@ -6,7 +6,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
   context "with an incorrect key" do
     subject(:search) { described_class.call(prosecution_case_reference:, connection:) }
 
-    let(:connection) { CommonPlatform::Connection.call }
+    let(:connection) { CommonPlatform::Connection.instance.call }
 
     before do
       connection.headers["Ocp-Apim-Subscription-Key"] = "INCORRECT KEY"

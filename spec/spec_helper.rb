@@ -118,4 +118,10 @@ RSpec.configure do |config|
   config.before(:each, type: ->(spec_type) { %i[model request].include? spec_type }) do
     stub_request(:any, /justice.gov.uk/).to_rack(CommonPlatformSchemas)
   end
+
+  config.before(:all) do
+    # By setting :@singleton__instance__ to nil, it ensures that the singleton Connection is
+    # reinitialized, which is crucial for maintaining test isolation.
+    CommonPlatform::Connection.instance_variable_set(:@singleton__instance__, nil)
+  end
 end

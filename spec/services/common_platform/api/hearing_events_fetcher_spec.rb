@@ -15,7 +15,7 @@ RSpec.describe CommonPlatform::Api::HearingEventsFetcher do
   context "with a incorrect key" do
     subject(:fetch_hearing_events) { described_class.call(hearing_id:, hearing_date:, connection:) }
 
-    let(:connection) { CommonPlatform::Connection.call }
+    let(:connection) { CommonPlatform::Connection.instance.call }
 
     before do
       connection.headers["Ocp-Apim-Subscription-Key"] = "INCORRECT KEY"
