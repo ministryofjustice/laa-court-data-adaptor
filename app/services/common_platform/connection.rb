@@ -22,16 +22,17 @@ module CommonPlatform
         connection.response :json, content_type: "application/json"
         connection.response :json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json"
         connection.response :json, content_type: "text/plain"
-        connection.adapter Faraday.default_adapter
+        connection.adapter :net_http_persistent, {
+          keep_alive: 60,
+          pool_size: 10,    # to safetly handle For 3-5 req/sec
+          idle_timeout: 120,
+          read_timeout: 30, # 30 seconds: to have safe buffer for slow responses
+        }
       end
     end
 
     def call
       @connection
-    end
-
-    def self.reset!
-      instance_variable_set(:@singleton__instance__, nil)
     end
 
   private

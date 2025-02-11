@@ -67,7 +67,12 @@ RSpec.describe CommonPlatform::Connection do
       expect(connection).to receive(:response).with(:json, content_type: "application/json")
       expect(connection).to receive(:response).with(:json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json")
       expect(connection).to receive(:response).with(:json, content_type: "text/plain")
-      expect(connection).to receive(:adapter).with(:net_http)
+      expect(connection).to receive(:adapter).with(:net_http_persistent, {
+        idle_timeout: 120,
+        keep_alive: 60,
+        pool_size: 10,
+        read_timeout: 30,
+      })
 
       connect_to_common_platform
     end
