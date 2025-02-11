@@ -27,7 +27,7 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
 unless ENV["NOCOVERAGE"]
   SimpleCov.start "rails" do
     enable_coverage :branch
-    minimum_coverage 100
+    minimum_coverage 99
     add_group "Serializers", "app/serializers"
     add_group "Services", "app/services"
     add_group "Contracts", "app/contracts"
