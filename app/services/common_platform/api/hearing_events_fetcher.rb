@@ -5,7 +5,7 @@ module CommonPlatform
     class HearingEventsFetcher < ApplicationService
       URL = "hearing/hearingLog"
 
-      def initialize(hearing_id:, hearing_date:, connection: CommonPlatform::Connection.call)
+      def initialize(hearing_id:, hearing_date:, connection: CommonPlatform::Connection.instance.call)
         @params = { hearingId: hearing_id, date: hearing_date }
         @connection = connection
       end

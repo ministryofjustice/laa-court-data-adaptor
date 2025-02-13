@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
-module CommonPlatform
-  class Connection < ApplicationService
-    def initialize(
-      host: Rails.configuration.x.common_platform_url,
-      client_cert: Rails.configuration.x.client_cert,
-      client_key: Rails.configuration.x.client_key
-    )
-      @host = host
-      @client_cert = client_cert
-      @client_key = client_key
-    end
+require "singleton"
 
-    def call
-      Faraday.new host, options do |connection|
+module CommonPlatform
+  class Connection
+    include Singleton
+
+    HOST = Rails.configuration.x.common_platform_url
+    CLIENT_CERT = Rails.configuration.x.client_cert
+    CLIENT_KEY = Rails.configuration.x.client_key
+
+    def initialize
+      @connection = Faraday.new HOST, options do |connection|
         connection.request :retry, retry_options
         connection.request :json
         connection.response :logger do |logger|
@@ -24,8 +22,17 @@ module CommonPlatform
         connection.response :json, content_type: "application/json"
         connection.response :json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json"
         connection.response :json, content_type: "text/plain"
-        connection.adapter Faraday.default_adapter
+        connection.adapter :net_http_persistent, {
+          keep_alive: 60,
+          pool_size: 10,    # to safetly handle For 3-5 req/sec
+          idle_timeout: 120,
+          read_timeout: 30, # 30 seconds: to have safe buffer for slow responses
+        }
       end
+    end
+
+    def call
+      @connection
     end
 
   private
@@ -35,13 +42,13 @@ module CommonPlatform
     end
 
     def options
-      return { headers: } if client_cert.blank?
+      return { headers: } if CLIENT_CERT.blank?
 
       {
         headers:,
         ssl: {
-          client_cert: OpenSSL::X509::Certificate.new(client_cert),
-          client_key: OpenSSL::PKey::RSA.new(client_key),
+          client_cert: OpenSSL::X509::Certificate.new(CLIENT_CERT),
+          client_key: OpenSSL::PKey::RSA.new(CLIENT_KEY),
           ca_file: Rails.root.join("lib/ssl/ca.crt").to_s,
         },
       }
@@ -53,7 +60,5 @@ module CommonPlatform
         methods: %i[delete get head options put post],
       }
     end
-
-    attr_reader :host, :client_cert, :client_key
   end
 end

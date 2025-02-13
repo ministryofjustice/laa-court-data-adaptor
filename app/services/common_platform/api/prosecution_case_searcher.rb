@@ -10,7 +10,7 @@ module CommonPlatform
                      name: nil,
                      date_of_birth: nil,
                      date_of_next_hearing: nil,
-                     connection: CommonPlatform::Connection.call)
+                     connection: CommonPlatform::Connection.instance.call)
         @connection = connection
         @params = { prosecutionCaseReference: prosecution_case_reference,
                     defendantASN: arrest_summons_number,
