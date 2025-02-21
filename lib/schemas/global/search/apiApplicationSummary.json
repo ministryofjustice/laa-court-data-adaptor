@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/search/external/apiApplicationSummary.json",
+  "description": "An Application Summary",
+  "type": "object",
+  "properties": {
+    "applicationId": {
+      "description": "The identifier of the application",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "applicationReference": {
+      "description": "The reference of the application",
+      "type": "string"
+    },
+    "applicationType": {
+      "description": "The type of the application",
+      "type": "string"
+    },
+    "applicationStatus": {
+      "description": "The status of the application",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/courtApplicationStatus"
+    },
+    "applicationExternalCreatorType": {
+      "description": "The type of the external creator of the application",
+      "type": "string"
+    },
+    "receivedDate": {
+      "description": "The date the application was received",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "decisionDate": {
+      "description": "The date the application was decided",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "dueDate": {
+      "description": "The due date of the application",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    }
+  }
+}
