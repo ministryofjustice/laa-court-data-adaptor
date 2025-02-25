@@ -1,0 +1,37 @@
+{
+     "$schema": "http://json-schema.org/draft-04/schema#",
+     "id": "http://justice.gov.uk/core/courts/search/external/apiDefendantName.json",
+     "type": "object",
+     "properties": {
+         "organisationName": {
+             "description": "The organisation name when a defendant is a legal entity",
+             "type": "string"
+        },
+         "firstName": {
+             "description": "The person fore name when the defendant is a person",
+             "type": "string"
+        },
+         "middleName": {
+             "description": "The person middle name when the defendant is a person",
+             "type": "string"
+        },
+         "lastName": {
+             "description": "The person last name when the defendant is a person",
+             "type": "string"
+        }
+    },
+     "oneOf": [
+        {
+             "required": [
+                "organisationName"
+            ]
+        },
+        {
+             "required": [
+                "firstName",
+                "lastName"
+            ]
+        }
+    ],
+     "additionalProperties": false
+}

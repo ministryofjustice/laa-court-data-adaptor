@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiIndicatedPlea.json",
+  "description": "The plea indicated by the defendant within the magistrates court jurisdiction for the purposes of driving an allocation decision",
+  "type": "object",
+  "properties": {
+    "offenceId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "originatingHearingId": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "indicatedPleaDate": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "indicatedPleaValue": {
+      "type": "string",
+      "enum": [
+        "INDICATED_GUILTY",
+        "INDICATED_NOT_GUILTY",
+        "NO_INDICATION"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "ONLINE",
+        "IN_COURT"
+      ]
+    }
+  },
+  "required": [
+    "offenceId",
+    "indicatedPleaDate",
+    "indicatedPleaValue",
+    "source"
+  ],
+  "additionalProperties": false
+}

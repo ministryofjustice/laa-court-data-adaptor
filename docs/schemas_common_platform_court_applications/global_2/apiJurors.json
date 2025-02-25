@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiJurors.json",
+  "description": "The jurors of a verdict",
+  "type": "object",
+  "properties": {
+    "numberOfJurors": {
+      "type": "integer"
+    },
+    "numberOfSplitJurors": {
+      "type": "integer"
+    },
+    "unanimous": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "numberOfJurors",
+    "numberOfSplitJurors",
+    "unanimous"
+  ]
+}

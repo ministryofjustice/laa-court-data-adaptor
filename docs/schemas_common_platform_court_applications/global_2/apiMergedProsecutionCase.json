@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/core/courts/external/apiMergedProsecutionCase.json",
+    "description": "Two or more prosecution cases may be merged based on an instruction from the prosecutor.  When this occurs a merged case structure containing the details of the merged cases must be associated with each case that is being merged.  Similarly the case that is the subject of the merge may have previously been split and therefore the details of the merge must include the approriate case references (URNs or PRNs)",
+    "type": "object",
+    "properties": {
+        "prosecutionCaseReference": {
+            "description": "The Sequence Number for the marker type",
+            "type": "string"
+        },
+        "mergedProsecutionCaseTargets": {
+            "description": "When cases are merged, the targets of the merge, i.e. the case id and the case reference (URN, PRN) within that case",
+            "type": "array",
+            "minItems": 2,
+            "items": {
+                "$ref": "http://justice.gov.uk/core/courts/external/apiMergedProsecutionCaseTarget.json#"
+            }
+        }
+    },
+    "required": [
+        "prosecutionCaseReference",
+        "mergedProsecutionCaseTargets"
+    ],
+    "additionalProperties": false
+}

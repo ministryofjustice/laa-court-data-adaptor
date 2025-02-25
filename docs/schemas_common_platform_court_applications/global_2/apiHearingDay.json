@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiHearingDay.json",
+  "type": "object",
+  "properties": {
+    "sittingDay": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "listingSequence": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/positiveInteger"
+    },
+    "listedDurationMinutes": {
+      "description": "The listed duration in minutes",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/positiveInteger"
+    },
+    "isCancelled": {
+      "description": "is hearing days cancelled",
+      "type": "boolean"
+    },
+    "courtCentreId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "courtRoomId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "hasSharedResults": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "sittingDay",
+    "listedDurationMinutes"
+  ],
+  "additionalProperties": false
+}

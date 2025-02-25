@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/core/courts/external/apiReferralReason.json",
+    "description": "The reason a defendant is referred to court",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The reference data identifier for the reason for referral",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "description": {
+            "description": "The reason for referral from reference data",
+            "type": "string"
+        },
+        "defendantId": {
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        }
+    },
+    "required": [
+        "id",
+        "description",
+        "defendantId"
+    ],
+    "additionalProperties": false
+}

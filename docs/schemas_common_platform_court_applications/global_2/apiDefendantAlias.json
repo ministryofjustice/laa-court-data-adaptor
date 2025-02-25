@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiDefendantAlias.json",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "The person title",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/personTitle"
+    },
+    "firstName": {
+      "description": "The person fore name",
+      "type": "string"
+    },
+    "middleName": {
+      "description": "The person middle name",
+      "type": "string"
+    },
+    "lastName": {
+      "description": "The person last name",
+      "type": "string"
+    },
+    "legalEntityName": {
+      "description": "The legal entity name",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
