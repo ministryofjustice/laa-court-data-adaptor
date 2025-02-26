@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiCommittingCourt.json",
+  "description": "Committing court",
+  "type": "object",
+  "properties": {
+    "courtCentreId": {
+      "description": "The court centre id",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "courtHouseType": {
+      "description": "The type of the court house",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/jurisdictionType"
+    },
+    "courtHouseCode": {
+      "description": "The oucode for the courthouse",
+      "type": "string"
+    },
+    "courtHouseName": {
+      "description": "The court house name",
+      "type": "string"
+    },
+    "courtHouseShortName": {
+      "description": "The court house short name, same as courtHouseCode",
+      "type": "string"
+    }
+  },
+  "required": [
+    "courtCentreId",
+    "courtHouseName"
+  ],
+  "additionalProperties": false
+}

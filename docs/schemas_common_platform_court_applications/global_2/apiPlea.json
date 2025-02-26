@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiPlea.json",
+  "description": "The plea entered at a hearing",
+  "type": "object",
+  "properties": {
+    "originatingHearingId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "delegatedPowers": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiDelegatedPowers.json"
+    },
+    "offenceId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "applicationId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "pleaDate": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "pleaValue": {
+      "type": "string"
+    },
+    "lesserOrAlternativeOffence": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiLesserOrAlternativeOffence.json"
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "offenceId",
+        "pleaDate",
+        "pleaValue"
+      ]
+    },
+    {
+      "required": [
+        "applicationId",
+        "pleaDate",
+        "pleaValue"
+      ]
+    }
+  ],
+  "additionalProperties": false
+}

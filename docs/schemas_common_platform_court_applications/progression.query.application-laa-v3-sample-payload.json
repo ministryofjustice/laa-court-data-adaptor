@@ -1,0 +1,79 @@
+{
+  "applicationId": "4362f2bc-7aff-462a-a242-0db421aa6a96",
+  "applicationReference": "RQ249717027",
+  "applicationStatus": "FINALISED",
+  "applicationTitle": "Appeal against conviction by a Magistrates' Court to the Crown Court",
+  "applicationType": "MC80802",
+  "caseSummary": [
+    {
+      "caseStatus": "ACTIVE",
+      "prosecutionCaseId": "78307605-1521-466a-b964-67675887f604",
+      "prosecutionCaseReference": "RQ249717027"
+    }
+  ],
+  "hearingSummary": [
+    {
+      "courtCentre": {
+        "address": {
+          "address1": "176A Lavender Hill",
+          "address2": "London",
+          "address3": "",
+          "address4": "",
+          "postCode": "SW11 1JU"
+        },
+        "code": "B01LY00",
+        "id": "f8254db1-1683-483e-afb3-b87fde5a0a26",
+        "name": "Lavender Hill Magistrates' Court",
+        "roomId": "9e4932f7-97b2-3010-b942-ddd2624e4dd8",
+        "roomName": "Courtroom 01"
+      },
+      "defendantIds": [
+        "a86c42dc-6566-4076-9655-b3a53cd58566"
+      ],
+      "hearingDay": [
+        {
+          "hasSharedResults": true,
+          "listedDurationMinutes": 1,
+          "listingSequence": 0,
+          "sittingDay": "2025-02-07T10:00:00.000Z"
+        }
+      ],
+      "hearingId": "769d0056-e160-4aa9-a9d1-821db73aa1ee",
+      "hearingType": {
+        "description": "Application",
+        "id": "3449743b-95d6-4836-8941-57f588b52068"
+      },
+      "jurisdictionType": "MAGISTRATES"
+    }
+  ],
+  "judicialResults": [
+    {
+      "category": "FINAL",
+      "cjsCode": "1017",
+      "isAdjournmentResult": false,
+      "isAvailableForCourtExtract": true,
+      "isConvictedResult": true,
+      "isFinancialResult": false,
+      "judicialResultId": "1755ac43-585b-49d0-bdcc-e763d4a17c6c",
+      "label": "Absolute discharge",
+      "lastSharedDateTime": "2025-02-06",
+      "orderedDate": "2025-02-07",
+      "orderedHearingId": "769d0056-e160-4aa9-a9d1-821db73aa1ee",
+      "rank": 53800,
+      "resultText": "AD - Absolute discharge",
+      "terminatesOffenceProceedings": false
+    }
+  ],
+  "receivedDate": "2025-02-06",
+  "subjectSummary": {
+    "dateOfNextHearing": "2025-02-07T10:00:00.000Z",
+    "defendantASN": "2391NX0000489661589D",
+    "defendantDOB": "1999-02-06",
+    "defendantFirstName": "Naida",
+    "defendantLastName": "Daniel",
+    "masterDefendantId": "a86c42dc-6566-4076-9655-b3a53cd58566",
+    "offenceSummary": [],
+    "proceedingsConcluded": false,
+    "subjectId": "4b463e6a-105b-433b-a88d-057d6e645bfb"
+  }
+}

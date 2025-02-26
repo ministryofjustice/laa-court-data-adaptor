@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/core/courts/external/apiNextHearingOffence.json",
+    "type": "object",
+    "properties": {
+        "id": {
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        }
+    },
+    "required": [
+        "id"
+    ],
+    "additionalProperties": false
+}

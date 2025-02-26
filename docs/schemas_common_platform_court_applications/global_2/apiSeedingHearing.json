@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiSeedingHearing.json",
+  "type": "object",
+  "properties": {
+    "seedingHearingId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "jurisdictionType": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/jurisdictionType"
+    },
+    "sittingDay": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "seedingHearingId",
+    "jurisdictionType"
+  ],
+  "additionalProperties": false
+}

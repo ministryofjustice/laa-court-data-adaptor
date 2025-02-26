@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiApplicationVerdict.json",
+  "description": "The verdict i.e. the court decision",
+  "type": "object",
+  "properties": {
+    "originatingHearingId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "applicationId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "verdictDate": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "verdictType": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiVerdictType.json"
+    },
+    "jurors": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiJurors.json"
+    },
+    "lesserOrAlternativeOffence": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiLesserOrAlternativeOffence.json"
+    }
+  },
+  "required": [
+    "applicationId",
+    "verdictDate",
+    "verdictType"
+  ],
+  "additionalProperties": false
+}

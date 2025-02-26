@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/core/courts/external/apiHearingType.json",
+    "type": "object",
+    "properties": {
+        "id": {
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "description": {
+            "type": "string"
+        },
+        "welshDescription": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id", "description"
+      ],
+    "additionalProperties": false
+}

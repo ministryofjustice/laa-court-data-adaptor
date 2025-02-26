@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiAssociatedDefenceOrganisation.json",
+  "description": "The details of a defence organisation associated to a individual defendant",
+  "type": "object",
+  "properties": {
+    "organisation": {
+      "description": "The details of a defence organisation",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiOrganisation.json"
+    },
+    "associationStartDate": {
+      "description": "The start date of association",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "associationEndDate": {
+      "description": "The end date of association",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "fundingType": {
+      "description": "Indicates if probono, rep order, etc",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/defenceRepresentationFundingType"
+    },
+    "isAssociatedByLAA": {
+      "description": "Indicates if the association is by way of a representation order from LAA",
+      "type": "boolean"
+    },
+    "applicationReference": {
+      "description": "The human readable reference to the application supplied by legal aid agency",
+      "type": "string"
+    }
+  },
+  "required": [
+    "organisation",
+    "fundingType",
+    "associationStartDate"
+  ],
+  "additionalProperties": false
+}

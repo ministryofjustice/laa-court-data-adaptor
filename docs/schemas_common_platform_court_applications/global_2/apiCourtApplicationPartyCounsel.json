@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://justice.gov.uk/core/courts/external/apiCourtApplicationPartyCounsel.json",
+    "type": "object",
+    "properties": {
+        "id": {
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "applicationId": {
+            "description": "The court application reference",
+            "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "title": {
+            "description": "The attendee title",
+            "type": "string"
+        },
+        "firstName": {
+            "description": "The attendee fore name",
+            "type": "string"
+        },
+        "middleName": {
+            "description": "The attendee middle name",
+            "type": "string"
+        },
+        "lastName": {
+            "description": "The attendee last name",
+            "type": "string"
+        },
+        "status": {
+            "description": "The attendee status for the hearing e.g. junior counsel",
+            "type": "string"
+        },
+        "applicationRespondents": {
+            "description": "Provided when the counsel is representing a respondent.  When not provided the copunsel is assumed to represent the applicant",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+            }
+        },
+        "attendanceDays": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+            }
+        }
+    },
+    "required": [
+        "id",
+        "applicationId",
+        "attendanceDays"
+    ],
+    "additionalProperties": false
+}

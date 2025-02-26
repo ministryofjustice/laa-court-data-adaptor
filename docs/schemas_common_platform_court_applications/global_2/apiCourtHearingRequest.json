@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiCourtHearingRequest.json",
+  "description": "The details of a court hearing that is requested during initiation of court proceedings for an application",
+  "type": "object",
+  "properties": {
+    "hearingType": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiHearingType.json"
+    },
+    "jurisdictionType": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/jurisdictionType"
+    },
+    "listedStartDateTime": {
+      "description": "The date and time that has been pre-arranged and therefore must be listed accordingly.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "earliestStartDateTime": {
+      "description": "The date before which a hearing must NOT be listed",
+      "type": "string",
+      "format": "date-time"
+    },
+    "endDate": {
+      "description": "The requested end date of a hearing",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "bookingReference": {
+      "description": "Booking reference for provisionally booked slots in magistrates courts schedules.",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "weekCommencingDate": {
+      "$ref": "http://justice.gov.uk/core/courts/weekCommencingDate.json"
+    },
+    "bookedSlots": {
+      "description": "Booked Magistrate's slots in Rota schedules.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiRotaSlot.json"
+      }
+    },
+    "estimateMinutes": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/positiveInteger"
+    },
+    "courtCentre": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtCentre.json"
+    },
+    "listingDirections": {
+      "type": "string"
+    },
+    "judiciary": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/external/apiJudicialRole.json"
+      }
+    },
+    "estimatedDuration": {
+      "description": "Value from the Estimated Duration prompt",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

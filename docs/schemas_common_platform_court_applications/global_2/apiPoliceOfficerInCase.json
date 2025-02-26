@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiPoliceOfficerInCase.json",
+  "type": "object",
+  "properties": {
+    "personDetails": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiPerson.json"
+    },
+    "policeOfficerRank": {
+      "description": "Indicates the rank of a police officer within a particular police force",
+      "type": "string"
+    },
+    "policeWorkerReferenceNumber": {
+      "description": "The unique number allocated to a police worker within a police force.",
+      "type": "string"
+    },
+    "policeWorkerLocationCode": {
+      "description": "The identification of the location where the officer in the case is based",
+      "type": "string"
+    }
+  },
+  "required": [
+    "personDetails", "policeOfficerRank", "policeWorkerReferenceNumber", "policeWorkerLocationCode"
+  ],
+  "additionalProperties": false
+}

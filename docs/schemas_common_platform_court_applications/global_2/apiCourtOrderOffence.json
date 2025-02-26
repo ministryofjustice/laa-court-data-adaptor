@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/external/apiCourtOrderOffence.json",
+  "description": "The details of the offences that were matters that the order was made against",
+  "type": "object",
+  "properties": {
+    "offence": {
+      "description": "The details of the offence",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiOffence.json"
+    },
+    "prosecutionCaseId": {
+      "description": "The identifier of the case for the offence",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "prosecutionCaseIdentifier": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiProsecutionCaseIdentifier.json"
+    }
+  },
+  "required": [
+    "offence",
+    "prosecutionCaseId",
+    "prosecutionCaseIdentifier"
+  ],
+  "additionalProperties": false
+}
