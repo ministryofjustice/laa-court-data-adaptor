@@ -58,11 +58,11 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
 * Ruby on Rails and the other Ruby Gems
 
   They are specified in the `Gemfile`.
-
   Use bundler to install them:
   ```
   bundle install
   ```
+
 ## Set up
 
 To set up  CDA in your local machine, you can run the following services manually:

@@ -6,7 +6,30 @@ The purpose of this document is to record all changes made by HMCTS to the Commo
 
 # Changelog:
 
-Change Date: 21 Feb 2025
+Date: 26 Feb 2025
+
+File: lib/schemas/global/apiCourtsDefinitions.json
+ID: http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json
+
+
+`courtApplicationStatus:type` changed to `string`
+
+Added new attribute
+`applicationExternalCreatorType`
+
+```
+    "applicationExternalCreatorType": {
+      "description": "Describes the generic role of the creator of the application in the HMCTS process (Prosecutor)",
+      "type": "string",
+      "enum": [
+        "PROSECUTOR"
+      ]
+    }
+```
+
+--
+
+Date: 21 Feb 2025
 
 File: unifiedsearchquery.laa.cases-v1-schema.json
 ID: http://justice.gov.uk/json/schemas/domains/unifiedsearchquery/unifiedsearchquery.laa.cases.json
@@ -16,7 +39,7 @@ New attribute: `applicationTitle`
 
 ---
 
-Change Date: 11 Feb 2025
+Date: 11 Feb 2025
 
 File: unifiedsearchquery.laa.cases-v1-schema.json
 ID: http://justice.gov.uk/json/schemas/domains/unifiedsearchquery/unifiedsearchquery.laa.cases.json
