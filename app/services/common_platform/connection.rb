@@ -11,10 +11,11 @@ module CommonPlatform
     CLIENT_KEY = Rails.configuration.x.client_key
 
     def initialize
+      @logger = Rails.logger
       @connection = Faraday.new HOST, options do |connection|
         connection.request :retry, retry_options
         connection.request :json
-        connection.response :logger do |logger|
+        connection.response :logger, @logger, { headers: true, errors: true } do |logger|
           logger.filter(/(defendantName=)([^&]+)/, '\1[FILTERED]')
           logger.filter(/(defendantDOB=)([^&]+)/, '\1[FILTERED]')
           logger.filter(/(defendantNINO=)([^&]+)/, '\1[FILTERED]')
@@ -24,7 +25,7 @@ module CommonPlatform
         connection.response :json, content_type: "text/plain"
         connection.adapter :net_http_persistent, {
           keep_alive: 60,
-          pool_size: 10,    # to safetly handle For 3-5 req/sec
+          pool_size: 10,
           idle_timeout: 120,
           read_timeout: 30, # 30 seconds: to have safe buffer for slow responses
         }
