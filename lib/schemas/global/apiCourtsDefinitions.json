@@ -77,12 +77,7 @@
     },
     "courtApplicationStatus": {
       "description": "Indicates the status of an application",
-      "type": "string",
-      "enum": [
-        "DRAFT",
-        "LISTED",
-        "FINALISED"
-      ]
+      "type": "string"
     },
     "applicationJurisdictionType": {
       "description": "Indicates the jurisdiction that is required to consider the application",
@@ -117,6 +112,13 @@
         "STANDALONE",
         "LINKED",
         "EITHER"
+      ]
+    },
+    "applicationExternalCreatorType": {
+      "description": "Describes the generic role of the creator of the application in the HMCTS process (Prosecutor)",
+      "type": "string",
+      "enum": [
+        "PROSECUTOR"
       ]
     },
     "driverLicenseCode": {
