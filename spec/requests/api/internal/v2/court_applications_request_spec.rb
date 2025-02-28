@@ -9,10 +9,10 @@ RSpec.describe "api/internal/v2/court_applications", type: :request do
   let(:court_application_id) { SecureRandom.uuid }
 
   describe "GET /api/internal/v2/court_applications/{court_application_id}" do
-    it "raises NotImplementedError" do
-      expect {
-        get "/api/internal/v2/court_applications/#{court_application_id}", headers: { "Authorization" => "Bearer #{token.token}" }
-      }.to raise_error(NotImplementedError)
+    it "return 200 succeess" do
+      get "/api/internal/v2/court_applications/#{court_application_id}", headers: { "Authorization" => "Bearer #{token.token}" }
+
+      expect(response).to have_http_status(:ok)
     end
   end
 end
