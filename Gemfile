@@ -49,7 +49,7 @@ group :development, :test do
   gem "pry-rails", "~> 0.3.9"
   gem "rswag-specs"
   gem "rubocop-govuk"
-  gem "rubocop-performance"
+  gem "rubocop-performance", ">= 1.24.0"
   gem "vcr"
   gem "webmock"
 end
