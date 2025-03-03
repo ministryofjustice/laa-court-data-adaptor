@@ -4,7 +4,7 @@ RSpec.describe Api::Internal::V1::HearingSerializer do
   subject { described_class.new(hearing).serializable_hash }
 
   let(:hearing) do
-    instance_double("Hearing",
+    instance_double(Hearing,
                     id: "UUID",
                     court_name: "Bexley Court",
                     hearing_type: "Committal for Sentencing",

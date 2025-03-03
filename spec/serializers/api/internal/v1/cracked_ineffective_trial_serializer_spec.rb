@@ -4,7 +4,7 @@ RSpec.describe Api::Internal::V1::CrackedIneffectiveTrialSerializer do
   subject { described_class.new(cracked_ineffective_trial).serializable_hash }
 
   let(:cracked_ineffective_trial) do
-    instance_double("CrackedIneffectiveTrial",
+    instance_double(CrackedIneffectiveTrial,
                     id: "a-uuid",
                     code: "A",
                     type: "cracked",

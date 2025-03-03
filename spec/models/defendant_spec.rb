@@ -70,7 +70,7 @@ RSpec.describe Defendant, type: :model do
 
   context "with case linked" do
     let(:offences) do
-      [instance_double("Offence", maat_reference: nil)]
+      [instance_double(Offence, maat_reference: nil)]
     end
 
     before do
@@ -82,7 +82,7 @@ RSpec.describe Defendant, type: :model do
 
     context "when a maat_reference is linked" do
       let(:offences) do
-        [instance_double("Offence", maat_reference: "123123")]
+        [instance_double(Offence, maat_reference: "123123")]
       end
 
       before do
@@ -117,8 +117,8 @@ RSpec.describe Defendant, type: :model do
     context "when there are multiple offences" do
       context "with nil and not-nil maat references" do
         let(:offences) do
-          [instance_double("Offence", maat_reference: "123123"),
-           instance_double("Offence", maat_reference: nil)]
+          [instance_double(Offence, maat_reference: "123123"),
+           instance_double(Offence, maat_reference: nil)]
         end
 
         it { expect(defendant.maat_reference).to eq("123123") }
@@ -126,9 +126,9 @@ RSpec.describe Defendant, type: :model do
 
       context "with duplicate maat references" do
         let(:offences) do
-          [instance_double("Offence", maat_reference: "123123"),
-           instance_double("Offence", maat_reference: nil),
-           instance_double("Offence", maat_reference: "123123")]
+          [instance_double(Offence, maat_reference: "123123"),
+           instance_double(Offence, maat_reference: nil),
+           instance_double(Offence, maat_reference: "123123")]
         end
 
         it { expect(defendant.maat_reference).to eq("123123") }
@@ -136,9 +136,9 @@ RSpec.describe Defendant, type: :model do
 
       context "with different maat references" do
         let(:offences) do
-          [instance_double("Offence", maat_reference: "123123"),
-           instance_double("Offence", maat_reference: nil),
-           instance_double("Offence", maat_reference: "321321")]
+          [instance_double(Offence, maat_reference: "123123"),
+           instance_double(Offence, maat_reference: nil),
+           instance_double(Offence, maat_reference: "321321")]
         end
 
         it { expect { defendant.maat_reference }.to raise_error(Errors::DefendantError, 'Too many maat references: ["123123", "321321"]') }
@@ -147,8 +147,8 @@ RSpec.describe Defendant, type: :model do
 
     context "when an offence has an unlinked maat reference" do
       let(:offences) do
-        [instance_double("Offence", maat_reference: "Z123123"),
-         instance_double("Offence", maat_reference: nil)]
+        [instance_double(Offence, maat_reference: "Z123123"),
+         instance_double(Offence, maat_reference: nil)]
       end
 
       it { expect(defendant.maat_reference).to be_nil }

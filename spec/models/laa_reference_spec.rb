@@ -24,7 +24,7 @@ RSpec.describe LaaReference, type: :model do
 
   describe "adjust_link_and_save!" do
     context "when there are existing laa ref" do
-      let(:laa_ref1) do
+      let(:laa_ref_one) do
         described_class.create(user_name: "AAA",
                                maat_reference: laa_reference.maat_reference,
                                linked: false,
@@ -32,7 +32,7 @@ RSpec.describe LaaReference, type: :model do
                                defendant_id: SecureRandom.uuid)
       end
 
-      let(:laa_ref2) do
+      let(:laa_ref_two) do
         described_class.create(user_name: "BBB",
                                maat_reference: laa_reference.maat_reference,
                                linked: true,
@@ -41,8 +41,8 @@ RSpec.describe LaaReference, type: :model do
       end
 
       before do
-        laa_ref1
-        laa_ref2
+        laa_ref_one
+        laa_ref_two
       end
 
       it "unlink the most recent laa ref" do
@@ -50,7 +50,7 @@ RSpec.describe LaaReference, type: :model do
 
         laa_reference.adjust_link_and_save!
 
-        expect(laa_ref2.reload.linked).to be(false)
+        expect(laa_ref_two.reload.linked).to be(false)
         expect(laa_reference.linked).to be(true)
       end
     end
