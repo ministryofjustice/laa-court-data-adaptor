@@ -3,13 +3,13 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem "actionpack", "~> 7.0"
-gem "actionview", "~> 7.0"
-gem "activemodel", "~> 7.0"
-gem "activerecord", "~> 7.0"
-gem "activesupport", "~> 7.0"
+gem "actionpack", "~> 7.1.5"
+gem "actionview", "~> 7.1.5"
+gem "activemodel", "~> 7.1.5"
+gem "activerecord", "~> 7.1.5"
+gem "activesupport", "~> 7.1.5"
 gem "bundler"
-gem "railties", "~> 7.0"
+gem "railties", "~> 7.1.5"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
