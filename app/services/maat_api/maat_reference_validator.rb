@@ -10,7 +10,9 @@ module MaatApi
     end
 
     def call
-      connection.post(URL, { maatId: maat_reference, caseUrn: "XYZ" }) if connection.present?
+      raise "Connection is blank" if connection.blank?
+
+      connection.post(URL, { maatId: maat_reference, caseUrn: "XYZ" })
     end
 
   private

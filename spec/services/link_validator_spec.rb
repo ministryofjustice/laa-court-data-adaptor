@@ -19,7 +19,7 @@ RSpec.describe LinkValidator do
   end
 
   it "returns true" do
-    expect(link_validator_response).to eq true
+    expect(link_validator_response).to be true
   end
 
   context "when the hearing summary does not exist" do
@@ -29,7 +29,7 @@ RSpec.describe LinkValidator do
     end
 
     it "returns false" do
-      expect(link_validator_response).to eq false
+      expect(link_validator_response).to be false
     end
   end
 
@@ -39,7 +39,7 @@ RSpec.describe LinkValidator do
     end
 
     it "returns false" do
-      expect(link_validator_response).to eq false
+      expect(link_validator_response).to be false
     end
   end
 end

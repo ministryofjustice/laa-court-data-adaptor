@@ -5,7 +5,7 @@ require "webmock/rspec"
 WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
-  config.before(:each, stub_case_search_with_urn: true) do
+  config.before(:each, :stub_case_search_with_urn) do
     stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/prosecutionCases")
       .with(query: { prosecutionCaseReference: prosecution_case_reference })
       .to_return(
@@ -15,7 +15,7 @@ RSpec.configure do |config|
       )
   end
 
-  config.before(:each, stub_hearing_result: true) do
+  config.before(:each, :stub_hearing_result) do
     stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results")
       .with(query: hash_including("hearingId"))
       .to_return(

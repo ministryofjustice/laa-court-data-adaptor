@@ -76,19 +76,19 @@ module MaatApi
 
     def past_hearing_summaries
       hearing_summaries_with_hearing_days.select do |hs|
-        hs.hearing_days.map(&:sitting_day).max&.to_datetime&.past?
+        hs.hearing_days.map(&:sitting_day).max&.in_time_zone&.past?
       end
     end
 
     def all_hearings_in_past?
       hearing_summaries_with_hearing_days.all? do |hs|
-        hs.hearing_days.map(&:sitting_day).max&.to_datetime&.past?
+        hs.hearing_days.map(&:sitting_day).max&.in_time_zone&.past?
       end
     end
 
     def all_hearings_in_future?
       hearing_summaries_with_hearing_days.all? do |hs|
-        hs.hearing_days.map(&:sitting_day).max&.to_datetime&.future?
+        hs.hearing_days.map(&:sitting_day).max&.in_time_zone&.future?
       end
     end
 

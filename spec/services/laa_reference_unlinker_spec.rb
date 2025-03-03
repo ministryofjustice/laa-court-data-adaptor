@@ -50,7 +50,7 @@ RSpec.describe LaaReferenceUnlinker do
     end
 
     it "logs a 'already unlinked' warning message" do
-      expect(create_unlinker).to eq(nil)
+      expect(create_unlinker).to be_nil
     end
   end
 

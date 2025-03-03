@@ -101,7 +101,7 @@ RSpec.describe NewRepresentationOrderContract do
 
     it { is_expected.to be_a_success }
 
-    context "with a missing statusDate " do
+    context "with a missing statusDate" do
       before { offences_array[0].delete(:status_date) }
 
       it { is_expected.to be_a_success }
