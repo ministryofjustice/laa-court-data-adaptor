@@ -1,6 +1,6 @@
 require "swagger_helper"
 
-RSpec.describe "api/internal/v2/hearings/{hearing_id}/event_log/{date}", type: :request, swagger_doc: "v2/swagger.yaml" do
+RSpec.describe "api/internal/v2/hearings/{hearing_id}/event_log/{date}", swagger_doc: "v2/swagger.yaml", type: :request do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
