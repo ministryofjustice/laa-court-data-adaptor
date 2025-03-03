@@ -3,13 +3,8 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem "actionpack", "~> 7.1.5"
-gem "actionview", "~> 7.1.5"
-gem "activemodel", "~> 7.1.5"
-gem "activerecord", "~> 7.1.5"
-gem "activesupport", "~> 7.1.5"
 gem "bundler"
-gem "railties", "~> 7.1.5"
+gem "rails", "~> 7.2"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
@@ -22,6 +17,7 @@ gem "bcrypt", "~> 3.1.18"
 gem "bootsnap", ">= 1.4.2", require: false
 
 gem "aws-sdk-sqs"
+gem "csv", "~> 3.3"
 gem "doorkeeper", "~> 5.6"
 gem "dry-validation"
 gem "faraday", "~> 2.12"
