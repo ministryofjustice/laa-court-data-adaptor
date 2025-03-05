@@ -10,7 +10,6 @@ module CommonPlatform
                      application_reference:,
                      status_date:,
                      connection: CommonPlatform::Connection.instance.call)
-
         @offence_id = offence_id
         @status_code = status_code
         @application_reference = application_reference.to_s

@@ -14,7 +14,7 @@ RSpec.describe CommonPlatform::Api::GetHearingEvents do
   end
 
   context "when the response is successful" do
-    let(:response) { instance_double("Faraday::Response", body: { some: "data" }, status: 200) }
+    let(:response) { instance_double(Faraday::Response, body: { some: "data" }, status: 200) }
 
     it "returns an instance of HearingEventRecording" do
       expect(get_hearing_events).to be_a HearingEventRecording
@@ -22,7 +22,7 @@ RSpec.describe CommonPlatform::Api::GetHearingEvents do
   end
 
   context "when the body is blank" do
-    let(:response) { instance_double("Faraday::Response", body: {}, status: 200) }
+    let(:response) { instance_double(Faraday::Response, body: {}, status: 200) }
 
     it "returns nil" do
       expect(get_hearing_events).to be_nil
@@ -30,7 +30,7 @@ RSpec.describe CommonPlatform::Api::GetHearingEvents do
   end
 
   context "when the status is a 404" do
-    let(:response) { instance_double("Faraday::Response", body: {}, status: 404) }
+    let(:response) { instance_double(Faraday::Response, body: {}, status: 404) }
 
     it "returns nil" do
       expect(get_hearing_events).to be_nil

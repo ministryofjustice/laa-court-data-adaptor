@@ -4,7 +4,7 @@ RSpec.describe Api::Internal::V1::ProviderSerializer do
   subject(:serializable_hash) { described_class.new(provider).serializable_hash }
 
   let(:provider) do
-    instance_double("Provider",
+    instance_double(Provider,
                     id: "PROVIDER_UUID",
                     name: "Neil Griffiths",
                     role: "Junior counsel")

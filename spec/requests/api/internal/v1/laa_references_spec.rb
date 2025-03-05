@@ -3,7 +3,7 @@
 require "swagger_helper"
 require "sidekiq/testing"
 
-RSpec.describe "api/internal/v1/laa_references", type: :request, swagger_doc: "v1/swagger.yaml" do
+RSpec.describe "api/internal/v1/laa_references", swagger_doc: "v1/swagger.yaml", type: :request do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }
