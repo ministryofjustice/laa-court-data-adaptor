@@ -31,6 +31,8 @@ RSpec.describe LaaReferenceUnlinker do
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE dummy_maat_reference_seq RESTART;")
 
     allow(CommonPlatform::Api::RecordLaaReference).to receive(:call)
+    allow(Sqs::MessagePublisher).to receive(:call)
+
     allow(Rails.logger).to receive(:warn)
   end
 

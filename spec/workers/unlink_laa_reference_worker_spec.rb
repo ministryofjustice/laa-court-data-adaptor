@@ -32,6 +32,8 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
   end
 
   it "creates a LaaReferenceUnlinker and calls it" do
+    allow(Sqs::MessagePublisher).to receive(:call)
+
     set_up_linked_prosecution_case
     Sidekiq::Testing.inline! do
       expect(LaaReferenceUnlinker).to receive(:call).with(
