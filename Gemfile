@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem "actionpack", "~> 7.0"
+gem "actionpack", "~> 7.2"
 gem "actionview", "~> 7.0"
 gem "activemodel", "~> 7.0"
 gem "activerecord", "~> 7.0"
