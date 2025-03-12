@@ -21,7 +21,7 @@ RSpec.describe MaatApi::Connection do
 
   context "with faraday configuration" do
     let(:connection) { double }
-    let(:oauth_client) { instance_double("OAuth2::Client", client_credentials: double(get_token: double(token: "TOKEN"))) }
+    let(:oauth_client) { instance_double(OAuth2::Client, client_credentials: double(get_token: double(token: "TOKEN"))) }
 
     before do
       allow(Faraday).to receive(:new).and_yield(connection)

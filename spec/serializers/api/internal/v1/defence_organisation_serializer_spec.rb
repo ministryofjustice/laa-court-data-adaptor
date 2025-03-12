@@ -4,7 +4,7 @@ RSpec.describe Api::Internal::V1::DefenceOrganisationSerializer do
   subject { described_class.new(defence_organisation).serializable_hash }
 
   let(:defence_organisation) do
-    instance_double("DefenceOrganisation",
+    instance_double(DefenceOrganisation,
                     id: "UUID",
                     name: "The Johnson Partnership",
                     address1: "104",

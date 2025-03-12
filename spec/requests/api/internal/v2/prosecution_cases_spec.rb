@@ -2,7 +2,7 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/internal/v2/prosecution_case", type: :request, swagger_doc: "v2/swagger.yaml" do
+RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml", type: :request do
   include AuthorisedRequestHelper
 
   let(:token) { access_token }

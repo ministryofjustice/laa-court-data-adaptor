@@ -2,7 +2,7 @@
 
 require "swagger_helper"
 
-RSpec.describe "api/internal/v2/hearing_results", type: :request, swagger_doc: "v2/swagger.yaml" do
+RSpec.describe "api/internal/v2/hearing_results", swagger_doc: "v2/swagger.yaml", type: :request do
   include AuthorisedRequestHelper
 
   path "/api/internal/v2/hearing_results/{hearing_id}" do

@@ -56,7 +56,7 @@ RSpec.describe MaatApi::CourtApplication, type: :model do
       expect(court_application.inactive).to eql("Y")
     end
 
-    it "has a function type of APPLICATION " do
+    it "has a function type of APPLICATION" do
       expect(court_application.function_type).to eql("APPLICATION")
     end
 
@@ -163,7 +163,7 @@ RSpec.describe MaatApi::CourtApplication, type: :model do
       expect(court_application.inactive).to eql("Y")
     end
 
-    it "has a function type of APPLICATION " do
+    it "has a function type of APPLICATION" do
       expect(court_application.function_type).to eql("APPLICATION")
     end
 
