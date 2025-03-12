@@ -521,7 +521,7 @@ DEPENDENCIES
   jsonapi-serializer
   jsonapi_parameters
   listen (>= 3.0.5, < 3.10)
-  lograge
+  lograge (~> 0.14.0)
   oauth2
   pg (>= 0.18, < 2.0)
   prmd
