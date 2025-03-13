@@ -4,7 +4,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "bundler"
-gem "rails", "~> 7.1"
+gem "rails", "~> 7.2"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
@@ -32,9 +32,9 @@ gem "prmd"
 gem "prometheus_exporter", "2.0.8"
 gem "rswag-api"
 gem "rswag-ui"
-gem "sentry-rails", "~> 5.10.0"
-gem "sentry-ruby", "~> 5.10.0"
-gem "sentry-sidekiq", "~> 5.10.0"
+gem "sentry-rails", "~> 5.23.0"
+gem "sentry-ruby", "~> 5.23.0"
+gem "sentry-sidekiq", "~> 5.23.0"
 gem "sidekiq", ">= 6.5.10", "< 7.0"
 gem "versionist"
 
