@@ -17,6 +17,32 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    actioncable (7.1.2)
+      actionpack (= 7.1.2)
+      activesupport (= 7.1.2)
+      nio4r (~> 2.0)
+      websocket-driver (>= 0.6.1)
+      zeitwerk (~> 2.6)
+    actionmailbox (7.1.2)
+      actionpack (= 7.1.2)
+      activejob (= 7.1.2)
+      activerecord (= 7.1.2)
+      activestorage (= 7.1.2)
+      activesupport (= 7.1.2)
+      mail (>= 2.7.1)
+      net-imap
+      net-pop
+      net-smtp
+    actionmailer (7.1.2)
+      actionpack (= 7.1.2)
+      actionview (= 7.1.2)
+      activejob (= 7.1.2)
+      activesupport (= 7.1.2)
+      mail (~> 2.5, >= 2.5.4)
+      net-imap
+      net-pop
+      net-smtp
+      rails-dom-testing (~> 2.2)
     actionpack (7.1.2)
       actionview (= 7.1.2)
       activesupport (= 7.1.2)
@@ -27,18 +53,34 @@ GEM
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+    actiontext (7.1.2)
+      actionpack (= 7.1.2)
+      activerecord (= 7.1.2)
+      activestorage (= 7.1.2)
+      activesupport (= 7.1.2)
+      globalid (>= 0.6.0)
+      nokogiri (>= 1.8.5)
     actionview (7.1.2)
       activesupport (= 7.1.2)
       builder (~> 3.1)
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+    activejob (7.1.2)
+      activesupport (= 7.1.2)
+      globalid (>= 0.3.6)
     activemodel (7.1.2)
       activesupport (= 7.1.2)
     activerecord (7.1.2)
       activemodel (= 7.1.2)
       activesupport (= 7.1.2)
       timeout (>= 0.4.0)
+    activestorage (7.1.2)
+      actionpack (= 7.1.2)
+      activejob (= 7.1.2)
+      activerecord (= 7.1.2)
+      activesupport (= 7.1.2)
+      marcel (~> 1.0)
     activesupport (7.1.2)
       base64
       bigdecimal
@@ -78,6 +120,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    date (3.4.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
     doorkeeper (5.6.8)
@@ -134,6 +177,8 @@ GEM
     faraday-retry (2.2.0)
       faraday (~> 2.0)
     ffi (1.16.3)
+    globalid (1.2.1)
+      activesupport (>= 6.1)
     hashdiff (1.0.1)
     hashie (5.0.0)
     i18n (1.14.1)
@@ -165,7 +210,14 @@ GEM
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
+    mail (2.8.1)
+      mini_mime (>= 0.1.1)
+      net-imap
+      net-pop
+      net-smtp
+    marcel (1.0.4)
     method_source (1.0.0)
+    mini_mime (1.1.5)
     mini_portile2 (2.8.5)
     minitest (5.20.0)
     msgpack (1.7.2)
@@ -177,6 +229,15 @@ GEM
       uri
     net-http-persistent (4.0.5)
       connection_pool (~> 2.2)
+    net-imap (0.5.6)
+      date
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.2.2)
+      timeout
+    net-smtp (0.5.1)
+      net-protocol
     nio4r (2.7.0)
     nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
@@ -222,6 +283,20 @@ GEM
     rackup (1.0.0)
       rack (< 3)
       webrick
+    rails (7.1.2)
+      actioncable (= 7.1.2)
+      actionmailbox (= 7.1.2)
+      actionmailer (= 7.1.2)
+      actionpack (= 7.1.2)
+      actiontext (= 7.1.2)
+      actionview (= 7.1.2)
+      activejob (= 7.1.2)
+      activemodel (= 7.1.2)
+      activerecord (= 7.1.2)
+      activestorage (= 7.1.2)
+      activesupport (= 7.1.2)
+      bundler (>= 1.15.0)
+      railties (= 7.1.2)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -356,7 +431,7 @@ GEM
     stringio (3.1.0)
     thor (1.3.0)
     tilt (2.3.0)
-    timeout (0.4.1)
+    timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
@@ -372,6 +447,10 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.8.1)
+    websocket-driver (0.7.7)
+      base64
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.5)
     yard (0.9.34)
     zeitwerk (2.6.12)
 
@@ -382,11 +461,6 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  actionpack (~> 7.0)
-  actionview (~> 7.0)
-  activemodel (~> 7.0)
-  activerecord (~> 7.0)
-  activesupport (~> 7.0)
   aws-sdk-sqs
   bcrypt (~> 3.1.18)
   bootsnap (>= 1.4.2)
@@ -412,7 +486,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails (~> 0.3.9)
   puma (~> 6.3, >= 6.3.1)
-  railties (~> 7.0)
+  rails (~> 7.1)
   rspec-rails (~> 6.0.1)
   rspec_junit_formatter
   rswag-api

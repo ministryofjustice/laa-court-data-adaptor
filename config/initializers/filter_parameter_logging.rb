@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Be sure to restart your server when you modify this file.
 
 # Configure sensitive parameters which will be filtered from the log file.
@@ -11,4 +9,16 @@ filter_sensitive_info = lambda do |_key, value|
   value.to_s.replace "[FILTERED]"
 end
 
-Rails.application.config.filter_parameters += [:password, filter_sensitive_info]
+Rails.application.config.filter_parameters += [
+  :password,
+  :passw,
+  :secret,
+  :token,
+  :_key,
+  :crypt,
+  :salt,
+  :certificate,
+  :otp,
+  :ssn,
+  filter_sensitive_info,
+]
