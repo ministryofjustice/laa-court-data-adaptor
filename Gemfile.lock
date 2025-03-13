@@ -191,7 +191,7 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     jmespath (1.6.2)
-    json (2.10.1)
+    json (2.10.2)
     json-schema-rspec (0.0.4)
       json-schema (~> 2.5)
       rspec
