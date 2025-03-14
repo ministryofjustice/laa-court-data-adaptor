@@ -10,6 +10,16 @@ metadata:
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
+    # Override the default to replace `request` with `uri`, which skips the querystring (which may contain PII
+    # and therefore shouldn't appear in the logs)
+    nginx.ingress.kubernetes.io/log-format: |
+      '{"remote_addr": "$remote_addr",
+        "time_local": "$time_local",
+        "request": "$uri",
+        "status": "$status",
+        "body_bytes_sent": "$body_bytes_sent",
+        "http_referer": "$http_referer",
+        "http_user_agent": "$http_user_agent"}'
   {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className }}
