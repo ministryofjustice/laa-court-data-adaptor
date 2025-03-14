@@ -4,7 +4,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "bundler"
-gem "rails", "~> 7.1"
+gem "rails", "~> 7.1", ">= 7.1.5.1"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
@@ -43,7 +43,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails", "~> 0.3.9"
   gem "rswag-specs"
-  gem "rubocop-govuk"
+  gem "rubocop-govuk", ">= 5.0.0"
   gem "rubocop-performance"
   gem "vcr"
   gem "webmock"
