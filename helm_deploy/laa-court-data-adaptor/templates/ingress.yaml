@@ -12,7 +12,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
     # Override the default to replace `request` with `uri`, which skips the querystring (which may contain PII
     # and therefore shouldn't appear in the logs)
-    nginx.ingress.kubernetes.io/log-format: |
+    nginx.ingress.kubernetes.io/log-format-upstream: |
       '{"remote_addr": "$remote_addr",
         "time_local": "$time_local",
         "request": "$uri",
