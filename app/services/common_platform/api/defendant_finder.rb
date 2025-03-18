@@ -24,10 +24,10 @@ module CommonPlatform
 
           @common_platform_defendant ||= prosecution_case.defendants&.find { |d| d.id.eql?(defendant_id) }
 
-          break if @common_platform_defendant
+          return @common_platform_defendant if @common_platform_defendant
         end
 
-        @common_platform_defendant
+        nil
       end
 
       def common_platform_prosecution_case(urn)
