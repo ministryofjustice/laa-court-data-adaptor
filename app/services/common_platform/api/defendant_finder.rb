@@ -22,7 +22,7 @@ module CommonPlatform
 
           next unless prosecution_case
 
-          @common_platform_defendant ||= prosecution_case&.defendants&.find { |d| d.id.eql?(defendant_id) }
+          @common_platform_defendant ||= prosecution_case.defendants&.find { |d| d.id.eql?(defendant_id) }
 
           break if @common_platform_defendant
         end
