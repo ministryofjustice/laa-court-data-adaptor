@@ -8,12 +8,12 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
 
   let(:prosecution_cases_json) { file_fixture("prosecution_case_search_result.json").read }
   let(:prosecution_cases_hash) { JSON.parse(prosecution_cases_json) }
-  let(:prosecution_case) { prosecution_cases_hash["cases"][0] }
+  let(:prosecution_case_local_body) { prosecution_cases_hash["cases"][0] }
 
   let(:hearing_json) { file_fixture("hearing_resulted.json").read }
 
   before do
-    ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case)
+    ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case_local_body)
     ProsecutionCaseDefendantOffence.create!(
       defendant_id:,
       prosecution_case_id:,
@@ -62,6 +62,48 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
       let(:defendant_id) { "2ecc9feb-9407-482f-b081-123456789012" }
 
       it { is_expected.to be_nil }
+    end
+
+    context "when there are multiple local records" do
+      before do
+        other_case = ProsecutionCase.create!(body: json_with_correct_defendant["cases"][0])
+        ProsecutionCaseDefendantOffence.create!(
+          defendant_id:,
+          prosecution_case_id: other_case.id,
+          offence_id:,
+        )
+
+        stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/prosecutionCases")
+          .with(query: { prosecutionCaseReference: second_reference })
+          .to_return(
+            status: 200,
+            body: json_with_correct_defendant.to_json,
+            headers: { "Content-Type" => "application/vnd.unifiedsearch.query.laa.cases+json" },
+          )
+      end
+
+      let(:standard_case_hash) { JSON.parse(file_fixture("prosecution_case_search_result.json").read) }
+      let(:non_matching_defendant_id) { SecureRandom.uuid }
+
+      let(:second_reference) { "second-reference" }
+      let(:json_with_correct_defendant) do
+        basic = standard_case_hash.dup
+        basic["cases"][0]["prosecutionCaseReference"] = second_reference
+        basic
+      end
+
+      # This is what the API will return when looking up
+      let(:prosecution_cases_json) do
+        basic = standard_case_hash.dup
+        basic["cases"][0]["defendantSummary"][0]["defendantId"] = non_matching_defendant_id
+        basic.to_json
+      end
+
+      it "queries body multiple times if needed" do
+        defendant
+        expect(a_request(:get, %r{.*/prosecutionCases\?prosecutionCaseReference=#{prosecution_case_reference}})).to have_been_made.once
+        expect(a_request(:get, %r{.*/prosecutionCases\?prosecutionCaseReference=#{second_reference}})).to have_been_made.once
+      end
     end
   end
 end
