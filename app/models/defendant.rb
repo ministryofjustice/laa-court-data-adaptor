@@ -98,11 +98,7 @@ private
   end
 
   def _maat_reference
-    refs = offences.map(&:maat_reference).uniq.compact
-
-    raise(Errors::DefendantError.new("Too many maat references: #{refs}", :multiple_maats)) if refs.size > 1
-
-    refs&.first
+    body.dig("representationOrder", "applicationReference")
   end
 
   def case_reference

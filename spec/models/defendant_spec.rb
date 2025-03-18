@@ -77,7 +77,7 @@ RSpec.describe Defendant, type: :model do
       allow(defendant).to receive(:offences).and_return(offences)
     end
 
-    it { expect(defendant.maat_reference).to be_nil }
+    it { expect(defendant.maat_reference).to eq "LAA-20191601" }
     it { expect(defendant.defence_organisation).to be_nil }
 
     context "when a maat_reference is linked" do
@@ -89,7 +89,7 @@ RSpec.describe Defendant, type: :model do
         ProsecutionCase.create!(id: prosecution_case_hash["prosecutionCaseId"], body: "{}")
       end
 
-      it { expect(defendant.maat_reference).to eq("123123") }
+      it { expect(defendant.maat_reference).to eq("LAA-20191601") }
       it { expect(defendant.defence_organisation_id).to be_nil }
 
       context "when a representation_order is recorded" do
@@ -121,7 +121,7 @@ RSpec.describe Defendant, type: :model do
            instance_double(Offence, maat_reference: nil)]
         end
 
-        it { expect(defendant.maat_reference).to eq("123123") }
+        it { expect(defendant.maat_reference).to eq("LAA-20191601") }
       end
 
       context "with duplicate maat references" do
@@ -131,7 +131,7 @@ RSpec.describe Defendant, type: :model do
            instance_double(Offence, maat_reference: "123123")]
         end
 
-        it { expect(defendant.maat_reference).to eq("123123") }
+        it { expect(defendant.maat_reference).to eq("LAA-20191601") }
       end
 
       context "with different maat references" do
@@ -141,7 +141,7 @@ RSpec.describe Defendant, type: :model do
            instance_double(Offence, maat_reference: "321321")]
         end
 
-        it { expect { defendant.maat_reference }.to raise_error(Errors::DefendantError, 'Too many maat references: ["123123", "321321"]') }
+        it { expect(defendant.maat_reference).to eq("LAA-20191601") }
       end
     end
 
@@ -151,7 +151,7 @@ RSpec.describe Defendant, type: :model do
          instance_double(Offence, maat_reference: nil)]
       end
 
-      it { expect(defendant.maat_reference).to be_nil }
+      it { expect(defendant.maat_reference).to eq "LAA-20191601" }
       it { expect(defendant.defence_organisation).to be_nil }
     end
   end

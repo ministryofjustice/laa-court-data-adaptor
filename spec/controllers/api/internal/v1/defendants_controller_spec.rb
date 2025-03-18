@@ -26,12 +26,11 @@ RSpec.describe Api::Internal::V1::DefendantsController, type: :controller do
     let(:prosecution_case_reference) { "44PC1234567" }
 
     describe "GET #show" do
-      it "raises HTTP 422 Unprocessable Entity" do
+      it "raises uses the canonical MAAT ID" do
         get :show, params: { id: defendant_id }, as: :json
 
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.body).to include("error\":\"Too many maat references")
-        expect(response.parsed_body["error_codes"]).to eq %w[multiple_maats]
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body.dig("data", "attributes", "maat_reference")).to eq "1234567"
       end
     end
   end

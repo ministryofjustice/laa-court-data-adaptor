@@ -32,7 +32,7 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
       end
 
       it "maat_reference" do
-        expect(attributes[:maat_reference]).to eq("552244")
+        expect(attributes[:maat_reference]).to eq("7555111")
       end
 
       it "prosecution_case_id" do
