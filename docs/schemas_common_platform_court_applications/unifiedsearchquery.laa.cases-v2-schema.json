@@ -430,7 +430,7 @@
                 "applicationReference": {
                   "type": "string"
                 },
-                "applicationType": {
+                "applicationTitle": {
                   "type": "string"
                 },
                 "receivedDate": {
@@ -441,7 +441,7 @@
               "required": [
                 "applicationId",
                 "applicationReference",
-                "applicationType"
+                "applicationTitle"
               ]
             }
           }

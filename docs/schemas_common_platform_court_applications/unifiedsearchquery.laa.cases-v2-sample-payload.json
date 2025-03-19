@@ -239,7 +239,7 @@
         {
           "applicationId": "62158b87-56fc-43cc-bbdc-d957d372420f",
           "applicationReference": "CJ03512",
-          "applicationType": "Application to amend a community order on change of residence",
+          "applicationTitle": "Application to amend a community order on change of residence",
           "receivedDate": "2024-12-21"
         }
       ]
@@ -477,7 +477,7 @@
         {
           "applicationId": "6cd6494e-5409-420a-bd0b-f589dbb2466b",
           "applicationReference": "CJ03511",
-          "applicationType": "Conviction of an offence while a community order is in force",
+          "applicationTitle": "Conviction of an offence while a community order is in force",
           "receivedDate": "2024-12-15"
         }
       ]
