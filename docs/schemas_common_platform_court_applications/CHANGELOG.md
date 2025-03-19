@@ -31,7 +31,9 @@ Added new attribute
 
 Date: 21 Feb 2025
 
-File: unifiedsearchquery.laa.cases-v1-schema.json
+File:
+    unifiedsearchquery.laa.cases-v1-schema.json
+    Renamed to unifiedsearchquery.laa.cases-v2-schema.json
 ID: http://justice.gov.uk/json/schemas/domains/unifiedsearchquery/unifiedsearchquery.laa.cases.json
 
 Old attribute: `applicationType`
@@ -44,7 +46,7 @@ Date: 11 Feb 2025
 File: unifiedsearchquery.laa.cases-v1-schema.json
 ID: http://justice.gov.uk/json/schemas/domains/unifiedsearchquery/unifiedsearchquery.laa.cases.json
 
-The following fields are removed from applicationSummary:
+The following fields were removed from applicationSummary:
 
 - applicationStatus
 - applicationExternalCreatorType
