@@ -98,7 +98,7 @@ private
   end
 
   def _maat_reference
-    body.dig("representationOrder", "applicationReference")
+    LaaReference.find_by(defendant_id: id, linked: true)&.maat_reference
   end
 
   def case_reference

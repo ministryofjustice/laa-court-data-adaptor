@@ -21,12 +21,14 @@ RSpec.describe Api::Internal::V1::DefendantsController, type: :controller do
 
   context "when the CP /prosecutionCases API has `offenceSummary` having more than one `applicationReference` (maat_id)" do
     let(:defendant_id) { "501fd6c4-cc49-4ee9-b74d-4c7b30a792b6" }
+    let(:maat_reference) { "1234567" }
 
     # This case contain a `offenceSummary` having more than one applicationReference
     let(:prosecution_case_reference) { "44PC1234567" }
 
     describe "GET #show" do
-      it "raises uses the canonical MAAT ID" do
+      it "uses the canonical MAAT ID" do
+        LaaReference.create!(defendant_id:, maat_reference:, user_name: "foo")
         get :show, params: { id: defendant_id }, as: :json
 
         expect(response).to have_http_status(:ok)
