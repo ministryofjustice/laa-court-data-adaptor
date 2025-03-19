@@ -77,7 +77,7 @@ RSpec.describe Defendant, type: :model do
       allow(defendant).to receive(:offences).and_return(offences)
     end
 
-    it { expect(defendant.maat_reference).to eq "LAA-20191601" }
+    it { expect(defendant.maat_reference).to be_nil }
     it { expect(defendant.defence_organisation).to be_nil }
 
     context "when a maat_reference is linked" do
@@ -87,9 +87,10 @@ RSpec.describe Defendant, type: :model do
 
       before do
         ProsecutionCase.create!(id: prosecution_case_hash["prosecutionCaseId"], body: "{}")
+        LaaReference.create!(defendant_id: defendant.id, maat_reference: "9876543", linked: true, user_name: "foo")
       end
 
-      it { expect(defendant.maat_reference).to eq("LAA-20191601") }
+      it { expect(defendant.maat_reference).to eq("9876543") }
       it { expect(defendant.defence_organisation_id).to be_nil }
 
       context "when a representation_order is recorded" do
@@ -114,44 +115,12 @@ RSpec.describe Defendant, type: :model do
       end
     end
 
-    context "when there are multiple offences" do
-      context "with nil and not-nil maat references" do
-        let(:offences) do
-          [instance_double(Offence, maat_reference: "123123"),
-           instance_double(Offence, maat_reference: nil)]
-        end
-
-        it { expect(defendant.maat_reference).to eq("LAA-20191601") }
-      end
-
-      context "with duplicate maat references" do
-        let(:offences) do
-          [instance_double(Offence, maat_reference: "123123"),
-           instance_double(Offence, maat_reference: nil),
-           instance_double(Offence, maat_reference: "123123")]
-        end
-
-        it { expect(defendant.maat_reference).to eq("LAA-20191601") }
-      end
-
-      context "with different maat references" do
-        let(:offences) do
-          [instance_double(Offence, maat_reference: "123123"),
-           instance_double(Offence, maat_reference: nil),
-           instance_double(Offence, maat_reference: "321321")]
-        end
-
-        it { expect(defendant.maat_reference).to eq("LAA-20191601") }
-      end
-    end
-
     context "when an offence has an unlinked maat reference" do
-      let(:offences) do
-        [instance_double(Offence, maat_reference: "Z123123"),
-         instance_double(Offence, maat_reference: nil)]
+      before do
+        LaaReference.create!(defendant_id: defendant.id, maat_reference: "9876543", linked: false, user_name: "foo")
       end
 
-      it { expect(defendant.maat_reference).to eq "LAA-20191601" }
+      it { expect(defendant.maat_reference).to be_nil }
       it { expect(defendant.defence_organisation).to be_nil }
     end
   end

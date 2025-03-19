@@ -11,6 +11,10 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
   let(:serialized_data) { serialized[:data] }
   let(:options) { {} }
 
+  before do
+    LaaReference.create!(defendant_id: defendant.id, maat_reference: "9876543", linked: true, user_name: "foo")
+  end
+
   describe "serialized data" do
     describe "attributes" do
       let(:attributes) { serialized_data[:attributes] }
@@ -32,7 +36,7 @@ RSpec.describe Api::Internal::V1::DefendantSerializer do
       end
 
       it "maat_reference" do
-        expect(attributes[:maat_reference]).to eq("7555111")
+        expect(attributes[:maat_reference]).to eq("9876543")
       end
 
       it "prosecution_case_id" do
