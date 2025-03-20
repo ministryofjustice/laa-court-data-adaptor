@@ -3,41 +3,14 @@ updates:
 - package-ecosystem: bundler
   directory: "/"
   schedule:
-    interval: daily
+    interval: weekly
+    day: wednesday
     time: "03:00"
     timezone: Europe/London
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: sentry-rails
-    versions:
-    - 4.3.1
-  - dependency-name: sentry-ruby
-    versions:
-    - 4.3.0
-  - dependency-name: rspec-rails
-    versions:
-    - 4.1.0
-  - dependency-name: webmock
-    versions:
-    - 3.11.3
-  - dependency-name: rails
-    versions:
-    - 6.1.2
-  - dependency-name: rswag-ui
-    versions:
-    - 2.3.2
-    - 2.3.3
-  - dependency-name: rswag-specs
-    versions:
-    - 2.3.2
-    - 2.3.3
-  - dependency-name: rswag-api
-    versions:
-    - 2.3.2
-    - 2.3.3
-  - dependency-name: bootsnap
-    versions:
-    - 1.7.1
-  - dependency-name: puma
-    versions:
-    - 5.2.0
+  groups:
+    bundler:
+      patterns:
+        - "*"
+  open-pull-requests-limit: 15
+  allow:
+    - dependency-type: "all"
