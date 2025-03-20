@@ -6,7 +6,7 @@ module CommonPlatform
       include ActionView::Helpers::SanitizeHelper
 
       def initialize(params)
-        @response = ProsecutionCaseSearcher.call(**params)
+        @response = ProsecutionCaseFetcher.call(**params)
         @blank_defendants = []
       end
 

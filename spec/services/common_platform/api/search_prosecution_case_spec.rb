@@ -10,7 +10,7 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
   let(:prosecution_case_id) { "5edd67eb-9d8c-44f2-a57e-c8d026defaa4" }
 
   before do
-    allow(CommonPlatform::Api::ProsecutionCaseSearcher).to receive(:call).and_return(common_platform_api_search_results)
+    allow(CommonPlatform::Api::ProsecutionCaseFetcher).to receive(:call).and_return(common_platform_api_search_results)
   end
 
   it "records ProsecutionCase" do
@@ -21,6 +21,17 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
 
   it "returns the recorded ProsecutionCases" do
     expect(search_prosecution_case).to all(be_a(ProsecutionCase))
+  end
+
+  context "when the cases contain the applicationSummary" do
+    let(:response_body) do
+      JSON.parse(file_fixture("prosecution_case_search_result_with_application_summary.json").read)
+    end
+
+    it "contains applicationSummary" do
+      expect(search_prosecution_case[0].body["applicationSummary"]).to be_present
+      expect(search_prosecution_case[1].body["applicationSummary"]).to be_present
+    end
   end
 
   context "when containing multiple records" do

@@ -30,8 +30,8 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
         end
 
         let(:Authorization) { "Bearer #{token.token}" }
-        let(:'filter[prosecution_case_reference]') { "19GD1001816" }
-        let(:cassette_name) { "search_prosecution_case/by_prosecution_case_reference_success" }
+        let(:'filter[prosecution_case_reference]') { "61GD7528225" }
+        let(:cassette_name) { "search_prosecution_case/by_prosecution_case_reference_success_v2" }
 
         produces "application/vnd.api+json"
 
@@ -50,6 +50,7 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
         end
 
         context "when Common Platform API returns Server Error" do
+          let(:'filter[prosecution_case_reference]') { "id-for-500-error" }
           let(:cassette_name) { "search_prosecution_case/server_error" }
 
           response(424, "Common Platform API Error") do
