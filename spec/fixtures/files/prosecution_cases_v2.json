@@ -1,0 +1,98 @@
+{
+    "totalResults": 1,
+    "cases": [
+        {
+            "caseStatus": "ACTIVE",
+            "prosecutionCaseId": "6fc1f2cb-4a93-4116-84db-f87cc86ec3b8",
+            "prosecutionCaseReference": "61GD7528225",
+            "defendantSummary": [
+                {
+                    "organisationName": "HMCTS",
+                    "proceedingsConcluded": false,
+                    "representationOrder": {
+                        "applicationReference": "LAA-20191601",
+                        "effectiveFromDate": "2024-09-12",
+                        "effectiveToDate": "2025-12-12",
+                        "laaContractNumber": "80012345679"
+                    },
+                    "defendantId": "cfc4281f-cdea-494d-8179-3173d30736fd",
+                    "masterDefendantId": "cfc4281f-cdea-494d-8179-3173d30736fd",
+                    "offenceSummary": [
+                        {
+                            "offenceId": "997ba1dd-e1e2-46cb-ad4d-2c570af869cd",
+                            "offenceCode": "TW01040",
+                            "offenceTitle": "Fail to carry an animal on a moving escalator on the Tyne and Wear Metro",
+                            "offenceLegislation": "Contrary to byelaw 16(6) and 31(1) of the Tyne and Wear Metro Byelaws made under sections 58 and 62 of the Tyneside Metropolitan Railway Act 1973.",
+                            "proceedingsConcluded": false,
+                            "arrestDate": "2015-11-19",
+                            "startDate": "2004-12-09",
+                            "chargeDate": "2006-05-30",
+                            "modeOfTrial": "Summary",
+                            "orderIndex": 551,
+                            "wording": "Has a violent past and fear that he will commit further offences and\n                interfere with witnesse",
+                            "laaApplnReference": {
+                                "applicationReference": "SECOND-REF-TEST001",
+                                "statusId": "98e86937-9652-32a3-a9fb-dbd01eda86a5",
+                                "statusCode": "GRM",
+                                "statusDescription": "Granted (One Advocate)(Magistrates court jurisdiction)"
+                            },
+                            "plea": []
+                        },
+                        {
+                            "offenceId": "9085871a-797b-4ab8-8072-05ca6deeaac9",
+                            "offenceCode": "TW01046",
+                            "offenceTitle": "Occupy reserved seat / berth without a valid ticket on the Tyne and Wear Metro",
+                            "offenceLegislation": "Contrary to byelaw 19 and 31(1) of the Tyne and Wear Metro Byelaws made under sections 58 and 62 of the Tyneside Metropolitan Railway Act 1973.",
+                            "proceedingsConcluded": false,
+                            "arrestDate": "2004-12-09",
+                            "startDate": "2014-02-09",
+                            "chargeDate": "2014-02-09",
+                            "modeOfTrial": "Summary",
+                            "orderIndex": 502,
+                            "wording": "Has a violent past and fear that he will commit further offences and\n                interfere with witnesse",
+                            "laaApplnReference": {},
+                            "plea": []
+                        }
+                    ]
+                }
+            ],
+            "hearingSummary": [
+                {
+                    "hearingId": "0c401e0d-9d88-4cb8-8543-2090782edd32",
+                    "jurisdictionType": "MAGISTRATES",
+                    "defendantIds": [
+                        "664ee07b-ac43-43ed-8abe-d4eb04459a6c",
+                        "cfc4281f-cdea-494d-8179-3173d30736fd"
+                    ],
+                    "hearingDays": [
+                        {
+                            "sittingDay": "2025-02-18T09:01:01.001Z",
+                            "listingSequence": 0,
+                            "listedDurationMinutes": 20
+                        }
+                    ],
+                    "courtCentre": {
+                        "id": "f8254db1-1683-483e-afb3-b87fde5a0a26",
+                        "name": "Lavender Hill Magistrates' Court",
+                        "roomId": "9e4932f7-97b2-3010-b942-ddd2624e4dd8",
+                        "roomName": "Courtroom 01",
+                        "code": "B01LY00"
+                    },
+                    "hearingType": {
+                        "id": "4a0e892d-c0c5-3c51-95b8-704d8c781776",
+                        "description": "First hearing"
+                    },
+                    "defenceCounsel": []
+                }
+            ],
+            "applicationSummary": [
+                {
+                    "applicationId": "0d20f357-8a08-4d73-a7c9-3a16f6b97ba3",
+                    "applicationReference": "61GD7528225",
+                    "receivedDate": "2025-02-13",
+                    "applicationTitle": "Application for a witness summons"
+                }
+            ]
+        }
+    ]
+}

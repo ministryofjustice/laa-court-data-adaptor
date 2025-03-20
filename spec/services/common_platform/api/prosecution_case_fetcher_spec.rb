@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
-  let(:prosecution_case_reference) { "19GD1001816" }
+RSpec.describe CommonPlatform::Api::ProsecutionCaseFetcher do
+  let(:prosecution_case_reference) { "61GD7528225" }
 
   context "with an incorrect key" do
     subject(:search) { described_class.call(prosecution_case_reference:, connection:) }
 
+    let(:prosecution_case_reference) { "id-for-401-error" }
     let(:connection) { CommonPlatform::Connection.instance.call }
 
     before do
@@ -23,7 +24,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
     subject(:search) { described_class.call(prosecution_case_reference:) }
 
     it "returns a successful response" do
-      VCR.use_cassette("search_prosecution_case/by_prosecution_case_reference_success") do
+      VCR.use_cassette("search_prosecution_case/by_prosecution_case_reference_success_v2") do
         expect(search.status).to eq(200)
         expect(search.body["cases"][0]["prosecutionCaseReference"]).to eq(prosecution_case_reference)
         search
@@ -86,7 +87,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseSearcher do
   context "with connection" do
     subject(:search) { described_class.call(prosecution_case_reference:, connection:) }
 
-    let(:connection) { double("CommonPlatform::Connection") }
+    let(:connection) { double }
     let(:url) { "prosecutionCases" }
     let(:params) { { prosecutionCaseReference: prosecution_case_reference } }
 
