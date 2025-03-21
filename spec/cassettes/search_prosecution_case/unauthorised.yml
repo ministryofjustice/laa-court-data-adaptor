@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?prosecutionCaseReference=19GD1001816"
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases?prosecutionCaseReference=id-for-401-error"
     body:
       encoding: US-ASCII
       string: ''

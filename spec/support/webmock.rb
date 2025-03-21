@@ -4,6 +4,7 @@ require "webmock/rspec"
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
+# These are the mocks of the responses from the Common Platform API
 RSpec.configure do |config|
   config.before(:each, :stub_case_search_with_urn) do
     stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/prosecutionCases")

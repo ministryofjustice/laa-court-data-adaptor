@@ -5,7 +5,7 @@ module Api
     module V2
       class DefendantsController < ApplicationController
         def show
-          response_data = CommonPlatform::Api::ProsecutionCaseSearcher.call(
+          response_data = CommonPlatform::Api::ProsecutionCaseFetcher.call(
             prosecution_case_reference: params[:prosecution_case_reference],
           ).body
 
