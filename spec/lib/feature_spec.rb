@@ -7,17 +7,17 @@ RSpec.describe Feature, type: :model do
     end
 
     it "returns false if there are no features by the specified name" do
-      expect(described_class.enabled?("example")).to eq(false)
+      expect(described_class.enabled?("example")).to be(false)
     end
 
     it "returns true when the feature flag is enabled in the database" do
       FeatureFlag.create!(name: "multiday_hearings", enabled: true)
-      expect(described_class.enabled?("multiday_hearings")).to eq(true)
+      expect(described_class.enabled?("multiday_hearings")).to be(true)
     end
 
     it "returns false when the feature flag is disabled in the database" do
       FeatureFlag.create!(name: "multiday_hearings", enabled: false)
-      expect(described_class.enabled?("multiday_hearings")).to eq(false)
+      expect(described_class.enabled?("multiday_hearings")).to be(false)
     end
   end
 end
