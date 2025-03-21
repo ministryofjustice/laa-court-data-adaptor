@@ -263,10 +263,10 @@ workflows:
   test-branch:
     jobs:
       - test:
-        filters:
-          branches:
-            ignore:
-              - main
+          filters:
+            branches:
+              ignore:
+                - main
 
   build-deploy-branch-to-live-cluster:
     jobs:
