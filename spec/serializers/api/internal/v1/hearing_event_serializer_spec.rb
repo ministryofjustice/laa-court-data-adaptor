@@ -4,7 +4,7 @@ RSpec.describe Api::Internal::V1::HearingEventSerializer do
   subject(:serializable_hash) { described_class.new(hearing_event).serializable_hash }
 
   let(:hearing_event) do
-    instance_double("HearingEvent",
+    instance_double(HearingEvent,
                     id: "UUID",
                     description: "Hearing type changed to Plea",
                     occurred_at: "2020-04-30T16:17:58.610Z",

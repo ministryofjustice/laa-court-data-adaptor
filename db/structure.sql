@@ -1,6 +1,7 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -8,6 +9,13 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
 
 --
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
@@ -24,8 +32,6 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 
 SET default_tablespace = '';
-
-SET default_table_access_method = heap;
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
@@ -475,24 +481,23 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20191111162446'),
-('20191111162455'),
-('20191113174858'),
-('20191211135014'),
-('20200210053550'),
-('20200304144205'),
-('20200310210135'),
-('20200310222258'),
-('20200407083117'),
-('20200424095754'),
-('20200429163050'),
-('20200519141938'),
-('20200720123025'),
-('20200723141728'),
-('20210311145419'),
-('20210427164141'),
-('20220801171207'),
+('20220815120308'),
 ('20220815115514'),
-('20220815120308');
-
+('20220801171207'),
+('20210427164141'),
+('20210311145419'),
+('20200723141728'),
+('20200720123025'),
+('20200519141938'),
+('20200429163050'),
+('20200424095754'),
+('20200407083117'),
+('20200310222258'),
+('20200310210135'),
+('20200304144205'),
+('20200210053550'),
+('20191211135014'),
+('20191113174858'),
+('20191111162455'),
+('20191111162446');
 

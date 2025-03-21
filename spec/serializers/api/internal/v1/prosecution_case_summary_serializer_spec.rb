@@ -4,7 +4,7 @@ RSpec.describe Api::Internal::V1::ProsecutionCaseSummarySerializer do
   subject { described_class.new(prosecution_case).serializable_hash }
 
   let(:prosecution_case) do
-    instance_double("ProsecutionCase",
+    instance_double(ProsecutionCase,
                     id: "UUID",
                     prosecution_case_reference: "AAA",
                     defendant_ids: %w[DEFENDANT-UUID],
