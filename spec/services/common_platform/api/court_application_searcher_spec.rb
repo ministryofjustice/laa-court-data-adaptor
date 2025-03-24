@@ -4,10 +4,6 @@ RSpec.describe CommonPlatform::Api::CourtApplicationSearcher do
   context "with an incorrect key" do
     subject(:search) { described_class.call(application_id:) }
 
-    before do
-      connection.headers["Ocp-Apim-Subscription-Key"] = "INCORRECT KEY"
-    end
-
     it "returns an unauthorised response" do
       VCR.use_cassette("court_application_searcher/unauthorised") do
         expect(search.status).to eq(401)
