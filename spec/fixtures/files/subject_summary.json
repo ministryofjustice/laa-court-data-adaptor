@@ -1,0 +1,100 @@
+{
+  "proceedingsConcluded": true,
+  "subjectId": "855ce6b7-eace-44a1-a5ea-8e530d9fbc7b",
+  "masterDefendantId": "855ce6b7-eace-44a1-a5ea-8e530d9fbc7b",
+  "defendantASN": "VE94015",
+  "organisationName": "Franecki, Welch and Beier-newwwwwwwwwqqqq111222233344",
+  "representationOrder": {},
+  "offenceSummary": [
+    {
+      "offenceId": "f369a0f5-6faf-43f1-8725-fb79847107cc",
+      "offenceCode": "VE94015",
+      "offenceTitle": "Keep a vehicle without a valid vehicle licence",
+      "offenceLegislation": "Contrary to section 29(1) and (3) of the Vehicle Excise and    Registration Act 1994.",
+      "proceedingsConcluded": true,
+      "startDate": "2024-03-07",
+      "chargeDate": "2024-03-07",
+      "modeOfTrial": "Summary",
+      "orderIndex": 1,
+      "wording": "Wording: Keep a vehicle without a valid vehicle licence",
+      "laaApplnReference": {},
+      "plea": [],
+      "judicialResults": [
+        {
+          "alwaysPublished": false,
+          "canBeSubjectOfBreach": false,
+          "canBeSubjectOfVariation": false,
+          "category": "FINAL",
+          "cjsCode": "3045",
+          "courtClerk": {
+            "firstName": "Emma",
+            "lastName": "Cleaner",
+            "userId": "2781b565-4514-4805-8744-a3e827f0f611"
+          },
+          "d20": false,
+          "excludedFromResults": false,
+          "isAdjournmentResult": false,
+          "isAvailableForCourtExtract": true,
+          "isConvictedResult": false,
+          "isDeleted": false,
+          "isFinancialResult": false,
+          "isNewAmendment": true,
+          "isUnscheduled": false,
+          "judicialResultId": "6ccbc65e-975a-49fe-af85-4a8cf841b2bb",
+          "judicialResultPrompts": [
+            {
+              "courtExtract": "Y",
+              "isFinancialImposition": false,
+              "judicialResultPromptTypeId": "e3764c59-4e25-4864-a3af-1c2e3390af99",
+              "label": "Date of conviction",
+              "promptReference": "dateOfConviction",
+              "promptSequence": 100,
+              "type": "DATE",
+              "usergroups": [],
+              "value": "07/07/2023",
+              "welshValue": "07/07/2023"
+            },
+            {
+              "courtExtract": "N",
+              "isFinancialImposition": false,
+              "judicialResultPromptTypeId": "c10b4c83-1856-4ca9-9592-d8b8183a0324",
+              "label": "Reasons",
+              "promptReference": "reasons",
+              "promptSequence": 200,
+              "type": "TXT",
+              "usergroups": [
+                "CPS",
+                "Defence",
+                "Judiciary",
+                "NCES",
+                "Probation",
+                "Prosecuting Authorities",
+                "YOTs"
+              ],
+              "value": "dismissed",
+              "welshValue": "dismissed"
+            }
+          ],
+          "judicialResultTypeId": "548bf6b7-d152-4f08-8c9e-a079bf377e9b",
+          "label": "Appeal against conviction dismissed",
+          "lastSharedDateTime": "2023-06-27",
+          "level": "O",
+          "lifeDuration": false,
+          "orderedDate": "2023-06-27",
+          "orderedHearingId": "b8c55f56-df66-4848-bba9-862cd55c0000",
+          "postHearingCustodyStatus": "A",
+          "publishedAsAPrompt": false,
+          "publishedForNows": false,
+          "rank": 46400,
+          "resultText": "AACD - Appeal against conviction dismissed\nDate of conviction: 07/07/2023. ",
+          "rollUpPrompts": true,
+          "rootJudicialResultId": "6ccbc65e-975a-49fe-af85-4a8cf841b2bb",
+          "rootJudicialResultTypeId": "548bf6b7-d152-4f08-8c9e-a079bf377e9b",
+          "terminatesOffenceProceedings": false,
+          "urgent": false,
+          "usergroups": []
+        }
+      ]
+    }
+  ]
+}
