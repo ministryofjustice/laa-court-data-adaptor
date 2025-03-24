@@ -12,9 +12,9 @@ RSpec.describe "api/internal/v2/court_applications", type: :request do
     before do
       stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/applications/#{court_application_id}")
         .to_return(
-          status: status,
+          status:,
           headers: { content_type: "application/json" },
-          body: body,
+          body:,
         )
       get "/api/internal/v2/court_applications/#{court_application_id}", headers: { "Authorization" => "Bearer #{token.token}" }
     end
@@ -23,7 +23,7 @@ RSpec.describe "api/internal/v2/court_applications", type: :request do
       let(:status) { 200 }
       let(:body) { file_fixture("court_application_summary.json").read }
 
-      it "return 200 success" do
+      it "returns 200 success" do
         expect(response).to have_http_status(:ok)
       end
 
@@ -36,7 +36,7 @@ RSpec.describe "api/internal/v2/court_applications", type: :request do
       let(:status) { 500 }
       let(:body) { { message: "uh-oh" }.to_json }
 
-      it "return 503 error" do
+      it "returns 503 error" do
         expect(response).to have_http_status(:service_unavailable)
       end
 
@@ -49,7 +49,7 @@ RSpec.describe "api/internal/v2/court_applications", type: :request do
       let(:status) { 404 }
       let(:body) { "" }
 
-      it "return 404 error" do
+      it "returns 404 error" do
         expect(response).to have_http_status(:not_found)
       end
     end

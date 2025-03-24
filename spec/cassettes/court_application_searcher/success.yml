@@ -10,7 +10,7 @@ http_interactions:
       Ocp-Apim-Subscription-Key:
       - "<SHARED_SECRET_KEY>"
       User-Agent:
-      - Faraday v1.0.1
+      - Faraday v2.12.2
   response:
     status:
       code: 200
