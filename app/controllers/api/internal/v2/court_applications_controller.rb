@@ -5,13 +5,15 @@ module Api
     module V2
       class CourtApplicationsController < ApplicationController
         def show
-          # TODO: this is a temporary implementation
-          # the real implementation will return the court application details
-          # retrieved from the Common Platform API
-          court_application_details_sample = JSON.parse(
-            File.read("spec/fixtures/files/court_application_details/all_fields.json"),
-          )
-          render json: court_application_details_sample
+          response_data = CommonPlatform::Api::CourtApplicationSearcher.call(
+            application_id: params[:id],
+          ).body
+
+          if response_data.present?
+            render json: HmctsCommonPlatform::CourtApplicationSummary.new(response_data).to_json, status: :ok
+          else
+            head :not_found
+          end
         end
       end
     end
