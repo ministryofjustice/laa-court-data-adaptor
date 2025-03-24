@@ -7,12 +7,16 @@ module Api
         def show
           response_data = CommonPlatform::Api::CourtApplicationSearcher.call(
             application_id: params[:id],
-          ).body
+          )
+          response_body = response_data.body
 
-          if response_data.present?
-            render json: HmctsCommonPlatform::CourtApplicationSummary.new(response_data).to_json, status: :ok
-          else
+          case response_data.status
+          when 200
+            render json: HmctsCommonPlatform::CourtApplicationSummary.new(response_body).to_json, status: :ok
+          when 404
             head :not_found
+          else
+            render json: response_data.body, status: :service_unavailable
           end
         end
       end
