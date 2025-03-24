@@ -2,6 +2,7 @@ module CommonPlatform
   module Api
     class CourtApplicationSearcher < ApplicationService
       URL = "applications".freeze
+
       def initialize(application_id:,
                      connection: CommonPlatform::Connection.instance.call)
         @connection = connection

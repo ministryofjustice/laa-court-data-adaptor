@@ -48,18 +48,26 @@ module HmctsCommonPlatform
       end
     end
 
-    def as_json
-      {
-        application_id:,
-        application_reference:,
-        application_status:,
-        application_title:,
-        application_type:,
-        received_date:,
-        case_summary: case_summary.as_json,
-        hearing_summary: hearing_summary.as_json,
-        subject_summary: subject_summary.as_json,
-      }
+    def to_json(*_args)
+      # Warning: this `to_json` method doesn't return JSON, it returns a hash.
+      # This is to be consistent with other models in this repo
+      to_builder.attributes!
+    end
+
+  private
+
+    def to_builder
+      Jbuilder.new do |summary|
+        summary.application_id application_id
+        summary.application_reference application_reference
+        summary.application_status application_status
+        summary.application_title application_title
+        summary.application_type application_type
+        summary.received_date received_date
+        summary.case_summary case_summary
+        summary.hearing_summary hearing_summary
+        summary.subject_summary subject_summary
+      end
     end
   end
 end
