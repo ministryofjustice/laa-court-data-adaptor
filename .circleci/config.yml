@@ -54,6 +54,11 @@ jobs:
       - run: sudo apt-get install postgresql-client
 
       - run:
+          name: Lint
+          command: |
+            bundle exec rubocop
+
+      - run:
           name: Database Setup
           command: |
             bundle exec rake db:migrate
