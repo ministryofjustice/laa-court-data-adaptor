@@ -8,7 +8,7 @@ RSpec.describe HmctsCommonPlatform::SubjectSummary, type: :model do
     expect(subject_summary.to_json["master_defendant_id"]).to eql("855ce6b7-eace-44a1-a5ea-8e530d9fbc7b")
     expect(subject_summary.to_json["defendant_asn"]).to eql("VE94015")
     expect(subject_summary.to_json["organisation_name"]).to eql("Franecki, Welch and Beier-newwwwwwwwwqqqq111222233344")
-    expect(subject_summary.to_json["representation_order"]).to be_a(HmctsCommonPlatform::RepresentationOrder)
+    expect(subject_summary.to_json["representation_order"]).to be_a(Hash)
     expect(subject_summary.to_json["offence_summary"]).to be_a(Array)
   end
 

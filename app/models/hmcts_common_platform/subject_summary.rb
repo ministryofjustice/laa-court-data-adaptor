@@ -51,8 +51,8 @@ module HmctsCommonPlatform
         summary.master_defendant_id master_defendant_id
         summary.defendant_asn defendant_asn
         summary.organisation_name organisation_name
-        summary.representation_order representation_order
-        summary.offence_summary offence_summary
+        summary.representation_order representation_order.to_json
+        summary.offence_summary offence_summary.map(&:to_json)
       end
     end
   end

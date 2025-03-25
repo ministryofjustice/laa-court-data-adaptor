@@ -3,6 +3,7 @@ module HmctsCommonPlatform
     attr_reader :data
 
     def initialize(data)
+      data = JSON.parse(data) if data.is_a?(String)
       @data = HashWithIndifferentAccess.new(data || {})
     end
 
@@ -43,9 +44,7 @@ module HmctsCommonPlatform
     end
 
     def subject_summary
-      data[:subjectSummary]&.map do |summary_object|
-        HmctsCommonPlatform::SubjectSummary.new(summary_object)
-      end
+      HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary])
     end
 
     def to_json(*_args)
@@ -64,9 +63,9 @@ module HmctsCommonPlatform
         summary.application_title application_title
         summary.application_type application_type
         summary.received_date received_date
-        summary.case_summary case_summary
-        summary.hearing_summary hearing_summary
-        summary.subject_summary subject_summary
+        summary.case_summary case_summary.map(&:to_json)
+        summary.hearing_summary hearing_summary.map(&:to_json)
+        summary.subject_summary subject_summary.to_json
       end
     end
   end
