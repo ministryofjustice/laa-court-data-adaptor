@@ -2,7 +2,7 @@
 
 module CommonPlatform
   module Api
-    class ProsecutionCaseSearcher < ApplicationService
+    class ProsecutionCaseFetcher < ApplicationService
       URL = "prosecutionCases"
       def initialize(prosecution_case_reference: nil,
                      national_insurance_number: nil,
