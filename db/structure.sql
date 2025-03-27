@@ -198,7 +198,8 @@ CREATE TABLE public.prosecution_case_defendant_offences (
     status_date timestamp without time zone,
     effective_start_date timestamp without time zone,
     effective_end_date timestamp without time zone,
-    defence_organisation json
+    defence_organisation json,
+    application_type character varying
 );
 
 
@@ -475,6 +476,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250327104429'),
 ('20220815120308'),
 ('20220815115514'),
 ('20220801171207'),
