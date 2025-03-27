@@ -15,6 +15,7 @@ class ProsecutionCaseRecorder < ApplicationService
           prosecution_case_id: prosecution_case.id,
           defendant_id: defendant.id,
           offence_id: offence.id,
+          application_type: nil,
         )
       end
     end

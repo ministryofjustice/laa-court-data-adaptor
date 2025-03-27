@@ -41,6 +41,7 @@ RSpec.describe ProsecutionCaseRecorder do
         prosecution_case_id:,
         defendant_id:,
         offence_id:,
+        application_type: nil,
       )
     end
 
