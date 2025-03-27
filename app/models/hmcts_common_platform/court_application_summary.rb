@@ -24,7 +24,7 @@ module HmctsCommonPlatform
     end
 
     def application_type
-      data[:applicationType] || application_title
+      data[:applicationType]
     end
 
     def received_date
