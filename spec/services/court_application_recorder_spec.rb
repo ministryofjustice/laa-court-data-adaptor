@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
-RSpec.describe ProsecutionCaseRecorder do
-  subject(:record) { described_class.call(prosecution_case_id:, body:) }
+RSpec.describe CourtApplicationRecorder do
+  subject(:record) { described_class.call(court_application_id, model) }
 
-  let(:prosecution_case_id) { "5edd67eb-9d8c-44f2-a57e-c8d026defaa4" }
-  let(:defendant_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
-  let(:offence_id) { "3f153786-f3cf-4311-bc0c-2d6f48af68a1" }
-  let(:body) { JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0] }
+  let(:body) { JSON.parse(file_fixture("court_application_summary.json").read) }
+  let(:model) { HmctsCommonPlatform::CourtApplicationSummary.new(body) }
+
+  let(:court_application_id) { model.application_id }
+  let(:defendant_id) { model.subject_summary.subject_id }
+  let(:offence_id) { model.subject_summary.offence_summary.first.offence_id }
+  let(:prosecution_case_id) { court_application_id }
 
   it "creates a Prosecution Case" do
     expect {
@@ -32,7 +35,7 @@ RSpec.describe ProsecutionCaseRecorder do
     let!(:prosecution_case) do
       ProsecutionCase.create!(
         id: prosecution_case_id,
-        body:,
+        body: "old body",
       )
     end
 
@@ -41,7 +44,7 @@ RSpec.describe ProsecutionCaseRecorder do
         prosecution_case_id:,
         defendant_id:,
         offence_id:,
-        application_type: nil,
+        application_type: model.application_type,
       )
     end
 

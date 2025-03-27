@@ -30,6 +30,10 @@ RSpec.describe "api/internal/v2/court_applications", type: :request do
       it "returns payload" do
         expect(response.parsed_body["application_id"]).to eq("00004c9f-af9f-401a-b88b-78a4f0e08163")
       end
+
+      it "persists a 'prosecution_case'" do
+        expect(ProsecutionCase.find_by(id: court_application_id)).not_to be_nil
+      end
     end
 
     context "when HMCTS request is unsuccessful" do
