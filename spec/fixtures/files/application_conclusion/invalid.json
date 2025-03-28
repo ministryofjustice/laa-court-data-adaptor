@@ -1,0 +1,12 @@
+{
+  "prosecutionConcluded": [
+    {
+      "isConcluded": true,
+      "hearingIdWhereChangeOccurred": "96095df2-b66b-421d-881e-c45fd267e751",
+      "applicationConcluded": {
+        "applicationId": 32,
+        "subjectId": "02013b5c-11dd-43fd-b0a8-e87bd229b272"
+      }
+    }
+  ]
+}
