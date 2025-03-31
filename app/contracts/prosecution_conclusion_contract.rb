@@ -1,12 +1,12 @@
 class ProsecutionConclusionContract < Dry::Validation::Contract
   json do
     required(:prosecutionConcluded).array(:hash) do
-      required(:prosecutionCaseId).value(:string)
-      required(:defendantId).value(:string)
+      optional(:prosecutionCaseId).value(:string)
+      optional(:defendantId).value(:string)
       required(:isConcluded).value(:bool)
       required(:hearingIdWhereChangeOccurred).value(:string)
 
-      required(:offenceSummary).array(:hash) do
+      optional(:offenceSummary).array(:hash) do
         required(:offenceId).value(:string)
         required(:offenceCode).value(:string)
         required(:proceedingsConcluded).value(:bool)
@@ -30,6 +30,12 @@ class ProsecutionConclusionContract < Dry::Validation::Contract
             required(:verdictTypeId).value(:string)
           end
         end
+      end
+
+      optional(:applicationConcluded).value(:hash) do
+        required(:applicationId).value(:string)
+        required(:applicationResultCode).value(:string)
+        required(:subjectId).value(:string)
       end
     end
   end

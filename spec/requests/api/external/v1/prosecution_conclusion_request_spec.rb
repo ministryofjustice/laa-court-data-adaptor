@@ -14,17 +14,9 @@ RSpec.describe "api/external/v1/prosecution_conclusions", swagger_doc: "v1/swagg
       tags "External - available to Common Platform"
       security [{ oAuth: [] }]
 
-      response(202, "Accepted") do
-        parameter name: :prosecution_conclusion,
-                  in: :body,
-                  required: true,
-                  type: :object,
-                  schema: { "$ref" => "prosecution_concluded_request.json#/definitions/resource" },
-                  description: "The minimal prosecution concluded payload"
+      let(:Authorization) { "Bearer #{token.token}" }
 
-        let(:Authorization) { "Bearer #{token.token}" }
-        let(:prosecution_conclusion) { JSON.parse(file_fixture("prosecution_conclusion/valid.json").read) }
-
+      context "when sending a valid payload" do
         before do
           LaaReference.create!(
             user_name: "test-user",
@@ -44,13 +36,40 @@ RSpec.describe "api/external/v1/prosecution_conclusions", swagger_doc: "v1/swagg
             )
         end
 
-        run_test!
+        context "when sending a valid prosecution case payload" do
+          let(:prosecution_conclusion) { JSON.parse(file_fixture("prosecution_conclusion/valid.json").read) }
+
+          response(202, "Accepted") do
+            parameter name: :prosecution_conclusion,
+                      in: :body,
+                      required: true,
+                      type: :object,
+                      schema: { "$ref" => "prosecution_concluded_request.json#/definitions/resource" },
+                      description: "The minimal prosecution concluded payload"
+            run_test!
+          end
+        end
+
+        context "when sending a valid application case payload" do
+          let(:prosecution_conclusion) { JSON.parse(file_fixture("application_conclusion/valid.json").read) }
+
+          response(202, "Accepted") do
+            parameter name: :prosecution_conclusion,
+                      in: :body,
+                      required: true,
+                      type: :object,
+                      schema: { "$ref" => "prosecution_concluded_request.json#/definitions/resource" },
+                      description: "The court application concluded payload"
+            run_test!
+          end
+        end
       end
 
       context "when entity is unprocessable" do
+        let(:prosecution_conclusion) { JSON.parse(file_fixture("prosecution_conclusion/unprocessable.json").read) }
+
         response("422", "Unprocessable Entity") do
           let(:Authorization) { "Bearer #{token.token}" }
-          let(:prosecution_conclusion) { JSON.parse(file_fixture("prosecution_conclusion/unprocessable.json").read) }
 
           run_test!
         end

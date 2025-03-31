@@ -43,14 +43,15 @@
           "items": {
             "$ref": "#/definitions/offenceSummary"
           }
+        },
+        "applicationConcluded": {
+          "description": "The details of the conclusion of a court application if relevant",
+          "$ref": "#/definitions/applicationConcluded"
         }
       },
       "required": [
-        "prosecutionCaseId",
-        "defendantId",
         "isConcluded",
-        "hearingIdWhereChangeOccurred",
-        "offenceSummary"
+        "hearingIdWhereChangeOccurred"
       ],
       "additionalProperties": false
     },
@@ -167,6 +168,29 @@
         "category",
         "categoryType",
         "sequence"
+      ],
+      "additionalProperties": false
+    },
+    "applicationConcluded": {
+      "type": "object",
+      "properties": {
+        "applicationId": {
+          "description": "The identifier of the court application",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "subjectId": {
+          "description": "The identifier of the subject (defendant)",
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "applicationResultCode": {
+          "description": "A code indicating the result of the court application",
+          "type": "string"
+        }
+      },
+      "required": [
+        "applicationId",
+        "subjectId",
+        "applicationResultCode"
       ],
       "additionalProperties": false
     }
