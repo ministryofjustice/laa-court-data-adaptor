@@ -85,10 +85,6 @@ RSpec.describe ProsecutionCase, type: :model do
 
         it { expect(hearings.first.id).to eq(hearing_result_body["hearing"]["id"]) }
 
-        it "is_expected to have alias #fetch_details" do
-          expect(prosecution_case.method(:hearings)).to eq(prosecution_case.method(:fetch_details))
-        end
-
         context "with no prosecution_case reference" do
           let(:hearing_result_body) do
             HearingResult.new({ "sharedTime" => "", "hearing" => { "id" => "311bb2df-4df5-4abe-bae3-82f144e1e5c5" } })

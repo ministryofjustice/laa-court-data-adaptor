@@ -4,6 +4,7 @@ module Api
   module Internal
     module V2
       class LaaReferencesController < ApplicationController
+        # Create link to court data
         def create
           contract = NewLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
