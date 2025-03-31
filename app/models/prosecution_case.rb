@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-# WARNING! Despite the name, a ProsecutionCase DB record can contain _either_
-# a prosecution case our a court application record
-class ProsecutionCase < ApplicationRecord
-  validates :body, presence: true
-
+class ProsecutionCase < LegalCase
   def defendants
     body["defendantSummary"].map do |defendant|
       Defendant.new(

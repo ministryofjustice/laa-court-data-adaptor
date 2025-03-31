@@ -199,7 +199,7 @@ CREATE TABLE public.prosecution_case_defendant_offences (
     effective_start_date timestamp without time zone,
     effective_end_date timestamp without time zone,
     defence_organisation json,
-    application_type character varying
+    application_type character varying(255)
 );
 
 
