@@ -12,9 +12,9 @@ module Api
 
           case response_data.status
           when 200
-            model = HmctsCommonPlatform::CourtApplicationSummary.new(response_body)
-            CourtApplicationRecorder.call(params[:id], model)
-            render json: model.to_json, status: :ok
+            application_summary = HmctsCommonPlatform::CourtApplicationSummary.new(response_body)
+            CourtApplicationRecorder.call(params[:id], application_summary)
+            render json: application_summary.to_json, status: :ok
           when 404
             head :not_found
           else
