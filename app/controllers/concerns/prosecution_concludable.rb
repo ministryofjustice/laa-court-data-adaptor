@@ -5,7 +5,7 @@ module ProsecutionConcludable
     enforce_contract!
 
     prosecution_conclusion_params["prosecutionConcluded"].each do |pc|
-      laa_reference = retrieve_laa_reference(pc)
+      laa_reference = get_linked_laa_reference(pc)
 
       next unless laa_reference
 
@@ -32,7 +32,7 @@ private
     ProsecutionConclusionContract.new.call(prosecution_conclusion_params.to_hash)
   end
 
-  def retrieve_laa_reference(param_set)
+  def get_linked_laa_reference(param_set)
     defendant_id = param_set["defendantId"] || param_set.dig("applicationConcluded", "subjectId")
     LaaReference.find_by(defendant_id:, linked: true)
   end
