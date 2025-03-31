@@ -4,6 +4,7 @@ module Api
   module Internal
     module V2
       class ProsecutionCasesController < ApplicationController
+        # Get /api/internal/v2/prosecution_cases
         def index
           case_summaries = CommonPlatform::Api::SearchProsecutionCase.call(transformed_params)
 

@@ -34,9 +34,13 @@ module CommonPlatform
         return unless urn
 
         # fetch details needed to include plea and mode of trial reason, at least
-        CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: urn)
-                                              &.first
-                                              &.tap(&:fetch_details)
+        prosecution_case = CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: urn)&.first
+
+        # This makes many calls to /LAA/v1/hearing/results (Common Platform)
+        # TODO: check if this is needed
+        prosecution_case&.hearings
+
+        prosecution_case
       end
 
       def prosecution_case_urns
