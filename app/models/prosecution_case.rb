@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class ProsecutionCase < ApplicationRecord
-  validates :body, presence: true
-
+class ProsecutionCase < LegalCase
   def defendants
     body["defendantSummary"].map do |defendant|
       Defendant.new(

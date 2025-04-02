@@ -1,0 +1,2 @@
+class CourtApplication < LegalCase
+end
