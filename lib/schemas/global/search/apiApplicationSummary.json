@@ -19,6 +19,156 @@
     "receivedDate": {
       "description": "The date the application was received",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "applicationShortId": {
+      "description": "An HMCTS-generated unique string identifying the application",
+      "type": "string"
+    },
+    "subjectSummary":  {
+      "id": "http://justice.gov.uk/progression/query/laa/subject-summary.json",
+      "type": "object",
+      "properties": {
+        "proceedingsConcluded": {
+          "type": "boolean"
+        },
+        "subjectId": {
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "masterDefendantId": {
+          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+        },
+        "defendantASN": {
+          "type": "string"
+        },
+        "defendantFirstName": {
+          "type": "string"
+        },
+        "defendantMiddleName": {
+          "type": "string"
+        },
+        "defendantLastName": {
+          "type": "string"
+        },
+        "defendantDOB": {
+          "type": "string"
+        },
+        "defendantNINO": {
+          "type": "string"
+        },
+        "dateOfNextHearing": {
+          "type": "string"
+        },
+        "representationOrder": {
+          "id": "http://justice.gov.uk/progression/query/laa/representation-order.json",
+          "type": "object",
+          "properties": {
+            "applicationReference": {
+              "type": "string"
+            },
+            "effectiveFromDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "effectiveToDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "laaContractNumber": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "applicationReference"
+          ],
+          "additionalProperties": true
+        },
+        "offenceSummary": {
+          "type": "array",
+          "items": [
+            {
+              "id": "http://justice.gov.uk/progression/query/laa/offence-summary.json",
+              "type": "object",
+              "properties": {
+                "offenceId": {
+                  "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+                },
+                "offenceCode": {
+                  "type": "string"
+                },
+                "offenceTitle": {
+                  "type": "string"
+                },
+                "offenceLegislation": {
+                  "type": "string"
+                },
+                "proceedingsConcluded": {
+                  "type": "boolean"
+                },
+                "arrestDate": {
+                  "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+                },
+                "dateOfInformation": {
+                  "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+                },
+                "endDate": {
+                  "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+                },
+                "startDate": {
+                  "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+                },
+                "chargeDate": {
+                  "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+                },
+                "modeOfTrial": {
+                  "type": "string"
+                },
+                "orderIndex": {
+                  "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/positiveInteger"
+                },
+                "wording": {
+                  "type": "string"
+                },
+                "laaApplnReference": {
+                  "id": "http://justice.gov.uk/progression/query/laa/laa-appln-reference.json",
+                  "type": "object",
+                  "properties": {
+                    "applicationReference": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+                    },
+                    "statusCode": {
+                      "type": "string"
+                    },
+                    "statusDescription": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "applicationReference",
+                    "statusId",
+                    "statusCode",
+                    "statusDescription"
+                  ],
+                  "additionalProperties": true
+                }
+              },
+              "required": [
+                "offenceId",
+                "offenceCode",
+                "offenceTitle"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        }
+      },
+      "required": [
+        "subjectId",
+        "defendantFirstName"
+      ],
+      "additionalProperties": true
     }
   }
 }

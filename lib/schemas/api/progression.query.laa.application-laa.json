@@ -10,6 +10,10 @@
       "description": "The LAA issued reference to the application.  Currently known as the MAAT Id",
       "type": "string"
     },
+    "applicationShortId": {
+      "description": "An HMCTS-generated unique string identifying the application",
+      "type": "string"
+    },
     "applicationStatus": {
       "description": "Indicates if the application is draft, listed or finalised",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/courtApplicationStatus"

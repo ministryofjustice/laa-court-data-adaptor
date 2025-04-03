@@ -11,6 +11,10 @@ module HmctsCommonPlatform
       data[:applicationId]
     end
 
+    def short_id
+      data[:applicationShortId]
+    end
+
     def application_reference
       data[:applicationReference]
     end
@@ -58,6 +62,7 @@ module HmctsCommonPlatform
     def to_builder
       Jbuilder.new do |summary|
         summary.application_id application_id
+        summary.short_id short_id
         summary.application_reference application_reference
         summary.application_status application_status
         summary.application_title application_title

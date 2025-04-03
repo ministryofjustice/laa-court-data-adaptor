@@ -10,6 +10,10 @@ module HmctsCommonPlatform
       data[:applicationId]
     end
 
+    def short_id
+      data[:applicationShortId]
+    end
+
     def reference
       data[:applicationReference]
     end
@@ -22,6 +26,10 @@ module HmctsCommonPlatform
       data[:receivedDate]
     end
 
+    def subject_summary
+      HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary]) if data[:subjectSummary]
+    end
+
     def to_json(*_args)
       to_builder.attributes!
     end
@@ -31,9 +39,11 @@ module HmctsCommonPlatform
     def to_builder
       Jbuilder.new do |application_summary|
         application_summary.id id
+        application_summary.short_id short_id
         application_summary.reference reference
         application_summary.title title
         application_summary.received_date received_date
+        application_summary.subject_summary subject_summary.to_json
       end
     end
   end
