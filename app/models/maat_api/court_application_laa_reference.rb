@@ -2,20 +2,19 @@ module MaatApi
   class CourtApplicationLaaReference
     include RelevantHearingSummaryFindable
 
-    attr_reader :court_application, :user_name, :maat_reference
+    attr_reader :court_application_summary, :user_name, :maat_reference
 
-    def initialize(user_name:, maat_reference:, court_application:)
+    delegate :subject_summary, :case_summary, to: :court_application_summary
+    delegate :defendant_asn, to: :subject_summary
+
+    def initialize(user_name:, maat_reference:, court_application_summary:)
       @maat_reference = maat_reference
       @user_name = user_name
-      @court_application = court_application
+      @court_application_summary = court_application_summary
     end
 
     def case_urn
-      TODO
-    end
-
-    def defendant_asn
-      subject_summary.defendant_asn
+      nil
     end
 
     def doc_language
@@ -23,7 +22,7 @@ module MaatApi
     end
 
     def is_active?
-      court_application.case_summary.case_status == "ACTIVE"
+      case_summary.first.case_status == "ACTIVE"
     end
 
     def cjs_location
@@ -36,11 +35,11 @@ module MaatApi
 
     def defendant
       {
-        defendantId: subject_summary.defendant_id,
-        forename: subject_summary.first_name,
-        surname: subject_summary.last_name,
-        dateOfBirth: subject_summary.date_of_birth,
-        nino: subject_summary.national_insurance_number,
+        defendantId: subject_summary.subject_id,
+        forename: subject_summary.defendant_first_name,
+        surname: subject_summary.defendant_last_name,
+        dateOfBirth: subject_summary.defendant_dob,
+        nino: subject_summary.defendant_nino,
         offences:,
       }
     end
@@ -57,17 +56,11 @@ module MaatApi
   private
 
     def hearing_summaries
-      court_application.hearing_summaries.map do |hearing_summary_data|
-        HmctsCommonPlatform::HearingSummary.new(hearing_summary_data)
-      end
-    end
-
-    def subject_summary
-      TODO
+      court_application_summary.hearing_summary
     end
 
     def offences
-      subject_summary.offence_summaries.map do |offence_summary|
+      subject_summary.offence_summary.map do |offence_summary|
         {
           offenceId: offence_summary.offence_id,
           offenceCode: offence_summary.code,
