@@ -1,7 +1,7 @@
 class NewCourtApplicationLaaReferenceContract < Dry::Validation::Contract
   option :uuid_validator, default: -> { CommonPlatform::UuidValidator }
   option :maat_reference_validator, default: -> { MaatApi::MaatReferenceValidator }
-  option :link_validator, default: -> { CouertApplicationLinkValidator }
+  option :link_validator, default: -> { CourtApplicationLinkValidator }
 
   params do
     optional(:maat_reference).value(:integer, lt?: 999_999_999)

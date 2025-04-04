@@ -1,6 +1,7 @@
 inherit_from: .rubocop_todo.yml
 
-require: rubocop-performance
+plugins:
+  - rubocop-performance
 
 inherit_gem:
   rubocop-govuk:
@@ -15,3 +16,17 @@ inherit_mode:
 Lint/MissingSuper:
   Exclude:
     - 'app/services/**/*.rb'
+
+# Exclusions to make Rubocop play nicely with RSwag:
+RSpec/ScatteredSetup:
+  Exclude:
+    - 'spec/requests/**/*.rb'
+RSpec/ExpectInHook:
+  Exclude:
+    - 'spec/requests/**/*.rb'
+RSpec/VariableName:
+  Exclude:
+    - 'spec/requests/**/*.rb'
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - 'spec/requests/**/*.rb'
