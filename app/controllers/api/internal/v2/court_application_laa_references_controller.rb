@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api
   module Internal
     module V2
@@ -8,25 +6,16 @@ module Api
           contract = NewCourtApplicationLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
 
-          CourtApplicationMaatLinkCreatorWorker.perform_async(
-            Current.request_id,
-            transformed_params[:subject_id],
-            transformed_params[:user_name],
-            transformed_params[:maat_reference],
-          )
-
+          enqueue_link
           head :accepted
         end
 
         def update
           contract = UnlinkCourtApplicationSubjectContract.new.call(**transformed_params)
+          enforce_contract!(contract)
 
-          if contract.success?
-            enqueue_unlink
-            head :accepted
-          else
-            render json: contract.errors.to_hash, status: :bad_request
-          end
+          enqueue_unlink
+          head :accepted
         end
 
       private
@@ -36,6 +25,15 @@ module Api
             message = "Contract failed with: #{contract.errors.to_hash}"
             raise Errors::ContractError, message
           end
+        end
+
+        def enqueue_link
+          CourtApplicationMaatLinkCreatorWorker.perform_async(
+            Current.request_id,
+            transformed_params[:subject_id],
+            transformed_params[:user_name],
+            transformed_params[:maat_reference],
+          )
         end
 
         def enqueue_unlink
