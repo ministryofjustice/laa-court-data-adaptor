@@ -22,6 +22,10 @@ module HmctsCommonPlatform
       data[:defendantFirstName]
     end
 
+    def defendant_nino
+      data[:defendantNINO]
+    end
+
     def defendant_last_name
       data[:defendantLastName]
     end

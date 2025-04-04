@@ -6,41 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 61
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: AutoCorrect.
-RSpec/EmptyExampleGroup:
-  Exclude:
-    - 'spec/requests/api/external/v1/hearings_spec.rb'
-    - 'spec/requests/api/external/v1/prosecution_conclusion_request_spec.rb'
-    - 'spec/requests/api/external/v2/hearings_request_spec.rb'
-    - 'spec/requests/api/external/v2/prosecution_conclusion_request_spec.rb'
-    - 'spec/requests/api/internal/v1/defendants_request_spec.rb'
-    - 'spec/requests/api/internal/v1/hearings_request_spec.rb'
-    - 'spec/requests/api/internal/v1/laa_references_spec.rb'
-    - 'spec/requests/api/internal/v1/prosecution_cases_spec.rb'
-    - 'spec/requests/api/internal/v1/representation_orders_request_spec.rb'
-    - 'spec/requests/api/internal/v2/defendants_request_spec.rb'
-    - 'spec/requests/api/internal/v2/hearing_event_logs_request_spec.rb'
-    - 'spec/requests/api/internal/v2/hearing_results_request_spec.rb'
-    - 'spec/requests/api/internal/v2/laa_references_spec.rb'
-    - 'spec/requests/api/internal/v2/prosecution_cases_spec.rb'
-    - 'spec/requests/api/internal/v2/representation_orders_request_spec.rb'
-
-# Offense count: 27
-RSpec/ExpectInHook:
-  Exclude:
-    - 'spec/requests/api/external/v1/hearings_spec.rb'
-    - 'spec/requests/api/external/v1/prosecution_conclusion_request_spec.rb'
-    - 'spec/requests/api/external/v2/hearings_request_spec.rb'
-    - 'spec/requests/api/external/v2/prosecution_conclusion_request_spec.rb'
-    - 'spec/requests/api/internal/v1/defendants_request_spec.rb'
-    - 'spec/requests/api/internal/v1/laa_references_spec.rb'
-    - 'spec/requests/api/internal/v1/representation_orders_request_spec.rb'
-    - 'spec/requests/api/internal/v2/hearing_results_request_spec.rb'
-    - 'spec/requests/api/internal/v2/laa_references_spec.rb'
-    - 'spec/requests/api/internal/v2/representation_orders_request_spec.rb'
-
 # Offense count: 5
 # Configuration parameters: Max, AllowedIdentifiers, AllowedPatterns.
 RSpec/IndexedLet:
@@ -55,42 +20,10 @@ RSpec/NoExpectationExample:
   Exclude:
     - 'spec/services/maat_api/maat_reference_validator_spec.rb'
 
-# Offense count: 22
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AutoCorrect.
-RSpec/ScatteredSetup:
-  Exclude:
-    - 'spec/requests/api/internal/v1/defendants_request_spec.rb'
-    - 'spec/requests/api/internal/v1/laa_references_spec.rb'
-    - 'spec/requests/api/internal/v1/representation_orders_request_spec.rb'
-    - 'spec/requests/api/internal/v2/laa_references_spec.rb'
-    - 'spec/requests/api/internal/v2/representation_orders_request_spec.rb'
-
 # Offense count: 1
 RSpec/SubjectStub:
   Exclude:
     - 'spec/models/defendant_spec.rb'
-
-# Offense count: 78
-# Configuration parameters: EnforcedStyle, AllowedPatterns.
-# SupportedStyles: snake_case, camelCase
-RSpec/VariableName:
-  Exclude:
-    - 'spec/requests/api/external/v1/hearings_spec.rb'
-    - 'spec/requests/api/external/v1/prosecution_conclusion_request_spec.rb'
-    - 'spec/requests/api/external/v2/hearings_request_spec.rb'
-    - 'spec/requests/api/external/v2/prosecution_conclusion_request_spec.rb'
-    - 'spec/requests/api/internal/v1/defendants_request_spec.rb'
-    - 'spec/requests/api/internal/v1/hearings_request_spec.rb'
-    - 'spec/requests/api/internal/v1/laa_references_spec.rb'
-    - 'spec/requests/api/internal/v1/prosecution_cases_spec.rb'
-    - 'spec/requests/api/internal/v1/representation_orders_request_spec.rb'
-    - 'spec/requests/api/internal/v2/defendants_request_spec.rb'
-    - 'spec/requests/api/internal/v2/hearing_event_logs_request_spec.rb'
-    - 'spec/requests/api/internal/v2/hearing_results_request_spec.rb'
-    - 'spec/requests/api/internal/v2/laa_references_spec.rb'
-    - 'spec/requests/api/internal/v2/prosecution_cases_spec.rb'
-    - 'spec/requests/api/internal/v2/representation_orders_request_spec.rb'
 
 # Offense count: 10
 # Configuration parameters: IgnoreNameless, IgnoreSymbolicNames.
@@ -117,4 +50,4 @@ Rails/BulkChangeTable:
 # Configuration parameters: AllowCoercion.
 Style/DateTime:
   Exclude:
-    - 'app/models/maat_api/laa_reference.rb'
+    - 'app/models/maat_api/relevant_hearing_summary_findable.rb'
