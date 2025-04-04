@@ -16,8 +16,8 @@ RSpec.describe MaatApi::CourtApplicationLaaReference, type: :model do
     expect(laa_reference.maat_reference).to eql("123")
   end
 
-  it "has no prosecution case URN" do
-    expect(laa_reference.case_urn).to be_nil
+  it "uses the short ID as the case URN" do
+    expect(laa_reference.case_urn).to eq "A25ABCDE1234"
   end
 
   it "has a defendant ASN" do

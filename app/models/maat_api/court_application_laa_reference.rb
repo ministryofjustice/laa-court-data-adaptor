@@ -14,7 +14,7 @@ module MaatApi
     end
 
     def case_urn
-      nil
+      court_application_summary.short_id
     end
 
     def doc_language
