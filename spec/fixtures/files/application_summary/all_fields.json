@@ -1,6 +1,18 @@
 {
   "applicationId": "6cd6494e-5409-420a-bd0b-f589dbb2466b",
+  "applicationShortId": "A25ABCDE1234",
   "applicationReference": "CJ03511",
   "applicationTitle": "Conviction of an offence while a community order is in force",
-  "receivedDate": "2024-12-15"
+  "receivedDate": "2024-12-15",
+  "subjectSummary": {
+      "dateOfNextHearing": "2025-02-07T10:00:00.000Z",
+      "defendantASN": "2391NX0000489661589D",
+      "defendantDOB": "1999-02-06",
+      "defendantFirstName": "Naida",
+      "defendantLastName": "Daniel",
+      "masterDefendantId": "a86c42dc-6566-4076-9655-b3a53cd58566",
+      "offenceSummary": [],
+      "proceedingsConcluded": false,
+      "subjectId": "4b463e6a-105b-433b-a88d-057d6e645bfb"
+    }
 }

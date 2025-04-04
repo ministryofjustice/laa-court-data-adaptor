@@ -9,6 +9,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
     expect(court_application_summary.to_json["application_title"]).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court")
     expect(court_application_summary.to_json["application_type"]).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court")
     expect(court_application_summary.to_json["received_date"]).to eql("2023-06-27")
+    expect(court_application_summary.to_json["short_id"]).to eql("A25ABCDE1234")
     expect(court_application_summary.to_json["case_summary"]).to be_a(Array)
     expect(court_application_summary.to_json["hearing_summary"]).to be_a(Array)
     expect(court_application_summary.to_json["subject_summary"]).to be_a(Hash)
@@ -20,6 +21,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
   it { expect(court_application_summary.application_title).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court") }
   it { expect(court_application_summary.application_type).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court") }
   it { expect(court_application_summary.received_date).to eql("2023-06-27") }
+  it { expect(court_application_summary.short_id).to eql("A25ABCDE1234") }
   it { expect(court_application_summary.case_summary.first).to be_a(HmctsCommonPlatform::CaseSummary) }
   it { expect(court_application_summary.hearing_summary.first).to be_a(HmctsCommonPlatform::HearingSummary) }
   it { expect(court_application_summary.subject_summary).to be_a(HmctsCommonPlatform::SubjectSummary) }
