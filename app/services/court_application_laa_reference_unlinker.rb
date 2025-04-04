@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CourtApplicationLaaReferenceUnlinker < ApplicationService
   def initialize(subject_id:, user_name:, unlink_reason_code:, unlink_other_reason_text:)
     @subject_id = subject_id
@@ -27,7 +25,7 @@ private
   def push_to_queue
     Sqs::MessagePublisher.call(
       message: {
-        defendantId: defendant_id,
+        defendantId: subject_id,
         maatId: laa_reference.maat_reference,
         userId: user_name,
         reasonId: unlink_reason_code,
@@ -43,9 +41,9 @@ private
   end
 
   def update_offence_on_common_platform(offence)
-    CommonPlatform::Api::RecordLaaReference.call(
-      prosecution_case_id: offence.prosecution_case_id,
-      defendant_id: offence.defendant_id,
+    CommonPlatform::Api::RecordCourtApplicationLaaReference.call(
+      application_id: court_application_summary.application_id,
+      subject_id:,
       offence_id: offence.offence_id,
       status_code: "AP",
       application_reference: dummy_maat_reference,
@@ -54,12 +52,16 @@ private
   end
 
   def offences
-    @offences ||= CourtApplicationDefendantOffence.where(defendant_id:)
+    @offences ||= CourtApplicationDefendantOffence.where(defendant_id: laa_reference.defendant_id)
+  end
+
+  def court_application_summary
+    @court_application_summary ||= HmctsCommonPlatform::CourtApplicationSummary.new(offences.first.court_application.body)
   end
 
   def dummy_maat_reference
     @dummy_maat_reference ||= LaaReference.generate_unlinking_dummy_maat_reference
   end
 
-  attr_reader :defendant_id, :laa_reference, :user_name, :unlink_reason_code, :unlink_other_reason_text
+  attr_reader :subject_id, :laa_reference, :user_name, :unlink_reason_code, :unlink_other_reason_text
 end

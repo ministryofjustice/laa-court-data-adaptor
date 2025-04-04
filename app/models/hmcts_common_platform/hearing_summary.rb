@@ -21,7 +21,7 @@ module HmctsCommonPlatform
     end
 
     def hearing_days
-      Array(data[:hearingDays] || data[:hearingDay]).map do |hearing_day_data|
+      Array(data[:hearingDays]).map do |hearing_day_data|
         HmctsCommonPlatform::HearingDay.new(hearing_day_data)
       end
     end

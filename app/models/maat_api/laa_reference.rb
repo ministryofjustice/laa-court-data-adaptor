@@ -57,8 +57,6 @@ module MaatApi
 
   private
 
-
-
     def hearing_summaries
       prosecution_case_summary.hearing_summaries
     end

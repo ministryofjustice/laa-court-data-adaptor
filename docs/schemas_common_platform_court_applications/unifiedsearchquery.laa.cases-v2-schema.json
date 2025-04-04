@@ -339,7 +339,7 @@
                       "address"
                     ]
                   },
-                  "hearingDay": {
+                  "hearingDays": {
                     "type": "array",
                     "items": [
                       {
@@ -413,7 +413,7 @@
                   "defendantIds",
                   "hearingType",
                   "courtCentre",
-                  "hearingDay"
+                  "hearingDays"
                 ]
               }
             ]
