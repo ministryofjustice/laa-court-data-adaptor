@@ -1,4 +1,4 @@
-HEADERS_TO_FILTER = %w[HTTP_AUTHORIZATION].freeze
+HEADERS_TO_FILTER = %w[HTTP_AUTHORIZATION HTTP_OCP_APIM_SUBSCRIPTION_KEY].freeze
 
 Rails.application.configure do
   config.lograge.enabled = true
