@@ -1,5 +1,5 @@
 class CourtApplicationMaatLinkCreator < ApplicationService
-  attr_reader :court_application, :laa_reference, :subject_id
+  attr_reader :laa_reference, :subject_id
 
   def initialize(subject_id, user_name, maat_reference)
     @laa_reference = LaaReference.new(
@@ -8,7 +8,6 @@ class CourtApplicationMaatLinkCreator < ApplicationService
       maat_reference: maat_reference.presence || LaaReference.generate_linking_dummy_maat_reference,
     )
     @subject_id = subject_id
-    @court_application = CourtApplicationDefendantOffence.find_by(defendant_id: subject_id).court_application
   end
 
   def call
@@ -25,7 +24,7 @@ private
     maat_api_laa_reference = MaatApi::CourtApplicationLaaReference.new(
       maat_reference: laa_reference.maat_reference,
       user_name: laa_reference.user_name,
-      court_application:,
+      court_application_summary:,
     )
 
     Sqs::MessagePublisher.call(
@@ -55,7 +54,7 @@ private
 
   def post_laa_reference_to_common_platform(offence)
     response = CommonPlatform::Api::RecordCourtApplicationLaaReference.call(
-      application_id: court_application.id,
+      application_id: court_application_summary.application_id,
       subject_id:,
       offence_id: offence.offence_id,
       status_code: "AP",
@@ -67,7 +66,7 @@ private
   end
 
   def fetch_past_hearings
-    hearing_summaries.each do |hearing_summary|
+    court_application_summary.hearing_summary.each do |hearing_summary|
       hearing_summary.hearing_days.each do |hearing_day|
         HearingResultFetcherWorker.perform_at(
           30.seconds.from_now,
@@ -80,13 +79,11 @@ private
     end
   end
 
-  def hearing_summaries
-    court_application.hearing_summaries.map do |hearing_summary_data|
-      HmctsCommonPlatform::HearingSummary.new(hearing_summary_data)
-    end
-  end
-
   def offences
     @offences ||= CourtApplicationDefendantOffence.where(defendant_id: laa_reference.defendant_id)
+  end
+
+  def court_application_summary
+    @court_application_summary ||= HmctsCommonPlatform::CourtApplicationSummary.new(offences.first.court_application.body)
   end
 end
