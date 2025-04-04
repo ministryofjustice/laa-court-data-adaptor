@@ -31,7 +31,7 @@
         "defendantIds": [
           "a86c42dc-6566-4076-9655-b3a53cd58566"
         ],
-        "hearingDay": [
+        "hearingDays": [
           {
             "hasSharedResults": true,
             "listedDurationMinutes": 1,

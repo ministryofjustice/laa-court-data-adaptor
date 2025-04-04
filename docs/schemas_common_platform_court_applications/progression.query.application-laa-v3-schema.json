@@ -159,7 +159,7 @@
               ],
               "additionalProperties": true
             },
-            "hearingDay": {
+            "hearingDays": {
               "type": "array",
               "items": [
                 {

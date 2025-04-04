@@ -73,7 +73,7 @@ private
           Current.request_id,
           hearing_summary.id,
           hearing_day.sitting_day,
-          defendant_id,
+          laa_reference.defendant_id,
         )
       end
     end
