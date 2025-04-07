@@ -1,5 +1,5 @@
 module MaatApi
-  module RelevantHearingSummaryFindable
+  module HearingSummarySelectable
     extend ActiveSupport::Concern
 
     def relevant_hearing_summary

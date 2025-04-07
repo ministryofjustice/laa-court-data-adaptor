@@ -1,6 +1,6 @@
 module MaatApi
   class LaaReference
-    include RelevantHearingSummaryFindable
+    include HearingSummarySelectable
 
     attr_reader :prosecution_case_summary, :defendant_summary, :user_name, :maat_reference
 

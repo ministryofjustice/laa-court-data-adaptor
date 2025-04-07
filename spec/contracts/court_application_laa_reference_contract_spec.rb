@@ -1,4 +1,4 @@
-RSpec.describe NewCourtApplicationLaaReferenceContract do
+RSpec.describe CourtApplicationLaaReferenceContract do
   subject(:validate_contract) { described_class.new.call(hash_for_validation) }
 
   around do |example|
@@ -92,6 +92,6 @@ RSpec.describe NewCourtApplicationLaaReferenceContract do
     let(:link_validity) { false }
 
     it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("cannot be linked right now as we do not have all the required information, please try again later") }
+    it { is_expected.to have_contract_error("cannot be linked right now as the associated court application is missing hearing summary data, please try again later") }
   end
 end

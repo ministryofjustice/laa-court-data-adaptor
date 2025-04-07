@@ -3,7 +3,7 @@ module Api
     module V2
       class CourtApplicationLaaReferencesController < ApplicationController
         def create
-          contract = NewCourtApplicationLaaReferenceContract.new.call(**transformed_params)
+          contract = CourtApplicationLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
 
           enqueue_link
@@ -49,18 +49,14 @@ module Api
         end
 
         def check_defendant_presence!
-          laa_reference = LaaReference.find_by(defendant_id: transformed_params[:subject_id])
-
-          if laa_reference.nil?
-            raise ActiveRecord::RecordNotFound, "Defendant not found!"
-          end
+          LaaReference.find_by!(defendant_id: transformed_params[:subject_id])
         end
 
         def transformed_params
-          create_params.slice(*allowed_params).to_hash.symbolize_keys.compact
+          laa_reference_params.slice(*allowed_params).to_hash.symbolize_keys.compact
         end
 
-        def create_params
+        def laa_reference_params
           params.require(:laa_reference).permit(allowed_params)
         end
 

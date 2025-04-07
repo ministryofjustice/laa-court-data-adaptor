@@ -50,4 +50,4 @@ Rails/BulkChangeTable:
 # Configuration parameters: AllowCoercion.
 Style/DateTime:
   Exclude:
-    - 'app/models/maat_api/relevant_hearing_summary_findable.rb'
+    - 'app/models/maat_api/hearing_summary_selectable.rb'

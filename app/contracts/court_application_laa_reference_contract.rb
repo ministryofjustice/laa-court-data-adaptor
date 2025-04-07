@@ -1,4 +1,4 @@
-class NewCourtApplicationLaaReferenceContract < Dry::Validation::Contract
+class CourtApplicationLaaReferenceContract < Dry::Validation::Contract
   option :uuid_validator, default: -> { CommonPlatform::UuidValidator }
   option :maat_reference_validator, default: -> { MaatApi::MaatReferenceValidator }
   option :link_validator, default: -> { CourtApplicationLinkValidator }
@@ -12,7 +12,7 @@ class NewCourtApplicationLaaReferenceContract < Dry::Validation::Contract
   rule(:subject_id) do
     key.failure("is not a valid uuid") unless uuid_validator.call(uuid: value)
     unless link_validator.call(subject_id: value)
-      key.failure("cannot be linked right now as we do not have all the required information, please try again later")
+      key.failure("cannot be linked right now as the associated court application is missing hearing summary data, please try again later")
     end
   end
 

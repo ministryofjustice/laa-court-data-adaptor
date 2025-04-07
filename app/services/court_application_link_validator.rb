@@ -4,7 +4,7 @@ class CourtApplicationLinkValidator < ApplicationService
   end
 
   def call
-    court_application&.hearing_summaries.present? || false
+    (court_application&.hearing_summaries || []).any?
   end
 
 private

@@ -203,7 +203,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
             run_test! do |response|
               error = JSON.parse(response.body)["error"]
 
-              expect(error).to eq("Defendant not found!")
+              expect(error).to include("Couldn't find LaaReference")
             end
           end
         end
