@@ -37,6 +37,39 @@ class ProsecutionCase < LegalCase
     body["prosecutionCaseReference"]
   end
 
+  # In order to populate "details" for a defendant (see #defendants above)
+  # we need to retrieve hearing results. If we retrieve all hearing results
+  # relating to a particular defendant, we get a full list of things like
+  # post_hearing_custody_statuses and judicial_results.
+  # However, to retrieve things like mode of trial reasons we only need to retrieve a single
+  # hearing result, as the details "offence" payload attached to it will give us the full
+  # answer for mode of trial reasons. So this method retrieves hearing results for a given
+  # defendant, and optionally stops are soon as it's retrieved a single populated one
+  def load_hearing_results(defendant_id, load_all: true)
+    relevant_summaries = hearing_summaries.select { |summary| summary.defendant_ids.include?(defendant_id) }
+    candidate_lookups = relevant_summaries.flat_map do |hearing_summary|
+      hearing_summary.hearing_days.map do |hearing_day|
+        {
+          hearing_id: hearing_summary.id,
+          sitting_day: hearing_day.sitting_day,
+        }
+      end
+    end
+
+    loaded = []
+    candidate_lookups.each do |params|
+      result = HearingResult.new(
+        CommonPlatform::Api::GetHearingResults.call(**params),
+      )
+      next if result.blank?
+
+      loaded << result
+      break unless load_all
+    end
+
+    @hearing_results = loaded
+  end
+
 private
 
   def case_details

@@ -15,8 +15,10 @@ module Api
         end
 
         def show
-          defendant = CommonPlatform::Api::DefendantFinder.call(defendant_id: params[:id])
-
+          defendant = CommonPlatform::Api::DefendantFinder.call(
+            defendant_id: params[:id],
+            full_hearing_data: params.fetch(:full_hearing_data, true),
+          )
           if defendant.present?
             render json: DefendantSerializer.new(defendant, serialization_options)
           else
