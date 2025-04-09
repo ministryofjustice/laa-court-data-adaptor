@@ -19,7 +19,7 @@ gem "bootsnap", ">= 1.4.2", require: false
 gem "aws-sdk-sqs"
 gem "doorkeeper", "~> 5.8"
 gem "dry-validation"
-gem "faraday", "~> 2.12"
+gem "faraday", "~> 2.13"
 gem "faraday-net_http_persistent", "~> 2"
 gem "faraday-retry", "~> 2.3"
 gem "hmcts_common_platform", github: "ministryofjustice/hmcts_common_platform", tag: "v0.2.0"
