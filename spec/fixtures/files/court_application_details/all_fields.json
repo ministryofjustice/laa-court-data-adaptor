@@ -31,7 +31,7 @@
         "defendantIds": [
           "a86c42dc-6566-4076-9655-b3a53cd58566"
         ],
-        "hearingDay": [
+        "hearingDays": [
           {
             "hasSharedResults": true,
             "listedDurationMinutes": 1,
@@ -72,6 +72,7 @@
       "defendantDOB": "1999-02-06",
       "defendantFirstName": "Naida",
       "defendantLastName": "Daniel",
+      "defendantNINO": "JG101010A",
       "masterDefendantId": "a86c42dc-6566-4076-9655-b3a53cd58566",
       "offenceSummary": [],
       "proceedingsConcluded": false,

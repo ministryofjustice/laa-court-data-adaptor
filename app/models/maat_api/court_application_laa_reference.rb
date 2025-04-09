@@ -1,22 +1,20 @@
 module MaatApi
-  class LaaReference
+  class CourtApplicationLaaReference
     include HearingSummarySelectable
 
-    attr_reader :prosecution_case_summary, :defendant_summary, :user_name, :maat_reference
+    attr_reader :court_application_summary, :user_name, :maat_reference
 
-    def initialize(prosecution_case_summary:, defendant_summary:, user_name:, maat_reference:)
-      @prosecution_case_summary = prosecution_case_summary
+    delegate :subject_summary, :case_summary, to: :court_application_summary
+    delegate :defendant_asn, to: :subject_summary
+
+    def initialize(user_name:, maat_reference:, court_application_summary:)
       @maat_reference = maat_reference
-      @defendant_summary = defendant_summary
       @user_name = user_name
+      @court_application_summary = court_application_summary
     end
 
     def case_urn
-      prosecution_case_summary.prosecution_case_reference
-    end
-
-    def defendant_asn
-      defendant_summary.arrest_summons_number
+      court_application_summary.short_id
     end
 
     def doc_language
@@ -24,7 +22,7 @@ module MaatApi
     end
 
     def is_active?
-      prosecution_case_summary.case_status == "ACTIVE"
+      case_summary.first.case_status == "ACTIVE"
     end
 
     def cjs_location
@@ -37,17 +35,17 @@ module MaatApi
 
     def defendant
       {
-        defendantId: defendant_summary.defendant_id,
-        forename: defendant_summary.first_name,
-        surname: defendant_summary.last_name,
-        dateOfBirth: defendant_summary.date_of_birth,
-        nino: defendant_summary.national_insurance_number,
+        defendantId: subject_summary.subject_id,
+        forename: subject_summary.defendant_first_name,
+        surname: subject_summary.defendant_last_name,
+        dateOfBirth: subject_summary.defendant_dob,
+        nino: subject_summary.defendant_nino,
         offences:,
       }
     end
 
     def sessions
-      prosecution_case_summary.hearing_summaries.map do |hearing_summary|
+      hearing_summaries.map do |hearing_summary|
         {
           courtLocation: hearing_summary.court_centre_short_oucode,
           dateOfHearing: hearing_summary.hearing_days.map(&:sitting_day).max&.to_date&.strftime("%Y-%m-%d"),
@@ -58,11 +56,11 @@ module MaatApi
   private
 
     def hearing_summaries
-      prosecution_case_summary.hearing_summaries
+      court_application_summary.hearing_summary
     end
 
     def offences
-      defendant_summary.offence_summaries.map do |offence_summary|
+      subject_summary.offence_summary.map do |offence_summary|
         {
           offenceId: offence_summary.offence_id,
           offenceCode: offence_summary.code,
