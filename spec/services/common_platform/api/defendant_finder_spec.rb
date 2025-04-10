@@ -5,7 +5,6 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
   let(:prosecution_case_reference) { "20GD0217100" }
   let(:defendant_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
   let(:offence_id) { "3f153786-f3cf-4311-bc0c-2d6f48af68a1" }
-  let(:full_hearing_data) { true }
 
   let(:prosecution_cases_json) { file_fixture("prosecution_case_search_result.json").read }
   let(:prosecution_cases_hash) { JSON.parse(prosecution_cases_json) }
@@ -23,7 +22,7 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
   end
 
   describe "#call", :stub_case_search_with_urn, :stub_hearing_result do
-    subject(:defendant) { described_class.call(defendant_id:, full_hearing_data:) }
+    subject(:defendant) { described_class.call(defendant_id:) }
 
     it "queries body from prosecutionCases endpoint" do
       defendant
@@ -104,21 +103,6 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
         defendant
         expect(a_request(:get, %r{.*/prosecutionCases\?prosecutionCaseReference=#{prosecution_case_reference}})).to have_been_made.once
         expect(a_request(:get, %r{.*/prosecutionCases\?prosecutionCaseReference=#{second_reference}})).to have_been_made.once
-      end
-    end
-
-    context "when full hearing data is not required" do
-      let(:full_hearing_data) { false }
-      let(:prosecution_case) { ProsecutionCase.first }
-
-      before do
-        allow(CommonPlatform::Api::SearchProsecutionCase).to receive(:call).and_return([prosecution_case])
-        allow(prosecution_case).to receive(:load_hearing_results)
-      end
-
-      it "passes an appropriate flag to the prosecution case" do
-        defendant
-        expect(prosecution_case).to have_received(:load_hearing_results).with(defendant_id, load_all: false)
       end
     end
   end

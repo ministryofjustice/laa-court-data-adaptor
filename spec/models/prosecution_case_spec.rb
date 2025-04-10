@@ -103,10 +103,9 @@ RSpec.describe ProsecutionCase, type: :model do
       end
 
       describe "#load_hearing_results" do
-        subject(:call) { prosecution_case.load_hearing_results(defendant_id, load_all:) }
+        subject(:call) { prosecution_case.load_hearing_results(defendant_id) }
 
         let(:defendant_id) { "DEFENDANT_ID" }
-        let(:load_all) { true }
         let(:output) { prosecution_case.instance_variable_get("@hearing_results") }
 
         before do
@@ -178,44 +177,6 @@ RSpec.describe ProsecutionCase, type: :model do
               hearing_id: "HEARING_2_ID",
               sitting_day: "2025-02-01",
             ).and_return({ tag: "result_3" })
-            call
-            expect(output.length).to eq 1
-          end
-        end
-
-        context "when only loading a single hearing" do
-          let(:load_all) { false }
-          let(:hearing_summary) do
-            [
-              {
-                "hearingId": "HEARING_1_ID",
-                "defendantIds": %w[
-                  DEFENDANT_ID
-                  OTHER_DEFENDANT_ID
-                ],
-                "hearingDays": [{ "sittingDay": "2025-01-01" }, { "sittingDay": "2025-01-02" }],
-              },
-            ]
-          end
-
-          it "stops when first hearing is not blank" do
-            expect(CommonPlatform::Api::GetHearingResults).to receive(:call).once.ordered.with(
-              hearing_id: "HEARING_1_ID",
-              sitting_day: "2025-01-01",
-            ).and_return({ tag: "result_1" })
-            call
-            expect(output.length).to eq 1
-          end
-
-          it "uses second hearing if first is blank" do
-            expect(CommonPlatform::Api::GetHearingResults).to receive(:call).once.ordered.with(
-              hearing_id: "HEARING_1_ID",
-              sitting_day: "2025-01-01",
-            ).and_return({})
-            expect(CommonPlatform::Api::GetHearingResults).to receive(:call).once.ordered.with(
-              hearing_id: "HEARING_1_ID",
-              sitting_day: "2025-01-02",
-            ).and_return({ tag: "result_2" })
             call
             expect(output.length).to eq 1
           end

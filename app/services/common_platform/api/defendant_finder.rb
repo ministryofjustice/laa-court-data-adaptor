@@ -3,9 +3,8 @@
 module CommonPlatform
   module Api
     class DefendantFinder < ApplicationService
-      def initialize(defendant_id:, full_hearing_data:)
+      def initialize(defendant_id:)
         @defendant_id = defendant_id
-        @full_hearing_data = full_hearing_data
       end
 
       def call
@@ -37,7 +36,7 @@ module CommonPlatform
         # fetch details needed to include plea and mode of trial reason, at least
         prosecution_case = CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: urn)&.first
 
-        prosecution_case.load_hearing_results(defendant_id, load_all: full_hearing_data)
+        prosecution_case.load_hearing_results(defendant_id)
 
         prosecution_case
       end
@@ -60,7 +59,7 @@ module CommonPlatform
         end
       end
 
-      attr_reader :defendant_id, :full_hearing_data
+      attr_reader :defendant_id
     end
   end
 end
