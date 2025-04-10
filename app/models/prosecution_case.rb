@@ -37,6 +37,10 @@ class ProsecutionCase < LegalCase
     body["prosecutionCaseReference"]
   end
 
+  def load_hearing_results(defendant_id)
+    hearing_results(defendant_id)
+  end
+
 private
 
   def case_details
@@ -58,8 +62,8 @@ private
       .group_by { |defendant| defendant["id"] }
   end
 
-  def hearing_results
-    @hearing_results ||= hearing_summaries.flat_map { |hearing_summary|
+  def hearing_results(defendant_id = nil)
+    @hearing_results ||= hearing_summaries_for(defendant_id).flat_map { |hearing_summary|
       hearing_summary.hearing_days.map do |hearing_day|
         HearingResult.new(
           CommonPlatform::Api::GetHearingResults.call(
@@ -69,5 +73,9 @@ private
         )
       end
     }.reject(&:blank?)
+  end
+
+  def hearing_summaries_for(defendant_id)
+    hearing_summaries.select { |summary| defendant_id.nil? || summary.defendant_ids.include?(defendant_id) }
   end
 end
