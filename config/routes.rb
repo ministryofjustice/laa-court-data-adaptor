@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         resources :laa_references, only: %i[create]
         resources :defendants, only: %i[update show]
         resources :representation_orders, only: [:create]
+        resources :court_application_representation_orders, only: [:create]
         resources :hearing_results, path: "hearings", only: [:show]
       end
 
