@@ -13,7 +13,6 @@ module CommonPlatform
                      defence_organisation:,
                      effective_end_date: nil,
                      connection: CommonPlatform::Connection.call)
-
         @case_defendant_offence = case_defendant_offence
         @offence_id = offence_id
         @status_code = status_code
