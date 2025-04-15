@@ -52,6 +52,12 @@ module HmctsCommonPlatform
       end
     end
 
+    def application_summaries
+      Array(data[:applicationSummaries]).map do |application_summary_data|
+        HmctsCommonPlatform::DefendantCourtApplicationSummary.new(application_summary_data)
+      end
+    end
+
     def to_json(*_args)
       to_builder.attributes!.compact
     end
@@ -71,6 +77,7 @@ module HmctsCommonPlatform
         defendant_summary.proceedings_concluded proceedings_concluded
         defendant_summary.representation_order representation_order.to_json
         defendant_summary.offence_summaries(offence_summaries.map(&:to_json))
+        defendant_summary.application_summaries(application_summaries.map(&:to_json))
       end
     end
   end
