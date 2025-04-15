@@ -36,9 +36,7 @@ module CommonPlatform
         # fetch details needed to include plea and mode of trial reason, at least
         prosecution_case = CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: urn)&.first
 
-        # This makes many calls to /LAA/v1/hearing/results (Common Platform)
-        # TODO: check if this is needed
-        prosecution_case&.hearings
+        prosecution_case.load_hearing_results(defendant_id)
 
         prosecution_case
       end
