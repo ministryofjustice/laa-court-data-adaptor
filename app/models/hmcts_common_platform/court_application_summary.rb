@@ -31,6 +31,10 @@ module HmctsCommonPlatform
       data[:applicationType]
     end
 
+    def application_result
+      data[:applicationResult]
+    end
+
     def received_date
       data[:receivedDate]
     end
@@ -67,6 +71,7 @@ module HmctsCommonPlatform
         summary.application_status application_status
         summary.application_title application_title
         summary.application_type application_type
+        summary.application_result application_result
         summary.received_date received_date
         summary.case_summary case_summary.map(&:to_json)
         summary.hearing_summary hearing_summary.map(&:to_json)
