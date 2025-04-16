@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://justice.gov.uk/core/courts/search/external/apiApplicationSummary.json",
+  "description": "An Application Summary",
+  "type": "object",
+  "properties": {
+    "applicationId": {
+      "description": "The identifier of the application",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+    },
+    "applicationReference": {
+      "description": "The reference of the application",
+      "type": "string"
+    },
+    "applicationTitle": {
+      "description": "The title of the application",
+      "type": "string"
+    },
+    "receivedDate": {
+      "description": "The date the application was received",
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
+    },
+    "applicationShortId": {
+      "description": "An HMCTS-generated unique string identifying the application",
+      "type": "string"
+    }
+  },
+  "required": [
+    "applicationId",
+    "applicationReference",
+    "applicationTitle",
+    "receivedDate",
+    "applicationShortId"
+  ]
+}
