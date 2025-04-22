@@ -19,12 +19,12 @@ module CommonPlatform
 
       def call_common_platform_endpoint
         offences.each do |offence|
-          case_defendant_offence = ProsecutionCaseDefendantOffence.find_by(defendant_id: subject_id, offence_id: offence[:offence_id])
+          court_application_defendant_offence = CourtApplicationDefendantOffence.find_by(defendant_id: subject_id, offence_id: offence[:offence_id])
 
-          next if case_defendant_offence.blank?
+          next if court_application_defendant_offence.blank?
 
           CommonPlatform::Api::CourtApplicationRecordRepresentationOrder.call(
-            case_defendant_offence:,
+            court_application_defendant_offence:,
             subject_id:,
             offence_id: offence[:offence_id],
             status_code: offence[:status_code],

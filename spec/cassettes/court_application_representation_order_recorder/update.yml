@@ -1,0 +1,32 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases/representationOrder/applications/f38d0030-0b4a-4fa5-9484-bb37b1e6ab39/subject/8cd0ba7e-df89-45a3-8c61-4008a2186d64/offences/cacbd4d4-9102-4687-98b4-d529be3d5710"
+    body:
+      encoding: UTF-8
+      string: '{"statusCode":"ABCDEF","applicationReference":"999999","statusDate":"2019-12-12","effectiveStartDate":"2019-12-15","effectiveEndDate":"2020-12-15","defenceOrganisation":{"organisation":{"name":"SOME
+        ORGANISATION"},"laaContractNumber":"CONTRACT REFERENCE"}}'
+    headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
+      User-Agent:
+      - Faraday v1.0.1
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      content-length:
+      - '0'
+      date:
+      - Mon, 27 Jul 2020 14:47:53 GMT
+      x-frame-options:
+      - SAMEORIGIN
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Mon, 27 Jul 2020 14:47:53 GMT
+recorded_with: VCR 6.0.0

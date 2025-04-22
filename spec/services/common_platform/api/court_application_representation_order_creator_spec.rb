@@ -22,7 +22,7 @@ RSpec.describe CommonPlatform::Api::CourtApplicationRepresentationOrderCreator d
     }
   end
   let(:offences) { [offence_one] }
-  let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
+  let(:court_application_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
   let(:defence_organisation) do
     {
       snake_cased_level: {
@@ -41,16 +41,17 @@ RSpec.describe CommonPlatform::Api::CourtApplicationRepresentationOrderCreator d
   end
 
   before do
-    ProsecutionCase.create!(
-      id: prosecution_case_id,
-      body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
+    CourtApplication.create!(
+      id: court_application_id,
+      body: JSON.parse(file_fixture("court_application_search_result.json").read),
     )
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
-                                            defendant_id: subject_id,
-                                            offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
+    CourtApplicationDefendantOffence.create!(court_application_id:,
+                                             defendant_id: subject_id,
+                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710",
+                                             application_type: "4567")
   end
 
-  it "calls the CommonPlatform::Api::CourtApplicationRecordRepresentationOrder service once" do
+  it "calls the CommonPlatform::Api::RecordRepresentationOrder service once" do
     expect(CommonPlatform::Api::CourtApplicationRecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
     create_rep_order
   end
@@ -68,12 +69,13 @@ RSpec.describe CommonPlatform::Api::CourtApplicationRepresentationOrderCreator d
     let(:offences) { [offence_one, offence_two] }
 
     before do
-      ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
-                                              defendant_id: subject_id,
-                                              offence_id: "f916e952-1c35-44d6-ba15-a149f92cc38a")
+      CourtApplicationDefendantOffence.create!(court_application_id:,
+                                               defendant_id: subject_id,
+                                               offence_id: "f916e952-1c35-44d6-ba15-a149f92cc38a",
+                                               application_type: "4567")
     end
 
-    it "calls the CommonPlatform::Api::CourtApplicationRecordRepresentationOrder service twice" do
+    it "calls the CommonPlatform::Api::RecordRepresentationOrder service twice" do
       expect(CommonPlatform::Api::CourtApplicationRecordRepresentationOrder).to receive(:call).twice.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
       create_rep_order
     end
@@ -81,7 +83,7 @@ RSpec.describe CommonPlatform::Api::CourtApplicationRepresentationOrderCreator d
     context "when one offence does not have a status date" do
       before { offence_two.delete(:status_date) }
 
-      it "calls the CommonPlatform::Api::CourtApplicationRecordRepresentationOrder service once" do
+      it "calls the CommonPlatform::Api::RecordRepresentationOrder service once" do
         expect(CommonPlatform::Api::CourtApplicationRecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
         create_rep_order
       end
@@ -99,7 +101,7 @@ RSpec.describe CommonPlatform::Api::CourtApplicationRepresentationOrderCreator d
       }
     end
 
-    it "calls the CommonPlatform::Api::CourtApplicationRecordRepresentationOrder service once" do
+    it "calls the CommonPlatform::Api::RecordRepresentationOrder service once" do
       expect(CommonPlatform::Api::CourtApplicationRecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
       create_rep_order
     end

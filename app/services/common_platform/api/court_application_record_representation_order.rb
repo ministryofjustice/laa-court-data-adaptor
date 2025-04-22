@@ -3,7 +3,7 @@
 module CommonPlatform
   module Api
     class CourtApplicationRecordRepresentationOrder < ApplicationService
-      def initialize(case_defendant_offence:,
+      def initialize(court_application_defendant_offence:,
                      subject_id:,
                      offence_id:,
                      status_code:,
@@ -12,8 +12,8 @@ module CommonPlatform
                      effective_start_date:,
                      defence_organisation:,
                      effective_end_date: nil,
-                     connection: CommonPlatform::Connection.call)
-        @case_defendant_offence = case_defendant_offence
+                     connection: CommonPlatform::Connection.instance.call)
+        @court_application_defendant_offence = court_application_defendant_offence
         @offence_id = offence_id
         @status_code = status_code
         @application_reference = application_reference.to_s
@@ -22,7 +22,7 @@ module CommonPlatform
         @effective_end_date = effective_end_date
         @defence_organisation = defence_organisation
         @url = "prosecutionCases/representationOrder"\
-                "/applications/#{case_defendant_offence.prosecution_case_id}"\
+                "/applications/#{court_application_defendant_offence.court_application_id}"\
                 "/subject/#{subject_id}"\
                 "/offences/#{offence_id}"
         @connection = connection
@@ -48,7 +48,7 @@ module CommonPlatform
       end
 
       def update_offence(response)
-        case_defendant_offence.update!(
+        court_application_defendant_offence.update!(
           rep_order_status: status_code,
           status_date:,
           effective_start_date:,
@@ -59,7 +59,7 @@ module CommonPlatform
         )
       end
 
-      attr_reader :url, :case_defendant_offence, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
+      attr_reader :url, :court_application_defendant_offence, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
     end
   end
 end
