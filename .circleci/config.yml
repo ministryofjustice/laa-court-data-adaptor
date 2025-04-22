@@ -270,15 +270,11 @@ workflows:
 
   build-deploy-branch-to-live-cluster:
     jobs:
-      - branch-build-approval:
-          type: approval
+      - build-and-push-app:
           filters:
             branches:
               ignore:
                 - main
-      - build-and-push-app:
-          requires:
-            - branch-build-approval
       - hold_install_on_dev:
           type: approval
           requires:
