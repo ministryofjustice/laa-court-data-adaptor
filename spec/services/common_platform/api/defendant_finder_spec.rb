@@ -58,6 +58,14 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
       end
     end
 
+    context "when common platform does not match local records" do
+      let(:local_prosecution_cases_json) { file_fixture("prosecution_case_search_result.json").read }
+      let(:prosecution_cases_hash) { JSON.parse(local_prosecution_cases_json) }
+      let(:prosecution_cases_json) { '{ "cases":[] }' }
+
+      it { is_expected.to be_nil }
+    end
+
     context "when defendant does not exist" do
       let(:defendant_id) { "2ecc9feb-9407-482f-b081-123456789012" }
 
