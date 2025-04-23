@@ -30,6 +30,10 @@ module HmctsCommonPlatform
       to_builder.attributes!
     end
 
+    def master_defendant_id
+      data[:subjectSummary][:masterDefendantId]
+    end
+
   private
 
     def to_builder
@@ -39,6 +43,7 @@ module HmctsCommonPlatform
         application_summary.reference reference
         application_summary.title title
         application_summary.received_date received_date
+        application_summary.master_defendant_id master_defendant_id
       end
     end
   end

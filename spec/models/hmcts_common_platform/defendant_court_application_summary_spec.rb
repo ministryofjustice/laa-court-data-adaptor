@@ -13,6 +13,7 @@ RSpec.describe HmctsCommonPlatform::DefendantCourtApplicationSummary, type: :mod
     it { expect(defendant_court_application_summary.reference).to eql("03811314") }
     it { expect(defendant_court_application_summary.title).to eql("Appeal against conviction") }
     it { expect(defendant_court_application_summary.received_date).to eql("2025-04-11") }
+    it { expect(defendant_court_application_summary.master_defendant_id).to eql("64a7e770-93b2-4971-ae38-2ed3fd06252e") }
   end
 
   context "with only required fields" do

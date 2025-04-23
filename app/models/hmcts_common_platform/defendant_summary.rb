@@ -72,13 +72,11 @@ module HmctsCommonPlatform
       return unless court_application_summaries.is_a?(Array) && court_application_summaries.any?
 
       court_application_summaries.each do |summary|
-        first_name = summary.dig("subjectSummary", "defendantFirstName").to_s.strip
-        last_name  = summary.dig("subjectSummary", "defendantLastName").to_s.strip
+        master_defendant_id = summary.dig("subjectSummary", "masterDefendantId").to_s.strip
 
-        expected_first_name = data[:defendantFirstName].to_s.strip
-        expected_last_name  = data[:defendantLastName].to_s.strip
+        expected_defendant_id = data[:defendantId].to_s.strip
 
-        next unless first_name == expected_first_name && last_name == expected_last_name
+        next unless master_defendant_id == expected_defendant_id
 
         @data[:applicationSummaries] << summary
       end

@@ -3,6 +3,8 @@
   "applicationShortId": "A25ULRHLVC7S",
   "applicationReference": "03811314",
   "applicationTitle": "Appeal against conviction",
-  "receivedDate": "2025-04-11"
-
+  "receivedDate": "2025-04-11",
+  "subjectSummary": {
+    "masterDefendantId": "64a7e770-93b2-4971-ae38-2ed3fd06252e"
+  }
 }
