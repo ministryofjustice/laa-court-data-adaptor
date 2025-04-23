@@ -1,9 +1,10 @@
 module HmctsCommonPlatform
   class OffenceSummary
-    attr_reader :data
+    attr_reader :data, :defendant_id
 
-    def initialize(data)
+    def initialize(data, defendant_id = nil)
       @data = HashWithIndifferentAccess.new(data || {})
+      @defendant_id = defendant_id
     end
 
     def offence_id
@@ -51,7 +52,7 @@ module HmctsCommonPlatform
     end
 
     def laa_reference
-      HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference])
+      HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference], defendant_id)
     end
 
     def verdict
