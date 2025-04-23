@@ -1,9 +1,11 @@
 module HmctsCommonPlatform
   class DefendantSummary
-    attr_reader :data
+    attr_reader :data, :court_application_summaries
 
-    def initialize(data)
+    def initialize(data, court_application_summaries)
       @data = HashWithIndifferentAccess.new(data || {})
+      @court_application_summaries = court_application_summaries
+      match_application_summaries
     end
 
     def defendant_id
@@ -53,8 +55,8 @@ module HmctsCommonPlatform
     end
 
     def application_summaries
-      Array(data[:applicationSummaries]).map do |application_summary_data|
-        HmctsCommonPlatform::DefendantCourtApplicationSummary.new(application_summary_data)
+      Array(data[:applicationSummaries]).map do |application_summary|
+        HmctsCommonPlatform::DefendantCourtApplicationSummary.new(application_summary)
       end
     end
 
@@ -63,6 +65,24 @@ module HmctsCommonPlatform
     end
 
   private
+
+    def match_application_summaries
+      @data[:applicationSummaries] = []
+
+      return unless court_application_summaries.is_a?(Array) && court_application_summaries.any?
+
+      court_application_summaries.each do |summary|
+        first_name = summary.dig("subjectSummary", "defendantFirstName").to_s.strip
+        last_name  = summary.dig("subjectSummary", "defendantLastName").to_s.strip
+
+        expected_first_name = data[:defendantFirstName].to_s.strip
+        expected_last_name  = data[:defendantLastName].to_s.strip
+
+        next unless first_name == expected_first_name && last_name == expected_last_name
+
+        @data[:applicationSummaries] << summary
+      end
+    end
 
     def to_builder
       Jbuilder.new do |defendant_summary|

@@ -16,7 +16,7 @@ module HmctsCommonPlatform
 
     def defendant_summaries
       Array(data[:defendantSummary]).map do |defendant_summary_data|
-        HmctsCommonPlatform::DefendantSummary.new(defendant_summary_data)
+        HmctsCommonPlatform::DefendantSummary.new(defendant_summary_data, data[:applicationSummary])
       end
     end
 

@@ -20,19 +20,12 @@ module CommonPlatform
         return if prosecution_cases.nil?
 
         prosecution_cases.each do |prosecution_case|
-          prosecution_case["defendantSummary"]&.map! do |defendant| # Use `map!` to update the array in place
+          prosecution_case["defendantSummary"]&.each do |defendant| # Use `map!` to update the array in place
             if defendant_is_blank(defendant)
               # Add this defendant to an array of empty defendants (we need to also verify they don't have a hearing summary further down)
               @blank_defendants.push(defendant["defendantId"])
-            else
-              # Initialize `applicationSummary` as an array if not already present
-              defendant["applicationSummary"] ||= []
-              # Match and update `applicationSummary` directly
-              match_application_summaries(defendant, prosecution_case["applicationSummary"]) if prosecution_case["applicationSummary"].present? && prosecution_case["applicationSummary"].any?
             end
-            defendant # Return the updated defendant
           end
-
           remove_defendant_with_hearing_summary_from_blank_defendants(prosecution_case["hearingSummary"])
           log_error_for_blank_defendants
         end
@@ -93,25 +86,6 @@ module CommonPlatform
       # This sanitizes the error message to log, to reduce HTML tag noise
       def sanitized_response
         strip_tags(response.body.to_s).strip
-      end
-
-      def match_application_summaries(defendant, application_summaries)
-        return [] if application_summaries.nil? # Return an empty array if no application summaries are provided
-
-        matched_summaries = [] # Initialize an array to store matched application summaries
-
-        application_summaries.each do |application_summary|
-          next unless application_summary.dig("subjectSummary", "defendantFirstName").to_s.strip == defendant["defendantFirstName"].to_s.strip &&
-            application_summary.dig("subjectSummary", "defendantLastName").to_s.strip == defendant["defendantLastName"].to_s.strip
-
-          matched_summaries << application_summary # Add the matched summary to the array
-        end
-
-        # Assign matched summaries to defendant["applicationSummaries"] if any matches are found
-        defendant["applicationSummaries"] ||= [] # Initialize as an array if not already present
-        defendant["applicationSummaries"].concat(matched_summaries) # Add matched summaries to the defendant's applicationSummaries
-
-        matched_summaries
       end
 
       attr_reader :response

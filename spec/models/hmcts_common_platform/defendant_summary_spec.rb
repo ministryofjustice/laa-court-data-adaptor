@@ -1,5 +1,20 @@
 RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
-  let(:defendant_summary) { described_class.new(data) }
+  let(:court_application_summary) do
+    [
+      {
+        "applicationId": "f38d0030-0b4a-4fa5-9484-bb37b1e6ab39",
+        "shortId": "A25ULRHLVC7S",
+        "reference": "MyString",
+        "title": "Appeal at conviction here",
+        "receivedDate": "2025-04-11",
+        "subjectSummary": {
+          "defendantFirstName": "Bob",
+          "defendantLastName": "Smith",
+        },
+      },
+    ]
+  end
+  let(:defendant_summary) { described_class.new(data, :court_application_summary) }
 
   context "with all fields" do
     let(:data) { JSON.parse(file_fixture("defendant_summary/all_fields.json").read) }
@@ -17,6 +32,7 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
     it { expect(defendant_summary.national_insurance_number).to eql("AA123456C") }
     it { expect(defendant_summary.offence_summaries).to all(be_an(HmctsCommonPlatform::OffenceSummary)) }
     it { expect(defendant_summary.representation_order).to be_an(HmctsCommonPlatform::RepresentationOrder) }
+    it { expect(defendant_summary.application_summaries).to all(be_a(HmctsCommonPlatform::DefendantCourtApplicationSummary)) }
   end
 
   context "with only required fields" do
