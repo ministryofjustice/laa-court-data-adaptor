@@ -1,0 +1,85 @@
+{
+  "applicationId": "f38d0030-0b4a-4fa5-9484-bb37b1e6ab39",
+  "applicationShortId": "A25ULRHLVC7S",
+  "applicationReference": "MyString",
+  "applicationStatus": "DRAFT",
+  "applicationTitle": "Appeal at conviction here",
+  "applicationType": "3456",
+  "receivedDate": "2025-04-11",
+  "caseSummary": [
+      {
+          "prosecutionCaseId": "d4f1b783-0377-45e7-989b-724f2f13fd17",
+          "prosecutionCaseReference": "QYSIKJSKNV",
+          "caseStatus": "INACTIVE"
+      }
+  ],
+  "hearingSummary": [
+      {
+          "hearingId": "16a53f64-8b63-4acb-8dc6-96f2e622af36",
+          "jurisdictionType": "CROWN",
+          "courtCentre": {
+              "id": "5d5bb965-e149-38fe-9f87-d34c30455e7e",
+              "name": "Worcester Magistrates' Court",
+              "welshName": "Llys Ynadon Worcester",
+              "address": {
+                  "address1": "Castle Street",
+                  "address2": "Worcester",
+                  "address3": "",
+                  "address4": "",
+                  "address5": "",
+                  "postcode": "WR1 3QZ"
+              }
+          },
+          "hearingType": {
+              "id": "66a94940-a66b-474e-b80b-2212aad76bc4",
+              "description": "Mention - Defendant to Attend (MDA)"
+          },
+          "defendantIds": [
+              "ecca893f-0928-4fc6-ae50-6a8794b78c5c"
+          ],
+          "hearingDays": [
+              {
+                  "sittingDay": "2025-04-09T00:00:00.000Z",
+                  "listingSequence": 7,
+                  "listedDurationMinutes": 364,
+                  "hasSharedResults": null
+              }
+          ],
+          "defenceCounsel": []
+      }
+  ],
+  "subjectSummary": {
+      "defendantNINO": "WG576377A",
+      "defendantASN": "FB2J9J9M1H22",
+      "defendantFirstName": "Jessie",
+      "defendantMiddleName": "Brakus",
+      "defendantLastName": "Pollich",
+      "defendantDOB": "1986-12-01",
+      "proceedingsConcluded": false,
+      "subjectId": "64a7e770-93b2-4971-ae38-2ed3fd06252e",
+      "offenceSummary": [
+          {
+              "offenceId": "b17af7f6-a42b-4659-a7ec-c17bd1eed8b9",
+              "offenceCode": "PT00011",
+              "orderIndex": 1,
+              "offenceTitle": "Meeting child following sexual grooming",
+              "offenceLegislation": "Theft Act 1968 s.8(2)",
+              "wording": "Random string",
+              "arrestDate": "2019-10-17",
+              "chargeDate": "2019-10-17",
+              "dateOfInformation": "2019-10-17",
+              "modeOfTrial": "Either way",
+              "startDate": "2019-10-17",
+              "endDate": "2019-10-17",
+              "proceedingsConcluded": false,
+              "laaApplnReference": {
+                  "applicationReference": "61368712387",
+                  "statusId": "a4fd59ae-adcb-41e9-83b2-7689acb767d3",
+                  "statusCode": "Active",
+                  "statusDescription": "FAKE NEWS",
+                  "statusDate": "1995-04-27"
+              }
+          }
+      ]
+  }
+}
