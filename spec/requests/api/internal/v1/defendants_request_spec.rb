@@ -38,6 +38,7 @@ RSpec.describe "Api::Internal::V1::Defendants", swagger_doc: "v1/swagger.yaml", 
       consumes "application/json"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
+      parameter "$ref" => "#/components/parameters/transaction_id_header"
 
       response(202, "Accepted") do
         parameter name: :id, in: :path, required: true, type: :uuid,
@@ -51,8 +52,6 @@ RSpec.describe "Api::Internal::V1::Defendants", swagger_doc: "v1/swagger.yaml", 
                     "$ref": "defendant.json#/definitions/resource_to_unlink",
                   },
                   description: "Object containing the user_name, unlink_reason_code and defendant_id"
-
-        parameter "$ref" => "#/components/parameters/transaction_id_header"
 
         let(:Authorization) { "Bearer #{token.token}" }
 
@@ -68,8 +67,6 @@ RSpec.describe "Api::Internal::V1::Defendants", swagger_doc: "v1/swagger.yaml", 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:id) { "X" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           before do
             expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
           end
@@ -81,8 +78,6 @@ RSpec.describe "Api::Internal::V1::Defendants", swagger_doc: "v1/swagger.yaml", 
       context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
             expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)

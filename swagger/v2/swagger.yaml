@@ -31,6 +31,7 @@ paths:
           application/json:
             schema:
               "$ref": hearing_resulted.json#/definitions/new_resource
+        description: The minimal Hearing Resulted payload
   "/api/external/v2/prosecution_conclusions":
     post:
       summary: post prosecution conclusion
@@ -55,6 +56,90 @@ paths:
             schema:
               "$ref": prosecution_concluded_request.json#/definitions/resource
         required: true
+        description: The minimal prosecution concluded payload
+  "/api/internal/v2/court_application_laa_references":
+    post:
+      summary: post laa_reference
+      description: Post an LAA reference to CDA to link a MAAT case to a Common Platform
+        application
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Unprocessable entity
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": laa_reference_post_request_body.json#
+        description: The LAA issued reference to the application. CDA expects a numeric
+          number, although HMCTS allows strings
+  "/api/internal/v2/court_application_laa_references/{subject_id}":
+    patch:
+      summary: update laa_reference
+      description: Update an LAA reference (mark as unlinked)
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
+      - name: subject_id
+        in: path
+        required: true
+        type: uuid
+        schema:
+          "$ref": defendant.json#/properties/id
+        description: The unique identifier of the defendant
+      responses:
+        '202':
+          description: Accepted
+        '422':
+          description: Unprocessable Entity
+        '404':
+          description: Defendant not found
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": laa_reference_patch_request_body.json#
+        required: true
+        description: The LAA issued reference to the application. CDA expects a numeric
+          number, although HMCTS allows strings
+  "/api/internal/v2/court_applications/{court_application_id}":
+    get:
+      summary: fetch a court application by ID
+      description: find a court application where it exists within HMCTS
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: court_application_id
+        in: path
+        required: true
+        type: uuid
+        schema:
+          "$ref": court_application.json#/properties/id
+        description: The uuid of the court application
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: OK
+        '503':
+          description: Service unavailable
+        '404':
+          description: Resource not found
   "/api/internal/v2/prosecution_cases/{prosecution_case_reference}/defendants/{id}":
     get:
       summary: fetch a case defendant by ID
@@ -141,8 +226,6 @@ paths:
           "$ref": definitions.json#/definitions/uuid
         description: The uuid of the hearing
       - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
       - name: sitting_day
         in: query
         required: false
@@ -179,10 +262,6 @@ paths:
       - oAuth: []
       parameters:
       - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '202':
           description: Accepted
@@ -195,6 +274,8 @@ paths:
           application/json:
             schema:
               "$ref": laa_reference_post_request_body.json#
+        description: The LAA issued reference to the application. CDA expects a numeric
+          number, although HMCTS allows strings
   "/api/internal/v2/laa_references/{defendant_id}":
     patch:
       summary: update laa_reference
@@ -204,6 +285,7 @@ paths:
       security:
       - oAuth: []
       parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
       - name: defendant_id
         in: path
         required: true
@@ -211,14 +293,13 @@ paths:
         schema:
           "$ref": defendant.json#/properties/id
         description: The unique identifier of the defendant
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '202':
           description: Accepted
         '400':
           description: Bad Request
+        '404':
+          description: Defendant not found
         '401':
           description: Unauthorized
       requestBody:
@@ -227,6 +308,8 @@ paths:
             schema:
               "$ref": laa_reference_patch_request_body.json#
         required: true
+        description: The LAA issued reference to the application. CDA expects a numeric
+          number, although HMCTS allows strings
   "/api/internal/v2/prosecution_cases":
     get:
       summary: search prosecution cases
@@ -242,6 +325,7 @@ paths:
       security:
       - oAuth: []
       parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[prosecution_case_reference]
         in: query
         required: false
@@ -249,7 +333,6 @@ paths:
         schema:
           "$ref": prosecution_case_identifier.json#/properties/case_urn
         description: Searches prosecution cases by prosecution case reference
-      - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[arrest_summons_number]
         in: query
         required: false
@@ -257,7 +340,6 @@ paths:
         schema:
           "$ref": defendant_summary.json#/properties/arrest_summons_number
         description: Searches prosecution cases by arrest summons number
-      - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[national_insurance_number]
         in: query
         required: false
@@ -265,7 +347,6 @@ paths:
         schema:
           "$ref": person.json#/properties/nino
         description: Searches prosecution cases by national_insurance_number
-      - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[name]
         in: query
         required: false
@@ -280,7 +361,6 @@ paths:
         schema:
           "$ref": person.json#/properties/date_of_birth
         description: Searches prosecution cases by date_of_birth
-      - "$ref": "#/components/parameters/transaction_id_header"
       - name: filter[name]
         in: query
         required: false
@@ -295,11 +375,15 @@ paths:
         schema:
           "$ref": definitions.json#/definitions/datePattern
         description: Searches prosecution cases by date_of_next_hearing
-      - "$ref": "#/components/parameters/transaction_id_header"
-      - "$ref": "#/components/parameters/transaction_id_header"
       responses:
         '200':
           description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": search_prosecution_case_response.json#
+        '424':
+          description: Common Platform API Error
           content:
             application/vnd.api+json:
               schema:
@@ -330,6 +414,7 @@ paths:
             schema:
               "$ref": representation_order_request.json#
         required: true
+        description: The Representation Order for an offence
 components:
   securitySchemes:
     oAuth:

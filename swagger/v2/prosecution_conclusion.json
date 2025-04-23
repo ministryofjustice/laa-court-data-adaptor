@@ -13,14 +13,14 @@
           "type": "string"
         },
         "defendantId": {
-          "$ref": "defendant.json#/definitions/id"
+          "$ref": "defendant.json#/properties/id"
         },
         "isConcluded": {
           "description": "Is true if this defendant has no pending unresolved offence",
           "type": "boolean"
         },
         "hearingIdWhereChangeOccurred": {
-          "$ref": "hearing.json#/definitions/id"
+          "$ref": "hearing.json#/properties/id"
         },
         "offenceSummary": {
           "description": "A list of all the offences of the current defendant",
@@ -45,10 +45,10 @@
       "type": "object",
       "properties": {
         "offenceId": {
-          "$ref": "offence.json#/definitions/id"
+          "$ref": "offence.json#/properties/id"
         },
         "offenceCode": {
-          "$ref": "offence.json#/definitions/code"
+          "$ref": "offence.json#/properties/code"
         },
         "proceedingsConcluded": {
           "description": "Indicate whether this offence has been concluded or not",
@@ -79,7 +79,7 @@
       "type": "object",
       "properties": {
         "originatingHearingId": {
-          "$ref": "hearing.json#/definitions/id"
+          "$ref": "hearing.json#/properties/id"
         },
         "value": {
           "description": "The value of this plea i.e. GUILTY, etc",
@@ -102,7 +102,7 @@
       "type": "object",
       "properties": {
         "originatingHearingId": {
-          "$ref": "hearing.json#/definitions/id"
+          "$ref": "hearing.json#/properties/id"
         },
         "verdictDate": {
           "description": "The date the verdict was reached by the court",
@@ -160,11 +160,11 @@
       "properties": {
         "applicationId": {
           "description": "The identifier of the court application",
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+          "$ref": "definitions.json#/definitions/uuid"
         },
         "subjectId": {
           "description": "The identifier of the subject (defendant)",
-          "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
+          "$ref": "definitions.json#/definitions/uuid"
         },
         "applicationResultCode": {
           "description": "A code indicating the result of the court application",
