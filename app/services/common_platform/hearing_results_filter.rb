@@ -8,7 +8,7 @@ module CommonPlatform
     def call
       return @body unless @defendant_id
 
-      @body["hearing"]["prosecutionCases"] = @body["hearing"]["prosecutionCases"].map do |prosecution_case|
+      @body["hearing"]["prosecutionCases"] = @body["hearing"]["prosecutionCases"]&.map do |prosecution_case|
         prosecution_case.merge(
           "defendants" => prosecution_case["defendants"].select { |defendant| defendant["id"] == @defendant_id },
         )
