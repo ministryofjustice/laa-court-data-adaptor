@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "court_application_response",
+  "description": "The details of a court application",
+  "type": "object",
+  "definitions": {
+    "case_summary": {
+      "type": "object",
+      "properties": {
+        "case_status": {
+          "type": "string",
+          "description": "The status of the case to which this application is attached"
+        },
+        "prosecution_case_id": {
+          "$ref": "definitions.json#/definitions/uuid",
+          "description": "The ID of the case to which this application is attached"
+        },
+        "prosecution_case_reference": {
+          "type": "string",
+          "description": "The unique reference of the case to which this application is attached"
+        }
+      }
+    },
+    "subject_summary": {
+      "type": "object",
+      "properties": {
+        "subject_id": {
+           "$ref": "definitions.json#/definitions/uuid",
+           "description": "The ID of the subject of this application"
+        },
+        "date_of_next_hearing": {
+          "type": ["null", "string"],
+          "description": "The date of the next hearing, if there is one",
+          "example": "2020-01-01"
+        },
+        "defendant_asn": {
+          "type": "string",
+          "description": "The ASN of the defendant",
+          "example": "1234567"
+        },
+        "defendant_dob": {
+          "type": "string",
+          "description": "The date of birth of the defendant",
+          "example": "2000-01-01"
+        },
+        "defendant_first_name": {
+          "type": "string",
+          "description": "The first name of the defendant",
+          "example": "John"
+        },
+        "defendant_last_name": {
+          "type": "string",
+          "description": "The last name of the defendant",
+          "example": "Doe"
+        },
+        "master_defendant_id": {
+          "$ref": "definitions.json#/definitions/uuid",
+          "description": "The master defendant ID of the subject of this application"
+        },
+        "offence_summary": {
+          "type": "array",
+          "items": {
+            "$ref": "offence_summary.json"
+          }
+        },
+        "proceedings_concluded": {
+          "type": "boolean",
+          "description": "Whether the proceedings have concluded",
+          "example": true
+        },
+        "organisation_name": {
+          "type": ["null", "string"],
+          "description": "The name of the organisation, if the subject is an organisation",
+          "example": "Acme Co"
+        },
+        "representation_order": {
+          "$ref": "representation_order.json"
+        }
+      }
+    }
+  },
+  "properties": {
+    "application_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "short_id": {
+      "type": "string",
+      "description": "A short unique identifier",
+      "example": "A12345678"
+    },
+    "application_reference": {
+      "type": "string",
+      "description": "An identifier",
+      "example": "REFERENCE"
+    },
+    "application_status": {
+      "type": "string",
+      "description": "The status of the application",
+      "example": "DRAFT"
+    },
+    "application_title": {
+      "type": "string",
+      "description": "A user-facing string describing the type of application",
+      "example": "Appeal against conviction"
+    },
+    "application_type": {
+      "type": "string",
+      "description": "A code representing the type of application",
+      "example": "AB123"
+    },
+    "application_result": {
+      "type": ["null", "string"],
+      "description": "If the application has been resulted, a code representing the result",
+      "example": "AW"
+    },
+    "received_date": {
+      "type": "string",
+      "description": "The date the application was received",
+      "example": "2023-12-01"
+    },
+    "case_summary": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/case_summary"
+      }
+    },
+    "hearing_summary": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "hearing_summary.json"
+      }
+    },
+    "subject_summary": {
+      "$ref": "#/definitions/subject_summary"
+    }
+  }
+}

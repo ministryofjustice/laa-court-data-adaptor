@@ -22,6 +22,7 @@ RSpec.describe "api/internal/v1/prosecution_cases", swagger_doc: "v1/swagger.yam
                     5) name and date_of_next_hearing"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
+      parameter "$ref" => "#/components/parameters/transaction_id_header"
 
       context "when searching by prosecution_case_reference" do
         response(200, "Success") do
@@ -48,8 +49,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", swagger_doc: "v1/swagger.yam
                                   To include hearing_summaries, hearings, defendants and their offences: </br>
                                   include=hearing_summaries,hearings,defendants,defendants.offences"
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           schema "$ref" => "prosecution_case.json#/definitions/resource_collection"
 
           let(:Authorization) { "Bearer #{token.token}" }
@@ -74,8 +73,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", swagger_doc: "v1/swagger.yam
                     },
                     description: "Searches prosecution cases by arrest summons number"
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           let(:Authorization) { "Bearer #{token.token}" }
           let(:"filter[arrest_summons_number]") { "arrest123" }
 
@@ -96,8 +93,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", swagger_doc: "v1/swagger.yam
                       "$ref": "defendant.json#/definitions/nino",
                     },
                     description: "Searches prosecution cases by national insurance number"
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:"filter[national_insurance_number]") { "HB133542A" }
@@ -125,8 +120,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", swagger_doc: "v1/swagger.yam
                       "$ref": "defendant.json#/definitions/date_of_birth",
                     },
                     description: "Searches prosecution cases by date_of_birth"
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:"filter[name]") { "George Walsh" }
@@ -156,8 +149,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", swagger_doc: "v1/swagger.yam
                     },
                     description: "Searches prosecution cases by date_of_next_hearing"
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           let(:Authorization) { "Bearer #{token.token}" }
           let(:"filter[name]") { "George Walsh" }
           let(:"filter[date_of_next_hearing]") { "2020-02-17" }
@@ -169,8 +160,6 @@ RSpec.describe "api/internal/v1/prosecution_cases", swagger_doc: "v1/swagger.yam
       context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           run_test!
         end

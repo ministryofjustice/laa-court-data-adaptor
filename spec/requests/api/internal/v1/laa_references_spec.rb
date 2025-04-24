@@ -49,6 +49,7 @@ RSpec.describe "api/internal/v1/laa_references", swagger_doc: "v1/swagger.yaml",
       consumes "application/json"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
+      parameter "$ref" => "#/components/parameters/transaction_id_header"
 
       response(202, "Accepted") do
         around do |example|
@@ -64,8 +65,6 @@ RSpec.describe "api/internal/v1/laa_references", swagger_doc: "v1/swagger.yaml",
                   },
                   description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
 
-        parameter "$ref" => "#/components/parameters/transaction_id_header"
-
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
@@ -79,8 +78,6 @@ RSpec.describe "api/internal/v1/laa_references", swagger_doc: "v1/swagger.yaml",
       context "with a blank maat_reference" do
         response(202, "Accepted") do
           let(:Authorization) { "Bearer #{token.token}" }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
             laa_reference[:data][:attributes].delete(:maat_reference)
@@ -97,8 +94,6 @@ RSpec.describe "api/internal/v1/laa_references", swagger_doc: "v1/swagger.yaml",
         response("422", "Unprocessable entity") do
           let(:Authorization) { "Bearer #{token.token}" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           before do
             laa_reference[:data][:attributes].delete(:user_name)
             expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
@@ -113,8 +108,6 @@ RSpec.describe "api/internal/v1/laa_references", swagger_doc: "v1/swagger.yaml",
           let(:Authorization) { "Bearer #{token.token}" }
           before { laa_reference[:data][:attributes][:maat_reference] = "ABC123123" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           before do
             expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
           end
@@ -126,8 +119,6 @@ RSpec.describe "api/internal/v1/laa_references", swagger_doc: "v1/swagger.yaml",
       context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
             expect(MaatLinkCreatorWorker).not_to receive(:perform_async)

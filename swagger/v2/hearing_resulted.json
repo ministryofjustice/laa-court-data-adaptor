@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "HearingResulted",
+  "description": "HearingResulted",
+  "id": "hearing-resulted",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "definitions": {
+    "sharedTime": {
+      "description": "The date and time the hearing result was shared with the LAA",
+      "example": "2018-10-25 11:30:00",
+      "format": "date-time",
+      "type": "string"
+    },
+    "hearing": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "hearing.json#/properties/id"
+        },
+        "jurisdictionType": {
+          "$ref": "hearing.json#/properties/jurisdiction_type"
+        },
+        "courtCentre": {
+          "$ref": "hearing.json#/properties/court_centre"
+        },
+        "type": {
+          "$ref": "hearing.json#/properties/type"
+        }
+      }
+    },
+    "new_resource": {
+      "description": "object representing a single hearing_resulted",
+      "type": "object",
+      "properties": {
+        "hearing": {
+          "$ref": "#/definitions/hearing"
+        },
+        "sharedTime": {
+          "$ref": "#/definitions/sharedTime"
+        }
+      }
+    }
+  },
+  "required": [
+    "hearing",
+    "sharedTime"
+  ]
+}

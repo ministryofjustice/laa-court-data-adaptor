@@ -39,6 +39,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
       consumes "application/json"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
+      parameter "$ref" => "#/components/parameters/transaction_id_header"
 
       response(202, "Accepted") do
         around do |example|
@@ -51,8 +52,6 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         parameter name: :laa_reference, in: :body, required: false, type: :object,
                   schema: { "$ref": "laa_reference_post_request_body.json#" },
                   description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
-
-        parameter "$ref" => "#/components/parameters/transaction_id_header"
 
         let(:Authorization) { "Bearer #{token.token}" }
 
@@ -67,8 +66,6 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
       context "with a blank maat_reference" do
         response(202, "Accepted") do
           let(:Authorization) { "Bearer #{token.token}" }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
             laa_reference[:laa_reference].delete(:maat_reference)
@@ -85,8 +82,6 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         response("422", "Unprocessable entity") do
           let(:Authorization) { "Bearer #{token.token}" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           before do
             laa_reference[:laa_reference].delete(:user_name)
             expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
@@ -101,8 +96,6 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           let(:Authorization) { "Bearer #{token.token}" }
           before { laa_reference[:laa_reference][:maat_reference] = "ABC123123" }
 
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
-
           before do
             expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
           end
@@ -114,8 +107,6 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
       context "when request is unauthorized" do
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           before do
             expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
@@ -143,6 +134,18 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         consumes "application/json"
         tags "Internal - available to other LAA applications"
         security [{ oAuth: [] }]
+        parameter "$ref" => "#/components/parameters/transaction_id_header"
+        parameter name: :defendant_id, in: :path, required: false, type: :uuid,
+                  schema: {
+                    "$ref": "defendant.json#/properties/id",
+                  },
+                  description: "The unique identifier of the defendant"
+
+        parameter name: :laa_reference, in: :body, required: true, type: :object,
+                  schema: {
+                    "$ref": "laa_reference_patch_request_body.json#",
+                  },
+                  description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
 
         response(202, "Accepted") do
           around do |example|
@@ -155,20 +158,6 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
               example.run
             end
           end
-
-          parameter name: :defendant_id, in: :path, required: false, type: :uuid,
-                    schema: {
-                      "$ref": "defendant.json#/properties/id",
-                    },
-                    description: "The unique identifier of the defendant"
-
-          parameter name: :laa_reference, in: :body, required: true, type: :object,
-                    schema: {
-                      "$ref": "laa_reference_patch_request_body.json#",
-                    },
-                    description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
 
           let(:Authorization) { "Bearer #{token.token}" }
 
@@ -184,8 +173,6 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
             let(:Authorization) { "Bearer #{token.token}" }
             let(:defendant_id) { "X" }
 
-            parameter "$ref" => "#/components/parameters/transaction_id_header"
-
             before do
               expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
             end
@@ -200,8 +187,6 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
 
             let(:defendant_id) { "fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0" }
 
-            parameter "$ref" => "#/components/parameters/transaction_id_header"
-
             run_test! do |response|
               error = JSON.parse(response.body)["error"]
 
@@ -213,8 +198,6 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         context "when request is unauthorized" do
           response("401", "Unauthorized") do
             let(:Authorization) { nil }
-
-            parameter "$ref" => "#/components/parameters/transaction_id_header"
 
             before do
               expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)

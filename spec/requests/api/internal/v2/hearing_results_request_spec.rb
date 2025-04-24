@@ -39,7 +39,6 @@ RSpec.describe "api/internal/v2/hearing_results", swagger_doc: "v2/swagger.yaml"
         describe "response" do
           response(200, "Success") do
             schema "$ref" => "hearing_result.json#"
-            parameter "$ref" => "#/components/parameters/transaction_id_header"
             run_test!
           end
         end
@@ -49,8 +48,6 @@ RSpec.describe "api/internal/v2/hearing_results", swagger_doc: "v2/swagger.yaml"
         response(401, "Unauthorized") do
           let(:hearing_id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
           let(:Authorization) { nil }
-
-          parameter "$ref" => "#/components/parameters/transaction_id_header"
           run_test!
         end
       end
