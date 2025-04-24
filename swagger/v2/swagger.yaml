@@ -136,6 +136,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": court_application_response.json#
         '503':
           description: Service unavailable
         '404':

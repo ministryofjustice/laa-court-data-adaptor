@@ -38,6 +38,8 @@ RSpec.describe "api/internal/v2/court_applications", swagger_doc: "v2/swagger.ya
         let(:status) { 200 }
         let(:body) { file_fixture("court_application_summary.json").read }
 
+        schema "$ref" => "court_application_response.json#"
+
         it "returns 200 success" do
           expect(response).to have_http_status(:ok)
         end
