@@ -10,6 +10,11 @@ module HmctsCommonPlatform
     end
 
     def reference
+      # We can't rely on HMCTS to return the correct maat reference here due to bugs on their side.
+      # So our strategy is to use the known correct maat reference if it's present, but only
+      # if HMCTS thinks there should be a reference in the payload at all.
+      return unless data[:applicationReference]
+
       local = ::LaaReference.find_by(defendant_id:, linked: true)&.maat_reference if defendant_id
       local || data[:applicationReference]
     end
