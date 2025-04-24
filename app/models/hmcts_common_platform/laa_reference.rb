@@ -10,8 +10,8 @@ module HmctsCommonPlatform
     end
 
     def reference
-      local = ::LaaReference.find_by(defendant_id:, linked: true)&.maat_reference if defendant_id
-      local || data[:applicationReference]
+      # HMCTS does not reliably tell us if there is a MAAT reference or not.
+      ::LaaReference.find_by(defendant_id:, linked: true)&.maat_reference if defendant_id
     end
 
     def status_id

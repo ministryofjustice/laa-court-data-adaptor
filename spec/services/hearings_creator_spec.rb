@@ -194,7 +194,7 @@ RSpec.describe HearingsCreator do
       let(:maat_reference) { "A123456789" }
 
       it "does not call the Sqs::MessagePublisher service" do
-        LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a888", linked: true, maat_reference: "123", user_name: "Bob")
+        LaaReference.create!(defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a888", linked: true, maat_reference: "A123456789", user_name: "Bob")
 
         expect(Sqs::MessagePublisher).not_to receive(:call)
         create_hearings
