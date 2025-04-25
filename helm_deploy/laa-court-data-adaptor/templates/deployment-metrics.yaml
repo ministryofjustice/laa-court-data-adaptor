@@ -10,7 +10,7 @@ spec:
 {{- end }}
   selector:
     matchLabels:
-      {{- include "laa-court-data-adaptor.selectorLabels" . | nindent 6 }}
+      app: laa-court-data-adaptor-metrics
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "laa-court-data-adaptor.selectorLabels" . | nindent 8 }}
+        app: laa-court-data-adaptor-metrics
     spec:
      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
