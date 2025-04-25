@@ -56,7 +56,15 @@
       "items": {
         "$ref": "http://justice.gov.uk/core/courts/search/external/apiOffenceSummary.json"
       }
-    }
+    },
+    "application_summaries": {
+      "description": "The court application for this defendant",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "http://justice.gov.uk/core/courts/search/external/apiApplicationSummary.json"
+      }
+    }    
   },
   "oneOf": [
     {

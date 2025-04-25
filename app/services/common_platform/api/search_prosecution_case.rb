@@ -20,7 +20,7 @@ module CommonPlatform
         return if prosecution_cases.nil?
 
         prosecution_cases.each do |prosecution_case|
-          prosecution_case["defendantSummary"]&.each do |defendant| # Use `map!` to update the array in place
+          prosecution_case["defendantSummary"]&.each do |defendant|
             if defendant_is_blank(defendant)
               # Add this defendant to an array of empty defendants (we need to also verify they don't have a hearing summary further down)
               @blank_defendants.push(defendant["defendantId"])

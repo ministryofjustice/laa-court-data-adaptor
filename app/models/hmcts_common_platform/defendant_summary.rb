@@ -5,7 +5,6 @@ module HmctsCommonPlatform
     def initialize(data, court_application_summaries)
       @data = HashWithIndifferentAccess.new(data || {})
       @court_application_summaries = court_application_summaries
-      match_application_summaries
     end
 
     def defendant_id
@@ -55,8 +54,8 @@ module HmctsCommonPlatform
     end
 
     def application_summaries
-      Array(data[:applicationSummaries]).map do |application_summary|
-        HmctsCommonPlatform::DefendantCourtApplicationSummary.new(application_summary)
+      Array(match_application_summaries).map do |application_summary|
+        HmctsCommonPlatform::ApplicationSummary.new(application_summary)
       end
     end
 
@@ -67,18 +66,11 @@ module HmctsCommonPlatform
   private
 
     def match_application_summaries
-      @data[:applicationSummaries] = []
+      return [] unless court_application_summaries.is_a?(Array) && court_application_summaries.any?
 
-      return unless court_application_summaries.is_a?(Array) && court_application_summaries.any?
-
-      court_application_summaries.each do |summary|
+      court_application_summaries.select do |summary|
         master_defendant_id = summary.dig("subjectSummary", "masterDefendantId").to_s.strip
-
-        expected_defendant_id = data[:defendantId].to_s.strip
-
-        next unless master_defendant_id == expected_defendant_id
-
-        @data[:applicationSummaries] << summary
+        master_defendant_id == data[:defendantId].to_s.strip
       end
     end
 

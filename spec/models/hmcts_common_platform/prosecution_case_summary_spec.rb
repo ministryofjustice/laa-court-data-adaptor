@@ -12,7 +12,6 @@ RSpec.describe HmctsCommonPlatform::ProsecutionCaseSummary, type: :model do
     it { expect(prosecution_case_summary.case_status).to eq("ACTIVE") }
     it { expect(prosecution_case_summary.defendant_summaries).to all be_an(HmctsCommonPlatform::DefendantSummary) }
     it { expect(prosecution_case_summary.hearing_summaries).to all be_an(HmctsCommonPlatform::HearingSummary) }
-    it { expect(prosecution_case_summary.application_summaries).to all be_an(HmctsCommonPlatform::ApplicationSummary) }
   end
 
   context "with required fields only" do
@@ -38,7 +37,6 @@ RSpec.describe HmctsCommonPlatform::ProsecutionCaseSummary, type: :model do
       expect(json["case_status"]).to eql("ACTIVE")
       expect(json["defendant_summaries"].count).to be(2)
       expect(json["hearing_summaries"].count).to be(2)
-      expect(json["application_summaries"].count).to be(1)
     end
   end
 end
