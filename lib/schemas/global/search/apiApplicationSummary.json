@@ -20,7 +20,7 @@
       "description": "The date the application was received",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/datePattern"
     },
-    "applicationShortId": {
+    "laaApplicationShortId": {
       "description": "An HMCTS-generated unique string identifying the application",
       "type": "string"
     },

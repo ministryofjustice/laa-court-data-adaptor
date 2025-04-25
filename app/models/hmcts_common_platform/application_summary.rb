@@ -11,7 +11,7 @@ module HmctsCommonPlatform
     end
 
     def short_id
-      data[:applicationShortId]
+      data[:laaApplicationShortId]
     end
 
     def reference
