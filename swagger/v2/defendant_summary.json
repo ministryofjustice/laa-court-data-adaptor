@@ -59,6 +59,13 @@
       "items": {
         "$ref": "offence_summary.json#"
       }
+    },
+    "application_summaries": {
+      "description": "The court application for this defendant",
+      "type": "array",
+      "items": {
+        "$ref": "application_summary.json#"
+      }
     }
   }
 }

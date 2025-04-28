@@ -150,7 +150,18 @@
       "applicationExternalCreatorType": "PROSECUTOR",
       "receivedDate": "2024-12-21",
       "decisionDate": "2025-02-11",
-      "dueDate": "2025-01-27"
+      "dueDate": "2025-01-27",
+      "subjectSummary": {
+        "dateOfNextHearing": "2025-02-07T10:00:00.000Z",
+        "defendantASN": "2391NX0000489661589D",
+        "defendantDOB": "1999-02-06",
+        "defendantFirstName": "Naida",
+        "defendantLastName": "Daniel",
+        "masterDefendantId": "b760daba-0d38-4bae-ad57-fbfd8419aefe",
+        "offenceSummary": [],
+        "proceedingsConcluded": false,
+        "subjectId": "4b463e6a-105b-433b-a88d-057d6e645bfb"
+      }
     }
   ]
 }

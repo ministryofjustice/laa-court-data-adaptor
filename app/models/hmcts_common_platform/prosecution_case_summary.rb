@@ -16,19 +16,13 @@ module HmctsCommonPlatform
 
     def defendant_summaries
       Array(data[:defendantSummary]).map do |defendant_summary_data|
-        HmctsCommonPlatform::DefendantSummary.new(defendant_summary_data)
+        HmctsCommonPlatform::DefendantSummary.new(defendant_summary_data, data[:applicationSummary])
       end
     end
 
     def hearing_summaries
       Array(data[:hearingSummary]).map do |hearing_summary_data|
         HmctsCommonPlatform::HearingSummary.new(hearing_summary_data)
-      end
-    end
-
-    def application_summaries
-      Array(data[:applicationSummary]).map do |application_summary_data|
-        HmctsCommonPlatform::ApplicationSummary.new(application_summary_data)
       end
     end
 
@@ -44,7 +38,6 @@ module HmctsCommonPlatform
         case_summary.case_status case_status
         case_summary.defendant_summaries defendant_summaries.map(&:to_json)
         case_summary.hearing_summaries hearing_summaries.map(&:to_json)
-        case_summary.application_summaries application_summaries.map(&:to_json)
       end
     end
   end

@@ -62,3 +62,4 @@ RUN chown -R appuser:appgroup app config log tmp db coverage spec
 
 USER 1000
 CMD "./docker/run"
+

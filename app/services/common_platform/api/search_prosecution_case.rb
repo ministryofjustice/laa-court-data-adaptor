@@ -26,7 +26,6 @@ module CommonPlatform
               @blank_defendants.push(defendant["defendantId"])
             end
           end
-
           remove_defendant_with_hearing_summary_from_blank_defendants(prosecution_case["hearingSummary"])
           log_error_for_blank_defendants
         end

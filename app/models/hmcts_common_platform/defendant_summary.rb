@@ -1,9 +1,10 @@
 module HmctsCommonPlatform
   class DefendantSummary
-    attr_reader :data
+    attr_reader :data, :court_application_summaries
 
-    def initialize(data)
+    def initialize(data, court_application_summaries)
       @data = HashWithIndifferentAccess.new(data || {})
+      @court_application_summaries = court_application_summaries
     end
 
     def defendant_id
@@ -52,11 +53,26 @@ module HmctsCommonPlatform
       end
     end
 
+    def application_summaries
+      Array(match_application_summaries).map do |application_summary|
+        HmctsCommonPlatform::ApplicationSummary.new(application_summary)
+      end
+    end
+
     def to_json(*_args)
       to_builder.attributes!.compact
     end
 
   private
+
+    def match_application_summaries
+      return [] unless court_application_summaries.is_a?(Array) && court_application_summaries.any?
+
+      court_application_summaries.select do |summary|
+        master_defendant_id = summary.dig("subjectSummary", "masterDefendantId").to_s.strip
+        master_defendant_id == data[:defendantId].to_s.strip
+      end
+    end
 
     def to_builder
       Jbuilder.new do |defendant_summary|
@@ -71,6 +87,7 @@ module HmctsCommonPlatform
         defendant_summary.proceedings_concluded proceedings_concluded
         defendant_summary.representation_order representation_order.to_json
         defendant_summary.offence_summaries(offence_summaries.map(&:to_json))
+        defendant_summary.application_summaries(application_summaries.map(&:to_json))
       end
     end
   end

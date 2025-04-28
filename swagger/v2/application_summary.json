@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "application_summary",
+  "description": "An Application Summary",
+  "type": "object",
+  "properties": {
+    "applicationId": {
+      "description": "The identifier of the application",
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "applicationReference": {
+      "description": "The reference of the application",
+      "type": "string"
+    },
+    "applicationTitle": {
+      "description": "The title of the application",
+      "type": "string"
+    },
+    "receivedDate": {
+      "description": "The date the application was received",
+      "$ref": "definitions.json#/definitions/datePattern"
+    },
+    "applicationShortId": {
+      "description": "An HMCTS-generated unique string identifying the application",
+      "type": "string"
+    },
+    "subjectSummary":  {
+      "type": "object",
+      "properties": {
+        "proceedingsConcluded": {
+          "type": "boolean"
+        },
+        "subjectId": {
+          "$ref": "definitions.json#/definitions/uuid"
+        },
+        "masterDefendantId": {
+        "$ref": "definitions.json#/definitions/uuid"
+        },
+        "defendantASN": {
+          "type": "string"
+        },
+        "defendantFirstName": {
+          "type": "string"
+        },
+        "defendantMiddleName": {
+          "type": "string"
+        },
+        "defendantLastName": {
+          "type": "string"
+        },
+        "defendantDOB": {
+          "type": "string"
+        },
+        "defendantNINO": {
+          "type": "string"
+        },
+        "offence_summaries": {
+          "description": "The offences for this defendant",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "offence_summary.json#"
+          }
+        }
+      },
+      "required": [
+        "subjectId",
+        "defendantFirstName"
+      ]
+    }
+  }
+}
