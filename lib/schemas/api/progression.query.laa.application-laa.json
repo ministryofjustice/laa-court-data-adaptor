@@ -10,7 +10,7 @@
       "description": "The LAA issued reference to the application.  Currently known as the MAAT Id",
       "type": "string"
     },
-    "applicationShortId": {
+    "laaApplicationShortId": {
       "description": "An HMCTS-generated unique string identifying the application",
       "type": "string"
     },
