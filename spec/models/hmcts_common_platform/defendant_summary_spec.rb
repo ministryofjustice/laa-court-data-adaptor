@@ -84,17 +84,16 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
       )
     end
 
-    it "includes the summary when the masterDefendantId matches the defendantId" do
+    it "includes only summaries where masterDefendantId matches defendantId" do
       summaries = defendant_summary.application_summaries
 
       expect(summaries).not_to be_empty
-      expect(summaries.first).to be_a(HmctsCommonPlatform::ApplicationSummary)
-      expect(summaries.first.data["applicationId"]).to eq("f38d0030-0b4a-4fa5-9484-bb37b1e6ab39")
-    end
+      expect(summaries).to all(be_a(HmctsCommonPlatform::ApplicationSummary))
 
-    it "does not include the summary when masterDefendantId does not match defendantId" do
-      summaries = defendant_summary.application_summaries
-      expect(summaries.first.data["applicationId"]).not_to eq("f38d0030-0b4a-4fa5-9484-bb37b1e6ac56")
+      application_ids = summaries.map { |summary| summary.data["applicationId"] }
+
+      expect(application_ids).to contain_exactly("f38d0030-0b4a-4fa5-9484-bb37b1e6ab39")
+      expect(application_ids).not_to include("f38d0030-0b4a-4fa5-9484-bb37b1e6ac56")
     end
   end
 end
