@@ -19,15 +19,27 @@ env:
   - name: HOST_ENV
     value: {{ .Values.rails.host_env }}
   - name: SECRET_KEY_BASE
-    value: {{ .Values.rails.secret_key_base }}
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: secret_key_base
   - name: COMMON_PLATFORM_URL
     value: {{ .Values.common_platform_url }}
   - name: SHARED_SECRET_KEY
-    value: {{ .Values.common_platform_secret_key }}
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: common_platform_secret_key
   - name: SIDEKIQ_UI_USERNAME
-    value: {{ .Values.sidekiq_ui.username }}
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: sidekiq_ui_username
   - name: SIDEKIQ_UI_PASSWORD
-    value: {{ .Values.sidekiq_ui.password }}
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: sidekiq_ui_password
   {{- if .Values.mtls_enabled }}
   - name: SSL_CLIENT_CERT
     value: |
@@ -77,7 +89,10 @@ env:
   - name: AWS_REGION
     value: {{ .Values.sqs_region }}
   - name: SENTRY_DSN
-    value: {{ .Values.sentry_dsn }}
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: sentry_dsn
   - name: SENTRY_CURRENT_ENV
     value: {{ .Values.rails.host_env }}
   - name: METRICS_SERVICE_HOST
