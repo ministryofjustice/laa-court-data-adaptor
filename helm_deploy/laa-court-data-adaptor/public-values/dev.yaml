@@ -1,0 +1,120 @@
+# Default values for laa-court-data-adaptor.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+workerReplicaCount: 1
+metricsReplicaCount: 1
+
+image:
+  repository: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-crime-apps-team/laa-court-data-adaptor
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+common_platform_url: https://hmcts-common-platform-mock-api.apps.live.cloud-platform.service.justice.gov.uk
+sqs_region: eu-west-2
+sqs_messaging_enabled: true
+mtls_enabled: false
+
+maat_api:
+  validation_enabled: true
+  oauth_url: https://maat-cd-api-dev.auth.eu-west-2.amazoncognito.com
+  api_url: https://maat-cd-api.dev.legalservices.gov.uk
+
+rails:
+  host_env: dev
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "laa-court-data-adaptor-irsa"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 3000
+
+metrics_service:
+  port: 9394
+
+ingress:
+  enabled: true
+  className: modsec
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: laa-court-data-adaptor-laa-court-data-adaptor-dev-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+  externalAnnotations:
+    external-dns.alpha.kubernetes.io/set-identifier: laa-court-data-adaptor-external-laa-court-data-adaptor-dev-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+  hosts:
+    - host: laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk
+      paths: ["/"]
+    - host: laa-court-data-adaptor-dev.apps.live.cloud-platform.service.justice.gov.uk
+      paths: ["/"]
+  externalHosts:
+    - host: dev.court-data-adaptor.service.justice.gov.uk
+      paths: ["/"]
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+  externalTls:
+    - secretName: laa-court-data-adaptor-dev-cert
+      hosts:
+        - dev.court-data-adaptor.service.justice.gov.uk
+
+caSecret:
+  # Specifies whether a CA secret should be created
+  create: false
+  # The path to the file to use as the CA certificate.
+  ca_crt_file: live/dev/ca.crt
+  # The name to be set for the ca secret
+  name: "ca-secret"
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
