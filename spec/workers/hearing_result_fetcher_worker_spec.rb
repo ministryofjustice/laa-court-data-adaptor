@@ -32,7 +32,6 @@ RSpec.describe HearingResultFetcherWorker, type: :worker do
         .once
         .with(
           "99c753e2-9c89-4c1a-b191-4f73084721b4",
-          "2022-11-05",
           nil,
         )
 

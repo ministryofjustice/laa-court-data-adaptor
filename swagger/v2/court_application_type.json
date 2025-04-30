@@ -55,8 +55,7 @@
       "format": "date"
     },
     "valid_to": {
-      "type": "string",
-      "format": "date"
+      "type": "null"
     },
     "applicant_appellant_flag": {
       "type": "boolean"

@@ -16,7 +16,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationType, type: :model do
       expect(court_application_type.to_json["plea_applicable_flag"]).to be false
       expect(court_application_type.to_json["summons_template_type"]).to eql("NOT_APPLICABLE")
       expect(court_application_type.to_json["valid_from"]).to eql("2022-01-01")
-      expect(court_application_type.to_json["valid_to"]).to eql("2022-01-02")
+      expect(court_application_type.to_json["valid_to"]).to be_nil
       expect(court_application_type.to_json["offence_active_order"]).to eql("NOT_APPLICABLE")
       expect(court_application_type.to_json["commr_of_oath_flag"]).to be false
       expect(court_application_type.to_json["breach_type"]).to eql("NOT_APPLICABLE")
@@ -47,7 +47,6 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationType, type: :model do
     it { expect(court_application_type.plea_applicable_flag).to be false }
     it { expect(court_application_type.summons_template_type).to eql("NOT_APPLICABLE") }
     it { expect(court_application_type.valid_from).to eql("2022-01-01") }
-    it { expect(court_application_type.valid_to).to eql("2022-01-02") }
     it { expect(court_application_type.offence_active_order).to eql("NOT_APPLICABLE") }
     it { expect(court_application_type.commr_of_oath_flag).to be false }
     it { expect(court_application_type.breach_type).to eql("NOT_APPLICABLE") }

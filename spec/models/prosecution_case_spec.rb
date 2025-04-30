@@ -51,7 +51,7 @@ RSpec.describe ProsecutionCase, type: :model do
     context "when GetHearingResults returns a hearing" do
       before do
         allow(CommonPlatform::Api::GetHearingResults).to receive(:call)
-          .with(hearing_id: "0c401e0d-9d88-4cb8-8543-2090782edd32", sitting_day: "2025-02-18T09:01:01.001Z")
+          .with(hearing_id: "0c401e0d-9d88-4cb8-8543-2090782edd32")
           .and_return(hearing_result_body)
       end
 
@@ -134,21 +134,15 @@ RSpec.describe ProsecutionCase, type: :model do
             ]
           end
 
-          it "looks up hearing results for every day of every hearing" do
+          it "looks up hearing results for every hearing" do
             expect(CommonPlatform::Api::GetHearingResults).to receive(:call).once.ordered.with(
               hearing_id: "HEARING_1_ID",
-              sitting_day: "2025-01-01",
             ).and_return({ tag: "result_1" })
             expect(CommonPlatform::Api::GetHearingResults).to receive(:call).once.ordered.with(
-              hearing_id: "HEARING_1_ID",
-              sitting_day: "2025-01-02",
-            ).and_return({ tag: "result_2" })
-            expect(CommonPlatform::Api::GetHearingResults).to receive(:call).once.ordered.with(
               hearing_id: "HEARING_2_ID",
-              sitting_day: "2025-02-01",
-            ).and_return({ tag: "result_3" })
+            ).and_return({ tag: "result_2" })
             call
-            expect(output.length).to eq 3
+            expect(output.length).to eq 2
           end
         end
 
@@ -175,7 +169,6 @@ RSpec.describe ProsecutionCase, type: :model do
           it "looks up hearing results for only the relevant hearings" do
             expect(CommonPlatform::Api::GetHearingResults).to receive(:call).once.with(
               hearing_id: "HEARING_2_ID",
-              sitting_day: "2025-02-01",
             ).and_return({ tag: "result_3" })
             call
             expect(output.length).to eq 1

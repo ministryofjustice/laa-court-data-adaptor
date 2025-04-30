@@ -48,10 +48,6 @@
       "type": "string",
       "format": "date"
     },
-    "validTo": {
-      "type": "string",
-      "format": "date"
-    },
     "applicantAppellantFlag": {
       "type": "boolean"
     },
@@ -102,12 +98,6 @@
       "type": "boolean"
     },
     "hearingCode": {
-      "type": "string"
-    },
-    "resentencingActivationCode": {
-      "type": "string"
-    },
-    "prefix": {
       "type": "string"
     }
   },

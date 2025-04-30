@@ -54,10 +54,6 @@ module HmctsCommonPlatform
       data[:validFrom]
     end
 
-    def valid_to
-      data[:validTo]
-    end
-
     def offence_active_order
       data[:offenceActiveOrder]
     end
@@ -124,7 +120,8 @@ module HmctsCommonPlatform
         court_application_type.plea_applicable_flag plea_applicable_flag
         court_application_type.summons_template_type summons_template_type
         court_application_type.valid_from valid_from
-        court_application_type.valid_to valid_to
+        court_application_type.valid_to nil # We used to mistakenly believe this was a datum provided by HMCTS.
+        # It is not, but removing it would be a breaking change
         court_application_type.offence_active_order offence_active_order
         court_application_type.commr_of_oath_flag commr_of_oath_flag
         court_application_type.breach_type breach_type

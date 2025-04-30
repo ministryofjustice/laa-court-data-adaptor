@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 class HearingResultFetcher < ApplicationService
-  attr_reader :hearing_id, :sitting_day, :defendant_id
+  attr_reader :hearing_id, :defendant_id
 
-  def initialize(hearing_id, sitting_day, defendant_id)
+  def initialize(hearing_id, defendant_id)
     @hearing_id = hearing_id
-    @sitting_day = sitting_day
     @defendant_id = defendant_id
   end
 
   def call
     response = CommonPlatform::Api::HearingFetcher.call(
       hearing_id:,
-      sitting_day:,
     )
 
     if response.success?
