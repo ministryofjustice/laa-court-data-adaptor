@@ -37,8 +37,8 @@ class ProsecutionCase < LegalCase
     body["prosecutionCaseReference"]
   end
 
-  def load_hearing_results(defendant_id, skip_events: false)
-    hearing_results(defendant_id, skip_events:)
+  def load_hearing_results(defendant_id, load_events: true)
+    hearing_results(defendant_id, load_events:)
   end
 
 private
@@ -62,13 +62,13 @@ private
       .group_by { |defendant| defendant["id"] }
   end
 
-  def hearing_results(defendant_id = nil, skip_events: false)
+  def hearing_results(defendant_id = nil, load_events: true)
     @hearing_results ||= hearing_summaries_for(defendant_id).flat_map { |hearing_summary|
       HearingResult.new(
         CommonPlatform::Api::GetHearingResults.call(
           hearing_id: hearing_summary.id,
         ),
-        skip_events:,
+        load_events:,
       )
     }.reject(&:blank?)
   end

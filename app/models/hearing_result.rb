@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 class HearingResult
-  attr_reader :data, :skip_events
+  attr_reader :data, :load_events
 
   delegate :blank?, to: :data
 
-  def initialize(data, skip_events: false)
+  def initialize(data, load_events: true)
     @data = HashWithIndifferentAccess.new(data || {})
-    @skip_events = skip_events
+    @load_events = load_events
   end
 
   def hearing
-    Hearing.new(data[:hearing], skip_events:)
+    Hearing.new(data[:hearing], load_events:)
   end
 
   def shared_time
