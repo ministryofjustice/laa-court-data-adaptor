@@ -67,15 +67,13 @@ private
 
   def fetch_past_hearings
     court_application_summary.hearing_summary.each do |hearing_summary|
-      hearing_summary.hearing_days.each do |hearing_day|
-        HearingResultFetcherWorker.perform_at(
-          30.seconds.from_now,
-          Current.request_id,
-          hearing_summary.id,
-          hearing_day.sitting_day,
-          laa_reference.defendant_id,
-        )
-      end
+      HearingResultFetcherWorker.perform_at(
+        30.seconds.from_now,
+        Current.request_id,
+        hearing_summary.id,
+        nil,
+        laa_reference.defendant_id,
+      )
     end
   end
 

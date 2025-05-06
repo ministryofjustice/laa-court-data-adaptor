@@ -31,7 +31,7 @@ RSpec.describe MaatLinkCreator do
     allow(CommonPlatform::Api::RecordLaaReference).to receive(:call)
   end
 
-  it "enqueues a HearingResultFetcherWorker per hearing day" do
+  it "enqueues a HearingResultFetcherWorker per hearing" do
     allow(CommonPlatform::Api::RecordLaaReference)
       .to receive(:call)
       .and_return(response)
@@ -41,7 +41,7 @@ RSpec.describe MaatLinkCreator do
         Current.set(request_id: "XYZ") do
           expect(HearingResultFetcherWorker)
             .to receive(:perform_at)
-            .exactly(3).times
+            .exactly(4).times
 
           create_maat_link
         end
