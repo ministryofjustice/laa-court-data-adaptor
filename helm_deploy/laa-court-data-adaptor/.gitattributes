@@ -22,3 +22,4 @@
 .helmignore !filter !diff
 Chart.yaml !filter !diff
 templates/** !filter !diff
+public-values/** !filter !diff

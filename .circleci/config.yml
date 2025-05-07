@@ -121,7 +121,7 @@ jobs:
           update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
-          values: ./helm_deploy/laa-court-data-adaptor/live/dev/values-dev.yaml
+          values: ./helm_deploy/laa-court-data-adaptor/public-values/dev.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
   install_on_test_live:
@@ -146,7 +146,7 @@ jobs:
           update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
-          values: ./helm_deploy/laa-court-data-adaptor/live/test/values-test.yaml
+          values: ./helm_deploy/laa-court-data-adaptor/public-values/test.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
   install_on_stage_live:
@@ -171,7 +171,7 @@ jobs:
           update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
-          values: ./helm_deploy/laa-court-data-adaptor/live/stage/values-stage.yaml
+          values: ./helm_deploy/laa-court-data-adaptor/public-values/stage.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
   install_on_uat_live:
@@ -196,7 +196,7 @@ jobs:
           update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
-          values: ./helm_deploy/laa-court-data-adaptor/live/uat/values-uat.yaml
+          values: ./helm_deploy/laa-court-data-adaptor/public-values/uat.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
   install_on_prod_live:
