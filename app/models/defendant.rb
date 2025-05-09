@@ -98,11 +98,7 @@ private
   end
 
   def _maat_reference
-    refs = offences.map(&:maat_reference).uniq.compact
-
-    raise(Errors::DefendantError, "Too many maat references: #{refs}") if refs.size > 1
-
-    refs&.first
+    LaaReference.find_by(defendant_id: id, linked: true)&.maat_reference
   end
 
   def case_reference
