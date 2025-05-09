@@ -69,7 +69,7 @@
     },
     "subject": {
       "description": "The party that is the subject of teh application.  The subject is also a respondent or an applicant and is the subject of any orders and directions that are made during court proceedings",
-      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtApplicationParty.json"
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtApplicationSubject.json"
     },
     "applicationParticulars": {
       "description": "The particulars of the application when not covered by the associated document",

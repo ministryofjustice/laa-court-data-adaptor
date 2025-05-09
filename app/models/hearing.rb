@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Hearing
-  attr_reader :data
+  attr_reader :data, :load_events
 
   delegate :blank?, to: :data
 
-  def initialize(data)
+  def initialize(data, load_events: true)
     @data = HashWithIndifferentAccess.new(data || {})
+    @load_events = load_events
   end
 
   def id
@@ -116,6 +117,8 @@ private
   end
 
   def hearing_event_recordings
+    return [] unless load_events
+
     @hearing_event_recordings ||= Array(data["hearingDays"]).flat_map { |hearing_day|
       CommonPlatform::Api::GetHearingEvents.call(hearing_id: id, hearing_date: hearing_day["sittingDay"].to_date)
     }.compact

@@ -11,7 +11,7 @@ RSpec.describe CommonPlatform::Api::GetHearingResults do
 
     allow(CommonPlatform::Api::HearingFetcher)
       .to receive(:call)
-      .with(hearing_id:, sitting_day: nil)
+      .with(hearing_id:)
       .and_return(response)
   end
 
@@ -19,7 +19,7 @@ RSpec.describe CommonPlatform::Api::GetHearingResults do
     it "calls HearingFetcher with hearing ID" do
       expect(CommonPlatform::Api::HearingFetcher)
         .to receive(:call)
-        .with(hearing_id:, sitting_day: nil)
+        .with(hearing_id:)
 
       get_hearing_results
     end
@@ -37,20 +37,19 @@ RSpec.describe CommonPlatform::Api::GetHearingResults do
     end
   end
 
-  context "when getting results by hearing id and hearing date" do
-    subject(:get_hearing_results) { described_class.call(hearing_id:, sitting_day:) }
+  context "when getting results by hearing id" do
+    subject(:get_hearing_results) { described_class.call(hearing_id:) }
 
     let(:hearing_id) { "ceb158e3-7171-40ce-915b-441e2c4e3f75" }
-    let(:sitting_day) { "2021-05-20" }
 
     before do
-      allow(CommonPlatform::Api::HearingFetcher).to receive(:call).with(hearing_id:, sitting_day:).and_return(response)
+      allow(CommonPlatform::Api::HearingFetcher).to receive(:call).with(hearing_id:).and_return(response)
     end
 
-    it "calls HearingFetcher with hearing ID and sitting day" do
+    it "calls HearingFetcher with hearing ID" do
       expect(CommonPlatform::Api::HearingFetcher)
         .to receive(:call)
-        .with(hearing_id:, sitting_day:)
+        .with(hearing_id:)
 
       get_hearing_results
     end

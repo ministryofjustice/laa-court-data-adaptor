@@ -7,7 +7,6 @@ module Api
         def show
           hearing_result_data = CommonPlatform::Api::GetHearingResults.call(
             hearing_id: permitted_params[:id],
-            sitting_day: permitted_params[:sitting_day],
           )
 
           hearing_result = HearingResult.new(hearing_result_data)
@@ -33,7 +32,6 @@ module Api
         def permitted_params
           params.permit(
             :id,
-            :sitting_day,
             :include,
           )
         end

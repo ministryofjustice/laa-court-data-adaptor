@@ -104,7 +104,7 @@ RSpec.describe "api/internal/v1/hearings", swagger_doc: "v1/swagger.yaml", type:
                   description: "The sitting day of the hearing"
 
         around do |example|
-          VCR.use_cassette("hearing_result_fetcher/success_specified_sitting_day") do
+          VCR.use_cassette("hearing_result_fetcher/success") do
             VCR.use_cassette("hearing_logs_fetcher/success") do
               example.run
             end

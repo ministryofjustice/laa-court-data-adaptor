@@ -82,7 +82,7 @@ RSpec.describe "api/internal/v2/hearing_results", swagger_doc: "v2/swagger.yaml"
                   description: "The sitting day of the hearing"
 
         before do
-          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{hearing_id}&sittingDay=#{sitting_day}")
+          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{hearing_id}")
             .to_return(
               status: 200,
               headers: { content_type: "application/json" },
