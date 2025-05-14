@@ -39,6 +39,10 @@ RSpec.describe Api::Internal::V1::OffenceSerializer do
         expect(attributes[:pleas]).to eq([{ pleaded_at: "2020-04-12", code: "NOT_GUILTY", originating_hearing_id: "dda833bb-4956-4c9a-a553-59c6af5c15a6" }])
       end
 
+      it "start_date" do
+        expect(attributes[:start_date]).to eq("2021-03-06")
+      end
+
       it "verdict" do
         expected = {
           verdict_date: "2020-04-12",

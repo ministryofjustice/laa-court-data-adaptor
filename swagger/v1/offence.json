@@ -233,6 +233,10 @@
           "$ref": "judicial_result.json#/definitions/included_type"
         }
       }
+    },
+    "start_date": {
+      "example": "2023-01-27",
+      "type": "string"
     }
   },
   "resource_collection": {
@@ -291,6 +295,9 @@
     },
     "verdict": {
       "$ref": "#/definitions/verdict"
+    },
+    "start_date": {
+      "$ref": "#/definitions/start_date"
     }
   }
 }

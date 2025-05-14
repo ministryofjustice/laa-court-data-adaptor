@@ -13,7 +13,8 @@ module Api
                    :legislation,
                    :mode_of_trial,
                    :mode_of_trial_reasons,
-                   :pleas
+                   :pleas,
+                   :start_date
 
         attribute :verdict do |offence|
           {
