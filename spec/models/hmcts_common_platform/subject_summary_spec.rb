@@ -27,4 +27,12 @@ RSpec.describe HmctsCommonPlatform::SubjectSummary, type: :model do
   it { expect(subject_summary.organisation_name).to eql("Franecki, Welch and Beier-newwwwwwwwwqqqq111222233344") }
   it { expect(subject_summary.representation_order).to be_a(HmctsCommonPlatform::RepresentationOrder) }
   it { expect(subject_summary.offence_summary.first).to be_a(HmctsCommonPlatform::OffenceSummary) }
+
+  context "when there is no offence summary data" do
+    before { data.delete("offenceSummary") }
+
+    it "returns an empty array" do
+      expect(subject_summary.to_json["offence_summary"]).to eq []
+    end
+  end
 end
