@@ -84,7 +84,7 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
       )
     end
 
-    it "includes only summaries where masterDefendantId matches defendantId" do
+    it "includes only the summaries that match the defendant masterDefendantId" do
       summaries = defendant_summary.application_summaries
 
       expect(summaries).not_to be_empty
