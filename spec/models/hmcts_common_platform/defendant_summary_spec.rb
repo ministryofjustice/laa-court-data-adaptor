@@ -79,7 +79,7 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
 
     let(:defendant_summary) do
       described_class.new(
-        { defendantId: "DEF123" },
+        { masterDefendantId: "DEF123" },
         [matching_court_application, not_matching_court_application],
       )
     end
