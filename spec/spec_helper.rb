@@ -31,6 +31,9 @@ unless ENV["NOCOVERAGE"]
     add_group "Serializers", "app/serializers"
     add_group "Services", "app/services"
     add_group "Contracts", "app/contracts"
+
+    # We only have partial coverage of old rake tasks
+    add_filter "lib/tasks/"
   end
 end
 
