@@ -8,6 +8,10 @@
       "description": "The identifier of the defendant",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid"
     },
+    "masterDefendantId": {
+      "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/uuid",
+      "description": "Technical identifier that uniquely identifies the defendant on CPP i.e. across prosecution cases.  Case defendants that are the same person will be matched and provided the same defendantMasterId"
+    },
     "defendantNINO": {
       "description": "The person nino when the defendant is a person",
       "$ref": "http://justice.gov.uk/core/courts/external/apiCourtsDefinitions.json#/definitions/nino"
@@ -64,7 +68,7 @@
       "items": {
         "$ref": "http://justice.gov.uk/core/courts/search/external/apiApplicationSummary.json"
       }
-    }    
+    }
   },
   "oneOf": [
     {

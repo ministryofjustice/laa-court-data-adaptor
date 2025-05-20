@@ -59,41 +59,43 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
   end
 
   describe "#match_application_summaries" do
-    let(:matching_court_application) do
-      {
-        "applicationId" => "f38d0030-0b4a-4fa5-9484-bb37b1e6ab39",
-        "subjectSummary" => {
-          "masterDefendantId" => "DEF123",
-        },
-      }
-    end
+    context "when there are matching and non-matching court applications" do
+      let(:matching_court_application) do
+        {
+          "applicationId" => "f38d0030-0b4a-4fa5-9484-bb37b1e6ab39",
+          "subjectSummary" => {
+            "masterDefendantId" => "DEF123",
+          },
+        }
+      end
 
-    let(:not_matching_court_application) do
-      {
-        "applicationId" => "f38d0030-0b4a-4fa5-9484-bb37b1e6ac56",
-        "subjectSummary" => {
-          "masterDefendantId" => "DEF145",
-        },
-      }
-    end
+      let(:not_matching_court_application) do
+        {
+          "applicationId" => "f38d0030-0b4a-4fa5-9484-bb37b1e6ac56",
+          "subjectSummary" => {
+            "masterDefendantId" => "DEF145",
+          },
+        }
+      end
 
-    let(:defendant_summary) do
-      described_class.new(
-        { defendantId: "DEF123" },
-        [matching_court_application, not_matching_court_application],
-      )
-    end
+      let(:defendant_summary) do
+        described_class.new(
+          { masterDefendantId: "DEF123" },
+          [matching_court_application, not_matching_court_application],
+        )
+      end
 
-    it "includes only summaries where masterDefendantId matches defendantId" do
-      summaries = defendant_summary.application_summaries
+      it "includes only the summaries that match the defendant masterDefendantId" do
+        summaries = defendant_summary.application_summaries
 
-      expect(summaries).not_to be_empty
-      expect(summaries).to all(be_a(HmctsCommonPlatform::ApplicationSummary))
+        expect(summaries).not_to be_empty
+        expect(summaries).to all(be_a(HmctsCommonPlatform::ApplicationSummary))
 
-      application_ids = summaries.map { |summary| summary.data["applicationId"] }
+        application_ids = summaries.map { |summary| summary.data["applicationId"] }
 
-      expect(application_ids).to contain_exactly("f38d0030-0b4a-4fa5-9484-bb37b1e6ab39")
-      expect(application_ids).not_to include("f38d0030-0b4a-4fa5-9484-bb37b1e6ac56")
+        expect(application_ids).to contain_exactly("f38d0030-0b4a-4fa5-9484-bb37b1e6ab39")
+        expect(application_ids).not_to include("f38d0030-0b4a-4fa5-9484-bb37b1e6ac56")
+      end
     end
   end
 end

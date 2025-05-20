@@ -70,7 +70,7 @@ module HmctsCommonPlatform
 
       court_application_summaries.select do |summary|
         master_defendant_id = summary.dig("subjectSummary", "masterDefendantId").to_s.strip
-        master_defendant_id == data[:defendantId].to_s.strip
+        master_defendant_id == data[:masterDefendantId].to_s.strip
       end
     end
 
