@@ -116,7 +116,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.before(:each, type: ->(spec_type) { %i[model request].include? spec_type }) do
-    stub_request(:any, /justice.gov.uk/).to_rack(CommonPlatformSchemas)
+    stub_request(:any, /justice\.gov\.uk/).to_rack(CommonPlatformSchemas)
   end
 
   config.before(:all) do
