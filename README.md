@@ -268,3 +268,4 @@ Bug reports and pull requests are welcome.
 4. Push the branch (`git push origin my-new-feature`)
 5. Make sure your changes are covered by tests, so that we don't break it unintentionally in the future.
 6. Create a new pull request.
+
