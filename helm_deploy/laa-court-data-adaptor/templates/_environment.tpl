@@ -30,6 +30,16 @@ env:
       secretKeyRef:
         name: aws-secrets
         key: common_platform_secret_key
+  - name: SSL_CLIENT_CERT
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: hmcts_cert
+  - name: SSL_CLIENT_KEY
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: hmcts_key
   - name: SIDEKIQ_UI_USERNAME
     valueFrom:
       secretKeyRef:
@@ -40,14 +50,6 @@ env:
       secretKeyRef:
         name: aws-secrets
         key: sidekiq_ui_password
-  {{- if .Values.mtls_enabled }}
-  - name: SSL_CLIENT_CERT
-    value: |
-      {{ .Files.Get .Values.ssl_cert_file | nindent 6 }}
-  - name: SSL_CLIENT_KEY
-    value: |
-      {{ .Files.Get .Values.ssl_key_file | nindent 6 }}
-  {{- end }}
   {{- if .Values.sqs_messaging_enabled }}
   - name: AWS_LINK_QUEUE_URL
     valueFrom:

@@ -18,13 +18,8 @@ fullnameOverride: ""
 
 common_platform_url: https://apigw.dev.cjscp.org.uk/LAA/v1
 
-# apigw.dev.cjscp.org.uk uses the same SSL Cert as Common Platform SIT environment (System Integration Testing)
-ssl_cert_file: live/uat/uat_client.crt
-ssl_key_file: live/uat/uat_client.key
-
 sqs_region: eu-west-2
 sqs_messaging_enabled: true
-mtls_enabled: true
 maat_api:
   validation_enabled: true
   oauth_url: https://maat-cd-api-stg.auth.eu-west-2.amazoncognito.com
@@ -74,6 +69,8 @@ ingress:
   externalAnnotations:
     external-dns.alpha.kubernetes.io/set-identifier: laa-court-data-adaptor-external-laa-court-data-adaptor-stage-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'optional_no_ca'
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: '1'
   hosts:
     - host: laa-court-data-adaptor-stage.apps.live-1.cloud-platform.service.justice.gov.uk
       paths: ["/"]
@@ -91,14 +88,6 @@ ingress:
     - secretName: laa-court-data-adaptor-stage-cert
       hosts:
         - stage.court-data-adaptor.service.justice.gov.uk
-
-caSecret:
-  # Specifies whether a CA secret should be created
-  create: false
-  # The path to the file to use as the CA certificate.
-  ca_crt_file: live/stage/ca.crt
-  # The name to be set for the ca secret
-  name: "ca-secret"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
