@@ -42,8 +42,12 @@ module LaaCourtDataAdaptor
     config.api_only = true
 
     config.x.common_platform_url = ENV.fetch("COMMON_PLATFORM_URL")
-    config.x.client_cert = ENV["SSL_CLIENT_CERT"]
-    config.x.client_key = ENV["SSL_CLIENT_KEY"]
+
+    # The AWS secret squishes out line breaks from SSL certs, and our SSL lib expects at least
+    # the BEGIN and END bits to be linebreaked, so we put them back in
+    config.x.client_cert = ENV["SSL_CLIENT_CERT"].gsub("----- ", "-----\n").gsub(" -----", "\n-----")
+    config.x.client_key = ENV["SSL_CLIENT_KEY"].gsub("----- ", "-----\n").gsub(" -----", "\n-----")
+
     config.x.aws.sqs_url_link = ENV["AWS_LINK_QUEUE_URL"]
     config.x.aws.sqs_url_unlink = ENV["AWS_UNLINK_QUEUE_URL"]
     config.x.aws.sqs_url_hearing_resulted = ENV["AWS_HEARING_RESULTED_QUEUE_URL"]
