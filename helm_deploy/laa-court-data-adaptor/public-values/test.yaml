@@ -67,6 +67,8 @@ ingress:
   externalAnnotations:
     external-dns.alpha.kubernetes.io/set-identifier: laa-court-data-adaptor-external-laa-court-data-adaptor-test-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'optional_no_ca'
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: '1'
   hosts:
     - host: laa-court-data-adaptor-test.apps.live-1.cloud-platform.service.justice.gov.uk
       paths: ["/"]
