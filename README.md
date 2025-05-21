@@ -244,7 +244,13 @@ Further details can be found on [this](https://dsdmoj.atlassian.net/wiki/spaces/
 
 ## Pre-commit Hooks
 
-Rubocop can be set up to run pre-commits.
+We have gitleaks set up on this repo. To make it harder to accidentally leak a secret, have it run as a pre-commit hook:
+```
+pip install pre-commit
+pre-commit install
+```
+
+Rubocop can also be set up to run pre-commits.
 
 Please see this [PR](https://github.com/ministryofjustice/laa-court-data-adaptor/pull/12)
 
