@@ -516,7 +516,7 @@ DEPENDENCIES
   bundler
   doorkeeper (~> 5.8)
   dotenv-rails
-  dry-validation
+  dry-validation (~> 1.11)
   faraday (~> 2.13)
   faraday-net_http_persistent (~> 2)
   faraday-retry (~> 2.3)
