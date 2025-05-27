@@ -83,11 +83,9 @@ jobs:
           command: bundle exec rubocop
 
   build-and-push-app:
-    machine:
-      image: default
+    executor: aws-ecr/default
     steps:
       - checkout
-
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME
           region: $ECR_REGION
@@ -98,7 +96,7 @@ jobs:
           command: |
             echo "export APP_BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z)"  >> "$BASH_ENV"
             source "$BASH_ENV"
-      - aws-ecr/build-image:
+      - aws-ecr/build_image:
           push-image: true
           tag: ${CIRCLE_SHA1}
           region: $ECR_REGION
