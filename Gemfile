@@ -18,7 +18,7 @@ gem "bootsnap", ">= 1.4.2", require: false
 
 gem "aws-sdk-sqs"
 gem "doorkeeper", "~> 5.8"
-gem "dry-validation"
+gem "dry-validation", "~> 1.11"
 gem "faraday", "~> 2.13"
 gem "faraday-net_http_persistent", "~> 2"
 gem "faraday-retry", "~> 2.3"
