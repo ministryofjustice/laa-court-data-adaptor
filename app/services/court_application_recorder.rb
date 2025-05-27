@@ -9,8 +9,15 @@ class CourtApplicationRecorder < ApplicationService
   def call
     court_application.update!(body: model.data)
 
+    local_records = court_application.court_application_defendant_offences
+                                     .where(application_type: model.application_type,
+                                            defendant_id: model.subject_summary.subject_id)
+                                     .to_a
+
     model.subject_summary.offence_summary.each do |offence|
-      CourtApplicationDefendantOffence.find_or_create_by!(
+      next if local_records.any? { |record| record.offence_id == offence.offence_id }
+
+      CourtApplicationDefendantOffence.create!(
         court_application_id: court_application.id,
         defendant_id: model.subject_summary.subject_id,
         offence_id: offence.offence_id,
