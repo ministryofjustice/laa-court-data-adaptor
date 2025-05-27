@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@4.0.0
-  aws-ecr: circleci/aws-ecr@8.2.1
+  aws-ecr: circleci/aws-ecr@9.0.2
   aws-eks: circleci/aws-eks@0.2.1
   kubernetes: circleci/kubernetes@0.7.0
   helm: circleci/helm@1.1.2
@@ -103,6 +103,7 @@ jobs:
           tag: ${CIRCLE_SHA1}
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
+          account_id: "754256621582"
           extra_build_args: >-
             --build-arg BUILD_DATE=${APP_BUILD_DATE}
             --build-arg BUILD_TAG=${CIRCLE_SHA1}
