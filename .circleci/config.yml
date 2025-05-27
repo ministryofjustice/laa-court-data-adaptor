@@ -97,7 +97,7 @@ jobs:
             echo "export APP_BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z)"  >> "$BASH_ENV"
             source "$BASH_ENV"
       - aws-ecr/build_image:
-          push-image: true
+          push_image: true
           tag: ${CIRCLE_SHA1}
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
