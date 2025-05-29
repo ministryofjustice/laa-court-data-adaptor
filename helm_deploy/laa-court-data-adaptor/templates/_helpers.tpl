@@ -61,3 +61,22 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Function to return a list of whitelisted IPs allowed to access the service.
+These include Pingdom IPs to allow uptime monitoring,
+Cloud Platform IPs to allow access to services running in Cloud Platform,
+VPN IPs to allow access to developers, and possibly HMCTS IPs too
+*/}}
+{{- define "laa-court-data-adaptor.whitelist" -}}
+{{- if .Values.ips.restrict }}
+  {{- .Values.pingdomIps }},{{- .Values.vpnIps }},{{- .Values.ips.hmcts }},{{ include "laa-court-data-adaptor.cloudPlatformIps" . }}
+{{- end -}}
+{{- end }}
+
+{{/*
+Function to return a list of Cloud Platform IPs
+*/}}
+{{- define "laa-court-data-adaptor.cloudPlatformIps" -}}
+35.178.209.113,3.8.51.207,35.177.252.54
+{{- end -}}

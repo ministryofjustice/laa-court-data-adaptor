@@ -111,3 +111,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+ips:
+  restrict: false
+  hmcts: "192.0.2.0/24" # A safe dummy value
