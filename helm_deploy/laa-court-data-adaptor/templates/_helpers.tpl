@@ -80,3 +80,14 @@ Function to return a list of Cloud Platform IPs
 {{- define "laa-court-data-adaptor.cloudPlatformIps" -}}
 35.178.209.113,3.8.51.207,35.177.252.54
 {{- end -}}
+
+
+{{/*
+Function to return a list of whitelisted IPs allowed to access the service
+via the external ingress
+*/}}
+{{- define "laa-court-data-adaptor.externalWhitelist" -}}
+{{- if .Values.ips.restrict }}
+  {{- .Values.ips.hmcts }}
+{{- end -}}
+{{- end }}

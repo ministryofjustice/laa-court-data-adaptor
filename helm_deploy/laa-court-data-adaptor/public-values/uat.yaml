@@ -116,5 +116,4 @@ affinity: {}
 
 
 ips:
-  restrict: true
-  hmcts: "192.0.2.0/24" # A safe dummy value
+  restrict: false
