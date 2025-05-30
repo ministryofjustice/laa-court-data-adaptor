@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://maat-cd-api-dev.auth.eu-west-2.amazoncognito.com/oauth2/token
+    uri: https://maat-api-dev.auth.eu-west-2.amazoncognito.com/oauth2/token
     body:
       encoding: UTF-8
       string: grant_type=client_credentials
@@ -55,7 +55,7 @@ http_interactions:
   recorded_at: Mon, 28 Sep 2020 16:46:23 GMT
 - request:
     method: post
-    uri: https://maat-cd-api.dev.legalservices.gov.uk/link/validate
+    uri: https://laa-maat-data-api-dev.apps.live.cloud-platform.service.justice.gov.uk/link/validate
     body:
       encoding: UTF-8
       string: '{"maatId":5635423,"caseUrn":"XYZ"}'
