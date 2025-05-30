@@ -113,3 +113,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+
+ips:
+  restrict: false
