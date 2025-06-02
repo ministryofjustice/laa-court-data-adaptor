@@ -9,6 +9,9 @@ class CourtApplicationRecorder < ApplicationService
   def call
     court_application.update!(body: model.data)
 
+    # Pull all existing records out of the DB in a single query here and
+    # retain them in memory as an array. That way, in the most common case,
+    # where the records already exist, no further DB interactions are needed.
     local_records = court_application.court_application_defendant_offences
                                      .where(application_type: model.application_type,
                                             defendant_id: model.subject_summary.subject_id)

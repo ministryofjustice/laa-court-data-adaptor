@@ -9,6 +9,10 @@ class ProsecutionCaseRecorder < ApplicationService
   def call
     prosecution_case.update!(body:)
 
+    # Pull all existing records out of the DB in a single query here and
+    # retain them in memory as an array. That way, in the most common case,
+    # where the records already exist, no further DB interactions are needed,
+    # so we avoid an N+1 query issue.
     local_records = prosecution_case.prosecution_case_defendant_offences.to_a
 
     prosecution_case.defendants.each do |defendant|
