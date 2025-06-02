@@ -4,7 +4,7 @@ require "sidekiq/testing"
 
 RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
   subject(:work) do
-    described_class.perform_async(request_id, defendant_id, user_name, unlink_reason_code, unlink_other_reason_text)
+    described_class.perform_async(request_id, defendant_id, user_name, unlink_reason_code, unlink_other_reason_text, maat_reference)
   end
 
   let(:defendant_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
@@ -13,6 +13,7 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
   let(:unlink_other_reason_text) { "Wrong defendant" }
   let(:request_id) { "XYZ" }
   let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
+  let(:maat_reference) { "6666666" }
   let(:set_up_linked_prosecution_case) do
     LaaReference.create!(defendant_id:, user_name: "cpUser", maat_reference: 101_010)
     ProsecutionCase.create!(
@@ -39,6 +40,7 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
         user_name:,
         unlink_reason_code:,
         unlink_other_reason_text:,
+        maat_reference:,
       ).and_call_original
       work
     end

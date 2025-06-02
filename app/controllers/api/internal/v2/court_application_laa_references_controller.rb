@@ -45,6 +45,7 @@ module Api
             transformed_params[:user_name],
             transformed_params[:unlink_reason_code],
             transformed_params[:unlink_other_reason_text],
+            transformed_params[:maat_reference],
           )
         end
 

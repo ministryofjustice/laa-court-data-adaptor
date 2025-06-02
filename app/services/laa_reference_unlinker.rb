@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class LaaReferenceUnlinker < ApplicationService
-  def initialize(defendant_id:, user_name:, unlink_reason_code:, unlink_other_reason_text:)
+  def initialize(defendant_id:, user_name:, unlink_reason_code:, unlink_other_reason_text:, maat_reference: nil)
     @defendant_id = defendant_id
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
 
-    @laa_reference = LaaReference.find_by(defendant_id:, linked: true)
+    @laa_reference = LaaReference.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference)
   end
 
   def call

@@ -34,4 +34,11 @@ class LaaReference < ApplicationRecord
   def self.generate_unlinking_dummy_maat_reference
     "Z#{ActiveRecord::Base.connection.execute("SELECT nextval('dummy_maat_reference_seq')")[0]['nextval']}"
   end
+
+  def self.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference)
+    collection = where(defendant_id:, linked: true)
+    return collection.first if maat_reference.blank?
+
+    collection.find_by(maat_reference:)
+  end
 end

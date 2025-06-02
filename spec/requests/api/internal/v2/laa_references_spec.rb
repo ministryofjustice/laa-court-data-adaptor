@@ -162,7 +162,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           let(:Authorization) { "Bearer #{token.token}" }
 
           before do
-            expect(UnlinkLaaReferenceWorker).to receive(:perform_async).with("XYZ", defendant_id, "JaneDoe", 1, "")
+            expect(UnlinkLaaReferenceWorker).to receive(:perform_async).with("XYZ", defendant_id, "JaneDoe", 1, "", 1_231_231)
           end
 
           run_test!
