@@ -7,7 +7,7 @@ class LaaReferenceUnlinker < ApplicationService
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
 
-    @laa_reference = retrieve_laa_reference(maat_reference)
+    @laa_reference = LaaReference.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference)
   end
 
   def call
@@ -59,13 +59,6 @@ private
 
   def dummy_maat_reference
     @dummy_maat_reference ||= LaaReference.generate_unlinking_dummy_maat_reference
-  end
-
-  def retrieve_laa_reference(maat_reference)
-    collection = LaaReference.where(defendant_id:, linked: true)
-    return collection.first if maat_reference.blank?
-
-    collection.find_by(maat_reference:)
   end
 
   attr_reader :defendant_id, :laa_reference, :user_name, :unlink_reason_code, :unlink_other_reason_text
