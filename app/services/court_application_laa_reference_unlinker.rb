@@ -1,11 +1,11 @@
 class CourtApplicationLaaReferenceUnlinker < ApplicationService
-  def initialize(subject_id:, user_name:, unlink_reason_code:, unlink_other_reason_text:)
+  def initialize(subject_id:, user_name:, unlink_reason_code:, unlink_other_reason_text:, maat_reference: nil)
     @subject_id = subject_id
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
 
-    @laa_reference = LaaReference.find_by(defendant_id: subject_id, linked: true)
+    @laa_reference = retrieve_laa_reference(maat_reference)
   end
 
   def call
@@ -61,6 +61,13 @@ private
 
   def dummy_maat_reference
     @dummy_maat_reference ||= LaaReference.generate_unlinking_dummy_maat_reference
+  end
+
+  def retrieve_laa_reference(maat_reference)
+    collection = LaaReference.where(defendant_id: subject_id, linked: true)
+    return collection.first if maat_reference.blank?
+
+    collection.find_by(maat_reference:)
   end
 
   attr_reader :subject_id, :laa_reference, :user_name, :unlink_reason_code, :unlink_other_reason_text
