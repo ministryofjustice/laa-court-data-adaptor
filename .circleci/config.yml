@@ -200,13 +200,10 @@ jobs:
             kubectl config use-context ${CLUSTER_NAME_LIVE}
             kubectl config current-context
             kubectl --namespace=laa-court-data-adaptor-uat get pods
-      - helm/upgrade-helm-chart:
-          namespace: laa-court-data-adaptor-uat
-          update-repositories: false
-          chart: ./helm_deploy/laa-court-data-adaptor
-          release-name: laa-court-data-adaptor
-          values: ./helm_deploy/laa-court-data-adaptor/public-values/uat.yaml
-          values-to-override: image.tag=$CIRCLE_SHA1
+      - run:
+          name: Deploy to UAT
+          command: |
+            .circleci/deploy.sh laa-court-data-adaptor-uat ./helm_deploy/laa-court-data-adaptor/public-values/uat.yaml $CIRCLE_SHA1
 
   install_on_prod_live:
     executor: aws-eks/python
@@ -225,13 +222,10 @@ jobs:
             kubectl config use-context ${CLUSTER_NAME_LIVE}
             kubectl config current-context
             kubectl --namespace=laa-court-data-adaptor-prod get pods
-      - helm/upgrade-helm-chart:
-          namespace: laa-court-data-adaptor-prod
-          update-repositories: false
-          chart: ./helm_deploy/laa-court-data-adaptor
-          release-name: laa-court-data-adaptor
-          values: ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml
-          values-to-override: image.tag=$CIRCLE_SHA1
+      - run:
+          name: Deploy to Production
+          command: |
+            .circleci/deploy.sh laa-court-data-adaptor-prod ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml $CIRCLE_SHA1
 
 workflows:
   version: 2

@@ -7,8 +7,9 @@ metadata:
   name: {{ $fullName }}-external
   labels:
     {{- include "laa-court-data-adaptor.labels" . | nindent 4 }}
-  {{- with .Values.ingress.externalAnnotations }}
   annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: "{{ include "laa-court-data-adaptor.externalWhitelist" $ }}"
+  {{- with .Values.ingress.externalAnnotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:

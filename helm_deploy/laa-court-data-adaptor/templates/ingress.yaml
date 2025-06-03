@@ -9,6 +9,7 @@ metadata:
     {{- include "laa-court-data-adaptor.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: "{{ include "laa-court-data-adaptor.whitelist" $ }}"
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
