@@ -3,7 +3,8 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
     described_class.call(subject_id:,
                          user_name:,
                          unlink_reason_code:,
-                         unlink_other_reason_text:)
+                         unlink_other_reason_text:,
+                         maat_reference:)
   end
 
   let(:subject_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }
@@ -11,10 +12,11 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
   let(:user_name) { "johnDoe" }
   let(:unlink_reason_code) { 1 }
   let(:unlink_other_reason_text) { "Wrong defendant" }
+  let(:maat_reference) { "101010" }
   let!(:linked_laa_reference) do
     LaaReference.create(defendant_id: subject_id,
                         user_name: "cpUser",
-                        maat_reference: 101_010,
+                        maat_reference:,
                         linked: true)
   end
 
@@ -50,6 +52,21 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
 
     it "logs a 'already unlinked' warning message" do
       expect(call_unlinker).to be_nil
+    end
+  end
+
+  context "when there are multiple references" do
+    let!(:other_laa_reference) do
+      LaaReference.create(defendant_id: subject_id,
+                          user_name: "cpUser",
+                          maat_reference: "something_else",
+                          linked: true)
+    end
+
+    it "unlinks the correct reference" do
+      call_unlinker
+      expect(other_laa_reference.reload).to be_linked
+      expect(linked_laa_reference.reload).not_to be_linked
     end
   end
 
@@ -116,9 +133,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
   end
 
   context "when the maat_reference is a dummy" do
-    before do
-      linked_laa_reference.update!(maat_reference: "Z10000000")
-    end
+    let(:maat_reference) { "Z10000000" }
 
     it "does not call the Sqs::MessagePublisher service" do
       expect(Sqs::MessagePublisher).not_to receive(:call)

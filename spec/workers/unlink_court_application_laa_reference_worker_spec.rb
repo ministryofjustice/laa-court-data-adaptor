@@ -2,7 +2,7 @@ require "sidekiq/testing"
 
 RSpec.describe UnlinkCourtApplicationLaaReferenceWorker, type: :worker do
   subject(:work) do
-    described_class.perform_async(request_id, subject_id, user_name, unlink_reason_code, unlink_other_reason_text)
+    described_class.perform_async(request_id, subject_id, user_name, unlink_reason_code, unlink_other_reason_text, maat_reference)
   end
 
   let(:request_id) { "XYZ" }
@@ -10,6 +10,7 @@ RSpec.describe UnlinkCourtApplicationLaaReferenceWorker, type: :worker do
   let(:user_name) { "bob-smith" }
   let(:unlink_reason_code) { 4 }
   let(:unlink_other_reason_text) { "foo" }
+  let(:maat_reference) { "55555555" }
 
   it "queues the job" do
     expect {
@@ -24,6 +25,7 @@ RSpec.describe UnlinkCourtApplicationLaaReferenceWorker, type: :worker do
         user_name:,
         unlink_reason_code:,
         unlink_other_reason_text:,
+        maat_reference:,
       )
       work
     end

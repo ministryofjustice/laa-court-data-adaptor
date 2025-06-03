@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe LaaReferenceUnlinker do
-  subject(:create_unlinker) do
+  subject(:call_unlinker) do
     described_class.call(defendant_id:,
                          user_name:,
                          unlink_reason_code:,
-                         unlink_other_reason_text:)
+                         unlink_other_reason_text:,
+                         maat_reference:)
   end
 
   let(:defendant_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }
@@ -16,9 +17,10 @@ RSpec.describe LaaReferenceUnlinker do
   let!(:linked_laa_reference) do
     LaaReference.create(defendant_id:,
                         user_name: "cpUser",
-                        maat_reference: 101_010,
+                        maat_reference:,
                         linked: true)
   end
+  let(:maat_reference) { 101_010 }
 
   before do
     ProsecutionCase.create!(
@@ -36,11 +38,11 @@ RSpec.describe LaaReferenceUnlinker do
 
   it "creates a dummy maat_reference starting with Z" do
     expect(CommonPlatform::Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: "Z10000000"))
-    create_unlinker
+    call_unlinker
   end
 
   it "unlinks currently linked LaaReference" do
-    create_unlinker
+    call_unlinker
     expect(linked_laa_reference.reload).not_to be_linked
   end
 
@@ -50,13 +52,28 @@ RSpec.describe LaaReferenceUnlinker do
     end
 
     it "logs a 'already unlinked' warning message" do
-      expect(create_unlinker).to be_nil
+      expect(call_unlinker).to be_nil
+    end
+  end
+
+  context "when there are multiple references" do
+    let!(:other_laa_reference) do
+      LaaReference.create(defendant_id:,
+                          user_name: "cpUser",
+                          maat_reference: "something_else",
+                          linked: true)
+    end
+
+    it "unlinks the correct reference" do
+      call_unlinker
+      expect(other_laa_reference.reload).to be_linked
+      expect(linked_laa_reference.reload).not_to be_linked
     end
   end
 
   context "when LaaReference is linked" do
     it "does not log a warning message" do
-      create_unlinker
+      call_unlinker
 
       expect(Rails.logger).not_to have_received(:warn)
     end
@@ -79,7 +96,7 @@ RSpec.describe LaaReferenceUnlinker do
         log_info: { maat_reference: "101010" },
       )
 
-    create_unlinker
+    call_unlinker
   end
 
   context "with multiple offences" do
@@ -106,28 +123,26 @@ RSpec.describe LaaReferenceUnlinker do
           log_info: { maat_reference: message[:maatId] },
         )
 
-      create_unlinker
+      call_unlinker
     end
 
     it "calls the CommonPlatform::Api::RecordLaaReference service multiple times" do
       expect(CommonPlatform::Api::RecordLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
-      create_unlinker
+      call_unlinker
     end
   end
 
   context "when the maat_reference is a dummy" do
-    before do
-      linked_laa_reference.update!(maat_reference: "Z10000000")
-    end
+    let(:maat_reference) { "Z10000000" }
 
     it "does not call the Sqs::MessagePublisher service" do
       expect(Sqs::MessagePublisher).not_to receive(:call)
-      create_unlinker
+      call_unlinker
     end
 
     it "calls the CommonPlatform::Api::RecordLaaReference service" do
       expect(CommonPlatform::Api::RecordLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
-      create_unlinker
+      call_unlinker
     end
   end
 end
