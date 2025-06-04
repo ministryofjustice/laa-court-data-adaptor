@@ -48,6 +48,10 @@ spec:
           {{ include "laa-court-data-adaptor.env-vars" . | nindent 10 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 30"] # Workaround for occasional lost requests - see https://github.com/puma/puma/blob/master/docs/kubernetes.md#graceful-shutdown-and-pod-termination
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
