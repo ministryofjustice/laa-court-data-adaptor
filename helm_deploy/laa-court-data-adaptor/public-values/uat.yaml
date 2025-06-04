@@ -126,4 +126,4 @@ affinity: {}
 
 ips:
   restrict: true
-  hmcts: "192.0.2.0/24"
+  hmcts: "85.210.83.182,51.145.115.21"
