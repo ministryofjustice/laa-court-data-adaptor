@@ -277,10 +277,6 @@ workflows:
           requires:
           - hold_install_on_prod
 
-  test-postman:
-    jobs:
-      - postman-test-dev:
-          name: dev postman tests
   
   test-branch:
     jobs:
