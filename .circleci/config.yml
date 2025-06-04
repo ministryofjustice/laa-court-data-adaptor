@@ -6,7 +6,6 @@ orbs:
   aws-eks: circleci/aws-eks@0.2.1
   kubernetes: circleci/kubernetes@0.7.0
   helm: circleci/helm@1.1.2
-  newman: postman/newman@0.0.2
 
 commands:
   checkout_and_decrypt:
@@ -285,6 +284,12 @@ workflows:
             branches:
               ignore:
                 - main
+
+  test-postman:
+    jobs:
+      - postman-test-dev:
+          name: dev postman tests
+
   build-deploy-branch-to-live-cluster:
     jobs:
       - build-and-push-app:
