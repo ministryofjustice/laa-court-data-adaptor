@@ -89,6 +89,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"if (pm.response.code !== 200) {",
+											"    console.log(\"Non-200 response code:\", pm.response.code);",
+											"    console.log(\"Response body:\", pm.response.text());",
+											"    console.log(\"start urn\");",
+											"    pm.environment.get(\"urn\");",
+											"    console.log(\"end urn\");",
+											"    pm.test(\"Response status is 200\", function () {",
+											"        pm.response.to.have.status(200);",
+											"    });",
+											"}",
+											"",
 											"var json_data = pm.response.json();",
 											"",
 											"pm.test(\"Status code is 200\", function () {",
