@@ -283,11 +283,6 @@ workflows:
               ignore:
                 - main
 
-  test-postman:
-    jobs:
-      - postman-test-dev:
-          name: postman-test-dev
-          
   build-deploy-branch-to-live-cluster:
     jobs:
       - build-and-push-app:
@@ -323,3 +318,5 @@ workflows:
       - install_on_uat_live:
           requires:
           - hold_install_on_uat
+      - postman-test-dev:
+          name: postman-test-dev
