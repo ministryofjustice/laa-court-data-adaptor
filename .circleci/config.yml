@@ -286,10 +286,8 @@ workflows:
   test-postman:
     jobs:
       - postman-test-dev:
-          type: approval
-          requires:
-            - hold-for-approval
-
+          name: postman-test-dev
+          
   build-deploy-branch-to-live-cluster:
     jobs:
       - build-and-push-app:
