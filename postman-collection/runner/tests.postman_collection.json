@@ -77,83 +77,6 @@
 			]
 		},
 		{
-			"name": "Appeals (Court application)",
-			"item": [
-				{
-					"name": "Application",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Application attributes present in the response\", function () {",
-									"    var json_data = pm.response.json();",
-									"    pm.expect(json_data.application_id).to.exist;",
-									"    pm.expect(json_data.short_id).to.exist;",
-									"    pm.expect(json_data.application_reference).to.exist;",
-									"    pm.expect(json_data.application_status).to.exist;",
-									"    pm.expect(json_data.application_title).to.exist;",
-									"    pm.expect(json_data.application_type).to.exist;",
-									"    pm.expect(json_data.application_result).to.exist;",
-									"    pm.expect(json_data.received_date).to.exist;",
-									"});",
-									"",
-									"pm.test(\"Case summary present in the response\", function () {",
-									"    var json_data = pm.response.json();",
-									"    pm.expect(json_data.case_summary).to.exist;",
-									"    pm.expect(json_data.case_summary).to.be.a('array');",
-									"});",
-									"",
-									"",
-									"pm.test(\"Subject summary present in the response and has attributes\", function () {",
-									"    var json_data = pm.response.json();",
-									"    pm.expect(json_data.subject_summary).to.exist;",
-									"    pm.expect(json_data.subject_summary).to.be.a('object');",
-									"    pm.expect(json_data.subject_summary.subject_id).to.exist;",
-									"    pm.expect(json_data.subject_summary.defendant_asn).to.exist;",
-									"    pm.expect(json_data.subject_summary.defendant_first_name).to.exist;",
-									"    pm.expect(json_data.subject_summary.defendant_last_name).to.exist;",
-									"});",
-									"",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/internal/v2/court_applications/{{application_id}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"internal",
-								"v2",
-								"court_applications",
-								"{{application_id}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Search prosecution case",
 			"item": [
 				{
@@ -232,6 +155,39 @@
 											"    pm.environment.set(\"defendant_summaries_id\", defendant.id);",
 											"",
 											"});",
+											"",
+											"",
+											"if (json_data.results[0].hasOwnProperty('hearing_summaries')) {",
+											"   pm.test(\"Hearing Properties Are Correct\", function () {",
+											"      var hearing = json_data.results[0].hearing_summaries[0];",
+											"      pm.expect(hearing).to.haveOwnProperty('id');",
+											"      pm.expect(hearing).to.haveOwnProperty('hearing_type');",
+											"      pm.expect(hearing).to.haveOwnProperty('defendant_ids');",
+											"",
+											"",
+											"      pm.environment.set(\"hearing_id\", hearing.id);",
+											"",
+											"      var hearing_days = hearing.hearing_days[0];",
+											"      let date_only = hearing_days.sitting_day?.split(\"T\")[0];",
+											"      pm.environment.set(\"hearing_sitting_date\", date_only);",
+											"",
+											"   });",
+											"}",
+											"",
+											"if (json_data.results[0].defendant_summaries[0].hasOwnProperty('application_summaries')) {",
+											"   pm.test(\"Application Summaries Properties Are Correct\", function () {",
+											"      var application = json_data.results[0].defendant_summaries[0].application_summaries[0];",
+											"      pm.expect(application).to.haveOwnProperty('id');",
+											"      pm.expect(application).to.haveOwnProperty('short_id');",
+											"      pm.expect(application).to.haveOwnProperty('title');",
+											"      pm.expect(application).to.haveOwnProperty('subject_summary');",
+											"",
+											"",
+											"      pm.environment.set(\"application_id\", application.id);",
+											"      pm.environment.set(\"subject_id\", application.subject_summary.subject_id);",
+											"",
+											"   });",
+											"}",
 											""
 										],
 										"type": "text/javascript",
@@ -339,9 +295,6 @@
 									}
 								}
 							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -355,17 +308,8 @@
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "\n{\n  \"filter\": {\n    \"arrest_summons_number\": \"{{asn}}\"\n  }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{url}}/api/internal/v2/prosecution_cases",
+									"raw": "{{url}}/api/internal/v2/prosecution_cases?filter[arrest_summons_number]={{asn}}",
 									"host": [
 										"{{url}}"
 									],
@@ -374,6 +318,12 @@
 										"internal",
 										"v2",
 										"prosecution_cases"
+									],
+									"query": [
+										{
+											"key": "filter[arrest_summons_number]",
+											"value": "{{asn}}"
+										}
 									]
 								}
 							},
@@ -435,9 +385,6 @@
 									}
 								}
 							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -451,17 +398,8 @@
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "\n{\n  \"filter\": {\n    \"date_of_birth\": \"{{defendant_dob}}\",\n    \"name\" : \"{{defendant_name}}\"\n  }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{url}}/api/internal/v2/prosecution_cases",
+									"raw": "{{url}}/api/internal/v2/prosecution_cases?filter[date_of_birth]={{defendant_dob}}&filter[name]={{defendant_name}}",
 									"host": [
 										"{{url}}"
 									],
@@ -470,6 +408,16 @@
 										"internal",
 										"v2",
 										"prosecution_cases"
+									],
+									"query": [
+										{
+											"key": "filter[date_of_birth]",
+											"value": "{{defendant_dob}}"
+										},
+										{
+											"key": "filter[name]",
+											"value": "{{defendant_name}}"
+										}
 									]
 								}
 							},
@@ -721,6 +669,83 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Appeals (Court application)",
+			"item": [
+				{
+					"name": "Application",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Application attributes present in the response\", function () {",
+									"    var json_data = pm.response.json();",
+									"    pm.expect(json_data.application_id).to.exist;",
+									"    pm.expect(json_data.short_id).to.exist;",
+									"    pm.expect(json_data.application_reference).to.exist;",
+									"    pm.expect(json_data.application_status).to.exist;",
+									"    pm.expect(json_data.application_title).to.exist;",
+									"    pm.expect(json_data.application_type).to.exist;",
+									"    pm.expect(json_data.application_result).to.exist;",
+									"    pm.expect(json_data.received_date).to.exist;",
+									"});",
+									"",
+									"pm.test(\"Case summary present in the response\", function () {",
+									"    var json_data = pm.response.json();",
+									"    pm.expect(json_data.case_summary).to.exist;",
+									"    pm.expect(json_data.case_summary).to.be.a('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Subject summary present in the response and has attributes\", function () {",
+									"    var json_data = pm.response.json();",
+									"    pm.expect(json_data.subject_summary).to.exist;",
+									"    pm.expect(json_data.subject_summary).to.be.a('object');",
+									"    pm.expect(json_data.subject_summary.subject_id).to.exist;",
+									"    pm.expect(json_data.subject_summary.defendant_asn).to.exist;",
+									"    pm.expect(json_data.subject_summary.defendant_first_name).to.exist;",
+									"    pm.expect(json_data.subject_summary.defendant_last_name).to.exist;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/internal/v2/court_applications/{{application_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"internal",
+								"v2",
+								"court_applications",
+								"{{application_id}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
