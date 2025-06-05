@@ -236,7 +236,7 @@ jobs:
       - newman/newman-run:
           collection: ./postman-collection/runner/tests.postman_collection.json
           environment: ./postman-collection/runner/env.postman_environment.json
-          additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET --env-var urn=PYDJQMBSED --env-var maat_id=3456786 --env-var application_id=a64a4e45-af16-464b-a147-2671670ec3a1 --verbose"
+          additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET --env-var urn=PYDJQMBSED --verbose"
 
 workflows:
   version: 2
