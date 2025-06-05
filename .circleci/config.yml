@@ -228,6 +228,16 @@ jobs:
           command: |
             .circleci/deploy.sh laa-court-data-adaptor-prod ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml $CIRCLE_SHA1
   
+
+  postman-test-dev:
+    executor: newman/postman-newman-docker
+    steps:
+      - checkout
+      - newman/newman-run:
+          collection: ./postman-collection/runner/tests.postman_collection.json
+          environment: ./postman-collection/runner/env.postman_environment.json
+          additional-options: "--env-var client_id=${DEV_UID} --env-var client_secret=${DEV_SECRET}"
+
 workflows:
   version: 2
   test-build-deploy-main-to-live-cluster:
@@ -275,12 +285,8 @@ workflows:
 
   test-postman:
     jobs:
-      - newman/newman-run:
+      - postman-test-dev:
           name: postman-test-dev
-          collection: ./postman-collection/runner/tests.postman_collection.json
-          environment: ./postman-collection/runner/env.postman_environment.json
-          additional-options: "--env-var client_id=${DEV_UID} --env-var client_secret=${DEV_SECRET}"
-
 
   build-deploy-branch-to-live-cluster:
     jobs:
