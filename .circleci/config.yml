@@ -6,6 +6,7 @@ orbs:
   aws-eks: circleci/aws-eks@0.2.1
   kubernetes: circleci/kubernetes@0.7.0
   helm: circleci/helm@1.1.2
+  newman: postman/newman@0.0.2
 
 commands:
   checkout_and_decrypt:
@@ -227,19 +228,6 @@ jobs:
           command: |
             .circleci/deploy.sh laa-court-data-adaptor-prod ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml $CIRCLE_SHA1
   
-  postman-test-dev:
-    docker:
-      - image: postman/newman:alpine
-    steps:
-      - checkout
-      - run:
-          name: Run Postman tests with env vars
-          command: |
-            newman run ./postman-collection/runner/tests.postman_collection.json \
-            --environment ./postman-collection/runner/env.postman_environment.json \
-            --env-var "client_id=${DEV_UID}" \
-            --env-var "client_secret=${DEV_SECRET}"
-
 workflows:
   version: 2
   test-build-deploy-main-to-live-cluster:
@@ -287,8 +275,11 @@ workflows:
 
   test-postman:
     jobs:
-      - postman-test-dev:
-          name: dev postman tests
+      - newman/newman-run:
+          name: postman-test-dev
+          collection: ./postman-collection/runner/tests.postman_collection.json
+          environment: ./postman-collection/runner/env.postman_environment.json
+          additional-options: "--env-var client_id=${DEV_UID} --env-var client_secret=${DEV_SECRET}"
 
 
   build-deploy-branch-to-live-cluster:
