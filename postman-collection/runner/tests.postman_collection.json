@@ -95,6 +95,7 @@
 											"    try {",
 											"        json_data = pm.response.json();",
 											"        pm.expect(json_data).to.be.an(\"object\"); // or \"array\" depending on your expected shape",
+											"        console.log(json_data);",
 											"    } catch (e) {",
 											"        console.log(\"JSON parse error:\", e.message);",
 											"        console.log(\"Raw response body:\", pm.response.text());",
