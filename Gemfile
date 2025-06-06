@@ -17,6 +17,7 @@ gem "bcrypt", "~> 3.1.18"
 gem "bootsnap", ">= 1.4.2", require: false
 
 gem "aws-sdk-sqs"
+gem "csv"
 gem "doorkeeper", "~> 5.8"
 gem "dry-validation"
 gem "faraday", "~> 2.13"

@@ -122,6 +122,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.3.4)
     date (3.4.1)
     diff-lcs (1.6.2)
     docile (1.4.1)
@@ -301,7 +302,7 @@ GEM
     puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (3.1.15)
+    rack (3.1.16)
     rack-protection (4.1.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
@@ -514,6 +515,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   brakeman
   bundler
+  csv
   doorkeeper (~> 5.8)
   dotenv-rails
   dry-validation
@@ -557,4 +559,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.2.33
+   2.6.9
