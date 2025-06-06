@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProsecutionCase < LegalCase
+  has_many :prosecution_case_defendant_offences
+
   def defendants
     body["defendantSummary"].map do |defendant|
       Defendant.new(
