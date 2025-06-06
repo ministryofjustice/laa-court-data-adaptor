@@ -9,6 +9,17 @@ class ProsecutionCaseRecorder < ApplicationService
   def call
     prosecution_case.update!(body:)
 
+    # A lock on the case helps avoid 2 simultaneous processes creating duplicate records
+    prosecution_case.with_lock { create_offence_records }
+
+    prosecution_case
+  end
+
+private
+
+  attr_reader :prosecution_case, :body
+
+  def create_offence_records
     # Pull all existing records out of the DB in a single query here and
     # retain them in memory as an array. That way, in the most common case,
     # where the records already exist, no further DB interactions are needed,
@@ -26,11 +37,5 @@ class ProsecutionCaseRecorder < ApplicationService
         )
       end
     end
-
-    prosecution_case
   end
-
-private
-
-  attr_reader :prosecution_case, :body
 end

@@ -9,6 +9,17 @@ class CourtApplicationRecorder < ApplicationService
   def call
     court_application.update!(body: model.data)
 
+    # A lock on the application helps avoid 2 simultaneous processes creating duplicate records
+    court_application.with_lock { create_offence_records }
+
+    court_application
+  end
+
+private
+
+  attr_reader :court_application, :model
+
+  def create_offence_records
     # Pull all existing records out of the DB in a single query here and
     # retain them in memory as an array. That way, in the most common case,
     # where the records already exist, no further DB interactions are needed,
@@ -28,11 +39,5 @@ class CourtApplicationRecorder < ApplicationService
         application_type: model.application_type,
       )
     end
-
-    court_application
   end
-
-private
-
-  attr_reader :court_application, :model
 end
