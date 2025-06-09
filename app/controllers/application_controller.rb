@@ -17,14 +17,16 @@ class ApplicationController < ActionController::API
     rescue_from klass do |error|
       render(json: { error:, error_codes: error.try(:codes) }, status:)
 
-      Sentry.capture_exception(
-        error,
-        tags: {
-          request_id: Current.request_id,
-          defendant_id: params[:defendant_id],
-          hearing_id: params.dig(:hearing, :id),
-        },
-      )
+      unless klass == Errors::ContractError
+        Sentry.capture_exception(
+          error,
+          tags: {
+            request_id: Current.request_id,
+            defendant_id: params[:defendant_id],
+            hearing_id: params.dig(:hearing, :id),
+          },
+        )
+      end
     end
   end
 
