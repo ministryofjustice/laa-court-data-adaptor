@@ -319,6 +319,5 @@ workflows:
           requires:
           - hold_install_on_uat
       - postman_test_on_dev:
-          type: approval
           requires:
           - hold_install_on_dev
