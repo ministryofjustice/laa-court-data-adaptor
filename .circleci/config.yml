@@ -296,7 +296,7 @@ workflows:
           - build-and-push-app
       - install_on_dev_live:
           requires:
-          - postman_test_on_dev
+          - hold_install_on_dev
       - hold_install_on_test:
           type: approval
           requires:
@@ -320,4 +320,4 @@ workflows:
           - hold_install_on_uat
       - postman_test_on_dev:
           requires:
-          - hold_install_on_dev
+          - install_on_dev_live
