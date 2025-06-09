@@ -8,13 +8,14 @@ class ApplicationController < ActionController::API
     ActionController::ParameterMissing => :bad_request,
     Errors::ContractError => :unprocessable_entity,
     Errors::DefendantError => :unprocessable_entity,
+    Errors::CommonPlatformConnectionFailureError => :service_unavailable,
     ActiveRecord::RecordNotFound => :not_found,
     CommonPlatform::Api::Errors::FailedDependency => :failed_dependency,
   }.freeze
 
   ERROR_MAPPINGS.each do |klass, status|
     rescue_from klass do |error|
-      render(json: { error: }, status:)
+      render(json: { error:, error_codes: error.try(:codes) }, status:)
 
       Sentry.capture_exception(
         error,

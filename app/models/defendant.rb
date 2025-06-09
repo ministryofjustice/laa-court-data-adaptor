@@ -100,7 +100,7 @@ private
   def _maat_reference
     refs = offences.map(&:maat_reference).uniq.compact
 
-    raise(Errors::DefendantError, "Too many maat references: #{refs}") if refs.size > 1
+    raise(Errors::DefendantError.new("Too many maat references: #{refs}", :multiple_maats)) if refs.size > 1
 
     refs&.first
   end
