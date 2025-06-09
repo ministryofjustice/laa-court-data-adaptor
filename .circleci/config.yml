@@ -229,7 +229,7 @@ jobs:
             .circleci/deploy.sh laa-court-data-adaptor-prod ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml $CIRCLE_SHA1
   
 
-  postman-test-dev:
+  postman_test_on_dev:
     executor: newman/postman-newman-docker
     steps:
       - checkout
@@ -296,7 +296,7 @@ workflows:
           - build-and-push-app
       - install_on_dev_live:
           requires:
-          - hold_install_on_dev
+          - postman_test_on_dev
       - hold_install_on_test:
           type: approval
           requires:
@@ -318,5 +318,7 @@ workflows:
       - install_on_uat_live:
           requires:
           - hold_install_on_uat
-      - postman-test-dev:
-          name: postman-test-dev
+      - postman_test_on_dev:
+          type: approval
+          requires:
+          - hold_install_on_dev
