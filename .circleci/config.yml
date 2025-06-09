@@ -235,7 +235,7 @@ jobs:
       - checkout
       - newman/newman-run:
           collection: ./postman-collection/runner/tests.postman_collection.json
-          environment: ./postman-collection/runner/env.postman_environment.json
+          environment: ./postman-collection/runner/enviroments/dev.postman_environment.json
           additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET --verbose"
 
 workflows:
