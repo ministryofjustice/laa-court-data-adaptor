@@ -1038,6 +1038,129 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Representation order",
+			"item": [
+				{
+					"name": "Case",
+					"item": [
+						{
+							"name": "Representation order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422 or 202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"representation_orders\",\n    \"attributes\": {\n      \"maat_reference\": {{case_maat_id}},\n      \"defendant_id\": \"{{defendant_summaries_id}}\",\n      \"defence_organisation\": {\n        \"organisation\": {\n            \"name\": \"Dave reps order\"\n        },\n        \"laa_contract_number\": \"123456789\" // not sure were this is from probably I thin from crime apps.\n      },\n      \"offences\": [\n      {\n        \"offence_id\": \"{{case_offence_id}}\",\n        \"status_code\": \"AP\"\n        // \"status_date\": \"2025-04-30\",\n        // \"effective_start_date\": \"2025-04-01\",\n        // \"effective_end_date\": \"2025-04-30\"\n      }\n    ]\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v1/representation_orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v1",
+										"representation_orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Appeal",
+					"item": [
+						{
+							"name": "Representation order for appeals",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422 or 202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"representation_orders\",\n    \"attributes\": {\n      \"maat_reference\": {{appeals_maat_id}},\n      \"subject_id\": \"{{subject_id}}\",\n      \"defence_organisation\": {\n        \"organisation\": {\n            \"name\": \"Dave reps order\"\n        },\n        \"laa_contract_number\": \"123456789\" // not sure were this is from probably I think from crime apps.\n      },\n      \"offences\": [\n      {\n        \"offence_id\": \"{{appeal_offence_id}}\",\n        \"status_code\": \"AP\"\n        // \"status_date\": \"2025-04-30\",\n        // \"effective_start_date\": \"2025-04-01\",\n        // \"effective_end_date\": \"2025-04-30\"\n      }\n    ]\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v1/court_application_representation_orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v1",
+										"court_application_representation_orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	]
 }

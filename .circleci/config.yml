@@ -8,6 +8,11 @@ orbs:
   helm: circleci/helm@1.1.2
   newman: postman/newman@0.0.2
 
+executors:
+  newman-latest:
+    docker:
+      - image: postman/newman:latest
+
 commands:
   checkout_and_decrypt:
     steps:
@@ -230,13 +235,22 @@ jobs:
   
 
   postman_test_on_dev:
-    executor: newman/postman-newman-docker
+    executor: newman-latest
     steps:
+      - run:
+          name: Install Git (for local use)
+          command: |
+            apk update && apk add git
+      - run:
+          name: Upgrade Newman to Latest
+          command: |
+            newman --version
       - checkout
       - newman/newman-run:
           collection: ./postman-collection/runner/tests.postman_collection.json
           environment: ./postman-collection/runner/enviroments/dev.postman_environment.json
-          additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET --verbose"
+          delay-request: "3000"
+          additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET"
 
 workflows:
   version: 2
@@ -278,6 +292,13 @@ workflows:
   test-branch:
     jobs:
       - test:
+          filters:
+            branches:
+              ignore:
+                - main
+  test-postman:
+    jobs:
+      - postman_test_on_dev:
           filters:
             branches:
               ignore:
