@@ -64,6 +64,22 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
       let(:prosecution_cases_json) { '{ "cases":[] }' }
 
       it { is_expected.to be_nil }
+
+      context "when it is because URN has a space in it" do
+        let(:prosecution_case_reference) { "ABCDE " }
+        let(:prosecution_case_local_body) do
+          prosecution_cases_hash["cases"][0].tap do |record|
+            record["prosecutionCaseReference"] = prosecution_case_reference
+          end
+        end
+
+        it "raises an error" do
+          expect { defendant }.to raise_error(
+            Errors::DefendantError,
+            "Defendant ID #{defendant_id} associated with unrecognised URN(s) 'ABCDE '",
+          )
+        end
+      end
     end
 
     context "when defendant does not exist" do

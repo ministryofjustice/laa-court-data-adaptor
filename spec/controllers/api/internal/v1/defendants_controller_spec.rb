@@ -31,6 +31,7 @@ RSpec.describe Api::Internal::V1::DefendantsController, type: :controller do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include("error\":\"Too many maat references")
+        expect(response.parsed_body["error_codes"]).to eq %w[multiple_maats]
       end
     end
   end

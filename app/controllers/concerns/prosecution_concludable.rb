@@ -23,8 +23,7 @@ private
 
   def enforce_contract!
     unless contract.success?
-      message = "Prosecution conclusion contract failed with: #{contract.errors.to_hash}"
-      raise Errors::ContractError, message
+      raise Errors::ContractError.new(contract, "Prosecution conclusion contract")
     end
   end
 
