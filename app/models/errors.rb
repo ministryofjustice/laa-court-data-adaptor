@@ -23,10 +23,4 @@ module Errors
 
     attr_reader :codes
   end
-
-  class CommonPlatformConnectionFailureError < StandardError
-    def codes
-      [:commmon_platform_connection_failed]
-    end
-  end
 end
