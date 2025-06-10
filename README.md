@@ -190,7 +190,20 @@ curl --get \
 In CDA the authentication process is handled by the gem [doorkeeper](https://github.com/doorkeeper-gem/doorkeeper)
 
 ## Postman collection
-To simplify manual API calling and testing, the team created a Postman collection: https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3713859603/Using+Postman#CDA-Collections
+
+API testing is conducted using Postman collections, executed through Newman as part of an automated workflow in the CircleCI pipeline..
+
+**Note:** You can run these tests locally, but Newman must be installed on your machine first.
+Follow the Newman [installation guide](https://learning.postman.com/docs/collections/using-newman-cli/installing-running-newman) to get set up.
+
+After installation, use the following command to execute the tests:
+
+```shell
+newman run postman-collection/runner/tests.postman_collection.json \
+  --environment postman-collection/runner/enviroments/<enviroment>.postman_environment.json \
+  --env-var "client_id=<environment-uid>" \
+  --env-var "client_secret=<environment-secret>"
+```
 
 ## API Schema
 
@@ -244,25 +257,17 @@ Further details can be found on [this](https://dsdmoj.atlassian.net/wiki/spaces/
 
 ## Pre-commit Hooks
 
-We have gitleaks set up on this repo. To make it harder to accidentally leak a secret, have it run as a pre-commit hook:
-```
-pip install pre-commit
-pre-commit install
-```
-
-Rubocop can also be set up to run pre-commits.
+Rubocop can be set up to run pre-commits.
 
 Please see this [PR](https://github.com/ministryofjustice/laa-court-data-adaptor/pull/12)
 
-## Sidekiq UI
-
 There is a user interface for monitoring the sidekiq workers each environment. The credentials can be found in the helm values files.
-
 - [Dev](https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [Test](https://laa-court-data-adaptor-test.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [UAT](https://laa-court-data-adaptor-uat.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [Staging](https://laa-court-data-adaptor-stage.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [Prod](https://laa-court-data-adaptor.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
+
 
 ## Contributing
 
@@ -274,6 +279,3 @@ Bug reports and pull requests are welcome.
 4. Push the branch (`git push origin my-new-feature`)
 5. Make sure your changes are covered by tests, so that we don't break it unintentionally in the future.
 6. Create a new pull request.
-
-
-Deploy new changes
