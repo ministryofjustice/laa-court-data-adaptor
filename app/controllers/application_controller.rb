@@ -8,7 +8,6 @@ class ApplicationController < ActionController::API
     ActionController::ParameterMissing => :bad_request,
     Errors::ContractError => :unprocessable_entity,
     Errors::DefendantError => :unprocessable_entity,
-    Errors::CommonPlatformConnectionFailureError => :service_unavailable,
     ActiveRecord::RecordNotFound => :not_found,
     CommonPlatform::Api::Errors::FailedDependency => :failed_dependency,
   }.freeze

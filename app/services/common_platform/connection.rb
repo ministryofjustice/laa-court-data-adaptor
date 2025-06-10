@@ -42,7 +42,7 @@ module CommonPlatform
       def call(env)
         @app.call(env)
       rescue Faraday::ConnectionFailed => e
-        raise Errors::CommonPlatformConnectionFailureError, e
+        raise CommonPlatform::Api::Errors::FailedDependency, e
       end
     end
 
