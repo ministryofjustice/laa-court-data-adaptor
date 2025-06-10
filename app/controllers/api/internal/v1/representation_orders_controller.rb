@@ -15,8 +15,7 @@ module Api
 
         def enforce_contract!
           unless contract.success?
-            message = "Representation Order contract failed with: #{contract.errors.to_hash}"
-            raise Errors::ContractError, message
+            raise Errors::ContractError.new(contract, "Representation Order contract")
           end
         end
 

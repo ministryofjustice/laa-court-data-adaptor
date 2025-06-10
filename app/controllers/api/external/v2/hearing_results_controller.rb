@@ -15,8 +15,7 @@ module Api
 
         def enforce_contract!
           unless contract.success?
-            message = "Hearing contract failed with: #{contract.errors.to_hash}"
-            raise Errors::ContractError, message
+            raise Errors::ContractError.new(contract, "Hearing contract")
           end
         end
 

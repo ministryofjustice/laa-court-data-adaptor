@@ -55,9 +55,12 @@ RSpec.describe Api::Internal::V1::CourtApplicationRepresentationOrdersController
   end
 
   context "when the contract fails" do
+    let(:errors) { Dry::Validation::MessageSet.new([message]) }
+    let(:message) { Dry::Schema::Message.new(text: "is invalid", path: [:maat_reference], predicate: :int?, input: "123") }
+
     before do
       allow(mock_contract).to receive(:call).and_return(
-        instance_double(Dry::Validation::Result, success?: false, errors: { maat_reference: ["is invalid"] }),
+        instance_double(Dry::Validation::Result, success?: false, errors:),
       )
     end
 
