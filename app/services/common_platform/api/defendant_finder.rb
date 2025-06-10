@@ -8,7 +8,7 @@ module CommonPlatform
       end
 
       def call
-        common_platform_defendant
+        common_platform_defendant || detect_hmcts_error
       end
 
     private
@@ -57,6 +57,15 @@ module CommonPlatform
 
           ProsecutionCase.where(id: prosecution_case_ids)
         end
+      end
+
+      def detect_hmcts_error
+        with_spaces = prosecution_case_urns.select { _1.include?(" ") }
+        return unless with_spaces.any?
+
+        user_friendly = with_spaces.map { "'#{_1}'" }.to_sentence
+        raise ::Errors::DefendantError.new("Defendant ID #{defendant_id} associated with unrecognised URN(s) #{user_friendly}",
+                                           :spaces_in_urn)
       end
 
       attr_reader :defendant_id
