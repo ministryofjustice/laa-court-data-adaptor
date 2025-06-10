@@ -296,13 +296,6 @@ workflows:
             branches:
               ignore:
                 - main
-  test-postman:
-    jobs:
-      - postman_test_on_dev:
-          filters:
-            branches:
-              ignore:
-                - main
 
   build-deploy-branch-to-live-cluster:
     jobs:
