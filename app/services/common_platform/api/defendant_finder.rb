@@ -8,7 +8,9 @@ module CommonPlatform
       end
 
       def call
-        common_platform_defendant || detect_hmcts_error
+        common_platform_defendant || detect_spaces_error
+        # There is a known Common Platform issue where it sometimes tells us
+        # about records with spaces in them, but then when
       end
 
     private
@@ -59,7 +61,13 @@ module CommonPlatform
         end
       end
 
-      def detect_hmcts_error
+      def detect_spaces_error
+        # There is a known Common Platform issue where it sometimes tells us
+        # about records with spaces in their URNs, but then when we search specifically
+        # for that URN it seems to strip out the space and then can't find the record
+        # we asked for. If that particular thing is what happens and causes a defendant
+        # not to be found, raise an error with a `spaces_in_urn` code so that VCD can
+        # inform the user of something specific.
         with_spaces = prosecution_case_urns.select { _1.include?(" ") }
         return unless with_spaces.any?
 
