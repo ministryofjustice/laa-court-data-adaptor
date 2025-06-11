@@ -19,6 +19,7 @@ module CommonPlatform
           logger.filter(/(defendantDOB=)([^&]+)/, '\1[FILTERED]')
           logger.filter(/(defendantNINO=)([^&]+)/, '\1[FILTERED]')
         end
+        connection.use FailureMiddleware
         connection.response :json, content_type: "application/json"
         connection.response :json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json"
         connection.response :json, content_type: "text/plain"
@@ -36,6 +37,14 @@ module CommonPlatform
     end
 
   private
+
+    class FailureMiddleware < Faraday::Middleware
+      def call(env)
+        @app.call(env)
+      rescue Faraday::ConnectionFailed => e
+        raise CommonPlatform::Api::Errors::FailedDependency, e
+      end
+    end
 
     def headers
       { "Ocp-Apim-Subscription-Key" => ENV["SHARED_SECRET_KEY"] }

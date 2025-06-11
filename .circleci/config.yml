@@ -6,6 +6,12 @@ orbs:
   aws-eks: circleci/aws-eks@0.2.1
   kubernetes: circleci/kubernetes@0.7.0
   helm: circleci/helm@1.1.2
+  newman: postman/newman@0.0.2
+
+executors:
+  newman-latest:
+    docker:
+      - image: postman/newman:latest
 
 commands:
   checkout_and_decrypt:
@@ -226,6 +232,25 @@ jobs:
           name: Deploy to Production
           command: |
             .circleci/deploy.sh laa-court-data-adaptor-prod ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml $CIRCLE_SHA1
+  
+
+  postman_test_on_dev:
+    executor: newman-latest
+    steps:
+      - run:
+          name: Install Git (for local use)
+          command: |
+            apk update && apk add git
+      - run:
+          name: Upgrade Newman to Latest
+          command: |
+            newman --version
+      - checkout
+      - newman/newman-run:
+          collection: ./postman-collection/runner/tests.postman_collection.json
+          environment: ./postman-collection/runner/enviroments/dev.postman_environment.json
+          delay-request: "3000"
+          additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET"
 
 workflows:
   version: 2
@@ -263,6 +288,7 @@ workflows:
           requires:
           - hold_install_on_prod
 
+  
   test-branch:
     jobs:
       - test:
@@ -306,3 +332,6 @@ workflows:
       - install_on_uat_live:
           requires:
           - hold_install_on_uat
+      - postman_test_on_dev:
+          requires:
+          - install_on_dev_live

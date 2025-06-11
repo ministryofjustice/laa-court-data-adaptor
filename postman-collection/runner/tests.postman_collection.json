@@ -1,0 +1,1166 @@
+{
+	"info": {
+		"_postman_id": "0687d647-1ea8-49c2-bc77-6e04718ec1b8",
+		"name": "Testing court data adaptor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40175379",
+		"_collection_link": "https://laa-court.postman.co/workspace/Court-data-adaptor-with-test~18773ca3-7613-4499-9551-fd24be680820/collection/40175379-0687d647-1ea8-49c2-bc77-6e04718ec1b8?action=share&source=collection_link&creator=40175379"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"item": [
+				{
+					"name": "generate token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"var json_data = pm.response.json();",
+									"",
+									"pm.test(\"Response time is within acceptable range\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"",
+									"pm.test(\"access_token Included\", function () {",
+									"    var json_data = pm.response.json();",
+									"    pm.expect(json_data.access_token).to.exist;",
+									"    pm.environment.set(\"access_token\", json_data.access_token);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{client_id}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/oauth/token?grant_type=client_credentials",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							],
+							"query": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search prosecution case",
+			"item": [
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Prosecution Case URN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let json_data;",
+											"",
+											"pm.test(\"Response is valid JSON\", function () {",
+											"    try {",
+											"        json_data = pm.response.json();",
+											"        pm.expect(json_data).to.be.an(\"object\");",
+											"    } catch (e) {",
+											"        console.log(\"JSON parse error:\", e.message);",
+											"        console.log(\"Raw response body:\", pm.response.text());",
+											"        console.log(\"URN value:\", pm.environment.get(\"urn\"));",
+											"        throw new Error(\"Response is not valid JSON\");",
+											"    }",
+											"});",
+											"",
+											"if (typeof json_data !== \"undefined\") {",
+											"    pm.test(\"Status code is 200\", function () {",
+											"        pm.response.to.have.status(200);",
+											"    });",
+											"",
+											"    pm.test(\"Defendants Included\", function () {",
+											"        pm.expect(json_data.results[0]).to.haveOwnProperty('defendant_summaries');",
+											"    });",
+											"",
+											"    pm.test(\"Results is Array\", function () {",
+											"        var defendants = json_data.results;",
+											"        pm.expect(defendants).to.be.a('array');",
+											"    });",
+											"",
+											"    pm.test(\"Application summaries within Defendants is an Array\", function () {",
+											"        var applications = json_data.results[0].defendant_summaries[0].application_summaries;",
+											"        pm.expect(applications).to.be.a('array');",
+											"    });",
+											"",
+											"    pm.test(\"Defendants within Results is an Array\", function () {",
+											"        var defendants = json_data.results[0].defendant_summaries;",
+											"        pm.expect(defendants).to.be.a('array');",
+											"    });",
+											"",
+											"    pm.test(\"Defendant Properties Are Correct\", function () {",
+											"        var defendant = json_data.results[0].defendant_summaries[0];",
+											"",
+											"        pm.expect(defendant).to.haveOwnProperty('id');",
+											"        pm.expect(defendant).to.haveOwnProperty('arrest_summons_number');",
+											"        pm.expect(defendant).to.haveOwnProperty('first_name');",
+											"        pm.expect(defendant).to.haveOwnProperty('last_name');",
+											"        pm.expect(defendant).to.haveOwnProperty('date_of_birth');",
+											"        pm.expect(defendant).to.haveOwnProperty('proceedings_concluded');",
+											"        pm.expect(defendant).to.haveOwnProperty('representation_order');",
+											"        pm.expect(defendant).to.haveOwnProperty('offence_summaries');",
+											"",
+											"    });",
+											"",
+											"    if (json_data.results[0].hasOwnProperty('hearing_summaries')) {",
+											"        pm.test(\"Hearing Properties Are Correct\", function () {",
+											"            var hearing = json_data.results[0].hearing_summaries[0];",
+											"            pm.expect(hearing).to.haveOwnProperty('id');",
+											"            pm.expect(hearing).to.haveOwnProperty('hearing_type');",
+											"            pm.expect(hearing).to.haveOwnProperty('defendant_ids');",
+											"",
+											"        });",
+											"    }",
+											"",
+											"    if (json_data.results[0].defendant_summaries[0].hasOwnProperty('application_summaries')) {",
+											"        pm.test(\"Application Summaries Properties Are Correct\", function () {",
+											"            var application = json_data.results[0].defendant_summaries[0].application_summaries[0];",
+											"            pm.expect(application).to.haveOwnProperty('id');",
+											"            pm.expect(application).to.haveOwnProperty('short_id');",
+											"            pm.expect(application).to.haveOwnProperty('title');",
+											"            pm.expect(application).to.haveOwnProperty('subject_summary');",
+											"",
+											"        });",
+											"    }",
+											"}",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/internal/v2/prosecution_cases?filter[prosecution_case_reference]={{urn}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v2",
+										"prosecution_cases"
+									],
+									"query": [
+										{
+											"key": "filter[prosecution_case_reference]",
+											"value": "{{urn}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Defendant ASN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Defendants Included\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.results[0]).to.haveOwnProperty('defendant_summaries');",
+											"});",
+											"",
+											"pm.test(\"Results is Array\", function () {",
+											"    var json_data = pm.response.json();",
+											"    var defendants = json_data.results;",
+											"    pm.expect(defendants).to.be.a('array');",
+											"});",
+											"",
+											"pm.test(\"Defendants within Results is an Array\", function () {",
+											"    var json_data = pm.response.json();",
+											"    var defendants = json_data.results[0].defendant_summaries;",
+											"    pm.expect(defendants).to.be.a('array');",
+											"});",
+											"",
+											"pm.test(\"Application summaries within Defendants is an Array\", function () {",
+											"    var json_data = pm.response.json();",
+											"    var applications = json_data.results[0].defendant_summaries[0].application_summaries;",
+											"    pm.expect(applications).to.be.a('array');",
+											"});",
+											"",
+											"",
+											"pm.test(\"Defendant Properties Are Correct\", function () {",
+											"    var json_data = pm.response.json();",
+											"    var defendant = json_data.results[0].defendant_summaries[0];",
+											"    pm.expect(defendant).to.haveOwnProperty('id');",
+											"    pm.expect(defendant).to.haveOwnProperty('national_insurance_number');",
+											"    pm.expect(defendant).to.haveOwnProperty('arrest_summons_number');",
+											"    pm.expect(defendant).to.haveOwnProperty('first_name');",
+											"    pm.expect(defendant).to.haveOwnProperty('middle_name');",
+											"    pm.expect(defendant).to.haveOwnProperty('last_name');",
+											"    pm.expect(defendant).to.haveOwnProperty('date_of_birth');",
+											"    pm.expect(defendant).to.haveOwnProperty('proceedings_concluded');",
+											"    pm.expect(defendant).to.haveOwnProperty('representation_order');",
+											"    pm.expect(defendant).to.haveOwnProperty('offence_summaries');",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/internal/v2/prosecution_cases?filter[arrest_summons_number]={{asn}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v2",
+										"prosecution_cases"
+									],
+									"query": [
+										{
+											"key": "filter[arrest_summons_number]",
+											"value": "{{asn}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Defendant name and date of birth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Defendants Included\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.results[0]).to.haveOwnProperty('defendant_summaries');",
+											"});",
+											"",
+											"pm.test(\"Results is Array\", function () {",
+											"    var json_data = pm.response.json();",
+											"    var defendants = json_data.results;",
+											"    pm.expect(defendants).to.be.a('array');",
+											"});",
+											"",
+											"pm.test(\"Defendants within Results is an Array\", function () {",
+											"    var json_data = pm.response.json();",
+											"    var defendants = json_data.results[0].defendant_summaries;",
+											"    pm.expect(defendants).to.be.a('array');",
+											"});",
+											"",
+											"",
+											"pm.test(\"Application summaries within Defendants is an Array\", function () {",
+											"    var json_data = pm.response.json();",
+											"    var applications = json_data.results[0].defendant_summaries[0].application_summaries;",
+											"    pm.expect(applications).to.be.a('array');",
+											"});",
+											"",
+											"pm.test(\"Defendant Properties Are Correct\", function () {",
+											"    var json_data = pm.response.json();",
+											"    var defendant = json_data.results[0].defendant_summaries[0];",
+											"    pm.expect(defendant).to.haveOwnProperty('id');",
+											"    pm.expect(defendant).to.haveOwnProperty('national_insurance_number');",
+											"    pm.expect(defendant).to.haveOwnProperty('arrest_summons_number');",
+											"    pm.expect(defendant).to.haveOwnProperty('first_name');",
+											"    pm.expect(defendant).to.haveOwnProperty('middle_name');",
+											"    pm.expect(defendant).to.haveOwnProperty('last_name');",
+											"    pm.expect(defendant).to.haveOwnProperty('date_of_birth');",
+											"    pm.expect(defendant).to.haveOwnProperty('proceedings_concluded');",
+											"    pm.expect(defendant).to.haveOwnProperty('representation_order');",
+											"    pm.expect(defendant).to.haveOwnProperty('offence_summaries');",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/internal/v2/prosecution_cases?filter[date_of_birth]={{defendant_dob}}&filter[name]={{defendant_name}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v2",
+										"prosecution_cases"
+									],
+									"query": [
+										{
+											"key": "filter[date_of_birth]",
+											"value": "{{defendant_dob}}"
+										},
+										{
+											"key": "filter[name]",
+											"value": "{{defendant_name}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Hearings",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Hearings results",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Hearing type is present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.data.attributes.hearing_type).to.exist;",
+											"    pm.expect(json_data.data.attributes.hearing_type).to.be.a('string');",
+											"});",
+											"",
+											"pm.test(\"Court name is present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.data.attributes.court_name).to.exist;",
+											"    pm.expect(json_data.data.attributes.court_name).to.be.a('string');",
+											"});",
+											"",
+											"",
+											"pm.test(\"Defendant names are present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.data.attributes.defendant_names).to.exist;",
+											"    pm.expect(json_data.data.attributes.defendant_names).to.be.an('array');",
+											"});",
+											"",
+											"pm.test(\"hearing_events are present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.data.relationships.hearing_events).to.exist;",
+											"    pm.expect(json_data.data.relationships.hearing_events.data).to.be.an('array');",
+											"});",
+											"",
+											"pm.test(\"prosecution_cases are present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.data.relationships.prosecution_cases).to.exist;",
+											"    pm.expect(json_data.data.relationships.prosecution_cases.data).to.be.an('array');",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"result\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v1/hearings/{{hearing_id}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v1",
+										"hearings",
+										"{{hearing_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Hearing results",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"hearing object is present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.hearing).to.exist;",
+											"    pm.expect(json_data.hearing).to.be.a('object');",
+											"});",
+											"",
+											"",
+											"pm.test(\"court_centre is present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.hearing.court_centre).to.exist;",
+											"    pm.expect(json_data.hearing.court_centre).to.be.a('object');",
+											"});",
+											"",
+											"pm.test(\"prosecution_cases is present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.hearing.prosecution_cases).to.exist;",
+											"    pm.expect(json_data.hearing.prosecution_cases).to.be.a('array');",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v2/hearing_results/{{hearing_id}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v2",
+										"hearing_results",
+										"{{hearing_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Hearing event log",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"hearing_id is present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.hearing_id).to.exist;",
+											"    pm.expect(json_data.hearing_id).to.be.a('string');",
+											"});",
+											"",
+											"pm.test(\"has_active_hearing is present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.has_active_hearing).to.exist;",
+											"    pm.expect(json_data.has_active_hearing).to.be.a('boolean');",
+											"});",
+											"",
+											"pm.test(\"events is present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.events).to.exist;",
+											"    pm.expect(json_data.events).to.be.a('array');",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"result\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v2/hearings/{{hearing_id}}/event_log/{{hearing_sitting_date}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v2",
+										"hearings",
+										"{{hearing_id}}",
+										"event_log",
+										"{{hearing_sitting_date}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Appeals (Court application)",
+			"item": [
+				{
+					"name": "Application",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Application attributes present in the response\", function () {",
+									"    var json_data = pm.response.json();",
+									"    pm.expect(json_data.application_id).to.exist;",
+									"    pm.expect(json_data.short_id).to.exist;",
+									"    pm.expect(json_data.application_reference).to.exist;",
+									"    pm.expect(json_data.application_status).to.exist;",
+									"    pm.expect(json_data.application_title).to.exist;",
+									"    pm.expect(json_data.application_type).to.exist;",
+									"    pm.expect(json_data.application_result).to.exist;",
+									"    pm.expect(json_data.received_date).to.exist;",
+									"});",
+									"",
+									"pm.test(\"Case summary present in the response\", function () {",
+									"    var json_data = pm.response.json();",
+									"    pm.expect(json_data.case_summary).to.exist;",
+									"    pm.expect(json_data.case_summary).to.be.a('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Subject summary present in the response and has attributes\", function () {",
+									"    var json_data = pm.response.json();",
+									"    pm.expect(json_data.subject_summary).to.exist;",
+									"    pm.expect(json_data.subject_summary).to.be.a('object');",
+									"    pm.expect(json_data.subject_summary.subject_id).to.exist;",
+									"    pm.expect(json_data.subject_summary.defendant_asn).to.exist;",
+									"    pm.expect(json_data.subject_summary.defendant_first_name).to.exist;",
+									"    pm.expect(json_data.subject_summary.defendant_last_name).to.exist;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/internal/v2/court_applications/{{application_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"internal",
+								"v2",
+								"court_applications",
+								"{{application_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Defendants",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Defendant",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Defendants type is present in the response\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.data.type).to.exist;",
+											"    pm.expect(json_data.data.type).to.eql(\"defendants\");",
+											"});",
+											"",
+											"pm.test(\"Defendant Properties exist\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.data.attributes.name).to.exist;",
+											"    pm.expect(json_data.data.attributes.date_of_birth).to.exist;",
+											"    pm.expect(json_data.data.attributes.national_insurance_number).to.exist;",
+											"    pm.expect(json_data.data.attributes.arrest_summons_number).to.exist;",
+											"});",
+											"",
+											"pm.test(\"Prosecution case in relationships\", function () {",
+											"    var json_data = pm.response.json();",
+											"    pm.expect(json_data.data.relationships).to.exist;",
+											"    pm.expect(json_data.data.relationships.prosecution_case).to.exist;",
+											"    pm.expect(json_data.data.relationships.prosecution_case).to.exist;",
+											"    pm.expect(json_data.data.relationships.prosecution_case).to.be.a('object');",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/internal/v1/defendants/{{defendant_summaries_id}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v1",
+										"defendants",
+										"{{defendant_summaries_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Linking",
+			"item": [
+				{
+					"name": "Case",
+					"item": [
+						{
+							"name": "LAA reference link defendant from case",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422 or 202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"laa_reference\" : {\n        \"defendant_id\": \"{{defendant_summaries_id}}\",\n        \"user_name\": \"work-c\", // VCD username of ie case worker \n        \"maat_reference\": \"{{case_maat_id}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v2/laa_references",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v2",
+										"laa_references"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LAA reference unlink defendant from case",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422 or 202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"laa_reference\" : {\n        \"defendant_id\": \"{{defendant_summaries_id}}\",\n        \"user_name\": \"work-c\", // VCD username of ie case worker \n        \"unlink_reason_code\": 1\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v2/laa_references/{{defendant_summaries_id}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v2",
+										"laa_references",
+										"{{defendant_summaries_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Appeals",
+					"item": [
+						{
+							"name": "LAA reference link defendant to application",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422 or 202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"laa_reference\" : {\n        \"subject_id\": \"{{subject_id}}\",\n        \"user_name\": \"work-c\", // VCD username of ie case worker \n        \"maat_reference\": \"{{appeals_maat_id}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v2/court_application_laa_references",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v2",
+										"court_application_laa_references"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LAA reference unlink defendant from a application",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422 or 202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"laa_reference\" : {\n        \"subject_id\": \"{{subject_id}}\",\n        \"user_name\": \"work-c\", // VCD username of ie case worker \n        \"unlink_reason_code\": 0\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v2/court_application_laa_references/{{application_id}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v2",
+										"court_application_laa_references",
+										"{{application_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Representation order",
+			"item": [
+				{
+					"name": "Case",
+					"item": [
+						{
+							"name": "Representation order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422 or 202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"representation_orders\",\n    \"attributes\": {\n      \"maat_reference\": {{case_maat_id}},\n      \"defendant_id\": \"{{defendant_summaries_id}}\",\n      \"defence_organisation\": {\n        \"organisation\": {\n            \"name\": \"Dave reps order\"\n        },\n        \"laa_contract_number\": \"123456789\" // not sure were this is from probably I thin from crime apps.\n      },\n      \"offences\": [\n      {\n        \"offence_id\": \"{{case_offence_id}}\",\n        \"status_code\": \"AP\"\n        // \"status_date\": \"2025-04-30\",\n        // \"effective_start_date\": \"2025-04-01\",\n        // \"effective_end_date\": \"2025-04-30\"\n      }\n    ]\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v1/representation_orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v1",
+										"representation_orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Appeal",
+					"item": [
+						{
+							"name": "Representation order for appeals",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422 or 202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"type\": \"representation_orders\",\n    \"attributes\": {\n      \"maat_reference\": {{appeals_maat_id}},\n      \"subject_id\": \"{{subject_id}}\",\n      \"defence_organisation\": {\n        \"organisation\": {\n            \"name\": \"Dave reps order\"\n        },\n        \"laa_contract_number\": \"123456789\" // not sure were this is from probably I think from crime apps.\n      },\n      \"offences\": [\n      {\n        \"offence_id\": \"{{appeal_offence_id}}\",\n        \"status_code\": \"AP\"\n        // \"status_date\": \"2025-04-30\",\n        // \"effective_start_date\": \"2025-04-01\",\n        // \"effective_end_date\": \"2025-04-30\"\n      }\n    ]\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/internal/v1/court_application_representation_orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"v1",
+										"court_application_representation_orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
