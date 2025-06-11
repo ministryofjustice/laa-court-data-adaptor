@@ -3,13 +3,13 @@
 module Api
   module Internal
     module V2
-      class LaaReferencesController < ApplicationController
+      class ProsecutionCaseLaaReferencesController < ApplicationController
         # Create link to court data
         def create
-          contract = NewLaaReferenceContract.new.call(**transformed_params)
+          contract = ProsecutionCaseLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
 
-          MaatLinkCreatorWorker.perform_async(
+          ProsecutionCaseMaatLinkCreatorWorker.perform_async(
             Current.request_id,
             transformed_params[:defendant_id],
             transformed_params[:user_name],
@@ -41,7 +41,7 @@ module Api
         def enqueue_unlink
           check_defendant_presence!
 
-          UnlinkLaaReferenceWorker.perform_async(
+          UnlinkProsecutionCaseLaaReferenceWorker.perform_async(
             Current.request_id,
             transformed_params[:defendant_id],
             transformed_params[:user_name],

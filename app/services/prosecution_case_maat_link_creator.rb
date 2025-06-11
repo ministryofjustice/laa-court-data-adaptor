@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MaatLinkCreator < ApplicationService
+class ProsecutionCaseMaatLinkCreator < ApplicationService
   attr_reader :laa_reference, :defendant_id
 
   def initialize(defendant_id, user_name, maat_reference)
@@ -56,7 +56,7 @@ private
   end
 
   def post_laa_reference_to_common_platform(offence)
-    response = CommonPlatform::Api::RecordLaaReference.call(
+    response = CommonPlatform::Api::RecordProsecutionCaseLaaReference.call(
       prosecution_case_id: offence.prosecution_case_id,
       defendant_id: offence.defendant_id,
       offence_id: offence.offence_id,

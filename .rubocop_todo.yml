@@ -32,8 +32,8 @@ RSpec/VerifiedDoubles:
     - 'spec/services/common_platform/api/hearing_events_fetcher_spec.rb'
     - 'spec/services/common_platform/api/hearing_fetcher_spec.rb'
     - 'spec/services/common_platform/api/prosecution_case_searcher_spec.rb'
-    - 'spec/services/common_platform/api/record_laa_reference_spec.rb'
-    - 'spec/services/common_platform/api/record_representation_order_spec.rb'
+    - 'spec/services/common_platform/api/record_prosecution_case_laa_reference_spec.rb'
+    - 'spec/services/common_platform/api/record_prosecution_case_representation_order_spec.rb'
     - 'spec/services/common_platform/api/search_prosecution_case_spec.rb'
     - 'spec/services/maat_api/connection_spec.rb'
 

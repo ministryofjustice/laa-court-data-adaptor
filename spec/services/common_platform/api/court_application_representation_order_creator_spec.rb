@@ -51,8 +51,8 @@ RSpec.describe CommonPlatform::Api::CourtApplicationRepresentationOrderCreator d
                                              application_type: "4567")
   end
 
-  it "calls the CommonPlatform::Api::RecordRepresentationOrder service once" do
-    expect(CommonPlatform::Api::CourtApplicationRecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
+  it "calls the CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder service once" do
+    expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
     create_rep_order
   end
 
@@ -75,16 +75,16 @@ RSpec.describe CommonPlatform::Api::CourtApplicationRepresentationOrderCreator d
                                                application_type: "4567")
     end
 
-    it "calls the CommonPlatform::Api::RecordRepresentationOrder service twice" do
-      expect(CommonPlatform::Api::CourtApplicationRecordRepresentationOrder).to receive(:call).twice.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder service twice" do
+      expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder).to receive(:call).twice.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
       create_rep_order
     end
 
     context "when one offence does not have a status date" do
       before { offence_two.delete(:status_date) }
 
-      it "calls the CommonPlatform::Api::RecordRepresentationOrder service once" do
-        expect(CommonPlatform::Api::CourtApplicationRecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
+      it "calls the CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder service once" do
+        expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
         create_rep_order
       end
     end
@@ -101,8 +101,8 @@ RSpec.describe CommonPlatform::Api::CourtApplicationRepresentationOrderCreator d
       }
     end
 
-    it "calls the CommonPlatform::Api::RecordRepresentationOrder service once" do
-      expect(CommonPlatform::Api::CourtApplicationRecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder service once" do
+      expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
       create_rep_order
     end
   end
@@ -140,7 +140,7 @@ RSpec.describe CommonPlatform::Api::CourtApplicationRepresentationOrderCreator d
     end
 
     it "sanitises the data" do
-      expect(CommonPlatform::Api::CourtApplicationRecordRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
+      expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
       create_rep_order
     end
   end

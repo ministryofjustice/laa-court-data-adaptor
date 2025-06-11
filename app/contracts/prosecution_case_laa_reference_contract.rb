@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class NewLaaReferenceContract < Dry::Validation::Contract
+class ProsecutionCaseLaaReferenceContract < Dry::Validation::Contract
   option :uuid_validator, default: -> { CommonPlatform::UuidValidator }
   option :maat_reference_validator, default: -> { MaatApi::MaatReferenceValidator }
-  option :link_validator, default: -> { LinkValidator }
+  option :link_validator, default: -> { ProsecutionCaseLinkValidator }
 
   params do
     optional(:maat_reference).value(:integer, lt?: 999_999_999)

@@ -2,7 +2,7 @@
 
 require "sidekiq/testing"
 
-RSpec.describe RepresentationOrderCreatorWorker, type: :worker do
+RSpec.describe ProsecutionCaseRepresentationOrderCreatorWorker, type: :worker do
   subject(:work) do
     described_class.perform_async(request_id, defendant_id, offences, maat_reference, defence_organisation)
   end
@@ -21,7 +21,7 @@ RSpec.describe RepresentationOrderCreatorWorker, type: :worker do
 
   it "creates a CommonPlatform::Api::RepresentationOrderCreator and calls it" do
     Sidekiq::Testing.inline! do
-      expect(CommonPlatform::Api::RepresentationOrderCreator).to receive(:call).once.with(
+      expect(CommonPlatform::Api::ProsecutionCaseRepresentationOrderCreator).to receive(:call).once.with(
         defendant_id:,
         offences:,
         maat_reference:,

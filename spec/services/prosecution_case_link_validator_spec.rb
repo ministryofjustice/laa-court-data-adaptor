@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe LinkValidator do
+RSpec.describe ProsecutionCaseLinkValidator do
   subject(:link_validator_response) { described_class.call(defendant_id:) }
 
   let(:defendant_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }

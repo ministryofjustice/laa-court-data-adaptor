@@ -22,7 +22,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
 
   before do
     allow(Current).to receive(:request_id).and_return("XYZ")
-    allow(LinkValidator).to receive(:call).and_return(true)
+    allow(ProsecutionCaseLinkValidator).to receive(:call).and_return(true)
   end
 
   around do |example|
@@ -56,7 +56,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(MaatLinkCreatorWorker).to receive(:perform_async)
+          expect(ProsecutionCaseMaatLinkCreatorWorker).to receive(:perform_async)
             .with("XYZ", defendant_id, "JaneDoe", 1_231_231)
         end
 
@@ -70,7 +70,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           before do
             laa_reference[:laa_reference].delete(:maat_reference)
 
-            expect(MaatLinkCreatorWorker).to receive(:perform_async)
+            expect(ProsecutionCaseMaatLinkCreatorWorker).to receive(:perform_async)
               .with("XYZ", defendant_id, "JaneDoe", nil)
           end
 
@@ -84,7 +84,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
 
           before do
             laa_reference[:laa_reference].delete(:user_name)
-            expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
+            expect(ProsecutionCaseMaatLinkCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!
@@ -97,7 +97,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           before { laa_reference[:laa_reference][:maat_reference] = "ABC123123" }
 
           before do
-            expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
+            expect(ProsecutionCaseMaatLinkCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!
@@ -109,7 +109,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           let(:Authorization) { nil }
 
           before do
-            expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
+            expect(ProsecutionCaseMaatLinkCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!
@@ -120,7 +120,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         let(:defendant_id) { "X" }
 
         it "renders a JSON response with an unprocessable_entity error" do
-          post api_internal_v2_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+          post api_internal_v2_prosecution_case_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
           expect(response.body).to include("is not a valid uuid")
           expect(response).to have_http_status(:unprocessable_entity)
@@ -162,7 +162,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           let(:Authorization) { "Bearer #{token.token}" }
 
           before do
-            expect(UnlinkLaaReferenceWorker).to receive(:perform_async).with("XYZ", defendant_id, "JaneDoe", 1, "", 1_231_231)
+            expect(UnlinkProsecutionCaseLaaReferenceWorker).to receive(:perform_async).with("XYZ", defendant_id, "JaneDoe", 1, "", 1_231_231)
           end
 
           run_test!
@@ -174,7 +174,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
             let(:defendant_id) { "X" }
 
             before do
-              expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+              expect(UnlinkProsecutionCaseLaaReferenceWorker).not_to receive(:perform_async)
             end
 
             run_test!
@@ -200,7 +200,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
             let(:Authorization) { nil }
 
             before do
-              expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+              expect(UnlinkProsecutionCaseLaaReferenceWorker).not_to receive(:perform_async)
             end
 
             run_test!
