@@ -126,7 +126,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
       call_unlinker
     end
 
-    it "calls the CommonPlatform::Api::RecordLaaReference service multiple times" do
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service multiple times" do
       expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
     end
@@ -140,7 +140,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
       call_unlinker
     end
 
-    it "calls the CommonPlatform::Api::RecordLaaReference service" do
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service" do
       expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
     end

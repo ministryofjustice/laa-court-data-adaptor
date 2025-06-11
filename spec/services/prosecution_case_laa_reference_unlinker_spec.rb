@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe LaaReferenceUnlinker do
+RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
   subject(:call_unlinker) do
     described_class.call(defendant_id:,
                          user_name:,
@@ -32,12 +32,12 @@ RSpec.describe LaaReferenceUnlinker do
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE dummy_maat_reference_seq RESTART;")
 
-    allow(CommonPlatform::Api::RecordLaaReference).to receive(:call)
+    allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call)
     allow(Rails.logger).to receive(:warn)
   end
 
   it "creates a dummy maat_reference starting with Z" do
-    expect(CommonPlatform::Api::RecordLaaReference).to receive(:call).with(hash_including(application_reference: "Z10000000"))
+    expect(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call).with(hash_including(application_reference: "Z10000000"))
     call_unlinker
   end
 
@@ -126,8 +126,8 @@ RSpec.describe LaaReferenceUnlinker do
       call_unlinker
     end
 
-    it "calls the CommonPlatform::Api::RecordLaaReference service multiple times" do
-      expect(CommonPlatform::Api::RecordLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service multiple times" do
+      expect(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
     end
   end
@@ -140,8 +140,8 @@ RSpec.describe LaaReferenceUnlinker do
       call_unlinker
     end
 
-    it "calls the CommonPlatform::Api::RecordLaaReference service" do
-      expect(CommonPlatform::Api::RecordLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service" do
+      expect(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
     end
   end

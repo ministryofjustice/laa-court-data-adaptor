@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LinkValidator < ApplicationService
+class ProsecutionCaseLinkValidator < ApplicationService
   def initialize(defendant_id:)
     @prosecution_case = ProsecutionCaseDefendantOffence.find_by(defendant_id:)&.prosecution_case
   end

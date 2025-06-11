@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://justice.gov.uk/progression/courts/external/progression.recordLAAReference.json",
+  "id": "http://justice.gov.uk/progression/courts/external/progression.RecordProsecutionCaseLaaReference.json",
   "description": "Records a reference to the legal aid application against the court case details",
   "type": "object",
   "properties": {

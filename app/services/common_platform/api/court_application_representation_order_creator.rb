@@ -23,7 +23,7 @@ module CommonPlatform
 
           next if court_application_defendant_offence.blank?
 
-          CommonPlatform::Api::CourtApplicationRecordRepresentationOrder.call(
+          CommonPlatform::Api::RecordCourtApplicationRepresentationOrder.call(
             court_application_defendant_offence:,
             subject_id:,
             offence_id: offence[:offence_id],

@@ -2,7 +2,7 @@
 
 require "sidekiq/testing"
 
-RSpec.describe MaatLinkCreator do
+RSpec.describe ProsecutionCaseMaatLinkCreator do
   subject(:create_maat_link) { described_class.call(defendant_id, user_name, maat_reference) }
 
   include ActiveSupport::Testing::TimeHelpers
@@ -28,11 +28,11 @@ RSpec.describe MaatLinkCreator do
     )
 
     allow(Sqs::MessagePublisher).to receive(:call)
-    allow(CommonPlatform::Api::RecordLaaReference).to receive(:call)
+    allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call)
   end
 
   it "enqueues a HearingResultFetcherWorker per hearing" do
-    allow(CommonPlatform::Api::RecordLaaReference)
+    allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
       .to receive(:call)
       .and_return(response)
 
@@ -49,13 +49,13 @@ RSpec.describe MaatLinkCreator do
     end
   end
 
-  it "calls the CommonPlatform::Api::RecordLaaReference service once" do
-    allow(CommonPlatform::Api::RecordLaaReference)
+  it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service once" do
+    allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
       .to receive(:call)
       .once.with(hash_including(application_reference: "12345678"))
       .and_return(response)
 
-    expect(CommonPlatform::Api::RecordLaaReference)
+    expect(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
       .to receive(:call)
       .once
       .with(hash_including(application_reference: "12345678"))
@@ -64,7 +64,7 @@ RSpec.describe MaatLinkCreator do
   end
 
   it "calls the Sqs::MessagePublisher service once" do
-    allow(CommonPlatform::Api::RecordLaaReference)
+    allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
       .to receive(:call)
       .once.with(hash_including(application_reference: "12345678"))
       .and_return(response)
@@ -94,7 +94,7 @@ RSpec.describe MaatLinkCreator do
     end
 
     it "calls the Sqs::MessagePublisher service once" do
-      allow(CommonPlatform::Api::RecordLaaReference)
+      allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
         .to receive(:call)
         .and_return(response)
 
@@ -103,12 +103,12 @@ RSpec.describe MaatLinkCreator do
       create_maat_link
     end
 
-    it "calls the CommonPlatform::Api::RecordLaaReference service multiple times" do
-      allow(CommonPlatform::Api::RecordLaaReference)
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service multiple times" do
+      allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
         .to receive(:call)
         .and_return(response)
 
-      expect(CommonPlatform::Api::RecordLaaReference)
+      expect(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
         .to receive(:call)
         .twice
         .with(hash_including(application_reference: "12345678"))
@@ -124,7 +124,7 @@ RSpec.describe MaatLinkCreator do
       before do
         existing_laa_reference.update!(linked: false)
 
-        allow(CommonPlatform::Api::RecordLaaReference)
+        allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
           .to receive(:call)
           .and_return(response)
       end
@@ -141,7 +141,7 @@ RSpec.describe MaatLinkCreator do
     let(:maat_reference) { "A10000000" }
 
     it "does not call the Sqs::MessagePublisher service" do
-      allow(CommonPlatform::Api::RecordLaaReference)
+      allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
         .to receive(:call)
         .and_return(response)
 
@@ -151,11 +151,11 @@ RSpec.describe MaatLinkCreator do
     end
 
     it "creates a dummy maat_reference" do
-      allow(CommonPlatform::Api::RecordLaaReference)
+      allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
         .to receive(:call)
         .and_return(response)
 
-      expect(CommonPlatform::Api::RecordLaaReference)
+      expect(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
         .to receive(:call)
         .with(hash_including(application_reference: "A10000000"))
 
@@ -167,7 +167,7 @@ RSpec.describe MaatLinkCreator do
     let(:maat_reference) { nil }
 
     it "creates a dummy_maat_reference" do
-      allow(CommonPlatform::Api::RecordLaaReference)
+      allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
         .to receive(:call)
         .and_return(response)
 
@@ -179,7 +179,7 @@ RSpec.describe MaatLinkCreator do
 
   describe "linking twice" do
     it "marks previous record as unlinked and creates a new one marked as linked" do
-      allow(CommonPlatform::Api::RecordLaaReference)
+      allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
         .to receive(:call)
         .and_return(response)
 
@@ -196,7 +196,7 @@ RSpec.describe MaatLinkCreator do
     let(:response) { OpenStruct.new("status" => 500, "success?" => false) }
 
     before do
-      allow(CommonPlatform::Api::RecordLaaReference)
+      allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
         .to receive(:call)
         .and_return(response)
     end
