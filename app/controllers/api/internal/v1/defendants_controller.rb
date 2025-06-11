@@ -27,7 +27,7 @@ module Api
       private
 
         def enqueue_unlink
-          UnlinkLaaReferenceWorker.perform_async(
+          UnlinkProsecutionCaseLaaReferenceWorker.perform_async(
             Current.request_id,
             transformed_params[:defendant_id],
             transformed_params[:user_name],
