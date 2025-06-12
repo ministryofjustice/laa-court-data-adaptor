@@ -261,11 +261,12 @@ Rubocop can be set up to run pre-commits.
 
 Please see this [PR](https://github.com/ministryofjustice/laa-court-data-adaptor/pull/12)
 
+## Sidekiq UI
+
 There is a user interface for monitoring the sidekiq workers each environment. The credentials can be found in the helm values files.
 - [Dev](https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [Test](https://laa-court-data-adaptor-test.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [UAT](https://laa-court-data-adaptor-uat.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
-- [Staging](https://laa-court-data-adaptor-stage.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [Prod](https://laa-court-data-adaptor.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 
 
