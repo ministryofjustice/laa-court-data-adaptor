@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LaaReferenceUnlinker < ApplicationService
-  def initialize(defendant_id:, user_name:, unlink_reason_code:, unlink_other_reason_text:, maat_reference: nil)
+  def initialize(defendant_id:, user_name:, unlink_reason_code:, unlink_other_reason_text: nil, maat_reference: nil)
     @defendant_id = defendant_id
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
