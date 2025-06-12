@@ -164,31 +164,6 @@ jobs:
           values: ./helm_deploy/laa-court-data-adaptor/public-values/test.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
-  install_on_stage_live:
-    executor: aws-eks/python
-    steps:
-      - checkout_and_decrypt
-      - kubernetes/install-kubectl
-      - helm/install-helm-client:
-          version: 'v3.2.4'
-      - run:
-          name: Authenticate to LIVE cluster
-          command: |
-            echo -n ${CLUSTER_CERT_LIVE} | base64 -d > ./live_ca.crt
-            kubectl config set-cluster ${CLUSTER_NAME_LIVE} --certificate-authority=./live_ca.crt --server=https://${CLUSTER_NAME_LIVE}
-            kubectl config set-credentials circleci --token=${CIRCLE_CI_TOKEN_STAGE_LIVE}
-            kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=laa-court-data-adaptor-stage
-            kubectl config use-context ${CLUSTER_NAME_LIVE}
-            kubectl config current-context
-            kubectl --namespace=laa-court-data-adaptor-stage get pods
-      - helm/upgrade-helm-chart:
-          namespace: laa-court-data-adaptor-stage
-          update-repositories: false
-          chart: ./helm_deploy/laa-court-data-adaptor
-          release-name: laa-court-data-adaptor
-          values: ./helm_deploy/laa-court-data-adaptor/public-values/stage.yaml
-          values-to-override: image.tag=$CIRCLE_SHA1
-
   install_on_uat_live:
     executor: aws-eks/python
     steps:
@@ -277,9 +252,6 @@ workflows:
       - install_on_uat_live:
           requires:
           - build-and-push-app
-      - install_on_stage_live:
-          requires:
-          - build-and-push-app
       - hold_install_on_prod:
           type: approval
           requires:
@@ -318,13 +290,6 @@ workflows:
       - install_on_test_live:
           requires:
           - hold_install_on_test
-      - hold_install_on_stage:
-          type: approval
-          requires:
-          - build-and-push-app
-      - install_on_stage_live:
-          requires:
-          - hold_install_on_stage
       - hold_install_on_uat:
           type: approval
           requires:
