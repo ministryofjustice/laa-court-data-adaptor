@@ -1,4 +1,4 @@
-FROM ruby:3.3.6-alpine3.20
+FROM ruby:3.4.4-alpine3.20
 
 MAINTAINER crime apps team
 
@@ -18,7 +18,8 @@ RUN apk --no-cache add --virtual build-dependencies \
                     postgresql-dev \
                     postgresql-client \
                     tzdata \
-                    git
+                    git \
+                    yaml-dev
 
 # add non-root user and group with alpine first available uid, 1000
 RUN addgroup -g 1000 -S appgroup \
