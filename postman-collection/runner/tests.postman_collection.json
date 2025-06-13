@@ -809,8 +809,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 422 or 202\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"pm.test(\"Status code is 422 or 201\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 201]);",
 											"});",
 											""
 										],
@@ -863,8 +863,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 422 or 202\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
+											"pm.test(\"Status code is 422 or 200\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([422, 200]);",
 											"});",
 											""
 										],
