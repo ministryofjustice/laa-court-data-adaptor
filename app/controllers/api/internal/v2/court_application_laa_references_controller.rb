@@ -9,7 +9,7 @@ module Api
           CourtApplicationMaatLinkCreator.call(
             transformed_params[:subject_id],
             transformed_params[:user_name],
-            transformed_params[:maat_reference]
+            transformed_params[:maat_reference],
           )
 
           head :created
@@ -24,10 +24,10 @@ module Api
             user_name: transformed_params[:user_name],
             unlink_reason_code: transformed_params[:unlink_reason_code],
             unlink_other_reason_text: transformed_params[:unlink_other_reason_text],
-            maat_reference: transformed_params[:maat_reference]
+            maat_reference: transformed_params[:maat_reference],
           )
 
-          head :accepted
+          head :ok
         end
 
       private
