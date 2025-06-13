@@ -1,5 +1,5 @@
 class CourtApplicationLaaReferenceUnlinker < ApplicationService
-  def initialize(subject_id:, user_name:, unlink_reason_code:, unlink_other_reason_text:, maat_reference: nil)
+  def initialize(subject_id:, user_name:, unlink_reason_code:, unlink_other_reason_text: nil, maat_reference: nil)
     @subject_id = subject_id
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
@@ -41,7 +41,7 @@ private
   end
 
   def update_offence_on_common_platform(offence)
-    CommonPlatform::Api::RecordCourtApplicationLaaReference.call(
+    response = CommonPlatform::Api::RecordCourtApplicationLaaReference.call(
       application_id: court_application_summary.application_id,
       subject_id:,
       offence_id: offence.offence_id,
@@ -49,6 +49,8 @@ private
       application_reference: dummy_maat_reference,
       status_date: Time.zone.today.strftime("%Y-%m-%d"),
     )
+
+    raise CommonPlatform::Api::Errors::FailedDependency, "Error posting LAA Reference to Common Platform" unless response.success?
   end
 
   def offences

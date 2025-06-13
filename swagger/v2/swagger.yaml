@@ -69,8 +69,10 @@ paths:
       parameters:
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        '202':
-          description: Accepted
+        '201':
+          description: Created
+        '424':
+          description: Failed dependency
         '422':
           description: Unprocessable entity
         '401':
@@ -100,9 +102,11 @@ paths:
           "$ref": defendant.json#/properties/id
         description: The unique identifier of the defendant
       responses:
-        '202':
-          description: Accepted
+        '200':
+          description: OK
         '422':
+          description: Unprocessable Entity
+        '424':
           description: Unprocessable Entity
         '404':
           description: Defendant not found

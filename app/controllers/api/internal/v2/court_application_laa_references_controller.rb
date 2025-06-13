@@ -6,16 +6,16 @@ module Api
           contract = CourtApplicationLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
 
-          enqueue_link
-          head :accepted
+          link
+          head :created
         end
 
         def update
           contract = UnlinkCourtApplicationSubjectContract.new.call(**transformed_params)
           enforce_contract!(contract)
 
-          enqueue_unlink
-          head :accepted
+          unlink
+          head :ok
         end
 
       private
@@ -26,26 +26,18 @@ module Api
           end
         end
 
-        def enqueue_link
-          CourtApplicationMaatLinkCreatorWorker.perform_async(
-            Current.request_id,
+        def link
+          CourtApplicationMaatLinkCreator.call(
             transformed_params[:subject_id],
             transformed_params[:user_name],
             transformed_params[:maat_reference],
           )
         end
 
-        def enqueue_unlink
+        def unlink
           check_defendant_presence!
 
-          UnlinkCourtApplicationLaaReferenceWorker.perform_async(
-            Current.request_id,
-            transformed_params[:subject_id],
-            transformed_params[:user_name],
-            transformed_params[:unlink_reason_code],
-            transformed_params[:unlink_other_reason_text],
-            transformed_params[:maat_reference],
-          )
+          CourtApplicationLaaReferenceUnlinker.call(**transformed_params)
         end
 
         def check_defendant_presence!

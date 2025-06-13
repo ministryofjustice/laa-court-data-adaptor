@@ -19,7 +19,6 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
   end
 
   before do
-    allow(Current).to receive(:request_id).and_return("XYZ")
     allow(CourtApplicationLinkValidator).to receive(:call).and_return(true)
   end
 
@@ -39,7 +38,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
       security [{ oAuth: [] }]
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
-      response(202, "Accepted") do
+      response(201, "Created") do
         around do |example|
           Sidekiq::Testing.fake!
           VCR.use_cassette("laa_reference_recorder/post") do
@@ -54,22 +53,35 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(CourtApplicationMaatLinkCreatorWorker).to receive(:perform_async)
-            .with("XYZ", subject_id, "JaneDoe", 1_231_231)
+          expect(CourtApplicationMaatLinkCreator).to receive(:call)
+            .with(subject_id, "JaneDoe", 1_231_231)
         end
 
         run_test!
       end
 
       context "with a blank maat_reference" do
-        response(202, "Accepted") do
+        response(201, "Created") do
           let(:Authorization) { "Bearer #{token.token}" }
 
           before do
             laa_reference[:laa_reference].delete(:maat_reference)
 
-            expect(CourtApplicationMaatLinkCreatorWorker).to receive(:perform_async)
-              .with("XYZ", subject_id, "JaneDoe", nil)
+            expect(CourtApplicationMaatLinkCreator).to receive(:call)
+              .with(subject_id, "JaneDoe", nil)
+          end
+
+          run_test!
+        end
+      end
+
+      context "when there is a problem with common platform" do
+        response(424, "Failed dependency") do
+          let(:Authorization) { "Bearer #{token.token}" }
+
+          before do
+            allow(CourtApplicationMaatLinkCreator).to receive(:call)
+             .and_raise(CommonPlatform::Api::Errors::FailedDependency, "Common Platform is offline")
           end
 
           run_test!
@@ -82,7 +94,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
           before do
             laa_reference[:laa_reference].delete(:user_name)
-            expect(CourtApplicationMaatLinkCreatorWorker).not_to receive(:perform_async)
+            expect(CourtApplicationMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -95,7 +107,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           before { laa_reference[:laa_reference][:maat_reference] = "ABC123123" }
 
           before do
-            expect(CourtApplicationMaatLinkCreatorWorker).not_to receive(:perform_async)
+            expect(CourtApplicationMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -107,7 +119,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           let(:Authorization) { nil }
 
           before do
-            expect(CourtApplicationMaatLinkCreatorWorker).not_to receive(:perform_async)
+            expect(CourtApplicationMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -134,7 +146,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
         security [{ oAuth: [] }]
         parameter "$ref" => "#/components/parameters/transaction_id_header"
 
-        response(202, "Accepted") do
+        response(200, "OK") do
           around do |example|
             Sidekiq::Testing.fake!
             LaaReference.create!(defendant_id: subject_id,
@@ -161,7 +173,13 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           let(:Authorization) { "Bearer #{token.token}" }
 
           before do
-            expect(UnlinkCourtApplicationLaaReferenceWorker).to receive(:perform_async).with("XYZ", subject_id, "JaneDoe", 1, "", 1_231_231)
+            expect(CourtApplicationLaaReferenceUnlinker).to receive(:call).with(
+              subject_id: subject_id,
+              user_name: "JaneDoe",
+              unlink_reason_code: 1,
+              unlink_other_reason_text: "",
+              maat_reference: 1_231_231,
+            )
           end
 
           run_test!
@@ -173,7 +191,25 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
             let(:subject_id) { "X" }
 
             before do
-              expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+              expect(CourtApplicationLaaReferenceUnlinker).not_to receive(:call)
+            end
+
+            run_test!
+          end
+        end
+
+        context "when common platform is offline" do
+          response("424", "Unprocessable Entity") do
+            let(:Authorization) { "Bearer #{token.token}" }
+
+            before do
+              LaaReference.create!(defendant_id: subject_id,
+                                   linked: true,
+                                   maat_reference: laa_reference[:laa_reference][:maat_reference],
+                                   user_name: "Jack")
+
+              allow(CourtApplicationLaaReferenceUnlinker).to receive(:call)
+                .and_raise(CommonPlatform::Api::Errors::FailedDependency, "Common Platform is offline")
             end
 
             run_test!
@@ -199,7 +235,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
             let(:Authorization) { nil }
 
             before do
-              expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+              expect(CourtApplicationLaaReferenceUnlinker).not_to receive(:call)
             end
 
             run_test!

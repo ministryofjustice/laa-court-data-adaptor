@@ -19,6 +19,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
                         maat_reference:,
                         linked: true)
   end
+  let(:response) { OpenStruct.new("status" => 200, "success?" => true) }
 
   before do
     CourtApplication.create!(
@@ -31,7 +32,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
                                              application_type: "appeal")
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE dummy_maat_reference_seq RESTART;")
 
-    allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call)
+    allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).and_return(response)
     allow(Rails.logger).to receive(:warn)
   end
 
