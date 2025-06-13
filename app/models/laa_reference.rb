@@ -37,6 +37,11 @@ class LaaReference < ApplicationRecord
 
   def self.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference)
     collection = where(defendant_id:, linked: true)
+
+    if collection.empty?
+      raise ActiveRecord::RecordNotFound, "Defendant not found!"
+    end
+
     return collection.first if maat_reference.blank?
 
     collection.find_by(maat_reference:)
