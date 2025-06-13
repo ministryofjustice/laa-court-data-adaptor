@@ -1,15 +1,17 @@
 module HmctsCommonPlatform
   class LaaReference
-    attr_reader :data
+    attr_reader :data, :defendant_id
 
     delegate :blank?, to: :data
 
-    def initialize(data)
+    def initialize(data, defendant_id = nil)
       @data = HashWithIndifferentAccess.new(data || {})
+      @defendant_id = defendant_id
     end
 
     def reference
-      data[:applicationReference]
+      # HMCTS does not reliably tell us if there is a MAAT reference or not.
+      ::LaaReference.find_by(defendant_id:, linked: true)&.maat_reference if defendant_id
     end
 
     def status_id
