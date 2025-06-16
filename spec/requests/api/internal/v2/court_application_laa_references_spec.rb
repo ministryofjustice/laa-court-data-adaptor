@@ -23,14 +23,6 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
     allow(CourtApplicationLinkValidator).to receive(:call).and_return(true)
   end
 
-  around do |example|
-    VCR.use_cassette("maat_api/maat_reference_success") do
-      Sidekiq::Testing.fake! do
-        example.run
-      end
-    end
-  end
-
   path "/api/internal/v2/court_application_laa_references" do
     post("post laa_reference") do
       description "Post an LAA reference to CDA to link a MAAT case to a Common Platform application"
@@ -39,7 +31,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
       security [{ oAuth: [] }]
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
-      response(202, "Accepted") do
+      response(201, "Created") do
         around do |example|
           Sidekiq::Testing.fake!
           VCR.use_cassette("laa_reference_recorder/post") do
@@ -53,23 +45,25 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
         let(:Authorization) { "Bearer #{token.token}" }
 
-        # before do
-        #   expect(CourtApplicationMaatLinkCreatorWorker).to receive(:perform_async)
-        #     .with("XYZ", subject_id, "JaneDoe", 1_231_231)
-        # end
+        before do
+          allow(CourtApplicationMaatLinkCreator).to receive(:call).with(subject_id, "JaneDoe", 1_231_231)
+
+          allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: 1_231_231)
+            .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
+        end
 
         run_test!
       end
 
       context "with a blank maat_reference" do
-        response(202, "Accepted") do
+        response(201, "created") do
           let(:Authorization) { "Bearer #{token.token}" }
 
           before do
             laa_reference[:laa_reference].delete(:maat_reference)
 
-            # expect(CourtApplicationMaatLinkCreatorWorker).to receive(:perform_async)
-            #   .with("XYZ", subject_id, "JaneDoe", nil)
+            expect(CourtApplicationMaatLinkCreator).to receive(:call)
+                                                         .with(subject_id, "JaneDoe", nil)
           end
 
           run_test!
@@ -77,12 +71,18 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
       end
 
       context "with a blank user_name" do
-        response("422", "Unprocessable entity") do
-          let(:Authorization) { "Bearer #{token.token}" }
+        let(:Authorization) { "Bearer #{token.token}" }
 
+        response("422", "Unprocessable entity") do
           before do
             laa_reference[:laa_reference].delete(:user_name)
-            # expect(CourtApplicationMaatLinkCreatorWorker).not_to receive(:perform_async)
+
+            allow(MaatApi::MaatReferenceValidator).to receive(:call)
+              .and_return(
+                instance_double(Faraday::Response, status: 200, body: {}, success?: true),
+              )
+
+            expect(CourtApplicationMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -94,9 +94,9 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           let(:Authorization) { "Bearer #{token.token}" }
           before { laa_reference[:laa_reference][:maat_reference] = "ABC123123" }
 
-          # before do
-          #   expect(CourtApplicationMaatLinkCreatorWorker).not_to receive(:perform_async)
-          # end
+          before do
+            expect(CourtApplicationMaatLinkCreator).not_to receive(:call)
+          end
 
           run_test!
         end
@@ -106,9 +106,9 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
         response("401", "Unauthorized") do
           let(:Authorization) { nil }
 
-          # before do
-          #   expect(CourtApplicationMaatLinkCreatorWorker).not_to receive(:perform_async)
-          # end
+          before do
+            expect(CourtApplicationMaatLinkCreator).not_to receive(:call)
+          end
 
           run_test!
         end
@@ -116,6 +116,11 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
       context "with a failing LAA Reference contract" do
         let(:subject_id) { "X" }
+
+        before do
+          allow(MaatApi::MaatReferenceValidator).to receive(:call)
+            .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
+        end
 
         it "renders a JSON response with an unprocessable_entity error" do
           post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
@@ -134,7 +139,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
         security [{ oAuth: [] }]
         parameter "$ref" => "#/components/parameters/transaction_id_header"
 
-        response(202, "Accepted") do
+        response(200, "OK") do
           around do |example|
             Sidekiq::Testing.fake!
             LaaReference.create!(defendant_id: subject_id,
@@ -161,19 +166,23 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           let(:Authorization) { "Bearer #{token.token}" }
 
           before do
-            expect(UnlinkCourtApplicationLaaReferenceWorker).to receive(:perform_async).with("XYZ", subject_id, "JaneDoe", 1, "", 1_231_231)
+            expect(CourtApplicationLaaReferenceUnlinker).to receive(:call).with(subject_id:,
+                                                                                user_name: "JaneDoe",
+                                                                                unlink_reason_code: 1,
+                                                                                unlink_other_reason_text: "",
+                                                                                maat_reference: 1_231_231)
           end
 
           run_test!
         end
 
         context "when data is bad" do
-          response("422", "Unprocessable Entity") do
-            let(:Authorization) { "Bearer #{token.token}" }
-            let(:subject_id) { "X" }
+          let(:Authorization) { "Bearer #{token.token}" }
+          let(:subject_id) { "X" }
 
+          response("422", "Unprocessable Entity") do
             before do
-              expect(UnlinkProsecutionCaseLaaReferenceWorker).not_to receive(:perform_async)
+              expect(CourtApplicationLaaReferenceUnlinker).not_to receive(:call)
             end
 
             run_test!
@@ -181,15 +190,14 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
         end
 
         context "when subject_id is nonexistent" do
+          let(:Authorization) { "Bearer #{token.token}" }
+          let(:subject_id) { "fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0" }
+
           response("404", "Defendant not found") do
-            let(:Authorization) { "Bearer #{token.token}" }
-
-            let(:subject_id) { "fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0" }
-
             run_test! do |response|
               error = JSON.parse(response.body)["error"]
 
-              expect(error).to include("Couldn't find LaaReference")
+              expect(error).to include("Defendant not found!")
             end
           end
         end

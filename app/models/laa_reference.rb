@@ -37,10 +37,15 @@ class LaaReference < ApplicationRecord
     "Z#{ActiveRecord::Base.connection.execute("SELECT nextval('dummy_maat_reference_seq')")[0]['nextval']}"
   end
 
-  def self.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference)
-    collection = where(defendant_id:, linked: true)
-    return collection.first if maat_reference.blank?
+  def self.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference = nil)
+    laa_refs = where(defendant_id:, linked: true)
 
-    collection.find_by(maat_reference:)
+    if laa_refs.blank?
+      raise ActiveRecord::RecordNotFound, "Defendant not found!"
+    end
+
+    return laa_refs.first if maat_reference.blank?
+
+    laa_refs.find_by(maat_reference:)
   end
 end
