@@ -57,7 +57,12 @@ jobs:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client-17
+      - run:
+          name: 'Install postgres client 17'
+          command: |
+            sudo apt install -y postgresql-common
+            sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+            sudo apt-get install postgresql-client-17
 
       - run:
           name: Database Setup
