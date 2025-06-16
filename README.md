@@ -52,7 +52,7 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
   Check the Ruby version in the file `.ruby-version`
 
 * System dependencies
-  * postgres 14.3
+  * postgres 17.4
   * redis
 
 * Ruby on Rails and the other Ruby Gems
@@ -68,8 +68,8 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
 To set up  CDA in your local machine, you can run the following services manually:
 * Rails (the application server)
 * Postgres
-  * [Brew formula for PostgreSQL@14](https://formulae.brew.sh/formula/postgresql@14#default)
-  * Docker - `docker run -d --name cda-db -e POSTGRES_USER postgres -e POSTGRES_PASSWORD <PASSWORD> -p 5432:5432 cimg/postgres:14`
+  * [Brew formula for PostgreSQL@17](https://formulae.brew.sh/formula/postgresql@17#default)
+  * Docker - `docker run -d --name cda-db -e POSTGRES_USER postgres -e POSTGRES_PASSWORD <PASSWORD> -p 5432:5432 cimg/postgres:17`
 * Redis and Sidekiq
 
 or you can use docker-compose.

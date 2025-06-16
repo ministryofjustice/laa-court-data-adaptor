@@ -30,7 +30,7 @@ jobs:
           PAGER: cat
           DATABASE_URL: postgres://postgres@localhost/laa_court_data_adaptor_test
           RAILS_ENV: test
-      - image: cimg/postgres:14.11
+      - image: cimg/postgres:17.4
         environment:
           POSTGRES_DB: laa_court_data_adaptor_test
     steps:
