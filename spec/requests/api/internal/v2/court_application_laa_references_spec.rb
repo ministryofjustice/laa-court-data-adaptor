@@ -33,7 +33,6 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
       response(201, "Created") do
         around do |example|
-          Sidekiq::Testing.fake!
           VCR.use_cassette("laa_reference_recorder/post") do
             example.run
           end
@@ -129,6 +128,20 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
+
+      context "when Common Platform returns error" do
+        response(424, "Failed Dependency on Common Platform") do
+          let(:Authorization) { "Bearer #{token.token}" }
+
+          before do
+            laa_reference[:laa_reference].delete(:maat_reference)
+
+            allow(CourtApplicationMaatLinkCreator).to receive(:call).and_raise(Faraday::ServerError)
+          end
+
+          run_test!
+        end
+      end
     end
 
     path "/api/internal/v2/court_application_laa_references/{subject_id}" do
@@ -189,7 +202,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           end
         end
 
-        context "when subject_id is nonexistent" do
+        context "when subject_id is not present in local LaaReference" do
           let(:Authorization) { "Bearer #{token.token}" }
           let(:subject_id) { "fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0" }
 
@@ -208,6 +221,20 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
             before do
               expect(UnlinkProsecutionCaseLaaReferenceWorker).not_to receive(:perform_async)
+            end
+
+            run_test!
+          end
+        end
+
+        context "when Common Platform returns error" do
+          let(:subject_id) { "fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0" }
+
+          response(424, "Failed Dependency on Common Platform") do
+            let(:Authorization) { "Bearer #{token.token}" }
+
+            before do
+              allow(CourtApplicationLaaReferenceUnlinker).to receive(:call).and_raise(Faraday::ServerError)
             end
 
             run_test!

@@ -10,6 +10,10 @@ class ApplicationController < ActionController::API
     Errors::DefendantError => :unprocessable_entity,
     ActiveRecord::RecordNotFound => :not_found,
     CommonPlatform::Api::Errors::FailedDependency => :failed_dependency,
+    Faraday::Error => :failed_dependency,
+    Faraday::TimeoutError => :failed_dependency,
+    Faraday::ConnectionFailed => :failed_dependency,
+    Faraday::ResourceNotFound => :failed_dependency,
   }.freeze
 
   ERROR_MAPPINGS.each do |klass, status|
