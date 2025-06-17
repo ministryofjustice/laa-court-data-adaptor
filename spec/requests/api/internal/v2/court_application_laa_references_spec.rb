@@ -136,7 +136,8 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           before do
             laa_reference[:laa_reference].delete(:maat_reference)
 
-            allow(CourtApplicationMaatLinkCreator).to receive(:call).and_raise(Faraday::ServerError)
+            allow(CourtApplicationMaatLinkCreator).to receive(:call)
+              .and_raise(CommonPlatform::Api::Errors::FailedDependency)
           end
 
           run_test!
@@ -234,7 +235,8 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
             let(:Authorization) { "Bearer #{token.token}" }
 
             before do
-              allow(CourtApplicationLaaReferenceUnlinker).to receive(:call).and_raise(Faraday::ServerError)
+              allow(CourtApplicationLaaReferenceUnlinker).to receive(:call)
+                .and_raise(CommonPlatform::Api::Errors::FailedDependency)
             end
 
             run_test!
