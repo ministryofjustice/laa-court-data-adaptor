@@ -31,6 +31,7 @@ Rails.application.routes.draw do
         resources :court_applications, only: [:show]
         resources :prosecution_cases, only: [:index], param: :reference do
           resources :defendants, only: %i[show]
+          collection { post "/", to: "index" }
         end
         resources :laa_references, only: %i[create update], param: :defendant_id
         resources :court_application_laa_references, only: %i[create update], param: :subject_id

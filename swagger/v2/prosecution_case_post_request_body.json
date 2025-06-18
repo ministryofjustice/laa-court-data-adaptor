@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Prosecution case filters",
+  "description": "Prosecution case filters",
+  "id": "prosecution_case_post_request_body",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "properties": {
+    "laa_reference": {
+      "type": "object",
+      "properties": {
+        "prosecution_case_reference": {
+          "example": "61GD7528225",
+          "type": "string"
+        },
+        "arrest_summons_number": {
+          "example": "arrest123",
+          "type": "string"
+        },
+        "national_insurance_number": {
+          "example": "HB133542A",
+          "type": "string"
+        },
+        "name": {
+          "example": "George Walsh",
+          "type": "string"
+        },
+        "date_of_birth": {
+          "example": "1980-01-01",
+          "type": "string"
+        },
+        "date_of_next_hearing": {
+          "example": "2020-02-17",
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "required": [
+    "filter"
+  ]
+}

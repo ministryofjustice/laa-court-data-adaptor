@@ -398,6 +398,40 @@ paths:
           description: Common Platform API Offline
         '401':
           description: Unauthorized
+    post:
+      summary: search prosecution cases
+      description: |-
+        Search prosecution cases. Valid search combinations are: <br/><br/>
+                            1) prosecution_case_reference <br/>
+                            2) arrest_summons_number <br/>
+                            3) national_insurance_number <br/>
+                            4) name and date_of_birth <br/>
+                            5) name and date_of_next_hearing
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": search_prosecution_case_response.json#
+        '424':
+          description: Common Platform API Error
+        '503':
+          description: Common Platform API Offline
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": prosecution_case_post_request_body.json#
+        required: true
   "/api/internal/v2/representation_orders":
     post:
       summary: post representation_order

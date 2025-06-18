@@ -179,5 +179,129 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
         end
       end
     end
+
+    post("search prosecution cases") do
+      description "Search prosecution cases. Valid search combinations are: <br/><br/>
+                    1) prosecution_case_reference <br/>
+                    2) arrest_summons_number <br/>
+                    3) national_insurance_number <br/>
+                    4) name and date_of_birth <br/>
+                    5) name and date_of_next_hearing"
+      consumes "application/json"
+      tags "Internal - available to other LAA applications"
+      security [{ oAuth: [] }]
+      parameter "$ref" => "#/components/parameters/transaction_id_header"
+      parameter name: :filter, in: :body, required: true, type: :object,
+                schema: { "$ref": "prosecution_case_post_request_body.json#" }
+      produces "application/vnd.api+json"
+
+      let(:Authorization) { "Bearer #{token.token}" }
+
+      context "when searching by prosecution_case_reference" do
+        around do |example|
+          VCR.use_cassette(cassette_name) do
+            example.run
+          end
+        end
+
+        let(:cassette_name) { "search_prosecution_case/by_prosecution_case_reference_success_v2" }
+
+        response(200, "Success") do
+          let(:filter) { { filter: { prosecution_case_reference: "61GD7528225" } } }
+
+          schema "$ref" => "search_prosecution_case_response.json#"
+
+          run_test!
+        end
+
+        context "when Common Platform API returns Server Error" do
+          let(:cassette_name) { "search_prosecution_case/server_error" }
+
+          response(424, "Common Platform API Error") do
+            let(:filter) { { filter: { prosecution_case_reference: "id-for-500-error" } } }
+
+            run_test!
+          end
+        end
+
+        context "when Common Platform API is offline" do
+          before do
+            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+          end
+
+          response(503, "Common Platform API Offline") do
+            it "returns an error code" do
+              post "/api/internal/v2/prosecution_cases", params: { filter: { prosecution_case_reference: 123 } }, headers: { "Authorization" => "Bearer #{token.token}" }
+              expect(response.parsed_body["error_codes"]).to eq %w[commmon_platform_connection_failed]
+            end
+          end
+        end
+      end
+
+      context "when searching by arrest_summons_number" do
+        response(200, "Success") do
+          around do |example|
+            VCR.use_cassette("search_prosecution_case/by_arrest_summons_number_success") do
+              example.run
+            end
+          end
+
+          let(:filter) { { filter: { arrest_summons_number: "arrest123" } } }
+
+          run_test!
+        end
+      end
+
+      context "when searching by national_insurance_number" do
+        response(200, "Success") do
+          around do |example|
+            VCR.use_cassette("search_prosecution_case/by_national_insurance_number_success") do
+              example.run
+            end
+          end
+
+          let(:filter) { { filter: { national_insurance_number: "HB133542A" } } }
+
+          run_test!
+        end
+      end
+
+      context "when searching by name and date of birth" do
+        response(200, "Success") do
+          around do |example|
+            VCR.use_cassette("search_prosecution_case/by_name_and_date_of_birth_success") do
+              example.run
+            end
+          end
+
+          let(:filter) { { filter: { name: "George Walsh", date_of_birth: "1980-01-01" } } }
+
+          run_test!
+        end
+      end
+
+      context "when searching by name and date of next hearing" do
+        response(200, "Success") do
+          around do |example|
+            VCR.use_cassette("search_prosecution_case/by_name_and_date_of_next_hearing_success") do
+              example.run
+            end
+          end
+
+          let(:filter) { { filter: { name: "George Walsh", date_of_next_hearing: "2020-02-17" } } }
+
+          run_test!
+        end
+      end
+
+      context "when request is unauthorized" do
+        response("401", "Unauthorized") do
+          let(:Authorization) { nil }
+          let(:filter) { { filter: { name: "George Walsh", date_of_next_hearing: "2020-02-17" } } }
+
+          run_test!
+        end
+      end
+    end
   end
 end
