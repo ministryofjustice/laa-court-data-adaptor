@@ -5,8 +5,8 @@ class LaaReference < ApplicationRecord
   validates :maat_reference, presence: true, uniqueness: { conditions: -> { where(linked: true) } }
   validates :user_name, presence: true
 
-  def unlink!
-    update!(linked: false)
+  def unlink!(unlink_reason_code: nil)
+    update!(linked: false, unlink_reason_code:)
   end
 
   def adjust_link_and_save!
