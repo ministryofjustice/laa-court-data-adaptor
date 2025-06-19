@@ -9,22 +9,21 @@ module Api
           contract = NewLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
 
-          MaatLinkCreatorWorker.perform_async(
-            Current.request_id,
+          MaatLinkCreator.call(
             transformed_params[:defendant_id],
             transformed_params[:user_name],
             transformed_params[:maat_reference],
           )
 
-          head :accepted
+          head :created
         end
 
         def update
           contract = UnlinkDefendantContract.new.call(**transformed_params)
 
           if contract.success?
-            enqueue_unlink
-            head :accepted
+            unlink
+            head :ok
           else
             render json: contract.errors.to_hash, status: :bad_request
           end
@@ -38,17 +37,10 @@ module Api
           end
         end
 
-        def enqueue_unlink
+        def unlink
           check_defendant_presence!
 
-          UnlinkLaaReferenceWorker.perform_async(
-            Current.request_id,
-            transformed_params[:defendant_id],
-            transformed_params[:user_name],
-            transformed_params[:unlink_reason_code],
-            transformed_params[:unlink_other_reason_text],
-            transformed_params[:maat_reference],
-          )
+          LaaReferenceUnlinker.call(**transformed_params)
         end
 
         def check_defendant_presence!

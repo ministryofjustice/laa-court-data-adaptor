@@ -65,7 +65,7 @@ private
       status_date: Time.zone.today.strftime("%Y-%m-%d"),
     )
 
-    raise StandardError, "Error posting LAA Reference to Common Platform" unless response.success?
+    raise CommonPlatform::Api::Errors::FailedDependency, "Error posting LAA Reference to Common Platform" unless response.success?
   end
 
   def fetch_past_hearings

@@ -32,7 +32,7 @@ services:
     environment:
       REDIS_URL: redis://redis
   postgres:
-    image: postgres:14.3-alpine
+    image: postgres:17.4-alpine
     ports:
       - '5432:5432'
     environment:

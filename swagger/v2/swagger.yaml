@@ -267,8 +267,10 @@ paths:
       parameters:
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        '202':
-          description: Accepted
+        '201':
+          description: Created
+        '424':
+          description: Failed dependency
         '422':
           description: Unprocessable entity
         '401':
@@ -298,8 +300,8 @@ paths:
           "$ref": defendant.json#/properties/id
         description: The unique identifier of the defendant
       responses:
-        '202':
-          description: Accepted
+        '200':
+          description: OK
         '400':
           description: Bad Request
         '404':
@@ -392,6 +394,8 @@ paths:
             application/vnd.api+json:
               schema:
                 "$ref": search_prosecution_case_response.json#
+        '503':
+          description: Common Platform API Offline
         '401':
           description: Unauthorized
   "/api/internal/v2/representation_orders":
