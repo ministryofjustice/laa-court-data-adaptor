@@ -67,7 +67,7 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
           response(503, "Common Platform API Offline") do
             it "returns an error code" do
               get "/api/internal/v2/prosecution_cases?filter[prosecution_case_reference]=123", headers: { "Authorization" => "Bearer #{token.token}" }
-              expect(response.parsed_body["error_codes"]).to eq %w[commmon_platform_connection_failed]
+              expect(response.parsed_body["error_codes"]).to eq %w[common_platform_connection_failed]
             end
           end
         end
@@ -232,7 +232,7 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
           response(503, "Common Platform API Offline") do
             it "returns an error code" do
               post "/api/internal/v2/prosecution_cases", params: { filter: { prosecution_case_reference: 123 } }, headers: { "Authorization" => "Bearer #{token.token}" }
-              expect(response.parsed_body["error_codes"]).to eq %w[commmon_platform_connection_failed]
+              expect(response.parsed_body["error_codes"]).to eq %w[common_platform_connection_failed]
             end
           end
         end
