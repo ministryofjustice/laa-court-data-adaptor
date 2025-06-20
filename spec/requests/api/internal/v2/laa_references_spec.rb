@@ -21,7 +21,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
   end
 
   before do
-    allow(LinkValidator).to receive(:call).and_return(true)
+    allow(ProsecutionCaseLinkValidator).to receive(:call).and_return(true)
   end
 
   around do |example|
@@ -55,7 +55,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(MaatLinkCreator).to receive(:call)
+          expect(ProsecutionCaseMaatLinkCreator).to receive(:call)
             .with(defendant_id, "JaneDoe", 1_231_231)
         end
 
@@ -77,7 +77,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          allow(MaatLinkCreator).to receive(:call)
+          allow(ProsecutionCaseMaatLinkCreator).to receive(:call)
             .and_raise(CommonPlatform::Api::Errors::FailedDependency, "Common Platform is offline")
         end
 
@@ -91,7 +91,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           before do
             laa_reference[:laa_reference].delete(:maat_reference)
 
-            expect(MaatLinkCreator).to receive(:call)
+            expect(ProsecutionCaseMaatLinkCreator).to receive(:call)
               .with(defendant_id, "JaneDoe", nil)
           end
 
@@ -105,7 +105,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
 
           before do
             laa_reference[:laa_reference].delete(:user_name)
-            expect(MaatLinkCreator).not_to receive(:call)
+            expect(ProsecutionCaseMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -118,7 +118,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           before { laa_reference[:laa_reference][:maat_reference] = "ABC123123" }
 
           before do
-            expect(MaatLinkCreator).not_to receive(:call)
+            expect(ProsecutionCaseMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -130,7 +130,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           let(:Authorization) { nil }
 
           before do
-            expect(MaatLinkCreator).not_to receive(:call)
+            expect(ProsecutionCaseMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -141,7 +141,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         let(:defendant_id) { "X" }
 
         it "renders a JSON response with an unprocessable_entity error" do
-          post api_internal_v2_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+          post api_internal_v2_prosecution_case_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
           expect(response.body).to include("is not a valid uuid")
           expect(response).to have_http_status(:unprocessable_entity)
@@ -183,7 +183,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           let(:Authorization) { "Bearer #{token.token}" }
 
           before do
-            expect(LaaReferenceUnlinker).to receive(:call).with(
+            expect(ProsecutionCaseLaaReferenceUnlinker).to receive(:call).with(
               defendant_id: defendant_id,
               user_name: "JaneDoe",
               unlink_reason_code: 1,
@@ -201,7 +201,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
             let(:defendant_id) { "X" }
 
             before do
-              expect(LaaReferenceUnlinker).not_to receive(:call)
+              expect(ProsecutionCaseLaaReferenceUnlinker).not_to receive(:call)
             end
 
             run_test!
@@ -227,7 +227,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
             let(:Authorization) { nil }
 
             before do
-              expect(LaaReferenceUnlinker).not_to receive(:call)
+              expect(ProsecutionCaseLaaReferenceUnlinker).not_to receive(:call)
             end
 
             run_test!

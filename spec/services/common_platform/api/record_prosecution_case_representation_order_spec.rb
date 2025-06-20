@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatform::Api::RecordRepresentationOrder do
+RSpec.describe CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder do
   subject(:record_representation_order) do
     described_class.call(
       case_defendant_offence:,

@@ -2,7 +2,7 @@
 
 module CommonPlatform
   module Api
-    class RepresentationOrderCreator < ApplicationService
+    class ProsecutionCaseRepresentationOrderCreator < ApplicationService
       def initialize(defendant_id:, offences:, maat_reference:, defence_organisation:)
         @offences = offences.map(&:with_indifferent_access).reject { |offence| offence[:status_date].blank? }
         @maat_reference = maat_reference
@@ -23,7 +23,7 @@ module CommonPlatform
 
           next if case_defendant_offence.blank?
 
-          CommonPlatform::Api::RecordRepresentationOrder.call(
+          CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder.call(
             case_defendant_offence:,
             defendant_id:,
             offence_id: offence[:offence_id],

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LaaReferenceUnlinker < ApplicationService
+class ProsecutionCaseLaaReferenceUnlinker < ApplicationService
   def initialize(defendant_id:, user_name:, unlink_reason_code:, unlink_other_reason_text: nil, maat_reference: nil)
     @defendant_id = defendant_id
     @user_name = user_name
@@ -43,7 +43,7 @@ private
   end
 
   def update_offence_on_common_platform(offence)
-    CommonPlatform::Api::RecordLaaReference.call(
+    CommonPlatform::Api::RecordProsecutionCaseLaaReference.call(
       prosecution_case_id: offence.prosecution_case_id,
       defendant_id: offence.defendant_id,
       offence_id: offence.offence_id,

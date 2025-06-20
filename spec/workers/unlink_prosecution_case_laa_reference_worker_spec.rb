@@ -2,7 +2,7 @@
 
 require "sidekiq/testing"
 
-RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
+RSpec.describe UnlinkProsecutionCaseLaaReferenceWorker, type: :worker do
   subject(:work) do
     described_class.perform_async(request_id, defendant_id, user_name, unlink_reason_code, unlink_other_reason_text, maat_reference)
   end
@@ -23,7 +23,7 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
     ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
                                             defendant_id:,
                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
-    allow(CommonPlatform::Api::RecordLaaReference).to receive(:call)
+    allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call)
   end
 
   it "queues the job" do
@@ -35,7 +35,7 @@ RSpec.describe UnlinkLaaReferenceWorker, type: :worker do
   it "creates a LaaReferenceUnlinker and calls it" do
     set_up_linked_prosecution_case
     Sidekiq::Testing.inline! do
-      expect(LaaReferenceUnlinker).to receive(:call).with(
+      expect(ProsecutionCaseLaaReferenceUnlinker).to receive(:call).with(
         defendant_id:,
         user_name:,
         unlink_reason_code:,
