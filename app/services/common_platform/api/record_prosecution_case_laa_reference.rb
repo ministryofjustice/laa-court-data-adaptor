@@ -2,7 +2,7 @@
 
 module CommonPlatform
   module Api
-    class RecordLaaReference < ApplicationService
+    class RecordProsecutionCaseLaaReference < ApplicationService
       def initialize(prosecution_case_id:,
                      defendant_id:,
                      offence_id:,

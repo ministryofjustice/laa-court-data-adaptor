@@ -3,12 +3,12 @@
 module Api
   module Internal
     module V1
-      class LaaReferencesController < ApplicationController
+      class ProsecutionCaseLaaReferencesController < ApplicationController
         def create
-          contract = NewLaaReferenceContract.new.call(**transformed_params)
+          contract = ProsecutionCaseLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
 
-          MaatLinkCreatorWorker.perform_async(
+          ProsecutionCaseMaatLinkCreatorWorker.perform_async(
             Current.request_id,
             transformed_params[:defendant_id],
             transformed_params[:user_name],

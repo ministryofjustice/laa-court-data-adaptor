@@ -20,9 +20,9 @@ Rails.application.routes.draw do
     namespace :internal do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
         resources :prosecution_cases, only: [:index]
-        resources :laa_references, only: %i[create]
+        resources :prosecution_case_laa_references, path: "laa_references", only: %i[create]
         resources :defendants, only: %i[update show]
-        resources :representation_orders, only: [:create]
+        resources :prosecution_case_representation_orders, path: "representation_orders", only: [:create]
         resources :court_application_representation_orders, only: [:create]
         resources :hearing_results, path: "hearings", only: [:show]
       end
@@ -33,9 +33,9 @@ Rails.application.routes.draw do
           resources :defendants, only: %i[show]
           collection { post "/", to: "index" }
         end
-        resources :laa_references, only: %i[create update], param: :defendant_id
+        resources :prosecution_case_laa_references, path: "laa_references", only: %i[create update], param: :defendant_id
         resources :court_application_laa_references, only: %i[create update], param: :subject_id
-        resources :representation_orders, only: [:create]
+        resources :prosecution_case_representation_orders, path: "representation_orders", only: [:create]
         resources :hearing_results, only: [:show], param: :hearing_id
         get "hearings/:hearing_id/event_log/:hearing_date", to: "hearing_event_logs#show"
       end

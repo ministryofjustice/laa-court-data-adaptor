@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NewCourtApplicationRepresentationOrderContract < Dry::Validation::Contract
+class CourtApplicationRepresentationOrderContract < Dry::Validation::Contract
   option :uuid_validator, default: -> { CommonPlatform::UuidValidator }
   config.validate_keys = true
 

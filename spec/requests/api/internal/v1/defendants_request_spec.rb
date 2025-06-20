@@ -56,7 +56,7 @@ RSpec.describe "Api::Internal::V1::Defendants", swagger_doc: "v1/swagger.yaml", 
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(UnlinkLaaReferenceWorker).to receive(:perform_async).with(String, id, "johnDoe", 1, "").and_call_original
+          expect(UnlinkProsecutionCaseLaaReferenceWorker).to receive(:perform_async).with(String, id, "johnDoe", 1, "").and_call_original
         end
 
         run_test!
@@ -68,7 +68,7 @@ RSpec.describe "Api::Internal::V1::Defendants", swagger_doc: "v1/swagger.yaml", 
           let(:id) { "X" }
 
           before do
-            expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+            expect(UnlinkProsecutionCaseLaaReferenceWorker).not_to receive(:perform_async)
           end
 
           run_test!
@@ -80,7 +80,7 @@ RSpec.describe "Api::Internal::V1::Defendants", swagger_doc: "v1/swagger.yaml", 
           let(:Authorization) { nil }
 
           before do
-            expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+            expect(UnlinkProsecutionCaseLaaReferenceWorker).not_to receive(:perform_async)
           end
 
           run_test!

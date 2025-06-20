@@ -1,6 +1,7 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -120,7 +121,8 @@ CREATE TABLE public.laa_references (
     linked boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    user_name character varying NOT NULL
+    user_name character varying NOT NULL,
+    unlink_reason_code integer
 );
 
 
@@ -476,6 +478,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250619153722'),
 ('20250327104429'),
 ('20220815120308'),
 ('20220815115514'),

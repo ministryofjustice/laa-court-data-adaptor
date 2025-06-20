@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatform::Api::RecordLaaReference do
+RSpec.describe CommonPlatform::Api::RecordProsecutionCaseLaaReference do
   subject(:record_reference) do
     described_class.call(
       prosecution_case_id: prosecution_case.id,

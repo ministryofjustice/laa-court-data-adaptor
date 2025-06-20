@@ -14,7 +14,7 @@ module CommonPlatform
       @connection = Faraday.new HOST, options do |connection|
         connection.request :retry, retry_options
         connection.request :json
-        connection.response :logger, Rails.logger, { headers: false } do |logger|
+        connection.response :logger, TaggedLogger, { headers: false } do |logger|
           logger.filter(/(defendantName=)([^&]+)/, '\1[FILTERED]')
           logger.filter(/(defendantDOB=)([^&]+)/, '\1[FILTERED]')
           logger.filter(/(defendantNINO=)([^&]+)/, '\1[FILTERED]')

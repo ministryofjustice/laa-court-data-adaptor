@@ -2,7 +2,7 @@
 
 require "sidekiq/testing"
 
-RSpec.describe MaatLinkCreatorWorker, type: :worker do
+RSpec.describe ProsecutionCaseMaatLinkCreatorWorker, type: :worker do
   subject(:work) do
     described_class.perform_async(request_id, defendant_id, user_name, maat_reference)
   end
@@ -22,7 +22,7 @@ RSpec.describe MaatLinkCreatorWorker, type: :worker do
 
   it "calls MaatLinkCreator" do
     Sidekiq::Testing.inline! do
-      expect(MaatLinkCreator).to receive(:call).once.with(defendant_id, user_name, maat_reference)
+      expect(ProsecutionCaseMaatLinkCreator).to receive(:call).once.with(defendant_id, user_name, maat_reference)
       work
     end
   end

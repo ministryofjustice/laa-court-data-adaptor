@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe NewLaaReferenceContract do
+RSpec.describe ProsecutionCaseLaaReferenceContract do
   subject(:validate_contract) { described_class.new.call(hash_for_validation) }
 
   around do |example|
@@ -23,7 +23,7 @@ RSpec.describe NewLaaReferenceContract do
   let(:link_validity) { true }
 
   before do
-    allow(LinkValidator).to receive(:call).and_return(link_validity)
+    allow(ProsecutionCaseLinkValidator).to receive(:call).and_return(link_validity)
   end
 
   it { is_expected.to be_a_success }

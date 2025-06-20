@@ -36,11 +36,11 @@ RSpec.describe Api::Internal::V1::CourtApplicationRepresentationOrdersController
   end
 
   let(:request_headers) { { "Content-Type" => "application/json" } }
-  let(:mock_contract) { instance_double(NewCourtApplicationRepresentationOrderContract) }
+  let(:mock_contract) { instance_double(CourtApplicationRepresentationOrderContract) }
 
   before do
     authorise_requests!
-    allow(NewCourtApplicationRepresentationOrderContract).to receive(:new).and_return(mock_contract)
+    allow(CourtApplicationRepresentationOrderContract).to receive(:new).and_return(mock_contract)
   end
 
   context "when the contract is successful" do
