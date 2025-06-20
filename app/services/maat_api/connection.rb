@@ -13,6 +13,7 @@ module MaatApi
         connection.request :authorization, "Bearer", access_token.token
         connection.request :json
         connection.response :json, content_type: "application/json"
+        connection.response :logger, TaggedLogger, { headers: false }
         connection.adapter Faraday.default_adapter
       end
     end
