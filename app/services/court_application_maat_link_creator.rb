@@ -11,7 +11,8 @@ class CourtApplicationMaatLinkCreator < ApplicationService
   end
 
   def call
-    post_laa_references_to_common_platform
+    post_laa_references_to_common_platform!
+
     publish_laa_reference_to_queue unless laa_reference.dummy_maat_reference?
     fetch_past_hearings
 
@@ -34,7 +35,7 @@ private
     )
   end
 
-  def post_laa_references_to_common_platform
+  def post_laa_references_to_common_platform!
     offences.each do |offence|
       post_laa_reference_to_common_platform(offence)
     rescue StandardError => e
@@ -62,7 +63,7 @@ private
       status_date: Time.zone.today.strftime("%Y-%m-%d"),
     )
 
-    raise StandardError, "Error posting LAA Reference to Common Platform" unless response.success?
+    raise CommonPlatform::Api::Errors::FailedDependency, "Error posting LAA Reference to Common Platform" unless response.success?
   end
 
   def fetch_past_hearings

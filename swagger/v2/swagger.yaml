@@ -69,12 +69,14 @@ paths:
       parameters:
       - "$ref": "#/components/parameters/transaction_id_header"
       responses:
-        '202':
-          description: Accepted
+        '201':
+          description: created
         '422':
           description: Unprocessable entity
         '401':
           description: Unauthorized
+        '424':
+          description: Failed Dependency on Common Platform
       requestBody:
         content:
           application/json:
@@ -100,14 +102,16 @@ paths:
           "$ref": defendant.json#/properties/id
         description: The unique identifier of the defendant
       responses:
-        '202':
-          description: Accepted
+        '200':
+          description: OK
         '422':
           description: Unprocessable Entity
         '404':
           description: Defendant not found
         '401':
           description: Unauthorized
+        '424':
+          description: Failed Dependency on Common Platform
       requestBody:
         content:
           application/json:

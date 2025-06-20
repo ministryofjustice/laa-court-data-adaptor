@@ -57,7 +57,7 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
     end
 
     it "logs a 'already unlinked' warning message" do
-      expect(call_unlinker).to be_nil
+      expect { call_unlinker }.to raise_error(ActiveRecord::RecordNotFound, "Defendant not found or already unlinked!")
     end
   end
 
