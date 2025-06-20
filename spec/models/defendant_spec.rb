@@ -121,13 +121,12 @@ RSpec.describe Defendant, type: :model do
            instance_double(Offence, maat_reference: nil)]
         end
 
-        it { expect(defendant.maat_reference).to eq("123123") }
+        it { expect(defendant.maat_reference).to eq("Not available") }
       end
 
       context "with duplicate maat references" do
         let(:offences) do
           [instance_double(Offence, maat_reference: "123123"),
-           instance_double(Offence, maat_reference: nil),
            instance_double(Offence, maat_reference: "123123")]
         end
 
@@ -137,18 +136,17 @@ RSpec.describe Defendant, type: :model do
       context "with different maat references" do
         let(:offences) do
           [instance_double(Offence, maat_reference: "123123"),
-           instance_double(Offence, maat_reference: nil),
            instance_double(Offence, maat_reference: "321321")]
         end
 
-        it { expect { defendant.maat_reference }.to raise_error(Errors::DefendantError, 'Too many maat references: ["123123", "321321"]') }
+        it { expect(defendant.maat_reference).to eq "Not available" }
       end
     end
 
     context "when an offence has an unlinked maat reference" do
       let(:offences) do
         [instance_double(Offence, maat_reference: "Z123123"),
-         instance_double(Offence, maat_reference: nil)]
+         instance_double(Offence, maat_reference: "Z123123")]
       end
 
       it { expect(defendant.maat_reference).to be_nil }

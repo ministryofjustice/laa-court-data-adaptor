@@ -98,11 +98,14 @@ private
   end
 
   def _maat_reference
-    refs = offences.map(&:maat_reference).uniq.compact
+    refs = offences.map(&:maat_reference).uniq
 
-    raise(Errors::DefendantError.new("Too many maat references: #{refs}", :multiple_maats)) if refs.size > 1
+    if refs.size > 1
+      Rails.logger.warn("Defendant #{id} has multiple MAAT IDs - #{refs.to_sentence}")
+      return "Not available"
+    end
 
-    refs&.first
+    refs.first
   end
 
   def case_reference
