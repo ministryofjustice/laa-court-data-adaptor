@@ -41,7 +41,7 @@ class LaaReference < ApplicationRecord
     laa_refs = where(defendant_id:, linked: true)
 
     if laa_refs.blank?
-      raise ActiveRecord::RecordNotFound, "Defendant not found!"
+      raise ActiveRecord::RecordNotFound, "Defendant not found or already unlinked!"
     end
 
     return laa_refs.first if maat_reference.blank?

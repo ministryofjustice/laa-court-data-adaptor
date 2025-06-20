@@ -59,8 +59,8 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
       linked_laa_reference.update(linked: false)
     end
 
-    it "logs a 'already unlinked' warning message" do
-      expect(call_unlinker).to be_nil
+    it "raises a 'already unlinked' error" do
+      expect { call_unlinker }.to raise_error(ActiveRecord::RecordNotFound, "Defendant not found or already unlinked!")
     end
   end
 

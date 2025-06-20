@@ -207,11 +207,11 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           let(:Authorization) { "Bearer #{token.token}" }
           let(:subject_id) { "fa7ca7bd-5dce-419c-88db-f42e1b7ce8a0" }
 
-          response("404", "Defendant not found") do
+          response("404", "Defendant not found or already unlinked!") do
             run_test! do |response|
               error = JSON.parse(response.body)["error"]
 
-              expect(error).to include("Defendant not found!")
+              expect(error).to include("Defendant not found or already unlinked!")
             end
           end
         end
