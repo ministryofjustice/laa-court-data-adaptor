@@ -21,7 +21,7 @@ class ProsecutionCaseLaaReferenceUnlinker < ApplicationService
 private
 
   def unlink_maat_reference!
-    laa_reference.unlink!
+    laa_reference.unlink!(unlink_reason_code:)
   end
 
   def push_to_queue
