@@ -45,6 +45,11 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
     expect(linked_laa_reference.reload).not_to be_linked
   end
 
+  it "stores the reason code" do
+    call_unlinker
+    expect(linked_laa_reference.reload.unlink_reason_code).to eq unlink_reason_code
+  end
+
   context "when LaaReference is already unlinked" do
     before do
       linked_laa_reference.update(linked: false)
@@ -126,7 +131,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
       call_unlinker
     end
 
-    it "calls the CommonPlatform::Api::RecordLaaReference service multiple times" do
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service multiple times" do
       expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
     end
@@ -140,7 +145,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
       call_unlinker
     end
 
-    it "calls the CommonPlatform::Api::RecordLaaReference service" do
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service" do
       expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
     end

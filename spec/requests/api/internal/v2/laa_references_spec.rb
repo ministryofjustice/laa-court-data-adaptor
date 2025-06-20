@@ -21,8 +21,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
   end
 
   before do
-    allow(Current).to receive(:request_id).and_return("XYZ")
-    allow(LinkValidator).to receive(:call).and_return(true)
+    allow(ProsecutionCaseLinkValidator).to receive(:call).and_return(true)
   end
 
   around do |example|
@@ -41,7 +40,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
       security [{ oAuth: [] }]
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
-      response(202, "Accepted") do
+      response(201, "Created") do
         around do |example|
           Sidekiq::Testing.fake!
           VCR.use_cassette("laa_reference_recorder/post") do
@@ -56,22 +55,44 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(MaatLinkCreatorWorker).to receive(:perform_async)
-            .with("XYZ", defendant_id, "JaneDoe", 1_231_231)
+          expect(ProsecutionCaseMaatLinkCreator).to receive(:call)
+            .with(defendant_id, "JaneDoe", 1_231_231)
+        end
+
+        run_test!
+      end
+
+      response(424, "Failed dependency") do
+        around do |example|
+          Sidekiq::Testing.fake!
+          VCR.use_cassette("laa_reference_recorder/post") do
+            example.run
+          end
+        end
+
+        parameter name: :laa_reference, in: :body, required: false, type: :object,
+                  schema: { "$ref": "laa_reference_post_request_body.json#" },
+                  description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
+
+        let(:Authorization) { "Bearer #{token.token}" }
+
+        before do
+          allow(ProsecutionCaseMaatLinkCreator).to receive(:call)
+            .and_raise(CommonPlatform::Api::Errors::FailedDependency, "Common Platform is offline")
         end
 
         run_test!
       end
 
       context "with a blank maat_reference" do
-        response(202, "Accepted") do
+        response(201, "Created") do
           let(:Authorization) { "Bearer #{token.token}" }
 
           before do
             laa_reference[:laa_reference].delete(:maat_reference)
 
-            expect(MaatLinkCreatorWorker).to receive(:perform_async)
-              .with("XYZ", defendant_id, "JaneDoe", nil)
+            expect(ProsecutionCaseMaatLinkCreator).to receive(:call)
+              .with(defendant_id, "JaneDoe", nil)
           end
 
           run_test!
@@ -84,7 +105,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
 
           before do
             laa_reference[:laa_reference].delete(:user_name)
-            expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
+            expect(ProsecutionCaseMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -97,7 +118,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           before { laa_reference[:laa_reference][:maat_reference] = "ABC123123" }
 
           before do
-            expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
+            expect(ProsecutionCaseMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -109,7 +130,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           let(:Authorization) { nil }
 
           before do
-            expect(MaatLinkCreatorWorker).not_to receive(:perform_async)
+            expect(ProsecutionCaseMaatLinkCreator).not_to receive(:call)
           end
 
           run_test!
@@ -120,7 +141,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         let(:defendant_id) { "X" }
 
         it "renders a JSON response with an unprocessable_entity error" do
-          post api_internal_v2_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+          post api_internal_v2_prosecution_case_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
           expect(response.body).to include("is not a valid uuid")
           expect(response).to have_http_status(:unprocessable_entity)
@@ -147,7 +168,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
                   },
                   description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
 
-        response(202, "Accepted") do
+        response(200, "OK") do
           around do |example|
             Sidekiq::Testing.fake!
             LaaReference.create!(defendant_id:,
@@ -162,7 +183,13 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           let(:Authorization) { "Bearer #{token.token}" }
 
           before do
-            expect(UnlinkLaaReferenceWorker).to receive(:perform_async).with("XYZ", defendant_id, "JaneDoe", 1, "", 1_231_231)
+            expect(ProsecutionCaseLaaReferenceUnlinker).to receive(:call).with(
+              defendant_id: defendant_id,
+              user_name: "JaneDoe",
+              unlink_reason_code: 1,
+              unlink_other_reason_text: "",
+              maat_reference: 1_231_231,
+            )
           end
 
           run_test!
@@ -174,7 +201,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
             let(:defendant_id) { "X" }
 
             before do
-              expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+              expect(ProsecutionCaseLaaReferenceUnlinker).not_to receive(:call)
             end
 
             run_test!
@@ -200,7 +227,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
             let(:Authorization) { nil }
 
             before do
-              expect(UnlinkLaaReferenceWorker).not_to receive(:perform_async)
+              expect(ProsecutionCaseLaaReferenceUnlinker).not_to receive(:call)
             end
 
             run_test!

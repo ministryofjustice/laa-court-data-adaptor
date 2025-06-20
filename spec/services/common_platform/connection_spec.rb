@@ -64,7 +64,7 @@ RSpec.describe CommonPlatform::Connection do
       expect(connection).to receive(:request).with(:retry, retry_options)
       expect(connection).to receive(:request).with(:json)
       expect(connection).to receive(:use).with(CommonPlatform::Connection::FailureMiddleware)
-      expect(connection).to receive(:response).with(:logger, Rails.logger, { headers: false })
+      expect(connection).to receive(:response).with(:logger, TaggedLogger, { headers: false })
       expect(connection).to receive(:response).with(:json, content_type: "application/json")
       expect(connection).to receive(:response).with(:json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json")
       expect(connection).to receive(:response).with(:json, content_type: "text/plain")

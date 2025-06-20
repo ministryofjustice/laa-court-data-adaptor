@@ -58,14 +58,7 @@ RSpec.describe "api/internal/v1/court_application_representation_orders", swagge
           maat_reference: 1_231_231,
           defence_organisation:,
           offences: offence_array,
-        },
-        relationships: {
-          defendant: {
-            data: {
-              type: "defendants",
-              id: subject_id,
-            },
-          },
+          subject_id:,
         },
       },
     }
@@ -77,7 +70,7 @@ RSpec.describe "api/internal/v1/court_application_representation_orders", swagge
     end
   end
 
-  path "/api/internal/v1/representation_orders" do
+  path "/api/internal/v1/court_application_representation_orders" do
     post("post representation_order") do
       description "Post a Representation Order to CDA to update the status on a MAAT case to a Common Platform case"
       consumes "application/vnd.api+json"
@@ -102,7 +95,7 @@ RSpec.describe "api/internal/v1/court_application_representation_orders", swagge
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(RepresentationOrderCreatorWorker).to receive(:perform_async).with(
+          expect(CourtApplicationRepresentationOrderCreatorWorker).to receive(:perform_async).with(
             String,
             subject_id,
             offence_array.map { |o| o.deep_transform_keys(&:to_s) },
@@ -120,7 +113,7 @@ RSpec.describe "api/internal/v1/court_application_representation_orders", swagge
           before { representation_order[:data][:attributes][:maat_reference] = "ABC123123" }
 
           before do
-            expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)
+            expect(CourtApplicationRepresentationOrderCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!
@@ -132,7 +125,7 @@ RSpec.describe "api/internal/v1/court_application_representation_orders", swagge
           let(:Authorization) { nil }
 
           before do
-            expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)
+            expect(CourtApplicationRepresentationOrderCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!
@@ -140,10 +133,12 @@ RSpec.describe "api/internal/v1/court_application_representation_orders", swagge
       end
 
       context "with a failing contract" do
-        before { representation_order[:data][:relationships][:defendant][:data][:id] = "foo" }
+        before { representation_order[:data][:attributes][:subject_id] = "foo" }
 
         it "renders a JSON response with an unprocessable_entity error" do
-          post api_internal_v1_representation_orders_path, params: representation_order, headers: { "Authorization" => "Bearer #{token.token}" }
+          post api_internal_v1_court_application_representation_orders_path,
+               params: representation_order.to_json,
+               headers: { "Authorization" => "Bearer #{token.token}", "Content-Type" => "application/json" }
 
           expect(response.body).to include("is not a valid uuid")
           expect(response).to have_http_status(:unprocessable_entity)

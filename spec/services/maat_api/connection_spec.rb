@@ -32,6 +32,7 @@ RSpec.describe MaatApi::Connection do
       expect(connection).to receive(:request).with(:authorization, "Bearer", "TOKEN")
       expect(connection).to receive(:request).with(:json)
       expect(connection).to receive(:response).with(:json, content_type: "application/json")
+      expect(connection).to receive(:response).with(:logger, TaggedLogger, { headers: false })
       expect(connection).to receive(:adapter).with(:net_http)
       connect
     end
