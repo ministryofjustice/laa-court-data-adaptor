@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class MultipleMaatAnalysisWorker
   include Sidekiq::Worker
 
@@ -7,7 +5,7 @@ class MultipleMaatAnalysisWorker
     execute_script :create_views
     data = execute_script :query
 
-    File.open(Rails.root.join("records_with_multiple_maats.txt"), "w") do |file|
+    File.open(Rails.root.join("tmp/records_with_multiple_maats.txt"), "w") do |file|
       file.write(data.first.keys.join("|"))
       file.write "\n"
       data.each do |row_with_issue|
