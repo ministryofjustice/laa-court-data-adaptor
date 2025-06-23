@@ -32,6 +32,10 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE dummy_maat_reference_seq RESTART;")
 
     allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call)
+      .and_return(
+        instance_double(Faraday::Response, status: 200, body: {}, success?: true),
+      )
+
     allow(Rails.logger).to receive(:warn)
   end
 
@@ -55,8 +59,8 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
       linked_laa_reference.update(linked: false)
     end
 
-    it "logs a 'already unlinked' warning message" do
-      expect(call_unlinker).to be_nil
+    it "raises a 'already unlinked' error" do
+      expect { call_unlinker }.to raise_error(ActiveRecord::RecordNotFound, "Defendant not found or already unlinked!")
     end
   end
 
@@ -148,6 +152,17 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
     it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service" do
       expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
+    end
+  end
+
+  context "when common platform API returns an error" do
+    before do
+      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call)
+        .and_return(instance_double(Faraday::Response, status: 500, body: {}, success?: false))
+    end
+
+    it "raises an error" do
+      expect { call_unlinker }.to raise_error(StandardError, "Error posting LAA Reference to Common Platform")
     end
   end
 end
