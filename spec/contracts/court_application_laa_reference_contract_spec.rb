@@ -56,7 +56,7 @@ RSpec.describe CourtApplicationLaaReferenceContract do
     it { is_expected.not_to be_a_success }
   end
 
-  context "with an invalid maat_reference" do
+  context "when maat_reference is already linked" do
     let(:maat_reference) { 5_635_423 }
 
     around do |example|
