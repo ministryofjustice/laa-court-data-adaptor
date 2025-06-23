@@ -1,3 +1,4 @@
-DROP VIEW tmp_defendants_with_maats;
-DROP VIEW tmp_offences;
-DROP VIEW tmp_defendants;
+DROP VIEW tmp_acd_621_defendants_with_multiple_maats;
+DROP VIEW tmp_acd_621_defendants_with_maats;
+DROP VIEW tmp_acd_621_offences;
+DROP VIEW tmp_acd_621_defendants;
