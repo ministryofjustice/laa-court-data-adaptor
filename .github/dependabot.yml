@@ -14,3 +14,31 @@ updates:
   open-pull-requests-limit: 15
   allow:
     - dependency-type: "all"
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: tuesday
+    time: "03:00"
+    timezone: Europe/London
+  groups:
+    actions:
+      patterns:
+        - "*"
+  open-pull-requests-limit: 15
+  allow:
+    - dependency-type: "all"
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: monday
+    time: "03:00"
+    timezone: Europe/London
+  groups:
+    docker:
+      patterns:
+        - "*"
+  open-pull-requests-limit: 15
+  allow:
+    - dependency-type: "all"
