@@ -35,9 +35,9 @@ module CommonPlatform
       def common_platform_prosecution_case(urn)
         return unless urn
 
-        # fetch details needed to include plea and mode of trial reason, at least
-        prosecution_case = CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: urn)&.first
+        prosecution_case = load_from_common_platform(urn)
 
+        # fetch details needed to include plea and mode of trial reason, at least
         prosecution_case&.load_hearing_results(defendant_id, load_events: false)
 
         prosecution_case
@@ -74,6 +74,15 @@ module CommonPlatform
         user_friendly = with_spaces.map { "'#{_1}'" }.to_sentence
         raise ::Errors::DefendantError.new("Defendant ID #{defendant_id} associated with unrecognised URN(s) #{user_friendly}",
                                            :spaces_in_urn)
+      end
+
+      def load_from_common_platform(urn)
+        results = CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: urn)
+
+        # Very occasionally this case-insensitive URN search will return 2 results, and in that
+        # case we prefer the one that matches the URN exactly. Failing that we just take the first
+        # result
+        results.find { _1.body["prosecutionCaseReference"] == urn } || results.first
       end
 
       attr_reader :defendant_id
