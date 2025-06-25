@@ -79,10 +79,11 @@ module CommonPlatform
       def load_from_common_platform(urn)
         results = CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: urn)
 
-        # Very occasionally this case-insensitive URN search will return 2 results, and in that
-        # case we prefer the one that matches the URN exactly. Failing that we just take the first
-        # result
-        results.find { _1.body["prosecutionCaseReference"] == urn } || results.first
+        # Very occasionally this case-insensitive URN search will return 2 results, so we
+        # insist on the one that matches the URN exactly, as the URN we are sending here
+        # comes from our existing copies of Common Platform data so should always be an
+        # exact match.
+        results.find { it.body["prosecutionCaseReference"] == urn }
       end
 
       attr_reader :defendant_id
