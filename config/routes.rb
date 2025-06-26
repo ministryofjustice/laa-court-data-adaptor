@@ -38,6 +38,7 @@ Rails.application.routes.draw do
         resources :prosecution_case_representation_orders, path: "representation_orders", only: [:create]
         resources :hearing_results, only: [:show], param: :hearing_id
         get "hearings/:hearing_id/event_log/:hearing_date", to: "hearing_event_logs#show"
+        resources :hearing_repull_batches, only: %i[create show]
       end
     end
 
