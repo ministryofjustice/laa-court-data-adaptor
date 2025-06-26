@@ -94,6 +94,7 @@ RSpec.describe MaatApi::CourtApplication, type: :model do
                 resultCodeQualifiers: "",
                 resultShortTitle: "Legal Aid Transfer Granted",
                 resultText: "Legal Aid Transfer Granted\nGrant of legal aid transferred to (new firm name) Joe Bloggs Solicitors Ltd, London\nAdditional reasons Defendant's choice\nNew firm's LAA account reference 55558888",
+                isConvictedResult: false,
               },
             ],
           },
