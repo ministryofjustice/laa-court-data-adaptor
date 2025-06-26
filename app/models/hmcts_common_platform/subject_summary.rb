@@ -52,7 +52,7 @@ module HmctsCommonPlatform
 
     def offence_summary
       Array(data[:offenceSummary]).map do |summary_object|
-        HmctsCommonPlatform::OffenceSummary.new(summary_object)
+        HmctsCommonPlatform::OffenceSummary.new(summary_object, subject_id)
       end
     end
 

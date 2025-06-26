@@ -6,8 +6,9 @@ module HmctsCommonPlatform
 
     delegate :reference, :status_code, :status_date, :status_description, :laa_contract_number, :effective_end_date, to: :laa_application, prefix: true
 
-    def initialize(data)
+    def initialize(data, defendant_id = nil)
       @data = HashWithIndifferentAccess.new(data || {})
+      @defendant_id = defendant_id
     end
 
     def id
@@ -91,7 +92,7 @@ module HmctsCommonPlatform
     end
 
     def laa_application
-      HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference])
+      HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference], @defendant_id)
     end
   end
 end
