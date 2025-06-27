@@ -60,7 +60,7 @@ module HmctsCommonPlatform
     end
 
     def to_json(*_args)
-      to_builder.attributes!.compact
+      to_builder.attributes!
     end
 
   private
