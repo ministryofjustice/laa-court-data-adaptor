@@ -3,10 +3,11 @@ require "rails_helper"
 RSpec.describe HearingRepullBatchCreator do
   subject(:call_service) { described_class.call(string) }
 
-  let(:string) { "#{first_maat_id}, #{second_maat_id},\n#{third_maat_id}" }
+  let(:string) { "#{first_maat_id}, #{second_maat_id},\n#{third_maat_id}\n#{unrecognised_maat_id}" }
   let(:first_maat_id) { first_reference.maat_reference }
   let(:second_maat_id) { second_reference.maat_reference }
   let(:third_maat_id) { third_reference.maat_reference }
+  let(:unrecognised_maat_id) { "4444444" }
 
   let(:first_case) { ProsecutionCase.create!(body: "foo") }
   let(:second_case) { ProsecutionCase.create!(body: "foo") }
@@ -40,8 +41,12 @@ RSpec.describe HearingRepullBatchCreator do
     expect(HearingRepullBatch.count).to eq 1
   end
 
-  it "creates two repulls" do
-    expect(ProsecutionCaseHearingRepull.count).to eq 2
+  it "creates two pending repulls" do
+    expect(ProsecutionCaseHearingRepull.where(status: :pending).count).to eq 2
+  end
+
+  it "creates a repull for unrecognised MAAT IDS" do
+    expect(ProsecutionCaseHearingRepull.where(urn: "Unrecognised MAAT IDs", maat_ids: unrecognised_maat_id).count).to eq 1
   end
 
   it "calls the async jobs" do

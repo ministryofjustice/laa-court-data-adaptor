@@ -11,7 +11,7 @@ class ProsecutionCaseHearingRepullWorker
 
     repull.update!(status: :complete)
   rescue StandardError => e
-    repull.update!(status: :error)
+    repull&.update!(status: :error)
     Sentry.capture_exception(e)
   end
 

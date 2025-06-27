@@ -18,6 +18,8 @@ class HearingRepullBatchCreator < ApplicationService
       ProsecutionCaseHearingRepullWorker.perform_async(repull.id)
     end
 
+    create_repull_for_missing_maat_ids(cases_with_matching_maat_ids, batch)
+
     batch
   end
 
@@ -42,7 +44,22 @@ private
   end
 
   def maat_list
-    maat_ids.split(",").map { it.split("\n") }.flatten.map(&:strip).map(&:presence).compact
+    @maat_list ||= maat_ids.split(",").map { it.split("\n") }.flatten.map(&:strip).map(&:presence).compact
+  end
+
+  def create_repull_for_missing_maat_ids(cases_with_matching_maat_ids, batch)
+    found_maat_ids = cases_with_matching_maat_ids.map { it[:maat_ids] }.flatten
+
+    missing_maat_ids = maat_list - found_maat_ids
+
+    return unless missing_maat_ids.any?
+
+    ProsecutionCaseHearingRepull.create!(
+      urn: "Unrecognised MAAT IDs",
+      maat_ids: missing_maat_ids.join(","),
+      hearing_repull_batch: batch,
+      status: :complete,
+    )
   end
 
   attr_reader :maat_ids
