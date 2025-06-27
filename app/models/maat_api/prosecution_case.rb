@@ -114,6 +114,7 @@ module MaatApi
           nextHearingLocation: judicial_result.next_hearing_court_centre&.short_oucode,
           laaOfficeAccount: offence.laa_application_laa_contract_number,
           legalAidWithdrawalDate: offence.laa_application_effective_end_date,
+          isConvictedResult: judicial_result.is_convicted_result,
         }
       end
     end
