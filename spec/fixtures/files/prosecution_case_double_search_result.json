@@ -1,0 +1,93 @@
+{
+  "totalResults": 2,
+  "cases": [
+    {
+      "caseStatus": "CLOSED",
+      "prosecutionCaseId": "6edd67eb-9d8c-44f2-a57e-c8d026defaa5",
+      "prosecutionCaseReference": "20gf0217100",
+      "defendantSummary": [
+        {
+          "proceedingsConcluded": true,
+          "representationOrder": {
+            "applicationReference": "LAA-20191601",
+            "effectiveFromDate": "2019-09-12",
+            "effectiveToDate": "2019-12-12",
+            "laaContractNumber": "99998888"
+          },
+          "defendantFirstName": "James",
+          "defendantMiddleName": "Andrew",
+          "defendantLastName": "Jones",
+          "defendantId": "3ecc9feb-9407-482f-b081-d9e5c8ba3ed4",
+          "defendantDOB": "1980-01-02",
+          "defendantNINO": "HB133542B",
+          "defendantASN": "ARREST890",
+          "offenceSummary": [
+            {
+              "offenceId": "4f153786-f3cf-4311-bc0c-2d6f48af68a2",
+              "offenceCode": "PT00011",
+              "offenceTitle": "Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable",
+              "proceedingsConcluded": false,
+              "arrestDate": "2020-02-01",
+              "startDate": "2020-02-01",
+              "chargeDate": "2020-02-01",
+              "modeOfTrial": "Summary",
+              "orderIndex": 1,
+              "wording": "Test",
+              "laaApplnReference": {
+                "applicationReference": "LAA-20191601",
+                "statusId": "68ebf081-2b7d-3b1d-8c47-149fe7dbd673",
+                "statusCode": "G2",
+                "statusDescription": "Granted for Two Advocates"
+              }
+            }
+          ]
+        }
+      ],
+      "hearingSummary": []
+    },
+    {
+      "caseStatus": "CLOSED",
+      "prosecutionCaseId": "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
+      "prosecutionCaseReference": "20GD0217100",
+      "defendantSummary": [
+        {
+          "proceedingsConcluded": true,
+          "representationOrder": {
+            "applicationReference": "LAA-20191601",
+            "effectiveFromDate": "2019-09-12",
+            "effectiveToDate": "2019-12-12",
+            "laaContractNumber": "99998888"
+          },
+          "defendantFirstName": "George",
+          "defendantMiddleName": "Andrew",
+          "defendantLastName": "Walsh",
+          "defendantId": "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3",
+          "defendantDOB": "1980-01-01",
+          "defendantNINO": "HB133542A",
+          "defendantASN": "ARREST123",
+          "offenceSummary": [
+            {
+              "offenceId": "3f153786-f3cf-4311-bc0c-2d6f48af68a1",
+              "offenceCode": "PT00011",
+              "offenceTitle": "Driver / other person fail to immediately move a vehicle from a cordoned area on order of a constable",
+              "proceedingsConcluded": false,
+              "arrestDate": "2020-02-01",
+              "startDate": "2020-02-01",
+              "chargeDate": "2020-02-01",
+              "modeOfTrial": "Summary",
+              "orderIndex": 1,
+              "wording": "Test",
+              "laaApplnReference": {
+                "applicationReference": "LAA-20191601",
+                "statusId": "58ebf081-2b7d-3b1d-8c47-149fe7dbd672",
+                "statusCode": "G2",
+                "statusDescription": "Granted for Two Advocates"
+              }
+            }
+          ]
+        }
+      ],
+      "hearingSummary": []
+    }
+  ]
+}
