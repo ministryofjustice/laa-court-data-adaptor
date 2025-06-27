@@ -99,6 +99,17 @@ CREATE TABLE public.hearing_event_recordings (
 
 
 --
+-- Name: hearing_repull_batches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hearing_repull_batches (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: hearings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -206,6 +217,22 @@ CREATE TABLE public.prosecution_case_defendant_offences (
 
 
 --
+-- Name: prosecution_case_hearing_repulls; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.prosecution_case_hearing_repulls (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    hearing_repull_batch_id uuid,
+    prosecution_case_id uuid,
+    status character varying DEFAULT 'pending'::character varying,
+    maat_ids character varying,
+    urn character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: prosecution_cases; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -271,6 +298,14 @@ ALTER TABLE ONLY public.hearing_event_recordings
 
 
 --
+-- Name: hearing_repull_batches hearing_repull_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hearing_repull_batches
+    ADD CONSTRAINT hearing_repull_batches_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hearings hearings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -319,6 +354,14 @@ ALTER TABLE ONLY public.prosecution_case_defendant_offences
 
 
 --
+-- Name: prosecution_case_hearing_repulls prosecution_case_hearing_repulls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prosecution_case_hearing_repulls
+    ADD CONSTRAINT prosecution_case_hearing_repulls_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: prosecution_cases prosecution_cases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -340,6 +383,13 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_on_hearing_repull_batch_id_61b4f3e760; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_on_hearing_repull_batch_id_61b4f3e760 ON public.prosecution_case_hearing_repulls USING btree (hearing_repull_batch_id);
 
 
 --
@@ -448,6 +498,21 @@ CREATE INDEX index_prosecution_case_defendant_offences_on_offence_id ON public.p
 
 
 --
+-- Name: index_prosecution_case_hearing_repulls_on_prosecution_case_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prosecution_case_hearing_repulls_on_prosecution_case_id ON public.prosecution_case_hearing_repulls USING btree (prosecution_case_id);
+
+
+--
+-- Name: prosecution_case_hearing_repulls fk_rails_02813a006e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prosecution_case_hearing_repulls
+    ADD CONSTRAINT fk_rails_02813a006e FOREIGN KEY (prosecution_case_id) REFERENCES public.prosecution_cases(id);
+
+
+--
 -- Name: oauth_access_tokens fk_rails_732cb83ab7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -461,6 +526,14 @@ ALTER TABLE ONLY public.oauth_access_tokens
 
 ALTER TABLE ONLY public.prosecution_case_defendant_offences
     ADD CONSTRAINT fk_rails_a5230a38ba FOREIGN KEY (prosecution_case_id) REFERENCES public.prosecution_cases(id);
+
+
+--
+-- Name: prosecution_case_hearing_repulls fk_rails_aaf719296a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prosecution_case_hearing_repulls
+    ADD CONSTRAINT fk_rails_aaf719296a FOREIGN KEY (hearing_repull_batch_id) REFERENCES public.hearing_repull_batches(id);
 
 
 --
@@ -478,6 +551,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250626082346'),
 ('20250619153722'),
 ('20250327104429'),
 ('20220815120308'),
