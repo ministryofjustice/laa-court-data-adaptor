@@ -217,6 +217,36 @@ paths:
           description: Unauthorized
         '404':
           description: not found
+  "/api/internal/v2/hearing_repull_batches":
+    post:
+      summary: create a repull batch
+      description: set up an async batch job to repull MAAT IDs
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+        description: A comma- or linebreak-separated list of MAAT IDs
+  "/api/internal/v2/hearing_repull_batches/:id":
+    get:
+      summary: shows a repull batch
+      description: Retrieve a repull batch and the current status of all its repulls
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      responses:
+        '200':
+          description: OK
   "/api/internal/v2/hearing_results/{hearing_id}":
     get:
       summary: get hearing
