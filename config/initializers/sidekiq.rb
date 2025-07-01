@@ -21,6 +21,7 @@ if Rails.env.production?
     config.server_middleware do |chain|
       chain.add PrometheusExporter::Instrumentation::Sidekiq
     end
+    config.error_handlers << proc { |exception, tags, _config| Sentry.capture_exception(exception, tags:) }
     config.death_handlers << PrometheusExporter::Instrumentation::Sidekiq.death_handler
     config.on :startup do
       PrometheusExporter::Instrumentation::Process.start type: "sidekiq"
