@@ -129,5 +129,14 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
         expect(a_request(:get, %r{.*/prosecutionCases\?prosecutionCaseReference=#{second_reference}})).to have_been_made.once
       end
     end
+
+    context "when there are multiple common platform records" do
+      let(:prosecution_cases_json) { file_fixture("prosecution_case_double_search_result.json").read }
+      let(:prosecution_case_local_body) { prosecution_cases_hash["cases"][1] }
+
+      it "retrieves data from the right one" do
+        expect(defendant.id).to eq(defendant_id)
+      end
+    end
   end
 end
