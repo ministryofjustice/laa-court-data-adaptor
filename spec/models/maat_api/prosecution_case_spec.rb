@@ -105,6 +105,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
                 nextHearingLocation: "B21JI",
                 laaOfficeAccount: "092874",
                 legalAidWithdrawalDate: "2021-04-11",
+                isConvictedResult: true,
               },
             ],
             plea: {
