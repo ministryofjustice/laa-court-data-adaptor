@@ -99,4 +99,6 @@ env:
     value: {{ .Values.rails.host_env }}
   - name: METRICS_SERVICE_HOST
     value: {{ include "laa-court-data-adaptor.fullname" . }}
+  - name: ACCESS_IP_RESTRICTED
+    value: '{{ .Values.ips.restrict }}'
 {{- end -}}
