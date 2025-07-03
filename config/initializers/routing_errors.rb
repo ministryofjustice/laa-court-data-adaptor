@@ -5,6 +5,6 @@ ActionDispatch::DebugExceptions.register_interceptor do |_req, exception|
   # to the API is IP-restricted, so that we're not constantly alerted by
   # crawlers trying random paths.
   if exception.is_a?(ActionController::RoutingError) && ENV.fetch("ACCESS_IP_RESTRICTED", "false") == "true"
-    Sentry.capture_exception(exception)
+    Sentry.capture_exception(exception, hint: { ignore_exclusions: true })
   end
 end
