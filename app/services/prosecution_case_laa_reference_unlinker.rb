@@ -6,7 +6,6 @@ class ProsecutionCaseLaaReferenceUnlinker < ApplicationService
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
-
     @laa_reference = LaaReference.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference)
   end
 

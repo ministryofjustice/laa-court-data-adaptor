@@ -39,13 +39,8 @@ class LaaReference < ApplicationRecord
 
   def self.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference = nil)
     laa_refs = where(defendant_id:, linked: true)
+    ref = maat_reference.blank? ? laa_refs.first : laa_refs.find_by(maat_reference:)
 
-    if laa_refs.blank?
-      raise ActiveRecord::RecordNotFound, "Defendant not found or already unlinked!"
-    end
-
-    return laa_refs.first if maat_reference.blank?
-
-    laa_refs.find_by(maat_reference:)
+    ref || (raise ActiveRecord::RecordNotFound, "Defendant not found or already unlinked!")
   end
 end

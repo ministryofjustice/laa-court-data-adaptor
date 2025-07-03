@@ -109,4 +109,42 @@ RSpec.describe LaaReference, type: :model do
       expect(described_class.new(maat_reference: nil)).not_to be_dummy_maat_reference
     end
   end
+
+  describe ".retrieve_by_defendant_id_and_optional_maat_reference" do
+    before { laa_reference.save! }
+
+    context "when only defendant id provided" do
+      subject(:retrieve) { described_class.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id) }
+
+      context "when defendant ID matches" do
+        let(:defendant_id) { laa_reference.defendant_id }
+
+        it { expect(retrieve).to eq laa_reference }
+      end
+
+      context "when defendant ID does not match" do
+        let(:defendant_id) { SecureRandom.uuid }
+
+        it { expect { retrieve }.to raise_error ActiveRecord::RecordNotFound }
+      end
+    end
+
+    context "when both args provided" do
+      subject(:retrieve) { described_class.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference) }
+
+      context "when args match" do
+        let(:defendant_id) { laa_reference.defendant_id }
+        let(:maat_reference) { laa_reference.maat_reference }
+
+        it { expect(retrieve).to eq laa_reference }
+      end
+
+      context "when args not match" do
+        let(:defendant_id) { SecureRandom.uuid }
+        let(:maat_reference) { "1234567" }
+
+        it { expect { retrieve }.to raise_error ActiveRecord::RecordNotFound }
+      end
+    end
+  end
 end
