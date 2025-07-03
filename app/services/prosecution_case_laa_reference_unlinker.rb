@@ -10,8 +10,6 @@ class ProsecutionCaseLaaReferenceUnlinker < ApplicationService
   end
 
   def call
-    return unless laa_reference
-
     push_to_queue unless laa_reference.dummy_maat_reference?
     update_offences_on_common_platform
     unlink_maat_reference!
