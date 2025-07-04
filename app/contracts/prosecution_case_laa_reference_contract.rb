@@ -13,7 +13,9 @@ class ProsecutionCaseLaaReferenceContract < Dry::Validation::Contract
 
   rule(:defendant_id) do
     key.failure("is not a valid uuid") unless uuid_validator.call(uuid: value)
-    key.failure("cannot be linked right now as we do not have all the required information, please try again later") unless link_validator.call(defendant_id: value)
+    unless link_validator.call(defendant_id: value)
+      key.failure("cannot be linked right now as we do not have all the required information, please try again later")
+    end
   end
 
   rule(:maat_reference) do

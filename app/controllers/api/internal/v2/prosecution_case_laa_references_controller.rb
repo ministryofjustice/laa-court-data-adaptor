@@ -4,7 +4,7 @@ module Api
   module Internal
     module V2
       class ProsecutionCaseLaaReferencesController < ApplicationController
-        # Create link to court data
+        # Link the Defendant to court data
         def create
           contract = ProsecutionCaseLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
@@ -20,13 +20,11 @@ module Api
 
         def update
           contract = UnlinkDefendantContract.new.call(**transformed_params)
+          enforce_contract!(contract)
 
-          if contract.success?
-            unlink
-            head :ok
-          else
-            render json: contract.errors.to_hash, status: :bad_request
-          end
+          unlink_defendant!
+
+          head :ok
         end
 
       private
@@ -37,18 +35,12 @@ module Api
           end
         end
 
-        def unlink
-          check_defendant_presence!
+        def unlink_defendant!
+          LaaReference.find_by!(defendant_id: transformed_params[:defendant_id])
 
           ProsecutionCaseLaaReferenceUnlinker.call(**transformed_params)
-        end
-
-        def check_defendant_presence!
-          laa_reference = LaaReference.find_by(defendant_id: transformed_params[:defendant_id])
-
-          if laa_reference.nil?
-            raise ActiveRecord::RecordNotFound, "Defendant not found!"
-          end
+        rescue ActiveRecord::RecordNotFound
+          raise ActiveRecord::RecordNotFound, "Defendant not found!"
         end
 
         def transformed_params

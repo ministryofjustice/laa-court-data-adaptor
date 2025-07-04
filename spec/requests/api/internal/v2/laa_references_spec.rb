@@ -195,8 +195,8 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           run_test!
         end
 
-        context "when data is bad" do
-          response("400", "Bad Request") do
+        context "when validation error" do
+          response("422", "Bad Request") do
             let(:Authorization) { "Bearer #{token.token}" }
             let(:defendant_id) { "X" }
 
