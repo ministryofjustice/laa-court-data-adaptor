@@ -29,7 +29,7 @@ module CommonPlatform
       def common_platform_prosecution_case(urn)
         return unless urn
 
-        prosecution_case = load_from_common_platform(urn)
+        prosecution_case = ProsecutionCaseFinder.call(urn)
 
         # fetch details needed to include plea and mode of trial reason, at least
         prosecution_case&.load_hearing_results(defendant_id, load_events: false)
@@ -53,10 +53,6 @@ module CommonPlatform
 
           ProsecutionCase.where(id: prosecution_case_ids)
         end
-      end
-
-      def load_from_common_platform(urn)
-        CommonPlatform::Api::ProsecutionCaseFinder.call(urn, defendant_id)
       end
 
       attr_reader :defendant_id

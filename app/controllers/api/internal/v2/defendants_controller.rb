@@ -8,7 +8,7 @@ module Api
           response_data = CommonPlatform::Api::ProsecutionCaseFinder.call(
             params[:prosecution_case_reference],
             params[:id],
-          ).body
+          )&.body
 
           return head :not_found unless response_data
 
@@ -21,6 +21,18 @@ module Api
           else
             render json: {}, status: :not_found
           end
+        end
+
+        def offence_history
+          prosecution_case = CommonPlatform::Api::ProsecutionCaseFinder.call(params[:prosecution_case_reference])
+          prosecution_case.load_hearing_results(params[:id], load_events: false)
+          defendant = prosecution_case.defendants.find { it.id == params[:id] }
+          render json: {
+            defendant_id: params[:id],
+            offence_histories: defendant.offences.map do |offence|
+              { id: offence.id, pleas: offence.pleas, mode_of_trial_reasons: offence.mode_of_trial_reasons }
+            end
+          }
         end
       end
     end
