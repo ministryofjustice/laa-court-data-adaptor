@@ -36,11 +36,12 @@ module Api
         end
 
         def unlink_defendant!
-          LaaReference.find_by!(defendant_id: transformed_params[:defendant_id])
+          defendant_id = transformed_params[:defendant_id]
+          LaaReference.find_by!(defendant_id:)
 
           ProsecutionCaseLaaReferenceUnlinker.call(**transformed_params)
         rescue ActiveRecord::RecordNotFound
-          raise ActiveRecord::RecordNotFound, "Defendant not found!"
+          raise ActiveRecord::RecordNotFound, "Defendant with id = '#{defendant_id}' not found!"
         end
 
         def transformed_params
