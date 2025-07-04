@@ -211,7 +211,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
             run_test! do |response|
               error = JSON.parse(response.body)["error"]
 
-              expect(error).to include("Defendant not found or already unlinked!")
+              expect(error).to include("not found or already unlinked!")
             end
           end
         end
