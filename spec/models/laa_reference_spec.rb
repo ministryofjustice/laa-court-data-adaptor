@@ -109,4 +109,52 @@ RSpec.describe LaaReference, type: :model do
       expect(described_class.new(maat_reference: nil)).not_to be_dummy_maat_reference
     end
   end
+
+  describe ".retrieve_by_defendant_id_and_optional_maat_reference" do
+    before { laa_reference.save! }
+
+    context "when only defendant id provided" do
+      subject(:retrieved_laa_reference) { described_class.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id) }
+
+      context "when defendant ID matches" do
+        let(:defendant_id) { laa_reference.defendant_id }
+
+        it { expect(retrieved_laa_reference).to eq laa_reference }
+      end
+
+      context "when defendant ID does not match" do
+        let(:defendant_id) { "456" }
+
+        it "raises an appropriate error message" do
+          expect { retrieved_laa_reference }.to raise_error(
+            ActiveRecord::RecordNotFound,
+            "LAA reference with defendant_id: '456' not found or already unlinked!",
+          )
+        end
+      end
+    end
+
+    context "when both args provided" do
+      subject(:retrieved_laa_reference) { described_class.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference) }
+
+      context "when args match" do
+        let(:defendant_id) { laa_reference.defendant_id }
+        let(:maat_reference) { laa_reference.maat_reference }
+
+        it { expect(retrieved_laa_reference).to eq laa_reference }
+      end
+
+      context "when args not match" do
+        let(:defendant_id) { "123" }
+        let(:maat_reference) { "1234567" }
+
+        it "raises an appropriate error message" do
+          expect { retrieved_laa_reference }.to raise_error(
+            ActiveRecord::RecordNotFound,
+            "LAA reference with defendant_id: '123' and maat_reference: '1234567' not found or already unlinked!",
+          )
+        end
+      end
+    end
+  end
 end

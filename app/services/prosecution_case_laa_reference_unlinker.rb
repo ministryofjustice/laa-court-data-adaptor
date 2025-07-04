@@ -6,13 +6,10 @@ class ProsecutionCaseLaaReferenceUnlinker < ApplicationService
     @user_name = user_name
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
-
     @laa_reference = LaaReference.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, maat_reference)
   end
 
   def call
-    return unless laa_reference
-
     push_to_queue unless laa_reference.dummy_maat_reference?
     update_offences_on_common_platform
     unlink_maat_reference!
