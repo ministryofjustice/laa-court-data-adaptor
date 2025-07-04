@@ -59,6 +59,10 @@ module HmctsCommonPlatform
       end
     end
 
+    def maat_reference
+      ::LaaReference.find_by(linked: true, defendant_id:)&.maat_reference
+    end
+
     def to_json(*_args)
       to_builder.attributes!
     end
@@ -88,6 +92,7 @@ module HmctsCommonPlatform
         defendant_summary.representation_order representation_order.to_json
         defendant_summary.offence_summaries(offence_summaries.map(&:to_json))
         defendant_summary.application_summaries(application_summaries.map(&:to_json))
+        defendant_summary.maat_reference maat_reference
       end
     end
   end
