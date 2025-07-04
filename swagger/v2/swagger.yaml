@@ -336,7 +336,7 @@ paths:
       responses:
         '200':
           description: OK
-        '400':
+        '422':
           description: Bad Request
         '404':
           description: Defendant not found

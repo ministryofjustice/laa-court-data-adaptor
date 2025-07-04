@@ -195,8 +195,8 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
           run_test!
         end
 
-        context "when data is bad" do
-          response("400", "Bad Request") do
+        context "when validation error" do
+          response("422", "Unprocessable") do
             let(:Authorization) { "Bearer #{token.token}" }
             let(:defendant_id) { "X" }
 
@@ -217,7 +217,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
             run_test! do |response|
               error = JSON.parse(response.body)["error"]
 
-              expect(error).to eq("Defendant not found!")
+              expect(error).to eq("Defendant with id = '#{defendant_id}' not found!")
             end
           end
         end
