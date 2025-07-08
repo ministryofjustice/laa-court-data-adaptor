@@ -3,7 +3,6 @@
 module Api
   module Internal
     module V2
-      # Rename this class to `RepresentationOrdersController`
       class RepresentationOrdersController < ApplicationController
         def create
           enforce_contract!
@@ -21,7 +20,7 @@ module Api
         end
 
         def contract
-          ProsecutionCaseRepresentationOrderContract.new.call(**transformed_params)
+          RepresentationOrderContract.new.call(**transformed_params)
         end
 
         def create_params

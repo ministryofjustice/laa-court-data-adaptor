@@ -20,7 +20,7 @@ module Api
         end
 
         def contract
-          ProsecutionCaseRepresentationOrderContract.new.call(**transformed_params)
+          RepresentationOrderContract.new.call(**transformed_params)
         end
 
         def create_params
