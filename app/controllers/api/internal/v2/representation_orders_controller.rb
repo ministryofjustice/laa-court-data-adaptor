@@ -3,7 +3,8 @@
 module Api
   module Internal
     module V2
-      class ProsecutionCaseRepresentationOrdersController < ApplicationController
+      # Rename this class to `RepresentationOrdersController`
+      class RepresentationOrdersController < ApplicationController
         def create
           enforce_contract!
           enqueue_representation_order
