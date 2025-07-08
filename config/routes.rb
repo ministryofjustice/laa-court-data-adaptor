@@ -19,12 +19,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :internal do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
-        resources :prosecution_cases, only: [:index]
-        resources :prosecution_case_laa_references, path: "laa_references", only: %i[create]
         resources :defendants, only: %i[update show]
         resources :representation_orders, path: "representation_orders", only: [:create]
         resources :court_application_representation_orders, only: [:create]
-        resources :hearing_results, path: "hearings", only: [:show]
       end
 
       api_version(module: "V2", path: { value: "v2" }) do
@@ -47,11 +44,6 @@ Rails.application.routes.draw do
     namespace :external do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
         resources :hearing_results, path: "hearings", only: [:create]
-        resources :prosecution_conclusions, only: [:create]
-      end
-
-      api_version(module: "V2", path: { value: "v2" }) do
-        resources :hearing_results, only: [:create]
         resources :prosecution_conclusions, only: [:create]
       end
     end
