@@ -2,9 +2,12 @@
 
 module CommonPlatform
   module Api
+    # Note that this service can be _slow_ because it loads all hearing results
+    # related to a defendant in order to populate the plea history
     class DefendantFinder < ApplicationService
-      def initialize(defendant_id:)
+      def initialize(defendant_id:, urn: nil)
         @defendant_id = defendant_id
+        @urn = urn
       end
 
       def call
@@ -38,6 +41,7 @@ module CommonPlatform
       end
 
       def prosecution_case_urns
+        return [urn] if urn.present?
         return unless prosecution_cases
 
         @prosecution_case_urns ||= prosecution_cases.map { |p_case| p_case.body&.fetch("prosecutionCaseReference", nil) }
@@ -55,7 +59,7 @@ module CommonPlatform
         end
       end
 
-      attr_reader :defendant_id
+      attr_reader :defendant_id, :urn
     end
   end
 end
