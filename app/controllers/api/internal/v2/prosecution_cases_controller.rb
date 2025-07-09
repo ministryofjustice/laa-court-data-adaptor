@@ -6,7 +6,13 @@ module Api
       class ProsecutionCasesController < ApplicationController
         # Get/Post /api/internal/v2/prosecution_cases
         def index
-          case_summaries = CommonPlatform::Api::SearchProsecutionCase.call(transformed_params)
+          case_summaries = if transformed_params[:prosecution_case_reference].present?
+                             CommonPlatform::Api::ProsecutionCaseFinder.call(
+                               transformed_params[:prosecution_case_reference],
+                             )
+                           else
+                             CommonPlatform::Api::SearchProsecutionCase.call(transformed_params)
+                           end
 
           case_summaries_json = Array(case_summaries).map do |case_summary|
             HmctsCommonPlatform::ProsecutionCaseSummary.new(case_summary.body).to_json
