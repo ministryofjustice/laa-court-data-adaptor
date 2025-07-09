@@ -5,16 +5,11 @@ module Api
     module V2
       class DefendantsController < ApplicationController
         def show
-          response_data = CommonPlatform::Api::ProsecutionCaseFinder.call(
-            params[:prosecution_case_reference],
-            params[:id],
-          )&.body
+          prosecution_case = CommonPlatform::Api::ProsecutionCaseFinder.call(params[:prosecution_case_reference])
+          return head :not_found unless prosecution_case
 
-          return head :not_found unless response_data
-
-          defendant_summary = HmctsCommonPlatform::ProsecutionCaseSummary.new(response_data)
-            .defendant_summaries
-            .find { |ds| ds.defendant_id.eql?(params[:id]) }
+          defendant_summary = HmctsCommonPlatform::ProsecutionCaseSummary.new(prosecution_case.body)
+                                                                         .defendant_summary(params[:id])
 
           if defendant_summary.present?
             render json: defendant_summary.to_json
