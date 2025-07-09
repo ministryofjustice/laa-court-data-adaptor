@@ -1,7 +1,6 @@
 class CourtApplicationDefendantOffence < LegalCaseDefendantOffence
   belongs_to :court_application, foreign_key: :prosecution_case_id
 
-  alias_attribute :court_application_id, :prosecution_case_id
   validates :court_application_id, presence: true
   validates :application_type, presence: true
 

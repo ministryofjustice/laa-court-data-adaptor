@@ -55,9 +55,9 @@ module CommonPlatform
       end
 
       def offences_with_case_defendant_offences
-        offences.map do |offence|
+        offences.map { |offence|
           [offence, LegalCaseDefendantOffence.find_by(defendant_id:, offence_id: offence[:offence_id])]
-        end.select { |_offence, case_def| case_def.present? }
+        }.select { |_offence, case_def| case_def.present? }
       end
 
       def sanitise_defence_organisation
