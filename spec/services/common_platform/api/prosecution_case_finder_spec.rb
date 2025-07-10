@@ -27,9 +27,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
     context "when search by URN returns a non-matching result" do
       let(:urn_search_results) { [non_matching_record] }
 
-      it "returns nothing" do
-        expect(result).to be_nil
-      end
+      it { is_expected.to be_nil }
     end
 
     context "when search by URN returns two results" do
@@ -43,9 +41,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
     context "when search by URN returns no results" do
       let(:urn_search_results) { [] }
 
-      it "returns nothing" do
-        expect(result).to be_nil
-      end
+      it { is_expected.to be_nil }
     end
   end
 
@@ -64,9 +60,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
       let(:urn_search_results) { [] }
 
       context "when there is no local record" do
-        it "returns nothing" do
-          expect(result).to be_nil
-        end
+        it { is_expected.to be_nil }
       end
 
       context "when there is a local record" do
@@ -105,9 +99,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
           context "when search by defendant returns a non-matching result" do
             let(:defendant_search_results) { [non_matching_record] }
 
-            it "returns nothing" do
-              expect(result).to be_nil
-            end
+            it { is_expected.to be_nil }
           end
 
           context "when search by defendant returns two results" do
@@ -121,9 +113,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
           context "when search by defendant returns no results" do
             let(:defendant_search_results) { [] }
 
-            it "returns nothing" do
-              expect(result).to be_nil
-            end
+            it { is_expected.to be_nil }
           end
         end
 
@@ -135,9 +125,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
             })
           end
 
-          it "returns nothing" do
-            expect(result).to be_nil
-          end
+          it { is_expected.to be_nil }
         end
       end
     end
