@@ -32,7 +32,7 @@ module CommonPlatform
       def common_platform_prosecution_case(urn)
         return unless urn
 
-        prosecution_case = ProsecutionCaseFinder.call(urn)
+        prosecution_case = ProsecutionCaseFinder.call(urn, defendant_id)
 
         # fetch details needed to include plea and mode of trial reason, at least
         prosecution_case&.load_hearing_results(defendant_id, load_events: false)

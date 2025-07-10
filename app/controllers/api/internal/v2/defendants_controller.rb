@@ -5,7 +5,11 @@ module Api
     module V2
       class DefendantsController < ApplicationController
         def show
-          prosecution_case = CommonPlatform::Api::ProsecutionCaseFinder.call(params[:prosecution_case_reference])
+          prosecution_case = CommonPlatform::Api::ProsecutionCaseFinder.call(
+            params[:prosecution_case_reference],
+            params[:id],
+          )
+
           return head :not_found unless prosecution_case
 
           defendant_summary = HmctsCommonPlatform::ProsecutionCaseSummary.new(prosecution_case.body)
