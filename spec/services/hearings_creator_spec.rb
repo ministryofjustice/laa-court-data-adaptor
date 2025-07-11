@@ -218,6 +218,9 @@ RSpec.describe HearingsCreator do
             ],
           },
         },
+        "subject": {
+          "id": "68e00c1a-1bd5-4680-8c99-0f84a2d40329",
+        },
       }
     end
 
@@ -304,6 +307,43 @@ RSpec.describe HearingsCreator do
         allow(LaaReference).to receive(:find_by).and_return(nil)
 
         expect(Sqs::MessagePublisher).not_to receive(:call)
+
+        create_hearings
+      end
+    end
+
+    context "with a linked suject" do
+      let(:prosecution_case_array) { nil }
+
+      before do
+        LaaReference.create!(defendant_id: "68e00c1a-1bd5-4680-8c99-0f84a2d40329", linked: true, maat_reference: "123", user_name: "Bob")
+      end
+
+      it "calls the Sqs::MessagePublisher service once" do
+        expect(Sqs::MessagePublisher).to receive(:call).once do |arg|
+          expect(arg).to include(
+            queue_url: "url",
+          )
+
+          expect(arg[:message]).to include(
+            maatId: 123,
+            caseCreationDate: "2018-10-25",
+          )
+
+          expect(arg[:message].keys).to include(
+            :maatId,
+            :jurisdictionType,
+            :cjsAreaCode,
+            :caseCreationDate,
+            :cjsLocation,
+            :docLanguage,
+            :proceedingsConcluded,
+            :inActive,
+            :functionType,
+            :defendant,
+            :session,
+          )
+        end
 
         create_hearings
       end

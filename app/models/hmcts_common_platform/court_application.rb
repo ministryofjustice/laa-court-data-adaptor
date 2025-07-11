@@ -14,6 +14,10 @@ module HmctsCommonPlatform
       data[:id]
     end
 
+    def subject_id
+      data.dig(:subject, :id)
+    end
+
     def application_particulars
       data[:applicationParticulars]
     end
