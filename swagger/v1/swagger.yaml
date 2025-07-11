@@ -57,31 +57,6 @@ paths:
               "$ref": prosecution_concluded_request.json#/definitions/resource
         required: true
         description: The minimal prosecution concluded payload
-  "/api/internal/v1/court_application_representation_orders":
-    post:
-      summary: post representation_order
-      description: Post a Representation Order to CDA to update the status on a MAAT
-        case to a Common Platform case
-      tags:
-      - Internal - available to other LAA applications
-      security:
-      - oAuth: []
-      parameters:
-      - "$ref": "#/components/parameters/transaction_id_header"
-      responses:
-        '202':
-          description: Accepted
-        '422':
-          description: Unprocessable entity
-        '401':
-          description: Unauthorized
-      requestBody:
-        content:
-          application/vnd.api+json:
-            schema:
-              "$ref": representation_order.json#/definitions/new_resource
-        required: true
-        description: The Representation Order for an offence
   "/api/internal/v1/defendants/{id}":
     patch:
       summary: patch defendant relationships
