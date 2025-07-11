@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ProsecutionCaseRepresentationOrderContract do
+RSpec.describe RepresentationOrderContract do
   subject { described_class.new.call(hash_for_validation) }
 
   let(:hash_for_validation) do
