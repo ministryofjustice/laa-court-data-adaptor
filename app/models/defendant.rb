@@ -79,6 +79,15 @@ class Defendant
     ProsecutionCase.find_by(id: prosecution_case_id)
   end
 
+  def offence_history
+    {
+      defendant_id: id,
+      offence_histories: offences.map do |offence|
+        { id: offence.id, pleas: offence.pleas, mode_of_trial_reasons: offence.mode_of_trial_reasons }
+      end,
+    }
+  end
+
 private
 
   def offence_details

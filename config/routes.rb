@@ -30,7 +30,9 @@ Rails.application.routes.draw do
       api_version(module: "V2", path: { value: "v2" }) do
         resources :court_applications, only: [:show]
         resources :prosecution_cases, only: [:index], param: :reference do
-          resources :defendants, only: %i[show]
+          resources :defendants, only: %i[show] do
+            member { get :offence_history }
+          end
           collection { post "/", to: "index" }
         end
         resources :prosecution_case_laa_references, path: "laa_references", only: %i[create update], param: :defendant_id

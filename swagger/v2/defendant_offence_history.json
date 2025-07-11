@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Defendant offence history",
+  "id": "defendant_offence_history",
+  "strictProperties": true,
+  "description": "A historical details of a defendant's offences",
+  "type": "object",
+  "properties": {
+    "defendant_id": {
+      "description": "The identifier of the defendant",
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "offence_histories": {
+      "description": "The offence histories for this defendant",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "offence_history.json#"
+      }
+    }
+  }
+}

@@ -14,6 +14,10 @@ module HmctsCommonPlatform
       data[:caseStatus]
     end
 
+    def defendant_summary(defendant_id)
+      defendant_summaries.find { it.defendant_id == defendant_id }
+    end
+
     def defendant_summaries
       Array(data[:defendantSummary]).map do |defendant_summary_data|
         HmctsCommonPlatform::DefendantSummary.new(defendant_summary_data, data[:applicationSummary])
