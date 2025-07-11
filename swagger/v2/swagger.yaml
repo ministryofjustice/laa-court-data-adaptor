@@ -8,55 +8,6 @@ info:
                           exchange criminal court data between the two organisations.
   version: v2
 paths:
-  "/api/external/v2/hearing_results":
-    post:
-      summary: post hearing
-      description: Post Common Platform hearing data to CDA
-      tags:
-      - External - available to Common Platform
-      security:
-      - oAuth: []
-      parameters: []
-      responses:
-        '202':
-          description: Accepted
-        '422':
-          description: Unprocessable Entity
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": hearing_resulted.json#/definitions/new_resource
-        description: The minimal Hearing Resulted payload
-  "/api/external/v2/prosecution_conclusions":
-    post:
-      summary: post prosecution conclusion
-      description: Post Common Platform prosecution concluded data to CDA
-      tags:
-      - External - available to Common Platform
-      security:
-      - oAuth: []
-      parameters: []
-      responses:
-        '202':
-          description: Accepted
-        '422':
-          description: Unprocessable Entity
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": prosecution_concluded_request.json#/definitions/resource
-        required: true
-        description: The minimal prosecution concluded payload
   "/api/internal/v2/court_application_laa_references":
     post:
       summary: post laa_reference
