@@ -14,6 +14,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
     expect(court_application_summary.to_json["case_summary"]).to be_a(Array)
     expect(court_application_summary.to_json["hearing_summary"]).to be_a(Array)
     expect(court_application_summary.to_json["subject_summary"]).to be_a(Hash)
+    expect(court_application_summary.to_json["judicial_results"]).to be_a(Array)
   end
 
   it { expect(court_application_summary.application_id).to eql("00004c9f-af9f-401a-b88b-78a4f0e08163") }
@@ -27,6 +28,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
   it { expect(court_application_summary.case_summary.first).to be_a(HmctsCommonPlatform::CaseSummary) }
   it { expect(court_application_summary.hearing_summary.first).to be_a(HmctsCommonPlatform::HearingSummary) }
   it { expect(court_application_summary.subject_summary).to be_a(HmctsCommonPlatform::SubjectSummary) }
+  it { expect(court_application_summary.judicial_results.first).to be_a(HmctsCommonPlatform::JudicialResult) }
 
   context "when data is presented as a string" do
     let(:data) { file_fixture("court_application_summary.json").read }
@@ -41,6 +43,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
       expect(court_application_summary.to_json["case_summary"]).to be_a(Array)
       expect(court_application_summary.to_json["hearing_summary"]).to be_a(Array)
       expect(court_application_summary.to_json["subject_summary"]).to be_a(Hash)
+      expect(court_application_summary.to_json["judicial_results"]).to be_a(Array)
     end
   end
 end
