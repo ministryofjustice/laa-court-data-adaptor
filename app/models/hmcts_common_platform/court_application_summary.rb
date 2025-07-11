@@ -51,6 +51,12 @@ module HmctsCommonPlatform
       end
     end
 
+    def judicial_results
+      (data[:judicialResults] || []).map do |result|
+        HmctsCommonPlatform::JudicialResult.new(result)
+      end
+    end
+
     def subject_summary
       HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary])
     end
@@ -76,6 +82,7 @@ module HmctsCommonPlatform
         summary.case_summary case_summary.map(&:to_json)
         summary.hearing_summary hearing_summary.map(&:to_json)
         summary.subject_summary subject_summary.to_json
+        summary.judicial_results judicial_results.map(&:to_json)
       end
     end
   end
