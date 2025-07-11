@@ -45,7 +45,7 @@ module HmctsCommonPlatform
     end
 
     def code
-      data[:code] || HmctsCommonPlatform::Reference::CourtCentre.find(id).oucode
+      data[:code] || HmctsCommonPlatform::Reference::CourtCentre.find(id)&.oucode
     end
 
     def address

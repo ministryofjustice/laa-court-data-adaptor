@@ -50,4 +50,24 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
     it { expect(court_centre.short_oucode).to eq("B30PI") }
     it { expect(court_centre.oucode_l2_code).to eq("30") }
   end
+
+  describe "when there is no code" do
+    let(:data) { { "id" => id } }
+
+    context "when ID is recognised" do
+      let(:id) { "14876ea1-5f7c-32ef-9fbd-aa0b63193550" }
+
+      it { expect(court_centre.code).to eq("B30PI00") }
+      it { expect(court_centre.short_oucode).to eq("B30PI") }
+      it { expect(court_centre.oucode_l2_code).to eq("30") }
+    end
+
+    context "when ID is not recognised" do
+      let(:id) { SecureRandom.uuid }
+
+      it { expect(court_centre.code).to be_nil }
+      it { expect(court_centre.short_oucode).to be_nil }
+      it { expect(court_centre.oucode_l2_code).to be_nil }
+    end
+  end
 end
