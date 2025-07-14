@@ -261,7 +261,7 @@ jobs:
           additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET"
 
   scan-docker-image:
-    executor: test-executor
+    executor: snyk-executor
     parallelism: 1
     steps:
       - checkout
@@ -279,7 +279,7 @@ jobs:
           monitor-on-build: false
 
   scan-and-monitor-docker-image:
-    executor: test-executor
+    executor: snyk-executor
     parallelism: 1
     steps:
       - checkout
