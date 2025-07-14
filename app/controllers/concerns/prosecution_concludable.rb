@@ -37,46 +37,6 @@ private
   end
 
   def prosecution_conclusion_params
-    params.require(:prosecution_conclusion).permit(
-      prosecutionConcluded: [
-        :prosecutionCaseId,
-        :defendantId,
-        :isConcluded,
-        :hearingIdWhereChangeOccurred,
-        {
-          applicationConcluded: %i[
-            applicationId
-            applicationResultCode
-            subjectId
-          ],
-          offenceSummary: [
-            :offenceId,
-            :offenceCode,
-            :proceedingsConcluded,
-            :proceedingsConcludedChangedDate,
-            {
-              plea: %i[
-                originatingHearingId
-                value
-                pleaDate
-              ],
-              verdict: [
-                :verdictDate,
-                :originatingHearingId,
-                {
-                  verdictType: %i[
-                    description
-                    category
-                    categoryType
-                    sequence
-                    verdictTypeId
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    )
+    params.require(:prosecution_conclusion).permit!
   end
 end

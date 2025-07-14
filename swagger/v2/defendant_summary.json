@@ -66,6 +66,11 @@
       "items": {
         "$ref": "application_summary.json#"
       }
+    },
+    "maat_reference": {
+      "description": "The MAAD ID of the defendant if they are linked",
+      "type": ["string", "null"],
+      "example": "1234567"
     }
   }
 }

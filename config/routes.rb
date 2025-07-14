@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         resources :prosecution_cases, only: [:index]
         resources :prosecution_case_laa_references, path: "laa_references", only: %i[create]
         resources :defendants, only: %i[update show]
-        resources :prosecution_case_representation_orders, path: "representation_orders", only: [:create]
+        resources :representation_orders, path: "representation_orders", only: [:create]
         resources :court_application_representation_orders, only: [:create]
         resources :hearing_results, path: "hearings", only: [:show]
       end
@@ -30,12 +30,14 @@ Rails.application.routes.draw do
       api_version(module: "V2", path: { value: "v2" }) do
         resources :court_applications, only: [:show]
         resources :prosecution_cases, only: [:index], param: :reference do
-          resources :defendants, only: %i[show]
+          resources :defendants, only: %i[show] do
+            member { get :offence_history }
+          end
           collection { post "/", to: "index" }
         end
         resources :prosecution_case_laa_references, path: "laa_references", only: %i[create update], param: :defendant_id
         resources :court_application_laa_references, only: %i[create update], param: :subject_id
-        resources :prosecution_case_representation_orders, path: "representation_orders", only: [:create]
+        resources :representation_orders, path: "representation_orders", only: [:create]
         resources :hearing_results, only: [:show], param: :hearing_id
         get "hearings/:hearing_id/event_log/:hearing_date", to: "hearing_event_logs#show"
         resources :hearing_repull_batches, only: %i[create show]
