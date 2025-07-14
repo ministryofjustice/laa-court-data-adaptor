@@ -182,6 +182,41 @@ paths:
           description: Not found
         '401':
           description: Unauthorized
+  "/api/internal/v2/prosecution_cases/{prosecution_case_reference}/defendants/{id}/offence_history":
+    get:
+      summary: fetch a case defendant's offence history
+      description: retrieves the plea history and mode of trial reason history for
+        every offence a defendant has
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: prosecution_case_reference
+        in: path
+        required: true
+        schema:
+          "$ref": prosecution_case_identifier.json#/properties/case_urn
+        description: The unique reference number (URN) of the case
+      - name: id
+        in: path
+        required: true
+        type: uuid
+        schema:
+          "$ref": defendant.json#/properties/id
+        description: The uuid of the defendant
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": defendant_offence_history.json#
+        '404':
+          description: Not found
+        '401':
+          description: Unauthorized
   "/api/internal/v2/hearings/{hearing_id}/event_log/{date}":
     get:
       summary: fetch the hearing events log for a hearing
