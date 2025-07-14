@@ -7,11 +7,25 @@ orbs:
   kubernetes: circleci/kubernetes@0.7.0
   helm: circleci/helm@1.1.2
   newman: postman/newman@0.0.2
+  snyk: snyk/snyk@2.2.0
 
 executors:
   newman-latest:
     docker:
       - image: postman/newman:latest
+  snyk-executor:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/ruby:3.4.4-browsers
+        environment:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:circleci@127.0.0.1:5432/cda_test
+          TZ: Europe/London
+      - image: cimg/postgres:17.4
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: "circleci"
+          POSTGRES_DB: cda_test
 
 commands:
   checkout_and_decrypt:
@@ -21,6 +35,20 @@ commands:
       - run: sudo apt-get install git-crypt
       - run: echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
       - run: git-crypt unlock git-crypt.key
+
+  build-temp-image:
+    steps:
+      - run:
+          name: Compile Docker Image
+          command: |
+            docker build \
+              --build-arg BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) \
+              --build-arg COMMIT_ID=${CIRCLE_SHA1} \
+              --build-arg BUILD_TAG="app-${CIRCLE_SHA1}" \
+              --build-arg APP_BRANCH=${CIRCLE_BRANCH} \
+              --pull \
+              --tag cda:scan \
+              --file Dockerfile .
 
 jobs:
   test:
@@ -232,6 +260,42 @@ jobs:
           delay-request: "3000"
           additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET"
 
+  scan-docker-image:
+    executor: test-executor
+    parallelism: 1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - build-temp-image
+      - snyk/scan:
+          token-variable: SNYK_TOKEN
+          docker-image-name: cda:scan
+          target-file: ./Dockerfile
+          organization: "legal-aid-agency"
+          severity-threshold: "critical"
+          fail-on-issues: true
+          no-output-timeout: 20m
+          monitor-on-build: false
+
+  scan-and-monitor-docker-image:
+    executor: test-executor
+    parallelism: 1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - build-temp-image
+      - snyk/scan:
+          token-variable: SNYK_TOKEN
+          docker-image-name: cda:scan
+          target-file: ./Dockerfile
+          organization: "legal-aid-agency"
+          severity-threshold: "critical"
+          fail-on-issues: true
+          no-output-timeout: 20m
+          monitor-on-build: true
+
 workflows:
   version: 2
   test-build-deploy-main-to-live-cluster:
@@ -248,6 +312,9 @@ workflows:
             branches:
               only:
                 - main
+      - scan-and-monitor-docker-image:
+          requires:
+          - build-and-push-app
       - install_on_dev_live:
           requires:
             - build-and-push-app
@@ -281,6 +348,9 @@ workflows:
             branches:
               ignore:
                 - main
+      - scan-docker-image:
+          requires:
+          - build-and-push-app
       - hold_install_on_dev:
           type: approval
           requires:
