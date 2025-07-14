@@ -323,7 +323,7 @@ paths:
         '200':
           description: OK
         '422':
-          description: Bad Request
+          description: Unprocessable
         '404':
           description: Defendant not found
         '401':

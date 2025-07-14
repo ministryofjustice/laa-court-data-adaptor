@@ -102,7 +102,7 @@ RSpec.describe "api/internal/v1/representation_orders", swagger_doc: "v1/swagger
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          expect(ProsecutionCaseRepresentationOrderCreatorWorker).to receive(:perform_async).with(
+          expect(RepresentationOrderCreatorWorker).to receive(:perform_async).with(
             String,
             defendant_id,
             offence_array.map { |o| o.deep_transform_keys(&:to_s) },
@@ -120,7 +120,7 @@ RSpec.describe "api/internal/v1/representation_orders", swagger_doc: "v1/swagger
           before { representation_order[:data][:attributes][:maat_reference] = "ABC123123" }
 
           before do
-            expect(ProsecutionCaseRepresentationOrderCreatorWorker).not_to receive(:perform_async)
+            expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!
@@ -132,7 +132,7 @@ RSpec.describe "api/internal/v1/representation_orders", swagger_doc: "v1/swagger
           let(:Authorization) { nil }
 
           before do
-            expect(ProsecutionCaseRepresentationOrderCreatorWorker).not_to receive(:perform_async)
+            expect(RepresentationOrderCreatorWorker).not_to receive(:perform_async)
           end
 
           run_test!

@@ -21,7 +21,6 @@ Rails.application.routes.draw do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
         resources :defendants, only: %i[update show]
         resources :representation_orders, path: "representation_orders", only: [:create]
-        resources :court_application_representation_orders, only: [:create]
       end
 
       api_version(module: "V2", path: { value: "v2" }) do
