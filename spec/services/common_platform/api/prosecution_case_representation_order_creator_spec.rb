@@ -40,19 +40,47 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseRepresentationOrderCreator do
     }
   end
 
+  let(:application_type) { nil }
+
   before do
     ProsecutionCase.create!(
       id: prosecution_case_id,
       body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
     )
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
-                                            defendant_id:,
-                                            offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
+    LegalCaseDefendantOffence.create!(prosecution_case_id:,
+                                      defendant_id:,
+                                      offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710",
+                                      application_type:)
   end
 
-  it "calls the CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder service once" do
-    expect(CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder).to receive(:call).once.with(hash_including(application_reference: maat_reference, defence_organisation: transformed_defence_organisation))
-    create_rep_order
+  context "when application_type is nil" do
+    let(:application_type) { nil }
+
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder service once" do
+      expect(CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder)
+        .to receive(:call)
+        .once
+        .with(hash_including(application_reference: maat_reference,
+                             defendant_id:,
+                             defence_organisation: transformed_defence_organisation))
+
+      create_rep_order
+    end
+  end
+
+  context "when application_type is present" do
+    let(:application_type) { "ABCD" }
+
+    it "calls the CommonPlatform::Api::RecordCourtApplicationRepresentationOrder service once" do
+      expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder)
+        .to receive(:call)
+        .once
+        .with(hash_including(application_reference: maat_reference,
+                             subject_id: defendant_id,
+                             defence_organisation: transformed_defence_organisation))
+
+      create_rep_order
+    end
   end
 
   context "with multiple offences" do

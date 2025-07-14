@@ -3,7 +3,7 @@
 module Api
   module Internal
     module V2
-      class ProsecutionCaseRepresentationOrdersController < ApplicationController
+      class RepresentationOrdersController < ApplicationController
         def create
           enforce_contract!
           enqueue_representation_order
@@ -20,7 +20,7 @@ module Api
         end
 
         def contract
-          ProsecutionCaseRepresentationOrderContract.new.call(**transformed_params)
+          RepresentationOrderContract.new.call(**transformed_params)
         end
 
         def create_params
