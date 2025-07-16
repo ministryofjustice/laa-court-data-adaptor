@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :internal do
       api_version(module: "V1", path: { value: "v1" }, default: true) do
-        resources :defendants, only: %i[update show]
         resources :representation_orders, path: "representation_orders", only: [:create]
       end
 
