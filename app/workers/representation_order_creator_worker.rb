@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class ProsecutionCaseRepresentationOrderCreatorWorker
+class RepresentationOrderCreatorWorker
   include Sidekiq::Worker
 
   def perform(request_id, defendant_id, offences, maat_reference, defence_organisation)
     Current.set(request_id:) do
-      CommonPlatform::Api::ProsecutionCaseRepresentationOrderCreator.call(
+      CommonPlatform::Api::RepresentationOrderCreator.call(
         defendant_id:,
         offences:,
         maat_reference:,

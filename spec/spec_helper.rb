@@ -34,6 +34,7 @@ unless ENV["NOCOVERAGE"]
 
     # We only have partial coverage of old rake tasks
     add_filter "lib/tasks/"
+    add_filter "app/workers/multiple_maat_analysis_worker.rb"
   end
 end
 
