@@ -298,6 +298,7 @@ workflows:
               only:
                 - main
       - scan-docker-image:
+          name: scan-and-monitor-docker-image
           monitor: true
           requires:
           - build-and-push-app
@@ -335,6 +336,7 @@ workflows:
               ignore:
                 - main
       - scan-docker-image:
+          name: scan-docker-image
           monitor: false
           requires:
           - build-and-push-app
