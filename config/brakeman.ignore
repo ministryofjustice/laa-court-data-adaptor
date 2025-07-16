@@ -3,17 +3,17 @@
     {
       "warning_type": "Mass Assignment",
       "warning_code": 70,
-      "fingerprint": "a13fae50ad49fb39ce3fdde70d4bbb6c6f2f7c104da8d413ff143c796c2d5b28",
+      "fingerprint": "78f1c6588983af434c6088d1dc3cbfc1c172dafbc2854d631964abd63dc04b93",
       "check_name": "MassAssignment",
       "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
-      "file": "app/controllers/concerns/prosecution_concludable.rb",
-      "line": 40,
+      "file": "app/controllers/api/external/v1/prosecution_conclusions_controller.rb",
+      "line": 41,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:prosecution_conclusion).permit!",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "ProsecutionConcludable",
+        "class": "Api::External::V1::ProsecutionConclusionsController",
         "method": "prosecution_conclusion_params"
       },
       "user_input": null,
@@ -21,7 +21,7 @@
       "cwe_id": [
         915
       ],
-      "note": "We trust Common Platform and treat this endpoint as a pass-thru to pass on messages from them to MAAT"
+      "note": "We trust Common Platform and want all data it sends to be available to MAAT"
     }
   ],
   "brakeman_version": "7.0.2"

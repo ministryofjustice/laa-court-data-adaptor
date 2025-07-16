@@ -2,7 +2,7 @@
 
 module CommonPlatform
   module Api
-    class ProsecutionCaseRepresentationOrderCreator < ApplicationService
+    class RepresentationOrderCreator < ApplicationService
       def initialize(defendant_id:, offences:, maat_reference:, defence_organisation:)
         @offences = offences.map(&:with_indifferent_access).reject { |offence| offence[:status_date].blank? }
         @maat_reference = maat_reference

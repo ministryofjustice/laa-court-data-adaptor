@@ -43,7 +43,7 @@ module Api
         end
 
         def enqueue_representation_order
-          ProsecutionCaseRepresentationOrderCreatorWorker.perform_async(
+          RepresentationOrderCreatorWorker.perform_async(
             Current.request_id,
             transformed_params[:defendant_id],
             transformed_params[:offences],

@@ -221,7 +221,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
             let(:Authorization) { nil }
 
             before do
-              expect(UnlinkProsecutionCaseLaaReferenceWorker).not_to receive(:perform_async)
+              expect(CourtApplicationLaaReferenceUnlinker).not_to receive(:call)
             end
 
             run_test!
