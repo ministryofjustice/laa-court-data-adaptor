@@ -261,8 +261,11 @@ jobs:
           additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET"
 
   scan-docker-image:
+    parameters:
+      monitor:
+        type: boolean
+        default: false
     executor: snyk-executor
-    parallelism: 1
     steps:
       - checkout
       - setup_remote_docker:
@@ -276,25 +279,7 @@ jobs:
           severity-threshold: "critical"
           fail-on-issues: true
           no-output-timeout: 20m
-          monitor-on-build: false
-
-  scan-and-monitor-docker-image:
-    executor: snyk-executor
-    parallelism: 1
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - build-temp-image
-      - snyk/scan:
-          token-variable: SNYK_TOKEN
-          docker-image-name: cda:scan
-          target-file: ./Dockerfile
-          organization: "legal-aid-agency"
-          severity-threshold: "critical"
-          fail-on-issues: true
-          no-output-timeout: 20m
-          monitor-on-build: true
+          monitor-on-build: << parameters.monitor >>
 
 workflows:
   version: 2
@@ -312,7 +297,8 @@ workflows:
             branches:
               only:
                 - main
-      - scan-and-monitor-docker-image:
+      - scan-docker-image:
+          monitor: true
           requires:
           - build-and-push-app
       - install_on_dev_live:
@@ -349,6 +335,7 @@ workflows:
               ignore:
                 - main
       - scan-docker-image:
+          monitor: false
           requires:
           - build-and-push-app
       - hold_install_on_dev:
