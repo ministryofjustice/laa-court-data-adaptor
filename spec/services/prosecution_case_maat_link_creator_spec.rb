@@ -232,4 +232,23 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
       # rubocop enable Lint/SuppressedException
     end
   end
+
+  context "when the defendant ID is duplicated across cases" do
+    let(:other_prosecution_case_id) { SecureRandom.uuid }
+
+    before do
+      ProsecutionCase.create!(
+        id: other_prosecution_case_id,
+        body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
+      )
+
+      ProsecutionCaseDefendantOffence.create!(prosecution_case_id: other_prosecution_case_id,
+                                              defendant_id:,
+                                              offence_id: SecureRandom.uuid)
+    end
+
+    it "raises an error" do
+      expect { create_maat_link }.to raise_error Errors::DefendantError
+    end
+  end
 end

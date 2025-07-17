@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProsecutionCaseMaatLinkCreator < ApplicationService
-  attr_reader :laa_reference, :defendant_id
+  attr_reader :laa_reference, :defendant_id, :prosecution_case_id
 
   def initialize(defendant_id, user_name, maat_reference)
     @laa_reference = LaaReference.new(
@@ -10,6 +10,7 @@ class ProsecutionCaseMaatLinkCreator < ApplicationService
       maat_reference: maat_reference.presence || LaaReference.generate_linking_dummy_maat_reference,
     )
     @defendant_id = defendant_id
+    @prosecution_case_id = verify_prosecution_case_id
   end
 
   def call
@@ -81,7 +82,7 @@ private
   end
 
   def hearing_summaries
-    Array(ProsecutionCase.find(prosecution_case_id).body["hearingSummary"]).map do |hearing_summary_data|
+    Array(prosecution_case_summary_data["hearingSummary"]).map do |hearing_summary_data|
       HmctsCommonPlatform::HearingSummary.new(hearing_summary_data)
     end
   end
@@ -98,11 +99,16 @@ private
     @prosecution_case_summary_data ||= ProsecutionCase.find(prosecution_case_id).body
   end
 
-  def prosecution_case_id
-    @prosecution_case_id ||= offences.first.prosecution_case_id
+  def verify_prosecution_case_id
+    ids = offences.pluck(:prosecution_case_id).uniq
+
+    return ids.first if ids.count == 1
+
+    raise Errors::DefendantError.new("Defendant ID #{defendant_id} found in multiple prosecution cases",
+                                     :duplicated_defendant_id)
   end
 
   def offences
-    @offences ||= ProsecutionCaseDefendantOffence.where(defendant_id: laa_reference.defendant_id)
+    @offences ||= ProsecutionCaseDefendantOffence.where(defendant_id:)
   end
 end
