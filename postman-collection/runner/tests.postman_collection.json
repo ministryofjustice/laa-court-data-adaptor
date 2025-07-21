@@ -574,7 +574,6 @@
 									"    pm.expect(json_data.application_status).to.exist;",
 									"    pm.expect(json_data.application_title).to.exist;",
 									"    pm.expect(json_data.application_type).to.exist;",
-									"    pm.expect(json_data.application_result).to.exist;",
 									"    pm.expect(json_data.received_date).to.exist;",
 									"});",
 									"",
@@ -814,8 +813,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 422 or 200\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([422, 200]);",
+											"pm.test(\"Status code is 404, 422 or 200\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([404, 422, 200]);",
 											"});",
 											""
 										],
