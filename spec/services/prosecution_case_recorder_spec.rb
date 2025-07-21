@@ -61,5 +61,46 @@ RSpec.describe ProsecutionCaseRecorder do
       record
       expect(prosecution_case.reload.body).to eq(body)
     end
+
+    context "when other prosecution case exists" do
+      let!(:other_prosecution_case) do
+        ProsecutionCase.create!(
+          id: SecureRandom.uuid,
+          body:,
+        )
+      end
+
+      context "when this case has a PCDO for the other case's defendant" do
+        let!(:case_to_be_deleted) do
+          ProsecutionCaseDefendantOffence.create!(
+            prosecution_case_id: other_prosecution_case.id,
+            defendant_id:,
+            offence_id:,
+            application_type: nil,
+          )
+        end
+
+        it "deletes the incorrect PCDO" do
+          record
+          expect(ProsecutionCaseDefendantOffence.find_by(id: case_to_be_deleted.id)).to be_nil
+        end
+      end
+
+      context "when the other case has a PCDO for this case's defendant" do
+        let!(:case_to_be_deleted) do
+          ProsecutionCaseDefendantOffence.create!(
+            prosecution_case_id: prosecution_case.id,
+            defendant_id: SecureRandom.uuid,
+            offence_id: SecureRandom.uuid,
+            application_type: nil,
+          )
+        end
+
+        it "deletes the incorrect PCDO" do
+          record
+          expect(ProsecutionCaseDefendantOffence.find_by(id: case_to_be_deleted.id)).to be_nil
+        end
+      end
+    end
   end
 end
