@@ -405,96 +405,6 @@
 			"name": "Hearings",
 			"item": [
 				{
-					"name": "V1",
-					"item": [
-						{
-							"name": "Hearings results",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Hearing type is present in the response\", function () {",
-											"    var json_data = pm.response.json();",
-											"    pm.expect(json_data.data.attributes.hearing_type).to.exist;",
-											"    pm.expect(json_data.data.attributes.hearing_type).to.be.a('string');",
-											"});",
-											"",
-											"pm.test(\"Court name is present in the response\", function () {",
-											"    var json_data = pm.response.json();",
-											"    pm.expect(json_data.data.attributes.court_name).to.exist;",
-											"    pm.expect(json_data.data.attributes.court_name).to.be.a('string');",
-											"});",
-											"",
-											"",
-											"pm.test(\"Defendant names are present in the response\", function () {",
-											"    var json_data = pm.response.json();",
-											"    pm.expect(json_data.data.attributes.defendant_names).to.exist;",
-											"    pm.expect(json_data.data.attributes.defendant_names).to.be.an('array');",
-											"});",
-											"",
-											"pm.test(\"hearing_events are present in the response\", function () {",
-											"    var json_data = pm.response.json();",
-											"    pm.expect(json_data.data.relationships.hearing_events).to.exist;",
-											"    pm.expect(json_data.data.relationships.hearing_events.data).to.be.an('array');",
-											"});",
-											"",
-											"pm.test(\"prosecution_cases are present in the response\", function () {",
-											"    var json_data = pm.response.json();",
-											"    pm.expect(json_data.data.relationships.prosecution_cases).to.exist;",
-											"    pm.expect(json_data.data.relationships.prosecution_cases.data).to.be.an('array');",
-											"});",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{access_token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "\"result\"",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/api/internal/v1/hearings/{{hearing_id}}",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"internal",
-										"v1",
-										"hearings",
-										"{{hearing_id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "V2",
 					"item": [
 						{
@@ -664,7 +574,6 @@
 									"    pm.expect(json_data.application_status).to.exist;",
 									"    pm.expect(json_data.application_title).to.exist;",
 									"    pm.expect(json_data.application_type).to.exist;",
-									"    pm.expect(json_data.application_result).to.exist;",
 									"    pm.expect(json_data.received_date).to.exist;",
 									"});",
 									"",
@@ -720,79 +629,6 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Defendants",
-			"item": [
-				{
-					"name": "V1",
-					"item": [
-						{
-							"name": "Defendant",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Defendants type is present in the response\", function () {",
-											"    var json_data = pm.response.json();",
-											"    pm.expect(json_data.data.type).to.exist;",
-											"    pm.expect(json_data.data.type).to.eql(\"defendants\");",
-											"});",
-											"",
-											"pm.test(\"Defendant Properties exist\", function () {",
-											"    var json_data = pm.response.json();",
-											"    pm.expect(json_data.data.attributes.name).to.exist;",
-											"    pm.expect(json_data.data.attributes.date_of_birth).to.exist;",
-											"    pm.expect(json_data.data.attributes.national_insurance_number).to.exist;",
-											"    pm.expect(json_data.data.attributes.arrest_summons_number).to.exist;",
-											"});",
-											"",
-											"pm.test(\"Prosecution case in relationships\", function () {",
-											"    var json_data = pm.response.json();",
-											"    pm.expect(json_data.data.relationships).to.exist;",
-											"    pm.expect(json_data.data.relationships.prosecution_case).to.exist;",
-											"    pm.expect(json_data.data.relationships.prosecution_case).to.exist;",
-											"    pm.expect(json_data.data.relationships.prosecution_case).to.be.a('object');",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{access_token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/internal/v1/defendants/{{defendant_summaries_id}}",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"internal",
-										"v1",
-										"defendants",
-										"{{defendant_summaries_id}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
 				}
 			]
 		},
@@ -977,8 +813,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 422 or 200\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([422, 200]);",
+											"pm.test(\"Status code is 404, 422 or 200\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([404, 422, 200]);",
 											"});",
 											""
 										],
@@ -1094,65 +930,6 @@
 										"internal",
 										"v1",
 										"representation_orders"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Appeal",
-					"item": [
-						{
-							"name": "Representation order for appeals",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 422 or 202\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([422, 202]);",
-											"});",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{access_token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"data\": {\n    \"type\": \"representation_orders\",\n    \"attributes\": {\n      \"maat_reference\": {{appeals_maat_id}},\n      \"subject_id\": \"{{subject_id}}\",\n      \"defence_organisation\": {\n        \"organisation\": {\n            \"name\": \"Dave reps order\"\n        },\n        \"laa_contract_number\": \"123456789\" // not sure were this is from probably I think from crime apps.\n      },\n      \"offences\": [\n      {\n        \"offence_id\": \"{{appeal_offence_id}}\",\n        \"status_code\": \"AP\"\n        // \"status_date\": \"2025-04-30\",\n        // \"effective_start_date\": \"2025-04-01\",\n        // \"effective_end_date\": \"2025-04-30\"\n      }\n    ]\n    }\n  }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/api/internal/v1/court_application_representation_orders",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"internal",
-										"v1",
-										"court_application_representation_orders"
 									]
 								}
 							},

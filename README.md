@@ -193,17 +193,29 @@ In CDA the authentication process is handled by the gem [doorkeeper](https://git
 
 API testing is conducted using Postman collections, executed through Newman as part of an automated workflow in the CircleCI pipeline..
 
-**Note:** You can run these tests locally, but Newman must be installed on your machine first.
-Follow the Newman [installation guide](https://learning.postman.com/docs/collections/using-newman-cli/installing-running-newman) to get set up.
+To run Postman tests locally you'll need `newman`: [installation guide](https://learning.postman.com/docs/collections/using-newman-cli/installing-running-newman).
 
-After installation, use the following command to execute the tests:
+Then set the `CLIENT_ID` and `CLIENT_SECRET` env vars in your shell:
 
 ```shell
-newman run postman-collection/runner/tests.postman_collection.json \
-  --environment postman-collection/runner/enviroments/<enviroment>.postman_environment.json \
-  --env-var "client_id=<environment-uid>" \
-  --env-var "client_secret=<environment-secret>"
+export CLIENT_ID=...
+export CLIENT_SECRET=...
 ```
+
+and run the following command to execute:
+
+```shell
+newman run ./postman-collection/runner/tests.postman_collection.json \
+  --environment ./postman-collection/runner/enviroments/<enviroment_file>.json \
+  --delay-request 3000 \
+  --env-var client_id=$CLIENT_ID \
+  --env-var client_secret=$CLIENT_SECRET
+```
+
+The `enviroment_file` availables are:
+
+- dev.postman_environment.json
+- uat.postman_environment.json
 
 ## API Schema
 

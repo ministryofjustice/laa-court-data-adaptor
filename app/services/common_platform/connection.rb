@@ -66,6 +66,7 @@ module CommonPlatform
     def retry_options
       {
         retry_statuses: [429],
+        interval: 3,
         methods: %i[delete get head options put post],
       }
     end
