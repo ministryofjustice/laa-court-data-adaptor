@@ -70,7 +70,7 @@ RSpec.describe ProsecutionCaseRecorder do
         )
       end
 
-      context "when this case has a PCDO for the other case's defendant" do
+      context "when this case has a PCDO (Prosecution Case Defendant Offence) for the other case's defendant" do
         let!(:case_to_be_deleted) do
           ProsecutionCaseDefendantOffence.create!(
             prosecution_case_id: other_prosecution_case.id,

@@ -32,9 +32,9 @@ private
       defendant.offences.map { { offence_id: it.id, defendant_id: defendant.id } }
     end
 
-    need_to_be_created = remote_records - local_records
+    new_records = remote_records - local_records
 
-    need_to_be_created.each do |attrs|
+    new_records.each do |attrs|
       ProsecutionCaseDefendantOffence.create!(
         prosecution_case_id: prosecution_case.id,
         defendant_id: attrs[:defendant_id],
@@ -42,15 +42,12 @@ private
       )
     end
 
-    # Sometimes Common Platform erroneously includes a defendant ID from one case
-    # in the payload for a different case, then later removes it. Our system is vulnerable
-    # to creating ProsecutionCaseDefendantOffence records based on the error, then not
-    # removing them again, leading to problems when we use these records to do MAAT linking.
-    # So any time we receive a payload from Common Platform we check for and remove records
-    # that should not be there.
-    need_to_be_deleted = local_records - remote_records
+    # Common Platform sometimes includes the wrong defendant, then removes it later.
+    # Our system needs to clean up any old incorrect records whenever we get a new payload,
+    # to avoid problems with MAAT linking later.
+    removed_records = local_records - remote_records
 
-    need_to_be_deleted.each do |attrs|
+    removed_records.each do |attrs|
       ProsecutionCaseDefendantOffence.find_by(
         prosecution_case_id: prosecution_case.id,
         defendant_id: attrs[:defendant_id],
