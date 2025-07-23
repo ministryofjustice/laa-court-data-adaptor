@@ -51,10 +51,6 @@ RSpec.describe "api/internal/v2/court_applications", swagger_doc: "v2/swagger.ya
         it "persists a court application" do
           expect(CourtApplication.find_by(id: court_application_id)).not_to be_nil
         end
-
-        it "persists a defendant offence" do
-          expect(CourtApplicationDefendantOffence.count).to eq 1
-        end
       end
 
       response(503, "Service unavailable") do

@@ -20,9 +20,7 @@ module CommonPlatform
       end
 
       def call
-        response = connection.post(url, request_body)
-        update_database(response)
-        response
+        connection.post(url, request_body)
       end
 
     private
@@ -33,15 +31,6 @@ module CommonPlatform
           applicationReference: application_reference,
           statusDate: status_date,
         }
-      end
-
-      def update_database(response)
-        offence = CourtApplicationDefendantOffence.find_by(offence_id:)
-        offence.rep_order_status = status_code
-        offence.status_date = status_date
-        offence.response_status = response.status
-        offence.response_body = response.body
-        offence.save!
       end
 
       attr_reader :url, :status_code, :application_reference, :status_date, :connection, :offence_id

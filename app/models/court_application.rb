@@ -1,5 +1,5 @@
-class CourtApplication < LegalCase
-  has_many :court_application_defendant_offences
+class CourtApplication < ApplicationRecord
+  validates :body, presence: true
 
   def hearing_summaries
     body["hearingSummary"]

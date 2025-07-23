@@ -79,10 +79,14 @@ private
   end
 
   def offences
-    @offences ||= CourtApplicationDefendantOffence.where(defendant_id: laa_reference.defendant_id)
+    @offences ||= court_application_summary.subject_summary.offence_summary
   end
 
   def court_application_summary
-    @court_application_summary ||= HmctsCommonPlatform::CourtApplicationSummary.new(offences.first.court_application.body)
+    @court_application_summary ||= HmctsCommonPlatform::CourtApplicationSummary.new(court_application.body)
+  end
+
+  def court_application
+    @court_application ||= CourtApplication.find_by(subject_id: laa_reference.defendant_id)
   end
 end

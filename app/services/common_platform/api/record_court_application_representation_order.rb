@@ -3,7 +3,7 @@
 module CommonPlatform
   module Api
     class RecordCourtApplicationRepresentationOrder < ApplicationService
-      def initialize(court_application_defendant_offence:,
+      def initialize(court_application_id:,
                      subject_id:,
                      offence_id:,
                      status_code:,
@@ -13,8 +13,6 @@ module CommonPlatform
                      defence_organisation:,
                      effective_end_date: nil,
                      connection: CommonPlatform::Connection.instance.call)
-        @court_application_defendant_offence = court_application_defendant_offence
-        @offence_id = offence_id
         @status_code = status_code
         @application_reference = application_reference.to_s
         @status_date = status_date
@@ -22,16 +20,14 @@ module CommonPlatform
         @effective_end_date = effective_end_date
         @defence_organisation = defence_organisation
         @url = "prosecutionCases/representationOrder"\
-                "/applications/#{court_application_defendant_offence.court_application_id}"\
+                "/applications/#{court_application_id}"\
                 "/subject/#{subject_id}"\
                 "/offences/#{offence_id}"
         @connection = connection
       end
 
       def call
-        response = connection.post(url, request_body)
-        update_offence(response)
-        response
+        connection.post(url, request_body)
       end
 
     private
@@ -47,19 +43,7 @@ module CommonPlatform
         }.compact
       end
 
-      def update_offence(response)
-        court_application_defendant_offence.update!(
-          rep_order_status: status_code,
-          status_date:,
-          effective_start_date:,
-          effective_end_date:,
-          defence_organisation:,
-          response_status: response.status,
-          response_body: response.body,
-        )
-      end
-
-      attr_reader :url, :court_application_defendant_offence, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
+      attr_reader :url, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
     end
   end
 end

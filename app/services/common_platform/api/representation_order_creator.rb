@@ -18,37 +18,26 @@ module CommonPlatform
     private
 
       def call_common_platform_endpoint
-        offences_with_case_defendant_offences.each do |offence, case_defendant_offence|
-          application_reference = maat_reference
-          offence_id = offence[:offence_id]
-          status_code = offence[:status_code]
-          status_date = offence[:status_date]
-          effective_start_date = offence[:effective_start_date]
-          effective_end_date = offence[:effective_end_date]
-
-          if case_defendant_offence.application_type.present?
+        if (court_application = CourtApplication.find_by(subject_id: defendant_id))
+          offences.each do |offence|
             CommonPlatform::Api::RecordCourtApplicationRepresentationOrder.call(
-              court_application_defendant_offence: case_defendant_offence,
-              subject_id: defendant_id,
-              offence_id:,
-              status_code:,
-              application_reference:,
-              status_date:,
-              effective_start_date:,
-              effective_end_date:,
-              defence_organisation:,
+              **offence.merge(
+                court_application_id: court_application.id,
+                subject_id: defendant_id,
+                application_reference: maat_reference,
+                defence_organisation:,
+              ),
             )
-          else
+          end
+        else
+          offences_with_case_defendant_offences.each do |offence, case_defendant_offence|
             CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder.call(
-              case_defendant_offence:,
-              defendant_id:,
-              offence_id:,
-              status_code:,
-              application_reference:,
-              status_date:,
-              effective_start_date:,
-              effective_end_date:,
-              defence_organisation:,
+              **offence.merge(
+                case_defendant_offence:,
+                defendant_id:,
+                defence_organisation:,
+                application_reference: maat_reference,
+              ),
             )
           end
         end
@@ -56,7 +45,7 @@ module CommonPlatform
 
       def offences_with_case_defendant_offences
         offences.map { |offence|
-          [offence, LegalCaseDefendantOffence.find_by(defendant_id:, offence_id: offence[:offence_id])]
+          [offence, ProsecutionCaseDefendantOffence.find_by(defendant_id:, offence_id: offence[:offence_id])]
         }.select { |_offence, case_def| case_def.present? }
       end
 
