@@ -2,12 +2,17 @@
 
 class ProsecutionCaseRecorder < ApplicationService
   def initialize(prosecution_case_id:, body:)
-    @prosecution_case = ProsecutionCase.find_or_initialize_by(id: prosecution_case_id)
+    @prosecution_case_id = prosecution_case_id
     @body = body
   end
 
   def call
-    prosecution_case.update!(body:)
+    # Lock the whole table while we establish if we are creating or updating
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("LOCK prosecution_cases IN ACCESS EXCLUSIVE MODE")
+      @prosecution_case = ProsecutionCase.find_or_initialize_by(id: prosecution_case_id)
+      prosecution_case.update!(body:)
+    end
 
     # A lock on the case helps avoid 2 simultaneous processes creating duplicate records
     prosecution_case.with_lock { sync_offence_records }
@@ -17,7 +22,7 @@ class ProsecutionCaseRecorder < ApplicationService
 
 private
 
-  attr_reader :prosecution_case, :body
+  attr_reader :prosecution_case, :prosecution_case_id, :body
 
   def sync_offence_records
     # Pull all existing records out of the DB in a single query here and
