@@ -2,12 +2,17 @@
 
 class CourtApplicationRecorder < ApplicationService
   def initialize(court_application_id, model)
-    @court_application = CourtApplication.find_or_initialize_by(id: court_application_id)
+    @court_application_id = court_application_id
     @model = model
   end
 
   def call
-    court_application.update!(body: model.data)
+    # Lock the whole table while we establish if we are creating or updating
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("LOCK prosecution_cases IN ACCESS EXCLUSIVE MODE")
+      @court_application = CourtApplication.find_or_initialize_by(id: court_application_id)
+      court_application.update!(body: model.data)
+    end
 
     # A lock on the application helps avoid 2 simultaneous processes creating duplicate records
     court_application.with_lock { create_offence_records }
@@ -17,7 +22,7 @@ class CourtApplicationRecorder < ApplicationService
 
 private
 
-  attr_reader :court_application, :model
+  attr_reader :court_application, :court_application_id, :model
 
   def create_offence_records
     # Pull all existing records out of the DB in a single query here and
