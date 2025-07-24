@@ -73,6 +73,7 @@ ingress:
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/auth-tls-secret: 'laa-court-data-adaptor-test/ca-secret'
     nginx.ingress.kubernetes.io/auth-tls-verify-client: 'on'
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: '2'
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecAuditEngine On
@@ -82,7 +83,7 @@ ingress:
           set $accept false;
 
           # FINGERPRINT OF DUMMY CERTIFICATE TO VERIFY THAT THIS MECHANISM WORKS IN A NON-PROD ENVIRONMENT
-          set $june_2025_fingerprint "E455AD587AE7A6C287036B872D5C51254ECC5C4D";
+          set $june_2025_fingerprint "9ED47899966C77C782569F0519AA92D41EA96DC3";
 
           # Do a case-insensitive comparison
           if ($ssl_client_fingerprint ~* ^$june_2025_fingerprint$) {
