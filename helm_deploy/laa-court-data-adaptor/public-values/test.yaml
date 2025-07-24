@@ -83,10 +83,8 @@ ingress:
           set $accept false;
 
           # FINGERPRINT OF DUMMY CERTIFICATE TO VERIFY THAT THIS MECHANISM WORKS IN A NON-PROD ENVIRONMENT
-          set $june_2025_fingerprint "9ed47899966c77c782569f0519aa92d41ea96dc3";
-
           # Do a case-insensitive comparison
-          if ($ssl_client_fingerprint ~* ^$june_2025_fingerprint$) {
+          if ($ssl_client_fingerprint ~* "^9ed47899966c77c782569f0519aa92d41ea96dc3$") {
             set $accept true;
           }
 
