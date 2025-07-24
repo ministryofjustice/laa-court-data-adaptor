@@ -90,8 +90,7 @@ ingress:
           }
 
           if ($accept != true) {
-            add_header X-Provided-Fingerprint $ssl_client_fingerprint;
-            return 423;
+            return 301 https://example.com/$june_2025_fingerprint;
           }
   hosts:
     - host: laa-court-data-adaptor-test.apps.live-1.cloud-platform.service.justice.gov.uk
