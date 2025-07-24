@@ -78,6 +78,20 @@ ingress:
       SecAuditEngine On
       SecRuleEngine DetectionOnly
       SecDefaultAction "phase:2,pass,log,tag:github_team=laa-access-court-data"
+    nginx.ingress.kubernetes.io/server-snippet: |
+          set $accept false;
+
+          # FINGERPRINT OF DUMMY CERTIFICATE TO VERIFY THAT THIS MECHANISM WORKS IN A NON-PROD ENVIRONMENT
+          set $june_2025_fingerprint "E455AD587AE7A6C287036B872D5C51254ECC5C4D";
+
+          # Do a case-insensitive comparison
+          if ($ssl_client_fingerprint ~* ^$june_2025_fingerprint$) {
+            set $accept true;
+          }
+
+          if ($accept != true) {
+            return 403;
+          }
   hosts:
     - host: laa-court-data-adaptor-test.apps.live-1.cloud-platform.service.justice.gov.uk
       paths: ["/"]
