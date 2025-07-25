@@ -19,16 +19,16 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
                         maat_reference:,
                         linked: true)
   end
-
-  before do
+  let(:court_application) do
     CourtApplication.create!(
       id: application_id,
+      subject_id:,
       body: JSON.parse(file_fixture("court_application_summary.json").read),
     )
-    CourtApplicationDefendantOffence.create!(court_application_id: application_id,
-                                             defendant_id: subject_id,
-                                             offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710",
-                                             application_type: "appeal")
+  end
+
+  before do
+    court_application
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE dummy_maat_reference_seq RESTART;")
 
     allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call)
@@ -109,10 +109,9 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
 
   context "with multiple offences" do
     before do
-      CourtApplicationDefendantOffence.create!(court_application_id: application_id,
-                                               defendant_id: subject_id,
-                                               offence_id: SecureRandom.uuid,
-                                               application_type: "appeal")
+      first_offence = court_application.body["subjectSummary"]["offenceSummary"].first
+      court_application.body["subjectSummary"]["offenceSummary"] << first_offence.dup.merge("offenceId" => SecureRandom.uuid)
+      court_application.save!
     end
 
     it "calls the Sqs::MessagePublisher service once" do

@@ -16,12 +16,6 @@ RSpec.describe CourtApplicationRecorder do
     }.to change(CourtApplication, :count).by(1)
   end
 
-  it "creates a CourtApplicationDefendantOffence record" do
-    expect {
-      record
-    }.to change(CourtApplicationDefendantOffence, :count).by(1)
-  end
-
   it "returns the created Court Application" do
     expect(record).to be_a(CourtApplication)
   end
@@ -31,19 +25,11 @@ RSpec.describe CourtApplicationRecorder do
   end
 
   context "when the Court Application exists" do
-    let!(:prosecution_case) do
+    let!(:court_application) do
       CourtApplication.create!(
         id: court_application_id,
+        subject_id: defendant_id,
         body: "old body",
-      )
-    end
-
-    before do
-      CourtApplicationDefendantOffence.create!(
-        court_application_id:,
-        defendant_id:,
-        offence_id:,
-        application_type: model.application_type,
       )
     end
 
@@ -53,15 +39,9 @@ RSpec.describe CourtApplicationRecorder do
       }.not_to change(CourtApplication, :count)
     end
 
-    it "does not create a new CourtApplicationDefendantOffence record" do
-      expect {
-        record
-      }.not_to change(CourtApplicationDefendantOffence, :count)
-    end
-
     it "updates Court Application with new response" do
       record
-      expect(prosecution_case.reload.body).to eq(body)
+      expect(court_application.reload.body).to eq(body)
     end
   end
 end

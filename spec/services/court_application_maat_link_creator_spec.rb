@@ -9,22 +9,19 @@ RSpec.describe CourtApplicationMaatLinkCreator do
   let(:subject_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
   let(:user_name) { "bob-smith" }
   let(:court_application_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
-  let(:offence_id) { "cacbd4d4-9102-4687-98b4-d529be3d5710" }
+  let(:offence_id) { "f369a0f5-6faf-43f1-8725-fb79847107cc" }
   let(:laa_reference) { LaaReference.create!(defendant_id:, user_name: "caseWorker", maat_reference:) }
   let(:response) { OpenStruct.new("status" => 200, "success?" => true) }
-
-  before do
+  let(:court_application) do
     CourtApplication.create!(
       id: court_application_id,
+      subject_id: subject_id,
       body: JSON.parse(file_fixture("court_application_summary.json").read),
     )
+  end
 
-    CourtApplicationDefendantOffence.create!(
-      court_application_id:,
-      defendant_id: subject_id,
-      offence_id:,
-      application_type: "appeal",
-    )
+  before do
+    court_application
 
     allow(Sqs::MessagePublisher).to receive(:call)
     allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call)
@@ -86,12 +83,9 @@ RSpec.describe CourtApplicationMaatLinkCreator do
 
   context "with multiple offences" do
     before do
-      CourtApplicationDefendantOffence.create!(
-        court_application_id:,
-        defendant_id: subject_id,
-        offence_id: SecureRandom.uuid,
-        application_type: "appeal",
-      )
+      first_offence = court_application.body["subjectSummary"]["offenceSummary"].first
+      court_application.body["subjectSummary"]["offenceSummary"] << first_offence.dup.merge("offenceId" => SecureRandom.uuid)
+      court_application.save!
     end
 
     it "calls the Sqs::MessagePublisher service once" do
@@ -214,7 +208,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
             subject_id: "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3",
             maat_reference: "12345678",
             user_name: "bob-smith",
-            offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710",
+            offence_id: "f369a0f5-6faf-43f1-8725-fb79847107cc",
           },
         })
       end

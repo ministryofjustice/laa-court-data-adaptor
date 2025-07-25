@@ -41,7 +41,6 @@ RSpec.describe ProsecutionCaseRecorder do
         prosecution_case_id:,
         defendant_id:,
         offence_id:,
-        application_type: nil,
       )
     end
 
@@ -76,7 +75,6 @@ RSpec.describe ProsecutionCaseRecorder do
             prosecution_case_id: other_prosecution_case.id,
             defendant_id:,
             offence_id:,
-            application_type: nil,
           )
         end
 
@@ -92,7 +90,6 @@ RSpec.describe ProsecutionCaseRecorder do
             prosecution_case_id: prosecution_case.id,
             defendant_id: SecureRandom.uuid,
             offence_id: SecureRandom.uuid,
-            application_type: nil,
           )
         end
 

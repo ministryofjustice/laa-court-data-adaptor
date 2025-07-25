@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class ProsecutionCase < LegalCase
+class ProsecutionCase < ApplicationRecord
   has_many :prosecution_case_defendant_offences
+  validates :body, presence: true
 
   def defendants
     body["defendantSummary"].map do |defendant|
