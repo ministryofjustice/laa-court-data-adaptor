@@ -18,27 +18,26 @@ module CommonPlatform
     private
 
       def call_common_platform_endpoint
-        if (court_application = CourtApplication.find_by(subject_id: defendant_id))
+        court_application = CourtApplication.find_by(subject_id: defendant_id)
+        if court_application
           offences.each do |offence|
-            CommonPlatform::Api::RecordCourtApplicationRepresentationOrder.call(
-              **offence.merge(
-                court_application_id: court_application.id,
-                subject_id: defendant_id,
-                application_reference: maat_reference,
-                defence_organisation:,
-              ),
+            params = offence.merge(
+              court_application_id: court_application.id,
+              subject_id: defendant_id,
+              application_reference: maat_reference,
+              defence_organisation:,
             )
+            CommonPlatform::Api::RecordCourtApplicationRepresentationOrder.call(**params)
           end
         else
           offences_with_case_defendant_offences.each do |offence, case_defendant_offence|
-            CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder.call(
-              **offence.merge(
-                case_defendant_offence:,
-                defendant_id:,
-                defence_organisation:,
-                application_reference: maat_reference,
-              ),
+            params = offence.merge(
+              case_defendant_offence:,
+              defendant_id:,
+              defence_organisation:,
+              application_reference: maat_reference,
             )
+            CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder.call(**params)
           end
         end
       end

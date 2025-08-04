@@ -11,9 +11,7 @@ RSpec.describe CourtApplicationLinkValidator do
     )
   end
 
-  it "returns true" do
-    expect(link_validator_response).to be true
-  end
+  it { is_expected.to be true }
 
   context "when the hearing summary does not exist" do
     before do
@@ -21,8 +19,6 @@ RSpec.describe CourtApplicationLinkValidator do
       court_application.save!
     end
 
-    it "returns false" do
-      expect(link_validator_response).to be false
-    end
+    it { is_expected.to be false }
   end
 end
