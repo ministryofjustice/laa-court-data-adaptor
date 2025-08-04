@@ -27,7 +27,7 @@ module CommonPlatform
               application_reference: maat_reference,
               defence_organisation:,
             )
-            CommonPlatform::Api::RecordCourtApplicationRepresentationOrder.call(**params)
+            CommonPlatform::Api::RecordCourtApplicationRepresentationOrder.call(**params.deep_symbolize_keys)
           end
         else
           offences_with_case_defendant_offences.each do |offence, case_defendant_offence|
@@ -37,7 +37,7 @@ module CommonPlatform
               defence_organisation:,
               application_reference: maat_reference,
             )
-            CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder.call(**params)
+            CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder.call(**params.deep_symbolize_keys)
           end
         end
       end
