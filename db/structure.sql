@@ -41,19 +41,6 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
--- Name: court_application_offences; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.court_application_offences (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    court_application_id uuid,
-    offence_id uuid,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
 -- Name: court_applications; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -307,14 +294,6 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
--- Name: court_application_offences court_application_offences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.court_application_offences
-    ADD CONSTRAINT court_application_offences_pkey PRIMARY KEY (id);
-
-
---
 -- Name: court_applications court_applications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -441,13 +420,6 @@ CREATE INDEX index_case_defendant_offences_on_prosecution_case ON public.prosecu
 
 
 --
--- Name: index_court_application_offences_on_court_application_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_court_application_offences_on_court_application_id ON public.court_application_offences USING btree (court_application_id);
-
-
---
 -- Name: index_feature_flags_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -566,14 +538,6 @@ ALTER TABLE ONLY public.prosecution_case_hearing_repulls
 
 ALTER TABLE ONLY public.oauth_access_tokens
     ADD CONSTRAINT fk_rails_732cb83ab7 FOREIGN KEY (application_id) REFERENCES public.oauth_applications(id);
-
-
---
--- Name: court_application_offences fk_rails_9e3aa21443; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.court_application_offences
-    ADD CONSTRAINT fk_rails_9e3aa21443 FOREIGN KEY (court_application_id) REFERENCES public.court_applications(id);
 
 
 --
