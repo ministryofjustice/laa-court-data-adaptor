@@ -47,15 +47,12 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
       id: prosecution_case_id,
       body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
     )
-    LegalCaseDefendantOffence.create!(prosecution_case_id:,
-                                      defendant_id:,
-                                      offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710",
-                                      application_type:)
+    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
+                                            defendant_id:,
+                                            offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
   end
 
-  context "when application_type is nil" do
-    let(:application_type) { nil }
-
+  context "when there is no court application" do
     it "calls the CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder service once" do
       expect(CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder)
         .to receive(:call)
@@ -68,8 +65,10 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
     end
   end
 
-  context "when application_type is present" do
-    let(:application_type) { "ABCD" }
+  context "when this is for a court application is present" do
+    before do
+      CourtApplication.create!(subject_id: defendant_id, body: { foo: :bar })
+    end
 
     it "calls the CommonPlatform::Api::RecordCourtApplicationRepresentationOrder service once" do
       expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder)

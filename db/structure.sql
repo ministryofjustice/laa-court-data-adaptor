@@ -41,6 +41,19 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: court_applications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.court_applications (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    body jsonb,
+    subject_id uuid,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: dummy_maat_reference_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -211,8 +224,7 @@ CREATE TABLE public.prosecution_case_defendant_offences (
     status_date timestamp without time zone,
     effective_start_date timestamp without time zone,
     effective_end_date timestamp without time zone,
-    defence_organisation json,
-    application_type character varying(255)
+    defence_organisation json
 );
 
 
@@ -279,6 +291,14 @@ ALTER TABLE ONLY public.feature_flags ALTER COLUMN id SET DEFAULT nextval('publi
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: court_applications court_applications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.court_applications
+    ADD CONSTRAINT court_applications_pkey PRIMARY KEY (id);
 
 
 --
@@ -551,6 +571,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250723135115'),
 ('20250626082346'),
 ('20250619153722'),
 ('20250327104429'),

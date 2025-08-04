@@ -1,6 +1,6 @@
 class CourtApplicationLinkValidator < ApplicationService
   def initialize(subject_id:)
-    @court_application = CourtApplicationDefendantOffence.find_by(defendant_id: subject_id)&.court_application
+    @court_application = CourtApplication.find_by(subject_id:)
   end
 
   def call
