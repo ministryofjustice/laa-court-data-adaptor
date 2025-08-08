@@ -133,11 +133,13 @@ jobs:
       - run:
           name: Set env vars
           command: |
+            [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAGS="$CIRCLE_SHA1,latest" || ECR_TAGS="$CIRCLE_SHA1"
+            echo "export ECR_TAGS=$ECR_TAGS" >> "$BASH_ENV"
             echo "export APP_BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z)"  >> "$BASH_ENV"
             source "$BASH_ENV"
       - aws-ecr/build_image:
           push_image: true
-          tag: ${CIRCLE_SHA1}
+          tag: ${ECR_TAGS}
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
           account_id: "754256621582"
