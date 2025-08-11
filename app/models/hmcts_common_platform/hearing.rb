@@ -65,13 +65,13 @@ module HmctsCommonPlatform
     end
 
     def prosecution_counsels
-      Array(data[:prosecutionCounsels]).map do |prosecution_counsel_data|
+      Array(data[:respondentCounsels].presence || data[:prosecutionCounsels]).map do |prosecution_counsel_data|
         HmctsCommonPlatform::ProsecutionCounsel.new(prosecution_counsel_data)
       end
     end
 
     def defence_counsels
-      Array(data[:defenceCounsels]).map do |defence_counsel_data|
+      Array(data[:applicantCounsels].presence || data[:defenceCounsels]).map do |defence_counsel_data|
         HmctsCommonPlatform::DefenceCounsel.new(defence_counsel_data)
       end
     end
