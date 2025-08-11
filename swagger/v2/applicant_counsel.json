@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "applicant_counsel",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "The attendee title",
+      "type": "string"
+    },
+    "first_name": {
+      "description": "The attendee fore name",
+      "type": "string"
+    },
+    "middle_name": {
+      "description": "The attendee middle name",
+      "type": "string"
+    },
+    "last_name": {
+      "description": "The attendee last name",
+      "type": "string"
+    },
+    "status": {
+      "description": "The attendee status for the hearing e.g. junior counsel",
+      "type": "string"
+    },
+    "applicants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+      "$ref": "definitions.json#/definitions/uuid"
+      }
+    },
+    "attendance_days": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+      "$ref": "definitions.json#/definitions/datePattern"
+      }
+    }
+  }
+}

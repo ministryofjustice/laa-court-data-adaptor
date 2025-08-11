@@ -65,14 +65,26 @@ module HmctsCommonPlatform
     end
 
     def prosecution_counsels
-      Array(data[:respondentCounsels].presence || data[:prosecutionCounsels]).map do |prosecution_counsel_data|
+      Array(data[:prosecutionCounsels]).map do |prosecution_counsel_data|
         HmctsCommonPlatform::ProsecutionCounsel.new(prosecution_counsel_data)
       end
     end
 
     def defence_counsels
-      Array(data[:applicantCounsels].presence || data[:defenceCounsels]).map do |defence_counsel_data|
+      Array(data[:defenceCounsels]).map do |defence_counsel_data|
         HmctsCommonPlatform::DefenceCounsel.new(defence_counsel_data)
+      end
+    end
+
+    def respondent_counsels
+      Array(data[:respondentCounsels] || []).map do |respondent_counsel_data|
+        HmctsCommonPlatform::RespondentCounsel.new(respondent_counsel_data)
+      end
+    end
+
+    def applicant_counsels
+      Array(data[:applicantCounsels] || []).map do |applicant_counsel_data|
+        HmctsCommonPlatform::ApplicantCounsel.new(applicant_counsel_data)
       end
     end
 
@@ -113,6 +125,8 @@ module HmctsCommonPlatform
         hearing.judiciary judicial_roles.map(&:to_json)
         hearing.prosecution_counsels prosecution_counsels.map(&:to_json)
         hearing.defence_counsels defence_counsels.map(&:to_json)
+        hearing.respondent_counsels respondent_counsels.map(&:to_json)
+        hearing.applicant_counsels applicant_counsels.map(&:to_json)
         hearing.cracked_ineffective_trial cracked_ineffective_trial.to_json
         hearing.defendant_attendance defendant_attendance.map(&:to_json)
       end

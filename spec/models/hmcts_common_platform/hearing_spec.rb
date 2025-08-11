@@ -19,6 +19,8 @@ RSpec.describe HmctsCommonPlatform::Hearing, type: :model do
     expect(hearing.to_json["court_applications"]).to be_present
     expect(hearing.to_json["prosecution_counsels"]).to be_present
     expect(hearing.to_json["defence_counsels"]).to be_present
+    expect(hearing.to_json["respondent_counsels"]).to eq []
+    expect(hearing.to_json["applicant_counsels"]).to eq []
     expect(hearing.to_json["judiciary"]).to be_present
     expect(hearing.to_json["defendant_judicial_results"]).to be_present
     expect(hearing.to_json["defendant_attendance"]).to be_present

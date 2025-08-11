@@ -91,6 +91,20 @@
       "items": {
         "$ref": "defendant_attendance.json#"
       }
+    },
+    "applicant_counsels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "applicant_counsel.json#"
+      }
+    },
+    "respondent_counsels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "respondent_counsel.json#"
+      }
     }
   }
 }
