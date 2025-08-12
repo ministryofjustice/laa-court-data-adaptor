@@ -8,6 +8,7 @@ orbs:
   helm: circleci/helm@1.1.2
   newman: postman/newman@0.0.2
   snyk: snyk/snyk@2.2.0
+  court-data-end-to-end-tests: ministryofjustice/court-data-end-to-end-tests@volatile
 
 executors:
   newman-latest:
@@ -283,6 +284,19 @@ jobs:
           no-output-timeout: 20m
           monitor-on-build: << parameters.monitor >>
 
+  e2e-test-branch:
+    executor: court-data-end-to-end-tests/e2e-test-executor
+    steps:
+      - court-data-end-to-end-tests/run-e2e-tests:
+          e2e_current_image_var: CDA_IMAGE
+          e2e_current_image: ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com/${ECR_REPOSITORY}:${CIRCLE_SHA1}
+          e2e_branch: main # Change this to work against a fixed e2e test repo branch if needed
+
+  e2e-test-main:
+    executor: court-data-end-to-end-tests/e2e-test-executor
+    steps:
+      - court-data-end-to-end-tests/run-e2e-tests
+
 workflows:
   version: 2
   test-build-deploy-main-to-live-cluster:
@@ -304,6 +318,9 @@ workflows:
           monitor: true
           requires:
           - build-and-push-app
+      - e2e-test-main:
+          requires:
+            - build-and-push-app
       - install_on_dev_live:
           requires:
             - build-and-push-app
@@ -342,6 +359,10 @@ workflows:
           monitor: false
           requires:
           - build-and-push-app
+      - e2e-test-branch:
+          context: laa-court-data-e2e-tests
+          requires:
+            - build-and-push-app
       - hold_install_on_dev:
           type: approval
           requires:
