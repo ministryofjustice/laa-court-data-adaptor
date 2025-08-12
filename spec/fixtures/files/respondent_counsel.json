@@ -1,0 +1,13 @@
+{
+  "attendanceDays": [
+    "2025-07-29"
+  ],
+  "firstName": "John Test",
+  "id": "75b46cde-1c4f-4c51-a9aa-e153813e1139",
+  "lastName": "Doe",
+  "respondents": [
+    "053b7d17-9e1f-4f31-aa61-b90df78e1d7f"
+  ],
+  "status": "Leading junior",
+  "title": "Mr"
+}
