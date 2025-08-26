@@ -31,7 +31,7 @@ gem "json-schema", git: "https://github.com/voxpupuli/json-schema", branch: "mas
 gem "lograge", "~> 0.14.0"
 gem "oauth2"
 gem "prmd"
-gem "prometheus_exporter", "2.2.0"
+gem "prometheus_exporter", "2.3.0"
 gem "rswag-api"
 gem "rswag-ui"
 gem "sentry-rails", "~> 5.26.0"
