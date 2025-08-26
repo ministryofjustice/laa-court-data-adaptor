@@ -28,6 +28,7 @@ Rails.application.routes.draw do
           resources :defendants, only: %i[show] do
             member { get :offence_history }
           end
+          member { get :court_applications }
           collection { post "/", to: "index" }
         end
         resources :prosecution_case_laa_references, path: "laa_references", only: %i[create update], param: :defendant_id

@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Prosecution case court applications",
+  "id": "prosecution_case_court_applications",
+  "strictProperties": true,
+  "description": "A list of court applications associated with a prosecution case",
+  "type": "array",
+  "items": {
+    "$ref": "court_application_response.json#"
+  }
+}

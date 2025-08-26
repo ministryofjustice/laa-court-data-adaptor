@@ -58,7 +58,11 @@ module HmctsCommonPlatform
     end
 
     def subject_summary
-      HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary])
+      @subject_summary ||= HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary])
+    end
+
+    def maat_id
+      ::LaaReference.find_by(defendant_id: subject_summary.subject_id, linked: true)&.maat_reference
     end
 
     def to_json(*_args)
@@ -83,6 +87,7 @@ module HmctsCommonPlatform
         summary.hearing_summary hearing_summary.map(&:to_json)
         summary.subject_summary subject_summary.to_json
         summary.judicial_results judicial_results.map(&:to_json)
+        summary.maat_id maat_id
       end
     end
   end

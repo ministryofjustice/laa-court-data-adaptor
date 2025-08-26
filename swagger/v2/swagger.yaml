@@ -452,6 +452,32 @@ paths:
             schema:
               "$ref": prosecution_case_post_request_body.json#
         required: true
+  "/api/internal/v2/prosecution_cases/{prosecution_case_reference}/court_applications":
+    get:
+      summary: fetch court applications related to prosecution case
+      description: retrieves full details of court applications related to a prosecution
+        case
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: prosecution_case_reference
+        in: path
+        required: true
+        schema:
+          "$ref": prosecution_case_identifier.json#/properties/case_urn
+        description: The unique reference number (URN) of the case
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                "$ref": prosecution_case_court_applications.json#
+        '401':
+          description: Unauthorized
   "/api/internal/v2/representation_orders":
     post:
       summary: post representation_order
