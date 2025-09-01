@@ -89,6 +89,9 @@ private
     response = CommonPlatform::Api::CourtApplicationSearcher.call(
       application_id: application_summary["applicationId"],
     )
+
+    raise CommonPlatform::Api::Errors::FailedDependency, "Error retrieving court application" unless response.success?
+
     HmctsCommonPlatform::CourtApplicationSummary.new(response.body)
   end
 end

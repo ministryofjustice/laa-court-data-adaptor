@@ -476,6 +476,8 @@ paths:
             application/vnd.api+json:
               schema:
                 "$ref": prosecution_case_court_applications.json#
+        '424':
+          description: Failed dependency
         '401':
           description: Unauthorized
   "/api/internal/v2/representation_orders":
