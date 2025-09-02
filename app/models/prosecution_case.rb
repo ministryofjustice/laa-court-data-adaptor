@@ -45,8 +45,8 @@ class ProsecutionCase < ApplicationRecord
   end
 
   def court_applications
-    (body["applicationSummary"] || []).select { ::CourtApplication::SUPPORTED_COURT_APPLICATION_TITLES.include?(it["applicationTitle"]) }
-                                      .map { retrieve_full_court_application(it) }
+    (body["applicationSummary"] || []).map { retrieve_full_court_application(it) }
+                                      .select(&:supported?)
   end
 
 private
