@@ -44,6 +44,11 @@ class ProsecutionCase < ApplicationRecord
     hearing_results(defendant_id, load_events:)
   end
 
+  def court_applications
+    body["applicationSummary"].select { ::CourtApplication::SUPPORTED_COURT_APPLICATION_TITLES.include?(it["applicationTitle"]) }
+                              .map { retrieve_full_court_application(it) }
+  end
+
 private
 
   def case_details
@@ -78,5 +83,15 @@ private
 
   def hearing_summaries_for(defendant_id)
     hearing_summaries.select { |summary| defendant_id.nil? || summary.defendant_ids.include?(defendant_id) }
+  end
+
+  def retrieve_full_court_application(application_summary)
+    response = CommonPlatform::Api::CourtApplicationSearcher.call(
+      application_id: application_summary["applicationId"],
+    )
+
+    raise CommonPlatform::Api::Errors::FailedDependency, "Error retrieving court application" unless response.success?
+
+    HmctsCommonPlatform::CourtApplicationSummary.new(response.body)
   end
 end

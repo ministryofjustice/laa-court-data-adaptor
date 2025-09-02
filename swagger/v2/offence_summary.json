@@ -34,7 +34,7 @@
     },
     "arrest_date": {
       "description": "The date that the defendant was arrested in relation to this matter",
-      "$ref": "definitions.json#/definitions/datePattern"
+      "$ref": "definitions.json#/definitions/nullableDatePattern"
     },
     "charge_date": {
       "description": "The date that the defendant was charged in relation to this matter",
