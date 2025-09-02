@@ -51,9 +51,9 @@ RSpec.describe MaatApi::CourtApplicationLaaReference, type: :model do
       forename: "Naida",
       nino: "JG101010A",
       surname: "Daniel",
-      offences: [],
     }
 
-    expect(laa_reference.defendant).to eql(expected)
+    expect(laa_reference.defendant).to include(expected)
+    expect(laa_reference.defendant[:offences]).to be_present
   end
 end
