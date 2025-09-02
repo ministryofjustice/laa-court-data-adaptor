@@ -60,7 +60,7 @@ module HmctsCommonPlatform
     end
 
     def subject_summary
-      @subject_summary ||= HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary])
+      @subject_summary ||= HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary], self)
     end
 
     def linked_maat_id
