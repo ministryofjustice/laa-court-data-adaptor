@@ -127,3 +127,6 @@ affinity: {}
 ips:
   restrict: true
   hmcts: "85.210.83.182,51.145.115.21"
+
+featureFlags:
+  noOffenceCourtApplications: true

@@ -101,4 +101,6 @@ env:
     value: {{ include "laa-court-data-adaptor.fullname" . }}
   - name: ACCESS_IP_RESTRICTED
     value: '{{ .Values.ips.restrict }}'
+  - name: NO_OFFENCE_COURT_APPLICATIONS
+    value: '{{ .Values.featureFlags.noOffenceCourtApplications }}'
 {{- end -}}

@@ -72,7 +72,11 @@ module HmctsCommonPlatform
     end
 
     def supported?
-      application_category.present?
+      if ENV["NO_OFFENCE_COURT_APPLICATIONS"] == "true"
+        application_category.present?
+      else
+        application_category == :appeal
+      end
     end
 
     def application_category
@@ -90,6 +94,7 @@ module HmctsCommonPlatform
         summary.application_title application_title
         summary.application_type application_type
         summary.application_result application_result
+        summary.application_category application_category
         summary.received_date received_date
         summary.case_summary case_summary.map(&:to_json)
         summary.hearing_summary hearing_summary.map(&:to_json)
