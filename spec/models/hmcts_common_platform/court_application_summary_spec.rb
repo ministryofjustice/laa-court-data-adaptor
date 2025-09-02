@@ -7,7 +7,8 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
     expect(court_application_summary.to_json["application_reference"]).to eql("29GD7216523")
     expect(court_application_summary.to_json["application_status"]).to eql("FINALISED")
     expect(court_application_summary.to_json["application_title"]).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court")
-    expect(court_application_summary.to_json["application_type"]).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court")
+    expect(court_application_summary.to_json["application_type"]).to eql("MC80802")
+    expect(court_application_summary.to_json["application_category"]).to be(:appeal)
     expect(court_application_summary.to_json["application_result"]).to eql("AACD")
     expect(court_application_summary.to_json["received_date"]).to eql("2023-06-27")
     expect(court_application_summary.to_json["short_id"]).to eql("A25ABCDE1234")
@@ -21,7 +22,9 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
   it { expect(court_application_summary.application_reference).to eql("29GD7216523") }
   it { expect(court_application_summary.application_status).to eql("FINALISED") }
   it { expect(court_application_summary.application_title).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court") }
-  it { expect(court_application_summary.application_type).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court") }
+  it { expect(court_application_summary.application_type).to eql("MC80802") }
+  it { expect(court_application_summary.application_category).to be(:appeal) }
+  it { expect(court_application_summary.supported?).to be true }
   it { expect(court_application_summary.application_result).to eql("AACD") }
   it { expect(court_application_summary.received_date).to eql("2023-06-27") }
   it { expect(court_application_summary.short_id).to eql("A25ABCDE1234") }
@@ -38,12 +41,34 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
       expect(court_application_summary.to_json["application_reference"]).to eql("29GD7216523")
       expect(court_application_summary.to_json["application_status"]).to eql("FINALISED")
       expect(court_application_summary.to_json["application_title"]).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court")
-      expect(court_application_summary.to_json["application_type"]).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court")
+      expect(court_application_summary.to_json["application_type"]).to eql("MC80802")
       expect(court_application_summary.to_json["received_date"]).to eql("2023-06-27")
       expect(court_application_summary.to_json["case_summary"]).to be_a(Array)
       expect(court_application_summary.to_json["hearing_summary"]).to be_a(Array)
       expect(court_application_summary.to_json["subject_summary"]).to be_a(Hash)
       expect(court_application_summary.to_json["judicial_results"]).to be_a(Array)
+    end
+  end
+
+  describe "#supported?" do
+    subject(:supported) { court_application_summary.supported? }
+
+    context "when type is breach" do
+      let(:data) { { "applicationType" => "SE20521" } }
+
+      context "when flag is switched off" do
+        it { is_expected.to be false }
+      end
+
+      context "when flag is switched on" do
+        around do |example|
+          ENV["NO_OFFENCE_COURT_APPLICATIONS"] = "true"
+          example.run
+          ENV.delete("NO_OFFENCE_COURT_APPLICATIONS")
+        end
+
+        it { is_expected.to be true }
+      end
     end
   end
 end
