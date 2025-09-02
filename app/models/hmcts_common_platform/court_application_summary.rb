@@ -71,6 +71,14 @@ module HmctsCommonPlatform
       to_builder.attributes!
     end
 
+    def supported?
+      application_category.present?
+    end
+
+    def application_category
+      ::CourtApplication::SUPPORTED_COURT_APPLICATION_CATEGORIES[application_type]
+    end
+
   private
 
     def to_builder
