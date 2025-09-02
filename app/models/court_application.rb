@@ -15,17 +15,17 @@ class CourtApplication < ApplicationRecord
     "MC80801" => :appeal, # Appeal against conviction and sentence by a Magistrates' Court to the Crown Court
     "MC80802" => :appeal, # Appeal against conviction by a Magistrates' Court to the Crown Court
     "MC80803" => :appeal, # Appeal against sentence by a Magistrates' Court to the Crown Court
-    "CJ08521" => :breach, # Failing to comply with the requirements of a youth rehabilitation order with intensive supervision and surveillance
-    "CJ03510" => :breach, # Failing to comply with the requirements of a community order
-    "SO59501" => :breach, # Failing to comply with the requirements of an engagement and support order
-    "UNKNOWN1" => :breach, # Failing to comply with the requirements of an engagement and support order
-    "PC00700" => :breach, # Fail to comply the supervision requirements of a detention and training order
-    "PC00645" => :breach, # Fail to comply with drug abstinence order
-    "MC80508" => :breach, # Fail to comply with court order for bind over
-    "CJ08514" => :breach, # Failing to comply with the requirements of a youth rehabilitation order with fostering
-    "CJ03524" => :breach, # Failed to comply with the requirements of post-custodial supervision
+    "PC02541" => :poca, # Application for a confiscation order in the Crown Court
+    "SE20521" => :breach, # Failing to comply with the requirements of a youth rehabilitation order with intensive supervision and surveillance
     "CJ03506" => :breach, # Failing to comply with the community requirements of a suspended sentence order
-    "UNKNOWN2" => :poca, # Application for a confiscation order in the Crown Court
+    "SE20501" => :breach, # Failing to comply with the requirements of a community order
+    "SO59501" => :breach, # Failing to comply with the requirements of an engagement and support order
+    "SE20517" => :breach, # Failing to comply with the requirements of a youth rehabilitation order
+    "SE20537" => :breach, # Fail to comply the supervision requirements of a detention and training order
+    "PC00645" => :breach, # Fail to comply with drug abstinence order
+    "SE20530" => :breach, # Failing to comply with the requirements of a youth rehabilitation order with fostering
+    "CJ03524" => :breach, # Failed to comply with the requirements of post-custodial supervision
+    "SE20502" => :breach, # Failing to comply with the community requirements of a suspended sentence order
   }.freeze
 
   def hearing_summaries
