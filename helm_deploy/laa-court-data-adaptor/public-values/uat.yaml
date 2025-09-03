@@ -85,7 +85,7 @@ ingress:
     nginx.ingress.kubernetes.io/server-snippet: |
       set $accept false;
 
-      if ($ssl_client_fingerprint ~* "^TODO-FINGERPRINT-HERE$") {
+      if ($ssl_client_fingerprint ~* "^8099791549B33DD2C42C1B082EE8E14040CE92F1$") {
         set $accept true;
       }
       if ($accept != true) {
