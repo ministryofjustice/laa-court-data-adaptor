@@ -52,8 +52,10 @@ module HmctsCommonPlatform
     end
 
     def judicial_results
-      (data[:judicialResults] || []).map do |result|
-        HmctsCommonPlatform::JudicialResult.new(result)
+      if data[:judicialResults]
+        data[:judicialResults].map { HmctsCommonPlatform::JudicialResult.new(it) }
+      elsif application_category.in?(%i[breach poca])
+        latest_hearing_judicial_results
       end
     end
 
@@ -101,6 +103,23 @@ module HmctsCommonPlatform
         summary.subject_summary subject_summary.to_json
         summary.judicial_results judicial_results.map(&:to_json)
         summary.linked_maat_id linked_maat_id
+      end
+    end
+
+    def latest_hearing_judicial_results
+      return [] unless latest_hearing
+
+      latest_hearing.defendant_judicial_results.map(&:judicial_result)
+    end
+
+    def latest_hearing
+      @latest_hearing ||= begin
+        hearing_id = hearing_summary.max_by { it.hearing_days.map(&:sitting_day).map(&:to_date).max }&.id
+        if hearing_id
+          hearing_result_data = CommonPlatform::Api::GetHearingResults.call(hearing_id:)
+          hearing_result = HmctsCommonPlatform::HearingResulted.new(hearing_result_data)
+          hearing_result.hearing if hearing_result.present?
+        end
       end
     end
   end
