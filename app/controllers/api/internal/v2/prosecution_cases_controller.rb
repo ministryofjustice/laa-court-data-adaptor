@@ -21,6 +21,11 @@ module Api
           render json: { total_results: case_summaries_json.count, results: case_summaries_json }
         end
 
+        def court_applications
+          prosecution_case = CommonPlatform::Api::ProsecutionCaseFinder.call(params[:reference])
+          render json: prosecution_case.court_applications.map(&:to_json)
+        end
+
       private
 
         def transformed_params

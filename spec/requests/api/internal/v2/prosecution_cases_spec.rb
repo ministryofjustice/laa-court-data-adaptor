@@ -304,4 +304,78 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
       end
     end
   end
+
+  path "/api/internal/v2/prosecution_cases/{prosecution_case_reference}/court_applications" do
+    get("fetch court applications related to prosecution case") do
+      description "retrieves full details of court applications related to a prosecution case"
+      consumes "application/json"
+      tags "Internal - available to other LAA applications"
+      security [{ oAuth: [] }]
+
+      produces "application/vnd.api+json"
+
+      parameter name: :prosecution_case_reference, in: :path, required: true,
+                schema: {
+                  "$ref": "prosecution_case_identifier.json#/properties/case_urn",
+                },
+                description: "The unique reference number (URN) of the case"
+
+      parameter "$ref" => "#/components/parameters/transaction_id_header"
+
+      let(:Authorization) { "Bearer #{token.token}" }
+      let(:application_ids) { %w[62158b87-56fc-43cc-bbdc-d957d372420f] }
+      let(:prosecution_case_reference) { "CPS186472" }
+
+      before do
+        stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/prosecutionCases")
+            .with(query: { prosecutionCaseReference: prosecution_case_reference })
+            .to_return(
+              status: 200,
+              headers: { content_type: "application/json" },
+              body: file_fixture("prosecution_case_search_result_with_application_summary.json").read,
+            )
+      end
+
+      context "when successful" do
+        before do
+          application_ids.each do |application_id|
+            stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/applications/#{application_id}")
+              .to_return(
+                headers: { content_type: "application/json" },
+                body: file_fixture("court_application_summary.json").read,
+              )
+          end
+        end
+
+        response(200, "Success") do
+          schema "$ref" => "prosecution_case_court_applications.json#"
+          run_test!
+        end
+      end
+
+      context "when upstream error" do
+        before do
+          application_ids.each do |application_id|
+            stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/applications/#{application_id}")
+              .to_return(
+                headers: { content_type: "application/json" },
+                status: 500,
+              )
+          end
+        end
+
+        response(424, "Failed dependency") do
+          run_test!
+        end
+      end
+
+      context "when unauthorized" do
+        response(401, "Unauthorized") do
+          let(:Authorization) { nil }
+
+          run_test!
+        end
+      end
+    end
+  end
 end
