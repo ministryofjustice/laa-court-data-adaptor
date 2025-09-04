@@ -166,9 +166,9 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
       call_unlinker
     end
 
-    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service with dummy ID" do
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service with no offence ID" do
       expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).once.with(
-        hash_including(offence_id: application_id),
+        hash_including(offence_id: nil),
       )
       call_unlinker
     end

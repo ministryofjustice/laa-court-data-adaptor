@@ -63,6 +63,10 @@ module HmctsCommonPlatform
       to_builder.attributes!
     end
 
+    def has_offences?
+      data[:offenceSummary].present?
+    end
+
   private
 
     def to_builder
@@ -82,7 +86,7 @@ module HmctsCommonPlatform
     end
 
     def offence_payload
-      return Array(data[:offenceSummary]) if data[:offenceSummary].present? || application_summary.nil?
+      return Array(data[:offenceSummary]) if has_offences? || application_summary.nil?
 
       # For court applications without offences (e.g. breaches) we construct
       # a 'dummy' offence
