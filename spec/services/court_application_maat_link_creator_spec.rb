@@ -128,7 +128,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
       call_link_creator
     end
 
-    it "calls the CommonPlatform::Api::RecordCourtApplicationLaaReference service with dummy offence ID" do
+    it "calls the CommonPlatform::Api::RecordCourtApplicationLaaReference service with no offence ID" do
       allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
         .to receive(:call)
         .and_return(response)
@@ -136,7 +136,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
       expect(CommonPlatform::Api::RecordCourtApplicationLaaReference)
         .to receive(:call)
         .once
-        .with(hash_including(offence_id: court_application_id))
+        .with(hash_including(offence_id: nil))
 
       call_link_creator
     end
