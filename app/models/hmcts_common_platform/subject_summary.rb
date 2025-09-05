@@ -1,9 +1,10 @@
 module HmctsCommonPlatform
   class SubjectSummary
-    attr_reader :data
+    attr_reader :data, :application_summary
 
-    def initialize(data)
+    def initialize(data, application_summary = nil)
       @data = HashWithIndifferentAccess.new(data || {})
+      @application_summary = application_summary
     end
 
     def date_of_next_hearing
@@ -51,7 +52,7 @@ module HmctsCommonPlatform
     end
 
     def offence_summary
-      Array(data[:offenceSummary]).map do |summary_object|
+      offence_payload.map do |summary_object|
         HmctsCommonPlatform::OffenceSummary.new(summary_object, subject_id)
       end
     end
@@ -60,6 +61,10 @@ module HmctsCommonPlatform
       # Warning: this `to_json` method doesn't return JSON, it returns a hash.
       # This is to be consistent with other models in this repo
       to_builder.attributes!
+    end
+
+    def has_offences?
+      data[:offenceSummary].present?
     end
 
   private
@@ -78,6 +83,22 @@ module HmctsCommonPlatform
         summary.organisation_name organisation_name
         summary.representation_order representation_order.to_json
       end
+    end
+
+    def offence_payload
+      return Array(data[:offenceSummary]) if has_offences? || application_summary.nil?
+
+      # For court applications without offences (e.g. breaches) we construct
+      # a 'dummy' offence
+      [
+        {
+          "offenceId": application_summary.application_id,
+          "offenceCode": application_summary.application_type,
+          "asnSeq": 1,
+          "offenceDate": application_summary.received_date,
+          "offenceShortTitle": application_summary.application_title,
+        },
+      ]
     end
   end
 end
