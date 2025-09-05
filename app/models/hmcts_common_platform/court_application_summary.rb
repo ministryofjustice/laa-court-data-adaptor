@@ -101,7 +101,7 @@ module HmctsCommonPlatform
         summary.case_summary case_summary.map(&:to_json)
         summary.hearing_summary hearing_summary.map(&:to_json)
         summary.subject_summary subject_summary.to_json
-        summary.judicial_results judicial_results.map(&:to_json)
+        summary.judicial_results judicial_results&.map(&:to_json)
         summary.linked_maat_id linked_maat_id
       end
     end
