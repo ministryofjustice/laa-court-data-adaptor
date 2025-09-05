@@ -125,4 +125,4 @@ ips:
   restrict: false
 
 featureFlags:
-  noOffenceCourtApplications: true
+  breachCourtApplications: true
