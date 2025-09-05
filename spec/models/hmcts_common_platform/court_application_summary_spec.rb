@@ -71,4 +71,46 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
       end
     end
   end
+
+  describe "#judicial_results" do
+    subject(:judicial_results) { court_application_summary.judicial_results }
+
+    let(:hearing_result_body) { JSON.parse(file_fixture("hearing/all_fields.json").read) }
+
+    context "when the application is a breach" do
+      before do
+        data.delete("judicialResults")
+        data["applicationType"] = "SE20521"
+
+        allow(CommonPlatform::Api::GetHearingResults).to receive(:call)
+          .and_return("hearing" => hearing_result_body)
+      end
+
+      it "calls the Common Platform API to retrieve the latest hearing" do
+        judicial_results
+        expect(CommonPlatform::Api::GetHearingResults).to have_received(:call).with(
+          hearing_id: "bacbd19f-c61c-464c-aebc-ef00454e11ca",
+        )
+      end
+
+      it "returns the judicial results from that call" do
+        expect(judicial_results.length).to eq 1
+        expect(judicial_results.first.label).to eq "Legal Aid Transfer Granted"
+      end
+
+      context "when there are no hearings" do
+        before do
+          data["hearingSummary"] = []
+        end
+
+        it { is_expected.to eq [] }
+      end
+
+      context "when hearing is not available" do
+        let(:hearing_result_body) { {} }
+
+        it { is_expected.to eq [] }
+      end
+    end
+  end
 end
