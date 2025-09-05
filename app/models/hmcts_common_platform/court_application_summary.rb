@@ -54,7 +54,7 @@ module HmctsCommonPlatform
     def judicial_results
       if data[:judicialResults]
         data[:judicialResults].map { HmctsCommonPlatform::JudicialResult.new(it) }
-      elsif application_category.in?(%i[breach poca])
+      elsif application_category.in?(%w[breach poca])
         latest_hearing_judicial_results
       end
     end
@@ -73,16 +73,16 @@ module HmctsCommonPlatform
       to_builder.attributes!
     end
 
-    def supported?
-      if ENV["NO_OFFENCE_COURT_APPLICATIONS"] == "true"
+    def category_supported?
+      if ENV["BREACH_COURT_APPLICATIONS"] == "true"
         application_category.present?
       else
-        application_category == :appeal
+        application_category == "appeal"
       end
     end
 
     def application_category
-      ::CourtApplication::SUPPORTED_COURT_APPLICATION_CATEGORIES[application_type]
+      ::CourtApplication.supported_court_application_types.dig(application_type, "category")
     end
 
   private
