@@ -36,34 +36,42 @@ private
   end
 
   def post_laa_references_to_common_platform!
-    offences.each do |offence|
-      post_laa_reference_to_common_platform(offence)
-    rescue StandardError => e
-      Sentry.capture_exception(
-        e,
-        tags: {
-          request_id: Current.request_id,
-          subject_id: subject_id,
-          maat_reference: laa_reference.maat_reference,
-          user_name: laa_reference.user_name,
-          offence_id: offence.offence_id,
-        },
-      )
-      raise e
+    if court_application_summary.subject_summary.has_offences?
+      offences.each do |offence|
+        post_laa_reference_to_common_platform(offence)
+      end
+    else
+      post_laa_reference_to_common_platform
     end
   end
 
-  def post_laa_reference_to_common_platform(offence)
+  def post_laa_reference_to_common_platform(offence = nil)
     response = CommonPlatform::Api::RecordCourtApplicationLaaReference.call(
       application_id: court_application_summary.application_id,
       subject_id:,
-      offence_id: offence.offence_id,
+      offence_id: offence&.offence_id,
       status_code: "AP",
       application_reference: laa_reference.maat_reference,
       status_date: Time.zone.today.strftime("%Y-%m-%d"),
     )
 
     raise CommonPlatform::Api::Errors::FailedDependency, "Error posting LAA Reference to Common Platform" unless response.success?
+  rescue StandardError => e
+    record_and_reraise(e, offence)
+  end
+
+  def record_and_reraise(exception, offence = nil)
+    Sentry.capture_exception(
+      exception,
+      tags: {
+        request_id: Current.request_id,
+        subject_id: subject_id,
+        maat_reference: laa_reference.maat_reference,
+        user_name: laa_reference.user_name,
+        offence_id: offence&.offence_id,
+      },
+    )
+    raise exception
   end
 
   def fetch_past_hearings
