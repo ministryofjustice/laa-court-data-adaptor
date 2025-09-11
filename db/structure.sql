@@ -145,7 +145,8 @@ CREATE TABLE public.laa_references (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     user_name character varying NOT NULL,
-    unlink_reason_code integer
+    unlink_reason_code integer,
+    unlink_other_reason_text text
 );
 
 
@@ -570,6 +571,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250911131555'),
 ('20250723135115'),
 ('20250626082346'),
 ('20250619153722'),
