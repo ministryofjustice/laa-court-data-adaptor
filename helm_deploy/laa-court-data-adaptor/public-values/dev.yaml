@@ -123,3 +123,6 @@ affinity: {}
 
 ips:
   restrict: false
+
+featureFlags:
+  breachCourtApplications: true

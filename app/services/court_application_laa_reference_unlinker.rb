@@ -35,14 +35,18 @@ private
   end
 
   def update_offences_on_common_platform
-    offences.each { |offence| update_offence_on_common_platform!(offence) }
+    if court_application_summary.subject_summary.has_offences?
+      offences.each { |offence| update_laa_reference_on_common_platform!(offence) }
+    else
+      update_laa_reference_on_common_platform!
+    end
   end
 
-  def update_offence_on_common_platform!(offence)
+  def update_laa_reference_on_common_platform!(offence = nil)
     response = CommonPlatform::Api::RecordCourtApplicationLaaReference.call(
       application_id: court_application_summary.application_id,
       subject_id:,
-      offence_id: offence.offence_id,
+      offence_id: offence&.offence_id,
       status_code: "AP",
       application_reference: dummy_maat_reference,
       status_date: Time.zone.today.strftime("%Y-%m-%d"),

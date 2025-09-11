@@ -2,7 +2,7 @@ module HmctsCommonPlatform
   class HearingResulted
     attr_reader :data
 
-    delegate :blank?, to: :data
+    delegate :blank?, :present?, to: :data
 
     delegate :jurisdiction_type, :court_centre_id, :court_centre, :first_sitting_day_date, to: :hearing, prefix: true
 

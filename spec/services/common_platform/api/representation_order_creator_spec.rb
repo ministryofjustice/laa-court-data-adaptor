@@ -65,7 +65,7 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
     end
   end
 
-  context "when this is for a court application is present" do
+  context "when this is for a court application" do
     before do
       CourtApplication.create!(subject_id: defendant_id, body: { foo: :bar })
     end
@@ -77,6 +77,28 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
         .with(hash_including(application_reference: maat_reference,
                              subject_id: defendant_id,
                              defence_organisation: transformed_defence_organisation))
+
+      create_rep_order
+    end
+  end
+
+  context "when a dummy offence is being passed in" do
+    let(:court_application) { CourtApplication.create!(subject_id: defendant_id, body: { foo: :bar }) }
+    let(:offence_one) do
+      {
+        offence_id: court_application.id,
+        status_code: "AB",
+        status_date: "2020-10-12",
+        effective_start_date: "2020-10-12",
+        effective_end_date: "2020-11-12",
+      }
+    end
+
+    it "calls the CommonPlatform::Api::RecordCourtApplicationRepresentationOrder service without offence ID" do
+      expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder)
+        .to receive(:call)
+        .once
+        .with(hash_not_including(:offence_id))
 
       create_rep_order
     end

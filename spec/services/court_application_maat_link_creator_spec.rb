@@ -8,7 +8,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
   let(:maat_reference) { 12_345_678 }
   let(:subject_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
   let(:user_name) { "bob-smith" }
-  let(:court_application_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
+  let(:court_application_id) { "00004c9f-af9f-401a-b88b-78a4f0e08163" }
   let(:offence_id) { "f369a0f5-6faf-43f1-8725-fb79847107cc" }
   let(:laa_reference) { LaaReference.create!(defendant_id:, user_name: "caseWorker", maat_reference:) }
   let(:response) { OpenStruct.new("status" => 200, "success?" => true) }
@@ -107,6 +107,36 @@ RSpec.describe CourtApplicationMaatLinkCreator do
         .to receive(:call)
         .twice
         .with(hash_including(application_reference: "12345678"))
+
+      call_link_creator
+    end
+  end
+
+  context "with no offences" do
+    before do
+      court_application.body["subjectSummary"].delete("offenceSummary")
+      court_application.save!
+    end
+
+    it "calls the Sqs::MessagePublisher service once" do
+      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+        .to receive(:call)
+        .and_return(response)
+
+      expect(Sqs::MessagePublisher).to receive(:call).once
+
+      call_link_creator
+    end
+
+    it "calls the CommonPlatform::Api::RecordCourtApplicationLaaReference service with no offence ID" do
+      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+        .to receive(:call)
+        .and_return(response)
+
+      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+        .to receive(:call)
+        .once
+        .with(hash_including(offence_id: nil))
 
       call_link_creator
     end
