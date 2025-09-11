@@ -45,14 +45,8 @@ module HmctsCommonPlatform
       end
     end
 
-    # TODO: When appeals v2 is switched on we should delete this as we are moving
-    # away from matching based on title and this part of the payload will never be read.
     def court_application_summaries
-      return [] unless data[:applicationSummary].is_a?(Array)
-
-      @court_application_summaries ||= data[:applicationSummary].select do |summary|
-        ::CourtApplication::SUPPORTED_COURT_APPLICATION_TITLES.include?(summary[:applicationTitle])
-      end
+      data[:applicationSummary] || []
     end
   end
 end
