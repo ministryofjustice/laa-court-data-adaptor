@@ -51,6 +51,11 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
     expect(linked_laa_reference.reload.unlink_reason_code).to eq unlink_reason_code
   end
 
+  it "stores the reason text" do
+    call_unlinker
+    expect(linked_laa_reference.reload.unlink_other_reason_text).to eq unlink_other_reason_text
+  end
+
   context "when LaaReference is already unlinked" do
     before do
       linked_laa_reference.update(linked: false)
