@@ -274,6 +274,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0, >= 2.0.3)
       version_gem (~> 1.1, >= 1.1.8)
+    ostruct (0.6.3)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
@@ -511,6 +512,7 @@ PLATFORMS
   arm64-darwin-21
   ruby
   x86_64-darwin-20
+  x86_64-darwin-24
   x86_64-linux-musl
 
 DEPENDENCIES
@@ -535,6 +537,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.10)
   lograge (~> 0.14.0)
   oauth2
+  ostruct
   pg (>= 0.18, < 2.0)
   prmd
   prometheus_exporter (= 2.3.0)
