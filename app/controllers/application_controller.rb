@@ -6,8 +6,8 @@ class ApplicationController < ActionController::API
 
   ERROR_MAPPINGS = {
     ActionController::ParameterMissing => :bad_request,
-    Errors::ContractError => :unprocessable_entity,
-    Errors::DefendantError => :unprocessable_entity,
+    Errors::ContractError => :unprocessable_content,
+    Errors::DefendantError => :unprocessable_content,
     ActiveRecord::RecordNotFound => :not_found,
     CommonPlatform::Api::Errors::FailedDependency => :failed_dependency,
   }.freeze
