@@ -39,7 +39,6 @@ gem "sentry-rails", "~> 5.27.0"
 gem "sentry-ruby", "~> 5.27.0"
 gem "sentry-sidekiq", "~> 5.27.0"
 gem "sidekiq", ">= 6.5.10", "< 9.0"
-gem "versionist"
 
 group :development, :test do
   gem "dotenv-rails"

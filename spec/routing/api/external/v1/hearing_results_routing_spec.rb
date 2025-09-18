@@ -5,11 +5,5 @@ RSpec.describe Api::External::V1::HearingResultsController, type: :routing do
     it "routes to #create" do
       expect(post: "/api/external/v1/hearings").to route_to("api/external/v1/hearing_results#create")
     end
-
-    context "when no API version is specified" do
-      it "routes to #create" do
-        expect(post: "/api/external/hearings").to route_to("api/external/v1/hearing_results#create")
-      end
-    end
   end
 end
