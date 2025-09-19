@@ -24,7 +24,7 @@ module Api
         end
 
         def create_params
-          params.from_jsonapi.require(:representation_order).permit(
+          params.require(:data).require(:attributes).permit(
             :maat_reference,
             :defendant_id,
             defence_organisation: {},
@@ -35,7 +35,9 @@ module Api
               effective_start_date
               effective_end_date
             ],
-          )
+          ).tap do |filtered_params|
+            filtered_params[:defendant_id] ||= params.dig(:data, :relationships, :defendant, :data, :id)
+          end
         end
 
         def transformed_params
