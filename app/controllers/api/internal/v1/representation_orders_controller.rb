@@ -35,8 +35,8 @@ module Api
               effective_start_date
               effective_end_date
             ],
-          ).tap do |filtered|
-            filtered[:defendant_id] ||= params.dig(:data, :relationships, :defendant, :data, :id)
+          ).tap do |filtered_params|
+            filtered_params[:defendant_id] ||= params.dig(:data, :relationships, :defendant, :data, :id)
           end
         end
 
