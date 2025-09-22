@@ -8,7 +8,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
   end
 
   let(:subject_id) { "8cd0ba7e-df89-45a3-8c61-4008a2186d64" }
-  let(:application_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
+  let(:application_id) { "00004c9f-af9f-401a-b88b-78a4f0e08163" }
   let(:user_name) { "johnDoe" }
   let(:unlink_reason_code) { 1 }
   let(:unlink_other_reason_text) { "Wrong defendant" }
@@ -136,6 +136,40 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
 
     it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service multiple times" do
       expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
+      call_unlinker
+    end
+  end
+
+  context "with no offences" do
+    before do
+      court_application.body["subjectSummary"].delete("offenceSummary")
+      court_application.save!
+    end
+
+    it "calls the Sqs::MessagePublisher service once" do
+      message = {
+        defendantId: "8cd0ba7e-df89-45a3-8c61-4008a2186d64",
+        maatId: "101010",
+        userId: user_name,
+        reasonId: unlink_reason_code,
+        otherReasonText: unlink_other_reason_text,
+      }
+
+      expect(Sqs::MessagePublisher).to receive(:call)
+        .once
+        .with(
+          message:,
+          queue_url: Rails.configuration.x.aws.sqs_url_unlink,
+          log_info: { maat_reference: message[:maatId] },
+        )
+
+      call_unlinker
+    end
+
+    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service with no offence ID" do
+      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).once.with(
+        hash_including(offence_id: nil),
+      )
       call_unlinker
     end
   end

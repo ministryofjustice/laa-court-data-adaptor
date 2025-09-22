@@ -9,7 +9,7 @@ gem "rails", "~> 8.0"
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
-gem "puma", "~> 6.6"
+gem "puma", "~> 7.0"
 # Use Active Model has_secure_password
 gem "bcrypt", "~> 3.1.18"
 
@@ -25,20 +25,19 @@ gem "faraday-net_http_persistent", "~> 2"
 gem "faraday-retry", "~> 2.3"
 gem "hmcts_common_platform", github: "ministryofjustice/hmcts_common_platform", tag: "v0.2.0"
 gem "jbuilder", "~> 2.14"
-gem "jsonapi_parameters"
 gem "jsonapi-serializer"
 gem "json-schema", git: "https://github.com/voxpupuli/json-schema", branch: "master", ref: "081dfc3"
 gem "lograge", "~> 0.14.0"
 gem "oauth2"
+gem "ostruct"
 gem "prmd"
 gem "prometheus_exporter", "2.3.0"
 gem "rswag-api"
 gem "rswag-ui"
-gem "sentry-rails", "~> 5.26.0"
-gem "sentry-ruby", "~> 5.26.0"
-gem "sentry-sidekiq", "~> 5.26.0"
+gem "sentry-rails", "~> 5.27.0"
+gem "sentry-ruby", "~> 5.27.0"
+gem "sentry-sidekiq", "~> 5.27.0"
 gem "sidekiq", ">= 6.5.10", "< 9.0"
-gem "versionist"
 
 group :development, :test do
   gem "dotenv-rails"

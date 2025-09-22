@@ -19,10 +19,15 @@ module CommonPlatform
         @effective_start_date = effective_start_date
         @effective_end_date = effective_end_date
         @defence_organisation = defence_organisation
-        @url = "prosecutionCases/representationOrder"\
-                "/applications/#{court_application_id}"\
-                "/subject/#{subject_id}"\
-                "/offences/#{offence_id}"
+        @url = if offence_id
+                 "prosecutionCases/representationOrder"\
+                         "/applications/#{court_application_id}"\
+                         "/subject/#{subject_id}"\
+                         "/offences/#{offence_id}"
+               else
+                 "prosecutionCases/representationOrder"\
+                       "/applications/#{court_application_id}"
+               end
         @connection = connection
       end
 

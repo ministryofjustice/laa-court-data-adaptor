@@ -7,8 +7,8 @@ class LaaReference < ApplicationRecord
   validates :unlink_reason_code,
             numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
 
-  def unlink!(unlink_reason_code: nil)
-    update!(linked: false, unlink_reason_code:)
+  def unlink!(unlink_reason_code: nil, unlink_other_reason_text: nil)
+    update!(linked: false, unlink_reason_code:, unlink_other_reason_text:)
   end
 
   def adjust_link_and_save!

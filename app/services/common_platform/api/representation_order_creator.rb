@@ -20,25 +20,36 @@ module CommonPlatform
       def call_common_platform_endpoint
         court_application = CourtApplication.find_by(subject_id: defendant_id)
         if court_application
-          offences.each do |offence|
-            params = offence.merge(
-              court_application_id: court_application.id,
-              subject_id: defendant_id,
-              application_reference: maat_reference,
-              defence_organisation:,
-            )
-            CommonPlatform::Api::RecordCourtApplicationRepresentationOrder.call(**params.deep_symbolize_keys)
-          end
+          record_court_application_representation_order(court_application)
         else
-          offences_with_case_defendant_offences.each do |offence, case_defendant_offence|
-            params = offence.merge(
-              case_defendant_offence:,
-              defendant_id:,
-              defence_organisation:,
-              application_reference: maat_reference,
-            )
-            CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder.call(**params.deep_symbolize_keys)
-          end
+          record_prosecution_case_representation_order
+        end
+      end
+
+      def record_court_application_representation_order(court_application)
+        offences.each do |offence|
+          params = offence.merge(
+            court_application_id: court_application.id,
+            subject_id: defendant_id,
+            application_reference: maat_reference,
+            defence_organisation:,
+          )
+          args = params.deep_symbolize_keys
+          # If this is a dummy offence, leave out the ID
+          args.delete(:offence_id) if args[:offence_id] == court_application.id
+          CommonPlatform::Api::RecordCourtApplicationRepresentationOrder.call(**args)
+        end
+      end
+
+      def record_prosecution_case_representation_order
+        offences_with_case_defendant_offences.each do |offence, case_defendant_offence|
+          params = offence.merge(
+            case_defendant_offence:,
+            defendant_id:,
+            defence_organisation:,
+            application_reference: maat_reference,
+          )
+          CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder.call(**params.deep_symbolize_keys)
         end
       end
 

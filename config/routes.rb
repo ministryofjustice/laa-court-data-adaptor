@@ -8,21 +8,15 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web => "/sidekiq"
 
-  api_version(module: "V1", path: { value: "v1" }, default: true) do
-    use_doorkeeper
-  end
-
-  api_version(module: "V2", path: { value: "v2" }) do
-    use_doorkeeper
-  end
+  use_doorkeeper
 
   namespace :api do
     namespace :internal do
-      api_version(module: "V1", path: { value: "v1" }, default: true) do
+      namespace :v1 do
         resources :representation_orders, path: "representation_orders", only: [:create]
       end
 
-      api_version(module: "V2", path: { value: "v2" }) do
+      namespace :v2 do
         resources :court_applications, only: [:show]
         resources :prosecution_cases, only: [:index], param: :reference do
           resources :defendants, only: %i[show] do
@@ -41,7 +35,7 @@ Rails.application.routes.draw do
     end
 
     namespace :external do
-      api_version(module: "V1", path: { value: "v1" }, default: true) do
+      namespace :v1 do
         resources :hearing_results, path: "hearings", only: [:create]
         resources :prosecution_conclusions, only: [:create]
       end

@@ -1,6 +1,10 @@
 RSpec.describe HmctsCommonPlatform::SubjectSummary, type: :model do
-  let(:subject_summary) { described_class.new(data) }
+  let(:subject_summary) { described_class.new(data, application_summary) }
   let(:data) { JSON.parse(file_fixture("subject_summary.json").read) }
+  let(:application_summary) do
+    instance_double(HmctsCommonPlatform::CourtApplicationSummary,
+                    application_id: "id", application_type: "type", received_date: "date", application_title: "title")
+  end
 
   it "generates a JSON representation of the data" do
     expect(subject_summary.to_json["proceedings_concluded"]).to be(true)
@@ -31,8 +35,13 @@ RSpec.describe HmctsCommonPlatform::SubjectSummary, type: :model do
   context "when there is no offence summary data" do
     before { data.delete("offenceSummary") }
 
-    it "returns an empty array" do
-      expect(subject_summary.to_json["offence_summary"]).to eq []
+    it "returns a single dummy offence" do
+      expect(subject_summary.to_json["offence_summary"].length).to eq 1
+      expect(subject_summary.offence_summary.first).to be_a(HmctsCommonPlatform::OffenceSummary)
+      expect(subject_summary.to_json["offence_summary"].first).to include(
+        "code" => "type",
+        "id" => "id",
+      )
     end
   end
 end

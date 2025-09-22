@@ -46,11 +46,7 @@ module HmctsCommonPlatform
     end
 
     def court_application_summaries
-      return [] unless data[:applicationSummary].is_a?(Array)
-
-      @court_application_summaries ||= data[:applicationSummary].select do |summary|
-        ::CourtApplication::SUPPORTED_COURT_APPLICATION_TITLES.include?(summary[:applicationTitle])
-      end
+      data[:applicationSummary] || []
     end
   end
 end
