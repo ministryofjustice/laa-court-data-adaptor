@@ -34,9 +34,9 @@ gem "prmd"
 gem "prometheus_exporter", "2.3.0"
 gem "rswag-api"
 gem "rswag-ui"
-gem "sentry-rails", "~> 5.27.0"
+gem "sentry-rails", "~> 5.27.1"
 gem "sentry-ruby", "~> 5.27.0"
-gem "sentry-sidekiq", "~> 5.27.0"
+gem "sentry-sidekiq", "~> 5.27.1"
 gem "sidekiq", ">= 6.5.10", "< 9.0"
 
 group :development, :test do
