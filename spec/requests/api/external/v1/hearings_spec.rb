@@ -28,6 +28,10 @@ RSpec.describe "api/external/v1/hearings", type: :request do
           expect(HearingsCreatorWorker).to receive(:perform_async)
         end
 
+        after do
+          expect(IncomingPayload.count).to eq 1
+        end
+
         run_test!
       end
 

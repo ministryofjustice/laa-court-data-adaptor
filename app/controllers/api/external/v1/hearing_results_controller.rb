@@ -5,6 +5,7 @@ module Api
     module V1
       class HearingResultsController < ApplicationController
         def create
+          log_payload
           enforce_contract!
           publish_hearing_to_queue
 

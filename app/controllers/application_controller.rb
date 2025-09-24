@@ -35,4 +35,8 @@ private
     Current.request_id = request.headers["X-Request-ID"] || request.request_id
     response.set_header("X-Request-ID", Current.request_id)
   end
+
+  def log_payload
+    IncomingPayloadLogger.call(params, Current.request_id)
+  end
 end
