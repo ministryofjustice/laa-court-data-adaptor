@@ -31,6 +31,9 @@ Rails.application.routes.draw do
         resources :hearing_results, only: [:show], param: :hearing_id
         get "hearings/:hearing_id/event_log/:hearing_date", to: "hearing_event_logs#show"
         resources :hearing_repull_batches, only: %i[create show]
+        resources :stats do
+          collection { get :linking }
+        end
       end
     end
 
