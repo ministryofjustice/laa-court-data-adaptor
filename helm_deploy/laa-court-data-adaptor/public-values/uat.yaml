@@ -83,13 +83,17 @@ ingress:
     nginx.ingress.kubernetes.io/auth-tls-verify-client: 'optional_no_ca'
     nginx.ingress.kubernetes.io/auth-tls-verify-depth: '3'
     nginx.ingress.kubernetes.io/server-snippet: |
-      set $accept false;
+      map $ssl_client_fingerprint $is_fingerprint_blank {
+          ""       1;
+          default  0;
+      }
+
+      if ($is_fingerprint_blank) {
+          return 433;
+      }
 
       if ($ssl_client_fingerprint ~* "^8099791549B33DD2C42C1B082EE8E14040CE92F1$") {
-        set $accept true;
-      }
-      if ($accept != true) {
-        return 423;
+        return 302 /$ssl_client_fingerprint;
       }
   hosts:
     - host: laa-court-data-adaptor-uat.apps.live-1.cloud-platform.service.justice.gov.uk
