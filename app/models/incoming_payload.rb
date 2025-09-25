@@ -1,3 +1,3 @@
 class IncomingPayload < ApplicationRecord
-  validates :request_id, presence: true
+  validates :payload_type, presence: true
 end

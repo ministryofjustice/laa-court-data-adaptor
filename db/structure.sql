@@ -140,9 +140,9 @@ CREATE TABLE public.hearings (
 CREATE TABLE public.incoming_payloads (
     id bigint NOT NULL,
     body jsonb,
-    compressed_body text,
     request_id character varying,
     payload_type character varying,
+    identifier character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
