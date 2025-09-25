@@ -6,6 +6,7 @@ module Api
           enforce_contract!
 
           prosecution_conclusion_params["prosecutionConcluded"].each do |pc|
+            log_payload(pc, "prosecution_concluded", pc["prosecutionCaseId"] || pc.dig("applicationConcluded", "applicationId"))
             laa_reference = get_linked_laa_reference(pc)
 
             next unless laa_reference
