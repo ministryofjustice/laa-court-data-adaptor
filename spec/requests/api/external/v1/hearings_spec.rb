@@ -29,7 +29,7 @@ RSpec.describe "api/external/v1/hearings", type: :request do
         end
 
         after do
-          expect(IncomingPayload.count).to eq 1
+          expect(IncomingPayload.where(payload_type: "hearing_resulted").count).to eq 1
         end
 
         run_test!

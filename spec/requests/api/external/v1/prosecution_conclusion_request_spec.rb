@@ -37,7 +37,7 @@ RSpec.describe "api/external/v1/prosecution_conclusions", swagger_doc: "v1/swagg
         end
 
         after do
-          expect(IncomingPayload.count).to eq 1
+          expect(IncomingPayload.where(payload_type: "prosecution_concluded").count).to eq 1
         end
 
         context "when sending a valid prosecution case payload" do

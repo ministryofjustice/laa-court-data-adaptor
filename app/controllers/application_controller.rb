@@ -36,7 +36,7 @@ private
     response.set_header("X-Request-ID", Current.request_id)
   end
 
-  def log_payload
-    IncomingPayloadLogger.call(params, Current.request_id)
+  def log_payload(payload_type)
+    IncomingPayloadLogger.call(params, Current.request_id, payload_type)
   end
 end

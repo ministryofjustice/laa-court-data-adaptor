@@ -3,7 +3,7 @@ module Api
     module V1
       class ProsecutionConclusionsController < ApplicationController
         def create
-          log_payload
+          log_payload("prosecution_concluded")
           enforce_contract!
 
           prosecution_conclusion_params["prosecutionConcluded"].each do |pc|

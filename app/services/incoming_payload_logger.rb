@@ -1,19 +1,23 @@
 class IncomingPayloadLogger < ApplicationService
-  def initialize(params, request_id)
-    @params = params
+  def initialize(body, request_id, payload_type)
+    @body = body
     @request_id = request_id
+    @payload_type = payload_type
   end
+
+  attr_reader :body, :request_id, :payload_type
 
   def call
     IncomingPayload.create!(
-      body: @params,
-      request_id: @request_id,
-      compressed_body: Base64.encode64(Zlib::Deflate.deflate(@params.to_json)),
+      payload_type:,
+      body:,
+      request_id:,
+      compressed_body: Base64.encode64(Zlib::Deflate.deflate(body.to_json)),
     )
   rescue ActiveRecord::ActiveRecordError => e
     Sentry.capture_exception(
       e,
-      tags: { request_id: @request_id },
+      tags: { request_id: },
     )
   end
 end

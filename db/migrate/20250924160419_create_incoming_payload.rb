@@ -4,6 +4,7 @@ class CreateIncomingPayload < ActiveRecord::Migration[8.0]
       t.jsonb :body
       t.text :compressed_body
       t.string :request_id
+      t.string :payload_type
 
       t.timestamps
     end
