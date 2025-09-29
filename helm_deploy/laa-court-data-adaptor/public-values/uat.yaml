@@ -89,7 +89,7 @@ ingress:
         set $accept true;
       }
       if ($accept != true) {
-        return 302 /fingerprint_detected_was/$ssl_client_fingerprint/instead_of/8099;
+        return 302 example.com/fingerprint_detected_was/$ssl_client_fingerprint/instead_of/8099;
       }
   hosts:
     - host: laa-court-data-adaptor-uat.apps.live-1.cloud-platform.service.justice.gov.uk
