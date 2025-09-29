@@ -80,8 +80,8 @@ ingress:
       SecRuleEngine DetectionOnly
       SecDefaultAction "phase:2,pass,log,tag:github_team=laa-access-court-data"
     nginx.ingress.kubernetes.io/auth-tls-secret: 'laa-court-data-adaptor-uat/ca-secret'
-    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'on'
-    nginx.ingress.kubernetes.io/auth-tls-verify-depth: '2'
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'optional_no_ca'
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: '10'
     nginx.ingress.kubernetes.io/server-snippet: |
       set $accept false;
 
@@ -89,7 +89,7 @@ ingress:
         set $accept true;
       }
       if ($accept != true) {
-        return 302 /$ssl_client_fingerprint;
+        return 302 /fingerprint_detected_was/$ssl_client_fingerprint/instead_of/8099;
       }
   hosts:
     - host: laa-court-data-adaptor-uat.apps.live-1.cloud-platform.service.justice.gov.uk
