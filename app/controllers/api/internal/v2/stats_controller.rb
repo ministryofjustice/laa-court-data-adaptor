@@ -4,7 +4,7 @@ module Api
   module Internal
     module V2
       class StatsController < ApplicationController
-        def linking
+        def index_linking
           date_from = Date.parse(params.fetch(:from, ""))
           date_to = Date.parse(params.fetch(:to, ""))
           render json: LinkingStatCollator.call(date_from, date_to)
