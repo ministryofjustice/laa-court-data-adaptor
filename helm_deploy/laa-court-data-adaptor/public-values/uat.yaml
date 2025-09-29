@@ -139,7 +139,7 @@ affinity: {}
 
 
 ips:
-  restrict: true
+  restrict: false
   hmcts: "85.210.83.182,51.145.115.21"
 
 featureFlags:
