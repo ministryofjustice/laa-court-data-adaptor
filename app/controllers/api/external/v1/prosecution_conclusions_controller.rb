@@ -4,9 +4,9 @@ module Api
       class ProsecutionConclusionsController < ApplicationController
         def create
           enforce_contract!
+          log_prosecution_conclusion_payload
 
           prosecution_conclusion_params["prosecutionConcluded"].each do |pc|
-            log_payload(pc, "prosecution_concluded", pc["prosecutionCaseId"] || pc.dig("applicationConcluded", "applicationId"))
             laa_reference = get_linked_laa_reference(pc)
 
             next unless laa_reference
@@ -40,6 +40,12 @@ module Api
 
         def prosecution_conclusion_params
           params.require(:prosecution_conclusion).permit!
+        end
+
+        def log_prosecution_conclusion_payload
+          prosecution_conclusion_params["prosecutionConcluded"].each do |pc|
+            log_payload(pc, "prosecution_concluded", pc["prosecutionCaseId"] || pc.dig("applicationConcluded", "applicationId"))
+          end
         end
       end
     end
