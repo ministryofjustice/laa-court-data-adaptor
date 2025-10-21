@@ -80,12 +80,14 @@ ingress:
       SecRuleEngine DetectionOnly
       SecDefaultAction "phase:2,pass,log,tag:github_team=laa-access-court-data"
     nginx.ingress.kubernetes.io/auth-tls-secret: 'laa-court-data-adaptor-uat/ca-secret'
-    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'optional'
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'on'
     nginx.ingress.kubernetes.io/auth-tls-verify-depth: '10'
     nginx.ingress.kubernetes.io/server-snippet: |
+      ssl_verify_client optional_no_ca;
+
       set $accept false;
 
-      if ($ssl_client_fingerprint ~* "^80:99:79:15:49:B3:3D:D2:C4:2C:1B:08:2E:E8:E1:40:40:CE:92:F1$") {
+      if ($ssl_client_fingerprint ~* "^8099791549B33DD2C42C1B082EE8E14040CE92F1$") {
         set $accept true;
       }
       if ($accept != true) {
