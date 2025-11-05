@@ -13,7 +13,7 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
   let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
   let(:user_name) { "johnDoe" }
   let(:unlink_reason_code) { 1 }
-  let(:unlink_other_reason_text) { "Wrong defendant" }
+  let(:unlink_other_reason_text) { "" }
   let!(:linked_laa_reference) do
     LaaReference.create(defendant_id:,
                         user_name: "cpUser",
