@@ -65,11 +65,9 @@ private
           user_name: user_name,
         },
       )
-      errors.add(:unlink_other_reason_text, "must be present") # TODO: Add error message into locale file (i18n)
-    end
 
-    if unlink_reason_code != OTHER_REASON_CODE && unlink_other_reason_text.present?
-      errors.add(:unlink_other_reason_text, "must be absent") # TODO: Add error message into locale file (i18n)
+      self.unlink_other_reason_text = "NIL! - debug info logged in Sentry" # Temporary fix to avoid validation error blocking unlinking
+      # errors.add(:unlink_other_reason_text, "must be present") # TODO: Add error message into locale file (i18n)
     end
   end
 end
