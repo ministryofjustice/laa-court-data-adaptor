@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class LaaReference < ApplicationRecord
+  OTHER_REASON_CODE = 7
+
   validates :defendant_id, presence: true
   validates :maat_reference, presence: true, uniqueness: { conditions: -> { where(linked: true) } }
   validates :user_name, presence: true
   validates :unlink_reason_code,
             numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
+  validate :validate_unlink_other_reason_text, if: -> { unlink_reason_code.present? }
 
   def unlink!(unlink_reason_code: nil, unlink_other_reason_text: nil)
     update!(linked: false, unlink_reason_code:, unlink_other_reason_text:)
@@ -44,5 +47,27 @@ class LaaReference < ApplicationRecord
   rescue ActiveRecord::RecordNotFound
     attributes = filters.except(:linked).map { |k, v| "#{k}: '#{v}'" }.join(" and ")
     raise ActiveRecord::RecordNotFound, "LAA reference with #{attributes} not found or already unlinked!"
+  end
+
+private
+
+  def validate_unlink_other_reason_text
+    if unlink_reason_code == OTHER_REASON_CODE && unlink_other_reason_text.blank?
+      Sentry.capture_exception(
+        RuntimeError.new("LaaReference invalid: code 7 (other reason) without unlink_other_reason_text"),
+        tags: {
+          request_id: Current.request_id,
+        },
+        extra: {
+          laa_reference_id: id,
+          defendant_id: defendant_id,
+          maat_reference: maat_reference,
+          user_name: user_name,
+        },
+      )
+
+      self.unlink_other_reason_text = "NIL! - debug info logged in Sentry" # Temporary fix to avoid validation error blocking unlinking
+      # errors.add(:unlink_other_reason_text, "must be present") # TODO: Add error message into locale file (i18n)
+    end
   end
 end

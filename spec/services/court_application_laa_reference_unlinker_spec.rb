@@ -11,7 +11,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
   let(:application_id) { "00004c9f-af9f-401a-b88b-78a4f0e08163" }
   let(:user_name) { "johnDoe" }
   let(:unlink_reason_code) { 1 }
-  let(:unlink_other_reason_text) { "Wrong defendant" }
+  let(:unlink_other_reason_text) { "" }
   let(:maat_reference) { "101010" }
   let!(:linked_laa_reference) do
     LaaReference.create(defendant_id: subject_id,

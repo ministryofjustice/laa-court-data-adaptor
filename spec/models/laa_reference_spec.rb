@@ -22,6 +22,18 @@ RSpec.describe LaaReference, type: :model do
     it { is_expected.to be_valid }
   end
 
+  describe "validate unlink_other_reason_text" do
+    it "validates that unlink_other_reason_text is present when unlink_reason_code is 7" do
+      pending "Disabled temporarily while we collect data into sentry to investigate issue"
+
+      laa_reference.unlink_reason_code = 7
+      laa_reference.unlink_other_reason_text = ""
+
+      expect(laa_reference).not_to be_valid
+      expect(laa_reference.errors).to include(:unlink_other_reason_text)
+    end
+  end
+
   describe "adjust_link_and_save!" do
     context "when there are existing laa ref" do
       let(:laa_ref1) do
