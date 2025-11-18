@@ -74,13 +74,25 @@ ingress:
   externalAnnotations:
     external-dns.alpha.kubernetes.io/set-identifier: laa-court-data-adaptor-external-laa-court-data-adaptor-uat-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
-    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'optional_no_ca'
-    nginx.ingress.kubernetes.io/auth-tls-verify-depth: '1'
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecAuditEngine On
       SecRuleEngine DetectionOnly
       SecDefaultAction "phase:2,pass,log,tag:github_team=laa-access-court-data"
+    nginx.ingress.kubernetes.io/auth-tls-secret: 'laa-court-data-adaptor-uat/ca-secret'
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'on'
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: '10'
+    nginx.ingress.kubernetes.io/server-snippet: |
+      ssl_verify_client optional_no_ca;
+
+      set $accept false;
+
+      if ($ssl_client_fingerprint ~* "^8099791549B33DD2C42C1B082EE8E14040CE92F1$") {
+        set $accept true;
+      }
+      if ($accept != true) {
+        return 302 http://example.com/fingerprint_detected_was/$ssl_client_fingerprint/instead_of/8099;
+      }
   hosts:
     - host: laa-court-data-adaptor-uat.apps.live-1.cloud-platform.service.justice.gov.uk
       paths: ["/"]
@@ -125,7 +137,7 @@ affinity: {}
 
 
 ips:
-  restrict: true
+  restrict: false
   hmcts: "85.210.83.182,51.145.115.21"
 
 featureFlags:
