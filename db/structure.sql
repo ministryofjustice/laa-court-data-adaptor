@@ -134,40 +134,6 @@ CREATE TABLE public.hearings (
 
 
 --
--- Name: incoming_payloads; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.incoming_payloads (
-    id bigint NOT NULL,
-    body jsonb,
-    request_id character varying,
-    payload_type character varying,
-    identifier character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: incoming_payloads_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.incoming_payloads_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: incoming_payloads_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.incoming_payloads_id_seq OWNED BY public.incoming_payloads.id;
-
-
---
 -- Name: laa_references; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -319,12 +285,6 @@ CREATE TABLE public.users (
 ALTER TABLE ONLY public.feature_flags ALTER COLUMN id SET DEFAULT nextval('public.feature_flags_id_seq'::regclass);
 
 
---
--- Name: incoming_payloads id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.incoming_payloads ALTER COLUMN id SET DEFAULT nextval('public.incoming_payloads_id_seq'::regclass);
-
 
 --
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
@@ -373,13 +333,6 @@ ALTER TABLE ONLY public.hearing_repull_batches
 ALTER TABLE ONLY public.hearings
     ADD CONSTRAINT hearings_pkey PRIMARY KEY (id);
 
-
---
--- Name: incoming_payloads incoming_payloads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.incoming_payloads
-    ADD CONSTRAINT incoming_payloads_pkey PRIMARY KEY (id);
 
 
 --
@@ -620,6 +573,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251127093515'),
 ('20250924160419'),
 ('20250911131555'),
 ('20250723135115'),
