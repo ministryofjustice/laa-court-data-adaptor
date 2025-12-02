@@ -98,7 +98,7 @@ module HmctsCommonPlatform
         summary.application_result application_result
         summary.application_category application_category
         summary.received_date received_date
-        summary.case_summary case_summary.map(&:to_json)
+        summary.case_summary case_summary&.map(&:to_json) || [] # Case summary can be nil, for example for Breach applications
         summary.hearing_summary hearing_summary.map(&:to_json)
         summary.subject_summary subject_summary.to_json
         summary.judicial_results judicial_results&.map(&:to_json)
