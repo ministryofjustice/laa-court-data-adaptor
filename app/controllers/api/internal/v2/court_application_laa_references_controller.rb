@@ -2,6 +2,7 @@ module Api
   module Internal
     module V2
       class CourtApplicationLaaReferencesController < ApplicationController
+        # POST /api/internal/v2/court_application_laa_references
         def create
           contract = CourtApplicationLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
@@ -15,6 +16,7 @@ module Api
           head :created
         end
 
+        # PUT /api/internal/v2/court_application_laa_references/:subject_id
         def update
           contract = UnlinkCourtApplicationSubjectContract.new.call(**transformed_params)
           enforce_contract!(contract)

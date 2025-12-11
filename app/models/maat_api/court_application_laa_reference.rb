@@ -2,15 +2,16 @@ module MaatApi
   class CourtApplicationLaaReference
     include HearingSummarySelectable
 
-    attr_reader :court_application_summary, :user_name, :maat_reference
+    attr_reader :court_application_summary, :user_name, :maat_reference, :case_status_from_prosecution_case
 
     delegate :subject_summary, :case_summary, to: :court_application_summary
     delegate :defendant_asn, to: :subject_summary
 
-    def initialize(user_name:, maat_reference:, court_application_summary:)
+    def initialize(user_name:, maat_reference:, court_application_summary:, case_status_from_prosecution_case:)
       @maat_reference = maat_reference
       @user_name = user_name
       @court_application_summary = court_application_summary
+      @case_status_from_prosecution_case = case_status_from_prosecution_case
     end
 
     def case_urn
@@ -22,7 +23,11 @@ module MaatApi
     end
 
     def is_active?
-      case_summary.first.case_status == "ACTIVE"
+      if case_summary.present?
+        case_summary.first.case_status == "ACTIVE"
+      else
+        case_status_from_prosecution_case == "ACTIVE"
+      end
     end
 
     def cjs_location
