@@ -26,6 +26,7 @@ private
       maat_reference: laa_reference.maat_reference,
       user_name: laa_reference.user_name,
       court_application_summary:,
+      case_status_from_prosecution_case: case_status_from_prosecution_case, # To back up when case case_summary is nil
     )
 
     Sqs::MessagePublisher.call(
@@ -33,6 +34,13 @@ private
       queue_url: Rails.configuration.x.aws.sqs_url_link,
       log_info: { maat_reference: laa_reference.maat_reference },
     )
+  end
+
+  def case_status_from_prosecution_case
+    prosecution_case = CommonPlatform::Api::ProsecutionCaseFinder.call(
+      court_application_summary.application_reference,
+    )
+    prosecution_case.case_status
   end
 
   def post_laa_references_to_common_platform!
