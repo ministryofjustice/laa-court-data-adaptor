@@ -49,10 +49,6 @@ class ProsecutionCase < ApplicationRecord
                                       .select(&:category_supported?)
   end
 
-  def case_status
-    body["caseStatus"]
-  end
-
 private
 
   def case_details
