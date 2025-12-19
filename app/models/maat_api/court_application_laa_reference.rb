@@ -22,6 +22,9 @@ module MaatApi
     end
 
     def is_active?
+      # Defaults to true if no case summary is present
+      return true if case_summary.blank?
+
       case_summary.first.case_status == "ACTIVE"
     end
 
