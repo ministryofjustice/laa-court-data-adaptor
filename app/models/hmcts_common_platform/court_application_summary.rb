@@ -82,7 +82,7 @@ module HmctsCommonPlatform
     end
 
     def application_category
-      ::CourtApplication.supported_court_application_types.dig(application_type, "category")
+      SupportedCourtApplicationTypes.get_category_by_code(application_type)
     end
 
   private
