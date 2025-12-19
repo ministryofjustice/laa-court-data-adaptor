@@ -88,15 +88,15 @@ module HmctsCommonPlatform
     def offence_payload
       return Array(data[:offenceSummary]) if has_offences? || application_summary.nil?
 
-      # For court applications without offences (e.g. breaches) we construct
-      # a 'dummy' offence
+      # For court applications without offences (e.g. breaches) we construct a 'dummy' offence.
+      # This is a requirement to avoid to break downstream integrations that expect at least one offence per subject.
       [
         {
-          "offenceId": application_summary.application_id,
-          "offenceCode": application_summary.application_type,
-          "asnSeq": 1,
-          "offenceDate": application_summary.received_date,
-          "offenceShortTitle": application_summary.application_title,
+          offenceId: application_summary.application_id,
+          offenceCode: application_summary.application_type,
+          orderIndex: 1,
+          startDate: application_summary.received_date,
+          offenceTitle: application_summary.application_title,
         },
       ]
     end
