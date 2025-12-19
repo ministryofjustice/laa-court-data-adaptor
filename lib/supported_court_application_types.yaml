@@ -1,45 +1,42 @@
 # These are the codes and categories of the types of court applications that we primarily support
 # and will return inside a prosecution case payload. Other court application types
 # will still be returned when attached to specific hearings.
-MC80801:
+- codes: [MC80801]
   category: appeal
   title: Appeal against conviction and sentence by a Magistrates' Court to the Crown Court
-MC80802:
+- codes: [MC80802]
   category: appeal
   title: Appeal against conviction by a Magistrates' Court to the Crown Court
-MC80803:
+- codes: [MC80803]
   category: appeal
   title: Appeal against sentence by a Magistrates' Court to the Crown Court
-PC02541:
+- codes: [PC02541]
   category: poca
   title: Application for a confiscation order in the Crown Court
-SE20521:
+- codes: [CJ08521, SE20521]
   category: breach
   title: Failing to comply with the requirements of a youth rehabilitation order with intensive supervision and surveillance
-CJ03506:
-  category: breach
-  title: Failing to comply with the community requirements of a suspended sentence order
-SE20501:
+- codes: [CJ03510, SE20501]
   category: breach
   title: Failing to comply with the requirements of a community order
-SO59501:
+- codes: [SO59501]
   category: breach
   title: Failing to comply with the requirements of an engagement and support order
-SE20517:
+- codes: [CJ08507, SE20517]
   category: breach
   title: Failing to comply with the requirements of a youth rehabilitation order
-SE20537:
+- codes: [PC00700, SE20537]
   category: breach
   title: Fail to comply the supervision requirements of a detention and training order
-PC00645:
+- codes: [PC00645]
   category: breach
   title: Fail to comply with drug abstinence order
-SE20530:
+- codes: [CJ08514, SE20530]
   category: breach
   title: Failing to comply with the requirements of a youth rehabilitation order with fostering
-CJ03524:
+- codes: [CJ03524]
   category: breach
   title: Failed to comply with the requirements of post-custodial supervision
-SE20502:
+- codes: [CJ03506, SE20502]
   category: breach
   title: Failing to comply with the community requirements of a suspended sentence order
