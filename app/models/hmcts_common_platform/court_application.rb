@@ -4,6 +4,8 @@ module HmctsCommonPlatform
 
     delegate :blank?, to: :data
 
+    # This creates the methods: type_id, type_description, type_code, type_category_code, type_legislation
+    # and delegates them to type (see "def type" method below)
     delegate :id, :description, :code, :category_code, :legislation, to: :type, prefix: true
 
     def initialize(data)

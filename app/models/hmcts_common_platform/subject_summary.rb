@@ -92,7 +92,7 @@ module HmctsCommonPlatform
       # This is a requirement to avoid to break downstream integrations that expect at least one offence per subject.
       [
         {
-          offenceId: application_summary.application_id,
+          offenceId: application_summary.application_type_id,
           offenceCode: application_summary.application_type,
           orderIndex: 1,
           startDate: application_summary.received_date,

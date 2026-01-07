@@ -4,6 +4,7 @@ module Api
   module Internal
     module V2
       class HearingResultsController < ApplicationController
+        # GET /api/internal/v2/hearing_results
         def show
           hearing_result_data = CommonPlatform::Api::GetHearingResults.call(
             hearing_id: permitted_params[:hearing_id],

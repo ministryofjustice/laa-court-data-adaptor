@@ -4,6 +4,7 @@ module Api
   module External
     module V1
       class HearingResultsController < ApplicationController
+        # POST /api/external/v1/hearings
         def create
           enforce_contract!
           publish_hearing_to_queue

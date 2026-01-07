@@ -31,6 +31,10 @@ module HmctsCommonPlatform
       data[:applicationType]
     end
 
+    def application_type_id
+      data[:applicationTypeId]
+    end
+
     def application_result
       data[:applicationResult]
     end
