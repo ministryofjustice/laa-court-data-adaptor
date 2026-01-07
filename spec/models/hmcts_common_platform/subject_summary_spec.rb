@@ -3,7 +3,7 @@ RSpec.describe HmctsCommonPlatform::SubjectSummary, type: :model do
   let(:data) { JSON.parse(file_fixture("subject_summary.json").read) }
   let(:application_summary) do
     instance_double(HmctsCommonPlatform::CourtApplicationSummary,
-                    application_id: "id", application_type: "type", received_date: "date", application_title: "title")
+                    application_id: "id", application_type: "type", received_date: "date", application_title: "title", application_type_id: "type_id")
   end
 
   it "generates a JSON representation of the data" do
@@ -40,7 +40,7 @@ RSpec.describe HmctsCommonPlatform::SubjectSummary, type: :model do
       expect(subject_summary.offence_summary.first).to be_a(HmctsCommonPlatform::OffenceSummary)
       expect(subject_summary.to_json["offence_summary"].first).to include(
         "code" => "type",
-        "id" => "id",
+        "id" => "type_id",
       )
     end
   end

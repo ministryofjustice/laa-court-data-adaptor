@@ -67,7 +67,7 @@ module MaatApi
         telephoneMobile: court_application.defendant_phone_mobile,
         email1: court_application.defendant_email_primary,
         email2: court_application.defendant_email_secondary,
-        offences: [offence],
+        offences: [dummy_offence],
       }
     end
 
@@ -81,7 +81,7 @@ module MaatApi
 
   private
 
-    def offence
+    def dummy_offence
       {
         offenceId: court_application.type_id,
         offenceCode: court_application.type_code,

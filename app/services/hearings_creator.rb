@@ -42,6 +42,13 @@ private
     end
   end
 
+  # TODO: refactor to simplify the method push_prosecution_cases"
+  # def defendants_having_offences(prosecution_case)
+  #   prosecution_case.defendants.reject do |defendant|
+  #     defendant.offence.any?{ LaaReference.new(maat_reference: it.laa_application_reference).dummy_maat_reference? }
+  #   end
+  # end
+
   def push_applications
     hearing_resulted.hearing.court_applications.each do |court_application|
       push_messages_about_defendants(court_application, hearing_resulted)
