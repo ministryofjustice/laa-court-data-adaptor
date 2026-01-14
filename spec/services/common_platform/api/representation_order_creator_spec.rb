@@ -67,23 +67,44 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
 
   context "when this is for a court application" do
     before do
-      CourtApplication.create!(subject_id: defendant_id, body: { foo: :bar })
+      CourtApplication.create!(subject_id: defendant_id, body: { applicationType: application_type })
     end
 
-    it "calls the CommonPlatform::Api::RecordCourtApplicationRepresentationOrder service once" do
-      expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder)
-        .to receive(:call)
-        .once
-        .with(hash_including(application_reference: maat_reference,
-                             subject_id: defendant_id,
-                             defence_organisation: transformed_defence_organisation))
+    context "when this is for an appeal application" do
+      let(:application_type) { "MC80801" } # This is an appeal code. See supported_court_application_types.yaml
 
-      create_rep_order
+      it "calls the CommonPlatform::Api::RecordApplicationRepresentationOrderForAppeal service once" do
+        expect(CommonPlatform::Api::RecordApplicationRepresentationOrderForAppeal)
+          .to receive(:call)
+          .once
+          .with(hash_including(application_reference: maat_reference,
+                               subject_id: defendant_id,
+                               defence_organisation: transformed_defence_organisation))
+
+        create_rep_order
+      end
+    end
+
+    context "when this is for a breach or poca application" do
+      let(:applycation_type) { "CJ03510" } # This is an Breach code. See supported_court_application_types.yaml
+
+      it "calls the CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach service once" do
+        expect(CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach)
+          .to receive(:call)
+          .once
+          .with(hash_including(application_reference: maat_reference,
+                               defence_organisation: transformed_defence_organisation))
+
+        create_rep_order
+      end
     end
   end
 
   context "when a dummy offence is being passed in" do
-    let(:court_application) { CourtApplication.create!(subject_id: defendant_id, body: { foo: :bar }) }
+    let(:court_application) do
+      CourtApplication.create!(subject_id: defendant_id,
+                               body: { applicationType: application_type })
+    end
     let(:offence_one) do
       {
         offence_id: court_application.id,
@@ -94,8 +115,10 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
       }
     end
 
-    it "calls the CommonPlatform::Api::RecordCourtApplicationRepresentationOrder service without offence ID" do
-      expect(CommonPlatform::Api::RecordCourtApplicationRepresentationOrder)
+    let(:applycation_type) { "CJ03510" } # This is an Breach code. See supported_court_application_types.yaml
+
+    it "calls the CommonPlatform::Api::RecordApplicationRepresentationOrderForAppeal service without offence ID" do
+      expect(CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach)
         .to receive(:call)
         .once
         .with(hash_not_including(:offence_id))

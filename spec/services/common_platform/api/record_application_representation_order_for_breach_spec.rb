@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe CommonPlatform::Api::RecordCourtApplicationRepresentationOrder do
+RSpec.describe CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach do
   subject(:record_representation_order) do
     described_class.call(
       court_application_id: court_application.id,
-      subject_id:,
-      offence_id:,
       status_code: "ABCDEF",
       application_reference: 999_999,
       status_date: "2019-12-12",
@@ -16,9 +14,7 @@ RSpec.describe CommonPlatform::Api::RecordCourtApplicationRepresentationOrder do
     )
   end
 
-  let(:court_application) { CourtApplication.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}", subject_id:) }
-  let(:subject_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
-  let(:offence_id) { "3f153786-f3cf-4311-bc0c-2d6f48af68a1" }
+  let(:court_application) { CourtApplication.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}") }
   let(:connection) { double("CommonPlatform::Connection") } # rubocop:disable RSpec/VerifiedDoubles
   let(:defence_organisation) do
     {
@@ -47,7 +43,7 @@ RSpec.describe CommonPlatform::Api::RecordCourtApplicationRepresentationOrder do
   end
 
   it "makes a post request" do
-    expected_url = "prosecutionCases/representationOrder/applications/#{court_application.id}/subject/#{subject_id}/offences/#{offence_id}"
+    expected_url = "prosecutionCases/representationOrder/applications/#{court_application.id}"
 
     expect(connection)
       .to receive(:post)
