@@ -4,6 +4,7 @@ module Api
   module Internal
     module V2
       class RepresentationOrdersController < ApplicationController
+        # POST /api/internal/v2/representation_orders
         def create
           enforce_contract!
           enqueue_representation_order

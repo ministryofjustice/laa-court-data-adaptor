@@ -71,6 +71,8 @@ private
 
   def fetch_past_hearings
     hearing_summaries.each do |hearing_summary|
+      # When debugging locally:
+      # HearingResultFetcher.call(hearing_summary.id, defendant_id)
       HearingResultFetcherWorker.perform_at(
         30.seconds.from_now,
         Current.request_id,

@@ -34,7 +34,10 @@ private
     end
 
     remote_records = prosecution_case.defendants.flat_map do |defendant|
-      defendant.offences.map { { offence_id: it.id, defendant_id: defendant.id } }
+      # defendant.offences calls Common Platform API to get the offences for this defendant
+      defendant.offences.map do |offence|
+        { offence_id: offence.id, defendant_id: defendant.id }
+      end
     end
 
     new_records = remote_records - local_records
