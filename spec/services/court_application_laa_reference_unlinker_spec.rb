@@ -31,16 +31,18 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
     court_application
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE dummy_maat_reference_seq RESTART;")
 
-    allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call)
+    allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal).to receive(:call)
       .and_return(
-        instance_double(Faraday::Response, status: 200, body: {}, success?: true),
+        instance_double(Faraday::Response, status: 200, body: {}, env: nil, success?: true),
       )
 
     allow(Rails.logger).to receive(:warn)
   end
 
   it "creates a dummy maat_reference starting with Z" do
-    expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).with(hash_including(application_reference: "Z10000000"))
+    expect(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
+      .to receive(:call)
+      .with(hash_including(application_reference: "Z10000000"))
     call_unlinker
   end
 
@@ -135,15 +137,19 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
     end
 
     it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service multiple times" do
-      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
+      expect(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal).to receive(:call).twice.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
     end
   end
 
-  context "with no offences" do
+  context "when court application is breach or poca" do
     before do
       court_application.body["subjectSummary"].delete("offenceSummary")
+      court_application.body["applicationType"] = "CJ03510" # Breach
       court_application.save!
+
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForBreach).to receive(:call)
+        .and_return(instance_double(Faraday::Response, status: 500, body: {}, success?: true))
     end
 
     it "calls the Sqs::MessagePublisher service once" do
@@ -166,10 +172,9 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
       call_unlinker
     end
 
-    it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service with no offence ID" do
-      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).once.with(
-        hash_including(offence_id: nil),
-      )
+    it "calls the CommonPlatform::Api::RecordApplicationLaaReferenceForBreach service" do
+      expect(CommonPlatform::Api::RecordApplicationLaaReferenceForBreach)
+        .to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
     end
   end
@@ -183,19 +188,19 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
     end
 
     it "calls the CommonPlatform::Api::RecordProsecutionCaseLaaReference service" do
-      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
+      expect(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal).to receive(:call).once.with(hash_including(application_reference: "Z10000000"))
       call_unlinker
     end
   end
 
   context "when common platform API returns an error" do
     before do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call)
-        .and_return(instance_double(Faraday::Response, status: 500, body: {}, success?: false))
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal).to receive(:call)
+        .and_return(instance_double(Faraday::Response, status: 500, body: {}, env: nil, success?: false))
     end
 
     it "raises an error" do
-      expect { call_unlinker }.to raise_error(StandardError, "Error posting LAA Reference to Common Platform")
+      expect { call_unlinker }.to raise_error(CommonPlatform::Api::Errors::FailedDependency)
     end
   end
 end

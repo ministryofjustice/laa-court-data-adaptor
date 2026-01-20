@@ -35,24 +35,47 @@ private
   end
 
   def update_offences_on_common_platform
-    if court_application_summary.subject_summary.has_offences?
-      offences.each { |offence| update_laa_reference_on_common_platform!(offence) }
+    today = Time.zone.today.strftime("%Y-%m-%d")
+
+    if court_application_summary.appeal?
+      offences.each do |offence|
+        response = CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal.call(
+          application_id: court_application_summary.application_id,
+          subject_id:,
+          offence_id: offence&.offence_id,
+          status_code: "AP",
+          application_reference: dummy_maat_reference,
+          status_date: today,
+        )
+
+        unless response.success?
+          raise CommonPlatform::Api::Errors::FailedDependency, "Error posting to #{response&.env&.url}: #{response.body}"
+        end
+      end
     else
-      update_laa_reference_on_common_platform!
+      # Breach/Poca has no offences
+      response = CommonPlatform::Api::RecordApplicationLaaReferenceForBreach.call(
+        application_id: court_application_summary.application_id,
+        application_reference: dummy_maat_reference,
+        status_code: "AP",
+        status_date: today,
+      )
+
+      unless response.success?
+        raise CommonPlatform::Api::Errors::FailedDependency, "Error posting to #{response&.env&.url}: #{response.body}"
+      end
     end
-  end
-
-  def update_laa_reference_on_common_platform!(offence = nil)
-    response = CommonPlatform::Api::RecordCourtApplicationLaaReference.call(
-      application_id: court_application_summary.application_id,
-      subject_id:,
-      offence_id: offence&.offence_id,
-      status_code: "AP",
-      application_reference: dummy_maat_reference,
-      status_date: Time.zone.today.strftime("%Y-%m-%d"),
+  rescue CommonPlatform::Api::Errors::FailedDependency => e
+    Sentry.capture_exception(
+      e,
+      tags: {
+        request_id: Current.request_id,
+        application_id: court_application_summary.application_id,
+        maat_reference: laa_reference.maat_reference,
+        user_name: laa_reference.user_name,
+      },
     )
-
-    raise CommonPlatform::Api::Errors::FailedDependency, "Error posting LAA Reference to Common Platform" unless response.success?
+    raise e
   end
 
   def offences
