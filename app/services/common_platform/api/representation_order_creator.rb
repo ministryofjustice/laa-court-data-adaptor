@@ -11,7 +11,15 @@ module CommonPlatform
       #   maat_reference
       #   defence_organisation
       def initialize(defendant_id:, offences:, maat_reference:, defence_organisation:)
-        @offences = offences.map(&:with_indifferent_access).reject { |offence| offence[:status_date].blank? }
+        @offences = offences.map { |offence|
+          offence.symbolize_keys
+                 .slice(:offence_id,
+                        :status_code,
+                        :status_date,
+                        :effective_start_date,
+                        :effective_end_date)
+        }.reject { |offence| offence[:status_date].blank? }
+
         @maat_reference = maat_reference
         @defendant_id = defendant_id
         @defence_organisation = defence_organisation.deep_transform_keys { |key| key.to_s.camelize(:lower).to_sym }
@@ -45,7 +53,7 @@ module CommonPlatform
               defence_organisation:,
             )
 
-            # Call CP API /prosecutionCases/representationOrder/applications/.../offences/...
+            # Call CP API /prosecutionCases/representationOrder/applications/.../subject/.../offences/...
             CommonPlatform::Api::RecordApplicationRepresentationOrderForAppeal.call(**params)
           end
         else
