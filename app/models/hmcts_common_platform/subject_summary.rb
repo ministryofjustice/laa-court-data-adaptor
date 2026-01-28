@@ -70,11 +70,14 @@ module HmctsCommonPlatform
   private
 
     def to_builder
+      case_ref = application_summary.application_reference
+
       Jbuilder.new do |summary|
         summary.subject_id subject_id
         summary.date_of_next_hearing date_of_next_hearing
         summary.defendant_asn defendant_asn
         summary.defendant_dob defendant_dob
+        summary.arrest_summons_number arrest_summons_number_from_prosecution_case(case_ref, master_defendant_id)
         summary.defendant_first_name defendant_first_name
         summary.defendant_last_name defendant_last_name
         summary.master_defendant_id master_defendant_id
@@ -83,6 +86,16 @@ module HmctsCommonPlatform
         summary.organisation_name organisation_name
         summary.representation_order representation_order.to_json
       end
+    end
+
+    def arrest_summons_number_from_prosecution_case(case_ref, master_defendant_id)
+      return nil if defendant_asn.present?
+      prosecution_case = CommonPlatform::Api::ProsecutionCaseFinder.call(case_ref)
+      defendant = prosecution_case.defendants.find do |d|
+        d.master_defendant_id == master_defendant_id
+      end
+      binding.pry
+      defendant&.arrest_summons_number
     end
 
     def offence_payload

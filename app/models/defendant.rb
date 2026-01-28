@@ -17,6 +17,10 @@ class Defendant
     body["defendantFirstName"]
   end
 
+  def master_defendant_id
+    body["masterDefendantId"]
+  end
+
   def middle_name
     body["defendantMiddleName"]
   end

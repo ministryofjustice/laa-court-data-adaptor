@@ -64,7 +64,11 @@ module HmctsCommonPlatform
     end
 
     def subject_summary
+      puts ">>> #{HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary], self).inspect}"
+
       @subject_summary ||= HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary], self)
+
+      @subject_summary
     end
 
     def linked_maat_id
