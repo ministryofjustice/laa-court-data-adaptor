@@ -15,13 +15,10 @@ module CommonPlatform
         @connection = connection
 
         @url = if @offence_id
-                 "prosecutionCases/laaReference"\
-                 "/applications/#{application_id}"\
-                 "/subject/#{subject_id}"\
-                 "/offences/#{offence_id}"
+                 "prosecutionCases/laaReference/applications/#{application_id}"\
+                 "/subject/#{subject_id}/offences/#{offence_id}"
                else
-                 "prosecutionCases/laaReference"\
-                 "/applications/#{application_id}"
+                 "prosecutionCases/laaReference/applications/#{application_id}"
                end
       end
 

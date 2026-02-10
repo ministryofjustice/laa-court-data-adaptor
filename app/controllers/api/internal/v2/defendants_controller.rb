@@ -4,6 +4,7 @@ module Api
   module Internal
     module V2
       class DefendantsController < ApplicationController
+        # GET /api/internal/v2/prosecution_cases/:prosecution_case_reference/defendants/:id
         def show
           prosecution_case = CommonPlatform::Api::ProsecutionCaseFinder.call(
             params[:prosecution_case_reference],
@@ -22,6 +23,7 @@ module Api
           end
         end
 
+        # GET /api/internal/v2/prosecution_cases/:prosecution_case_reference/defendants/:id/offence_history
         def offence_history
           defendant = CommonPlatform::Api::DefendantFinder.call(
             defendant_id: params[:id],

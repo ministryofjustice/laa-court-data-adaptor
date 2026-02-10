@@ -18,6 +18,11 @@ module HmctsCommonPlatform
       data[:code]
     end
 
+    # Appeal, Breach, Poca
+    def category
+      SupportedCourtApplicationTypes.get_category_by_code(code)
+    end
+
     def category_code
       data[:categoryCode]
     end
@@ -111,6 +116,7 @@ module HmctsCommonPlatform
         court_application_type.id id
         court_application_type.description description
         court_application_type.code code
+        court_application_type.category category
         court_application_type.category_code category_code
         court_application_type.legislation legislation
         court_application_type.applicant_appellant_flag applicant_appellant_flag
