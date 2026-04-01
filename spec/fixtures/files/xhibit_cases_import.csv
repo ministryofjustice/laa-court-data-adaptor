@@ -1,0 +1,4 @@
+case_urn,xhibit_case_number,court_name,ou_code,case_type,case_sub_type,mode_of_trial,defendant_id,defendant_first_name,defendant_middle_name,defendant_last_name,defendant_date_of_birth,defendant_arrest_summons_number,committal_date,sent_date
+20GD0217100,T20254007,Derby Justice Centre,B30PI00,T,Either way offence,Either way,2b6fafcd-f204-4d97-8571-cd1c09f4c789,John,,Yundt,1987-05-21,XVITYX8RAIHZ,,2019-10-25
+29GD7216523,T20251234,Warrington Crown Court,B31BK00,S,Breach of community order,Summary,3a5e8721-b123-4c56-9012-ef3456789abc,Jammy,,Dodger,1990-01-01,TFL1,2021-03-15,
+20GD0217101,A20255678,Chelmsford Crown Court,B10JQ00,A,Crown Court appeal,Either way,7d9c2145-e678-4f12-8901-bc2345678def,Wallace,James,McClure,2002-10-10,B0000W4DP6,,2021-05-11
