@@ -1,0 +1,2 @@
+class XhibitCase < ApplicationRecord
+end

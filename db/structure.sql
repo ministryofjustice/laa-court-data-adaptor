@@ -1,6 +1,7 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -8,6 +9,13 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
 
 --
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
@@ -199,7 +207,6 @@ CREATE TABLE public.oauth_applications (
     confidential boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    contact_email character varying,
     requester_email character varying,
     requestee_email character varying
 );
@@ -279,11 +286,36 @@ CREATE TABLE public.users (
 
 
 --
+-- Name: xhibit_cases; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.xhibit_cases (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    case_urn character varying,
+    xhibit_case_number character varying,
+    court_name character varying,
+    ou_code character varying,
+    case_type character varying,
+    case_sub_type character varying,
+    mode_of_trial character varying,
+    defendant_id character varying,
+    defendant_first_name character varying,
+    defendant_middle_name character varying,
+    defendant_last_name character varying,
+    defendant_date_of_birth date,
+    defendant_arrest_summons_number character varying,
+    committal_date date,
+    sent_date date,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: feature_flags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.feature_flags ALTER COLUMN id SET DEFAULT nextval('public.feature_flags_id_seq'::regclass);
-
 
 
 --
@@ -332,7 +364,6 @@ ALTER TABLE ONLY public.hearing_repull_batches
 
 ALTER TABLE ONLY public.hearings
     ADD CONSTRAINT hearings_pkey PRIMARY KEY (id);
-
 
 
 --
@@ -405,6 +436,14 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: xhibit_cases xhibit_cases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.xhibit_cases
+    ADD CONSTRAINT xhibit_cases_pkey PRIMARY KEY (id);
 
 
 --
@@ -573,6 +612,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260401124945'),
 ('20251127093515'),
 ('20250924160419'),
 ('20250911131555'),
@@ -582,7 +622,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20250327104429'),
 ('20220815120308'),
 ('20220815115514'),
-('20220801171207'),
 ('20210427164141'),
 ('20210311145419'),
 ('20200723141728'),
