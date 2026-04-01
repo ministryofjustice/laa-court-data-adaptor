@@ -7,6 +7,10 @@ RSpec.describe ImportXhibitCases do
     expect { import }.to change(XhibitCase, :count).by(3)
   end
 
+  it "returns inserted and errors keys" do
+    expect(import).to match(inserted: Array, errors: Array)
+  end
+
   describe "mapped attributes" do
     before { import }
 

@@ -66,8 +66,7 @@ private
         },
       )
 
-      self.unlink_other_reason_text = "NIL! - debug info logged in Sentry" # Temporary fix to avoid validation error blocking unlinking
-      # errors.add(:unlink_other_reason_text, "must be present") # TODO: Add error message into locale file (i18n)
+      errors.add(:unlink_other_reason_text, "can't be blank")
     end
   end
 end
