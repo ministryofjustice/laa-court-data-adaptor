@@ -89,6 +89,10 @@ module HmctsCommonPlatform
       SupportedCourtApplicationTypes.get_category_by_code(application_type)
     end
 
+    def appeal?
+      application_category == "appeal"
+    end
+
   private
 
     def to_builder
