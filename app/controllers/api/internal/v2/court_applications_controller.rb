@@ -4,6 +4,7 @@ module Api
   module Internal
     module V2
       class CourtApplicationsController < ApplicationController
+        # GET /api/internal/v2/court_applications/:id
         def show
           response_data = CommonPlatform::Api::CourtApplicationSearcher.call(
             application_id: params[:id],

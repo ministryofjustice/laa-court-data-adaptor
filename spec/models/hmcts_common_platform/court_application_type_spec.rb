@@ -5,14 +5,15 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationType, type: :model do
   describe "#to_json" do
     it "generates a JSON representation of the data" do
       expect(court_application_type.to_json["id"]).to eql("74b72f6f-414a-3464-a4a2-d91397b4c439")
-      expect(court_application_type.to_json["description"]).to eql("Application for transfer of legal aid")
-      expect(court_application_type.to_json["code"]).to eql("LA12505")
+      expect(court_application_type.to_json["description"]).to eql("Appeal against conviction and sentence by a Magistrates' Court to the Crown Court")
+      expect(court_application_type.to_json["code"]).to eql("MC80801")
+      expect(court_application_type.to_json["category"]).to eql("appeal")
       expect(court_application_type.to_json["category_code"]).to eql("CO")
       expect(court_application_type.to_json["legislation"]).to eql("Pursuant to Regulation 14 of the Criminal Legal Aid")
       expect(court_application_type.to_json["applicant_appellant_flag"]).to be false
       expect(court_application_type.to_json["link_type"]).to eql("LINKED")
       expect(court_application_type.to_json["jurisdiction"]).to eql("EITHER")
-      expect(court_application_type.to_json["appeal_flag"]).to be false
+      expect(court_application_type.to_json["appeal_flag"]).to be true
       expect(court_application_type.to_json["plea_applicable_flag"]).to be false
       expect(court_application_type.to_json["summons_template_type"]).to eql("NOT_APPLICABLE")
       expect(court_application_type.to_json["valid_from"]).to eql("2022-01-01")
@@ -36,14 +37,15 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationType, type: :model do
     end
 
     it { expect(court_application_type.id).to eql("74b72f6f-414a-3464-a4a2-d91397b4c439") }
-    it { expect(court_application_type.description).to eql("Application for transfer of legal aid") }
-    it { expect(court_application_type.code).to eql("LA12505") }
+    it { expect(court_application_type.description).to eql("Appeal against conviction and sentence by a Magistrates' Court to the Crown Court") }
+    it { expect(court_application_type.code).to eql("MC80801") }
+    it { expect(court_application_type.category).to eql("appeal") }
     it { expect(court_application_type.category_code).to eql("CO") }
     it { expect(court_application_type.legislation).to eql("Pursuant to Regulation 14 of the Criminal Legal Aid") }
     it { expect(court_application_type.applicant_appellant_flag).to be false }
     it { expect(court_application_type.link_type).to eql("LINKED") }
     it { expect(court_application_type.jurisdiction).to eql("EITHER") }
-    it { expect(court_application_type.appeal_flag).to be false }
+    it { expect(court_application_type.appeal_flag).to be true }
     it { expect(court_application_type.plea_applicable_flag).to be false }
     it { expect(court_application_type.summons_template_type).to eql("NOT_APPLICABLE") }
     it { expect(court_application_type.valid_from).to eql("2022-01-01") }
@@ -67,7 +69,8 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationType, type: :model do
     end
 
     it { expect(court_application_type.id).to eql("74b72f6f-414a-3464-a4a2-d91397b4c439") }
-    it { expect(court_application_type.description).to eql("Application for transfer of legal aid") }
+    it { expect(court_application_type.description).to eql("Appeal against conviction and sentence by a Magistrates' Court to the Crown Court") }
+    it { expect(court_application_type.category).to eql("appeal") }
     it { expect(court_application_type.category_code).to eql("CO") }
     it { expect(court_application_type.link_type).to eql("LINKED") }
     it { expect(court_application_type.jurisdiction).to eql("EITHER") }

@@ -1,11 +1,11 @@
 {
   "id": "74b72f6f-414a-3464-a4a2-d91397b4c439",
-  "appealFlag": false,
+  "appealFlag": true,
   "applicantAppellantFlag": false,
   "boxworkNotifTemplate": "NOT_APPLICABLE",
   "breachType": "NOT_APPLICABLE",
   "categoryCode": "CO",
-  "code": "LA12505",
+  "code": "MC80801",
   "commrOfOathFlag": false,
   "courtExtractAvlFlag": true,
   "courtOfAppealFlag": false,
@@ -19,6 +19,6 @@
   "prosecutorThirdPartyFlag": false,
   "spiOutApplicableFlag": true,
   "summonsTemplateType": "NOT_APPLICABLE",
-  "type": "Application for transfer of legal aid",
+  "type": "Appeal against conviction and sentence by a Magistrates' Court to the Crown Court",
   "validFrom": "2022-01-01"
 }
