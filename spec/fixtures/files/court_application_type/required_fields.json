@@ -1,6 +1,7 @@
 {
   "id": "74b72f6f-414a-3464-a4a2-d91397b4c439",
-  "type": "Application for transfer of legal aid",
+  "type": "Appeal against conviction and sentence by a Magistrates' Court to the Crown Court",
+  "code": "MC80801",
   "categoryCode": "CO",
   "linkType": "LINKED",
   "jurisdiction": "EITHER",
