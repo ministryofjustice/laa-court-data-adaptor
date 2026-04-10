@@ -1,4 +1,6 @@
 class XhibitMigratedCase < ApplicationRecord
+  attribute :status, :string, default: "pending"
+
   validates :case_urn, presence: true
   validates :xhibit_case_number, presence: true
   validates :court_name, presence: true
@@ -9,6 +11,17 @@ class XhibitMigratedCase < ApplicationRecord
   validates :defendant_id, presence: true
   validates :defendant_first_name, presence: true
   validates :defendant_last_name, presence: true
-  validates :defendant_date_of_birth, presence: true
   validates :defendant_arrest_summons_number, presence: true
+
+  validate :defendant_date_of_birth_format
+
+private
+
+  def defendant_date_of_birth_format
+    if defendant_date_of_birth_before_type_cast.blank?
+      errors.add(:defendant_date_of_birth, :blank)
+    elsif defendant_date_of_birth.nil?
+      errors.add(:defendant_date_of_birth, "is invalid.")
+    end
+  end
 end

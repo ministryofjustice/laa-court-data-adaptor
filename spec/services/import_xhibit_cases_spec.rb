@@ -11,6 +11,17 @@ RSpec.describe ImportXhibitCases do
     expect(import).to match(inserted: Array, errors: Array)
   end
 
+  context "with invalid defendant_date_of_birth format" do
+    subject(:import) { described_class.call(file_path: file_fixture("xhibit_cases_import_with_errors.csv")) }
+
+    it "reports the row with invalid date as an error" do
+      result = import
+      date_error = result[:errors].find { |e| e[:case_urn] == "20GD0217102" }
+      expect(date_error).to include(line: 5, case_urn: "20GD0217102")
+      expect(date_error[:messages]).to include("Defendant date of birth is invalid.")
+    end
+  end
+
   describe "mapped attributes" do
     before { import }
 

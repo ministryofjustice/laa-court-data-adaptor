@@ -5,6 +5,7 @@ namespace :xhibit_cases do
     file_path = args[:file_path] || ENV["FILE_PATH"]
 
     abort "Usage: rake xhibit_cases:import FILE_PATH=path/to/xhibit_cases.csv" if file_path.blank?
+    abort "File not found: #{file_path}" unless File.exist?(file_path)
 
     puts "[INFO - #{Time.zone.now}] Importing XHIBIT cases from #{file_path}..."
 
