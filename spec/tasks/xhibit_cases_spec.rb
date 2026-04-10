@@ -4,7 +4,7 @@ require "rake"
 RSpec.describe "xhibit_cases:import" do
   subject(:run_task) { Rake::Task["xhibit_cases:import"].execute(file_path: file_fixture(csv_file)) }
 
-  before(:all) do
+  before do
     unless Rake::Task.task_defined?("xhibit_cases:import")
       Rake.application.rake_require("tasks/xhibit_cases")
       Rake::Task.define_task(:environment)

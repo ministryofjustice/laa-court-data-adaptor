@@ -10,12 +10,6 @@ namespace :xhibit_cases do
 
     results = ImportXhibitCases.call(file_path:)
 
-    results[:inserted].each do |row|
-      puts "[OK    - #{Time.zone.now}] Line #{row[:line]} (case_urn: #{row[:case_urn]}): inserted successfully."
-    end
-
-    puts "- - -"
-
     results[:errors].each do |row|
       puts "[ERROR - #{Time.zone.now}] Line #{row[:line]} (case_urn: #{row[:case_urn]}): #{row[:messages].join(', ')}"
     end
