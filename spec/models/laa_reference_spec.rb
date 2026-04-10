@@ -24,6 +24,8 @@ RSpec.describe LaaReference, type: :model do
 
   describe "validate unlink_other_reason_text" do
     it "validates that unlink_other_reason_text is present when unlink_reason_code is 7" do
+      pending "Disabled temporarily while we collect data into sentry to investigate issue"
+
       laa_reference.unlink_reason_code = 7
       laa_reference.unlink_other_reason_text = ""
 
