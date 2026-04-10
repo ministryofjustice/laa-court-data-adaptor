@@ -1,4 +1,4 @@
-class XhibitCase < ApplicationRecord
+class XhibitMigratedCase < ApplicationRecord
   validates :case_urn, presence: true
   validates :xhibit_case_number, presence: true
   validates :court_name, presence: true

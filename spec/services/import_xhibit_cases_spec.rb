@@ -4,7 +4,7 @@ RSpec.describe ImportXhibitCases do
   subject(:import) { described_class.call(file_path: file_fixture("xhibit_cases_import.csv")) }
 
   it "imports all rows from the CSV" do
-    expect { import }.to change(XhibitCase, :count).by(3)
+    expect { import }.to change(XhibitMigratedCase, :count).by(3)
   end
 
   it "returns inserted and errors keys" do
@@ -14,7 +14,7 @@ RSpec.describe ImportXhibitCases do
   describe "mapped attributes" do
     before { import }
 
-    let(:first_case) { XhibitCase.find_by(case_urn: "20GD0217100") }
+    let(:first_case) { XhibitMigratedCase.find_by(case_urn: "20GD0217100") }
 
     it "maps string fields correctly" do
       expect(first_case).to have_attributes(

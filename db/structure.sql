@@ -11,13 +11,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
-
-
---
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -207,6 +200,7 @@ CREATE TABLE public.oauth_applications (
     confidential boolean DEFAULT true NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
+    contact_email character varying,
     requester_email character varying,
     requestee_email character varying
 );
@@ -286,10 +280,10 @@ CREATE TABLE public.users (
 
 
 --
--- Name: xhibit_cases; Type: TABLE; Schema: public; Owner: -
+-- Name: xhibit_migrated_cases; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.xhibit_cases (
+CREATE TABLE public.xhibit_migrated_cases (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     case_urn character varying,
     xhibit_case_number character varying,
@@ -307,7 +301,12 @@ CREATE TABLE public.xhibit_cases (
     committal_date date,
     sent_date date,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    status character varying,
+    maat_id character varying,
+    linked_at timestamp(6) without time zone,
+    linked_by character varying,
+    process_errors jsonb
 );
 
 
@@ -439,11 +438,11 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: xhibit_cases xhibit_cases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: xhibit_migrated_cases xhibit_migrated_cases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.xhibit_cases
-    ADD CONSTRAINT xhibit_cases_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.xhibit_migrated_cases
+    ADD CONSTRAINT xhibit_migrated_cases_pkey PRIMARY KEY (id);
 
 
 --
@@ -612,6 +611,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260409121749'),
 ('20260401124945'),
 ('20251127093515'),
 ('20250924160419'),
