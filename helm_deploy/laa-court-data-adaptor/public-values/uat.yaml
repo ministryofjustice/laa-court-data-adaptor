@@ -16,7 +16,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-common_platform_url: https://apigw.dev.cjscp.org.uk/LAA/V04
+common_platform_url: https://apigw.dev.cjscp.org.uk/LAA/V1
 sqs_region: eu-west-2
 sqs_messaging_enabled: true
 maat_api:
