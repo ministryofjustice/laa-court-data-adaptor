@@ -1,5 +1,11 @@
 class XhibitMigratedCase < ApplicationRecord
   attribute :status, :string, default: "pending"
+  enum :status, {
+    pending: "pending",
+    auto_linked: "auto_linked",
+    manually_linked: "manually_linked",
+    action_required: "action_required",
+  }
 
   validates :case_urn, presence: true
   validates :xhibit_case_number, presence: true
