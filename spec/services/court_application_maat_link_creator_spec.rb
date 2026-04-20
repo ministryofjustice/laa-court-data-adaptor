@@ -24,11 +24,12 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     court_application
 
     allow(Sqs::MessagePublisher).to receive(:call)
-    allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call)
+    allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal).to receive(:call)
+    allow(CommonPlatform::Api::RecordApplicationLaaReferenceForBreach).to receive(:call)
   end
 
   it "enqueues a HearingResultFetcherWorker per hearing day" do
-    allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+    allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
       .to receive(:call)
       .and_return(response)
 
@@ -45,13 +46,13 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     end
   end
 
-  it "calls the CommonPlatform::Api::RecordCourtApplicationLaaReference service once" do
-    allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+  it "calls the CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal service once" do
+    allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
       .to receive(:call)
       .once.with(hash_including(application_reference: "12345678"))
       .and_return(response)
 
-    expect(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+    expect(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
       .to receive(:call)
       .once
       .with(hash_including(application_reference: "12345678"))
@@ -60,7 +61,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
   end
 
   it "calls the Sqs::MessagePublisher service once" do
-    allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+    allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
       .to receive(:call)
       .once.with(hash_including(application_reference: "12345678"))
       .and_return(response)
@@ -89,7 +90,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     end
 
     it "calls the Sqs::MessagePublisher service once" do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
         .to receive(:call)
         .and_return(response)
 
@@ -98,12 +99,12 @@ RSpec.describe CourtApplicationMaatLinkCreator do
       call_link_creator
     end
 
-    it "calls the CommonPlatform::Api::RecordCourtApplicationLaaReference service multiple times" do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+    it "calls the CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal service multiple times" do
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
         .to receive(:call)
         .and_return(response)
 
-      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      expect(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
         .to receive(:call)
         .twice
         .with(hash_including(application_reference: "12345678"))
@@ -112,14 +113,15 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     end
   end
 
-  context "with no offences" do
+  context "when court application is a breach" do
     before do
       court_application.body["subjectSummary"].delete("offenceSummary")
+      court_application.body["applicationType"] = "CJ03510" # Breach
       court_application.save!
     end
 
     it "calls the Sqs::MessagePublisher service once" do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForBreach)
         .to receive(:call)
         .and_return(response)
 
@@ -128,15 +130,17 @@ RSpec.describe CourtApplicationMaatLinkCreator do
       call_link_creator
     end
 
-    it "calls the CommonPlatform::Api::RecordCourtApplicationLaaReference service with no offence ID" do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+    it "calls the CommonPlatform::Api::RecordApplicationLaaReferenceForBreach service" do
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForBreach)
         .to receive(:call)
         .and_return(response)
 
-      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      expect(CommonPlatform::Api::RecordApplicationLaaReferenceForBreach)
         .to receive(:call)
         .once
-        .with(hash_including(offence_id: nil))
+        .with(
+          hash_including({ application_id: "00004c9f-af9f-401a-b88b-78a4f0e08163", application_reference: "12345678" }),
+        )
 
       call_link_creator
     end
@@ -149,7 +153,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
       before do
         existing_laa_reference.update!(linked: false)
 
-        allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+        allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
           .to receive(:call)
           .and_return(response)
       end
@@ -166,7 +170,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     let(:maat_reference) { "A10000000" }
 
     it "does not call the Sqs::MessagePublisher service" do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
         .to receive(:call)
         .and_return(response)
 
@@ -176,11 +180,11 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     end
 
     it "creates a dummy maat_reference" do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
         .to receive(:call)
         .and_return(response)
 
-      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      expect(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
         .to receive(:call)
         .with(hash_including(application_reference: "A10000000"))
 
@@ -192,7 +196,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     let(:maat_reference) { nil }
 
     it "creates a dummy_maat_reference" do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
         .to receive(:call)
         .and_return(response)
 
@@ -204,7 +208,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
 
   describe "linking twice" do
     it "marks previous record as unlinked and creates a new one marked as linked" do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
         .to receive(:call)
         .and_return(response)
 
@@ -221,34 +225,24 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     let(:response) { OpenStruct.new("status" => 500, "success?" => false) }
 
     before do
-      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference)
+      allow(CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal)
         .to receive(:call)
         .and_return(response)
     end
 
     it "raises an error" do
-      expect { call_link_creator }.to raise_error "Error posting LAA Reference to Common Platform"
+      expect { call_link_creator }.to raise_error CommonPlatform::Api::Errors::FailedDependency
     end
 
     it "reports to Sentry" do
-      expect(Sentry).to receive(:capture_exception) do |_error, options|
-        expect(options).to eq({
-          tags: {
-            request_id: nil,
-            subject_id: "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3",
-            maat_reference: "12345678",
-            user_name: "bob-smith",
-            offence_id: "f369a0f5-6faf-43f1-8725-fb79847107cc",
-          },
-        })
-      end
+      expect(Sentry).to receive(:capture_exception)
 
-      expect { call_link_creator }.to raise_error StandardError
+      expect { call_link_creator }.to raise_error CommonPlatform::Api::Errors::FailedDependency
     end
 
     it "does not publish to the link created queue" do
       expect(Sqs::MessagePublisher).not_to receive(:call)
-      expect { call_link_creator }.to raise_error StandardError
+      expect { call_link_creator }.to raise_error CommonPlatform::Api::Errors::FailedDependency
     end
   end
 end

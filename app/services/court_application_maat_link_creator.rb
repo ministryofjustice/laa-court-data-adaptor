@@ -36,13 +36,47 @@ private
   end
 
   def post_laa_references_to_common_platform!
-    if court_application_summary.subject_summary.has_offences?
+    today = Time.zone.today.strftime("%Y-%m-%d")
+
+    if court_application_summary.appeal?
+      # Appeal has one or more offences
       offences.each do |offence|
-        post_laa_reference_to_common_platform(offence)
+        response = CommonPlatform::Api::RecordApplicationLaaReferenceForAppeal.call(
+          application_id: court_application_summary.application_id,
+          subject_id:,
+          offence_id: offence&.offence_id,
+          application_reference: laa_reference.maat_reference,
+          status_code: "AP",
+          status_date: today,
+        )
+        unless response.success?
+          raise CommonPlatform::Api::Errors::FailedDependency, "Error posting to #{response&.env&.url}: #{response.body}"
+        end
       end
     else
-      post_laa_reference_to_common_platform
+      # Breach/Poca has no offences
+      response = CommonPlatform::Api::RecordApplicationLaaReferenceForBreach.call(
+        application_id: court_application_summary.application_id,
+        application_reference: laa_reference.maat_reference,
+        status_code: "AP",
+        status_date: today,
+      )
+
+      unless response.success?
+        raise CommonPlatform::Api::Errors::FailedDependency, "Error posting to #{response&.env&.url}: #{response.body}"
+      end
     end
+  rescue CommonPlatform::Api::Errors::FailedDependency => e
+    Sentry.capture_exception(
+      e,
+      tags: {
+        request_id: Current.request_id,
+        application_id: court_application_summary.application_id,
+        maat_reference: laa_reference.maat_reference,
+        user_name: laa_reference.user_name,
+      },
+    )
+    raise e
   end
 
   def post_laa_reference_to_common_platform(offence = nil)
