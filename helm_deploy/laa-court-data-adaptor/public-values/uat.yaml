@@ -126,7 +126,7 @@ affinity: {}
 
 ips:
   restrict: true
-  hmcts: "85.210.83.182,51.145.115.21"
+  hmcts: "85.210.83.182,51.145.115.21,51.140.138.86"
 
 featureFlags:
   breachCourtApplications: true
