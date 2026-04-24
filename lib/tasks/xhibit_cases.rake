@@ -12,7 +12,7 @@ namespace :xhibit_cases do
     results = ImportXhibitCases.call(file_path:)
 
     results[:errors].each do |row|
-      puts "[ERROR - #{Time.zone.now}] Line #{row[:line]} (case_urn: #{row[:case_urn]}): #{row[:messages].join(', ')}"
+      puts "[ERROR - #{Time.zone.now}] Line #{row[:line]}: #{row[:messages].join(', ')}"
     end
 
     puts "- - -"

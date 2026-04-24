@@ -453,6 +453,13 @@ CREATE INDEX idx_on_hearing_repull_batch_id_61b4f3e760 ON public.prosecution_cas
 
 
 --
+-- Name: idx_xhibit_migrated_cases_unique_case_defendant; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_xhibit_migrated_cases_unique_case_defendant ON public.xhibit_migrated_cases USING btree (case_urn, defendant_first_name, defendant_last_name);
+
+
+--
 -- Name: index_case_defendant_offences_on_prosecution_case; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -611,6 +618,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260424132600'),
 ('20260409121749'),
 ('20260401124945'),
 ('20251127093515'),
