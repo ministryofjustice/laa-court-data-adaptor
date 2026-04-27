@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/ministryofjustice/hmcts_common_platform.git
-  revision: f45aa2fddd05e238493c0c3e202de309ae93acb4
-  tag: v0.2.0
-  specs:
-    hmcts_common_platform (0.1.0)
-
-GIT
   remote: https://github.com/voxpupuli/json-schema
   revision: 081dfc3b6a730bcf06cab4bcaa52eeb7f8f8a9ce
   ref: 081dfc3
@@ -522,7 +515,6 @@ DEPENDENCIES
   faraday (~> 2.13)
   faraday-net_http_persistent (~> 2)
   faraday-retry (~> 2.3)
-  hmcts_common_platform!
   jbuilder (~> 2.14)
   json-schema!
   json-schema-rspec
