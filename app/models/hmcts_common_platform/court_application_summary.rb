@@ -78,11 +78,7 @@ module HmctsCommonPlatform
     end
 
     def category_supported?
-      if ENV["BREACH_COURT_APPLICATIONS"] == "true"
-        application_category.present?
-      else
-        application_category == "appeal"
-      end
+      application_category.present?
     end
 
     def application_category

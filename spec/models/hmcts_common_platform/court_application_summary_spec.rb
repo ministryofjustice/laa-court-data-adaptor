@@ -56,19 +56,13 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
     context "when type is breach" do
       let(:data) { { "applicationType" => "SE20521" } }
 
-      context "when flag is switched off" do
-        it { is_expected.to be false }
-      end
+      it { is_expected.to be true }
+    end
 
-      context "when flag is switched on" do
-        around do |example|
-          ENV["BREACH_COURT_APPLICATIONS"] = "true"
-          example.run
-          ENV.delete("BREACH_COURT_APPLICATIONS")
-        end
+    context "when type is unknown" do
+      let(:data) { { "applicationType" => "UNKNOWN" } }
 
-        it { is_expected.to be true }
-      end
+      it { is_expected.to be false }
     end
   end
 
