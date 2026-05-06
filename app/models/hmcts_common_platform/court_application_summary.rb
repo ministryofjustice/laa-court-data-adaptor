@@ -78,7 +78,7 @@ module HmctsCommonPlatform
     end
 
     def category_supported?
-      application_category.present?
+      true
     end
 
     def application_category

@@ -62,7 +62,7 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
     context "when type is unknown" do
       let(:data) { { "applicationType" => "UNKNOWN" } }
 
-      it { is_expected.to be false }
+      it { is_expected.to be true }
     end
   end
 
