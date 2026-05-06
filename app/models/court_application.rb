@@ -15,4 +15,8 @@ class CourtApplication < ApplicationRecord
 
     category == "appeal"
   end
+
+  def supported_category?
+    SupportedCourtApplicationTypes.get_category_by_code(body["applicationType"]).present?
+  end
 end

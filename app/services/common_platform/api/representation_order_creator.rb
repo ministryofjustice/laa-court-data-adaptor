@@ -44,6 +44,8 @@ module CommonPlatform
       end
 
       def record_court_application_representation_order(court_application)
+        return unless court_application.supported_category?
+
         if court_application.appeal?
           offences.each do |offence|
             params = offence.merge(

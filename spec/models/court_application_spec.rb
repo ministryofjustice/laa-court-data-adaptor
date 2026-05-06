@@ -14,4 +14,18 @@ RSpec.describe CourtApplication, type: :model do
 
     it { expect(court_application.appeal?).to be(false) }
   end
+
+  describe "#supported_category?" do
+    context "when the code maps to a known category" do
+      let(:application_type) { "MC80801" }
+
+      it { expect(court_application.supported_category?).to be(true) }
+    end
+
+    context "when the code produces a nil category" do
+      let(:application_type) { "AS14501" }
+
+      it { expect(court_application.supported_category?).to be(false) }
+    end
+  end
 end
