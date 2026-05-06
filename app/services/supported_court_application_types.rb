@@ -5,7 +5,9 @@ class SupportedCourtApplicationTypes
 
   class << self
     def get_by_code(code)
-      supported_types.find { |type| type["codes"].include?(code) }
+      result = supported_types.find { |type| type["codes"].include?(code) }
+      Rails.logger.warn("SupportedCourtApplicationTypes: unknown court application type code: #{code}") if result.nil? && code.present?
+      result
     end
 
     def get_category_by_code(code)
