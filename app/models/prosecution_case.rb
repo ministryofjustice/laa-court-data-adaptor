@@ -46,7 +46,6 @@ class ProsecutionCase < ApplicationRecord
 
   def court_applications
     (body["applicationSummary"] || []).map { retrieve_full_court_application(it) }
-                                      .select(&:category_supported?)
   end
 
 private
