@@ -24,6 +24,16 @@ RSpec.describe ImportXhibitCases do
       )
       expect(date_error[:messages]).to include("Defendant date of birth is invalid.")
     end
+    it "reports the row with no case URN as an error" do
+      result = import
+      urn_error = result[:errors].find { |e| e[:line_number] == 2 }
+      expect(urn_error).to include(
+        line_number: 2,
+        case_urn: nil,
+        row: hash_including("case_urn" => nil),
+      )
+      expect(urn_error[:messages]).to include("Case urn can't be blank")
+    end
   end
 
   describe "mapped attributes" do
