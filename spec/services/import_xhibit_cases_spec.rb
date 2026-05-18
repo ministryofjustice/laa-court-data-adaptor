@@ -36,6 +36,59 @@ RSpec.describe ImportXhibitCases do
     end
   end
 
+  context "with missing required fields" do
+    subject(:import) { described_class.call(file_path: file_fixture("xhibit_cases_import_with_errors.csv")) }
+
+    it "reports a missing defendant first name as an error" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001001" }
+      expect(error).to include(line_number: 6, case_urn: "30GD0001001")
+      expect(error[:messages]).to include("Defendant first name can't be blank")
+    end
+
+    it "reports a missing defendant last name as an error" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001002" }
+      expect(error).to include(line_number: 7, case_urn: "30GD0001002")
+      expect(error[:messages]).to include("Defendant last name can't be blank")
+    end
+
+    it "reports a missing OU code as an error" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001003" }
+      expect(error).to include(line_number: 8, case_urn: "30GD0001003")
+      expect(error[:messages]).to include("Ou code can't be blank")
+    end
+
+    it "reports a missing case sub-type as an error" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001006" }
+      expect(error).to include(line_number: 11, case_urn: "30GD0001006")
+      expect(error[:messages]).to include("Case sub type can't be blank")
+    end
+
+    it "reports a missing mode of trial as an error" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001007" }
+      expect(error).to include(line_number: 12, case_urn: "30GD0001007")
+      expect(error[:messages]).to include("Mode of trial can't be blank")
+    end
+
+    it "reports a missing defendant ID as an error" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001008" }
+      expect(error).to include(line_number: 13, case_urn: "30GD0001008")
+      expect(error[:messages]).to include("Defendant can't be blank")
+    end
+
+    it "reports a missing court name as an error" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001009" }
+      expect(error).to include(line_number: 14, case_urn: "30GD0001009")
+      expect(error[:messages]).to include("Court name can't be blank")
+    end
+  end
+
   describe "mapped attributes" do
     before { import }
 
