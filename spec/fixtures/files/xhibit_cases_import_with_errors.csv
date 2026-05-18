@@ -3,3 +3,12 @@ case_urn,xhibit_case_number,court_name,ou_code,case_type,case_sub_type,mode_of_t
 29GD7216523,,Warrington Crown Court,B31BK00,S,Breach of community order,Summary,3a5e8721-b123-4c56-9012-ef3456789abc,Jammy,,,1990-01-01,TFL1,2021-03-15,
 20GD0217101,A20255678,Chelmsford Crown Court,B10JQ00,A,Crown Court appeal,Either way,7d9c2145-e678-4f12-8901-bc2345678def,Wallace,James,McClure,2002-10-10,B0000W4DP6,,2021-05-11
 20GD0217102,T20259999,Leeds Crown Court,B16HG00,T,Either way offence,Either way,4c8d3256-f789-4a23-9012-de4567890abc,Jane,,Smith,AA/BB/CCCC,ABC123,,2020-06-01
+30GD0001001,T20260001,Derby Justice Centre,B30PI00,T,Either way offence,Either way,aaa00001-0000-0000-0000-000000000001,,,Smith,1990-01-01,ASN001,,2020-01-01
+30GD0001002,T20260002,Derby Justice Centre,B30PI00,T,Either way offence,Either way,aaa00002-0000-0000-0000-000000000002,Jane,,,1990-01-02,ASN002,,2020-01-02
+30GD0001003,T20260003,Derby Justice Centre,,T,Either way offence,Either way,aaa00003-0000-0000-0000-000000000003,Jim,,Jones,1990-01-03,ASN003,,2020-01-03
+30GD0001004,T20260004,Derby Justice Centre,B30PI00,T,Either way offence,Either way,aaa00004-0000-0000-0000-000000000004,Bob,,Builder,1990-01-04,ASN004,,2020-01-04
+30GD0001005,T20260005,Derby Justice Centre,B30PI00,T,Either way offence,Either way,aaa00005-0000-0000-0000-000000000005,Mary,,Lamb,1990-01-05,ASN005,2020-01-05,
+30GD0001006,T20260006,Derby Justice Centre,B30PI00,T,,Either way,aaa00006-0000-0000-0000-000000000006,Tom,,Cat,1990-01-06,ASN006,,2020-01-06
+30GD0001007,T20260007,Derby Justice Centre,B30PI00,T,Either way offence,,aaa00007-0000-0000-0000-000000000007,Jerry,,Mouse,1990-01-07,ASN007,,2020-01-07
+30GD0001008,T20260008,Derby Justice Centre,B30PI00,T,Either way offence,Either way,,Amy,,Winehouse,1990-01-08,ASN008,,2020-01-08
+30GD0001009,T20260009,,B30PI00,T,Either way offence,Either way,aaa00009-0000-0000-0000-000000000009,Elvis,,Presley,1990-01-09,ASN009,,2020-01-09
