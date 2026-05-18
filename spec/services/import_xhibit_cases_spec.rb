@@ -87,6 +87,13 @@ RSpec.describe ImportXhibitCases do
       expect(error).to include(line_number: 14, case_urn: "30GD0001009")
       expect(error[:messages]).to include("Court name can't be blank")
     end
+
+    it "reports when both committal and sent dates are missing" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001010" }
+      expect(error).to include(line_number: 15, case_urn: "30GD0001010")
+      expect(error[:messages]).to include("Committal date and sent date can't both be blank")
+    end
   end
 
   describe "mapped attributes" do

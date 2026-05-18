@@ -12,3 +12,4 @@ case_urn,xhibit_case_number,court_name,ou_code,case_type,case_sub_type,mode_of_t
 30GD0001007,T20260007,Derby Justice Centre,B30PI00,T,Either way offence,,aaa00007-0000-0000-0000-000000000007,Jerry,,Mouse,1990-01-07,ASN007,,2020-01-07
 30GD0001008,T20260008,Derby Justice Centre,B30PI00,T,Either way offence,Either way,,Amy,,Winehouse,1990-01-08,ASN008,,2020-01-08
 30GD0001009,T20260009,,B30PI00,T,Either way offence,Either way,aaa00009-0000-0000-0000-000000000009,Elvis,,Presley,1990-01-09,ASN009,,2020-01-09
+30GD0001010,T20260010,Derby Justice Centre,B30PI00,T,Either way offence,Either way,aaa00010-0000-0000-0000-000000000010,Prince,,Rogers,1990-01-10,ASN010,,
