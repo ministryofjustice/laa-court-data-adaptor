@@ -13,6 +13,8 @@ module CommonPlatform
         if successful_response?
           publish_hearing_to_queue if publish_to_queue
           response.body
+        else
+          Rails.logger.warn("GetHearingResults failed for hearing_id: #{@hearing_id}, status: #{@response.status}, body_present: #{@response.body.present?}")
         end
       end
 
