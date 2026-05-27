@@ -24,22 +24,35 @@ class XhibitMigratedCase < ApplicationRecord
   validates :defendant_last_name, presence: true
 
   validate :defendant_date_of_birth_format, if: -> { defendant_date_of_birth_before_type_cast.present? }
+  validate :committal_date_format, if: -> { committal_date_before_type_cast.present? }
+  validate :sent_date_format, if: -> { sent_date_before_type_cast.present? }
 
 private
 
   # Date example: 2002-11-03
   DATE_FORMAT_REGEX = /\A\d{4}-\d{2}-\d{2}\z/
 
+  def committal_date_format
+    validate_date_format(:committal_date, committal_date_before_type_cast)
+  end
+
+  def sent_date_format
+    validate_date_format(:sent_date, sent_date_before_type_cast)
+  end
+
   def defendant_date_of_birth_format
-    raw = defendant_date_of_birth_before_type_cast
+    validate_date_format(:defendant_date_of_birth, defendant_date_of_birth_before_type_cast)
+  end
+
+  def validate_date_format(field, raw)
     return if raw.is_a?(Date)
 
     if raw.match?(DATE_FORMAT_REGEX)
       Date.strptime(raw, "%Y-%m-%d")
     else
-      errors.add(:defendant_date_of_birth, "is invalid.")
+      errors.add(field, "is invalid. Expected format: YYYY-MM-DD")
     end
   rescue Date::Error
-    errors.add(:defendant_date_of_birth, "is invalid.")
+    errors.add(field, "is invalid. Expected format: YYYY-MM-DD")
   end
 end

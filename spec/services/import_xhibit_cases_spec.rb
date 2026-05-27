@@ -22,8 +22,9 @@ RSpec.describe ImportXhibitCases do
         case_urn: "20GD0217102",
         row: hash_including("case_urn" => "20GD0217102"),
       )
-      expect(date_error[:messages]).to include("Defendant date of birth is invalid.")
+      expect(date_error[:messages]).to include("Defendant date of birth is invalid. Expected format: YYYY-MM-DD")
     end
+
     it "reports the row with no case URN as an error" do
       result = import
       urn_error = result[:errors].find { |e| e[:line_number] == 2 }
@@ -88,11 +89,18 @@ RSpec.describe ImportXhibitCases do
       expect(error[:messages]).to include("Court name can't be blank")
     end
 
-    it "reports when both committal and sent dates are missing" do
+    it "reports an invalid committal date format as an error" do
       result = import
-      error = result[:errors].find { |e| e[:case_urn] == "30GD0001010" }
-      expect(error).to include(line_number: 15, case_urn: "30GD0001010")
-      expect(error[:messages]).to include("Committal date and sent date can't both be blank")
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001011" }
+      expect(error).to include(line_number: 16, case_urn: "30GD0001011")
+      expect(error[:messages]).to include("Committal date is invalid. Expected format: YYYY-MM-DD")
+    end
+
+    it "reports an invalid sent date format as an error" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001012" }
+      expect(error).to include(line_number: 17, case_urn: "30GD0001012")
+      expect(error[:messages]).to include("Sent date is invalid. Expected format: YYYY-MM-DD")
     end
   end
 
