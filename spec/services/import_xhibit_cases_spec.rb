@@ -102,6 +102,13 @@ RSpec.describe ImportXhibitCases do
       expect(error).to include(line_number: 17, case_urn: "30GD0001012")
       expect(error[:messages]).to include("Sent date is invalid. Expected format: YYYY-MM-DD")
     end
+
+    it "reports missing committal and sent dates as an error" do
+      result = import
+      error = result[:errors].find { |e| e[:case_urn] == "30GD0001010" }
+      expect(error).to include(line_number: 15, case_urn: "30GD0001010")
+      expect(error[:messages]).to include("Committal date or sent date must be present")
+    end
   end
 
   describe "mapped attributes" do

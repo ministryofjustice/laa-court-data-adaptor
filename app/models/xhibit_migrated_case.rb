@@ -26,6 +26,7 @@ class XhibitMigratedCase < ApplicationRecord
   validate :defendant_date_of_birth_format, if: -> { defendant_date_of_birth_before_type_cast.present? }
   validate :committal_date_format, if: -> { committal_date_before_type_cast.present? }
   validate :sent_date_format, if: -> { sent_date_before_type_cast.present? }
+  validate :committal_or_sent_date_present
 
 private
 
@@ -42,6 +43,12 @@ private
 
   def defendant_date_of_birth_format
     validate_date_format(:defendant_date_of_birth, defendant_date_of_birth_before_type_cast)
+  end
+
+  def committal_or_sent_date_present
+    return if committal_date_before_type_cast.present? || sent_date_before_type_cast.present?
+
+    errors.add(:base, "Committal date or sent date must be present")
   end
 
   def validate_date_format(field, raw)
