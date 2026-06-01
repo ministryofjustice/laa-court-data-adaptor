@@ -19,6 +19,7 @@ RSpec.describe XhibitMigratedCase, type: :model do
       defendant_last_name: "Doe",
       defendant_date_of_birth: Date.new(1987, 5, 21),
       defendant_arrest_summons_number: "ASN001",
+      sent_date: Date.new(2019, 10, 25),
     }
   end
 
