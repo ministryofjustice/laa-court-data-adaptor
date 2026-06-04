@@ -17,7 +17,8 @@ namespace :xhibit_cases do
       puts "[ERROR - #{Time.zone.now}] Line #{row[:line_number]}: #{row[:messages].join(', ')}"
     end
 
-    errors_file = "/tmp/import-errors.csv"
+    timestamp = Time.zone.now.to_i
+    errors_file = "/tmp/import-errors-#{timestamp}.csv"
     input_headers = CSV.open(file_path, headers: true) { |csv| csv.first&.headers } || []
 
     CSV.open(errors_file, "w") do |csv|
