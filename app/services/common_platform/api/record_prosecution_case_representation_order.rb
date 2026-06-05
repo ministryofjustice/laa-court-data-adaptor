@@ -30,6 +30,7 @@ module CommonPlatform
 
       def call
         response = connection.post(url, request_body)
+        report_to_sentry(response) unless response.success?
         update_offence(response)
         response
       end
@@ -56,6 +57,21 @@ module CommonPlatform
           defence_organisation:,
           response_status: response.status,
           response_body: response.body,
+        )
+      end
+
+      def report_to_sentry(response)
+        Sentry.capture_exception(
+          CommonPlatform::Api::Errors::UnsuccessfulHttpResponse.new(
+            service: self.class.name,
+            status: response.status,
+            body: response.body,
+          ),
+          tags: { request_id: Current.request_id },
+          extra: {
+            defendant_id:,
+            offence_id:,
+          },
         )
       end
 
