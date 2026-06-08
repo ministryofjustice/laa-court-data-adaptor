@@ -24,6 +24,16 @@ RSpec.describe XhibitMigratedCase, type: :model do
   end
 
   describe "validations" do
+    it { is_expected.to validate_presence_of(:xhibit_case_number) }
+    it { is_expected.to validate_presence_of(:case_type) }
+    it { is_expected.to validate_presence_of(:case_sub_type) }
+    it { is_expected.to validate_presence_of(:mode_of_trial) }
+    it { is_expected.to validate_presence_of(:court_name) }
+    it { is_expected.to validate_presence_of(:ou_code) }
+    it { is_expected.to validate_presence_of(:defendant_id) }
+    it { is_expected.to validate_presence_of(:defendant_first_name) }
+    it { is_expected.to validate_presence_of(:defendant_last_name) }
+
     it {
       expect(migrated_case).to validate_uniqueness_of(:case_urn)
         .scoped_to(:defendant_first_name, :defendant_last_name)
@@ -60,6 +70,14 @@ RSpec.describe XhibitMigratedCase, type: :model do
 
       it "is valid" do
         expect(described_class.new(valid_attributes.merge(defendant_last_name: "Smith"))).to be_valid
+      end
+    end
+
+    context "when case_urn is nil" do
+      before { described_class.create!(valid_attributes.merge(case_urn: nil, xhibit_case_number: "T202540002")) }
+
+      it "skips uniqueness check and is valid" do
+        expect(described_class.new(valid_attributes.merge(case_urn: nil))).to be_valid
       end
     end
   end
