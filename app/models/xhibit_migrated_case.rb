@@ -7,8 +7,9 @@ class XhibitMigratedCase < ApplicationRecord
     action_required: "action_required",
   }
 
-  validates :case_urn, presence: true, uniqueness: {
+  validates :case_urn, uniqueness: {
     scope: %i[defendant_first_name defendant_last_name],
+    allow_nil: true,
     message: lambda { |object, _data|
       "#{object.case_urn}, defendant: #{object.defendant_first_name} #{object.defendant_last_name} is already present"
     },
