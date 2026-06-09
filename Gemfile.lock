@@ -117,7 +117,7 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.5)
-    date (3.4.1)
+    date (3.5.1)
     diff-lcs (1.6.2)
     docile (1.4.1)
     doorkeeper (5.8.2)
@@ -237,7 +237,7 @@ GEM
       uri
     net-http-persistent (4.0.6)
       connection_pool (~> 2.2, >= 2.2.4)
-    net-imap (0.5.10)
+    net-imap (0.5.15)
       date
       net-protocol
     net-pop (0.1.2)
@@ -472,7 +472,7 @@ GEM
     stringio (3.1.7)
     thor (1.4.0)
     tilt (2.6.1)
-    timeout (0.4.3)
+    timeout (0.6.1)
     tsort (0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
