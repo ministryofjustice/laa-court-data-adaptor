@@ -24,7 +24,6 @@ RSpec.describe ImportXhibitCases do
       )
       expect(date_error[:messages]).to include("Defendant date of birth is invalid. Expected format: YYYY-MM-DD")
     end
-
   end
 
   context "with missing required fields" do
@@ -51,19 +50,6 @@ RSpec.describe ImportXhibitCases do
       expect(error[:messages]).to include("Ou code can't be blank")
     end
 
-    it "reports a missing case sub-type as an error" do
-      result = import
-      error = result[:errors].find { |e| e[:case_urn] == "30GD0001006" }
-      expect(error).to include(line_number: 11, case_urn: "30GD0001006")
-      expect(error[:messages]).to include("Case sub type can't be blank")
-    end
-
-    it "reports a missing mode of trial as an error" do
-      result = import
-      error = result[:errors].find { |e| e[:case_urn] == "30GD0001007" }
-      expect(error).to include(line_number: 12, case_urn: "30GD0001007")
-      expect(error[:messages]).to include("Mode of trial can't be blank")
-    end
 
     it "reports a missing defendant ID as an error" do
       result = import

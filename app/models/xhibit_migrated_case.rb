@@ -11,15 +11,13 @@ class XhibitMigratedCase < ApplicationRecord
     scope: %i[defendant_first_name defendant_last_name],
     allow_nil: true,
     message: lambda { |object, _data|
-      "#{object.case_urn}, defendant: #{object.defendant_first_name} #{object.defendant_last_name} is already present"
+      "is invalid: URN #{object.case_urn} and Defendant #{object.defendant_first_name} #{object.defendant_last_name} is already present"
     },
   }
   validates :xhibit_case_number, presence: true
   validates :court_name, presence: true
   validates :ou_code, presence: true
   validates :case_type, presence: true
-  validates :case_sub_type, presence: true
-  validates :mode_of_trial, presence: true
   validates :defendant_id, presence: true
   validates :defendant_first_name, presence: true
   validates :defendant_last_name, presence: true
