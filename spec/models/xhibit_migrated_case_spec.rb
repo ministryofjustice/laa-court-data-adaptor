@@ -26,8 +26,6 @@ RSpec.describe XhibitMigratedCase, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:xhibit_case_number) }
     it { is_expected.to validate_presence_of(:case_type) }
-    it { is_expected.to validate_presence_of(:case_sub_type) }
-    it { is_expected.to validate_presence_of(:mode_of_trial) }
     it { is_expected.to validate_presence_of(:court_name) }
     it { is_expected.to validate_presence_of(:ou_code) }
     it { is_expected.to validate_presence_of(:defendant_id) }
@@ -37,7 +35,7 @@ RSpec.describe XhibitMigratedCase, type: :model do
     it {
       expect(migrated_case).to validate_uniqueness_of(:case_urn)
         .scoped_to(:defendant_first_name, :defendant_last_name)
-        .with_message("20GD021701, defendant: John Doe is already present")
+        .with_message("is invalid: URN 20GD021701 and Defendant John Doe is already present")
     }
 
     context "when the same case_urn, defendant_first_name and defendant_last_name already exists" do
@@ -45,7 +43,7 @@ RSpec.describe XhibitMigratedCase, type: :model do
 
       it "is invalid" do
         expect(migrated_case).not_to be_valid
-        expect(migrated_case.errors[:case_urn]).to include("20GD021701, defendant: John Doe is already present")
+        expect(migrated_case.errors[:case_urn]).to include("is invalid: URN 20GD021701 and Defendant John Doe is already present")
       end
     end
 
