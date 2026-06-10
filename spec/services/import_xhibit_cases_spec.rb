@@ -1,21 +1,20 @@
 require "rails_helper"
 
 RSpec.describe ImportXhibitCases do
-  subject(:import) { described_class.call(file_path: file_fixture("xhibit_cases_import.csv")) }
+  subject(:result) { described_class.call(file_path: file_fixture("xhibit_cases_import.csv")) }
 
   it "imports all rows from the CSV" do
-    expect { import }.to change(XhibitMigratedCase, :count).by(3)
+    expect { result }.to change(XhibitMigratedCase, :count).by(3)
   end
 
   it "returns success_count and errors keys" do
-    expect(import).to match(success_count: Integer, errors: Array)
+    expect(result).to match(success_count: Integer, errors: Array)
   end
 
   context "with invalid defendant_date_of_birth format" do
-    subject(:import) { described_class.call(file_path: file_fixture("xhibit_cases_import_with_errors.csv")) }
+    subject(:result) { described_class.call(file_path: file_fixture("xhibit_cases_import_with_errors.csv")) }
 
     it "reports the row with invalid date as an error" do
-      result = import
       date_error = result[:errors].find { |e| e[:case_urn] == "20GD0217102" }
       expect(date_error).to include(
         line_number: 5,
@@ -27,60 +26,51 @@ RSpec.describe ImportXhibitCases do
   end
 
   context "with missing required fields" do
-    subject(:import) { described_class.call(file_path: file_fixture("xhibit_cases_import_with_errors.csv")) }
+    subject(:result) { described_class.call(file_path: file_fixture("xhibit_cases_import_with_errors.csv")) }
 
     it "reports a missing defendant first name as an error" do
-      result = import
       error = result[:errors].find { |e| e[:case_urn] == "30GD0001001" }
       expect(error).to include(line_number: 6, case_urn: "30GD0001001")
       expect(error[:messages]).to include("Defendant first name can't be blank")
     end
 
     it "reports a missing defendant last name as an error" do
-      result = import
       error = result[:errors].find { |e| e[:case_urn] == "30GD0001002" }
       expect(error).to include(line_number: 7, case_urn: "30GD0001002")
       expect(error[:messages]).to include("Defendant last name can't be blank")
     end
 
     it "reports a missing OU code as an error" do
-      result = import
       error = result[:errors].find { |e| e[:case_urn] == "30GD0001003" }
       expect(error).to include(line_number: 8, case_urn: "30GD0001003")
       expect(error[:messages]).to include("Ou code can't be blank")
     end
 
-
     it "reports a missing defendant ID as an error" do
-      result = import
       error = result[:errors].find { |e| e[:case_urn] == "30GD0001008" }
       expect(error).to include(line_number: 13, case_urn: "30GD0001008")
       expect(error[:messages]).to include("Defendant can't be blank")
     end
 
     it "reports a missing court name as an error" do
-      result = import
       error = result[:errors].find { |e| e[:case_urn] == "30GD0001009" }
       expect(error).to include(line_number: 14, case_urn: "30GD0001009")
       expect(error[:messages]).to include("Court name can't be blank")
     end
 
     it "reports an invalid committal date format as an error" do
-      result = import
       error = result[:errors].find { |e| e[:case_urn] == "30GD0001011" }
       expect(error).to include(line_number: 16, case_urn: "30GD0001011")
       expect(error[:messages]).to include("Committal date is invalid. Expected format: YYYY-MM-DD")
     end
 
     it "reports an invalid sent date format as an error" do
-      result = import
       error = result[:errors].find { |e| e[:case_urn] == "30GD0001012" }
       expect(error).to include(line_number: 17, case_urn: "30GD0001012")
       expect(error[:messages]).to include("Sent date is invalid. Expected format: YYYY-MM-DD")
     end
 
     it "reports missing committal and sent dates as an error" do
-      result = import
       error = result[:errors].find { |e| e[:case_urn] == "30GD0001010" }
       expect(error).to include(line_number: 15, case_urn: "30GD0001010")
       expect(error[:messages]).to include("Committal date or sent date must be present")
@@ -88,7 +78,9 @@ RSpec.describe ImportXhibitCases do
   end
 
   describe "mapped attributes" do
-    before { import }
+    before do
+      described_class.call(file_path: file_fixture("xhibit_cases_import.csv"))
+    end
 
     let(:first_case) { XhibitMigratedCase.find_by(case_urn: "20GD0217100") }
 
