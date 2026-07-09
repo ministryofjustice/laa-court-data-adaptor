@@ -4,7 +4,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "bundler"
-gem "rails", "~> 8.0"
+gem "rails", "~> 8.0", ">= 8.0.4"
 
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
