@@ -30,6 +30,15 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
   it { expect(court_application_summary.short_id).to eql("A25ABCDE1234") }
   it { expect(court_application_summary.case_summary.first).to be_a(HmctsCommonPlatform::CaseSummary) }
   it { expect(court_application_summary.hearing_summary.first).to be_a(HmctsCommonPlatform::HearingSummary) }
+
+  context "when the data has no hearingSummary" do
+    let(:data) do
+      JSON.parse(file_fixture("court_application_summary.json").read).except("hearingSummary")
+    end
+
+    it { expect(court_application_summary.hearing_summary).to eql([]) }
+  end
+
   it { expect(court_application_summary.subject_summary).to be_a(HmctsCommonPlatform::SubjectSummary) }
   it { expect(court_application_summary.judicial_results.first).to be_a(HmctsCommonPlatform::JudicialResult) }
 

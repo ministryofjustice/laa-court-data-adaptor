@@ -50,7 +50,7 @@ module HmctsCommonPlatform
     end
 
     def hearing_summary
-      data[:hearingSummary]&.map do |summary_object|
+      Array(data[:hearingSummary]).map do |summary_object|
         HmctsCommonPlatform::HearingSummary.new(summary_object)
       end
     end
