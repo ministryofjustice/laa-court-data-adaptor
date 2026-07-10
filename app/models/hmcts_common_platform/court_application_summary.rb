@@ -61,6 +61,8 @@ module HmctsCommonPlatform
       elsif application_category.in?(%w[breach poca])
         latest_hearing_judicial_results
       end
+      # TODO: Should judicial results be retrieved from hearings for civil case proceedings
+      # (nil category)? If so, the elsif above should include nil category or be removed entirely.
     end
 
     def subject_summary
@@ -75,14 +77,6 @@ module HmctsCommonPlatform
       # Warning: this `to_json` method doesn't return JSON, it returns a hash.
       # This is to be consistent with other models in this repo
       to_builder.attributes!
-    end
-
-    def category_supported?
-      if ENV["BREACH_COURT_APPLICATIONS"] == "true"
-        application_category.present?
-      else
-        application_category == "appeal"
-      end
     end
 
     def application_category

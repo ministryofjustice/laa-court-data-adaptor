@@ -44,6 +44,9 @@ module CommonPlatform
       end
 
       def record_court_application_representation_order(court_application)
+        # Civil Case proceedings produce a nil category for now. No Representation Order is submitted in that case.
+        return unless court_application.supported_category?
+
         if court_application.appeal?
           offences.each do |offence|
             params = offence.merge(

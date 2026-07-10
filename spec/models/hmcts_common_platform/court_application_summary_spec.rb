@@ -24,7 +24,6 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
   it { expect(court_application_summary.application_title).to eql("Appeal against conviction by a Magistrates' Court to the Crown Court") }
   it { expect(court_application_summary.application_type).to eql("MC80802") }
   it { expect(court_application_summary.application_category).to eq("appeal") }
-  it { expect(court_application_summary.category_supported?).to be true }
   it { expect(court_application_summary.application_result).to eql("AACD") }
   it { expect(court_application_summary.received_date).to eql("2023-06-27") }
   it { expect(court_application_summary.short_id).to eql("A25ABCDE1234") }
@@ -47,28 +46,6 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
       expect(court_application_summary.to_json["hearing_summary"]).to be_a(Array)
       expect(court_application_summary.to_json["subject_summary"]).to be_a(Hash)
       expect(court_application_summary.to_json["judicial_results"]).to be_a(Array)
-    end
-  end
-
-  describe "#category_supported?" do
-    subject(:supported) { court_application_summary.category_supported? }
-
-    context "when type is breach" do
-      let(:data) { { "applicationType" => "SE20521" } }
-
-      context "when flag is switched off" do
-        it { is_expected.to be false }
-      end
-
-      context "when flag is switched on" do
-        around do |example|
-          ENV["BREACH_COURT_APPLICATIONS"] = "true"
-          example.run
-          ENV.delete("BREACH_COURT_APPLICATIONS")
-        end
-
-        it { is_expected.to be true }
-      end
     end
   end
 
