@@ -121,4 +121,20 @@ RSpec.describe MaatApi::LaaReference, type: :model do
       end
     end
   end
+
+  context "when no hearing summary has hearing days" do
+    let(:prosecution_case_summary_data) do
+      JSON.parse(file_fixture("prosecution_case_summary/all_fields.json").read).tap do |data|
+        data["hearingSummary"] = [data["hearingSummary"].last.merge("hearingDays" => [])]
+      end
+    end
+
+    it "takes cjs_location from the only hearing summary" do
+      expect(laa_reference.cjs_location).to eql("C30DE")
+    end
+
+    it "takes cjs_area_code from the only hearing summary" do
+      expect(laa_reference.cjs_area_code).to eql("30")
+    end
+  end
 end
