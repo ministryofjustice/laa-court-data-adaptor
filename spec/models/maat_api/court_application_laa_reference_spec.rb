@@ -56,4 +56,20 @@ RSpec.describe MaatApi::CourtApplicationLaaReference, type: :model do
     expect(laa_reference.defendant).to include(expected)
     expect(laa_reference.defendant[:offences]).to be_present
   end
+
+  context "when no hearing summary has hearing days" do
+    let(:data) do
+      JSON.parse(file_fixture("court_application_details/all_fields.json").read).tap do |details|
+        details["hearingSummary"] = [details["hearingSummary"].last.merge("hearingDays" => [])]
+      end
+    end
+
+    it "takes cjs_location from the only hearing summary" do
+      expect(laa_reference.cjs_location).to eql("B01LY")
+    end
+
+    it "takes cjs_area_code from the only hearing summary" do
+      expect(laa_reference.cjs_area_code).to eql("1")
+    end
+  end
 end

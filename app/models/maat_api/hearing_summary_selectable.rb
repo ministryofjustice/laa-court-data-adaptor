@@ -1,46 +1,28 @@
 module MaatApi
   module HearingSummarySelectable
-    extend ActiveSupport::Concern
+    # Selects which hearing's court centre is reported to MAAT
 
     def relevant_hearing_summary
-      return latest_hearing_summary if all_hearings_in_past?
-      return next_upcoming_hearing_summary if all_hearings_in_future?
+      return hearing_summaries.first if hearing_summaries_with_hearing_days.empty?
 
-      latest_of_past_hearing_summaries
+      most_recent_past_hearing_summary = past_hearing_summaries.max_by { |hs| sitting_days(hs) }
+      next_upcoming_hearing_summary = hearing_summaries_with_hearing_days.min_by { |hs| sitting_days(hs) }
+
+      most_recent_past_hearing_summary || next_upcoming_hearing_summary
     end
 
-    def latest_of_past_hearing_summaries
-      past_hearing_summaries.max_by { |hs| hs.hearing_days.map(&:sitting_day) }
-    end
-
-    def next_upcoming_hearing_summary
-      hearing_summaries_with_hearing_days.min_by { |hs| hs.hearing_days.map(&:sitting_day) }
-    end
-
-    def latest_hearing_summary
-      hearing_summaries_with_hearing_days.max_by { |hs| hs.hearing_days.map(&:sitting_day) }
-    end
+  private
 
     def past_hearing_summaries
-      hearing_summaries_with_hearing_days.select do |hs|
-        hs.hearing_days.map(&:sitting_day).max&.to_datetime&.past?
-      end
-    end
-
-    def all_hearings_in_past?
-      hearing_summaries_with_hearing_days.all? do |hs|
-        hs.hearing_days.map(&:sitting_day).max&.to_datetime&.past?
-      end
-    end
-
-    def all_hearings_in_future?
-      hearing_summaries_with_hearing_days.all? do |hs|
-        hs.hearing_days.map(&:sitting_day).max&.to_datetime&.future?
-      end
+      hearing_summaries_with_hearing_days.select { |hs| sitting_days(hs).max&.to_datetime&.past? }
     end
 
     def hearing_summaries_with_hearing_days
       hearing_summaries.reject { |hs| hs.hearing_days.blank? }
+    end
+
+    def sitting_days(hearing_summary)
+      hearing_summary.hearing_days.map(&:sitting_day)
     end
   end
 end
