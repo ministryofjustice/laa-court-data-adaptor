@@ -149,7 +149,7 @@ RSpec.describe CommonPlatform::Api::SearchProsecutionCase do
     it "raises FailedDependency exception" do
       expect { search_prosecution_case }.to raise_error(
         CommonPlatform::Api::Errors::FailedDependency,
-        "Common Platform API status: 424, body: error message",
+        "CommonPlatform::Api::SearchProsecutionCase - Unsuccessful response from Common Platform: status: 424, body: error message",
       )
     end
   end

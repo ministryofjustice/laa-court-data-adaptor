@@ -227,7 +227,10 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     end
 
     it "raises an error" do
-      expect { call_link_creator }.to raise_error "Error posting LAA Reference to Common Platform"
+      expect { call_link_creator }.to raise_error(
+        CommonPlatform::Api::Errors::FailedDependency,
+        /CourtApplicationMaatLinkCreator - Unsuccessful response from Common Platform: status: 500/,
+      )
     end
 
     it "reports to Sentry" do

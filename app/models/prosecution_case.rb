@@ -90,7 +90,13 @@ private
       application_id: application_summary["applicationId"],
     )
 
-    raise CommonPlatform::Api::Errors::FailedDependency, "Error retrieving court application" unless response.success?
+    unless response.success?
+      raise CommonPlatform::Api::Errors::FailedDependency.from_response(
+        service: self.class.name,
+        response:,
+        context: "retrieving court application #{application_summary['applicationId']}",
+      )
+    end
 
     HmctsCommonPlatform::CourtApplicationSummary.new(response.body)
   end

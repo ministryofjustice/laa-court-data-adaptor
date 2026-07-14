@@ -195,7 +195,10 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
     end
 
     it "raises an error" do
-      expect { call_unlinker }.to raise_error(StandardError, "Error posting LAA Reference to Common Platform")
+      expect { call_unlinker }.to raise_error(
+        CommonPlatform::Api::Errors::FailedDependency,
+        /CourtApplicationLaaReferenceUnlinker - Unsuccessful response from Common Platform: status: 500/,
+      )
     end
   end
 end
