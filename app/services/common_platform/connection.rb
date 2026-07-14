@@ -20,7 +20,6 @@ module CommonPlatform
           logger.filter(/(defendantNINO=)([^&]+)/, '\1[FILTERED]')
         end
         connection.use FailureMiddleware
-        connection.use ErrorLoggingMiddleware
         connection.response :json, content_type: "application/json"
         connection.response :json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json"
         connection.response :json, content_type: "text/plain"
@@ -39,16 +38,28 @@ module CommonPlatform
 
   private
 
-    # Prefixes the request/response log lines with "Common Platform"
+    # All Common Platform logging lives here.
+    # A request and a response line (with duration) for every call.
     class LogFormatter < Faraday::Logging::Formatter
+      MAX_BODY_LENGTH = 500
+
       def request(env)
-        public_send(log_level) do
-          "Common Platform request: #{env.method.to_s.upcase} #{apply_filters(env.url.to_s)}"
-        end
+        env[:started_at] = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+
+        info { "Common Platform request: #{env.method.to_s.upcase} #{apply_filters(env.url.to_s)}" }
       end
 
       def response(env)
-        public_send(log_level) { "Common Platform response: Status #{env.status}" }
+        duration = (Process.clock_gettime(Process::CLOCK_MONOTONIC) - env[:started_at]).round(3)
+
+        if env.status >= 400
+          error do
+            "Common Platform request failed: #{env.method.to_s.upcase} #{apply_filters(env.url.to_s)} " \
+            "status: #{env.status}, body: #{env.body.to_s.truncate(MAX_BODY_LENGTH)} (duration: #{duration}s)"
+          end
+        end
+
+        info { "Common Platform response: Status #{env.status} (duration: #{duration}s)" }
       end
     end
 
@@ -57,26 +68,6 @@ module CommonPlatform
         @app.call(env)
       rescue Faraday::ConnectionFailed => e
         raise CommonPlatform::Api::Errors::FailedDependency, e
-      end
-    end
-
-    # Logs every unsuccessful Common Platform response, including the ones
-    # whose status is never checked by the calling service.
-    class ErrorLoggingMiddleware < Faraday::Middleware
-      MAX_BODY_LENGTH = 500
-      PII_QUERY_PARAMS_FILTER = /(defendantName|defendantDOB|defendantNINO)=[^&]+/
-
-      def on_complete(env)
-        return if env.status < 400
-
-        TaggedLogger.error(
-          "Common Platform request failed: #{env.method.to_s.upcase} #{filtered_url(env)} " \
-          "status: #{env.status}, body: #{env.body.to_s.truncate(MAX_BODY_LENGTH)}",
-        )
-      end
-
-      def filtered_url(env)
-        env.url.to_s.gsub(PII_QUERY_PARAMS_FILTER, '\1=[FILTERED]')
       end
     end
 
