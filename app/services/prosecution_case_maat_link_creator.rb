@@ -66,7 +66,13 @@ private
       status_date: Time.zone.today.strftime("%Y-%m-%d"),
     )
 
-    raise CommonPlatform::Api::Errors::FailedDependency, "Error posting LAA Reference to Common Platform" unless response.success?
+    unless response.success?
+      raise CommonPlatform::Api::Errors::FailedDependency.from_response(
+        service: self.class.name,
+        response:,
+        context: "posting LAA Reference for offence #{offence.offence_id}",
+      )
+    end
   end
 
   def fetch_past_hearings

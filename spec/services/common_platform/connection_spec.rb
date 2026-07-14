@@ -65,7 +65,8 @@ RSpec.describe CommonPlatform::Connection do
       expect(connection).to receive(:request).with(:retry, retry_options)
       expect(connection).to receive(:request).with(:json)
       expect(connection).to receive(:use).with(CommonPlatform::Connection::FailureMiddleware)
-      expect(connection).to receive(:response).with(:logger, TaggedLogger, { headers: false })
+      expect(connection).to receive(:use).with(CommonPlatform::Connection::ErrorLoggingMiddleware)
+      expect(connection).to receive(:response).with(:logger, TaggedLogger, { headers: false, formatter: CommonPlatform::Connection::LogFormatter })
       expect(connection).to receive(:response).with(:json, content_type: "application/json")
       expect(connection).to receive(:response).with(:json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json")
       expect(connection).to receive(:response).with(:json, content_type: "text/plain")
@@ -77,6 +78,72 @@ RSpec.describe CommonPlatform::Connection do
       })
 
       connect_to_common_platform
+    end
+  end
+
+  describe CommonPlatform::Connection::LogFormatter do
+    subject(:test_connection) do
+      Faraday.new("https://example.com") do |connection|
+        connection.response :logger, TaggedLogger, { headers: false, formatter: described_class } do |logger|
+          logger.filter(/(defendantName=)([^&]+)/, '\1[FILTERED]')
+        end
+        connection.adapter :test do |stub|
+          stub.get("/search?defendantName=John") { [200, {}, "all good"] }
+        end
+      end
+    end
+
+    it "logs the request and response with a Common Platform prefix, filtering PII" do
+      expect(TaggedLogger).to receive(:info) do |&block|
+        expect(block.call).to eq("Common Platform request: GET https://example.com/search?defendantName=[FILTERED]")
+      end
+      expect(TaggedLogger).to receive(:info) do |&block|
+        expect(block.call).to eq("Common Platform response: Status 200")
+      end
+
+      test_connection.get("/search?defendantName=John")
+    end
+  end
+
+  describe CommonPlatform::Connection::ErrorLoggingMiddleware do
+    subject(:test_connection) do
+      Faraday.new("https://example.com") do |connection|
+        connection.use described_class
+        connection.adapter :test do |stub|
+          stub.get("/success") { [200, {}, "all good"] }
+          stub.get("/failure") { [500, {}, "Internal Server Error"] }
+          stub.get("/failure-with-long-body") { [502, {}, "a" * 600] }
+          stub.get("/search?defendantName=John&defendantDOB=1990-01-01&defendantNINO=AB123456C&page=1") { [403, {}, "Forbidden"] }
+        end
+      end
+    end
+
+    it "does not log successful responses" do
+      expect(TaggedLogger).not_to receive(:error)
+
+      test_connection.get("/success")
+    end
+
+    it "logs the method, url, status and body of unsuccessful responses" do
+      expect(TaggedLogger).to receive(:error).with(
+        "Common Platform request failed: GET https://example.com/failure status: 500, body: Internal Server Error",
+      )
+
+      test_connection.get("/failure")
+    end
+
+    it "truncates long response bodies" do
+      expect(TaggedLogger).to receive(:error).with(/body: a{497}\.\.\.\z/)
+
+      test_connection.get("/failure-with-long-body")
+    end
+
+    it "filters defendant PII from the url" do
+      expect(TaggedLogger).to receive(:error).with(
+        "Common Platform request failed: GET https://example.com/search?defendantDOB=[FILTERED]&defendantNINO=[FILTERED]&defendantName=[FILTERED]&page=1 status: 403, body: Forbidden",
+      )
+
+      test_connection.get("/search?defendantName=John&defendantDOB=1990-01-01&defendantNINO=AB123456C&page=1")
     end
   end
 end
