@@ -1,28 +1,16 @@
 class TaggedLogger
   class << self
+    def debug(message = nil, &block) = log(:debug, message, &block)
+    def info(message = nil, &block)  = log(:info, message, &block)
+    def warn(message = nil, &block)  = log(:warn, message, &block)
+    def error(message = nil, &block) = log(:error, message, &block)
+    def fatal(message = nil, &block) = log(:fatal, message, &block)
+
   private
 
-    LOGGER_METHODS = %i[debug info warn error fatal].freeze
-
-    def method_missing(method, *args, &block)
-      if is_log_request?(method)
-        output = if args[0]
-                   args[0]
-                 elsif block_given?
-                   yield
-                 end
-        Rails.logger.public_send(method, "(Request ID: #{Current.request_id}) #{output}") if output
-      else
-        super
-      end
-    end
-
-    def respond_to_missing?(method, *args)
-      is_log_request?(method) || super
-    end
-
-    def is_log_request?(method)
-      LOGGER_METHODS.include?(method)
+    def log(level, message)
+      output = message || (yield if block_given?)
+      Rails.logger.public_send(level, "(Request ID: #{Current.request_id}) #{output}") if output
     end
   end
 end
