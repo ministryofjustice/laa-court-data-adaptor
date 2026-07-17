@@ -76,4 +76,30 @@ RSpec.describe CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder do
     expect(case_defendant_offence.response_status).to eq(202)
     expect(case_defendant_offence.response_body).to eq({ "test" => "test" })
   end
+
+  context "when Common Platform returns an unsuccessful response" do
+    before do
+      allow(connection)
+        .to receive(:post)
+        .and_return(Faraday::Response.new(status: 400, body: { "error" => "Bad request" }))
+    end
+
+    it "reports the failure to Sentry with the defendant and offence ids" do
+      expect(Sentry).to receive(:capture_exception) do |error, options|
+        expect(error).to be_a(CommonPlatform::Api::Errors::UnsuccessfulHttpResponse)
+        expect(options[:extra]).to eq(defendant_id:, offence_id:)
+      end
+
+      record_representation_order
+    end
+
+    it "still updates the database record for the offence" do
+      allow(Sentry).to receive(:capture_exception)
+
+      record_representation_order
+      case_defendant_offence.reload
+      expect(case_defendant_offence.response_status).to eq(400)
+      expect(case_defendant_offence.response_body).to eq({ "error" => "Bad request" })
+    end
+  end
 end
