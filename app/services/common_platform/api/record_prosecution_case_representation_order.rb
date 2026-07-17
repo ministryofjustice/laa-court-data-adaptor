@@ -14,6 +14,7 @@ module CommonPlatform
                      effective_end_date: nil,
                      connection: CommonPlatform::Connection.instance.call)
         @case_defendant_offence = case_defendant_offence
+        @defendant_id = defendant_id
         @offence_id = offence_id
         @status_code = status_code
         @application_reference = application_reference.to_s
@@ -36,6 +37,8 @@ module CommonPlatform
       end
 
     private
+
+      attr_reader :url, :case_defendant_offence, :defendant_id, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
 
       def request_body
         {
@@ -74,8 +77,6 @@ module CommonPlatform
           },
         )
       end
-
-      attr_reader :url, :case_defendant_offence, :offence_id, :status_code, :application_reference, :status_date, :effective_start_date, :effective_end_date, :defence_organisation, :connection
     end
   end
 end
