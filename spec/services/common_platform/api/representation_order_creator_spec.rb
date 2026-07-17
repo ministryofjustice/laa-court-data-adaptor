@@ -97,6 +97,16 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
 
         create_rep_order
       end
+
+      context "when no offence has a status date" do
+        before { offence_one.delete(:status_date) }
+
+        it "does not call the CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach service" do
+          expect(CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach).not_to receive(:call)
+
+          expect { create_rep_order }.not_to raise_error
+        end
+      end
     end
   end
 
