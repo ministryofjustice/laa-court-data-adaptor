@@ -27,6 +27,8 @@ module CommonPlatform
       end
 
       def call
+        return if offences.empty?
+
         call_common_platform_endpoint
       end
 
