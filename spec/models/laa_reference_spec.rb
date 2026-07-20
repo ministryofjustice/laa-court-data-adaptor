@@ -34,7 +34,7 @@ RSpec.describe LaaReference, type: :model do
     end
   end
 
-  describe "adjust_link_and_save!" do
+  describe "link!" do
     context "when there are existing laa ref" do
       let(:laa_ref1) do
         described_class.create(user_name: "AAA",
@@ -60,7 +60,7 @@ RSpec.describe LaaReference, type: :model do
       it "unlink the most recent laa ref" do
         laa_reference.linked = false
 
-        laa_reference.adjust_link_and_save!
+        laa_reference.link!
 
         expect(laa_ref2.reload.linked).to be(false)
         expect(laa_reference.linked).to be(true)
@@ -71,7 +71,7 @@ RSpec.describe LaaReference, type: :model do
       it "unlink the most recent laa ref" do
         laa_reference.linked = false
 
-        laa_reference.adjust_link_and_save!
+        laa_reference.link!
 
         expect(laa_reference.linked).to be(true)
       end
@@ -85,7 +85,7 @@ RSpec.describe LaaReference, type: :model do
 
         expect(Sentry).to receive(:capture_exception).with(ActiveRecord::ActiveRecordError)
 
-        laa_reference.adjust_link_and_save!
+        laa_reference.link!
       end
     end
   end

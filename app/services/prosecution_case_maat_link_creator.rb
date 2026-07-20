@@ -18,7 +18,7 @@ class ProsecutionCaseMaatLinkCreator < ApplicationService
     publish_laa_reference_to_queue unless laa_reference.dummy_maat_reference?
     fetch_past_hearings
 
-    laa_reference.adjust_link_and_save!
+    laa_reference.link!
   end
 
 private

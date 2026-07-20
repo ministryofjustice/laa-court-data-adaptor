@@ -122,7 +122,7 @@ module HmctsCommonPlatform
         if hearing_id
           hearing_result_data = CommonPlatform::Api::GetHearingResults.call(hearing_id:)
           hearing_result = HmctsCommonPlatform::HearingResulted.new(hearing_result_data)
-          hearing_result.hearing if hearing_result.present?
+          hearing_result.presence&.hearing
         end
       end
     end
