@@ -28,13 +28,13 @@ unless ENV["NOCOVERAGE"]
   SimpleCov.start "rails" do
     enable_coverage :branch
     minimum_coverage 99
-    add_group "Serializers", "app/serializers"
-    add_group "Services", "app/services"
-    add_group "Contracts", "app/contracts"
+    group "Serializers", "app/serializers"
+    group "Services", "app/services"
+    group "Contracts", "app/contracts"
 
     # We only have partial coverage of old rake tasks
-    add_filter "lib/tasks/"
-    add_filter "app/workers/multiple_maat_analysis_worker.rb"
+    skip "lib/tasks/"
+    skip "app/workers/multiple_maat_analysis_worker.rb"
   end
 end
 

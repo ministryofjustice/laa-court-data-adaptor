@@ -38,7 +38,31 @@ module Api
         end
 
         def prosecution_conclusion_params
-          params.require(:prosecution_conclusion).permit!
+          params.require(:prosecution_conclusion).permit(
+            prosecutionConcluded: [
+              :prosecutionCaseId,
+              :defendantId,
+              :isConcluded,
+              :hearingIdWhereChangeOccurred,
+              {
+                offenceSummary: [
+                  :offenceId,
+                  :offenceCode,
+                  :proceedingsConcluded,
+                  :proceedingsConcludedChangedDate,
+                  { plea: %i[originatingHearingId value pleaDate] },
+                  {
+                    verdict: [
+                      :originatingHearingId,
+                      :verdictDate,
+                      { verdictType: %i[verdictTypeId description category categoryType sequence] },
+                    ],
+                  },
+                ],
+              },
+              { applicationConcluded: %i[applicationId subjectId applicationResultCode] },
+            ],
+          )
         end
       end
     end
