@@ -214,11 +214,12 @@ GEM
       base64
     language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
-    listen (3.9.0)
+    listen (3.10.0)
+      logger
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.7.0)
-    lograge (0.14.0)
+    lograge (0.15.0)
       actionpack (>= 4)
       activesupport (>= 4)
       railties (>= 4)
@@ -292,7 +293,7 @@ GEM
     prmd (0.14.0)
       erubis (~> 2.7)
       json_schema (~> 0.3, >= 0.3.1)
-    prometheus_exporter (2.3.0)
+    prometheus_exporter (2.3.1)
       webrick
     pry (0.16.0)
       coderay (~> 1.1)
@@ -304,11 +305,11 @@ GEM
     pry-rails (0.3.11)
       pry (>= 0.13.0)
     public_suffix (7.0.5)
-    puma (7.2.1)
+    puma (8.0.2)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.6)
-    rack-protection (4.1.1)
+    rack-protection (4.2.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
@@ -363,7 +364,7 @@ GEM
       prism (>= 1.6.0)
       rbs (>= 4.0.0)
       tsort
-    redis-client (0.30.0)
+    redis-client (0.30.1)
       connection_pool
     regexp_parser (2.12.0)
     reline (0.6.3)
@@ -447,15 +448,16 @@ GEM
       rubocop (~> 1.81)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
-    sentry-rails (5.27.1)
-      railties (>= 5.0)
-      sentry-ruby (~> 5.27.1)
-    sentry-ruby (5.27.1)
+    sentry-rails (6.6.2)
+      railties (>= 5.2.0)
+      sentry-ruby (~> 6.6.2)
+    sentry-ruby (6.6.2)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.27.1)
-      sentry-ruby (~> 5.27.1)
-      sidekiq (>= 3.0)
+      logger
+    sentry-sidekiq (6.6.2)
+      sentry-ruby (~> 6.6.2)
+      sidekiq (>= 5.0)
     shoulda-matchers (8.0.1)
       activesupport (>= 7.2)
     sidekiq (8.1.6)
@@ -465,11 +467,11 @@ GEM
       rack (>= 3.2.0)
       redis-client (>= 0.29.0)
     simplecov (1.0.2)
-    sinatra (4.1.1)
+    sinatra (4.2.1)
       logger (>= 1.6.0)
       mustermann (~> 3.0)
       rack (>= 3.0.0, < 4)
-      rack-protection (= 4.1.1)
+      rack-protection (= 4.2.1)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
     snaky_hash (2.0.7)
@@ -527,16 +529,16 @@ DEPENDENCIES
   json-schema!
   json-schema-rspec
   jsonapi-serializer
-  listen (>= 3.0.5, < 3.10)
-  lograge (~> 0.14.0)
+  listen (>= 3.0.5, < 3.11)
+  lograge (~> 0.15.0)
   oauth2
   ostruct
   pg (>= 0.18, < 2.0)
   prmd
-  prometheus_exporter (= 2.3.0)
+  prometheus_exporter (= 2.3.1)
   pry-byebug
   pry-rails (~> 0.3.11)
-  puma (~> 7.0)
+  puma (~> 8.0)
   rails (~> 8.0)
   rspec-rails (~> 8.0.2)
   rspec_junit_formatter
@@ -545,13 +547,13 @@ DEPENDENCIES
   rswag-ui
   rubocop-govuk
   rubocop-performance
-  sentry-rails (~> 5.27.1)
-  sentry-ruby (~> 5.27.0)
-  sentry-sidekiq (~> 5.27.1)
+  sentry-rails (~> 6.6.2)
+  sentry-ruby (~> 6.6.2)
+  sentry-sidekiq (~> 6.6.2)
   shoulda-matchers
   sidekiq (>= 6.5.10, < 9.0)
   simplecov
-  sinatra (~> 4.1.1)
+  sinatra (~> 4.2.1)
   spring
   spring-watcher-listen (~> 2.1.0)
   vcr
