@@ -22,6 +22,12 @@ RSpec.describe ProsecutionCaseLinkValidator do
     expect(link_validator_response).to be true
   end
 
+  it "does not report to Sentry" do
+    expect(Sentry).not_to receive(:capture_message)
+
+    link_validator_response
+  end
+
   context "when the hearing summary does not exist" do
     before do
       prosecution_case.body.delete("hearingSummary")
@@ -30,6 +36,14 @@ RSpec.describe ProsecutionCaseLinkValidator do
 
     it "returns false" do
       expect(link_validator_response).to be false
+    end
+
+    it "reports to Sentry" do
+      expect(Sentry).to receive(:capture_message).with(
+        "ProsecutionCaseLinkValidator - prosecution_case: present - hearing_summaries: empty!",
+      )
+
+      link_validator_response
     end
   end
 
@@ -40,6 +54,14 @@ RSpec.describe ProsecutionCaseLinkValidator do
 
     it "returns false" do
       expect(link_validator_response).to be false
+    end
+
+    it "reports to Sentry" do
+      expect(Sentry).to receive(:capture_message).with(
+        "ProsecutionCaseLinkValidator - prosecution_case: nil - hearing_summaries: empty!",
+      )
+
+      link_validator_response
     end
   end
 end
