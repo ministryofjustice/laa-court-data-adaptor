@@ -6,10 +6,14 @@ class ProsecutionCaseLinkValidator < ApplicationService
   end
 
   def call
-    prosecution_case&.hearing_summaries.present? || false
+    if @prosecution_case&.hearing_summaries.blank?
+      message = "#{self.class.name} - prosecution_case: #{@prosecution_case ? 'present' : 'nil'} - hearing_summaries: empty!"
+      Rails.logger.error(message)
+      Sentry.capture_message(message)
+
+      return false
+    end
+
+    true
   end
-
-private
-
-  attr_reader :prosecution_case
 end
