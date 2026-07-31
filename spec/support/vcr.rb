@@ -9,6 +9,9 @@ VCR.configure do |c|
   c.filter_sensitive_data("<SHARED_SECRET_KEY>") { ENV["SHARED_SECRET_KEY"] }
   c.filter_sensitive_data("<AUTH>", :maat_api) { |interaction| interaction.request.headers["Authorization"].first }
   c.filter_sensitive_data("<access_token>", :maat_api) do |interaction|
-    JSON.parse(interaction.response.body)["access_token"] if interaction.response.headers["content-type"] == ["application/json;charset=UTF-8"]
+    body = interaction.response.body
+    JSON.parse(body)["access_token"] if body&.include?("access_token")
   end
+  c.filter_sensitive_data("<MAAT_API_API_URL>") { ENV["MAAT_API_API_URL"].presence }
+  c.filter_sensitive_data("<MAAT_API_OAUTH_URL>") { ENV["MAAT_API_OAUTH_URL"].presence&.delete_suffix("/oauth2/token") }
 end
