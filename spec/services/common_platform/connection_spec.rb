@@ -101,7 +101,9 @@ RSpec.describe CommonPlatform::Connection do
         expect(block.call).to eq("Common Platform request: GET https://example.com/search?defendantName=[FILTERED]")
       end
       expect(TaggedLogger).to receive(:info) do |&block|
-        expect(block.call).to match(/\ACommon Platform response: Status 200 \(duration: \d+\.\d+s\)\z/)
+        expect(block.call).to match(
+          %r{\ACommon Platform response: GET https://example\.com/search\?defendantName=\[FILTERED\] status: 200 \(duration: \d+\.\d+s\)\z},
+        )
       end
 
       test_connection.get("/search?defendantName=John")

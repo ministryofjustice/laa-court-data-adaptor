@@ -60,7 +60,10 @@ module CommonPlatform
           end
         end
 
-        info { "Common Platform response: Status #{env.status} (duration: #{duration}s)" }
+        info do
+          "Common Platform response: #{env.method.to_s.upcase} #{apply_filters(env.url.to_s)} " \
+          "status: #{env.status} (duration: #{duration}s)"
+        end
       end
     end
 
