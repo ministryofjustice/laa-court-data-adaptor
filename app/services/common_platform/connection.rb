@@ -27,7 +27,8 @@ module CommonPlatform
           keep_alive: 60,
           pool_size: 10,    # to safetly handle For 3-5 req/sec
           idle_timeout: 120,
-          read_timeout: 30, # 30 seconds: to have safe buffer for slow responses
+          open_timeout: 3,  # connect + TLS only; without this Net::HTTP defaults to 60 seconds
+          read_timeout: 10,
         }
       end
     end

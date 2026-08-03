@@ -73,7 +73,8 @@ RSpec.describe CommonPlatform::Connection do
         idle_timeout: 120,
         keep_alive: 60,
         pool_size: 10,
-        read_timeout: 30,
+        open_timeout: 3,
+        read_timeout: 10,
       })
 
       connect_to_common_platform

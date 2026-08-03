@@ -16,6 +16,8 @@ env:
         key: url
   - name: RAILS_ENV
     value: 'production'
+  - name: RAILS_MAX_THREADS
+    value: '10'
   - name: HOST_ENV
     value: {{ .Values.rails.host_env }}
   - name: SECRET_KEY_BASE
