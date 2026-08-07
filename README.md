@@ -83,36 +83,16 @@ $ docker-compose up --build
 ```
 ---
 
-### Decrypt the env files
-The env files has been encrypted with [git-crypt.md](docs/git-crypt.md).
-This requires your **gpg key** to have been added to git-crypt. Liaise with another developer to action the steps in [git-crypt.md](docs/git-crypt.md)
-
-Once the pull request has been merged, re-pull master and run:
-
-```
-git-crypt unlock
-```
-
-Create an `.env.test.local` file at the root
-
-To get the tests running you will need to set the following value:
-```
-DATABASE_URL=postgres://postgres:postgres@localhost:5432/laa_court_data_adaptor_test
-```
-Then run:
-
-```
-$ RAILS_ENV=test rails db:setup
-$ rspec
-```
-
 ### Run the application server
 
-Create an `.env.development.local` file at the root. You can copy it from `.env` and then change it based on your needs.
+To run the application server and connect to the hosted verison of CP mock, you need to generate the appropriate
+`.env.development.local` file and decrypt the secrets.
 
-To get the localhost running you will need to set the following value:
+To make this easier, you can run the following command to generate the `.env.development.local` file and decrypt the
+secrets from Kubernetes secrets. This assumes you are already [setup on the MoJ Cloud Platform](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html).
+
 ```
-DATABASE_URL=postgres://postgres:postgres@localhost:5432/laa_court_data_adaptor_development
+$ script/generate_env
 ```
 
 Now you can manually run Rails and Redis/Sidekiq.
