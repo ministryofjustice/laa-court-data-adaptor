@@ -5,6 +5,8 @@ MAINTAINER crime apps team
 # fail early and print all commands
 RUN set -ex
 
+ARG BUNDLE_DEPLOYMENT=""
+
 # build dependencies:
 # - virtual: create virtual package for later deletion
 # - build-base for alpine fundamentals
@@ -12,6 +14,7 @@ RUN set -ex
 # - postgresql-client for pg_dump, as we need to use sql schema_format
 # - tzdata for timezone data
 # - git for installing gems referred to use a git:// uri
+# - libffi-dev when not in deployment mode (dev/test gems included)
 #
 RUN apk --no-cache add --virtual build-dependencies \
                     build-base \
@@ -19,7 +22,8 @@ RUN apk --no-cache add --virtual build-dependencies \
                     postgresql-client \
                     tzdata \
                     git \
-                    yaml-dev
+                    yaml-dev \
+                    $(if [ "$BUNDLE_DEPLOYMENT" == "false" ]; then echo "libffi-dev"; fi)
 
 # add non-root user and group with alpine first available uid, 1000
 RUN addgroup -g 1000 -S appgroup \
