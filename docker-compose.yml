@@ -13,7 +13,7 @@ services:
       - postgres
       - redis
     ports:
-      - '3000:3000'
+      - '${PORT:-3000}:3000'
     environment:
       REDIS_URL: redis://redis
       DATABASE_URL: ${DATABASE_URL}

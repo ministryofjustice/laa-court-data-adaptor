@@ -1,0 +1,43 @@
+#!/bin/bash
+
+ksecret() {
+  local secret="$1" key="$2" ns="${3:-laa-court-data-adaptor-dev}"
+  if [ -z "$secret" ] || [ -z "$key" ]; then
+    echo "Usage: ksecret SECRET KEY [NAMESPACE]" >&2
+    return 2
+  fi
+
+  local encoded
+  encoded=$(kubectl -n "$ns" get secret "$secret" -o "jsonpath={.data['$key']}" 2>/dev/null) || { echo "kubectl failed" >&2; return 3; }
+  if [ -z "$encoded" ]; then
+    echo "Secret or key not found" >&2
+    return 1
+  fi
+
+  if printf '' | base64 --decode >/dev/null 2>&1; then
+    printf '%s' "$encoded" | base64 --decode
+  else
+    printf '%s' "$encoded" | base64 -D
+  fi
+}
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TARGET="$SCRIPT_DIR/../.env.development.local"
+
+cat > "$TARGET" << EOF
+COMMON_PLATFORM_URL=https://hmcts-common-platform-mock-api.apps.live.cloud-platform.service.justice.gov.uk
+MAAT_API_CLIENT_ID=$(ksecret maat-api-oauth-client-credentials MAAT_API_CLIENT_ID)
+MAAT_API_CLIENT_SECRET=$(ksecret maat-api-oauth-client-credentials MAAT_API_CLIENT_SECRET)
+SHARED_SECRET_KEY=$(ksecret aws-secrets common_platform_secret_key)
+AWS_ACCESS_KEY_ID=$(ksecret aws-secrets dev_client_id)
+AWS_SECRET_ACCESS_KEY=$(ksecret aws-secrets dev_client_secret)
+AWS_REGION=eu-west-2
+AWS_LINK_QUEUE_URL=$(ksecret cda-messaging-queues-output sqs_url_link)
+AWS_UNLINK_QUEUE_URL=$(ksecret cda-messaging-queues-output sqs_url_unlink)
+AWS_HEARING_RESULTED_QUEUE_URL=$(ksecret cda-messaging-queues-output sqs_url_hearing_resulted)
+AWS_PROSECUTION_CONCLUDED_QUEUE_URL=$(ksecret cda-messaging-queues-output sqs_url_prosecution_concluded)
+INLINE_SIDEKIQ=false
+MAAT_API_OAUTH_URL=https://maat-api-dev.auth.eu-west-2.amazoncognito.com
+MAAT_API_API_URL=https://laa-maat-data-api-dev.apps.live.cloud-platform.service.justice.gov.uk
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/laa_court_data_adaptor_development
+EOF
