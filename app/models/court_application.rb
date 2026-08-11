@@ -15,4 +15,10 @@ class CourtApplication < ApplicationRecord
 
     category == "appeal"
   end
+
+  # Civil case proceedings (e.g. ASB injunctions, stalking protection orders) produce a nil
+  # category for now, as they are not yet mapped in supported_court_application_types.yaml.
+  def supported_category?
+    SupportedCourtApplicationTypes.get_category_by_code(body["applicationType"]).present?
+  end
 end

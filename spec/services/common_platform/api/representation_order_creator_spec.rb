@@ -86,7 +86,7 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
     end
 
     context "when this is for a breach or poca application" do
-      let(:applycation_type) { "CJ03510" } # This is an Breach code. See supported_court_application_types.yaml
+      let(:application_type) { "CJ03510" } # This is an Breach code. See supported_court_application_types.yaml
 
       it "calls the CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach service once" do
         expect(CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach)
@@ -108,6 +108,17 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
         end
       end
     end
+
+    context "when the application category is nil" do
+      let(:application_type) { "AS14501" }
+
+      it "does not call any representation order endpoint" do
+        expect(CommonPlatform::Api::RecordApplicationRepresentationOrderForAppeal).not_to receive(:call)
+        expect(CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach).not_to receive(:call)
+
+        create_rep_order
+      end
+    end
   end
 
   context "when a dummy offence is being passed in" do
@@ -125,7 +136,7 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
       }
     end
 
-    let(:applycation_type) { "CJ03510" } # This is an Breach code. See supported_court_application_types.yaml
+    let(:application_type) { "CJ03510" } # This is an Breach code. See supported_court_application_types.yaml
 
     it "calls the CommonPlatform::Api::RecordApplicationRepresentationOrderForAppeal service without offence ID" do
       expect(CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach)
