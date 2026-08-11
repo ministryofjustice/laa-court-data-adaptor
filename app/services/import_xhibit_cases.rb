@@ -8,7 +8,8 @@ class ImportXhibitCases < ApplicationService
   def call
     results = { success_count: 0, errors: [] }
     CSV.foreach(file_path, headers: true).with_index(2) do |row, line_number|
-      xhibit_case = XhibitMigratedCase.create(row.to_h.transform_values(&:presence))
+      safe_params = row.to_h.transform_values(&:presence).slice(*permitted_attributes)
+      xhibit_case = XhibitMigratedCase.create(safe_params)
       if xhibit_case.persisted?
         results[:success_count] += 1
       else
@@ -21,4 +22,8 @@ class ImportXhibitCases < ApplicationService
 private
 
   attr_reader :file_path
+
+  def permitted_attributes
+    XhibitMigratedCase.column_names - %w[id]
+  end
 end

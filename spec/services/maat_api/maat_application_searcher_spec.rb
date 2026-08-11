@@ -3,7 +3,7 @@
 RSpec.describe MaatApi::MaatApplicationSearcher do
   subject(:search_response) { described_class.call(**criteria) }
 
-  let(:cassette) { "maat_api/search-maat-application-success" }
+  let(:cassette) { "maat_api/search_maat_application_success" }
   let(:criteria) { { first_name: "Tango", last_name: "JF-LAA-T" } }
 
   around do |example|
@@ -31,7 +31,7 @@ RSpec.describe MaatApi::MaatApplicationSearcher do
   end
 
   context "when there is no matching maat application" do
-    let(:cassette) { "maat_api/search-maat-application-not-found" }
+    let(:cassette) { "maat_api/search_maat_application_not_found" }
     let(:criteria) { { first_name: "nonexistent-first-name", last_name: "nonexistent-last-name" } }
 
     it "returns a not found error" do
@@ -41,7 +41,7 @@ RSpec.describe MaatApi::MaatApplicationSearcher do
   end
 
   context "when firstName is not specified" do
-    let(:cassette) { "maat_api/search-maat-application-missing-bad-request" }
+    let(:cassette) { "maat_api/search_maat_application_missing_bad_request" }
     let(:criteria) { { last_name: "JF-LAA-T" } }
 
     it "returns an unparsed bad request error" do

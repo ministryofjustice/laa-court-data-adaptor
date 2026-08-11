@@ -1,0 +1,112 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: <MAAT_API_OAUTH_URL>/oauth2/token
+      body:
+        encoding: UTF-8
+        string: grant_type=client_credentials
+      headers:
+        User-Agent:
+          - Faraday v2.14.3
+        Content-Type:
+          - application/x-www-form-urlencoded
+        Authorization:
+          - "<AUTH>"
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: ""
+      headers:
+        Date:
+          - Fri, 31 Jul 2026 15:31:05 GMT
+        Content-Type:
+          - application/json;charset=UTF-8
+        Transfer-Encoding:
+          - chunked
+        Connection:
+          - keep-alive
+        X-Amz-Cognito-Request-Id:
+          - 15d4b88d-d755-4f15-b996-aa49faa21dfc
+        Vary:
+          - Access-Control-Request-Headers
+          - Access-Control-Request-Method
+          - Origin
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - "0"
+        Cache-Control:
+          - no-cache, no-store, max-age=0, must-revalidate
+        Pragma:
+          - no-cache
+        Expires:
+          - "0"
+        Strict-Transport-Security:
+          - max-age=31536000 ; includeSubDomains
+        X-Frame-Options:
+          - DENY
+        Server:
+          - Server
+      body:
+        encoding: UTF-8
+        string: '{"access_token":"<access_token>","expires_in":3600,"token_type":"Bearer"}'
+    recorded_at: Fri, 31 Jul 2026 15:31:05 GMT
+  - request:
+      method: post
+      uri: <MAAT_API_API_URL>/api/internal/v1/assessment/rep-orders/search-maat-application
+      body:
+        encoding: UTF-8
+        string: '{"lastName":"JF-LAA-T"}'
+      headers:
+        User-Agent:
+          - Faraday v2.14.3
+        Authorization:
+          - "<AUTH>"
+        Content-Type:
+          - application/json
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 400
+        message: ""
+      headers:
+        Date:
+          - Fri, 31 Jul 2026 15:31:05 GMT
+        Content-Type:
+          - application/problem+json
+        Transfer-Encoding:
+          - chunked
+        Connection:
+          - keep-alive
+        Set-Cookie:
+          - INGRESSCOOKIE=1785511866.512.32940.481975|55b9a069646b5e4eb9ec5bafd08dbaec;
+            Max-Age=300; Path=/; Secure; HttpOnly
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - "0"
+        Cache-Control:
+          - no-cache, no-store, max-age=0, must-revalidate
+        Pragma:
+          - no-cache
+        Expires:
+          - "0"
+        Strict-Transport-Security:
+          - max-age=31536000; includeSubDomains
+        X-Frame-Options:
+          - DENY
+      body:
+        encoding: UTF-8
+        string:
+          '{"type":"about:blank","title":"Bad Request","status":400,"detail":"Invalid
+          request content.","instance":"/api/internal/v1/assessment/rep-orders/search-maat-application"}'
+    recorded_at: Fri, 31 Jul 2026 15:31:05 GMT
+recorded_with: VCR 6.4.0
