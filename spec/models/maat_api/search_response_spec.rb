@@ -107,4 +107,87 @@ RSpec.describe MaatApi::SearchResponse, type: :model do
       expect(response.maat_id).to eq("MAT001")
     end
   end
+
+  describe "#no_existing_link?" do
+    it "returns true when is_linked is false, libra_id is nil, and case_urn is nil" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => false, "linkingDetail" => {} },
+      ])
+      response = described_class.new(faraday_response)
+
+      expect(response.no_existing_link?).to be true
+    end
+
+    it "returns true when response is empty" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [{}])
+      response = described_class.new(faraday_response)
+
+      expect(response.no_existing_link?).to be true
+    end
+
+    it "returns false when is_linked is true" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => {} },
+      ])
+      response = described_class.new(faraday_response)
+
+      expect(response.no_existing_link?).to be false
+    end
+
+    it "returns false when libra_id is present" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => false, "linkingDetail" => { "libraId" => "LIBRA123" } },
+      ])
+      response = described_class.new(faraday_response)
+
+      expect(response.no_existing_link?).to be false
+    end
+
+    it "returns false when case_urn is present" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => false, "linkingDetail" => { "caseUrn" => "URN123" } },
+      ])
+      response = described_class.new(faraday_response)
+
+      expect(response.no_existing_link?).to be false
+    end
+
+    it "returns false when both libra_id and case_urn are present" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => false, "linkingDetail" => { "libraId" => "LIBRA123", "caseUrn" => "URN123" } },
+      ])
+      response = described_class.new(faraday_response)
+
+      expect(response.no_existing_link?).to be false
+    end
+
+    it "returns true when body is empty array" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [])
+      response = described_class.new(faraday_response)
+
+      expect(response.no_existing_link?).to be true
+    end
+
+    it "returns true when body is nil" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: nil)
+      response = described_class.new(faraday_response)
+
+      expect(response.no_existing_link?).to be true
+    end
+
+    it "returns true when faraday_response is nil" do
+      response = described_class.new(nil)
+
+      expect(response.no_existing_link?).to be true
+    end
+
+    it "returns true when is_linked is present but not strictly true" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => "yes", "linkingDetail" => {} },
+      ])
+      response = described_class.new(faraday_response)
+
+      expect(response.no_existing_link?).to be true
+    end
+  end
 end
