@@ -3,7 +3,7 @@
 RSpec.describe MaatApi::MaatApplicationSearcher do
   subject(:search_response) { described_class.call(**criteria) }
 
-  let(:cassette) { "maat_api/search_maat_application_success" }
+  let(:cassette) { "maat_api/search_maat_application_multiple_results" }
   let(:criteria) { { first_name: "Tango", last_name: "JF-LAA-T" } }
 
   around do |example|

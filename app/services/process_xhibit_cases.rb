@@ -1,7 +1,4 @@
 class ProcessXhibitCases < ApplicationService
-  NOT_FOUND = 404
-  SUCCESS = 200..299
-
   def call
     XhibitMigratedCase.pending.find_each do |xhibit_case|
       process_case(xhibit_case)
@@ -30,10 +27,9 @@ private
   end
 
   def handle_response(response, xhibit_case)
-    case response&.status
-    when SUCCESS
+    if response.success?
       handle_success(response, xhibit_case)
-    when NOT_FOUND
+    elsif response.not_found?
       handle_not_found(xhibit_case)
     else
       record_error(xhibit_case, error: response&.status, message: response&.body)

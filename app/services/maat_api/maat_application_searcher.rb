@@ -23,7 +23,9 @@ module MaatApi
     end
 
     def call
-      @connection.presence&.post(URL, @search_request)
+      MaatApi::SearchResponse.new(
+        @connection.presence&.post(URL, @search_request),
+      )
     end
   end
 end
