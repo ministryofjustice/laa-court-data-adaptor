@@ -7,10 +7,10 @@ RSpec.describe MaatApi::SearchResponse, type: :model do
       expect(response.body).to eq({ id: "123" })
     end
 
-    it "handles nil faraday response" do
+    it "handles nil Faraday response without raising error" do
       response = described_class.new(nil)
 
-      expect(response.body).to be_nil
+      expect { response.maat_id }.not_to raise_error
     end
   end
 
@@ -59,6 +59,52 @@ RSpec.describe MaatApi::SearchResponse, type: :model do
       response = described_class.new(faraday_response)
 
       expect(response.not_found?).to be false
+    end
+  end
+
+  describe "#maat_id" do
+    it "returns maatId from the first response item" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [{ "maatId" => "MAT001", "name" => "John Doe" }])
+      response = described_class.new(faraday_response)
+
+      expect(response.maat_id).to eq("MAT001")
+    end
+
+    it "returns nil when body is empty array" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [])
+      response = described_class.new(faraday_response)
+
+      expect(response.maat_id).to be_nil
+    end
+
+    it "returns nil when maatId is not present" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [{ "name" => "John Doe" }])
+      response = described_class.new(faraday_response)
+
+      expect(response.maat_id).to be_nil
+    end
+
+    it "returns nil when body is nil" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: nil)
+      response = described_class.new(faraday_response)
+
+      expect(response.maat_id).to be_nil
+    end
+
+    it "returns nil when faraday_response is nil" do
+      response = described_class.new(nil)
+
+      expect(response.maat_id).to be_nil
+    end
+
+    it "handles multiple items and returns first maatId" do
+      faraday_response = instance_double(Faraday::Response, status: 200, body: [
+        { "maatId" => "MAT001", "name" => "John Doe" },
+        { "maatId" => "MAT002", "name" => "Jane Doe" },
+      ])
+      response = described_class.new(faraday_response)
+
+      expect(response.maat_id).to eq("MAT001")
     end
   end
 end
