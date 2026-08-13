@@ -35,11 +35,30 @@ RSpec.describe ProcessXhibitCases do
   context "when there is a matching maat application" do
     include_context "with maat api cassette"
 
-    let(:cassette) { "maat_api/search_maat_application_success" }
-    let(:xhibit_case) { create_case(first_name: "Tango", last_name: "JF-LAA-T") }
+    let!(:xhibit_case) { create_case(first_name: "Tango", last_name: "JF-LAA-T") }
 
-    it "process - WIP", skip: "processing a matching maat application is not implemented yet" do
+    before do
+      allow(LinkXhibitCase).to receive(:call)
       process_cases
+    end
+
+    context "when the maat application has no existing link" do
+      let(:cassette) { "maat_api/search_maat_application_success" }
+
+      it "calls the `LinkXhibitCase` class" do
+        expect(LinkXhibitCase).to have_received(:call).with(
+          an_instance_of(MaatApi::SearchResponse),
+          xhibit_case,
+        )
+      end
+    end
+
+    context "when the maat application has an existing link" do
+      let(:cassette) { "maat_api/search_maat_application_success_linked_result" }
+
+      it "does not call the `LinkXhibitCase` class" do
+        expect(LinkXhibitCase).not_to have_received(:call)
+      end
     end
   end
 

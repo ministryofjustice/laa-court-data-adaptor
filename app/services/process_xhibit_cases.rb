@@ -36,8 +36,8 @@ private
     end
   end
 
-  def handle_success(_response, _xhibit_case)
-    # TODO: process the maat applications matching the case.
+  def handle_success(response, xhibit_case)
+    LinkXhibitCase.call(response, xhibit_case) if response.no_existing_link?
   end
 
   def handle_not_found(xhibit_case)
