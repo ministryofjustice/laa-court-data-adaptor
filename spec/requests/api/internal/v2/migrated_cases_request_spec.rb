@@ -308,6 +308,73 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
     end
   end
 
+  path "/api/internal/v2/link_migrated_cases/:id" do
+    get("show migrated case") do
+      description "Show details of a specific XHIBIT migrated case"
+      tags "Internal - available to other LAA applications"
+      security [{ oAuth: [] }]
+
+      consumes "application/json"
+      produces "application/json"
+
+      parameter name: :id, in: :path, required: true, type: :uuid,
+                schema: {
+                  "$ref": "xhibit_migrated_case.json#/properties/id",
+                },
+                description: "The uuid of the xhibit migrated case"
+
+      parameter "$ref" => "#/components/parameters/transaction_id_header"
+
+      let(:id) { SecureRandom.uuid }
+
+      context "when a migrated case is found" do
+        before do
+          create_migrated_case(status: "pending", suffix: 1, id:)
+          get "/api/internal/v2/link_migrated_cases/#{id}", headers: { "Authorization" => "Bearer #{token.token}" }
+        end
+
+        response(200, "OK") do
+          schema "$ref" => "xhibit_migrated_case.json#"
+
+          it "returns 200 success" do
+            expect(response).to have_http_status(:ok)
+          end
+
+          it "returns payload" do
+            expect(response.parsed_body["id"]).to eq(id)
+          end
+        end
+      end
+
+      context "when a migrated case is not found" do
+        response(404, "Resource not found") do
+          before do
+            get "/api/internal/v2/link_migrated_cases/#{id}", headers: { "Authorization" => "Bearer #{token.token}" }
+          end
+
+          it "returns 404 error" do
+            expect(response).to have_http_status(:not_found)
+          end
+        end
+      end
+
+      context "when request is unauthorized" do
+        let(:id) { "c6cf04b5" }
+        let(:Authorization) { nil }
+
+        before do
+          get "/api/internal/v2/link_migrated_cases/#{id}", headers: { "Authorization" => "Bearer #{token.token}" }
+        end
+
+        response(401, "Unauthorized") do
+          run_test!
+        end
+      end
+    end
+  end
+
+private
+
   def expected_order(records, column, direction)
     ordered = records.sort_by { |record| [record.public_send(column), record.id] }
     ordered = ordered.reverse if direction == "desc"

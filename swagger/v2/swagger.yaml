@@ -336,6 +336,100 @@ paths:
         required: true
         description: The LAA issued reference to the application. CDA expects a numeric
           number, although HMCTS allows strings
+  "/api/internal/v2/link_migrated_cases":
+    get:
+      summary: list migrated cases
+      description: List XHIBIT migrated cases with optional status filter and pagination
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: status
+        in: query
+        required: false
+        type: string
+        schema:
+          type: string
+          enum:
+          - pending
+          - auto_linked
+          - manually_linked
+          - action_required
+        description: Filter records by status
+      - name: page
+        in: query
+        required: false
+        description: 'Page number (default: 1)'
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: 'Records per page (default: 10)'
+        schema:
+          type: integer
+      - name: sort_by
+        in: query
+        required: false
+        type: string
+        schema:
+          type: string
+          enum:
+          - case_urn
+          - xhibit_case_number
+          - case_type
+          - court_name
+          - defendant_name
+          - created_at
+          - maat_id
+          - linked_by
+          - status
+        description: Sort field
+      - name: sort_direction
+        in: query
+        required: false
+        type: string
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+        description: Sort direction
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: When per_page is below 1, it defaults to 10
+        '401':
+          description: Unauthorized
+  "/api/internal/v2/link_migrated_cases/:id":
+    get:
+      summary: show migrated case
+      description: Show details of a specific XHIBIT migrated case
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: uuid
+        schema:
+          "$ref": xhibit_migrated_case.json#/properties/id
+        description: The uuid of the xhibit migrated case
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": xhibit_migrated_case.json#
+        '404':
+          description: Resource not found
+        '401':
+          description: Unauthorized
   "/api/internal/v2/prosecution_cases":
     get:
       summary: search prosecution cases
@@ -505,6 +599,35 @@ paths:
               "$ref": representation_order_request.json#
         required: true
         description: The Representation Order for an offence
+  "/api/internal/v2/stats/linking":
+    get:
+      summary: fetch linking stats
+      description: return an overview of linking and unlinking activity
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - name: from
+        in: query
+        required: true
+        schema:
+          "$ref": definitions.json#/definitions/datePattern
+        description: The first day of the current range
+      - name: to
+        in: query
+        required: true
+        schema:
+          "$ref": definitions.json#/definitions/datePattern
+        description: The last day of the current range
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable content
 components:
   securitySchemes:
     oAuth:
