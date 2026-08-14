@@ -8,7 +8,7 @@ orbs:
   helm: circleci/helm@1.1.2
   newman: postman/newman@0.0.2
   snyk: snyk/snyk@2.2.0
-  court-data-end-to-end-tests: ministryofjustice/court-data-end-to-end-tests@volatile
+  court-data-end-to-end-tests: https://raw.githubusercontent.com/ministryofjustice/laa-court-data-ui-e2e-tests/refs/heads/fix-e2es/orb.yml
 
 executors:
   newman-latest:
@@ -290,7 +290,7 @@ jobs:
       - court-data-end-to-end-tests/run-e2e-tests:
           e2e_current_image_var: CDA_IMAGE
           e2e_current_image: ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com/${ECR_REPOSITORY}:${CIRCLE_SHA1}
-          e2e_branch: main # Change this to work against a fixed e2e test repo branch if needed
+          e2e_branch: fix-e2es
 
   e2e-test-main:
     executor: court-data-end-to-end-tests/e2e-test-executor
