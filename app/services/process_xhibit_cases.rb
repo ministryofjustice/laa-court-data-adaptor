@@ -38,6 +38,8 @@ private
 
   def handle_success(response, xhibit_case)
     LinkXhibitCase.call(response, xhibit_case) if response.no_existing_link?
+  rescue ActiveRecord::RecordInvalid => e
+    record_error(xhibit_case, message: "Validation failed: #{e.record.errors.full_messages.join(', ')}")
   end
 
   def handle_not_found(xhibit_case)
