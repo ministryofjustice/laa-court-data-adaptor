@@ -21,9 +21,9 @@ RSpec.describe CommonPlatform::Api::RecordProsecutionCaseLaaReference do
   let(:url) { "prosecutionCases/laaReference/cases/#{prosecution_case.id}/defendant/#{defendant_id}/offences/#{offence_id}" }
 
   let!(:case_defendant_offence) do
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case.id,
-                                            defendant_id:,
-                                            offence_id:)
+    create(:prosecution_case_defendant_offence, prosecution_case_id: prosecution_case.id,
+                                                defendant_id:,
+                                                offence_id:)
   end
 
   let(:request_params) do

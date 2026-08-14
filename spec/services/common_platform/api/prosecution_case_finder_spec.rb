@@ -66,11 +66,10 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
       context "when there is a local record" do
         before do
           matching_record.save!
-          ProsecutionCaseDefendantOffence.create!(
-            prosecution_case: matching_record,
-            defendant_id:,
-            offence_id: SecureRandom.uuid,
-          )
+          create(:prosecution_case_defendant_offence,
+                 prosecution_case: matching_record,
+                 defendant_id:,
+                 offence_id: SecureRandom.uuid)
         end
 
         context "when the local record matches defendant_id" do

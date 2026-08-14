@@ -12,9 +12,9 @@ RSpec.describe ProsecutionCaseLinkValidator do
   end
 
   before do
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
-                                            defendant_id:,
-                                            offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
+    create(:prosecution_case_defendant_offence, prosecution_case_id:,
+                                                defendant_id:,
+                                                offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
   end
 
   it "returns true" do

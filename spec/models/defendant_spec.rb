@@ -95,11 +95,11 @@ RSpec.describe Defendant, type: :model do
 
       context "when a representation_order is recorded" do
         before do
-          ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case_hash["prosecutionCaseId"],
-                                                  defendant_id: defendant_hash["defendantId"],
-                                                  offence_id: SecureRandom.uuid,
-                                                  status_date: "2019-12-12",
-                                                  defence_organisation:)
+          create(:prosecution_case_defendant_offence, prosecution_case_id: prosecution_case_hash["prosecutionCaseId"],
+                                                      defendant_id: defendant_hash["defendantId"],
+                                                      offence_id: SecureRandom.uuid,
+                                                      status_date: "2019-12-12",
+                                                      defence_organisation:)
         end
 
         let(:defence_organisation) do

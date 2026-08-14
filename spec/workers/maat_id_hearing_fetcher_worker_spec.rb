@@ -8,11 +8,10 @@ RSpec.describe MaatIdHearingFetcherWorker do
   let(:maat_id) { "1234567" }
   let(:prosecution_case) { create(:prosecution_case, body: "foo") }
   let(:defendant_offence) do
-    ProsecutionCaseDefendantOffence.create!(
-      prosecution_case:,
-      defendant_id: SecureRandom.uuid,
-      offence_id: SecureRandom.uuid,
-    )
+    create(:prosecution_case_defendant_offence,
+           prosecution_case:,
+           defendant_id: SecureRandom.uuid,
+           offence_id: SecureRandom.uuid)
   end
   let(:laa_reference) do
     create(:laa_reference, maat_reference: maat_id,

@@ -30,9 +30,9 @@ RSpec.describe CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder do
   end
 
   let!(:case_defendant_offence) do
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id: prosecution_case.id,
-                                            defendant_id:,
-                                            offence_id:)
+    create(:prosecution_case_defendant_offence, prosecution_case_id: prosecution_case.id,
+                                                defendant_id:,
+                                                offence_id:)
   end
 
   let(:request_params) do

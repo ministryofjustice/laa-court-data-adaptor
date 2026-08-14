@@ -14,11 +14,10 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
 
   before do
     create(:prosecution_case, id: prosecution_case_id, body: prosecution_case_local_body)
-    ProsecutionCaseDefendantOffence.create!(
-      defendant_id:,
-      prosecution_case_id:,
-      offence_id:,
-    )
+    create(:prosecution_case_defendant_offence,
+           defendant_id:,
+           prosecution_case_id:,
+           offence_id:)
   end
 
   describe "#call", :stub_case_search_with_urn, :stub_hearing_result do

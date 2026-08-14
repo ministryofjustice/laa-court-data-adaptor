@@ -17,15 +17,13 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
 
   before do
     create(:prosecution_case,
-      id: prosecution_case_id,
-      body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
-    )
+           id: prosecution_case_id,
+           body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0])
 
-    ProsecutionCaseDefendantOffence.create!(
-      prosecution_case_id:,
-      defendant_id:,
-      offence_id:,
-    )
+    create(:prosecution_case_defendant_offence,
+           prosecution_case_id:,
+           defendant_id:,
+           offence_id:)
 
     allow(Sqs::MessagePublisher).to receive(:call)
     allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call)
@@ -88,9 +86,9 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
 
   context "with multiple offences" do
     before do
-      ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
-                                              defendant_id:,
-                                              offence_id: SecureRandom.uuid)
+      create(:prosecution_case_defendant_offence, prosecution_case_id:,
+                                                  defendant_id:,
+                                                  offence_id: SecureRandom.uuid)
     end
 
     it "calls the Sqs::MessagePublisher service once" do
@@ -241,13 +239,12 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
 
     before do
       create(:prosecution_case,
-        id: other_prosecution_case_id,
-        body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
-      )
+             id: other_prosecution_case_id,
+             body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0])
 
-      ProsecutionCaseDefendantOffence.create!(prosecution_case_id: other_prosecution_case_id,
-                                              defendant_id:,
-                                              offence_id: SecureRandom.uuid)
+      create(:prosecution_case_defendant_offence, prosecution_case_id: other_prosecution_case_id,
+                                                  defendant_id:,
+                                                  offence_id: SecureRandom.uuid)
     end
 
     it "raises an error" do
