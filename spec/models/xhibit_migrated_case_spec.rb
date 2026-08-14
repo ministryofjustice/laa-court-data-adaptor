@@ -79,8 +79,16 @@ RSpec.describe XhibitMigratedCase, type: :model do
       end
     end
 
+    context "when status is set to auto_linked" do
+      subject(:migrated_case) { described_class.new(valid_attributes.merge(status: "auto_linked")) }
+
+      it { is_expected.to validate_presence_of(:maat_id) }
+      it { is_expected.to validate_presence_of(:linked_at) }
+      it { is_expected.to validate_presence_of(:linked_by) }
+    end
+
     context "when status is set to `manually_linked`" do
-      subject(:migrated_case) { described_class.new(valid_attributes.merge(status: :manually_linked)) }
+      subject(:migrated_case) { described_class.new(valid_attributes.merge(status: "manually_linked")) }
 
       it { is_expected.to validate_presence_of(:maat_id) }
       it { is_expected.to validate_presence_of(:linked_at) }
