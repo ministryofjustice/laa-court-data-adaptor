@@ -21,6 +21,14 @@ FactoryBot.define do
     sent_date { Date.new(2019, 10, 25) }
     status { "pending" }
 
+    after(:build) do |migrated_case|
+      if migrated_case.auto_linked? || migrated_case.manually_linked?
+        migrated_case.maat_id ||= "1234567"
+        migrated_case.linked_at ||= Time.zone.now
+        migrated_case.linked_by ||= "SYSTEM"
+      end
+    end
+
     trait :pending do
       status { "pending" }
     end
