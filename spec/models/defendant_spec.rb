@@ -53,7 +53,7 @@ RSpec.describe Defendant, type: :model do
 
   context "with prosecution case information" do
     before do
-      ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case_hash)
+      create(:prosecution_case, id: prosecution_case_id, body: prosecution_case_hash)
     end
 
     let(:prosecution_case_id) { "5edd67eb-9d8c-44f2-a57e-c8d026defaa4" }
@@ -86,7 +86,7 @@ RSpec.describe Defendant, type: :model do
       end
 
       before do
-        ProsecutionCase.create!(id: prosecution_case_hash["prosecutionCaseId"], body: "{}")
+        create(:prosecution_case, id: prosecution_case_hash["prosecutionCaseId"], body: "{}")
         create(:laa_reference, defendant_id: defendant.id, maat_reference: "9876543", linked: true, user_name: "foo")
       end
 

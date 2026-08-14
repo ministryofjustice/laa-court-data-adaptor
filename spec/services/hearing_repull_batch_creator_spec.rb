@@ -9,8 +9,8 @@ RSpec.describe HearingRepullBatchCreator do
   let(:third_maat_id) { third_reference.maat_reference }
   let(:unrecognised_maat_id) { "4444444" }
 
-  let(:first_case) { ProsecutionCase.create!(body: "foo") }
-  let(:second_case) { ProsecutionCase.create!(body: "foo") }
+  let(:first_case) { create(:prosecution_case, body: "foo") }
+  let(:second_case) { create(:prosecution_case, body: "foo") }
 
   let(:first_defendant_offence) do
     ProsecutionCaseDefendantOffence.create!(prosecution_case: first_case, defendant_id: SecureRandom.uuid, offence_id: SecureRandom.uuid)

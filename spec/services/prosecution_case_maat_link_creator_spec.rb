@@ -16,7 +16,7 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
   let(:response) { OpenStruct.new("status" => 200, "success?" => true) }
 
   before do
-    ProsecutionCase.create!(
+    create(:prosecution_case,
       id: prosecution_case_id,
       body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
     )
@@ -240,7 +240,7 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
     let(:other_prosecution_case_id) { SecureRandom.uuid }
 
     before do
-      ProsecutionCase.create!(
+      create(:prosecution_case,
         id: other_prosecution_case_id,
         body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
       )

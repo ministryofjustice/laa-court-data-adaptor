@@ -30,10 +30,9 @@ RSpec.describe ProsecutionCaseRecorder do
 
   context "when the Prosecution Case exists" do
     let!(:prosecution_case) do
-      ProsecutionCase.create!(
-        id: prosecution_case_id,
-        body:,
-      )
+      create(:prosecution_case,
+             id: prosecution_case_id,
+             body:)
     end
 
     before do
@@ -63,10 +62,9 @@ RSpec.describe ProsecutionCaseRecorder do
 
     context "when other prosecution case exists" do
       let!(:other_prosecution_case) do
-        ProsecutionCase.create!(
-          id: SecureRandom.uuid,
-          body:,
-        )
+        create(:prosecution_case,
+               id: SecureRandom.uuid,
+               body:)
       end
 
       context "when this case has a PCDO (Prosecution Case Defendant Offence) for the other case's defendant" do

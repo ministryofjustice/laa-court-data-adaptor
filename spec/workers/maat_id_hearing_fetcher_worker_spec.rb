@@ -6,7 +6,7 @@ RSpec.describe MaatIdHearingFetcherWorker do
   subject(:perform) { described_class.new.perform(maat_id) }
 
   let(:maat_id) { "1234567" }
-  let(:prosecution_case) { ProsecutionCase.create!(body: "foo") }
+  let(:prosecution_case) { create(:prosecution_case, body: "foo") }
   let(:defendant_offence) do
     ProsecutionCaseDefendantOffence.create!(
       prosecution_case:,

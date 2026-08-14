@@ -13,7 +13,7 @@ RSpec.describe CommonPlatform::Api::DefendantFinder do
   let(:hearing_json) { file_fixture("hearing_resulted.json").read }
 
   before do
-    ProsecutionCase.create!(id: prosecution_case_id, body: prosecution_case_local_body)
+    create(:prosecution_case, id: prosecution_case_id, body: prosecution_case_local_body)
     ProsecutionCaseDefendantOffence.create!(
       defendant_id:,
       prosecution_case_id:,

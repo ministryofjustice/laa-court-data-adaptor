@@ -13,7 +13,7 @@ RSpec.describe CommonPlatform::Api::RecordProsecutionCaseLaaReference do
     )
   end
 
-  let(:prosecution_case) { ProsecutionCase.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}") }
+  let(:prosecution_case) { create(:prosecution_case, id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}") }
   let(:defendant_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
   let(:offence_id) { "3f153786-f3cf-4311-bc0c-2d6f48af68a1" }
   let(:maat_reference) { 999_999 }

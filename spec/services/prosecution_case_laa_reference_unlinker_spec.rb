@@ -23,7 +23,7 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
   let(:maat_reference) { 101_010 }
 
   before do
-    ProsecutionCase.create!(
+    create(:prosecution_case,
       id: prosecution_case_id,
       body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
     )

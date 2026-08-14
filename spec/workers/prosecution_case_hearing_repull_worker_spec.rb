@@ -10,7 +10,7 @@ RSpec.describe ProsecutionCaseHearingRepullWorker do
     )
   end
   let(:prosecution_case) do
-    ProsecutionCase.create!(body: { hearingSummary: [{ hearingId: "123" }, { hearingId: "456" }] })
+    create(:prosecution_case, body: { hearingSummary: [{ hearingId: "123" }, { hearingId: "456" }] })
   end
 
   context "when Common Platform is called successfully" do

@@ -43,7 +43,7 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
   let(:application_type) { nil }
 
   before do
-    ProsecutionCase.create!(
+    create(:prosecution_case,
       id: prosecution_case_id,
       body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
     )
