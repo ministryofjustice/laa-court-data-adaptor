@@ -66,7 +66,7 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
 
   context "when this is for a court application" do
     before do
-      CourtApplication.create!(subject_id: defendant_id, body: { applicationType: application_type })
+      create(:court_application, subject_id: defendant_id, body: { applicationType: application_type })
     end
 
     context "when this is for an appeal application" do
@@ -111,8 +111,8 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
 
   context "when a dummy offence is being passed in" do
     let(:court_application) do
-      CourtApplication.create!(subject_id: defendant_id,
-                               body: { applicationType: application_type })
+      create(:court_application, subject_id: defendant_id,
+                                 body: { applicationType: application_type })
     end
     let(:offence_one) do
       {
