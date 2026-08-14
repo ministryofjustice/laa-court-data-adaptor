@@ -60,16 +60,8 @@ RSpec.describe ProcessXhibitCases do
   end
 
   def create_case(first_name:, last_name:)
-    XhibitMigratedCase.create!(
-      case_urn: "20GD021701",
-      xhibit_case_number: "T202540001",
-      court_name: "Derby Justice Centre",
-      ou_code: "B30PI00",
-      case_type: "T",
-      defendant_id: "defendant-1",
-      defendant_first_name: first_name,
-      defendant_last_name: last_name,
-      sent_date: Date.new(2019, 10, 25),
-    )
+    create(:xhibit_migrated_case,
+           defendant_first_name: first_name,
+           defendant_last_name: last_name)
   end
 end
