@@ -37,13 +37,13 @@ RSpec.describe ProcessXhibitCases do
 
     let!(:xhibit_case) { create_case(first_name: "Tango", last_name: "JF-LAA-T") }
 
-    before do
-      allow(LinkXhibitCase).to receive(:call)
-      process_cases
-    end
-
     context "when the maat application has no existing link" do
       let(:cassette) { "maat_api/search_maat_application_success" }
+
+      before do
+        allow(LinkXhibitCase).to receive(:call)
+        process_cases
+      end
 
       it "calls the `LinkXhibitCase` class" do
         expect(LinkXhibitCase).to have_received(:call).with(
@@ -53,8 +53,31 @@ RSpec.describe ProcessXhibitCases do
       end
     end
 
+    context "when LinkXhibitCase throws a validation error" do
+      let(:cassette) { "maat_api/search_maat_application_success" }
+
+      before do
+        allow(LinkXhibitCase).to receive(:call).and_raise(ActiveRecord::RecordInvalid, xhibit_case)
+        allow(xhibit_case).to receive(:errors).and_return(
+          instance_double(ActiveModel::Errors, full_messages: ["error message 1", "error message 2"]),
+        )
+        process_cases
+      end
+
+      it "stores the error on the case" do
+        expect(xhibit_case.reload.process_errors).to eq(
+          "message" => "Validation failed: error message 1, error message 2",
+        )
+      end
+    end
+
     context "when the maat application has an existing link" do
       let(:cassette) { "maat_api/search_maat_application_success_linked_result" }
+
+      before do
+        allow(LinkXhibitCase).to receive(:call)
+        process_cases
+      end
 
       it "does not call the `LinkXhibitCase` class" do
         expect(LinkXhibitCase).not_to have_received(:call)
