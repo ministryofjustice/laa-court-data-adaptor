@@ -23,9 +23,9 @@ RSpec.describe "api/internal/v2/hearing_repull_batches", swagger_doc: "v2/swagge
           defendant_id_1 = SecureRandom.uuid
           defendant_id_2 = SecureRandom.uuid
           defendant_id_3 = SecureRandom.uuid
-          LaaReference.create!(linked: true, defendant_id: defendant_id_1, user_name: "123", maat_reference: "1111111")
-          LaaReference.create!(linked: true, defendant_id: defendant_id_2, user_name: "123", maat_reference: "2222222")
-          LaaReference.create!(linked: true, defendant_id: defendant_id_3, user_name: "123", maat_reference: "3333333")
+          create(:laa_reference, linked: true, defendant_id: defendant_id_1, user_name: "123", maat_reference: "1111111")
+          create(:laa_reference, linked: true, defendant_id: defendant_id_2, user_name: "123", maat_reference: "2222222")
+          create(:laa_reference, linked: true, defendant_id: defendant_id_3, user_name: "123", maat_reference: "3333333")
           p_case = ProsecutionCase.create!(body: "foo")
           [defendant_id_1, defendant_id_2, defendant_id_3].each do |defendant_id|
             ProsecutionCaseDefendantOffence.create! prosecution_case: p_case, defendant_id:, offence_id: SecureRandom.uuid

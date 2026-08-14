@@ -14,10 +14,10 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
   let(:unlink_other_reason_text) { "" }
   let(:maat_reference) { "101010" }
   let!(:linked_laa_reference) do
-    LaaReference.create(defendant_id: subject_id,
-                        user_name: "cpUser",
-                        maat_reference:,
-                        linked: true)
+    create(:laa_reference, defendant_id: subject_id,
+                           user_name: "cpUser",
+                           maat_reference:,
+                           linked: true)
   end
   let(:court_application) do
     CourtApplication.create!(
@@ -66,10 +66,10 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
 
   context "when there are multiple references" do
     let!(:other_laa_reference) do
-      LaaReference.create(defendant_id: subject_id,
-                          user_name: "cpUser",
-                          maat_reference: "something_else",
-                          linked: true)
+      create(:laa_reference, defendant_id: subject_id,
+                             user_name: "cpUser",
+                             maat_reference: "something_else",
+                             linked: true)
     end
 
     it "unlinks the correct reference" do

@@ -87,7 +87,7 @@ RSpec.describe Defendant, type: :model do
 
       before do
         ProsecutionCase.create!(id: prosecution_case_hash["prosecutionCaseId"], body: "{}")
-        LaaReference.create!(defendant_id: defendant.id, maat_reference: "9876543", linked: true, user_name: "foo")
+        create(:laa_reference, defendant_id: defendant.id, maat_reference: "9876543", linked: true, user_name: "foo")
       end
 
       it { expect(defendant.maat_reference).to eq("9876543") }
@@ -117,7 +117,7 @@ RSpec.describe Defendant, type: :model do
 
     context "when an offence has an unlinked maat reference" do
       before do
-        LaaReference.create!(defendant_id: defendant.id, maat_reference: "9876543", linked: false, user_name: "foo")
+        create(:laa_reference, defendant_id: defendant.id, maat_reference: "9876543", linked: false, user_name: "foo")
       end
 
       it { expect(defendant.maat_reference).to be_nil }

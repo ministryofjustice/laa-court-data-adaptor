@@ -23,13 +23,13 @@ RSpec.describe HearingRepullBatchCreator do
   end
 
   let(:first_reference) do
-    LaaReference.create!(maat_reference: "1111111", linked: true, defendant_id: first_defendant_offence.defendant_id, user_name: "123")
+    create(:laa_reference, maat_reference: "1111111", linked: true, defendant_id: first_defendant_offence.defendant_id, user_name: "123")
   end
   let(:second_reference) do
-    LaaReference.create!(maat_reference: "2222222", linked: true, defendant_id: second_defendant_offence.defendant_id, user_name: "123")
+    create(:laa_reference, maat_reference: "2222222", linked: true, defendant_id: second_defendant_offence.defendant_id, user_name: "123")
   end
   let(:third_reference) do
-    LaaReference.create!(maat_reference: "3333333", linked: true, defendant_id: third_defendant_offence.defendant_id, user_name: "123")
+    create(:laa_reference, maat_reference: "3333333", linked: true, defendant_id: third_defendant_offence.defendant_id, user_name: "123")
   end
 
   before do

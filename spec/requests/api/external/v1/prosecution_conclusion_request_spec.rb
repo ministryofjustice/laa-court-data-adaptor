@@ -18,12 +18,11 @@ RSpec.describe "api/external/v1/prosecution_conclusions", swagger_doc: "v1/swagg
 
       context "when sending a valid payload" do
         before do
-          LaaReference.create!(
-            user_name: "test-user",
-            defendant_id: "67d948d1-1792-4565-a522-8ab2425827e8",
-            maat_reference: "700111",
-            linked: true,
-          )
+          create(:laa_reference,
+                 user_name: "test-user",
+                 defendant_id: "67d948d1-1792-4565-a522-8ab2425827e8",
+                 maat_reference: "700111",
+                 linked: true)
 
           expected_message = prosecution_conclusion["prosecutionConcluded"].first.merge("maatId" => "700111")
 

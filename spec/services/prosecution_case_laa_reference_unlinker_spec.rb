@@ -15,7 +15,7 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
   let(:unlink_reason_code) { 1 }
   let(:unlink_other_reason_text) { "" }
   let!(:linked_laa_reference) do
-    LaaReference.create(defendant_id:,
+    create(:laa_reference, defendant_id:,
                         user_name: "cpUser",
                         maat_reference:,
                         linked: true)
@@ -68,7 +68,7 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
 
   context "when there are multiple references" do
     let!(:other_laa_reference) do
-      LaaReference.create(defendant_id:,
+      create(:laa_reference, defendant_id:,
                           user_name: "cpUser",
                           maat_reference: "something_else",
                           linked: true)

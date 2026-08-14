@@ -15,12 +15,10 @@ RSpec.describe MaatIdHearingFetcherWorker do
     )
   end
   let(:laa_reference) do
-    LaaReference.create!(
-      maat_reference: maat_id,
-      linked: true,
-      defendant_id: defendant_offence.defendant_id,
-      user_name: "test_user",
-    )
+    create(:laa_reference, maat_reference: maat_id,
+                           linked: true,
+                           defendant_id: defendant_offence.defendant_id,
+                           user_name: "test_user")
   end
 
   before do
