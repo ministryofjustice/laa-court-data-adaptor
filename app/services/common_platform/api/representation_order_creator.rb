@@ -56,7 +56,7 @@ module CommonPlatform
             )
 
             # Call CP API /prosecutionCases/representationOrder/applications/.../subject/.../offences/...
-            CommonPlatform::Api::RecordApplicationRepresentationOrderForAppeal.call(**params)
+            CommonPlatform::Api::RecordApplicationRepresentationOrderWithOffence.call(**params)
           end
         else
           offence = offences.first    # Breach or POCA contains only a Dummy offence
@@ -69,7 +69,7 @@ module CommonPlatform
           )
 
           # Call CP API /prosecutionCases/representationOrder/applications/...
-          CommonPlatform::Api::RecordApplicationRepresentationOrderForBreach.call(**params.deep_symbolize_keys)
+          CommonPlatform::Api::RecordApplicationRepresentationOrderWithoutOffence.call(**params.deep_symbolize_keys)
         end
       end
 

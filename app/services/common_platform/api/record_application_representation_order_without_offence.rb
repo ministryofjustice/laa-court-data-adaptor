@@ -2,9 +2,9 @@
 
 module CommonPlatform
   module Api
-    class RecordApplicationRepresentationOrderForBreach < ApplicationService
+    class RecordApplicationRepresentationOrderWithoutOffence < ApplicationService
       # This records via Common Platform API a representation order
-      # for application in the 'breach' and 'poca' categories
+      # for an application without offences
 
       def initialize(court_application_id:,
                      status_code:,
