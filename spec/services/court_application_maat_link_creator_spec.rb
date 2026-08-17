@@ -10,7 +10,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
   let(:user_name) { "bob-smith" }
   let(:court_application_id) { "00004c9f-af9f-401a-b88b-78a4f0e08163" }
   let(:offence_id) { "f369a0f5-6faf-43f1-8725-fb79847107cc" }
-  let(:laa_reference) { LaaReference.create!(defendant_id:, user_name: "caseWorker", maat_reference:) }
+  let(:laa_reference) { create(:laa_reference, defendant_id:, user_name: "caseWorker", maat_reference:) }
   let(:response) { OpenStruct.new("status" => 200, "success?" => true) }
   let(:court_application) do
     CourtApplication.create!(
@@ -143,7 +143,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
   end
 
   context "when an LaaReference exists" do
-    let!(:existing_laa_reference) { LaaReference.create!(defendant_id: SecureRandom.uuid, user_name: "MrDoe", maat_reference:) }
+    let!(:existing_laa_reference) { create(:laa_reference, defendant_id: SecureRandom.uuid, user_name: "MrDoe", maat_reference:) }
 
     context "and it is no longer linked" do
       before do

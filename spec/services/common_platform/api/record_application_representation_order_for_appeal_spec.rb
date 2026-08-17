@@ -16,7 +16,7 @@ RSpec.describe CommonPlatform::Api::RecordApplicationRepresentationOrderForAppea
     )
   end
 
-  let(:court_application) { CourtApplication.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}", subject_id:) }
+  let(:court_application) { create(:court_application, id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}", subject_id:) }
   let(:subject_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
   let(:offence_id) { "3f153786-f3cf-4311-bc0c-2d6f48af68a1" }
   let(:connection) { double("CommonPlatform::Connection") } # rubocop:disable RSpec/VerifiedDoubles

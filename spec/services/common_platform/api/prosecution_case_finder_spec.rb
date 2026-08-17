@@ -4,8 +4,8 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
   subject(:result) { described_class.call(urn, defendant_id) }
 
   let(:urn) { "abcde" }
-  let(:matching_record) { ProsecutionCase.new(body: { prosecutionCaseReference: urn }) }
-  let(:non_matching_record) { ProsecutionCase.new(body: { prosecutionCaseReference: "ABCDE" }) }
+  let(:matching_record) { build(:prosecution_case, body: { prosecutionCaseReference: urn }) }
+  let(:non_matching_record) { build(:prosecution_case, body: { prosecutionCaseReference: "ABCDE" }) }
 
   before do
     allow(CommonPlatform::Api::SearchProsecutionCase).to receive(:call).with(
@@ -66,16 +66,15 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
       context "when there is a local record" do
         before do
           matching_record.save!
-          ProsecutionCaseDefendantOffence.create!(
-            prosecution_case: matching_record,
-            defendant_id:,
-            offence_id: SecureRandom.uuid,
-          )
+          create(:prosecution_case_defendant_offence,
+                 prosecution_case: matching_record,
+                 defendant_id:,
+                 offence_id: SecureRandom.uuid)
         end
 
         context "when the local record matches defendant_id" do
           let(:matching_record) do
-            ProsecutionCase.new(body: {
+            build(:prosecution_case, body: {
               prosecutionCaseReference: urn,
               defendantSummary: [{ defendantId: defendant_id, defendantFirstName: "Jane", defendantLastName: "Doe", defendantDOB: "1984-01-01" }],
             })
@@ -119,7 +118,7 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseFinder do
 
         context "when the local record does not match defendant id" do
           let(:matching_record) do
-            ProsecutionCase.new(body: {
+            build(:prosecution_case, body: {
               prosecutionCaseReference: urn,
               defendantSummary: [{ defendantId: SecureRandom.uuid }],
             })

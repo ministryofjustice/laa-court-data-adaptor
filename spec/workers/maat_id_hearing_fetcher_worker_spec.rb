@@ -6,21 +6,18 @@ RSpec.describe MaatIdHearingFetcherWorker do
   subject(:perform) { described_class.new.perform(maat_id) }
 
   let(:maat_id) { "1234567" }
-  let(:prosecution_case) { ProsecutionCase.create!(body: "foo") }
+  let(:prosecution_case) { create(:prosecution_case, body: "foo") }
   let(:defendant_offence) do
-    ProsecutionCaseDefendantOffence.create!(
-      prosecution_case:,
-      defendant_id: SecureRandom.uuid,
-      offence_id: SecureRandom.uuid,
-    )
+    create(:prosecution_case_defendant_offence,
+           prosecution_case:,
+           defendant_id: SecureRandom.uuid,
+           offence_id: SecureRandom.uuid)
   end
   let(:laa_reference) do
-    LaaReference.create!(
-      maat_reference: maat_id,
-      linked: true,
-      defendant_id: defendant_offence.defendant_id,
-      user_name: "test_user",
-    )
+    create(:laa_reference, maat_reference: maat_id,
+                           linked: true,
+                           defendant_id: defendant_offence.defendant_id,
+                           user_name: "test_user")
   end
 
   before do

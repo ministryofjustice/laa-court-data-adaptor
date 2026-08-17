@@ -156,10 +156,10 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
         response(200, "OK") do
           around do |example|
             Sidekiq::Testing.fake!
-            LaaReference.create!(defendant_id: subject_id,
-                                 linked: true,
-                                 maat_reference: laa_reference[:laa_reference][:maat_reference],
-                                 user_name: "Jack")
+            create(:laa_reference, defendant_id: subject_id,
+                                   linked: true,
+                                   maat_reference: laa_reference[:laa_reference][:maat_reference],
+                                   user_name: "Jack")
             VCR.use_cassette("laa_reference_recorder/update") do
               example.run
             end

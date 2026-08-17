@@ -23,10 +23,10 @@ RSpec.describe "api/internal/v2/hearing_repull_batches", swagger_doc: "v2/swagge
           defendant_id_1 = SecureRandom.uuid
           defendant_id_2 = SecureRandom.uuid
           defendant_id_3 = SecureRandom.uuid
-          LaaReference.create!(linked: true, defendant_id: defendant_id_1, user_name: "123", maat_reference: "1111111")
-          LaaReference.create!(linked: true, defendant_id: defendant_id_2, user_name: "123", maat_reference: "2222222")
-          LaaReference.create!(linked: true, defendant_id: defendant_id_3, user_name: "123", maat_reference: "3333333")
-          p_case = ProsecutionCase.create!(body: "foo")
+          create(:laa_reference, linked: true, defendant_id: defendant_id_1, user_name: "123", maat_reference: "1111111")
+          create(:laa_reference, linked: true, defendant_id: defendant_id_2, user_name: "123", maat_reference: "2222222")
+          create(:laa_reference, linked: true, defendant_id: defendant_id_3, user_name: "123", maat_reference: "3333333")
+          p_case = create(:prosecution_case, body: "foo")
           [defendant_id_1, defendant_id_2, defendant_id_3].each do |defendant_id|
             ProsecutionCaseDefendantOffence.create! prosecution_case: p_case, defendant_id:, offence_id: SecureRandom.uuid
           end
@@ -69,7 +69,7 @@ RSpec.describe "api/internal/v2/hearing_repull_batches", swagger_doc: "v2/swagge
 
         before do
           batch = HearingRepullBatch.create!
-          prosecution_case = ProsecutionCase.create!(body: "foo")
+          prosecution_case = create(:prosecution_case, body: "foo")
           ProsecutionCaseHearingRepull.create!(prosecution_case:, hearing_repull_batch: batch, status: "error")
           get "/api/internal/v2/hearing_repull_batches/#{batch.id}",
               headers: { "Authorization" => "Bearer #{token.token}" }

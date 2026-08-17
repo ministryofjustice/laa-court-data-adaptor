@@ -12,10 +12,9 @@ RSpec.describe CommonPlatform::Api::ProsecutionCaseHearingsFetcher do
   let(:hearing_id_4) { "bd84aff9-229a-4d77-bfcc-421af3f2fc1b" }
 
   before do
-    ProsecutionCase.create!(
-      id: prosecution_case_id,
-      body:,
-    )
+    create(:prosecution_case,
+           id: prosecution_case_id,
+           body:)
   end
 
   it "triggers a call to CommonPlatform::Api::GetHearingResults" do

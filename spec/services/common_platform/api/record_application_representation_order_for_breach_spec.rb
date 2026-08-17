@@ -14,7 +14,7 @@ RSpec.describe CommonPlatform::Api::RecordApplicationRepresentationOrderForBreac
     )
   end
 
-  let(:court_application) { CourtApplication.create!(id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}") }
+  let(:court_application) { create(:court_application, id: "5edd67eb-9d8c-44f2-a57e-c8d026defaa4", body: "{}") }
   let(:connection) { double("CommonPlatform::Connection") } # rubocop:disable RSpec/VerifiedDoubles
   let(:defence_organisation) do
     {

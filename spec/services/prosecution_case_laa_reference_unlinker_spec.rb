@@ -15,21 +15,20 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
   let(:unlink_reason_code) { 1 }
   let(:unlink_other_reason_text) { "" }
   let!(:linked_laa_reference) do
-    LaaReference.create(defendant_id:,
-                        user_name: "cpUser",
-                        maat_reference:,
-                        linked: true)
+    create(:laa_reference, defendant_id:,
+                           user_name: "cpUser",
+                           maat_reference:,
+                           linked: true)
   end
   let(:maat_reference) { 101_010 }
 
   before do
-    ProsecutionCase.create!(
-      id: prosecution_case_id,
-      body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
-    )
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
-                                            defendant_id:,
-                                            offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
+    create(:prosecution_case,
+           id: prosecution_case_id,
+           body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0])
+    create(:prosecution_case_defendant_offence, prosecution_case_id:,
+                                                defendant_id:,
+                                                offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE dummy_maat_reference_seq RESTART;")
 
     allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call)
@@ -68,10 +67,10 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
 
   context "when there are multiple references" do
     let!(:other_laa_reference) do
-      LaaReference.create(defendant_id:,
-                          user_name: "cpUser",
-                          maat_reference: "something_else",
-                          linked: true)
+      create(:laa_reference, defendant_id:,
+                             user_name: "cpUser",
+                             maat_reference: "something_else",
+                             linked: true)
     end
 
     it "unlinks the correct reference" do
@@ -111,9 +110,9 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
 
   context "with multiple offences" do
     before do
-      ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
-                                              defendant_id:,
-                                              offence_id: SecureRandom.uuid)
+      create(:prosecution_case_defendant_offence, prosecution_case_id:,
+                                                  defendant_id:,
+                                                  offence_id: SecureRandom.uuid)
     end
 
     it "calls the Sqs::MessagePublisher service once" do

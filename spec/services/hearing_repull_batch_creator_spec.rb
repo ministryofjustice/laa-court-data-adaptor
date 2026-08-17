@@ -9,27 +9,27 @@ RSpec.describe HearingRepullBatchCreator do
   let(:third_maat_id) { third_reference.maat_reference }
   let(:unrecognised_maat_id) { "4444444" }
 
-  let(:first_case) { ProsecutionCase.create!(body: "foo") }
-  let(:second_case) { ProsecutionCase.create!(body: "foo") }
+  let(:first_case) { create(:prosecution_case, body: "foo") }
+  let(:second_case) { create(:prosecution_case, body: "foo") }
 
   let(:first_defendant_offence) do
-    ProsecutionCaseDefendantOffence.create!(prosecution_case: first_case, defendant_id: SecureRandom.uuid, offence_id: SecureRandom.uuid)
+    create(:prosecution_case_defendant_offence, prosecution_case: first_case, defendant_id: SecureRandom.uuid, offence_id: SecureRandom.uuid)
   end
   let(:second_defendant_offence) do
-    ProsecutionCaseDefendantOffence.create!(prosecution_case: first_case, defendant_id: SecureRandom.uuid, offence_id: SecureRandom.uuid)
+    create(:prosecution_case_defendant_offence, prosecution_case: first_case, defendant_id: SecureRandom.uuid, offence_id: SecureRandom.uuid)
   end
   let(:third_defendant_offence) do
-    ProsecutionCaseDefendantOffence.create!(prosecution_case: second_case, defendant_id: SecureRandom.uuid, offence_id: SecureRandom.uuid)
+    create(:prosecution_case_defendant_offence, prosecution_case: second_case, defendant_id: SecureRandom.uuid, offence_id: SecureRandom.uuid)
   end
 
   let(:first_reference) do
-    LaaReference.create!(maat_reference: "1111111", linked: true, defendant_id: first_defendant_offence.defendant_id, user_name: "123")
+    create(:laa_reference, maat_reference: "1111111", linked: true, defendant_id: first_defendant_offence.defendant_id, user_name: "123")
   end
   let(:second_reference) do
-    LaaReference.create!(maat_reference: "2222222", linked: true, defendant_id: second_defendant_offence.defendant_id, user_name: "123")
+    create(:laa_reference, maat_reference: "2222222", linked: true, defendant_id: second_defendant_offence.defendant_id, user_name: "123")
   end
   let(:third_reference) do
-    LaaReference.create!(maat_reference: "3333333", linked: true, defendant_id: third_defendant_offence.defendant_id, user_name: "123")
+    create(:laa_reference, maat_reference: "3333333", linked: true, defendant_id: third_defendant_offence.defendant_id, user_name: "123")
   end
 
   before do

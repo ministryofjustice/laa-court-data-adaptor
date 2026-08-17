@@ -58,6 +58,7 @@ group :development do
 end
 
 group :test do
+  gem "factory_bot_rails", "~> 6.5"
   gem "json-schema-rspec"
   gem "rspec_junit_formatter"
   gem "rspec-rails", "~> 8.0.2"

@@ -43,13 +43,12 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
   let(:application_type) { nil }
 
   before do
-    ProsecutionCase.create!(
-      id: prosecution_case_id,
-      body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0],
-    )
-    ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
-                                            defendant_id:,
-                                            offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
+    create(:prosecution_case,
+           id: prosecution_case_id,
+           body: JSON.parse(file_fixture("prosecution_case_search_result.json").read)["cases"][0])
+    create(:prosecution_case_defendant_offence, prosecution_case_id:,
+                                                defendant_id:,
+                                                offence_id: "cacbd4d4-9102-4687-98b4-d529be3d5710")
   end
 
   context "when there is no court application" do
@@ -67,7 +66,7 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
 
   context "when this is for a court application" do
     before do
-      CourtApplication.create!(subject_id: defendant_id, body: { applicationType: application_type })
+      create(:court_application, subject_id: defendant_id, body: { applicationType: application_type })
     end
 
     context "when this is for an appeal application" do
@@ -112,8 +111,8 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
 
   context "when a dummy offence is being passed in" do
     let(:court_application) do
-      CourtApplication.create!(subject_id: defendant_id,
-                               body: { applicationType: application_type })
+      create(:court_application, subject_id: defendant_id,
+                                 body: { applicationType: application_type })
     end
     let(:offence_one) do
       {
@@ -150,9 +149,9 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
     let(:offences) { [offence_one, offence_two] }
 
     before do
-      ProsecutionCaseDefendantOffence.create!(prosecution_case_id:,
-                                              defendant_id:,
-                                              offence_id: "f916e952-1c35-44d6-ba15-a149f92cc38a")
+      create(:prosecution_case_defendant_offence, prosecution_case_id:,
+                                                  defendant_id:,
+                                                  offence_id: "f916e952-1c35-44d6-ba15-a149f92cc38a")
     end
 
     it "calls the CommonPlatform::Api::RecordProsecutionCaseRepresentationOrder service twice" do

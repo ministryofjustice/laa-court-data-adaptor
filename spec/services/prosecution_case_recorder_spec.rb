@@ -30,18 +30,16 @@ RSpec.describe ProsecutionCaseRecorder do
 
   context "when the Prosecution Case exists" do
     let!(:prosecution_case) do
-      ProsecutionCase.create!(
-        id: prosecution_case_id,
-        body:,
-      )
+      create(:prosecution_case,
+             id: prosecution_case_id,
+             body:)
     end
 
     before do
-      ProsecutionCaseDefendantOffence.create!(
-        prosecution_case_id:,
-        defendant_id:,
-        offence_id:,
-      )
+      create(:prosecution_case_defendant_offence,
+             prosecution_case_id:,
+             defendant_id:,
+             offence_id:)
     end
 
     it "does not create a new record" do
@@ -63,19 +61,17 @@ RSpec.describe ProsecutionCaseRecorder do
 
     context "when other prosecution case exists" do
       let!(:other_prosecution_case) do
-        ProsecutionCase.create!(
-          id: SecureRandom.uuid,
-          body:,
-        )
+        create(:prosecution_case,
+               id: SecureRandom.uuid,
+               body:)
       end
 
       context "when this case has a PCDO (Prosecution Case Defendant Offence) for the other case's defendant" do
         let!(:case_to_be_deleted) do
-          ProsecutionCaseDefendantOffence.create!(
-            prosecution_case_id: other_prosecution_case.id,
-            defendant_id:,
-            offence_id:,
-          )
+          create(:prosecution_case_defendant_offence,
+                 prosecution_case_id: other_prosecution_case.id,
+                 defendant_id:,
+                 offence_id:)
         end
 
         it "deletes the incorrect PCDO" do
@@ -86,11 +82,10 @@ RSpec.describe ProsecutionCaseRecorder do
 
       context "when the other case has a PCDO for this case's defendant" do
         let!(:case_to_be_deleted) do
-          ProsecutionCaseDefendantOffence.create!(
-            prosecution_case_id: prosecution_case.id,
-            defendant_id: SecureRandom.uuid,
-            offence_id: SecureRandom.uuid,
-          )
+          create(:prosecution_case_defendant_offence,
+                 prosecution_case_id: prosecution_case.id,
+                 defendant_id: SecureRandom.uuid,
+                 offence_id: SecureRandom.uuid)
         end
 
         it "deletes the incorrect PCDO" do
