@@ -46,30 +46,36 @@ module CommonPlatform
       end
 
       def record_court_application_representation_order(court_application)
-        if court_application.appeal?
+        if court_application.has_offences?
           offences.each do |offence|
-            params = offence.merge(
+            # Call CP API /prosecutionCases/representationOrder/applications/.../subject/.../offences/...
+            CommonPlatform::Api::RecordApplicationRepresentationOrderWithOffence.call(
               court_application_id: court_application.id,
               subject_id: defendant_id,
+              offence_id: offence[:offence_id],
+              status_code: offence[:status_code],
               application_reference: maat_reference,
+              status_date: offence[:status_date],
+              effective_start_date: offence[:effective_start_date],
               defence_organisation:,
+              effective_end_date: offence[:effective_end_date],
             )
-
-            # Call CP API /prosecutionCases/representationOrder/applications/.../subject/.../offences/...
-            CommonPlatform::Api::RecordApplicationRepresentationOrderWithOffence.call(**params)
           end
         else
-          offence = offences.first    # Breach or POCA contains only a Dummy offence
-          offence.delete(:offence_id) # Dummy id, not required for this call
-
-          params = offence.merge(
-            court_application_id: court_application.id,
-            application_reference: maat_reference,
-            defence_organisation:,
-          )
+          # If there are no offences present in CP, then we know the offence we have is a dummy offence, so we can
+          # use the first one to create the representation order without an offence
+          dummy_offence = offences.first
 
           # Call CP API /prosecutionCases/representationOrder/applications/...
-          CommonPlatform::Api::RecordApplicationRepresentationOrderWithoutOffence.call(**params.deep_symbolize_keys)
+          CommonPlatform::Api::RecordApplicationRepresentationOrderWithoutOffence.call(
+            court_application_id: court_application.id,
+            status_code: dummy_offence[:status_code],
+            application_reference: maat_reference,
+            status_date: dummy_offence[:status_date],
+            effective_start_date: dummy_offence[:effective_start_date],
+            defence_organisation:,
+            effective_end_date: dummy_offence[:effective_end_date],
+          )
         end
       end
 

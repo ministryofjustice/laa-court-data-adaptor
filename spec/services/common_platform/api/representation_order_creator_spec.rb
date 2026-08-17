@@ -66,11 +66,15 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
 
   context "when this is for a court application" do
     before do
-      create(:court_application, subject_id: defendant_id, body: { applicationType: application_type })
+      create(:court_application, subject_id: defendant_id, body: { subjectSummary: { offenceSummary: offence_summary } })
     end
 
-    context "when this is for an appeal application" do
-      let(:application_type) { "MC80801" } # This is an appeal code. See supported_court_application_types.yaml
+    context "when the application has an offence in the offence summary" do
+      let(:offence_summary) do
+        [
+          { something: "here" },
+        ]
+      end
 
       it "calls the CommonPlatform::Api::RecordApplicationRepresentationOrderWithOffence service once" do
         expect(CommonPlatform::Api::RecordApplicationRepresentationOrderWithOffence)
@@ -84,8 +88,8 @@ RSpec.describe CommonPlatform::Api::RepresentationOrderCreator do
       end
     end
 
-    context "when this is for a breach or poca application" do
-      let(:applycation_type) { "CJ03510" } # This is an Breach code. See supported_court_application_types.yaml
+    context "when application has no offences in the offence summary" do
+      let(:offence_summary) { [] }
 
       it "calls the CommonPlatform::Api::RecordApplicationRepresentationOrderWithoutOffence service once" do
         expect(CommonPlatform::Api::RecordApplicationRepresentationOrderWithoutOffence)
