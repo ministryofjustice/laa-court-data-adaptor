@@ -2,9 +2,9 @@
 
 module CommonPlatform
   module Api
-    class RecordApplicationRepresentationOrderForAppeal < ApplicationService
+    class RecordApplicationRepresentationOrderWithOffence < ApplicationService
       # This records via Common Platform API a representation order
-      # for 'appeal' applications
+      # against a specific offence
 
       def initialize(court_application_id:,
                      subject_id:,

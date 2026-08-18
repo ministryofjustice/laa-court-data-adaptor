@@ -9,6 +9,10 @@ class CourtApplication < ApplicationRecord
     body["hearingSummary"]
   end
 
+  def has_offences?
+    body.dig("subjectSummary", "offenceSummary")&.present?
+  end
+
   def appeal?
     application_type = body["applicationType"]
     category = SupportedCourtApplicationTypes.get_category_by_code(application_type)
