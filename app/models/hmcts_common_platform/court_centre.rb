@@ -45,7 +45,7 @@ module HmctsCommonPlatform
     end
 
     def code
-      data[:code] || CourtCentreCodeLookup.find(id)
+      data[:code].presence || lookup_code
     end
 
     def address
@@ -57,6 +57,14 @@ module HmctsCommonPlatform
     end
 
   private
+
+    def lookup_code
+      Sentry.capture_message("Court centre code is null for #{id} (#{name})", level: :warning)
+
+      CourtCentreCodeLookup.find(id).tap do |court_centre|
+        Sentry.capture_message("Court centre code not present in the 'organisation_unit.csv'. id:#{id} - name:#{name}", level: :error) unless court_centre
+      end
+    end
 
     def to_builder
       Jbuilder.new do |court_centre|
