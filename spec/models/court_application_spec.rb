@@ -3,24 +3,6 @@
 RSpec.describe CourtApplication, type: :model do
   let(:court_application) { described_class.new(body:) }
 
-  describe "appeal?" do
-    subject { court_application.appeal? }
-
-    let(:body) { { applicationType: application_type } }
-
-    context "when category is appeal" do
-      let(:application_type) { "MC80801" }
-
-      it { is_expected.to be_truthy }
-    end
-
-    context "when category is breach" do
-      let(:application_type) { "CJ03510" }
-
-      it { is_expected.to be_falsey }
-    end
-  end
-
   describe "has_offences?" do
     subject { court_application.has_offences? }
 
