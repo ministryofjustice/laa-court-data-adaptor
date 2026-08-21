@@ -52,7 +52,9 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
   end
 
   describe "when there is no code" do
-    let(:data) { { "id" => id } }
+    let(:data) { { "id" => id, "name" => "Derby Justice Centre" } }
+
+    before { allow(Sentry).to receive(:capture_message) }
 
     context "when ID is recognised" do
       let(:id) { "14876ea1-5f7c-32ef-9fbd-aa0b63193550" }
@@ -60,6 +62,20 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
       it { expect(court_centre.code).to eq("B30PI00") }
       it { expect(court_centre.short_oucode).to eq("B30PI") }
       it { expect(court_centre.oucode_l2_code).to eq("30") }
+
+      it "reports a warning to Sentry" do
+        court_centre.code
+
+        expect(Sentry).to have_received(:capture_message).with(
+          "Court centre code is null for #{id} (Derby Justice Centre)", level: :warning
+        )
+      end
+
+      it "does not report an error to Sentry" do
+        court_centre.code
+
+        expect(Sentry).not_to have_received(:capture_message).with(anything, level: :error)
+      end
     end
 
     context "when ID is not recognised" do
@@ -68,6 +84,14 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
       it { expect(court_centre.code).to be_nil }
       it { expect(court_centre.short_oucode).to be_nil }
       it { expect(court_centre.oucode_l2_code).to be_nil }
+
+      it "reports an error to Sentry" do
+        court_centre.code
+
+        expect(Sentry).to have_received(:capture_message).with(
+          /Court centre code not present/, level: :error
+        )
+      end
     end
   end
 end
