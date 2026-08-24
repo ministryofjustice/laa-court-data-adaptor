@@ -11,7 +11,7 @@ FactoryBot.define do
     case_type { "T" }
     case_sub_type { "Either way offence" }
     mode_of_trial { "Either way" }
-    defendant_id { "defendant-#{suffix}" }
+    defendant_id { SecureRandom.uuid }
     defendant_first_name { "John" }
     defendant_middle_name { nil }
     defendant_last_name { "Doe#{suffix}" }
