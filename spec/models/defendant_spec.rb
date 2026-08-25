@@ -23,6 +23,20 @@ RSpec.describe Defendant, type: :model do
   it { expect(defendant.prosecution_case).to be_nil }
   it { expect(defendant.post_hearing_custody_statuses).to eq([]) }
 
+  it {
+    expect(defendant.offence_history).to eq({
+      defendant_id: defendant.id,
+      offence_histories: [
+        {
+          id: defendant_hash["offenceSummary"][0]["offenceId"],
+          pleas: [],
+          mode_of_trial_reasons: [],
+          verdict: "Guilty",
+        },
+      ],
+    })
+  }
+
   describe "#name" do
     subject { defendant.name }
 
