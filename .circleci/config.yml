@@ -291,6 +291,15 @@ jobs:
           e2e_current_image_var: CDA_IMAGE
           e2e_current_image: ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com/${ECR_REPOSITORY}:${CIRCLE_SHA1}
           e2e_branch: fix-e2es
+      - run:
+          name: Copy e2e test reports to CircleCI artifacts
+          command: |
+            mkdir -p /tmp/e2e-reports
+            CID="$(docker ps -a --filter 'label=com.docker.compose.service=laa-court-data-end-to-end-tests' --format '{{.ID}}' | head -n1)"
+            docker cp "${CID}:/app/reports/." /tmp/e2e-reports
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/e2e-reports
 
   e2e-test-main:
     executor: court-data-end-to-end-tests/e2e-test-executor
