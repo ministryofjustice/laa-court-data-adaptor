@@ -402,6 +402,26 @@ paths:
           description: When per_page is below 1, it defaults to 10
         '401':
           description: Unauthorized
+    post:
+      summary: link a migrated case
+      description: Post an LAA reference to CDA to link a MAAT case to a Common Platform
+        case or application
+      tags:
+      - Internal - available to other LAA applications
+      security:
+      - oAuth: []
+      parameters:
+      - "$ref": "#/components/parameters/transaction_id_header"
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": link_migrated_case_post_request_body.json#
+        description: The LAA issued reference to the application. CDA expects a numeric
+          number, although HMCTS allows strings
   "/api/internal/v2/link_migrated_cases/:id":
     get:
       summary: show migrated case

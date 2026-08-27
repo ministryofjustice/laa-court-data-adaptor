@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "swagger_helper"
+require "sidekiq/testing"
 
 RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.yaml", type: :request do
   include AuthorisedRequestHelper
@@ -142,6 +143,88 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
         let(:Authorization) { nil }
 
         run_test!
+      end
+    end
+
+    post("link a migrated case") do
+      description "Post an LAA reference to CDA to link a MAAT case to a Common Platform case or application"
+      consumes "application/json"
+      tags "Internal - available to other LAA applications"
+      security [{ oAuth: [] }]
+      parameter "$ref" => "#/components/parameters/transaction_id_header"
+
+      let(:id) { migrated_case.id }
+      let(:defendant_id) { SecureRandom.uuid }
+
+      let(:laa_reference) do
+        {
+          laa_reference: {
+            maat_reference: 1_231_231,
+            user_name: "JaneDoe",
+            defendant_id:,
+            id: id,
+          },
+        }
+      end
+
+      context "when the migrated case is a trial" do
+        let(:migrated_case) { create_migrated_case(status: "action_required", suffix: "X") }
+
+        response(201, "Created") do
+          around do |example|
+            Sidekiq::Testing.fake!
+            VCR.use_cassette("laa_reference_recorder/post") do
+              example.run
+            end
+          end
+
+          parameter name: :laa_reference, in: :body, required: false, type: :object,
+                    schema: { "$ref": "link_migrated_case_post_request_body.json#" },
+                    description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
+
+          let(:Authorization) { "Bearer #{token.token}" }
+
+          before do
+            allow(CourtApplicationMaatLinkCreator).to receive(:call).with(defendant_id, "JaneDoe", 1_231_231)
+            allow(ProsecutionCaseLinkValidator).to receive(:call).and_return(true)
+
+            allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: 1_231_231)
+              .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
+
+            allow(ProsecutionCaseMaatLinkCreator).to receive(:call).with(defendant_id, "JaneDoe", 1_231_231)
+          end
+
+          run_test!
+        end
+      end
+
+      context "when the migrated case is not a trial" do
+        let(:migrated_case) { create_migrated_case(status: "action_required", suffix: "X", case_type: "S") }
+
+        response(201, "Created") do
+          around do |example|
+            Sidekiq::Testing.fake!
+            VCR.use_cassette("laa_reference_recorder/post") do
+              example.run
+            end
+          end
+
+          parameter name: :laa_reference, in: :body, required: false, type: :object,
+                    schema: { "$ref": "link_migrated_case_post_request_body.json#" },
+                    description: "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings"
+
+          let(:Authorization) { "Bearer #{token.token}" }
+
+          before do
+            allow(CourtApplicationMaatLinkCreator).to receive(:call).with(defendant_id, "JaneDoe", 1_231_231)
+            allow(CourtApplicationLinkValidator).to receive(:call).and_return(true)
+
+            allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: 1_231_231)
+              .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
+          end
+
+          run_test!
+        end
       end
     end
   end
