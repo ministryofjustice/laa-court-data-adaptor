@@ -79,4 +79,20 @@ RSpec.describe XhibitMigratedCase, type: :model do
       end
     end
   end
+
+  describe "#trial?" do
+    subject(:trial?) { described_class.new(case_type:).trial? }
+
+    context "when case is a trial" do
+      let(:case_type) { "T" }
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when case is not a trial" do
+      let(:case_type) { "S" }
+
+      it { is_expected.to be(false) }
+    end
+  end
 end

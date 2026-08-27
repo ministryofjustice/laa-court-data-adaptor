@@ -27,6 +27,10 @@ class XhibitMigratedCase < ApplicationRecord
   validate :sent_date_format, if: -> { sent_date_before_type_cast.present? }
   validate :committal_or_sent_date_present
 
+  def trial?
+    case_type == "T"
+  end
+
 private
 
   # Date example: 2002-11-03
