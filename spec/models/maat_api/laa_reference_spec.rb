@@ -14,8 +14,6 @@ RSpec.describe MaatApi::LaaReference, type: :model do
     )
   end
 
-  include ActiveSupport::Testing::TimeHelpers
-
   it "has a maat_reference" do
     expect(laa_reference.maat_reference).to eql("123")
   end

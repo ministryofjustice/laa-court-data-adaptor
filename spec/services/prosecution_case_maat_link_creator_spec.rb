@@ -5,8 +5,6 @@ require "sidekiq/testing"
 RSpec.describe ProsecutionCaseMaatLinkCreator do
   subject(:create_maat_link) { described_class.call(defendant_id, user_name, maat_reference) }
 
-  include ActiveSupport::Testing::TimeHelpers
-
   let(:maat_reference) { 12_345_678 }
   let(:defendant_id) { "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3" }
   let(:user_name) { "bob-smith" }

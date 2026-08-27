@@ -10,11 +10,12 @@ module Api
 
         # POST /api/internal/v2/link_migrated_cases
         def create
-          resolve_link_creator_class.call(
-            transformed_params[:defendant_id],
-            transformed_params[:user_name],
-            transformed_params[:maat_reference],
-          )
+          XhibitCasesMaatLinkCreator.new(
+            xhibit_migrated_case: @migrated_case,
+            defendant_id: transformed_params[:defendant_id],
+            user_name: transformed_params[:user_name],
+            maat_reference: transformed_params[:maat_reference],
+          ).call
 
           head :created
         end
@@ -37,10 +38,6 @@ module Api
           unless @contract.success?
             raise Errors::ContractError.new(@contract, "Contract")
           end
-        end
-
-        def resolve_link_creator_class
-          @migrated_case.trial? ? ProsecutionCaseMaatLinkCreator : CourtApplicationMaatLinkCreator
         end
 
         def transformed_params
