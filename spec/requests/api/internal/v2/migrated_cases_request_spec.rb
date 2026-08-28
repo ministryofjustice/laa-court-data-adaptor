@@ -58,7 +58,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
 
       response(200, "Success with default pagination") do
         before do
-          12.times { |index| create_migrated_case(status: "pending", suffix: index) }
+          12.times { |index| create_migrated_case(traits: [:pending], suffix: index) }
         end
 
         run_test! do |http_response|
@@ -75,9 +75,9 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
         let(:status) { "pending" }
 
         before do
-          3.times { |index| create_migrated_case(status: "pending", suffix: index) }
-          create_migrated_case(status: "auto_linked", suffix: 3)
-          create_migrated_case(status: "action_required", suffix: 4)
+          3.times { |index| create_migrated_case(traits: [:pending], suffix: index) }
+          create_migrated_case(traits: [:auto_linked], suffix: 3)
+          create_migrated_case(traits: [:action_required], suffix: 4)
         end
 
         run_test! do |http_response|
@@ -94,7 +94,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
         let(:per_page) { 7 }
 
         before do
-          25.times { |index| create_migrated_case(status: "manually_linked", suffix: index) }
+          25.times { |index| create_migrated_case(traits: [:manually_linked], suffix: index) }
         end
 
         run_test! do |http_response|
@@ -111,7 +111,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
         let(:per_page) { 101 }
 
         before do
-          120.times { |index| create_migrated_case(status: "pending", suffix: index) }
+          120.times { |index| create_migrated_case(traits: [:pending], suffix: index) }
         end
 
         run_test! do |http_response|
@@ -127,7 +127,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
         let(:per_page) { 0 }
 
         before do
-          12.times { |index| create_migrated_case(status: "pending", suffix: index) }
+          12.times { |index| create_migrated_case(traits: [:pending], suffix: index) }
         end
 
         run_test! do |http_response|
@@ -168,7 +168,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
       end
 
       context "when the migrated case is a trial" do
-        let(:migrated_case) { create_migrated_case(status: "action_required", suffix: "X") }
+        let(:migrated_case) { create_migrated_case(traits: [:action_required], suffix: "X") }
 
         response(201, "Created") do
           around do |example|
@@ -199,7 +199,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
       end
 
       context "when the migrated case is not a trial" do
-        let(:migrated_case) { create_migrated_case(status: "action_required", suffix: "X", case_type: "S") }
+        let(:migrated_case) { create_migrated_case(traits: [:action_required], suffix: "X", case_type: "S") }
 
         response(201, "Created") do
           around do |example|
@@ -254,7 +254,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
       it "sorts #{sort_by} ascending" do
         records = scenario[:values].each_with_index.map do |value, index|
           create_migrated_case(
-            status: "pending",
+            traits: [:pending],
             suffix: index,
             case_urn: "CASE-#{sort_by}-#{index}",
             xhibit_case_number: "XHIBIT-#{sort_by}-#{index}",
@@ -271,7 +271,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
       it "sorts #{sort_by} descending" do
         records = scenario[:values].each_with_index.map do |value, index|
           create_migrated_case(
-            status: "pending",
+            traits: [:pending],
             suffix: index,
             case_urn: "CASE-DESC-#{sort_by}-#{index}",
             xhibit_case_number: "XHIBIT-DESC-#{sort_by}-#{index}",
@@ -287,9 +287,9 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
     end
 
     it "sorts defendant_name ascending by first name then last name" do
-      create_migrated_case(status: "pending", suffix: 1, defendant_first_name: "Alex", defendant_last_name: "Zulu")
-      create_migrated_case(status: "pending", suffix: 2, defendant_first_name: "Alex", defendant_last_name: "Alpha")
-      create_migrated_case(status: "pending", suffix: 3, defendant_first_name: "Ben", defendant_last_name: "Bravo")
+      create_migrated_case(traits: [:pending], suffix: 1, defendant_first_name: "Alex", defendant_last_name: "Zulu")
+      create_migrated_case(traits: [:pending], suffix: 2, defendant_first_name: "Alex", defendant_last_name: "Alpha")
+      create_migrated_case(traits: [:pending], suffix: 3, defendant_first_name: "Ben", defendant_last_name: "Bravo")
 
       request_sorted(sort_by: "defendant_name", sort_direction: "asc", headers:)
 
@@ -304,9 +304,9 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
     end
 
     it "sorts defendant_name descending by first name then last name" do
-      create_migrated_case(status: "pending", suffix: 4, defendant_first_name: "Alex", defendant_last_name: "Zulu")
-      create_migrated_case(status: "pending", suffix: 5, defendant_first_name: "Alex", defendant_last_name: "Alpha")
-      create_migrated_case(status: "pending", suffix: 6, defendant_first_name: "Ben", defendant_last_name: "Bravo")
+      create_migrated_case(traits: [:pending], suffix: 4, defendant_first_name: "Alex", defendant_last_name: "Zulu")
+      create_migrated_case(traits: [:pending], suffix: 5, defendant_first_name: "Alex", defendant_last_name: "Alpha")
+      create_migrated_case(traits: [:pending], suffix: 6, defendant_first_name: "Ben", defendant_last_name: "Bravo")
 
       request_sorted(sort_by: "defendant_name", sort_direction: "desc", headers:)
 
@@ -321,9 +321,9 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
     end
 
     it "falls back to created_at ascending when sort_by is invalid" do
-      early = create_migrated_case(status: "pending", suffix: 10, created_at: Time.zone.parse("2024-01-01 09:00:00"))
-      middle = create_migrated_case(status: "pending", suffix: 11, created_at: Time.zone.parse("2024-01-02 09:00:00"))
-      late = create_migrated_case(status: "pending", suffix: 12, created_at: Time.zone.parse("2024-01-03 09:00:00"))
+      early = create_migrated_case(traits: [:pending], suffix: 10, created_at: Time.zone.parse("2024-01-01 09:00:00"))
+      middle = create_migrated_case(traits: [:pending], suffix: 11, created_at: Time.zone.parse("2024-01-02 09:00:00"))
+      late = create_migrated_case(traits: [:pending], suffix: 12, created_at: Time.zone.parse("2024-01-03 09:00:00"))
 
       request_sorted(sort_by: "unknown_field", sort_direction: "desc", headers:)
 
@@ -332,9 +332,9 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
     end
 
     it "falls back to created_at ascending when sort_direction is invalid" do
-      early = create_migrated_case(status: "pending", suffix: 13, created_at: Time.zone.parse("2024-01-01 09:00:00"))
-      middle = create_migrated_case(status: "pending", suffix: 14, created_at: Time.zone.parse("2024-01-02 09:00:00"))
-      late = create_migrated_case(status: "pending", suffix: 15, created_at: Time.zone.parse("2024-01-03 09:00:00"))
+      early = create_migrated_case(traits: [:pending], suffix: 13, created_at: Time.zone.parse("2024-01-01 09:00:00"))
+      middle = create_migrated_case(traits: [:pending], suffix: 14, created_at: Time.zone.parse("2024-01-02 09:00:00"))
+      late = create_migrated_case(traits: [:pending], suffix: 15, created_at: Time.zone.parse("2024-01-03 09:00:00"))
 
       request_sorted(sort_by: "case_urn", sort_direction: "invalid", headers:)
 
@@ -343,9 +343,9 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
     end
 
     it "uses db default null ordering for maat_id" do
-      create_migrated_case(status: "pending", suffix: 16, maat_id: nil)
-      create_migrated_case(status: "pending", suffix: 17, maat_id: "200002")
-      create_migrated_case(status: "pending", suffix: 18, maat_id: "100001")
+      create_migrated_case(traits: [:pending], suffix: 16, maat_id: nil)
+      create_migrated_case(traits: [:pending], suffix: 17, maat_id: "200002")
+      create_migrated_case(traits: [:pending], suffix: 18, maat_id: "100001")
 
       request_sorted(sort_by: "maat_id", sort_direction: "asc", headers:)
       expect(result_field_values("maat_id")).to eq(["100001", "200002", nil])
@@ -355,9 +355,9 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
     end
 
     it "uses db default null ordering for linked_by" do
-      create_migrated_case(status: "pending", suffix: 19, linked_by: nil)
-      create_migrated_case(status: "pending", suffix: 20, linked_by: "user-z")
-      create_migrated_case(status: "pending", suffix: 21, linked_by: "user-a")
+      create_migrated_case(traits: [:pending], suffix: 19, linked_by: nil)
+      create_migrated_case(traits: [:pending], suffix: 20, linked_by: "user-z")
+      create_migrated_case(traits: [:pending], suffix: 21, linked_by: "user-a")
 
       request_sorted(sort_by: "linked_by", sort_direction: "asc", headers:)
       expect(result_field_values("linked_by")).to eq(["user-a", "user-z", nil])
@@ -368,9 +368,9 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
 
     it "applies sorting before pagination" do
       %w[D A C B].each_with_index do |case_urn, index|
-        create_migrated_case(status: "pending", suffix: 40 + index, case_urn:)
+        create_migrated_case(traits: [:pending], suffix: 40 + index, case_urn:)
       end
-      create_migrated_case(status: "auto_linked", suffix: 50, case_urn: "AA")
+      create_migrated_case(traits: [:auto_linked], suffix: 50, case_urn: "AA")
 
       request_sorted(
         sort_by: "case_urn",
@@ -412,7 +412,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
 
       context "when a migrated case is found" do
         before do
-          create_migrated_case(status: "pending", suffix: 1, id:)
+          create_migrated_case(traits: [:pending], suffix: 1, id:)
           get "/api/internal/v2/link_migrated_cases/#{id}", headers: { "Authorization" => "Bearer #{token.token}" }
         end
 
@@ -484,7 +484,7 @@ private
     get "/api/internal/v2/link_migrated_cases", params: params.merge(sort_by:, sort_direction:), headers:
   end
 
-  def create_migrated_case(status:, suffix:, **overrides)
-    create(:xhibit_migrated_case, status: status, suffix: suffix, **overrides)
+  def create_migrated_case(traits: [], **overrides)
+    create(:xhibit_migrated_case, *traits, **overrides)
   end
 end
