@@ -10,7 +10,7 @@ module MaatApi
     end
 
     def call
-      connection.presence&.post(URL, { maatId: maat_reference, caseUrn: "XYZ" })
+      connection.post(URL, { maatId: maat_reference, caseUrn: "XYZ" })
     end
 
   private

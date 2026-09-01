@@ -30,3 +30,6 @@ RSpec/VariableName:
 RSpec/EmptyExampleGroup:
   Exclude:
     - 'spec/requests/**/*.rb'
+
+Rails/Delegate:
+  Enabled: false
