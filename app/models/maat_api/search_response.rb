@@ -1,11 +1,19 @@
 module MaatApi
   class SearchResponse
-    extend Forwardable
-
-    def_delegator :faraday_response, :body
-
     def initialize(faraday_response)
       @faraday_response = faraday_response
+    end
+
+    def body
+      faraday_response.body
+    end
+
+    def status
+      faraday_response.status
+    end
+
+    def success?
+      faraday_response.success?
     end
 
     def not_found?
@@ -23,8 +31,6 @@ module MaatApi
   private
 
     attr_reader :faraday_response
-
-    def_delegators :faraday_response, :status, :success?
 
     def libra_id
       linking_detail["libraId"]
