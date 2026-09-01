@@ -1,19 +1,19 @@
 module MaatApi
   class SearchResponse
-    def initialize(faraday_response)
-      @faraday_response = faraday_response
+    def initialize(http_response)
+      @http_response = http_response
     end
 
     def body
-      faraday_response.body
+      http_response.body
     end
 
     def status
-      faraday_response.status
+      http_response.status
     end
 
     def success?
-      faraday_response.success?
+      http_response.success?
     end
 
     def not_found?
@@ -30,7 +30,7 @@ module MaatApi
 
   private
 
-    attr_reader :faraday_response
+    attr_reader :http_response
 
     def libra_id
       linking_detail["libraId"]
@@ -51,7 +51,7 @@ module MaatApi
     # Return the first item in the array by default, as this is the happy path
     # going forward, we'll handle the case of multiple results
     def response
-      faraday_response&.body&.first || {}
+      http_response&.body&.first || {}
     end
   end
 end
