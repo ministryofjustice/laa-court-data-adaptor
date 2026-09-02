@@ -3,9 +3,6 @@
 RSpec.describe MaatApi::MaatApplicationSearcher do
   subject(:search_response) { described_class.call(**criteria) }
 
-  let(:cassette) { "maat_api/search_maat_application_multiple_results" }
-  let(:criteria) { { first_name: "Tango", last_name: "JF-LAA-T" } }
-
   around do |example|
     VCR.use_cassette(cassette,
                      tag: :maat_api,
@@ -14,20 +11,25 @@ RSpec.describe MaatApi::MaatApplicationSearcher do
     end
   end
 
-  it "returns the matching maat applications" do
-    expect(search_response.status).to eq(200)
-    expect(search_response.body.map { |application| application["maatId"] }).to eq([6_559_879, 6_672_961, 6_541_616])
-  end
+  context "when there are multiple matches" do
+    let(:cassette) { "maat_api/search_maat_application_multiple_results" }
+    let(:criteria) { { first_name: "Tango", last_name: "JF-LAA-T" } }
 
-  it "returns the linking detail of a linked maat application" do
-    expect(search_response.body.last).to include(
-      "isLinked" => true,
-      "linkingDetail" => include("libraId" => "CP665948", "caseUrn" => "CEXOFJTQ2F"),
-    )
-  end
+    it "returns the matching maat applications" do
+      expect(search_response.status).to eq(200)
+      expect(search_response.body.map { |application| application["maatId"] }).to eq([6_559_879, 6_672_961, 6_541_616])
+    end
 
-  it "returns no linking detail for an unlinked maat application" do
-    expect(search_response.body.first).to include("isLinked" => false, "linkingDetail" => nil)
+    it "returns the linking detail of a linked maat application" do
+      expect(search_response.body.last).to include(
+        "isLinked" => true,
+        "linkingDetail" => include("libraId" => "CP665948", "caseUrn" => "CEXOFJTQ2F"),
+      )
+    end
+
+    it "returns no linking detail for an unlinked maat application" do
+      expect(search_response.body.first).to include("isLinked" => false, "linkingDetail" => nil)
+    end
   end
 
   context "when there is no matching maat application" do
