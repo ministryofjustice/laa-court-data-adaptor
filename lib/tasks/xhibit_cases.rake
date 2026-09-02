@@ -34,4 +34,14 @@ namespace :xhibit_cases do
     puts "[INFO  - #{Time.zone.now}] Import completed — #{results[:success_count]} inserted, #{results[:errors].count} error(s)."
     puts "[INFO  - #{Time.zone.now}] Error details written to #{errors_file}"
   end
+
+  desc "Process imported XHIBIT cases: search MAAT and link where possible. Example: rake xhibit_cases:process"
+
+  task process: :environment do
+    puts "[INFO - #{Time.zone.now}] Processing #{XhibitMigratedCase.pending.count} pending XHIBIT case(s)..."
+
+    ProcessXhibitCases.call
+
+    puts "[INFO  - #{Time.zone.now}] Processing completed."
+  end
 end
