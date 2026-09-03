@@ -38,6 +38,19 @@
                 "statusId": "58ebf081-2b7d-3b1d-8c47-149fe7dbd672",
                 "statusCode": "G2",
                 "statusDescription": "Granted for Two Advocates"
+              },
+              "verdict": {
+                "originatingHearingId": "0430605a-d6d3-4476-b1f0-8328b11726ae",
+                "verdictDate": "2019-01-01",
+                "verdictType": {
+                  "id": "45e68cfa-efee-410a-8ae4-93ca889dd4c7",
+                  "category": "Guilty",
+                  "sequence": 3460,
+                  "description": "Guilty",
+                  "verdictCode": "649722162",
+                  "categoryType": "GUILTY",
+                  "cjsVerdictCode": "644384844"
+                }
               }
             }
           ]

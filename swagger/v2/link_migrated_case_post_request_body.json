@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "LinkMigratedCases",
+  "description": "LinkMigratedCases",
+  "id": "link_migrated_case_post_request_body",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": "object",
+  "properties": {
+    "laa_reference": {
+      "type": "object",
+      "properties": {
+        "user_name": {
+          "example": "jon-5",
+          "description": "The user name of the caseworker linking or unlinking the case",
+          "type": "string"
+        },
+        "defendant_id": {
+          "description": "The defendant UUID",
+          "example": "b98ba5e8-8b8c-443e-b728-c72d179b70fd",
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "maat_reference": {
+          "example": 3141592,
+          "description": "The LAA issued reference to the application. CDA expects a numeric number, although HMCTS allows strings",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 999999999
+        },
+        "id": {
+          "description": "The unique identifier of Xhibit Migrated Case",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "user_name",
+        "defendant_id",
+        "maat_reference",
+        "id"
+      ]
+    }
+  },
+  "required": [
+    "laa_reference"
+  ]
+}

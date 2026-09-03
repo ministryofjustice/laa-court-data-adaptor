@@ -83,7 +83,12 @@ class Defendant
     {
       defendant_id: id,
       offence_histories: offences.map do |offence|
-        { id: offence.id, pleas: offence.pleas, mode_of_trial_reasons: offence.mode_of_trial_reasons }
+        {
+          id: offence.id,
+          pleas: offence.pleas,
+          mode_of_trial_reasons: offence.mode_of_trial_reasons,
+          verdict: offence.verdict.verdict_type.description,
+        }
       end,
     }
   end

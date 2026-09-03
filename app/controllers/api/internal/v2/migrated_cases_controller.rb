@@ -33,6 +33,11 @@ module Api
           }
         end
 
+        def show
+          migrated_case = XhibitMigratedCase.find(params[:id])
+          render json: migrated_case, status: :ok
+        end
+
       private
 
         def filtered_cases

@@ -78,5 +78,29 @@ RSpec.describe XhibitMigratedCase, type: :model do
         expect(described_class.new(valid_attributes.merge(case_urn: nil))).to be_valid
       end
     end
+
+    context "when status is set to `manually_linked`" do
+      subject(:migrated_case) { described_class.new(valid_attributes.merge(status: :manually_linked)) }
+
+      it { is_expected.to validate_presence_of(:maat_id) }
+      it { is_expected.to validate_presence_of(:linked_at) }
+      it { is_expected.to validate_presence_of(:linked_by) }
+    end
+  end
+
+  describe "#trial?" do
+    subject(:trial?) { described_class.new(case_type:).trial? }
+
+    context "when case is a trial" do
+      let(:case_type) { "T" }
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when case is not a trial" do
+      let(:case_type) { "S" }
+
+      it { is_expected.to be(false) }
+    end
   end
 end

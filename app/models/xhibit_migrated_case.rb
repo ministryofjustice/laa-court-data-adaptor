@@ -21,11 +21,16 @@ class XhibitMigratedCase < ApplicationRecord
   validates :defendant_id, presence: true
   validates :defendant_first_name, presence: true
   validates :defendant_last_name, presence: true
+  validates :maat_id, :linked_at, :linked_by, presence: true, if: -> { manually_linked? }
 
   validate :defendant_date_of_birth_format, if: -> { defendant_date_of_birth_before_type_cast.present? }
   validate :committal_date_format, if: -> { committal_date_before_type_cast.present? }
   validate :sent_date_format, if: -> { sent_date_before_type_cast.present? }
   validate :committal_or_sent_date_present
+
+  def trial?
+    case_type == "T"
+  end
 
 private
 

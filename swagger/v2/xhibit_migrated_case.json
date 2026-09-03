@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "migrated_case",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "case_urn": {
+      "type": "string",
+      "description": "Unique case URN"
+    },
+    "xhibit_case_number": {
+      "type": "string",
+      "description": "XHIBIT case reference number"
+    },
+    "court_name": {
+      "type": "string",
+      "description": "Name of the court"
+    },
+    "ou_code": {
+      "type": "string",
+      "description": "Court organisation unit code"
+    },
+    "case_type": {
+      "type": "string",
+      "description": "Case type code"
+    },
+    "case_sub_type": {
+      "type": "string",
+      "description": "Case sub-type description"
+    },
+    "mode_of_trial": {
+      "type": "string",
+      "description": "Mode of trial"
+    },
+    "defendant_id": {
+      "$ref": "definitions.json#/definitions/uuid"
+    },
+    "defendant_first_name": {
+      "type": "string"
+    },
+    "defendant_middle_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "defendant_last_name": {
+      "type": "string"
+    },
+    "defendant_date_of_birth": {
+      "type": "string",
+      "format": "date"
+    },
+    "defendant_arrest_summons_number": {
+      "type": "string",
+      "description": "Defendant arrest or summons number"
+    },
+    "committal_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "sent_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "auto_linked",
+        "manually_linked",
+        "action_required"
+      ]
+    },
+    "maat_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "MAAT application identifier"
+    },
+    "linked_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "linked_by": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "User who performed the link"
+    },
+    "process_errors": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Human-readable error message"
+        },
+        "error": {
+          "type": "string",
+          "description": "Error code or technical error description"
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "case_urn",
+    "xhibit_case_number",
+    "court_name",
+    "ou_code",
+    "case_type",
+    "defendant_id",
+    "defendant_first_name",
+    "defendant_last_name",
+    "defendant_date_of_birth",
+    "status",
+    "created_at",
+    "updated_at"
+  ]
+}

@@ -18,7 +18,8 @@ Rails.application.routes.draw do
 
       namespace :v2 do
         resources :court_applications, only: [:show]
-        resources :link_migrated_cases, only: [:index], controller: :migrated_cases
+        resources :link_migrated_cases, only: %i[index show], controller: :migrated_cases
+        resources :link_migrated_cases, only: [:create]
         resources :prosecution_cases, only: [:index], param: :reference do
           resources :defendants, only: %i[show] do
             member { get :offence_history }
