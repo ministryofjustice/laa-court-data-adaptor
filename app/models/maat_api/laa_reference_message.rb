@@ -11,6 +11,7 @@ module MaatApi
         maatId: object.maat_reference,
         caseUrn: object.case_urn,
         asn: object.defendant_asn,
+        canUpdateLaaStatus: true,
         cjsAreaCode: object.cjs_area_code,
         createdUser: object.user_name,
         cjsLocation: object.cjs_location,

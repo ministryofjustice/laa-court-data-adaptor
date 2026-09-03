@@ -72,6 +72,7 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
         cjsAreaCode: "1",
         cjsLocation: "B01LY",
         createdUser: "bob-smith",
+        canUpdateLaaStatus: true,
       )
 
       expect(arg[:log_info]).to include(
