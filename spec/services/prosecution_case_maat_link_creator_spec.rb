@@ -72,6 +72,7 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
         cjsAreaCode: "1",
         cjsLocation: "B01LY",
         createdUser: "bob-smith",
+        canUpdateLaaStatus: false,
       )
 
       expect(arg[:log_info]).to include(
@@ -80,6 +81,24 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
     end
 
     create_maat_link
+  end
+
+  context "when the LAA status can be updated" do
+    subject(:create_maat_link) do
+      described_class.call(defendant_id, user_name, maat_reference, can_update_laa_status: true)
+    end
+
+    it "flags it in the published message" do
+      allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference)
+        .to receive(:call)
+        .and_return(response)
+
+      expect(Sqs::MessagePublisher).to receive(:call).once do |arg|
+        expect(arg[:message]).to include(canUpdateLaaStatus: true)
+      end
+
+      create_maat_link
+    end
   end
 
   context "with multiple offences" do

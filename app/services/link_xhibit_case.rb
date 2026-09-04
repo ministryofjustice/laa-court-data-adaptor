@@ -2,7 +2,6 @@ class LinkXhibitCase < ApplicationService
   TRIAL = "T".freeze
   SENTENCE = "S".freeze
   APPEAL = "A".freeze
-  USER_NAME = "SYSTEM".freeze
 
   def initialize(maat_search_response, xhibit_case, court_data)
     @maat_search_response = maat_search_response
@@ -13,9 +12,9 @@ class LinkXhibitCase < ApplicationService
   def call
     case xhibit_case.case_type
     when TRIAL
-      ProsecutionCaseMaatLinkCreator.call(court_data.defendant_id, USER_NAME, maat_id)
+      ProsecutionCaseMaatLinkCreator.call(court_data.defendant_id, User::SYSTEM_USERNAME, maat_id, can_update_laa_status: true)
     when SENTENCE, APPEAL
-      CourtApplicationMaatLinkCreator.call(subject_id, USER_NAME, maat_id)
+      CourtApplicationMaatLinkCreator.call(subject_id, User::SYSTEM_USERNAME, maat_id, can_update_laa_status: true)
     else
       raise ArgumentError, "Unsupported case type: #{xhibit_case.case_type.inspect}"
     end
@@ -24,7 +23,7 @@ class LinkXhibitCase < ApplicationService
       maat_id:,
       status: :auto_linked,
       linked_at: Time.zone.now,
-      linked_by: USER_NAME,
+      linked_by: User::SYSTEM_USERNAME,
     )
   end
 

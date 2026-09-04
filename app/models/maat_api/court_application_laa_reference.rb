@@ -7,10 +7,11 @@ module MaatApi
     delegate :subject_summary, :case_summary, to: :court_application_summary
     delegate :defendant_asn, to: :subject_summary
 
-    def initialize(user_name:, maat_reference:, court_application_summary:)
+    def initialize(user_name:, maat_reference:, court_application_summary:, can_update_laa_status: false)
       @maat_reference = maat_reference
       @user_name = user_name
       @court_application_summary = court_application_summary
+      @can_update_laa_status = can_update_laa_status
     end
 
     def case_urn
@@ -26,6 +27,10 @@ module MaatApi
       return true if case_summary.blank?
 
       case_summary.first.case_status == "ACTIVE"
+    end
+
+    def can_update_laa_status?
+      @can_update_laa_status
     end
 
     def cjs_location

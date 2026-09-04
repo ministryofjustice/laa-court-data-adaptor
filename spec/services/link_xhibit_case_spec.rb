@@ -14,17 +14,12 @@ RSpec.describe LinkXhibitCase, type: :service do
     end
 
     let(:xhibit_case) do
-      XhibitMigratedCase.create!(
-        case_urn: "20GD021701",
-        xhibit_case_number: "T202540001",
-        court_name: "Derby Justice Centre",
-        ou_code: "B30PI00",
-        case_type:,
-        defendant_id: "defendant-1",
-        defendant_first_name: "Alice",
-        defendant_last_name: "Smith",
-        sent_date: Date.new(2019, 10, 25),
-      )
+      create(:xhibit_migrated_case,
+             case_urn: "20GD021701",
+             case_type:,
+             defendant_id: "defendant-1",
+             defendant_first_name: "Alice",
+             defendant_last_name: "Smith")
     end
 
     let(:link_case) { described_class.call(maat_response, xhibit_case, court_data) }
@@ -37,15 +32,18 @@ RSpec.describe LinkXhibitCase, type: :service do
     it "updates the xhibit case" do
       expect { link_case }.to change { xhibit_case.reload.status }.from("pending").to("auto_linked")
                           .and change { xhibit_case.reload.maat_id }.from(nil).to(maat_response.maat_id)
-                          .and change { xhibit_case.reload.linked_by }.from(nil).to("SYSTEM")
+                          .and change { xhibit_case.reload.linked_by }.from(nil).to(User::SYSTEM_USERNAME)
                           .and change { xhibit_case.reload.linked_at }.from(nil).to(within(1.second).of(Time.zone.now))
     end
 
-    it "links a trial using the defendant id" do
+    it "links a trial using the defendant id and enables LAA status updates" do
       link_case
 
       expect(ProsecutionCaseMaatLinkCreator).to have_received(:call).with(
-        court_data.defendant_id, "SYSTEM", maat_response.maat_id
+        court_data.defendant_id,
+        User::SYSTEM_USERNAME,
+        maat_response.maat_id,
+        can_update_laa_status: true,
       )
     end
 
@@ -61,11 +59,14 @@ RSpec.describe LinkXhibitCase, type: :service do
           ]
         end
 
-        it "links the court application using the subject id" do
+        it "links the court application using the subject id and enables LAA status updates" do
           link_case
 
           expect(CourtApplicationMaatLinkCreator).to have_received(:call).with(
-            subject_id, "SYSTEM", maat_response.maat_id
+            subject_id,
+            User::SYSTEM_USERNAME,
+            maat_response.maat_id,
+            can_update_laa_status: true,
           )
         end
       end
@@ -77,6 +78,19 @@ RSpec.describe LinkXhibitCase, type: :service do
       it "raises rather than marking the case linked" do
         expect { link_case }.to raise_error(ArgumentError, /No court application found/)
         expect(xhibit_case.reload).to be_pending
+      end
+    end
+
+    context "when the link creator fails" do
+      before do
+        allow(ProsecutionCaseMaatLinkCreator).to receive(:call)
+          .and_raise(CommonPlatform::Api::Errors::FailedDependency, "Unsuccessful response from Common Platform")
+      end
+
+      it "raises rather than marking the case linked" do
+        expect { link_case }.to raise_error(CommonPlatform::Api::Errors::FailedDependency)
+        expect(xhibit_case.reload).to be_pending
+        expect(xhibit_case).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
       end
     end
 
