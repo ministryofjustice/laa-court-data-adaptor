@@ -16,6 +16,7 @@ module MaatApi
         cjsLocation: object.cjs_location,
         docLanguage: object.doc_language,
         isActive: object.is_active?,
+        canUpdateLaaStatus: object.can_update_laa_status?,
         defendant: object.defendant,
         sessions: object.sessions,
       }.compact

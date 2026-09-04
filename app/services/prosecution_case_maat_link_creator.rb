@@ -3,13 +3,14 @@
 class ProsecutionCaseMaatLinkCreator < ApplicationService
   attr_reader :laa_reference, :defendant_id, :prosecution_case_id
 
-  def initialize(defendant_id, user_name, maat_reference)
+  def initialize(defendant_id, user_name, maat_reference, can_update_laa_status: false)
     @laa_reference = LaaReference.new(
       defendant_id:,
       user_name:,
       maat_reference: maat_reference.presence || LaaReference.generate_linking_dummy_maat_reference,
     )
     @defendant_id = defendant_id
+    @can_update_laa_status = can_update_laa_status
     @prosecution_case_id = verify_prosecution_case_id
   end
 
@@ -29,6 +30,7 @@ private
       user_name: laa_reference.user_name,
       defendant_summary:,
       prosecution_case_summary:,
+      can_update_laa_status: @can_update_laa_status,
     )
 
     Sqs::MessagePublisher.call(

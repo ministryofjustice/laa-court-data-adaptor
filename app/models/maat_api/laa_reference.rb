@@ -4,11 +4,12 @@ module MaatApi
 
     attr_reader :prosecution_case_summary, :defendant_summary, :user_name, :maat_reference
 
-    def initialize(prosecution_case_summary:, defendant_summary:, user_name:, maat_reference:)
+    def initialize(prosecution_case_summary:, defendant_summary:, user_name:, maat_reference:, can_update_laa_status: false)
       @prosecution_case_summary = prosecution_case_summary
       @maat_reference = maat_reference
       @defendant_summary = defendant_summary
       @user_name = user_name
+      @can_update_laa_status = can_update_laa_status
     end
 
     def case_urn
@@ -25,6 +26,10 @@ module MaatApi
 
     def is_active?
       prosecution_case_summary.case_status == "ACTIVE"
+    end
+
+    def can_update_laa_status?
+      @can_update_laa_status
     end
 
     def cjs_location

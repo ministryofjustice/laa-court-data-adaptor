@@ -46,6 +46,26 @@ RSpec.describe MaatApi::LaaReference, type: :model do
     expect(laa_reference.is_active?).to be true
   end
 
+  it "cannot update the LAA status by default" do
+    expect(laa_reference.can_update_laa_status?).to be false
+  end
+
+  context "when created with can_update_laa_status" do
+    let(:laa_reference) do
+      described_class.new(
+        prosecution_case_summary:,
+        defendant_summary:,
+        user_name:,
+        maat_reference:,
+        can_update_laa_status: true,
+      )
+    end
+
+    it "can update the LAA status" do
+      expect(laa_reference.can_update_laa_status?).to be true
+    end
+  end
+
   it "has a defendant payload" do
     expected = {
       dateOfBirth: "1986-11-10",
