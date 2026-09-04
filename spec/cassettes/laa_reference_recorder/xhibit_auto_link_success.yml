@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases/laaReference/cases/6fc1f2cb-4a93-4116-84db-f87cc86ec3b8/defendant/cfc4281f-cdea-494d-8179-3173d30736fd/offences/997ba1dd-e1e2-46cb-ad4d-2c570af869cd"
+    body:
+      encoding: UTF-8
+      string: '{"statusCode":"AP","applicationReference":"6559879","statusDate":"2026-09-03"}'
+    headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      content-length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Wed, 03 Sep 2026 10:00:00 GMT
+- request:
+    method: post
+    uri: "<COMMON_PLATFORM_URL>/prosecutionCases/laaReference/cases/6fc1f2cb-4a93-4116-84db-f87cc86ec3b8/defendant/cfc4281f-cdea-494d-8179-3173d30736fd/offences/9085871a-797b-4ab8-8072-05ca6deeaac9"
+    body:
+      encoding: UTF-8
+      string: '{"statusCode":"AP","applicationReference":"6559879","statusDate":"2026-09-03"}'
+    headers:
+      Ocp-Apim-Subscription-Key:
+      - "<SHARED_SECRET_KEY>"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      content-length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Wed, 03 Sep 2026 10:00:00 GMT
+recorded_with: VCR 6.0.0
