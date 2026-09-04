@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ProcessXhibitCases do
   subject(:process_cases) { described_class.call }
 
-  shared_context "with maat api cassette" do
+  shared_context "with MAAT api cassette" do
     around do |example|
       VCR.use_cassette(cassette,
                        tag: :maat_api,
@@ -13,8 +13,8 @@ RSpec.describe ProcessXhibitCases do
     end
   end
 
-  context "when there is no matching maat application" do
-    include_context "with maat api cassette"
+  context "when there is no matching MAAT application" do
+    include_context "with MAAT api cassette"
 
     let(:cassette) { "maat_api/search_maat_application_not_found" }
     let!(:xhibit_case) { create_case(first_name: "nonexistent-first-name", last_name: "nonexistent-last-name") }
@@ -32,8 +32,8 @@ RSpec.describe ProcessXhibitCases do
     end
   end
 
-  context "when there is a matching maat application" do
-    include_context "with maat api cassette"
+  context "when there is a matching MAAT application" do
+    include_context "with MAAT api cassette"
 
     let!(:xhibit_case) { create_case(first_name: "Tango", last_name: "JF-LAA-T") }
     let(:defendant_summary) { instance_double(HmctsCommonPlatform::DefendantSummary) }
@@ -46,7 +46,7 @@ RSpec.describe ProcessXhibitCases do
       )
     end
 
-    context "when the maat application has no existing link" do
+    context "when the MAAT application has no existing link" do
       let(:cassette) { "maat_api/search_maat_application_success" }
 
       before do
@@ -119,9 +119,15 @@ RSpec.describe ProcessXhibitCases do
           },
         )
       end
+
+      it "does not mark the case as linked" do
+        process_cases
+
+        expect(xhibit_case.reload).not_to be_auto_linked
+      end
     end
 
-    context "when the maat application has an existing link" do
+    context "when the MAAT application has an existing link" do
       let(:cassette) { "maat_api/search_maat_application_success_linked_result" }
 
       before do
@@ -187,6 +193,18 @@ RSpec.describe ProcessXhibitCases do
     it "still processes the remaining cases" do
       expect(LinkXhibitCase).to have_received(:call).twice
       expect(succeeding_case.reload.process_errors).to be_nil
+    end
+  end
+
+  context "when the cases are not pending" do
+    before do
+      create(:xhibit_migrated_case, :auto_linked, defendant_last_name: "AlreadyLinked")
+      create(:xhibit_migrated_case, :action_required, defendant_last_name: "NeedsAttention")
+      process_cases
+    end
+
+    it "does not search MAAT for them" do
+      expect(a_request(:post, /search-maat-application/)).not_to have_been_made
     end
   end
 
