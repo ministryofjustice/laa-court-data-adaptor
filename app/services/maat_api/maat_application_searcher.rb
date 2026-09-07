@@ -19,11 +19,11 @@ module MaatApi
                           niNumber: national_insurance_number,
                           asn: arrest_summons_number,
                           committalDate: committal_date,
-                          caseType: case_type }.compact
+                          caseType: case_type }
     end
 
     def call
-      MaatApi::SearchResponse.new(@connection.post(URL, @search_request))
+      MaatApi::SearchResponse.new(@connection.post(URL, @search_request.compact_blank))
     end
   end
 end

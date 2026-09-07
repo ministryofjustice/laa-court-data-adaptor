@@ -149,6 +149,33 @@ RSpec.describe ProcessXhibitCases do
         )
       end
     end
+
+    context "when the MAAT application is already linked to a Common Platform case" do
+      let(:cassette) { "maat_api/search_maat_application_linked_to_cp_case" }
+
+      before do
+        allow(LinkXhibitCase).to receive(:call)
+        process_cases
+      end
+
+      it "does not call the `LinkXhibitCase` class" do
+        expect(LinkXhibitCase).not_to have_received(:call)
+      end
+
+      it "sets status to (manual) action_required" do
+        expect(xhibit_case.reload).to be_action_required
+      end
+
+      it "leaves the case unlinked" do
+        expect(xhibit_case.reload).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
+      end
+
+      it "stores the error on the case" do
+        expect(xhibit_case.reload.process_errors).to eq(
+          "maat" => { "message" => "MAAT ID already linked with other CP case (01AB1234567)" },
+        )
+      end
+    end
   end
 
   context "when the search fails" do
@@ -171,7 +198,7 @@ RSpec.describe ProcessXhibitCases do
     let!(:failing_case) { create_case(first_name: "Failing", last_name: "Case") }
     let!(:succeeding_case) { create_case(first_name: "Succeeding", last_name: "Case") }
 
-    let(:response) { instance_double(MaatApi::SearchResponse, success?: true, no_existing_link?: true) }
+    let(:response) { instance_double(MaatApi::SearchResponse, success?: true, existing_link?: false) }
 
     before do
       allow(MaatApi::MaatApplicationSearcher).to receive(:call).and_return(response)

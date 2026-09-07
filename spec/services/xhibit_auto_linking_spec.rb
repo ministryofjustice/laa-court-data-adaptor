@@ -138,4 +138,42 @@ RSpec.describe "XHIBIT auto-linking", type: :service do
       expect(Sqs::MessagePublisher).not_to have_received(:call)
     end
   end
+
+  context "when the MAAT application is already linked to another Common Platform case" do
+    let(:laa_reference_cassette_name) { "laa_reference_recorder/xhibit_auto_link_success" }
+
+    let(:maat_api_cassette) do
+      {
+        name: "maat_api/search_maat_application_linked_to_cp_case",
+        options: { tag: :maat_api, match_requests_on: %i[method uri] },
+      }
+    end
+
+    it "flags the case for manual action with the linked case URN" do
+      process_cases
+
+      expect(xhibit_case.reload).to be_action_required
+      expect(xhibit_case.process_errors).to eq(
+        "maat" => { "message" => "MAAT ID already linked with other CP case (01AB1234567)" },
+      )
+    end
+
+    it "leaves the case unlinked" do
+      process_cases
+
+      expect(xhibit_case.reload).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
+    end
+
+    it "does not post an LAA reference to Common Platform" do
+      process_cases
+
+      expect(a_request(:post, %r{/laaReference/})).not_to have_been_made
+    end
+
+    it "does not publish a MAAT link message" do
+      process_cases
+
+      expect(Sqs::MessagePublisher).not_to have_received(:call)
+    end
+  end
 end
