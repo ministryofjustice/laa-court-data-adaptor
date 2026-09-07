@@ -29,10 +29,20 @@ private
   end
 
   def handle_success(response, xhibit_case)
-    return handle_existing_link(xhibit_case) unless response.no_existing_link?
+    if response.existing_link?
+      xhibit_case.action_required!
+      record_error(xhibit_case, :maat, message: existing_link_message(response))
+      return
+    end
 
     defendant_summary = fetch_defendant_summary(xhibit_case)
-    return handle_not_on_common_platform(xhibit_case) if defendant_summary.nil?
+
+    if defendant_summary.nil?
+      # Handle not on common_platform
+      xhibit_case.action_required!
+      record_error(xhibit_case, :common_platform, message: "Case not found on Common Platform")
+      return
+    end
 
     LinkXhibitCase.call(response, xhibit_case, defendant_summary)
   rescue ActiveRecord::RecordInvalid => e
@@ -69,14 +79,12 @@ private
     record_error(xhibit_case, :maat, message: "MAAT application not found")
   end
 
-  def handle_existing_link(xhibit_case)
-    xhibit_case.action_required!
-    record_error(xhibit_case, :maat, message: "MAAT application is already linked")
-  end
-
-  def handle_not_on_common_platform(xhibit_case)
-    xhibit_case.action_required!
-    record_error(xhibit_case, :common_platform, message: "Case not found on Common Platform")
+  def existing_link_message(response)
+    if response.linked_to_common_platform?
+      "MAAT ID already linked with other CP case (#{response.linked_case_urn})"
+    else
+      "MAAT application is already linked"
+    end
   end
 
   # Errors are keyed by step and merged, so that a failure in one step does not

@@ -32,6 +32,28 @@ RSpec.describe MaatApi::MaatApplicationSearcher do
     end
   end
 
+  context "when search criteria have blank values" do
+    let(:cassette) { "" } # Cassette is not necessary here
+    let(:connection) { instance_double(Faraday::Connection, post: nil) }
+    let(:criteria) do
+      { first_name: "Tango",
+        last_name: "JF-LAA-T",
+        date_of_birth: nil,
+        arrest_summons_number: "",
+        committal_date: "",
+        connection: }
+    end
+
+    it "omits them from the search request" do
+      search_response
+
+      expect(connection).to have_received(:post).with(
+        described_class::URL,
+        { firstName: "Tango", lastName: "JF-LAA-T" },
+      )
+    end
+  end
+
   context "when there is no matching maat application" do
     let(:cassette) { "maat_api/search_maat_application_not_found" }
     let(:criteria) { { first_name: "nonexistent-first-name", last_name: "nonexistent-last-name" } }

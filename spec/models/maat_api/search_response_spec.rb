@@ -108,86 +108,166 @@ RSpec.describe MaatApi::SearchResponse, type: :model do
     end
   end
 
-  describe "#no_existing_link?" do
-    it "returns true when is_linked is false, libra_id is nil, and case_urn is nil" do
+  describe "#existing_link?" do
+    it "returns false when is_linked is false, libra_id is nil, and case_urn is nil" do
       http_response = instance_double(Faraday::Response, status: 200, body: [
         { "isLinked" => false, "linkingDetail" => {} },
       ])
       response = described_class.new(http_response)
 
-      expect(response.no_existing_link?).to be true
+      expect(response.existing_link?).to be false
     end
 
-    it "returns true when response is empty" do
+    it "returns false when response is empty" do
       http_response = instance_double(Faraday::Response, status: 200, body: [{}])
       response = described_class.new(http_response)
 
-      expect(response.no_existing_link?).to be true
+      expect(response.existing_link?).to be false
     end
 
-    it "returns false when is_linked is true" do
+    it "returns true when is_linked is true" do
       http_response = instance_double(Faraday::Response, status: 200, body: [
         { "isLinked" => true, "linkingDetail" => {} },
       ])
       response = described_class.new(http_response)
 
-      expect(response.no_existing_link?).to be false
+      expect(response.existing_link?).to be true
     end
 
-    it "returns false when libra_id is present" do
+    it "returns true when libra_id is present" do
       http_response = instance_double(Faraday::Response, status: 200, body: [
         { "isLinked" => false, "linkingDetail" => { "libraId" => "LIBRA123" } },
       ])
       response = described_class.new(http_response)
 
-      expect(response.no_existing_link?).to be false
+      expect(response.existing_link?).to be true
     end
 
-    it "returns false when case_urn is present" do
+    it "returns true when case_urn is present" do
       http_response = instance_double(Faraday::Response, status: 200, body: [
         { "isLinked" => false, "linkingDetail" => { "caseUrn" => "URN123" } },
       ])
       response = described_class.new(http_response)
 
-      expect(response.no_existing_link?).to be false
+      expect(response.existing_link?).to be true
     end
 
-    it "returns false when both libra_id and case_urn are present" do
+    it "returns true when both libra_id and case_urn are present" do
       http_response = instance_double(Faraday::Response, status: 200, body: [
         { "isLinked" => false, "linkingDetail" => { "libraId" => "LIBRA123", "caseUrn" => "URN123" } },
       ])
       response = described_class.new(http_response)
 
-      expect(response.no_existing_link?).to be false
+      expect(response.existing_link?).to be true
     end
 
-    it "returns true when body is empty array" do
+    it "returns false when libra_id is blank" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => false, "linkingDetail" => { "libraId" => "", "caseUrn" => nil } },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.existing_link?).to be false
+    end
+
+    it "returns false when case_urn is blank" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => false, "linkingDetail" => { "libraId" => nil, "caseUrn" => "" } },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.existing_link?).to be false
+    end
+
+    it "returns false when body is empty array" do
       http_response = instance_double(Faraday::Response, status: 200, body: [])
       response = described_class.new(http_response)
 
-      expect(response.no_existing_link?).to be true
+      expect(response.existing_link?).to be false
     end
 
-    it "returns true when body is nil" do
+    it "returns false when body is nil" do
       http_response = instance_double(Faraday::Response, status: 200, body: nil)
       response = described_class.new(http_response)
 
-      expect(response.no_existing_link?).to be true
+      expect(response.existing_link?).to be false
     end
 
-    it "returns true when http_response is nil" do
+    it "returns false when http_response is nil" do
       response = described_class.new(nil)
 
-      expect(response.no_existing_link?).to be true
+      expect(response.existing_link?).to be false
     end
 
-    it "returns true when is_linked is present but not strictly true" do
+    it "returns false when is_linked is present but not strictly true" do
       http_response = instance_double(Faraday::Response, status: 200, body: [
         { "isLinked" => "yes", "linkingDetail" => {} },
       ])
       response = described_class.new(http_response)
 
-      expect(response.no_existing_link?).to be true
+      expect(response.existing_link?).to be false
+    end
+  end
+
+  describe "#linked_to_common_platform?" do
+    it "returns true when the libra id carries the CP prefix and a case urn is present" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => { "libraId" => "CP0001", "caseUrn" => "01AB1234567" } },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.linked_to_common_platform?).to be true
+    end
+
+    it "returns false when the libra id does not carry the CP prefix" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => { "libraId" => "LIBRA123", "caseUrn" => "01AB1234567" } },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.linked_to_common_platform?).to be false
+    end
+
+    it "returns false when the case urn is missing" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => { "libraId" => "CP0001" } },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.linked_to_common_platform?).to be false
+    end
+
+    it "returns false when there is no linking detail" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => nil },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.linked_to_common_platform?).to be false
+    end
+
+    it "returns false when http_response is nil" do
+      response = described_class.new(nil)
+
+      expect(response.linked_to_common_platform?).to be false
+    end
+  end
+
+  describe "#linked_case_urn" do
+    it "returns the case urn the MAAT application is linked to" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => { "libraId" => "CP0001", "caseUrn" => "01AB1234567" } },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.linked_case_urn).to eq("01AB1234567")
+    end
+
+    it "returns nil when there is no linking detail" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [{ "isLinked" => true }])
+      response = described_class.new(http_response)
+
+      expect(response.linked_case_urn).to be_nil
     end
   end
 end

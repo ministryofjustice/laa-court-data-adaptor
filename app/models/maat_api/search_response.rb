@@ -1,5 +1,7 @@
 module MaatApi
   class SearchResponse
+    COMMON_PLATFORM_PREFIX = "CP".freeze
+
     def initialize(http_response)
       @http_response = http_response
     end
@@ -24,8 +26,16 @@ module MaatApi
       response["maatId"]
     end
 
-    def no_existing_link?
-      !is_linked? && !libra_id && !case_urn
+    def existing_link?
+      is_linked? || libra_id.present? || case_urn.present?
+    end
+
+    def linked_to_common_platform?
+      libra_id.to_s.start_with?(COMMON_PLATFORM_PREFIX) && case_urn.present?
+    end
+
+    def linked_case_urn
+      case_urn
     end
 
   private
