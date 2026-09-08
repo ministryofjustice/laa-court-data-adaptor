@@ -36,6 +36,15 @@ RSpec.describe Errors, type: :model do
     it "exposes contract validation error codes" do
       expect(error.codes).to eq(%w[first_name_contract_failure addressstreet_contract_failure])
     end
+
+    context "when errors include a code in the meta object" do
+      let(:first_error) { instance_double(Dry::Validation::Message, path: %i[first_name], meta: { code: "my_error_code" }) }
+      let(:second_error) { instance_double(Dry::Validation::Message, path: %i[address street], meta: { something: "else" }) }
+
+      it "includes the metadata code in the validation error codes" do
+        expect(error.codes).to eq(%w[my_error_code_contract_failure addressstreet_contract_failure])
+      end
+    end
   end
 
   describe Errors::DefendantError do
