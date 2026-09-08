@@ -11,7 +11,7 @@ module Errors
     end
 
     def codes
-      @contract.errors.map { |error| "#{error.path.join}_contract_failure" }
+      @contract.errors.map { |error| "#{error.meta[:code] || error.path.join}_contract_failure" }
     end
   end
 
