@@ -13,7 +13,7 @@ orbs:
 executors:
   newman-latest:
     docker:
-      - image: postman/newman:latest
+      - image: postman/newman:6.1.3-alpine
   snyk-executor:
     working_directory: ~/repo
     docker:
