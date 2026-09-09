@@ -21,14 +21,13 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
   end
 
   before do
+    stub_maat_validation("valid_maat_reference", status: 200)
     allow(ProsecutionCaseLinkValidator).to receive(:call).and_return(true)
   end
 
   around do |example|
-    VCR.use_cassette("maat_api/maat_reference_success") do
-      Sidekiq::Testing.fake! do
-        example.run
-      end
+    Sidekiq::Testing.fake! do
+      example.run
     end
   end
 

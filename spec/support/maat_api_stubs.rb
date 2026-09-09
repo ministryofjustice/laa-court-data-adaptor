@@ -18,6 +18,21 @@ module MaatApiStubs
     )
   end
 
+  def stub_maat_validation(fixture, status: 200, content_type: "application/json")
+    stub_maat_api_token
+    stub_request(:post, maat_validation_url).to_return(
+      status:,
+      body: file_fixture("maat_api/validation/#{fixture}.json").read,
+      headers: { "Content-Type" => content_type },
+    )
+  end
+
+private
+
+  def maat_validation_url
+    "#{ENV['MAAT_API_API_URL']}/#{MaatApi::MaatReferenceValidator::URL}"
+  end
+
   def maat_search_url
     "#{ENV['MAAT_API_API_URL']}/#{MaatApi::MaatApplicationSearcher::URL}"
   end
