@@ -1,0 +1,52 @@
+{
+    "hearing": {
+      "id": "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4",
+      "jurisdictionType": "CROWN",
+      "courtCentre": {
+        "id": "bc4864ca-4b22-3449-9716-a8db1db89905",
+        "name": "Warrington CCU (Decom)",
+        "roomId": "bc4864ca-4b22-3449-9716-a8db1db89905",
+        "roomName": "Warrington CCU (Decom)",
+        "code": "A07AF00"
+      },
+      "type": {
+        "id": "63003e58-d753-46e2-a2c8-47fd15341592",
+        "description": "Mention - Defendant to Attend (MDA)"
+      },
+      "prosecutionCases": [
+        {
+          "id": "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
+          "prosecutionCaseIdentifier": {
+            "caseURN": "20GD0217100",
+            "prosecutionAuthorityReference": "UXJYGCVRXJ"
+          },
+          "initiationCode": "O",
+          "defendants": [
+            {
+              "id": "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3",
+              "prosecutionCaseId": "5edd67eb-9d8c-44f2-a57e-c8d026defaa4",
+              "offences": [
+                {
+                  "id": "2571e09f-0023-4b54-a0a9-f995438e4f2c",
+                  "offenceDefinitionId": "fee1e552-3d2a-4dc4-a128-c3a6cf5e706b",
+                  "offenceCode": "FB89501",
+                  "offenceTitle": "Complaint for a football banning order",
+                  "wording": "Complaint for a football banning order",
+                  "startDate": "2026-08-01",
+                  "civilOffence":
+                  {
+                    "isExParte": false
+                  }
+                }
+              ]
+            }
+          ],
+          "isCivil": true,
+          "caseStatus": "ACTIVE",
+          "originatingOrganisation": "0010000",
+          "statementOfFacts": "statementOfFacts"
+        }
+      ]
+    },
+    "sharedTime": "2021-03-09T15:54:09.871Z"
+  }

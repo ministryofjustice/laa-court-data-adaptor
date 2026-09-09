@@ -3,6 +3,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
   let(:prosecution_case_data) { hearing_resulted_data.dig(:hearing, :prosecutionCases).first }
   let(:case_urn) { prosecution_case_data[:prosecutionCaseIdentifier][:caseURN] }
   let(:defendant_data) { prosecution_case_data[:defendants].first }
+  let(:is_civil) { prosecution_case_data[:isCivil] }
 
   let(:prosecution_case) do
     described_class.new(
@@ -10,6 +11,7 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
       case_urn,
       HmctsCommonPlatform::Defendant.new(defendant_data),
       maat_reference,
+      is_civil,
     )
   end
 
@@ -54,6 +56,10 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
 
     it "has a proceedings_concluded flag" do
       expect(prosecution_case.proceedings_concluded).to be(false)
+    end
+
+    it "has an is_civil flag" do
+      expect(prosecution_case.is_civil).to be(false)
     end
 
     it "has an inactive" do
@@ -200,6 +206,10 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
       expect(prosecution_case.proceedings_concluded).to be(false)
     end
 
+    it "defaults is_civil to false" do
+      expect(prosecution_case.is_civil).to be(false)
+    end
+
     it "has an inactive" do
       expect(prosecution_case.inactive).to eql("Y")
     end
@@ -262,6 +272,14 @@ RSpec.describe MaatApi::ProsecutionCase, type: :model do
       }
 
       expect(prosecution_case.session).to eql(expected)
+    end
+  end
+
+  context "when prosecution case is a civil case" do
+    let(:hearing_resulted_data) { JSON.parse(file_fixture("hearing/with_civil_prosecution_case.json").read).deep_symbolize_keys }
+
+    it "has an is_civil flag" do
+      expect(prosecution_case.is_civil).to be(true)
     end
   end
 end
