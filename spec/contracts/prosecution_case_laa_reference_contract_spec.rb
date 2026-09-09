@@ -53,22 +53,14 @@ RSpec.describe ProsecutionCaseLaaReferenceContract do
     it { is_expected.not_to be_a_success }
   end
 
-  context "with an invalid maat_reference" do
-    let(:maat_reference) { 9_999_999 }
-
-    before do
-      stub_maat_validation("invalid_maat_reference", status: 400)
-    end
+  context "when the defendant cannot be linked" do
+    let(:link_validity) { false }
 
     it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("MAAT/REP ID [9999999] is invalid") }
-
-    context "when the maat api validator is not available" do
-      before { allow(MaatApi::MaatReferenceValidator).to receive(:call).and_return(nil) }
-
-      it { is_expected.to be_a_success }
-    end
+    it { is_expected.to have_contract_error("cannot be linked right now as we do not have all the required information, please try again later") }
   end
+
+  it_behaves_like "a contract that validates maat_reference"
 
   context "without a maat_reference" do
     let(:hash_for_validation) do
@@ -81,12 +73,5 @@ RSpec.describe ProsecutionCaseLaaReferenceContract do
       expect(described_class.new.maat_reference_validator).not_to receive(:call)
       validate_contract
     end
-  end
-
-  context "when the defendant cannot be linked" do
-    let(:link_validity) { false }
-
-    it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("cannot be linked right now as we do not have all the required information, please try again later") }
   end
 end

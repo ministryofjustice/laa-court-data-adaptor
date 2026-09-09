@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: "<MAAT_API_OAUTH_URL>/oauth2/token"
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      User-Agent:
+      - Faraday v2.14.3
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Authorization:
+      - "<AUTH>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Wed, 09 Sep 2026 15:54:22 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Amz-Cognito-Request-Id:
+      - fa1a834a-2c56-4493-8c90-ea809ba55018
+      Set-Cookie:
+      - XSRF-TOKEN=b138a840-891f-4ff2-aace-a5d01b330cef; Path=/; Secure; HttpOnly;
+        SameSite=Lax
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - '0'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+      Server:
+      - Server
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_client"}'
+  recorded_at: Wed, 09 Sep 2026 15:54:22 GMT
+recorded_with: VCR 6.4.0
