@@ -33,6 +33,7 @@ private
       prosecution_case.urn,
       defendant,
       laa_reference.maat_reference,
+      prosecution_case.is_civil,
     )
 
     publish_message(maat_api_prosecution_case, laa_reference)

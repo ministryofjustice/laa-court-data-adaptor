@@ -23,6 +23,9 @@
         "policeOfficerInCase": {
             "$ref": "http://justice.gov.uk/core/courts/external/apiPoliceOfficerInCase.json#"
         },
+        "isCivil": {
+          "type": "boolean"
+        },
         "statementOfFacts": {
             "type": "string"
         },
