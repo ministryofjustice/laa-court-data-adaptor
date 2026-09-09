@@ -8,7 +8,7 @@ require "rspec/expectations"
 #
 RSpec::Matchers.define :have_contract_error do |message|
   match do |fullfillment|
-    fullfillment.errors.map(&:text).any? { |msg| msg.match?(message) }
+    fullfillment.errors.map(&:text).any? { |msg| msg.match?(Regexp.escape(message)) }
   end
 
   description do
