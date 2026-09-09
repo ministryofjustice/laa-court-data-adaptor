@@ -3,29 +3,20 @@ require "rails_helper"
 RSpec.describe ProcessXhibitCases do
   subject(:process_cases) { described_class.call }
 
-  shared_context "with MAAT api cassette" do
-    around do |example|
-      VCR.use_cassette(cassette,
-                       tag: :maat_api,
-                       match_requests_on: %i[method uri]) do
-        example.run
-      end
-    end
-  end
-
   context "when there is no matching MAAT application" do
-    include_context "with MAAT api cassette"
-
-    let(:cassette) { "maat_api/search_maat_application_not_found" }
     let!(:xhibit_case) { create_case(first_name: "nonexistent-first-name", last_name: "nonexistent-last-name") }
 
-    before { process_cases }
+    before { stub_maat_search("not_found", status: 404) }
 
     it "sets status to (manual) action_required" do
+      process_cases
+
       expect(xhibit_case.reload).to be_action_required
     end
 
     it "stores a message on the case" do
+      process_cases
+
       expect(xhibit_case.reload.process_errors).to eq(
         "maat" => { "message" => "MAAT application not found" },
       )
@@ -33,13 +24,12 @@ RSpec.describe ProcessXhibitCases do
   end
 
   context "when there is a matching MAAT application" do
-    include_context "with MAAT api cassette"
-
     let!(:xhibit_case) { create_case(first_name: "Tango", last_name: "JF-LAA-T") }
     let(:defendant_summary) { instance_double(HmctsCommonPlatform::DefendantSummary) }
     let(:prosecution_case) { instance_double(ProsecutionCase, body: {}, prosecution_case_reference: xhibit_case.case_urn) }
 
     before do
+      stub_maat_search("success")
       allow(CommonPlatform::Api::SearchProsecutionCase).to receive(:call).and_return([prosecution_case])
       allow(HmctsCommonPlatform::ProsecutionCaseSummary).to receive(:new).and_return(
         instance_double(HmctsCommonPlatform::ProsecutionCaseSummary, defendant_summary:),
@@ -47,14 +37,11 @@ RSpec.describe ProcessXhibitCases do
     end
 
     context "when the MAAT application has no existing link" do
-      let(:cassette) { "maat_api/search_maat_application_success" }
-
-      before do
-        allow(LinkXhibitCase).to receive(:call)
-        process_cases
-      end
+      before { allow(LinkXhibitCase).to receive(:call) }
 
       it "calls the `LinkXhibitCase` class" do
+        process_cases
+
         expect(LinkXhibitCase).to have_received(:call).with(
           an_instance_of(MaatApi::SearchResponse),
           xhibit_case,
@@ -64,19 +51,20 @@ RSpec.describe ProcessXhibitCases do
     end
 
     context "when the case is not found on Common Platform" do
-      let(:cassette) { "maat_api/search_maat_application_success" }
-
       before do
         allow(CommonPlatform::Api::SearchProsecutionCase).to receive(:call).and_return([])
         allow(LinkXhibitCase).to receive(:call)
-        process_cases
       end
 
       it "sets status to (manual) action_required" do
+        process_cases
+
         expect(xhibit_case.reload).to be_action_required
       end
 
       it "stores the error on the case" do
+        process_cases
+
         expect(xhibit_case.reload.process_errors).to eq(
           "common_platform" => { "message" => "Case not found on Common Platform" },
         )
@@ -84,17 +72,16 @@ RSpec.describe ProcessXhibitCases do
     end
 
     context "when LinkXhibitCase throws a validation error" do
-      let(:cassette) { "maat_api/search_maat_application_success" }
-
       before do
         allow(LinkXhibitCase).to receive(:call).and_raise(ActiveRecord::RecordInvalid, xhibit_case)
         allow(xhibit_case).to receive(:errors).and_return(
           instance_double(ActiveModel::Errors, full_messages: ["error message 1", "error message 2"]),
         )
-        process_cases
       end
 
       it "stores the error on the case" do
+        process_cases
+
         expect(xhibit_case.reload.process_errors).to eq(
           "link" => { "message" => "Validation failed: error message 1, error message 2" },
         )
@@ -102,8 +89,6 @@ RSpec.describe ProcessXhibitCases do
     end
 
     context "when LinkXhibitCase throws a non-Faraday error" do
-      let(:cassette) { "maat_api/search_maat_application_success" }
-
       before do
         allow(LinkXhibitCase).to receive(:call)
           .and_raise(CommonPlatform::Api::Errors::FailedDependency, "Unsuccessful response from Common Platform")
@@ -128,22 +113,26 @@ RSpec.describe ProcessXhibitCases do
     end
 
     context "when the MAAT application has an existing link" do
-      let(:cassette) { "maat_api/search_maat_application_success_linked_result" }
-
       before do
+        stub_maat_search("linked_result")
         allow(LinkXhibitCase).to receive(:call)
-        process_cases
       end
 
       it "does not call the `LinkXhibitCase` class" do
+        process_cases
+
         expect(LinkXhibitCase).not_to have_received(:call)
       end
 
       it "sets status to (manual) action_required" do
+        process_cases
+
         expect(xhibit_case.reload).to be_action_required
       end
 
       it "stores the error on the case" do
+        process_cases
+
         expect(xhibit_case.reload.process_errors).to eq(
           "maat" => { "message" => "MAAT application is already linked" },
         )
@@ -151,26 +140,31 @@ RSpec.describe ProcessXhibitCases do
     end
 
     context "when the MAAT application is already linked to a Common Platform case" do
-      let(:cassette) { "maat_api/search_maat_application_linked_to_cp_case" }
-
       before do
+        stub_maat_search("linked_to_cp_case")
         allow(LinkXhibitCase).to receive(:call)
-        process_cases
       end
 
       it "does not call the `LinkXhibitCase` class" do
+        process_cases
+
         expect(LinkXhibitCase).not_to have_received(:call)
       end
 
       it "sets status to (manual) action_required" do
+        process_cases
+
         expect(xhibit_case.reload).to be_action_required
       end
 
       it "leaves the case unlinked" do
+        process_cases
+
         expect(xhibit_case.reload).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
       end
 
       it "stores the error on the case" do
+        process_cases
         expect(xhibit_case.reload.process_errors).to eq(
           "maat" => { "message" => "MAAT ID already linked with other CP case (01AB1234567)" },
         )
@@ -184,10 +178,11 @@ RSpec.describe ProcessXhibitCases do
     before do
       allow(MaatApi::MaatApplicationSearcher).to receive(:call)
         .and_raise(Faraday::ConnectionFailed, "connection refused")
-      process_cases
     end
 
     it "stores the error on the case" do
+      process_cases
+
       expect(xhibit_case.reload.process_errors).to eq(
         "unexpected" => { "error" => "Faraday::ConnectionFailed", "message" => "connection refused" },
       )
@@ -214,10 +209,11 @@ RSpec.describe ProcessXhibitCases do
       allow(LinkXhibitCase).to receive(:call) do |_maat_response, xhibit_case, _defendant_summary|
         raise CommonPlatform::Api::Errors::FailedDependency, "boom" if xhibit_case.id == failing_case.id
       end
-      process_cases
     end
 
     it "still processes the remaining cases" do
+      process_cases
+
       expect(LinkXhibitCase).to have_received(:call).twice
       expect(succeeding_case.reload.process_errors).to be_nil
     end
@@ -227,10 +223,11 @@ RSpec.describe ProcessXhibitCases do
     before do
       create(:xhibit_migrated_case, :auto_linked, defendant_last_name: "AlreadyLinked")
       create(:xhibit_migrated_case, :action_required, defendant_last_name: "NeedsAttention")
-      process_cases
     end
 
     it "does not search MAAT for them" do
+      process_cases
+
       expect(a_request(:post, /search-maat-application/)).not_to have_been_made
     end
   end

@@ -12,13 +12,6 @@ RSpec.describe "XHIBIT auto-linking", type: :service do
 
   let!(:xhibit_case) { create(:xhibit_migrated_case, case_urn:, defendant_id:, case_type: "T") }
 
-  let(:maat_api_cassette) do
-    {
-      name: "maat_api/search_maat_application_success",
-      options: { tag: :maat_api, match_requests_on: %i[method uri] },
-    }
-  end
-
   let(:prosecution_case_cassette) do
     { name: "search_prosecution_case/by_prosecution_case_reference_success_v2" }
   end
@@ -26,23 +19,29 @@ RSpec.describe "XHIBIT auto-linking", type: :service do
   let(:laa_reference_cassette) { { name: laa_reference_cassette_name } }
 
   before do
-    # The service processes every pending case, so the cassettes only add up if
-    # this is the only one in the table.
+    # The service processes every pending case, so the Common Platform cassettes
+    # only add up if this is the only one in the table.
     XhibitMigratedCase.where.not(id: xhibit_case.id).delete_all
 
+    stub_maat_search("success")
     allow(Sqs::MessagePublisher).to receive(:call)
   end
 
   around do |example|
     Sidekiq::Testing.fake! do
-      VCR.use_cassettes([maat_api_cassette,
-                         prosecution_case_cassette,
+      VCR.use_cassettes([prosecution_case_cassette,
                          laa_reference_cassette]) { example.run }
     end
   end
 
   context "when every offence is linked" do
     let(:laa_reference_cassette_name) { "laa_reference_recorder/xhibit_auto_link_success" }
+
+    it "searches MAAT once for the case" do
+      process_cases
+
+      expect(a_request(:post, %r{search-maat-application})).to have_been_made.once
+    end
 
     it "retrieves the offences associated with the defendant" do
       process_cases
@@ -142,12 +141,7 @@ RSpec.describe "XHIBIT auto-linking", type: :service do
   context "when the MAAT application is already linked to another Common Platform case" do
     let(:laa_reference_cassette_name) { "laa_reference_recorder/xhibit_auto_link_success" }
 
-    let(:maat_api_cassette) do
-      {
-        name: "maat_api/search_maat_application_linked_to_cp_case",
-        options: { tag: :maat_api, match_requests_on: %i[method uri] },
-      }
-    end
+    before { stub_maat_search("linked_to_cp_case") }
 
     it "flags the case for manual action with the linked case URN" do
       process_cases
