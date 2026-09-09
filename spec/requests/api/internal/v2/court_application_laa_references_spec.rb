@@ -6,10 +6,11 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
   let(:token) { access_token }
   let(:subject_id) { SecureRandom.uuid }
+  let(:maat_reference) { 6_839_707 }
   let(:laa_reference) do
     {
       laa_reference: {
-        maat_reference: 1_231_231,
+        maat_reference:,
         user_name: "JaneDoe",
         unlink_reason_code: 1,
         unlink_other_reason_text: "",
@@ -33,7 +34,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
       response(201, "Created") do
         around do |example|
-          VCR.use_cassette("laa_reference_recorder/post") do
+          VCR.use_cassette("laa_reference_recorder/post", tag: :maat_api) do
             example.run
           end
         end
@@ -45,9 +46,9 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          allow(CourtApplicationMaatLinkCreator).to receive(:call).with(subject_id, "JaneDoe", 1_231_231)
+          allow(CourtApplicationMaatLinkCreator).to receive(:call).with(subject_id, "JaneDoe", maat_reference)
 
-          allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: 1_231_231)
+          allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: maat_reference)
             .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
         end
 
@@ -184,7 +185,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
                                                                                 user_name: "JaneDoe",
                                                                                 unlink_reason_code: 1,
                                                                                 unlink_other_reason_text: "",
-                                                                                maat_reference: 1_231_231)
+                                                                                maat_reference: maat_reference)
           end
 
           run_test!

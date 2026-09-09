@@ -3,12 +3,6 @@
 RSpec.describe ProsecutionCaseLaaReferenceContract do
   subject(:validate_contract) { described_class.new.call(hash_for_validation) }
 
-  around do |example|
-    VCR.use_cassette("maat_api/maat_reference_success") do
-      example.run
-    end
-  end
-
   let(:hash_for_validation) do
     {
       maat_reference:,
@@ -23,6 +17,7 @@ RSpec.describe ProsecutionCaseLaaReferenceContract do
   let(:link_validity) { true }
 
   before do
+    stub_maat_validation("valid_maat_reference", status: 200)
     allow(ProsecutionCaseLinkValidator).to receive(:call).and_return(link_validity)
   end
 
@@ -59,16 +54,14 @@ RSpec.describe ProsecutionCaseLaaReferenceContract do
   end
 
   context "with an invalid maat_reference" do
-    let(:maat_reference) { 5_635_423 }
+    let(:maat_reference) { 9_999_999 }
 
-    around do |example|
-      VCR.use_cassette("maat_api/maat_reference_invalid") do
-        example.run
-      end
+    before do
+      stub_maat_validation("invalid_maat_reference", status: 400)
     end
 
     it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("5635423: MaatId already linked to the application.") }
+    it { is_expected.to have_contract_error("MAAT/REP ID [9999999] is invalid") }
 
     context "when the maat api validator is not available" do
       before { allow(MaatApi::MaatReferenceValidator).to receive(:call).and_return(nil) }
