@@ -63,22 +63,7 @@ RSpec.describe CourtApplicationLaaReferenceContract do
     end
   end
 
-  context "when maat_reference is already linked" do
-    let(:maat_reference) { 5_635_423 }
-
-    before do
-      stub_maat_validation("already_linked_maat_reference", status: 400)
-    end
-
-    it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("5635423: MaatId already linked to the application.") }
-
-    context "when the maat api validator is not available" do
-      before { allow(MaatApi::MaatReferenceValidator).to receive(:call).and_return(nil) }
-
-      it { is_expected.to be_a_success }
-    end
-  end
+  it_behaves_like "a contract that validates maat_reference"
 
   context "without a maat_reference" do
     let(:hash_for_validation) do

@@ -126,6 +126,39 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
           expect(response.body).to include("is not a valid uuid")
+          expect(response.parsed_body["error_codes"]).to eq %w[subject_id_contract_failure]
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+
+      context "when a MAAT ID is already used by another application" do
+        let(:maat_reference) { 5_635_423 }
+
+        before do
+          stub_maat_validation("already_linked_maat_reference", status: 400)
+        end
+
+        it "renders a JSON response with an unprocessable_content error and a maat_reference_already_linked error code" do
+          post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+
+          expect(response.body).to include("is already linked to a case")
+          expect(response.parsed_body["error_codes"]).to eq %w[maat_reference_already_linked_contract_failure]
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+
+      context "when a MAAT ID is invalid" do
+        let(:maat_reference) { 9_999_999 }
+
+        before do
+          stub_maat_validation("invalid_maat_reference", status: 400)
+        end
+
+        it "renders a JSON response with an unprocessable_content error and a maat_reference error code" do
+          post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+
+          expect(response.body).to include("is invalid")
+          expect(response.parsed_body["error_codes"]).to eq %w[maat_reference_contract_failure]
           expect(response).to have_http_status(:unprocessable_content)
         end
       end
