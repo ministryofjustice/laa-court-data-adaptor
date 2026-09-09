@@ -28,12 +28,13 @@ private
 
     return if laa_reference.blank? || laa_reference.dummy_maat_reference?
 
-    maat_api_prosecution_case = MaatApi::ProsecutionCase.new(
-      hearing_resulted,
-      prosecution_case.urn,
-      defendant,
-      laa_reference.maat_reference,
-    )
+        maat_api_prosecution_case = MaatApi::ProsecutionCase.new(
+          hearing_resulted,
+          prosecution_case.urn,
+          defendant,
+          laa_reference.maat_reference,
+          prosecution_case.is_civil,
+        )
 
     publish_message(maat_api_prosecution_case, laa_reference)
   end
