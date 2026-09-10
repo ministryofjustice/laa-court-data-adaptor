@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe UnlinkCourtApplicationSubjectContract do
-  subject(:fullfillment) { described_class.new.call(hash_for_validation) }
+  subject(:fullfilment) { described_class.new.call(hash_for_validation) }
 
   let(:subject_id) { "23d7f10a-067a-476e-bba6-bb855674e23b" }
   let(:user_name) { "johnDoe" }
@@ -22,7 +22,7 @@ RSpec.describe UnlinkCourtApplicationSubjectContract do
   context "with over 10 characters in user name" do
     let(:user_name) { "12345678910" }
 
-    it { expect(fullfillment.errors).not_to be_empty }
+    it { expect(fullfilment.errors).not_to be_empty }
 
     it { is_expected.to have_contract_error("size cannot be greater than 10") }
   end
@@ -30,7 +30,7 @@ RSpec.describe UnlinkCourtApplicationSubjectContract do
   context "with a non numeric unlink_reason_code" do
     let(:unlink_reason_code) { "1" }
 
-    it { expect(fullfillment.errors).not_to be_empty }
+    it { expect(fullfilment.errors).not_to be_empty }
 
     it { is_expected.to have_contract_error("must be an integer") }
   end
@@ -38,7 +38,7 @@ RSpec.describe UnlinkCourtApplicationSubjectContract do
   context "with an invalid subject_id" do
     let(:subject_id) { "23d7f10a" }
 
-    it { expect(fullfillment.errors).not_to be_empty }
+    it { expect(fullfilment.errors).not_to be_empty }
 
     it { is_expected.to have_contract_error("not a valid uuid") }
   end
