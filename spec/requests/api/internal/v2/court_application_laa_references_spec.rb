@@ -1,5 +1,5 @@
 require "swagger_helper"
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 
 RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: "v2/swagger.yaml", type: :request do
   include AuthorisedRequestHelper
