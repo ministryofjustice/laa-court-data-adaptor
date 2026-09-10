@@ -13,6 +13,7 @@ RSpec.describe MaatApi::Message do
       cjsLocation: "cjs location",
       docLanguage: "EN",
       proceedingsConcluded: false,
+      isCivil: false,
       inActive: "Y",
       functionType: "function type",
       defendant: "defendant",
@@ -87,6 +88,10 @@ class Messageable
 
   def proceedings_concluded
     attrs[:proceedings_concluded]
+  end
+
+  def is_civil
+    attrs[:is_civil]
   end
 
   def inactive
