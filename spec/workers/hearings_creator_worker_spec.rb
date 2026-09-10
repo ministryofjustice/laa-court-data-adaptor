@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 
 RSpec.describe HearingsCreatorWorker, type: :worker do
   subject(:work) do

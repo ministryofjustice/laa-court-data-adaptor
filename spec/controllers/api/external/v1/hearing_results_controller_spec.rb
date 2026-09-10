@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 
 RSpec.describe Api::External::V1::HearingResultsController, type: :controller do
   include AuthorisedRequestHelper

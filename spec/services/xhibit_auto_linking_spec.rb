@@ -1,4 +1,4 @@
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 
 RSpec.describe "XHIBIT auto-linking", type: :service do
   subject(:process_cases) { ProcessXhibitCases.call }

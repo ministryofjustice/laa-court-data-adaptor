@@ -1,4 +1,4 @@
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 
 RSpec.describe CourtApplicationMaatLinkCreator do
   subject(:call_link_creator) { described_class.call(subject_id, user_name, maat_reference) }
@@ -19,6 +19,8 @@ RSpec.describe CourtApplicationMaatLinkCreator do
   end
 
   before do
+    Current.request_id = "XYZ"
+
     court_application
 
     allow(Sqs::MessagePublisher).to receive(:call)
@@ -32,13 +34,11 @@ RSpec.describe CourtApplicationMaatLinkCreator do
 
     Sidekiq::Testing.fake! do
       freeze_time do
-        Current.set(request_id: "XYZ") do
-          expect(HearingResultFetcherWorker)
-            .to receive(:perform_at)
-            .twice
+        expect(HearingResultFetcherWorker)
+          .to receive(:perform_at)
+          .twice
 
-          call_link_creator
-        end
+        call_link_creator
       end
     end
   end
@@ -254,7 +254,7 @@ RSpec.describe CourtApplicationMaatLinkCreator do
       expect(Sentry).to receive(:capture_exception) do |_error, options|
         expect(options).to eq({
           tags: {
-            request_id: nil,
+            request_id: "XYZ",
             subject_id: "2ecc9feb-9407-482f-b081-d9e5c8ba3ed3",
             maat_reference: "12345678",
             user_name: "bob-smith",
