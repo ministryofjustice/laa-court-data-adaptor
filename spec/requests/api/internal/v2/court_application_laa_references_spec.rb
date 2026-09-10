@@ -6,10 +6,11 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
   let(:token) { access_token }
   let(:subject_id) { SecureRandom.uuid }
+  let(:maat_reference) { 6_839_707 }
   let(:laa_reference) do
     {
       laa_reference: {
-        maat_reference: 1_231_231,
+        maat_reference:,
         user_name: "JaneDoe",
         unlink_reason_code: 1,
         unlink_other_reason_text: "",
@@ -33,7 +34,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
       response(201, "Created") do
         around do |example|
-          VCR.use_cassette("laa_reference_recorder/post") do
+          VCR.use_cassette("laa_reference_recorder/post", tag: :maat_api) do
             example.run
           end
         end
@@ -45,9 +46,9 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
         let(:Authorization) { "Bearer #{token.token}" }
 
         before do
-          allow(CourtApplicationMaatLinkCreator).to receive(:call).with(subject_id, "JaneDoe", 1_231_231)
+          allow(CourtApplicationMaatLinkCreator).to receive(:call).with(subject_id, "JaneDoe", maat_reference)
 
-          allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: 1_231_231)
+          allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: maat_reference)
             .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
         end
 
@@ -125,6 +126,39 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
           expect(response.body).to include("is not a valid uuid")
+          expect(response.parsed_body["error_codes"]).to eq %w[subject_id_contract_failure]
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+
+      context "when a MAAT ID is already used by another application" do
+        let(:maat_reference) { 5_635_423 }
+
+        before do
+          stub_maat_validation("already_linked_maat_reference", status: 400)
+        end
+
+        it "renders a JSON response with an unprocessable_content error and a maat_reference_already_linked error code" do
+          post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+
+          expect(response.body).to include("is already linked to a case")
+          expect(response.parsed_body["error_codes"]).to eq %w[maat_reference_already_linked_contract_failure]
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+
+      context "when a MAAT ID is invalid" do
+        let(:maat_reference) { 9_999_999 }
+
+        before do
+          stub_maat_validation("invalid_maat_reference", status: 400)
+        end
+
+        it "renders a JSON response with an unprocessable_content error and a maat_reference error code" do
+          post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
+
+          expect(response.body).to include("is invalid")
+          expect(response.parsed_body["error_codes"]).to eq %w[maat_reference_contract_failure]
           expect(response).to have_http_status(:unprocessable_content)
         end
       end
@@ -184,7 +218,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
                                                                                 user_name: "JaneDoe",
                                                                                 unlink_reason_code: 1,
                                                                                 unlink_other_reason_text: "",
-                                                                                maat_reference: 1_231_231)
+                                                                                maat_reference: maat_reference)
           end
 
           run_test!

@@ -3,12 +3,6 @@
 RSpec.describe ProsecutionCaseLaaReferenceContract do
   subject(:validate_contract) { described_class.new.call(hash_for_validation) }
 
-  around do |example|
-    VCR.use_cassette("maat_api/maat_reference_success") do
-      example.run
-    end
-  end
-
   let(:hash_for_validation) do
     {
       maat_reference:,
@@ -23,6 +17,7 @@ RSpec.describe ProsecutionCaseLaaReferenceContract do
   let(:link_validity) { true }
 
   before do
+    stub_maat_validation("valid_maat_reference", status: 200)
     allow(ProsecutionCaseLinkValidator).to receive(:call).and_return(link_validity)
   end
 
@@ -58,24 +53,14 @@ RSpec.describe ProsecutionCaseLaaReferenceContract do
     it { is_expected.not_to be_a_success }
   end
 
-  context "with an invalid maat_reference" do
-    let(:maat_reference) { 5_635_423 }
-
-    around do |example|
-      VCR.use_cassette("maat_api/maat_reference_invalid") do
-        example.run
-      end
-    end
+  context "when the defendant cannot be linked" do
+    let(:link_validity) { false }
 
     it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("5635423: MaatId already linked to the application.") }
-
-    context "when the maat api validator is not available" do
-      before { allow(MaatApi::MaatReferenceValidator).to receive(:call).and_return(nil) }
-
-      it { is_expected.to be_a_success }
-    end
+    it { is_expected.to have_contract_error("cannot be linked right now as we do not have all the required information, please try again later") }
   end
+
+  it_behaves_like "a contract that validates maat_reference"
 
   context "without a maat_reference" do
     let(:hash_for_validation) do
@@ -88,12 +73,5 @@ RSpec.describe ProsecutionCaseLaaReferenceContract do
       expect(described_class.new.maat_reference_validator).not_to receive(:call)
       validate_contract
     end
-  end
-
-  context "when the defendant cannot be linked" do
-    let(:link_validity) { false }
-
-    it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("cannot be linked right now as we do not have all the required information, please try again later") }
   end
 end
