@@ -44,7 +44,7 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
 
   # check these settings
-  config.logger = Logger.new($stdout)
+  config.logger = ActiveSupport::Logger.new(config.paths["log"].first, 1, 50.megabytes)
   config.log_level = :warn
 
   # Raises error for missing translations.
