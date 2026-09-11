@@ -34,8 +34,20 @@ module MaatApi
       libra_id.to_s.start_with?(COMMON_PLATFORM_PREFIX) && case_urn.present?
     end
 
-    def linked_case_urn
-      case_urn
+    def linked_to_libra?
+      libra_id.present? && !libra_id.start_with?(COMMON_PLATFORM_PREFIX)
+    end
+
+    def case_urn
+      linking_detail["caseUrn"]
+    end
+
+    def link_state
+      return :unlinked unless existing_link?
+      return :linked_to_common_platform if linked_to_common_platform?
+      return :linked_to_libra if is_linked? && linked_to_libra?
+
+      :link_state_unknown
     end
 
   private
@@ -44,10 +56,6 @@ module MaatApi
 
     def libra_id
       linking_detail["libraId"]
-    end
-
-    def case_urn
-      linking_detail["caseUrn"]
     end
 
     def is_linked?

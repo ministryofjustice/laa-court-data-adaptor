@@ -29,12 +29,22 @@ private
   end
 
   def handle_success(response, xhibit_case)
-    if response.existing_link?
-      xhibit_case.action_required!
-      record_error(xhibit_case, :maat, message: existing_link_message(response))
-      return
+    case response.link_state
+    when :linked_to_common_platform
+      flag_manual_action_required(
+        xhibit_case, "MAAT ID already linked with other CP case (#{response.case_urn})"
+      )
+    when :link_state_unknown
+      flag_manual_action_required(xhibit_case, "MAAT link status could not be determined")
+    when :linked_to_libra
+      RequestLibraUnlink.call(response, xhibit_case)
+      link_to_common_platform(response, xhibit_case)
+    when :unlinked
+      link_to_common_platform(response, xhibit_case)
     end
+  end
 
+  def link_to_common_platform(response, xhibit_case)
     defendant_summary = fetch_defendant_summary(xhibit_case)
 
     if defendant_summary.nil?
@@ -75,16 +85,12 @@ private
   end
 
   def handle_not_found(xhibit_case)
-    xhibit_case.action_required!
-    record_error(xhibit_case, :maat, message: "MAAT application not found")
+    flag_manual_action_required(xhibit_case, "MAAT application not found")
   end
 
-  def existing_link_message(response)
-    if response.linked_to_common_platform?
-      "MAAT ID already linked with other CP case (#{response.linked_case_urn})"
-    else
-      "MAAT application is already linked"
-    end
+  def flag_manual_action_required(xhibit_case, message)
+    xhibit_case.action_required!
+    record_error(xhibit_case, :maat, message:)
   end
 
   # Errors are keyed by step and merged, so that a failure in one step does not
