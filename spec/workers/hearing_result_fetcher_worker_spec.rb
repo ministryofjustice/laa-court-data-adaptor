@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 
 RSpec.describe HearingResultFetcherWorker, type: :worker do
   subject(:fetch_hearing_result) do
