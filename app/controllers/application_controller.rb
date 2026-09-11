@@ -4,8 +4,6 @@ class ApplicationController < ActionController::API
   before_action :set_transaction_id
   before_action :doorkeeper_authorize!
 
-  HEADERS_TO_FILTER = %w[HTTP_AUTHORIZATION HTTP_OCP_APIM_SUBSCRIPTION_KEY].freeze
-
   ERROR_MAPPINGS = {
     ActionController::ParameterMissing => :bad_request,
     Errors::ContractError => :unprocessable_content,
@@ -31,23 +29,10 @@ class ApplicationController < ActionController::API
     end
   end
 
-protected
-
-  def append_info_to_payload(payload)
-    super
-    payload.merge!(http_headers_for_logging)
-  end
-
 private
 
   def set_transaction_id
     Current.request_id = request.headers["X-Request-ID"] || request.request_id
     response.set_header("X-Request-ID", Current.request_id)
-  end
-
-  def http_headers_for_logging
-    request.headers.to_h.each_with_object({}) do |(key, value), headers|
-      headers[key] = value if key.downcase.start_with?("http") && HEADERS_TO_FILTER.exclude?(key)
-    end
   end
 end
