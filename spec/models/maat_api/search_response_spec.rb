@@ -253,21 +253,108 @@ RSpec.describe MaatApi::SearchResponse, type: :model do
     end
   end
 
-  describe "#linked_case_urn" do
+  describe "#linked_to_libra?" do
+    it "returns true when the libra id does NOT start with CP" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => { "libraId" => "2600000358", "caseUrn" => nil } },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.linked_to_libra?).to be true
+    end
+
+    it "returns false when the libra id starts with CP" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => { "libraId" => "CP0001", "caseUrn" => "01AB1234567" } },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.linked_to_libra?).to be false
+    end
+
+    it "returns false when the libra id is blank" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => { "libraId" => "", "caseUrn" => "URN123" } },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.linked_to_libra?).to be false
+    end
+
+    it "returns false when the application is linked without any linking detail" do
+      http_response = instance_double(Faraday::Response, status: 200, body: [
+        { "isLinked" => true, "linkingDetail" => nil },
+      ])
+      response = described_class.new(http_response)
+
+      expect(response.linked_to_libra?).to be false
+    end
+
+    it "returns false when http_response is nil" do
+      response = described_class.new(nil)
+
+      expect(response.linked_to_libra?).to be false
+    end
+  end
+
+  describe "#link_state" do
+    def link_state_for(result)
+      described_class.new(instance_double(Faraday::Response, status: 200, body: [result])).link_state
+    end
+
+    it "is 'unlinked' when nothing reports a link" do
+      expect(link_state_for("isLinked" => false, "linkingDetail" => nil)).to eq(:unlinked)
+    end
+
+    it "is 'linked_to_common_platform' for a CP libra id with a case urn" do
+      expect(link_state_for("isLinked" => true, "linkingDetail" => { "libraId" => "CP0001", "caseUrn" => "01AB1234567" }))
+        .to eq(:linked_to_common_platform)
+    end
+
+    it "is 'linked_to_libra' for a libra id without the CP prefix" do
+      expect(link_state_for("isLinked" => true, "linkingDetail" => { "libraId" => "2600000358", "caseUrn" => nil }))
+        .to eq(:linked_to_libra)
+    end
+
+    it "is 'link_state_unknown' for a libra id when MAAT reports the application as not linked" do
+      expect(link_state_for("isLinked" => false, "linkingDetail" => { "libraId" => "2600000358", "caseUrn" => nil }))
+        .to eq(:link_state_unknown)
+    end
+
+    it "is 'link_state_unknown' when the application is linked without any linking detail" do
+      expect(link_state_for("isLinked" => true, "linkingDetail" => nil)).to eq(:link_state_unknown)
+    end
+
+    it "is 'link_state_unknown' when a libra id is not present" do
+      expect(link_state_for("isLinked" => false, "linkingDetail" => { "caseUrn" => "URN123" }))
+        .to eq(:link_state_unknown)
+    end
+
+    it "is 'link_state_unknown' when a CP case urn in nil" do
+      expect(link_state_for("isLinked" => true, "linkingDetail" => { "libraId" => "CP0001", "caseUrn" => nil }))
+        .to eq(:link_state_unknown)
+    end
+
+    it "is unlinked when http_response is nil" do
+      expect(described_class.new(nil).link_state).to eq(:unlinked)
+    end
+  end
+
+  describe "#case_urn" do
     it "returns the case urn the MAAT application is linked to" do
       http_response = instance_double(Faraday::Response, status: 200, body: [
         { "isLinked" => true, "linkingDetail" => { "libraId" => "CP0001", "caseUrn" => "01AB1234567" } },
       ])
       response = described_class.new(http_response)
 
-      expect(response.linked_case_urn).to eq("01AB1234567")
+      expect(response.case_urn).to eq("01AB1234567")
     end
 
     it "returns nil when there is no linking detail" do
       http_response = instance_double(Faraday::Response, status: 200, body: [{ "isLinked" => true }])
       response = described_class.new(http_response)
 
-      expect(response.linked_case_urn).to be_nil
+      expect(response.case_urn).to be_nil
     end
   end
 end

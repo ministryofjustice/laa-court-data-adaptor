@@ -134,7 +134,7 @@ RSpec.describe ProcessXhibitCases do
         process_cases
 
         expect(xhibit_case.reload.process_errors).to eq(
-          "maat" => { "message" => "MAAT application is already linked" },
+          "maat" => { "message" => "MAAT link status could not be determined" },
         )
       end
     end
@@ -170,6 +170,30 @@ RSpec.describe ProcessXhibitCases do
         )
       end
     end
+
+    context "when the MAAT application is already linked to a LIBRA case" do
+      before do
+        stub_maat_search("linked_to_libra_case")
+        allow(RequestLibraUnlink).to receive(:call)
+        allow(LinkXhibitCase).to receive(:call)
+      end
+
+      it "requests the LIBRA unlink" do
+        process_cases
+
+        expect(RequestLibraUnlink).to have_received(:call).with(an_instance_of(MaatApi::SearchResponse), xhibit_case)
+      end
+
+      it "calls the `LinkXhibitCase` class" do
+        process_cases
+
+        expect(LinkXhibitCase).to have_received(:call).with(
+          an_instance_of(MaatApi::SearchResponse),
+          xhibit_case,
+          defendant_summary,
+        )
+      end
+    end
   end
 
   context "when the search fails" do
@@ -193,7 +217,7 @@ RSpec.describe ProcessXhibitCases do
     let!(:failing_case) { create_case(first_name: "Failing", last_name: "Case") }
     let!(:succeeding_case) { create_case(first_name: "Succeeding", last_name: "Case") }
 
-    let(:response) { instance_double(MaatApi::SearchResponse, success?: true, existing_link?: false) }
+    let(:response) { instance_double(MaatApi::SearchResponse, success?: true, link_state: :unlinked) }
 
     before do
       allow(MaatApi::MaatApplicationSearcher).to receive(:call).and_return(response)

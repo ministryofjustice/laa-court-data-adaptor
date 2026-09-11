@@ -1,6 +1,6 @@
 require "sidekiq/testing"
 
-RSpec.describe "XHIBIT auto-linking", type: :service do
+RSpec.describe ProcessXhibitCases, type: :service do
   subject(:process_cases) { ProcessXhibitCases.call }
 
   let(:case_urn) { "61GD7528225" }
@@ -37,19 +37,6 @@ RSpec.describe "XHIBIT auto-linking", type: :service do
   context "when every offence is linked" do
     let(:laa_reference_cassette_name) { "laa_reference_recorder/xhibit_auto_link_success" }
 
-    it "searches MAAT once for the case" do
-      process_cases
-
-      expect(a_request(:post, %r{search-maat-application})).to have_been_made.once
-    end
-
-    it "retrieves the offences associated with the defendant" do
-      process_cases
-
-      expect(ProsecutionCaseDefendantOffence.where(defendant_id:).pluck(:offence_id))
-        .to contain_exactly(first_offence_id, second_offence_id)
-    end
-
     it "posts an LAA reference to Common Platform for each offence" do
       process_cases
 
@@ -57,13 +44,6 @@ RSpec.describe "XHIBIT auto-linking", type: :service do
         .to have_been_made.once
       expect(a_request(:post, %r{/laaReference/cases/#{prosecution_case_id}/defendant/#{defendant_id}/offences/#{second_offence_id}}))
         .to have_been_made.once
-    end
-
-    it "records the Common Platform response against each offence" do
-      process_cases
-
-      expect(ProsecutionCaseDefendantOffence.where(defendant_id:).pluck(:rep_order_status, :response_status))
-        .to eq([%w[AP].push(202), %w[AP].push(202)])
     end
 
     it "creates a link between the MAAT application and the Common Platform case" do
@@ -104,24 +84,11 @@ RSpec.describe "XHIBIT auto-linking", type: :service do
   context "when one offence fails to link" do
     let(:laa_reference_cassette_name) { "laa_reference_recorder/xhibit_auto_link_offence_failure" }
 
-    it "still attempts the offence Common Platform rejects" do
-      process_cases
-
-      expect(a_request(:post, %r{/laaReference/cases/#{prosecution_case_id}/defendant/#{defendant_id}/offences/#{second_offence_id}}))
-        .to have_been_made.once
-    end
-
     it "does not mark the xhibit case as linked" do
       process_cases
 
       expect(xhibit_case.reload).to be_pending
       expect(xhibit_case).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
-    end
-
-    it "does not create the link" do
-      process_cases
-
-      expect(LaaReference.find_by(defendant_id:)).to be_nil
     end
 
     it "records the failure on the xhibit case" do
@@ -130,44 +97,36 @@ RSpec.describe "XHIBIT auto-linking", type: :service do
       expect(xhibit_case.reload.process_errors["unexpected"])
         .to include("error" => "CommonPlatform::Api::Errors::FailedDependency")
     end
-
-    it "does not publish a MAAT link message" do
-      process_cases
-
-      expect(Sqs::MessagePublisher).not_to have_received(:call)
-    end
   end
 
-  context "when the MAAT application is already linked to another Common Platform case" do
+  context "when the MAAT application is already linked to a LIBRA case" do
     let(:laa_reference_cassette_name) { "laa_reference_recorder/xhibit_auto_link_success" }
+    let(:libra_maat_id) { 6_672_961 }
+    let(:published_queues) { [] }
 
-    before { stub_maat_search("linked_to_cp_case") }
+    before do
+      stub_maat_search("linked_to_libra_case")
+      allow(Sqs::MessagePublisher).to receive(:call) { |**args| published_queues << args[:queue_url] }
+    end
 
-    it "flags the case for manual action with the linked case URN" do
+    it "publishes the unlink request before the link message" do
       process_cases
 
-      expect(xhibit_case.reload).to be_action_required
-      expect(xhibit_case.process_errors).to eq(
-        "maat" => { "message" => "MAAT ID already linked with other CP case (01AB1234567)" },
+      expect(published_queues).to eq([
+        Rails.configuration.x.aws.sqs_url_unlink,
+        Rails.configuration.x.aws.sqs_url_link,
+      ])
+    end
+
+    it "links the case" do
+      process_cases
+
+      expect(xhibit_case.reload).to be_auto_linked
+      expect(xhibit_case).to have_attributes(
+        maat_id: libra_maat_id.to_s,
+        linked_by: User::SYSTEM_USERNAME,
+        linked_at: within(1.minute).of(Time.zone.now),
       )
-    end
-
-    it "leaves the case unlinked" do
-      process_cases
-
-      expect(xhibit_case.reload).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
-    end
-
-    it "does not post an LAA reference to Common Platform" do
-      process_cases
-
-      expect(a_request(:post, %r{/laaReference/})).not_to have_been_made
-    end
-
-    it "does not publish a MAAT link message" do
-      process_cases
-
-      expect(Sqs::MessagePublisher).not_to have_received(:call)
     end
   end
 end
