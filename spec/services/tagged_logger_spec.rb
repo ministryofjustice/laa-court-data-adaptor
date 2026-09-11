@@ -36,7 +36,10 @@ RSpec.describe TaggedLogger do
       described_class.log_event(:error, "some_event", status: 500, endpoint: "/foo")
 
       expect(Rails.logger).to have_received(:error).with(
-        '{"event":"some_event","request_id":"<request-id-example>","status":500,"endpoint":"/foo"}',
+        event: "some_event",
+        request_id: "<request-id-example>",
+        status: 500,
+        endpoint: "/foo",
       )
     end
 
@@ -44,7 +47,9 @@ RSpec.describe TaggedLogger do
       described_class.log_event(:error, "some_event", status: 500, error_message: nil)
 
       expect(Rails.logger).to have_received(:error).with(
-        '{"event":"some_event","request_id":"<request-id-example>","status":500}',
+        event: "some_event",
+        request_id: "<request-id-example>",
+        status: 500,
       )
     end
 
@@ -54,7 +59,8 @@ RSpec.describe TaggedLogger do
       described_class.log_event(:warn, "some_event")
 
       expect(Rails.logger).to have_received(:warn).with(
-        '{"event":"some_event","request_id":"<request-id-example>"}',
+        event: "some_event",
+        request_id: "<request-id-example>",
       )
     end
   end
