@@ -39,8 +39,9 @@ WORKDIR /usr/src/app
 
 COPY Gemfile* ./
 
-RUN gem install bundler -N
-RUN bundle config set --local deployment 'true' without 'development:test' && bundle install --jobs 4
+RUN gem install bundler -v $(cat Gemfile.lock | tail -1 | tr -d " ") \
+&& if [ "$BUNDLE_DEPLOYMENT" != "false" ]; then bundle config set --local deployment 'true' without 'development:test'; fi \
+&& bundle check || bundle install --jobs=4 --retry=3
 
 ####################
 # DEPENDENCIES END #
