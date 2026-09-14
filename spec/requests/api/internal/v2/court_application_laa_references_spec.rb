@@ -126,7 +126,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
           expect(response.body).to include("is not a valid UUID")
-          expect(response.parsed_body["error_codes"]).to eq %w[subject_id_contract_failure]
+          expect(response.parsed_body["error_codes"]).to eq %w[subject_id_invalid_uuid_contract_failure]
           expect(response).to have_http_status(:unprocessable_content)
         end
       end
@@ -142,7 +142,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
           expect(response.body).to include("is already linked to another case")
-          expect(response.parsed_body["error_codes"]).to eq %w[already_linked_contract_failure]
+          expect(response.parsed_body["error_codes"]).to eq %w[maat_reference_already_linked_contract_failure]
           expect(response).to have_http_status(:unprocessable_content)
         end
       end
@@ -158,7 +158,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           post api_internal_v2_court_application_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
           expect(response.body).to include("is not a valid MAAT reference")
-          expect(response.parsed_body["error_codes"]).to eq %w[maat_reference_contract_failure]
+          expect(response.parsed_body["error_codes"]).to eq %w[maat_reference_invalid_contract_failure]
           expect(response).to have_http_status(:unprocessable_content)
         end
       end

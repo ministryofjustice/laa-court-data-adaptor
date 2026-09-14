@@ -29,19 +29,19 @@ RSpec.describe Errors, type: :model do
     end
 
     it "exposes contract validation error codes" do
-      expect(error.codes).to eq(%w[first_name_contract_failure addressstreet_contract_failure])
+      expect(error.codes).to eq(%w[first_name_contract_failure address_street_contract_failure])
     end
 
     context "when errors include a code in the meta object" do
       let(:messages) do
         [
-          Dry::Validation::Message.new("is missing", path: %i[first_name], meta: { code: "my_error_code" }),
+          Dry::Validation::Message.new("is missing", path: %i[first_name], meta: { code: "missing" }),
           Dry::Validation::Message.new("is invalid", path: %i[address street], meta: { something: "else" }),
         ]
       end
 
       it "includes the metadata code in the validation error codes" do
-        expect(error.codes).to eq(%w[my_error_code_contract_failure addressstreet_contract_failure])
+        expect(error.codes).to eq(%w[first_name_missing_contract_failure address_street_contract_failure])
       end
     end
   end
