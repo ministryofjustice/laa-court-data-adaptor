@@ -1,6 +1,7 @@
 module ValidatesMaatReference
   extend ActiveSupport::Concern
   ALREADY_LINKED_MESSAGE_FROM_MAAT = "is already linked to a case".freeze
+  NO_COMMON_PLATFORM_MESSAGE_FROM_MAAT = "has no common platform data created".freeze
 
   included do
     option :maat_reference_validator, default: -> { MaatApi::MaatReferenceValidator }
@@ -12,13 +13,19 @@ module ValidatesMaatReference
       next if validation.nil? || validation.success?
 
       message = validation.body["message"]
-      key.failure(text: message, code: maat_reference_error_code(message))
+      key.failure(maat_reference_error_code(message))
     end
 
   private
 
     def maat_reference_error_code(message)
-      message.include?(ALREADY_LINKED_MESSAGE_FROM_MAAT) ? :maat_reference_already_linked : nil
+      if message.include?(ALREADY_LINKED_MESSAGE_FROM_MAAT)
+        :already_linked
+      elsif message.include?(NO_COMMON_PLATFORM_MESSAGE_FROM_MAAT)
+        :no_common_platform_data
+      else
+        :invalid
+      end
     end
   end
 end

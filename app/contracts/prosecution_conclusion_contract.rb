@@ -1,4 +1,4 @@
-class ProsecutionConclusionContract < Dry::Validation::Contract
+class ProsecutionConclusionContract < ApplicationContract
   json do
     required(:prosecutionConcluded).array(:hash) do
       optional(:prosecutionCaseId).value(:string)

@@ -142,7 +142,7 @@ RSpec.describe "api/internal/v2/laa_references", swagger_doc: "v2/swagger.yaml",
         it "renders a JSON response with an unprocessable_content error" do
           post api_internal_v2_prosecution_case_laa_references_path, params: laa_reference, headers: { "Authorization" => "Bearer #{token.token}" }
 
-          expect(response.body).to include("is not a valid uuid")
+          expect(response.body).to include("is not a valid UUID")
           expect(response).to have_http_status(:unprocessable_content)
         end
       end
