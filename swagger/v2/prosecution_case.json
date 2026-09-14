@@ -15,6 +15,9 @@
       "type": "string",
       "example": "ACTIVE"
     },
+    "is_civil": {
+      "type": "boolean"
+    },
     "statement_of_facts": {
       "type": "string"
     },
