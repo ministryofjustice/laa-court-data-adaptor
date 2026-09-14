@@ -31,6 +31,7 @@ private
           prosecution_case.urn,
           defendant,
           laa_reference.maat_reference,
+          prosecution_case.is_civil,
         )
 
         Sqs::MessagePublisher.call(
