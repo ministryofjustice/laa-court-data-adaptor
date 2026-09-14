@@ -38,6 +38,8 @@ private
       flag_manual_action_required(xhibit_case, "MAAT link status could not be determined")
     when :linked_to_libra
       RequestLibraUnlink.call(response, xhibit_case)
+      # NOTE: here is a potential problem: what does happen if the message in `sqs_url_unlink` is processed
+      # after the case is linked to CP (see post_laa_reference_to_common_platform) ?
       link_to_common_platform(response, xhibit_case)
     when :unlinked
       link_to_common_platform(response, xhibit_case)
