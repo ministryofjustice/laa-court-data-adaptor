@@ -39,18 +39,23 @@ RSpec.describe ProsecutionCaseLaaReferenceContract do
     let(:user_name) { "12345678910" }
 
     it { is_expected.to have_contract_error("size cannot be greater than 10") }
+    it { is_expected.to have_contract_metadata({ code: "must_not_be_greater_than_max" }) }
   end
 
   context "with an alphanumeric maat_reference" do
     let(:maat_reference) { "ABC123" }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("must be an integer") }
+    it { is_expected.to have_contract_metadata({ code: "must_be_an_integer" }) }
   end
 
   context "with an invalid defendant_id" do
     let(:defendant_id) { "23d7f10a" }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is not a valid UUID") }
+    it { is_expected.to have_contract_metadata({ code: "invalid_uuid" }) }
   end
 
   context "when the defendant cannot be linked" do
@@ -58,6 +63,7 @@ RSpec.describe ProsecutionCaseLaaReferenceContract do
 
     it { is_expected.not_to be_a_success }
     it { is_expected.to have_contract_error("cannot be linked right now as we do not have all the required information, please try again later") }
+    it { is_expected.to have_contract_metadata({ code: "cannot_be_linked" }) }
   end
 
   it_behaves_like "a contract that validates maat_reference"

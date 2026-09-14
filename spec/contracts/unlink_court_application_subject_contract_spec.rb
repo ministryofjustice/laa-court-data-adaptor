@@ -25,6 +25,7 @@ RSpec.describe UnlinkCourtApplicationSubjectContract do
     it { expect(fullfilment.errors).not_to be_empty }
 
     it { is_expected.to have_contract_error("size cannot be greater than 10") }
+    it { is_expected.to have_contract_metadata({ code: "must_not_be_greater_than_max" }) }
   end
 
   context "with a non numeric unlink_reason_code" do
@@ -33,6 +34,7 @@ RSpec.describe UnlinkCourtApplicationSubjectContract do
     it { expect(fullfilment.errors).not_to be_empty }
 
     it { is_expected.to have_contract_error("must be an integer") }
+    it { is_expected.to have_contract_metadata({ code: "must_be_an_integer" }) }
   end
 
   context "with an invalid subject_id" do
@@ -40,13 +42,15 @@ RSpec.describe UnlinkCourtApplicationSubjectContract do
 
     it { expect(fullfilment.errors).not_to be_empty }
 
-    it { is_expected.to have_contract_error("not a valid uuid") }
+    it { is_expected.to have_contract_error("is not a valid UUID") }
+    it { is_expected.to have_contract_metadata({ code: "invalid_uuid" }) }
   end
 
   context "with unlink_other_reason_text present" do
     let(:unlink_other_reason_text) { "Incorrect defendant" }
 
     it { is_expected.to have_contract_error("must be absent") }
+    it { is_expected.to have_contract_metadata({ code: "must_be_absent" }) }
   end
 
   context "with unlink_reason_code for 'Other'" do
@@ -62,6 +66,7 @@ RSpec.describe UnlinkCourtApplicationSubjectContract do
       let(:unlink_other_reason_text) { "" }
 
       it { is_expected.to have_contract_error("must be present") }
+      it { is_expected.to have_contract_metadata({ code: "must_be_present" }) }
     end
   end
 end

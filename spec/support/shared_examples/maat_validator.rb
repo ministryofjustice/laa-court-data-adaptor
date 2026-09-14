@@ -7,8 +7,8 @@ RSpec.shared_examples "a contract that validates maat_reference" do
     end
 
     it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("5635423 is already linked to a case.") }
-    it { is_expected.to have_contract_metadata({ code: :maat_reference_already_linked }) }
+    it { is_expected.to have_contract_error("is already linked to another case") }
+    it { is_expected.to have_contract_metadata({ code: "already_linked" }) }
   end
 
   context "when the maat api validator is not available" do
@@ -25,7 +25,19 @@ RSpec.shared_examples "a contract that validates maat_reference" do
     end
 
     it { is_expected.not_to be_a_success }
-    it { is_expected.to have_contract_error("MAAT/REP ID [#{maat_reference}] is invalid") }
-    it { is_expected.to have_contract_metadata({ code: nil }) }
+    it { is_expected.to have_contract_error("is not a valid MAAT reference") }
+    it { is_expected.to have_contract_metadata({ code: "invalid" }) }
+  end
+
+  context "when maat_reference has no common platform data" do
+    let(:maat_reference) { 9_999_999 }
+
+    before do
+      stub_maat_validation("no_common_platform_data", status: 400)
+    end
+
+    it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("cannot be linked right now as we do not have all the required information, please try again later") }
+    it { is_expected.to have_contract_metadata({ code: "no_common_platform_data" }) }
   end
 end
