@@ -200,4 +200,20 @@ RSpec.describe RepresentationOrderContract do
 
     it { is_expected.to be_a_success }
   end
+
+  context "with a missing defendant_id" do
+    before { hash_for_validation.delete(:defendant_id) }
+
+    it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
+  end
+
+  context "with an invalid defendant_id" do
+    before { hash_for_validation[:defendant_id] = "abc123" }
+
+    it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is not a valid UUID") }
+    it { is_expected.to have_contract_metadata({ code: "invalid_uuid" }) }
+  end
 end

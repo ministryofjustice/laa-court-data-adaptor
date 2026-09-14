@@ -1,0 +1,291 @@
+en:
+  validation:
+    or: "or"
+
+    errors:
+      invalid_jurisdiction_type:
+        text: "is not a valid jurisdictionType"
+        code: "invalid_jurisdiction_type"
+
+      cannot_be_linked:
+        text: "cannot be linked right now as we do not have all the required information, please try again later"
+        code: "cannot_be_linked"
+
+      invalid_status:
+        text: "is not a valid status"
+        code: "invalid_status"
+
+      uuid:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      status_date_required:
+        text: "this status requires a status date"
+        code: "status_date_required"
+
+      effective_start_date_required:
+        text: "this status requires an effective start date"
+        code: "effective_start_date_required"
+
+      missing_summary_data:
+        text: "cannot be linked right now as the associated court application is missing hearing summary data, please try again later"
+        code: "missing_summary_data"
+
+      unexpected_key:
+        text: "is not allowed"
+        code: "unexpected_key"
+
+      must_be_present:
+        text: "must be present"
+        code: "must_be_present"
+
+      must_be_absent:
+        text: "must be absent"
+        code: "must_be_absent"
+
+      already_linked:
+        text: "is already linked to another case"
+        code: "already_linked"
+
+      no_common_platform_data:
+        text: "cannot be linked right now as we do not have all the required information, please try again later"
+        code: "no_common_platform_data"
+
+      invalid:
+        text: "is not a valid MAAT reference"
+        code: "invalid"
+
+      empty?:
+        text: "must be empty"
+        code: "must_be_empty"
+
+      excludes?:
+        text: "must not include %{value}"
+        code: "must_not_include"
+
+      excluded_from?:
+        arg:
+          default:
+            text: "must not be one of: %{list}"
+            code: "must_not_be_in_list"
+          range:
+            text: "must not be one of: %{list_left} - %{list_right}"
+            code: "must_not_be_in_list_range"
+
+      exclusion?:
+        text: "must not be one of: %{list}"
+        code: "must_not_be_in_list"
+
+      eql?:
+        text: "must be equal to %{left}"
+        code: "must_be_equal_to"
+
+      not_eql?:
+        text: "must not be equal to %{left}"
+        code: "must_not_be_equal_to"
+
+      filled?:
+        text: "must be filled"
+        code: "must_be_filled"
+
+      format?:
+        text: "is in invalid format"
+        code: "invalid_format"
+
+      number?:
+        text: "must be a number"
+        code: "must_be_a_number"
+
+      odd?:
+        text: "must be odd"
+        code: "must_be_odd"
+
+      even?:
+        text: "must be even"
+        code: "must_be_even"
+
+      gt?:
+        text: "must be greater than %{num}"
+        code: "too_short"
+
+      gteq?:
+        text: "must be greater than or equal to %{num}"
+        code: "invalid_length"
+
+      hash?:
+        text: "must be a hash"
+        code: "must_be_a_hash"
+
+      included_in?:
+        arg:
+          default:
+            text: "must be one of: %{list}"
+            code: "must_be_included_in_list"
+          range:
+            text: "must be one of: %{list_left} - %{list_right}"
+            code: "must_be_included_in_list_range"
+
+      inclusion?:
+        text: "must be one of: %{list}"
+        code: "must_be_included_in_list"
+
+      includes?:
+        text: "must include %{value}"
+        code: "must_include"
+
+      bool?:
+        text: "must be boolean"
+        code: "must_be_boolean"
+
+      true?:
+        text: "must be true"
+        code: "must_be_true"
+
+      false?:
+        text: "must be false"
+        code: "must_be_false"
+
+      int?:
+        text: "must be an integer"
+        code: "must_be_an_integer"
+
+      float?:
+        text: "must be a float"
+        code: "must_be_a_float"
+
+      decimal?:
+        text: "must be a decimal"
+        code: "must_be_a_decimal"
+
+      date?:
+        text: "must be a date"
+        code: "must_be_a_date"
+
+      date_time?:
+        text: "must be a date time"
+        code: "must_be_a_date_time"
+
+      time?:
+        text: "must be a time"
+        code: "must_be_a_time"
+
+      key?:
+        text: "is missing"
+        code: "is_missing"
+
+      attr?:
+        text: "is missing"
+        code: "is_missing"
+
+      lt?:
+        text: "must be less than %{num}"
+        code: "must_be_less_than_max"
+
+      lteq?:
+        text: "must be less than or equal to %{num}"
+        code: "must_be_less_than_or_equal_to_max"
+
+      max_size?:
+        text: "size cannot be greater than %{num}"
+        code: "must_not_be_greater_than_max"
+
+      max_bytesize?:
+        text: "bytesize cannot be greater than %{num}"
+        code: "bytesize_cannot_be_greater_than_max"
+
+      min_size?:
+        text: "size cannot be less than %{num}"
+        code: "size_cannot_be_less_than_min"
+
+      min_bytesize?:
+        text: "bytesize cannot be less than %{num}"
+        code: "bytesize_cannot_be_less_than_min"
+
+      nil?:
+        text: "cannot be defined"
+        code: "cannot_be_defined"
+
+      str?:
+        text: "must be a string"
+        code: "must_be_a_string"
+
+      type?:
+        text: "must be %{type}"
+        code: "must_be_type"
+
+      respond_to?:
+        text: "must respond to %{method}"
+        code: "must_respond_to_methof"
+
+      size?:
+        arg:
+          default:
+            text: "size must be %{size}"
+            code: "size_must_be_size"
+          range:
+            text: "size must be within %{size_left} - %{size_right}"
+            code: "size_must_be_within_size_range"
+
+        value:
+          string:
+            arg:
+              default:
+                text: "length must be %{size}"
+                code: "length_must_be_size"
+              range:
+                text: "length must be within %{size_left} - %{size_right}"
+                code: "length_must_be_within_size_range "
+
+      bytesize?:
+        arg:
+          default:
+            text: "must be %{size} bytes long"
+            code: "bytesize_must_be_size"
+          range:
+            text: "must be within %{size_left} - %{size_right} bytes long"
+            code: "bytesize_must_be_within_size_range"
+
+      uri?:
+        text: "is not a valid URI"
+        code: "invalid_uri"
+
+      uuid?:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      uuid_v1?:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      uuid_v2?:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      uuid_v3?:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      uuid_v4?:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      uuid_v5?:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      uuid_v6?:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      uuid_v7?:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      uuid_v8?:
+        text: "is not a valid UUID"
+        code: "invalid_uuid"
+
+      not:
+        empty?:
+          text: "cannot be empty"
+          code: "cannot_be_empty"

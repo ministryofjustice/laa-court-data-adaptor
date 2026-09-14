@@ -54,12 +54,16 @@ RSpec.describe HearingContract do
     end
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
   end
 
   context "with an invalid hearing id" do
     let(:hearing_id) { "TEST" }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is not a valid UUID") }
+    it { is_expected.to have_contract_metadata({ code: "invalid_uuid" }) }
   end
 
   context "without a jurisdictionType" do
@@ -76,12 +80,16 @@ RSpec.describe HearingContract do
     end
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
   end
 
   context "with an invalid jurisdictionType" do
     let(:jurisdiction_type) { "TEST" }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is not a valid jurisdictionType") }
+    it { is_expected.to have_contract_metadata({ code: "invalid_jurisdiction_type" }) }
   end
 
   context "without a courtCentre" do
@@ -98,12 +106,16 @@ RSpec.describe HearingContract do
     end
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
   end
 
   context "with an invalid courtCentre id" do
     let(:court_centre) { { id: "TEST" } }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is not a valid UUID") }
+    it { is_expected.to have_contract_metadata({ code: "invalid_uuid" }) }
   end
 
   context "without a type" do
@@ -120,6 +132,8 @@ RSpec.describe HearingContract do
     end
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
   end
 
   context "without a type id" do
@@ -130,12 +144,16 @@ RSpec.describe HearingContract do
     end
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
   end
 
   context "with an invalid type id" do
     let(:type_id) { "TEST" }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is not a valid UUID") }
+    it { is_expected.to have_contract_metadata({ code: "invalid_uuid" }) }
   end
 
   context "without a type description" do
@@ -146,6 +164,8 @@ RSpec.describe HearingContract do
     end
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
   end
 
   context "without hearingDays" do
@@ -173,12 +193,16 @@ RSpec.describe HearingContract do
     end
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
   end
 
   context "with an invalid hearingDays sittingDay" do
     let(:sitting_day) { "TEST" }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("must be a date time") }
+    it { is_expected.to have_contract_metadata({ code: "must_be_a_date_time" }) }
   end
 
   context "without a hearingDays listingSequence" do
@@ -196,6 +220,8 @@ RSpec.describe HearingContract do
     let(:listing_sequence) { "TEST" }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("must be an integer") }
+    it { is_expected.to have_contract_metadata({ code: "must_be_an_integer" }) }
   end
 
   context "without a hearingDays listedDurationMinutes" do
@@ -207,12 +233,16 @@ RSpec.describe HearingContract do
     end
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
   end
 
   context "with an invalid hearingDays listedDurationMinutes" do
     let(:listed_duration_minutes) { "TEST" }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("must be an integer") }
+    it { is_expected.to have_contract_metadata({ code: "must_be_an_integer" }) }
   end
 
   context "without a sharedTime" do
@@ -229,11 +259,15 @@ RSpec.describe HearingContract do
     end
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("is missing") }
+    it { is_expected.to have_contract_metadata({ code: "is_missing" }) }
   end
 
   context "with an invalid sharedTime" do
     let(:shared_time) { "TEST" }
 
     it { is_expected.not_to be_a_success }
+    it { is_expected.to have_contract_error("must be a date time") }
+    it { is_expected.to have_contract_metadata({ code: "must_be_a_date_time" }) }
   end
 end

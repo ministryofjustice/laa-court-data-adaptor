@@ -129,8 +129,8 @@ RSpec.describe "api/internal/v2/representation_orders", swagger_doc: "v2/swagger
         it "renders a JSON response with an unprocessable_content error" do
           post "/api/internal/v2/representation_orders", params: representation_order, headers: { "Authorization" => "Bearer #{token.token}" }
 
-          expect(response.body).to include("is not a valid uuid")
-          expect(response.parsed_body["error_codes"]).to eq %w[maat_reference_contract_failure defendant_id_contract_failure]
+          expect(response.body).to include("is not a valid UUID")
+          expect(response.parsed_body["error_codes"]).to eq %w[maat_reference_must_be_an_integer_contract_failure defendant_id_invalid_uuid_contract_failure]
           expect(response).to have_http_status(:unprocessable_content)
         end
       end
