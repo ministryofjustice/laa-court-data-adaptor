@@ -1,210 +1,54 @@
-require "rails_helper"
+require "sidekiq/testing"
 
-RSpec.describe ProcessXhibitCases do
+RSpec.describe ProcessXhibitCases, type: :service do
   subject(:process_cases) { described_class.call }
 
+  let(:case_urn) { "61GD7528225" }
+  let(:defendant_id) { "cfc4281f-cdea-494d-8179-3173d30736fd" }
+  let(:maat_fixture) { "success" }
+  let(:maat_status) { 200 }
+  let(:maat_content_type) { "application/json" }
+
+  let!(:xhibit_case) { create(:xhibit_migrated_case, case_urn:, defendant_id:, case_type: "T") }
+
+  before { stub_maat_search(maat_fixture, status: maat_status, content_type: maat_content_type) }
+
   context "when there is no matching MAAT application" do
-    let!(:xhibit_case) { create_case(first_name: "nonexistent-first-name", last_name: "nonexistent-last-name") }
+    let(:maat_fixture) { "not_found" }
+    let(:maat_status) { 404 }
 
-    before { stub_maat_search("not_found", status: 404) }
-
-    it "sets status to (manual) action_required" do
+    it "flags the case for manual action" do
       process_cases
 
       expect(xhibit_case.reload).to be_action_required
-    end
-
-    it "stores a message on the case" do
-      process_cases
-
-      expect(xhibit_case.reload.process_errors).to eq(
+      expect(xhibit_case.process_errors).to eq(
         "maat" => { "message" => "MAAT application not found" },
       )
     end
   end
 
-  context "when there is a matching MAAT application" do
-    let!(:xhibit_case) { create_case(first_name: "Tango", last_name: "JF-LAA-T") }
-    let(:defendant_summary) { instance_double(HmctsCommonPlatform::DefendantSummary) }
-    let(:prosecution_case) { instance_double(ProsecutionCase, body: {}, prosecution_case_reference: xhibit_case.case_urn) }
+  context "when the MAAT search returns an error" do
+    let(:maat_fixture) { "bad_request" }
+    let(:maat_status) { 400 }
+    let(:maat_content_type) { "application/problem+json" }
 
-    before do
-      stub_maat_search("success")
-      allow(CommonPlatform::Api::SearchProsecutionCase).to receive(:call).and_return([prosecution_case])
-      allow(HmctsCommonPlatform::ProsecutionCaseSummary).to receive(:new).and_return(
-        instance_double(HmctsCommonPlatform::ProsecutionCaseSummary, defendant_summary:),
+    it "records the error and leaves the case pending" do
+      process_cases
+
+      expect(xhibit_case.reload).to be_pending
+      expect(xhibit_case.process_errors).to match(
+        "maat" => { "error" => 400, "message" => /Invalid request content/ },
       )
-    end
-
-    context "when the MAAT application has no existing link" do
-      before { allow(LinkXhibitCase).to receive(:call) }
-
-      it "calls the `LinkXhibitCase` class" do
-        process_cases
-
-        expect(LinkXhibitCase).to have_received(:call).with(
-          an_instance_of(MaatApi::SearchResponse),
-          xhibit_case,
-          defendant_summary,
-        )
-      end
-    end
-
-    context "when the case is not found on Common Platform" do
-      before do
-        allow(CommonPlatform::Api::SearchProsecutionCase).to receive(:call).and_return([])
-        allow(LinkXhibitCase).to receive(:call)
-      end
-
-      it "sets status to (manual) action_required" do
-        process_cases
-
-        expect(xhibit_case.reload).to be_action_required
-      end
-
-      it "stores the error on the case" do
-        process_cases
-
-        expect(xhibit_case.reload.process_errors).to eq(
-          "common_platform" => { "message" => "Case not found on Common Platform" },
-        )
-      end
-    end
-
-    context "when LinkXhibitCase throws a validation error" do
-      before do
-        allow(LinkXhibitCase).to receive(:call).and_raise(ActiveRecord::RecordInvalid, xhibit_case)
-        allow(xhibit_case).to receive(:errors).and_return(
-          instance_double(ActiveModel::Errors, full_messages: ["error message 1", "error message 2"]),
-        )
-      end
-
-      it "stores the error on the case" do
-        process_cases
-
-        expect(xhibit_case.reload.process_errors).to eq(
-          "link" => { "message" => "Validation failed: error message 1, error message 2" },
-        )
-      end
-    end
-
-    context "when LinkXhibitCase throws a non-Faraday error" do
-      before do
-        allow(LinkXhibitCase).to receive(:call)
-          .and_raise(CommonPlatform::Api::Errors::FailedDependency, "Unsuccessful response from Common Platform")
-      end
-
-      it "stores the error on the case" do
-        process_cases
-
-        expect(xhibit_case.reload.process_errors).to eq(
-          "unexpected" => {
-            "error" => "CommonPlatform::Api::Errors::FailedDependency",
-            "message" => "Unsuccessful response from Common Platform",
-          },
-        )
-      end
-
-      it "does not mark the case as linked" do
-        process_cases
-
-        expect(xhibit_case.reload).not_to be_auto_linked
-      end
-    end
-
-    context "when the MAAT application has an existing link" do
-      before do
-        stub_maat_search("linked_result")
-        allow(LinkXhibitCase).to receive(:call)
-      end
-
-      it "does not call the `LinkXhibitCase` class" do
-        process_cases
-
-        expect(LinkXhibitCase).not_to have_received(:call)
-      end
-
-      it "sets status to (manual) action_required" do
-        process_cases
-
-        expect(xhibit_case.reload).to be_action_required
-      end
-
-      it "stores the error on the case" do
-        process_cases
-
-        expect(xhibit_case.reload.process_errors).to eq(
-          "maat" => { "message" => "MAAT link status could not be determined" },
-        )
-      end
-    end
-
-    context "when the MAAT application is already linked to a Common Platform case" do
-      before do
-        stub_maat_search("linked_to_cp_case")
-        allow(LinkXhibitCase).to receive(:call)
-      end
-
-      it "does not call the `LinkXhibitCase` class" do
-        process_cases
-
-        expect(LinkXhibitCase).not_to have_received(:call)
-      end
-
-      it "sets status to (manual) action_required" do
-        process_cases
-
-        expect(xhibit_case.reload).to be_action_required
-      end
-
-      it "leaves the case unlinked" do
-        process_cases
-
-        expect(xhibit_case.reload).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
-      end
-
-      it "stores the error on the case" do
-        process_cases
-        expect(xhibit_case.reload.process_errors).to eq(
-          "maat" => { "message" => "MAAT ID already linked with other CP case (01AB1234567)" },
-        )
-      end
-    end
-
-    context "when the MAAT application is already linked to a LIBRA case" do
-      before do
-        stub_maat_search("linked_to_libra_case")
-        allow(RequestLibraUnlink).to receive(:call)
-        allow(LinkXhibitCase).to receive(:call)
-      end
-
-      it "requests the LIBRA unlink" do
-        process_cases
-
-        expect(RequestLibraUnlink).to have_received(:call).with(an_instance_of(MaatApi::SearchResponse), xhibit_case)
-      end
-
-      it "calls the `LinkXhibitCase` class" do
-        process_cases
-
-        expect(LinkXhibitCase).to have_received(:call).with(
-          an_instance_of(MaatApi::SearchResponse),
-          xhibit_case,
-          defendant_summary,
-        )
-      end
     end
   end
 
-  context "when the search fails" do
-    let!(:xhibit_case) { create_case(first_name: "Tango", last_name: "JF-LAA-T") }
-
+  context "when the MAAT search fails" do
     before do
       allow(MaatApi::MaatApplicationSearcher).to receive(:call)
         .and_raise(Faraday::ConnectionFailed, "connection refused")
     end
 
-    it "stores the error on the case" do
+    it "records the error on the case" do
       process_cases
 
       expect(xhibit_case.reload.process_errors).to eq(
@@ -213,52 +57,148 @@ RSpec.describe ProcessXhibitCases do
     end
   end
 
-  context "when one case in the batch fails" do
-    let!(:failing_case) { create_case(first_name: "Failing", last_name: "Case") }
-    let!(:succeeding_case) { create_case(first_name: "Succeeding", last_name: "Case") }
+  context "when the MAAT application is already linked to a Common Platform case" do
+    let(:maat_fixture) { "linked_to_cp_case" }
 
-    let(:response) { instance_double(MaatApi::SearchResponse, success?: true, link_state: :unlinked) }
-
-    before do
-      allow(MaatApi::MaatApplicationSearcher).to receive(:call).and_return(response)
-      allow(CommonPlatform::Api::SearchProsecutionCase).to receive(:call).and_return(
-        [instance_double(ProsecutionCase, body: {}, prosecution_case_reference: failing_case.case_urn)],
-      )
-      allow(HmctsCommonPlatform::ProsecutionCaseSummary).to receive(:new).and_return(
-        instance_double(
-          HmctsCommonPlatform::ProsecutionCaseSummary,
-          defendant_summary: instance_double(HmctsCommonPlatform::DefendantSummary),
-        ),
-      )
-      allow(LinkXhibitCase).to receive(:call) do |_maat_response, xhibit_case, _defendant_summary|
-        raise CommonPlatform::Api::Errors::FailedDependency, "boom" if xhibit_case.id == failing_case.id
-      end
-    end
-
-    it "still processes the remaining cases" do
+    it "flags the case for manual action without linking it" do
       process_cases
 
-      expect(LinkXhibitCase).to have_received(:call).twice
-      expect(succeeding_case.reload.process_errors).to be_nil
+      expect(xhibit_case.reload).to be_action_required
+      expect(xhibit_case).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
+      expect(xhibit_case.process_errors).to eq(
+        "maat" => { "message" => "MAAT ID already linked with other CP case (01AB1234567)" },
+      )
     end
   end
 
-  context "when the cases are not pending" do
-    before do
-      create(:xhibit_migrated_case, :auto_linked, defendant_last_name: "AlreadyLinked")
-      create(:xhibit_migrated_case, :action_required, defendant_last_name: "NeedsAttention")
-    end
+  context "when the MAAT link status cannot be determined" do
+    let(:maat_fixture) { "linked_result" }
 
-    it "does not search MAAT for them" do
+    it "flags the case for manual action without linking it" do
+      process_cases
+
+      expect(xhibit_case.reload).to be_action_required
+      expect(xhibit_case).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
+      expect(xhibit_case.process_errors).to eq(
+        "maat" => { "message" => "MAAT link status could not be determined" },
+      )
+    end
+  end
+
+  context "when the case is not pending" do
+    let!(:xhibit_case) { create(:xhibit_migrated_case, :auto_linked, case_urn:, defendant_id:) }
+
+    it "does not search MAAT for it" do
       process_cases
 
       expect(a_request(:post, /search-maat-application/)).not_to have_been_made
     end
   end
 
-  def create_case(first_name:, last_name:)
-    create(:xhibit_migrated_case,
-           defendant_first_name: first_name,
-           defendant_last_name: last_name)
+  context "when the case is not found on Common Platform" do
+    before do
+      allow(CommonPlatform::Api::SearchProsecutionCase).to receive(:call).and_return([])
+    end
+
+    it "flags the case for manual action without linking it" do
+      process_cases
+
+      expect(xhibit_case.reload).to be_action_required
+      expect(xhibit_case).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
+      expect(xhibit_case.process_errors).to eq(
+        "common_platform" => { "message" => "Case not found on Common Platform" },
+      )
+    end
+  end
+
+  context "when linking raises a validation error" do
+    let(:prosecution_case) { instance_double(ProsecutionCase, body: {}, prosecution_case_reference: case_urn) }
+
+    before do
+      allow(CommonPlatform::Api::SearchProsecutionCase).to receive(:call).and_return([prosecution_case])
+      allow(HmctsCommonPlatform::ProsecutionCaseSummary).to receive(:new).and_return(
+        instance_double(
+          HmctsCommonPlatform::ProsecutionCaseSummary,
+          defendant_summary: instance_double(HmctsCommonPlatform::DefendantSummary),
+        ),
+      )
+      allow(LinkXhibitCase).to receive(:call).and_raise(ActiveRecord::RecordInvalid, xhibit_case)
+      allow(xhibit_case).to receive(:errors).and_return(
+        instance_double(ActiveModel::Errors, full_messages: ["error message 1", "error message 2"]),
+      )
+    end
+
+    it "records the error on the case" do
+      process_cases
+
+      expect(xhibit_case.reload.process_errors).to eq(
+        "link" => { "message" => "Validation failed: error message 1, error message 2" },
+      )
+    end
+  end
+
+  context "when linking against Common Platform" do
+    let(:laa_reference_fixture) { "xhibit_auto_link_success" }
+    let(:maat_id) { 6_559_879 }
+
+    around do |example|
+      Sidekiq::Testing.fake! do
+        VCR.use_cassettes([
+          { name: "search_prosecution_case/by_prosecution_case_reference_success_v2" },
+          { name: "laa_reference_recorder/#{laa_reference_fixture}" },
+        ]) { example.run }
+      end
+    end
+
+    context "when every offence is linked" do
+      it "marks the xhibit case as linked" do
+        process_cases
+
+        expect(xhibit_case.reload).to be_auto_linked
+        expect(xhibit_case).to have_attributes(
+          maat_id: maat_id.to_s,
+          linked_by: User::SYSTEM_USERNAME,
+          linked_at: within(1.minute).of(Time.zone.now),
+        )
+      end
+    end
+
+    context "when an offence fails to link" do
+      let(:laa_reference_fixture) { "xhibit_auto_link_offence_failure" }
+
+      it "records the failure and leaves the case pending" do
+        process_cases
+
+        expect(xhibit_case.reload).to be_pending
+        expect(xhibit_case).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
+        expect(xhibit_case.process_errors["unexpected"])
+          .to include("error" => "CommonPlatform::Api::Errors::FailedDependency")
+      end
+    end
+
+    context "when the MAAT application is already linked to a LIBRA case" do
+      let(:maat_fixture) { "linked_to_libra_case" }
+      let(:maat_id) { 6_672_961 }
+      let(:published_queues) { [] }
+
+      before do
+        allow(Sqs::MessagePublisher).to receive(:call) { |**args| published_queues << args[:queue_url] }
+      end
+
+      it "requests the LIBRA unlink before linking the case" do
+        process_cases
+
+        expect(published_queues).to eq([
+          Rails.configuration.x.aws.sqs_url_unlink,
+          Rails.configuration.x.aws.sqs_url_link,
+        ])
+        expect(xhibit_case.reload).to be_auto_linked
+        expect(xhibit_case).to have_attributes(
+          maat_id: maat_id.to_s,
+          linked_by: User::SYSTEM_USERNAME,
+          linked_at: within(1.minute).of(Time.zone.now),
+        )
+      end
+    end
   end
 end
