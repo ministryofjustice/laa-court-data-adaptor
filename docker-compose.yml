@@ -1,11 +1,11 @@
-version: '3'
+version: "3"
 services:
   app:
     build:
       context: .
       args:
-        BUNDLE_DEPLOYMENT: 'false'
-        BUNDLE_WITHOUT: ' ' # Intentional blank value
+        BUNDLE_DEPLOYMENT: "false"
+        BUNDLE_WITHOUT: " " # Intentional blank value
     volumes:
       - .:/app
       - ./vendor/bundle:/app/vendor/bundle
@@ -13,7 +13,7 @@ services:
       - postgres
       - redis
     ports:
-      - '${PORT:-3000}:3000'
+      - "${PORT:-3000}:3000"
     environment:
       REDIS_URL: redis://redis
       DATABASE_URL: ${DATABASE_URL}
@@ -21,8 +21,8 @@ services:
     build:
       context: .
       args:
-        BUNDLE_DEPLOYMENT: 'false'
-        BUNDLE_WITHOUT: ' ' # Intentional blank value
+        BUNDLE_DEPLOYMENT: "false"
+        BUNDLE_WITHOUT: " " # Intentional blank value
     volumes:
       - .:/app
     depends_on:
@@ -32,12 +32,12 @@ services:
     environment:
       REDIS_URL: redis://redis
   postgres:
-    image: postgres:17.4-alpine
+    image: postgres:17.11-alpine
     ports:
-      - '5432:5432'
+      - "5432:5432"
     environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
   redis:
     image: redis:alpine
     ports:

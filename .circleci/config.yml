@@ -22,7 +22,7 @@ executors:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:circleci@127.0.0.1:5432/cda_test
           TZ: Europe/London
-      - image: cimg/postgres:17.4
+      - image: cimg/postgres:17.11
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: "circleci"
@@ -59,7 +59,7 @@ jobs:
           PAGER: cat
           DATABASE_URL: postgres://postgres@localhost/laa_court_data_adaptor_test
           RAILS_ENV: test
-      - image: cimg/postgres:17.4
+      - image: cimg/postgres:17.11
         environment:
           POSTGRES_DB: laa_court_data_adaptor_test
     steps:
@@ -86,7 +86,7 @@ jobs:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       - run:
-          name: 'Install postgres client 17'
+          name: "Install postgres client 17"
           command: |
             wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
             sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
@@ -157,7 +157,7 @@ jobs:
       - checkout_and_decrypt
       - kubernetes/install-kubectl
       - helm/install-helm-client:
-          version: 'v3.2.4'
+          version: "v3.2.4"
       - run:
           name: Authenticate to LIVE cluster
           command: |
@@ -183,7 +183,7 @@ jobs:
       - checkout_and_decrypt
       - kubernetes/install-kubectl
       - helm/install-helm-client:
-          version: 'v3.2.4'
+          version: "v3.2.4"
       - run:
           name: Authenticate to LIVE cluster
           command: |
@@ -209,7 +209,7 @@ jobs:
       - checkout_and_decrypt
       - kubernetes/install-kubectl
       - helm/install-helm-client:
-          version: 'v3.2.4'
+          version: "v3.2.4"
       - run:
           name: Authenticate to LIVE cluster
           command: |
@@ -232,7 +232,7 @@ jobs:
       - checkout_and_decrypt
       - kubernetes/install-kubectl
       - helm/install-helm-client:
-          version: 'v3.2.4'
+          version: "v3.2.4"
       - run:
           name: Authenticate to LIVE cluster
           command: |
@@ -247,7 +247,6 @@ jobs:
           name: Deploy to Production
           command: |
             .circleci/deploy.sh laa-court-data-adaptor-prod ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml $CIRCLE_SHA1
-
 
   postman_test_on_dev:
     executor: newman-latest
@@ -265,7 +264,7 @@ jobs:
           collection: ./postman-collection/runner/tests.postman_collection.json
           environment: ./postman-collection/runner/enviroments/dev.postman_environment.json
           delay-request: "3000"
-          additional-options:  "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET"
+          additional-options: "--env-var client_id=$DEV_UID --env-var client_secret=$DEV_SECRET"
 
   scan-docker-image:
     parameters:
@@ -321,7 +320,7 @@ workflows:
           name: scan-and-monitor-docker-image
           monitor: true
           requires:
-          - build-and-push-app
+            - build-and-push-app
       - e2e-test-main:
           requires:
             - build-and-push-app
@@ -330,18 +329,17 @@ workflows:
             - build-and-push-app
       - install_on_test_live:
           requires:
-          - build-and-push-app
+            - build-and-push-app
       - install_on_uat_live:
           requires:
-          - build-and-push-app
+            - build-and-push-app
       - hold_install_on_prod:
           type: approval
           requires:
             - build-and-push-app
       - install_on_prod_live:
           requires:
-          - hold_install_on_prod
-
+            - hold_install_on_prod
 
   test-branch:
     jobs:
@@ -362,7 +360,7 @@ workflows:
           name: scan-docker-image
           monitor: false
           requires:
-          - build-and-push-app
+            - build-and-push-app
       - e2e-test-branch:
           context: laa-court-data-e2e-tests
           requires:
@@ -370,24 +368,24 @@ workflows:
       - hold_install_on_dev:
           type: approval
           requires:
-          - build-and-push-app
+            - build-and-push-app
       - install_on_dev_live:
           requires:
-          - hold_install_on_dev
+            - hold_install_on_dev
       - hold_install_on_test:
           type: approval
           requires:
-          - build-and-push-app
+            - build-and-push-app
       - install_on_test_live:
           requires:
-          - hold_install_on_test
+            - hold_install_on_test
       - hold_install_on_uat:
           type: approval
           requires:
-          - build-and-push-app
+            - build-and-push-app
       - install_on_uat_live:
           requires:
-          - hold_install_on_uat
+            - hold_install_on_uat
       - postman_test_on_dev:
           requires:
-          - install_on_dev_live
+            - install_on_dev_live
