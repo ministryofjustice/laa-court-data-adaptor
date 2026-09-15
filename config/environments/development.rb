@@ -54,5 +54,9 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 
-  config.log_level = :debug
+  config.semantic_logger.backtrace_level = :fatal
+  config.rails_semantic_logger.appenders do |appenders|
+    appenders.add(file_name: "log/development.log", formatter: :color, level: :debug)
+    appenders.add(io: $stdout, formatter: :color, level: :debug)
+  end
 end

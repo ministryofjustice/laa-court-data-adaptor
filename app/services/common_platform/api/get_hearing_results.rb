@@ -14,7 +14,16 @@ module CommonPlatform
           publish_hearing_to_queue if publish_to_queue
           response.body
         else
-          Rails.logger.warn("GetHearingResults failed for hearing_id: #{@hearing_id}, status: #{@response.status}, body_present: #{@response.body.present?}")
+          TaggedLogger.log_event(
+            :warn,
+            "common_platform_hearing_results_unavailable",
+            service: "common_platform",
+            endpoint: HearingFetcher::URL,
+            status: response.status,
+            hearing_id: @hearing_id,
+            error_message: "Hearing results missing or unsuccessful response",
+            body_present: response.body.present?,
+          )
         end
       end
 

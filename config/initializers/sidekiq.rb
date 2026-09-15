@@ -8,7 +8,7 @@ require "sidekiq/web"
 if ENV["INLINE_SIDEKIQ"] == "true"
   raise "Sidekiq must be run using redis in production" if Rails.env.production?
 
-  require "sidekiq/testing"
+  Sidekiq.testing!(:fake)
   Sidekiq::Testing.inline!
 end
 
