@@ -41,3 +41,11 @@ MAAT_API_OAUTH_URL=https://maat-api-dev.auth.eu-west-2.amazoncognito.com
 MAAT_API_API_URL=https://laa-maat-data-api-dev.apps.live.cloud-platform.service.justice.gov.uk
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/laa_court_data_adaptor_development
 EOF
+
+TEST_TARGET="$SCRIPT_DIR/../.env.test.local"
+
+cat > "$TEST_TARGET" << EOF
+PACT_BROKER_BASE_URL=https://laa-data-pact-broker.apps.live.cloud-platform.service.justice.gov.uk/
+PACT_BROKER_USERNAME=$(ksecret laa-data-pact-broker-secrets PACT_BROKER_BASIC_AUTH_USERNAME laa-data-pact-broker)
+PACT_BROKER_PASSWORD=$(ksecret laa-data-pact-broker-secrets PACT_BROKER_BASIC_AUTH_PASSWORD laa-data-pact-broker)
+EOF
