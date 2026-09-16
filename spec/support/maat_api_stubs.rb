@@ -13,7 +13,7 @@ module MaatApiStubs
     stub_maat_api_token
     stub_request(:post, maat_search_url).to_return(
       status:,
-      body: file_fixture("maat_api/search/#{fixture}.json").read,
+      body: fixture_file("maat_api/search/#{fixture}.json"),
       headers: { "Content-Type" => content_type },
     )
   end
@@ -22,12 +22,16 @@ module MaatApiStubs
     stub_maat_api_token
     stub_request(:post, maat_validation_url).to_return(
       status:,
-      body: file_fixture("maat_api/validation/#{fixture}.json").read,
+      body: fixture_file("maat_api/validation/#{fixture}.json"),
       headers: { "Content-Type" => content_type },
     )
   end
 
 private
+
+  def fixture_file(path)
+    File.read(Rails.root.join("spec/fixtures/files/#{path}"))
+  end
 
   def maat_validation_url
     "#{ENV['MAAT_API_API_URL']}/#{MaatApi::MaatReferenceValidator::URL}"

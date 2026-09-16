@@ -30,6 +30,11 @@ RSpec/VariableName:
 RSpec/EmptyExampleGroup:
   Exclude:
     - 'spec/requests/**/*.rb'
+    - 'spec/pact/**/*.rb' # Needed for Pact tests, which have empty example groups
+
+Style/MixinUsage:
+  Exclude:
+    - 'spec/pact/**/*.rb' # Needed for Pact tests, which won't allow mixins
 
 Rails/Delegate:
   Enabled: false
