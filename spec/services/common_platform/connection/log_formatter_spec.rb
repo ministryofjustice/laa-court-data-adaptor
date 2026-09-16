@@ -10,7 +10,12 @@ RSpec.describe CommonPlatform::Connection::LogFormatter do
         stub.get("/search?defendantName=John") { [200, {}, "all good"] }
         stub.get("/failure?defendantName=John") { [500, {}, "Internal Server Error"] }
         stub.get("/failure-with-long-body") { [502, {}, "a" * 600] }
-        stub.get("/failure-with-html-body") { [504, {}, "<html><body><h1>Gateway Timeout</h1></body></html>"] }
+        stub.get("/failure-with-html-body") do
+          [504, { "Content-Type" => "text/html; charset=utf-8" }, "<html><body><h1>Gateway Timeout</h1></body></html>"]
+        end
+        stub.get("/failure-with-json-body") do
+          [502, { "Content-Type" => "application/json" }, '{"error":"<not-html>"}']
+        end
         stub.get("/not-found") { [404, {}, "Not Found"] }
         stub.get("/hearing/ceb158e3-7171-40ce-915b-441e2c4e3f75/result") { [500, {}, "Internal Server Error"] }
       end
@@ -69,6 +74,16 @@ RSpec.describe CommonPlatform::Connection::LogFormatter do
     end
 
     test_connection.get("/failure-with-html-body")
+  end
+
+  it "keeps non HTML error bodies" do
+    allow(TaggedLogger).to receive(:info)
+
+    expect(TaggedLogger).to receive(:log_event) do |_level, _event, **fields|
+      expect(fields[:error_message]).to eq('{"error":"<not-html>"}')
+    end
+
+    test_connection.get("/failure-with-json-body")
   end
 
   it "logs statuses that Common Platform returns routinely at warn level" do

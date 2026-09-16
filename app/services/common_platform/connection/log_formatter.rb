@@ -10,6 +10,7 @@ module CommonPlatform
       # Common Platform returns 404 for records it does not hold, and 429s are
       # absorbed by the retry middleware, so neither is an error on our side.
       EXPECTED_FAILURE_STATUSES = [404, 429].freeze
+      HTML_CONTENT_TYPES = %w[text/html application/xhtml+xml].freeze
 
       def request(env)
         env[:started_at] = Process.clock_gettime(Process::CLOCK_MONOTONIC)
@@ -49,10 +50,16 @@ module CommonPlatform
       end
 
       def error_message_for(env)
-        # In case of error, Common Platform API returns an HTML page.
-        body = ActionView::Base.full_sanitizer.sanitize(env.body.to_s).strip
+        body = env.body.to_s
+        body = ActionView::Base.full_sanitizer.sanitize(body) if html_response?(env)
 
         apply_filters(body).truncate(MAX_BODY_LENGTH).presence
+      end
+
+      def html_response?(env)
+        content_type = env.response_headers["content-type"].to_s.split(";").first
+
+        HTML_CONTENT_TYPES.include?(content_type)
       end
     end
   end
