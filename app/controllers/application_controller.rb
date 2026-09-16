@@ -29,6 +29,14 @@ class ApplicationController < ActionController::API
     end
   end
 
+protected
+
+  def append_info_to_payload(payload)
+    super
+    payload[:user_agent] = request.user_agent
+    payload[:remote_ip] = request.remote_ip
+  end
+
 private
 
   def set_transaction_id
