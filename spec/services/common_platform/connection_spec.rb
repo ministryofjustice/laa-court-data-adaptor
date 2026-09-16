@@ -59,7 +59,7 @@ RSpec.describe CommonPlatform::Connection do
       retry_options = {
         retry_statuses: [409, 429, 500, 502, 504],
         max: 3,
-        interval: 0.05,
+        interval: 3,
         interval_randomness: 0.5,
         backoff_factor: 2,
         methods: %i[delete get head options put post],
