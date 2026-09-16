@@ -83,9 +83,13 @@ module CommonPlatform
 
     def retry_options
       {
-        retry_statuses: [429],
+        retry_statuses: [409, 429, 500, 502, 504],
+        max: 3,
         interval: 3,
-        methods: %i[delete get head options put post],
+        interval_randomness: 0.5,
+        backoff_factor: 2,
+        methods: Faraday::Retry::Middleware::IDEMPOTENT_METHODS + [:post],
+        exceptions: Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Faraday::ConnectionFailed, Faraday::ParsingError],
       }
     end
   end
