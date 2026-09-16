@@ -48,9 +48,28 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
           run_test!
         end
 
+        context "when search returns no results" do
+          let(:'filter[prosecution_case_reference]') { "id-for-no-results" }
+          let(:cassette_name) { "search_prosecution_case/no_results" }
+
+          before do
+            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+          end
+
+          response(424, "Common Platform API Error") do
+            schema "$ref" => "search_prosecution_case_response.json#"
+
+            run_test!
+          end
+        end
+
         context "when Common Platform API returns Server Error" do
-          let(:'filter[prosecution_case_reference]') { "id-for-500-error" }
+          let(:'filter[prosecution_case_reference]') { "" }
           let(:cassette_name) { "search_prosecution_case/server_error" }
+
+          before do
+            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+          end
 
           response(424, "Common Platform API Error") do
             schema "$ref" => "search_prosecution_case_response.json#"
@@ -214,11 +233,31 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
           run_test!
         end
 
-        context "when Common Platform API returns Server Error" do
-          let(:cassette_name) { "search_prosecution_case/server_error" }
+        context "when search returns no results" do
+          let(:filter) { { filter: { prosecution_case_reference: "id-for-no-results" } } }
+          let(:cassette_name) { "search_prosecution_case/no_results" }
+
+          before do
+            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+          end
 
           response(424, "Common Platform API Error") do
-            let(:filter) { { filter: { prosecution_case_reference: "id-for-500-error" } } }
+            schema "$ref" => "search_prosecution_case_response.json#"
+
+            run_test!
+          end
+        end
+
+        context "when Common Platform API returns Server Error" do
+          let(:'filter[prosecution_case_reference]') { "id-for-500-error" }
+          let(:cassette_name) { "search_prosecution_case/server_error" }
+
+          before do
+            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+          end
+
+          response(424, "Common Platform API Error") do
+            let(:filter) { { filter: { prosecution_case_reference: "" } } }
 
             run_test!
           end

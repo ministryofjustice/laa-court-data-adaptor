@@ -1,47 +1,107 @@
 ---
 http_interactions:
-- request:
-    method: post
-    uri: "<COMMON_PLATFORM_URL>/prosecutionCases/laaReference/cases/6fc1f2cb-4a93-4116-84db-f87cc86ec3b8/defendant/cfc4281f-cdea-494d-8179-3173d30736fd/offences/997ba1dd-e1e2-46cb-ad4d-2c570af869cd"
-    body:
-      encoding: UTF-8
-      string: '{"statusCode":"AP","applicationReference":"6559879","statusDate":"2026-09-03"}'
-    headers:
-      Ocp-Apim-Subscription-Key:
-      - "<SHARED_SECRET_KEY>"
-      Content-Type:
-      - application/json
-  response:
-    status:
-      code: 202
-      message: Accepted
-    headers:
-      content-length:
-      - '0'
-    body:
-      encoding: UTF-8
-      string: ''
-  recorded_at: Wed, 03 Sep 2026 10:00:00 GMT
-- request:
-    method: post
-    uri: "<COMMON_PLATFORM_URL>/prosecutionCases/laaReference/cases/6fc1f2cb-4a93-4116-84db-f87cc86ec3b8/defendant/cfc4281f-cdea-494d-8179-3173d30736fd/offences/9085871a-797b-4ab8-8072-05ca6deeaac9"
-    body:
-      encoding: UTF-8
-      string: '{"statusCode":"AP","applicationReference":"6559879","statusDate":"2026-09-03"}'
-    headers:
-      Ocp-Apim-Subscription-Key:
-      - "<SHARED_SECRET_KEY>"
-      Content-Type:
-      - application/json
-  response:
-    status:
-      code: 500
-      message: Internal Server Error
-    headers:
-      Content-Type:
-      - application/json
-    body:
-      encoding: UTF-8
-      string: '{"error":"Internal Server Error"}'
-  recorded_at: Wed, 03 Sep 2026 10:00:00 GMT
+  - request:
+      method: post
+      uri: "<COMMON_PLATFORM_URL>/prosecutionCases/laaReference/cases/6fc1f2cb-4a93-4116-84db-f87cc86ec3b8/defendant/cfc4281f-cdea-494d-8179-3173d30736fd/offences/997ba1dd-e1e2-46cb-ad4d-2c570af869cd"
+      body:
+        encoding: UTF-8
+        string: '{"statusCode":"AP","applicationReference":"6559879","statusDate":"2026-09-03"}'
+      headers:
+        Ocp-Apim-Subscription-Key:
+          - "<SHARED_SECRET_KEY>"
+        Content-Type:
+          - application/json
+    response:
+      status:
+        code: 202
+        message: Accepted
+      headers:
+        content-length:
+          - "0"
+      body:
+        encoding: UTF-8
+        string: ""
+    recorded_at: Wed, 03 Sep 2026 10:00:00 GMT
+  - request:
+      method: post
+      uri: "<COMMON_PLATFORM_URL>/prosecutionCases/laaReference/cases/6fc1f2cb-4a93-4116-84db-f87cc86ec3b8/defendant/cfc4281f-cdea-494d-8179-3173d30736fd/offences/9085871a-797b-4ab8-8072-05ca6deeaac9"
+      body:
+        encoding: UTF-8
+        string: '{"statusCode":"AP","applicationReference":"6559879","statusDate":"2026-09-03"}'
+      headers:
+        Ocp-Apim-Subscription-Key:
+          - "<SHARED_SECRET_KEY>"
+        Content-Type:
+          - application/json
+    response:
+      status:
+        code: 500
+        message: Internal Server Error
+      headers:
+        Content-Type:
+          - application/json
+      body:
+        encoding: UTF-8
+        string: '{"error":"Internal Server Error"}'
+    recorded_at: Wed, 03 Sep 2026 10:00:00 GMT
+  - request:
+      method: post
+      uri: "<COMMON_PLATFORM_URL>/prosecutionCases/laaReference/cases/6fc1f2cb-4a93-4116-84db-f87cc86ec3b8/defendant/cfc4281f-cdea-494d-8179-3173d30736fd/offences/9085871a-797b-4ab8-8072-05ca6deeaac9"
+      body:
+        encoding: UTF-8
+        string: '{"statusCode":"AP","applicationReference":"6559879","statusDate":"2026-09-16"}'
+      headers:
+        Ocp-Apim-Subscription-Key:
+          - "<SHARED_SECRET_KEY>"
+        User-Agent:
+          - Faraday v2.14.3
+        Content-Type:
+          - application/json
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        Connection:
+          - keep-alive
+        Keep-Alive:
+          - "30"
+    response:
+      status:
+        code: 404
+        message: Not Found
+      headers:
+        Date:
+          - Wed, 16 Sep 2026 15:04:18 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "84"
+        Connection:
+          - keep-alive
+        X-Frame-Options:
+          - SAMEORIGIN
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Content-Type-Options:
+          - nosniff
+        X-Download-Options:
+          - noopen
+        X-Permitted-Cross-Domain-Policies:
+          - none
+        Referrer-Policy:
+          - strict-origin-when-cross-origin
+        Vary:
+          - Accept
+        Cache-Control:
+          - no-cache
+        X-Request-Id:
+          - 6f61a99d13db8937d655448db9b90b99
+        X-Runtime:
+          - "0.006724"
+        Strict-Transport-Security:
+          - max-age=31536000; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"error":"Couldn''t find Offence with ''id''=\"9085871a-797b-4ab8-8072-05ca6deeaac9\""}'
+    recorded_at: Wed, 16 Sep 2026 15:04:18 GMT
 recorded_with: VCR 6.0.0
