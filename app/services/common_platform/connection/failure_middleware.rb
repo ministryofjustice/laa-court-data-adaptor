@@ -5,7 +5,7 @@ module CommonPlatform
     class FailureMiddleware < Faraday::Middleware
       def call(env)
         @app.call(env)
-      rescue Faraday::ConnectionFailed => e
+      rescue Faraday::ConnectionFailed, Faraday::TimeoutError, Faraday::SSLError => e
         # The response logger never runs when the connection itself fails, so
         # this is the only chance to record the failure.
         TaggedLogger.log_event(
