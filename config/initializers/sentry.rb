@@ -20,7 +20,6 @@ if ENV["SENTRY_DSN"].present?
     config.inspect_exception_causes_for_exclusion = true
     config.excluded_exceptions += %w[
       ActionController::RoutingError
-      EOFError
     ]
   end
 end
