@@ -57,9 +57,13 @@ RSpec.describe CommonPlatform::Connection do
       allow(Faraday).to receive(:new).and_yield(connection)
 
       retry_options = {
+        retry_statuses: [409, 429, 500, 502, 504],
+        max: 3,
+        interval: 0.05,
+        interval_randomness: 0.5,
+        backoff_factor: 2,
         methods: %i[delete get head options put post],
-        interval: 3,
-        retry_statuses: [429],
+        exceptions: Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Faraday::ConnectionFailed, Faraday::ParsingError],
       }
 
       expect(connection).to receive(:request).with(:retry, retry_options)
