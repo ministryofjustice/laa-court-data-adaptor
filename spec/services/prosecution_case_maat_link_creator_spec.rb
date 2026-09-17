@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 
 RSpec.describe ProsecutionCaseMaatLinkCreator do
   subject(:create_maat_link) { described_class.call(defendant_id, user_name, maat_reference) }

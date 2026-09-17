@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "swagger_helper"
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 
 RSpec.describe "api/internal/v1/representation_orders", swagger_doc: "v1/swagger.yaml", type: :request do
   include AuthorisedRequestHelper

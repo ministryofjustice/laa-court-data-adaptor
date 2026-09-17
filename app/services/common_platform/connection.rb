@@ -10,14 +10,39 @@ module CommonPlatform
     CLIENT_CERT = Rails.configuration.x.client_cert
     CLIENT_KEY = Rails.configuration.x.client_key
 
+    # Query string values that must never reach the logs.
+    PII_FILTERS = {
+      /(defendantFirstName=)([^&]+)/ => '\1[FILTERED]',
+      /(defendantMiddleName=)([^&]+)/ => '\1[FILTERED]',
+      /(defendantLastName=)([^&]+)/ => '\1[FILTERED]',
+      /(defendantName=)([^&]+)/ => '\1[FILTERED]',
+      /(defendantDOB=)([^&]+)/ => '\1[FILTERED]',
+      /(defendantNINO=)([^&]+)/ => '\1[FILTERED]',
+      /(defendantASN=)([^&]+)/ => '\1[FILTERED]',
+    }.freeze
+
+    UUID_PATTERN = /\h{8}-\h{4}-\h{4}-\h{4}-\h{12}/
+
+    class << self
+      def filter_pii(value)
+        PII_FILTERS.reduce(value.to_s) do |filtered, (pattern, replacement)|
+          filtered.gsub(pattern, replacement)
+        end
+      end
+
+      # Strips record identifiers out of the path so that OpenSearch can
+      # aggregate failures by endpoint instead of by individual request.
+      def endpoint_for(url)
+        url.respond_to?(:path) ? url.path.to_s.gsub(UUID_PATTERN, ":id") : url.to_s
+      end
+    end
+
     def initialize
       @connection = Faraday.new HOST, options do |connection|
         connection.request :retry, retry_options
         connection.request :json
-        connection.response :logger, TaggedLogger, { headers: false, formatter: LogFormatter } do |logger|
-          logger.filter(/(defendantName=)([^&]+)/, '\1[FILTERED]')
-          logger.filter(/(defendantDOB=)([^&]+)/, '\1[FILTERED]')
-          logger.filter(/(defendantNINO=)([^&]+)/, '\1[FILTERED]')
+        connection.response :logger, TaggedLogger, { headers: false, formatter: CommonPlatform::Connection::LogFormatter } do |logger|
+          PII_FILTERS.each { |pattern, replacement| logger.filter(pattern, replacement) }
         end
         connection.use FailureMiddleware
         connection.response :json, content_type: "application/json"
@@ -38,42 +63,6 @@ module CommonPlatform
     end
 
   private
-
-    # All Common Platform logging lives here.
-    # A request and a response line (with duration) for every call.
-    class LogFormatter < Faraday::Logging::Formatter
-      MAX_BODY_LENGTH = 500
-
-      def request(env)
-        env[:started_at] = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-
-        info { "Common Platform request: #{env.method.to_s.upcase} #{apply_filters(env.url.to_s)}" }
-      end
-
-      def response(env)
-        duration = (Process.clock_gettime(Process::CLOCK_MONOTONIC) - env[:started_at]).round(3)
-
-        if env.status >= 400
-          error do
-            "Common Platform request failed: #{env.method.to_s.upcase} #{apply_filters(env.url.to_s)} " \
-            "status: #{env.status}, body: #{env.body.to_s.truncate(MAX_BODY_LENGTH)} (duration: #{duration}s)"
-          end
-        end
-
-        info do
-          "Common Platform response: #{env.method.to_s.upcase} #{apply_filters(env.url.to_s)} " \
-          "status: #{env.status} (duration: #{duration}s)"
-        end
-      end
-    end
-
-    class FailureMiddleware < Faraday::Middleware
-      def call(env)
-        @app.call(env)
-      rescue Faraday::ConnectionFailed => e
-        raise CommonPlatform::Api::Errors::FailedDependency, e
-      end
-    end
 
     def headers
       { "Ocp-Apim-Subscription-Key" => ENV["SHARED_SECRET_KEY"] }

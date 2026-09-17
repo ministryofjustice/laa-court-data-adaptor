@@ -1,4 +1,4 @@
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 
 RSpec.describe ProcessXhibitCases, type: :service do
   subject(:process_cases) { described_class.call }

@@ -36,13 +36,28 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
-
   # Info include generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+
+  # Prepend all log lines with the following tags.
+  config.log_tags = [:request_id]
+  $stdout.sync = true
+  config.semantic_logger.application = "" # No need to send the application name as logstash reads it from OpenSearch log tags
+  config.semantic_logger.backtrace_level = :fatal # Only attach backtraces at :fatal so error/warn lines stay small enough for OpenSearch ingestion
+  config.rails_semantic_logger.add_file_appender = false # Don't log to file, only STDOUT
+  config.rails_semantic_logger.started = false
+  config.rails_semantic_logger.processing = false
+  config.rails_semantic_logger.format = :json
+  # Ignore status check events to reduce log output
+  config.rails_semantic_logger.filter = proc { |log| log.name != "StatusController" }
+  config.active_record.logger = nil # Don't log SQL
+  # Log to STDOUT JSON-formatted logs
+  config.semantic_logger.add_appender(io: $stdout,
+                                      level: config.log_level,
+                                      formatter: config.rails_semantic_logger.format,
+                                      filter: config.rails_semantic_logger.filter)
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -53,19 +68,6 @@ Rails.application.configure do
 
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
-
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
-
-  # Use a different logger for distributed setups.
-  # require "syslog/logger"
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
-
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new($stdout)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
-  end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
