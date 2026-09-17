@@ -16,5 +16,10 @@ if ENV["SENTRY_DSN"].present?
       # error reporting. 100% of errors are reported to Sentry.
       transaction_name.in?(EXCLUDE_PATHS) ? 0.0 : 0.05
     end
+
+    config.inspect_exception_causes_for_exclusion = true
+    config.excluded_exceptions += %w[
+      ActionController::RoutingError
+    ]
   end
 end
