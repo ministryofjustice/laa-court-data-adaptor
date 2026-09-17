@@ -35,8 +35,8 @@ http_interactions:
           - application/json
     response:
       status:
-        code: 500
-        message: Internal Server Error
+        code: 503
+        message: Service Unavailable
       headers:
         Content-Type:
           - application/json
