@@ -197,6 +197,27 @@ The `enviroment_file` availables are:
 - dev.postman_environment.json
 - uat.postman_environment.json
 
+## Contract tests
+
+There are a limited number of Contract tests that use [pact](https://docs.pact.io/) to verify the contract between CDA
+and Common Platform API. These are located in `spec/contract` and can be run with `bundle exec rake pact:verify`.
+
+They are also run as part of the [GitHub Actions workflow](https://github.com/ministryofjustice/laa-court-data-adaptor/blob/main/.github/workflows/pact.yml) on pull requests and merges to master.
+
+These tests are based on the [`laa-pact-template`](https://github.com/ministryofjustice/laa-pact-template) and consume the contracts from the [`laa-court-data-ui` repo](https://github.com/ministryofjustice/laa-court-data-ui/tree/main/spec/pact/providers),
+which publish the contracts to the [`laa-data-pact-broker`](https://github.com/ministryofjustice/laa-data-pact-broker).
+
+For more information on how to run the contract tests, see [the `laa-pact-template` README](https://github.com/ministryofjustice/laa-pact-template/blob/main/README.md).
+
+To run the contract tests locally, run the `script/generate_env` script to generate the `.env.development.local` file
+and decrypt the secrets from Kubernetes secrets. This assumes you are already [setup on the MoJ Cloud Platform](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html).
+
+Then run the following command to execute the contract tests:
+
+```
+bundle exec rails pact:verify
+```
+
 ## API Schema
 
 We use [rswag](https://github.com/rswag/rswag) to document with [swagger](https://swagger.io/) the endpoints that are being exposed.

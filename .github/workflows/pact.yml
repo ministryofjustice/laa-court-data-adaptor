@@ -1,0 +1,53 @@
+name: Pact Provider Verification (Broker Driven)
+
+on:
+  workflow_dispatch:
+    inputs:
+      consumer:       { required: false, description: "Consumer name (from broker webhook)" }
+      consumerBranch: { required: false, description: "Consumer branch (from broker webhook)" }
+  pull_request:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  pact_verify:
+    runs-on: ubuntu-latest
+    env:
+      RACK_ENV: test
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/cda_test
+    services:
+      postgres:
+        image: postgres:18.1-alpine
+        env:
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "postgres"
+          POSTGRES_DB: "cda_test"
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Prepare DB
+        run: bin/rails db:prepare
+
+      - name: Verify pacts from broker
+        env:
+          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
+          PACT_BROKER_USERNAME: ${{ secrets.PACT_BROKER_USERNAME }}
+          PACT_BROKER_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }}
+          PROVIDER_VERSION: ${{ github.sha }}
+          PROVIDER_BRANCH:      ${{ github.ref_name }}
+          PACT_CONSUMER:        ${{ github.event.inputs.consumer }}
+          PACT_CONSUMER_BRANCH: ${{ github.event.inputs.consumerBranch }}
+        run: |
+          PACT_DO_NOT_TRACK=true NOCOVERAGE=true bundle exec rails pact:verify
