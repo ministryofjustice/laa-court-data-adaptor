@@ -52,7 +52,7 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
   Check the Ruby version in the file `.ruby-version`
 
 * System dependencies
-  * postgres 17.4
+  * postgres 17.11
   * redis
 
 * Ruby on Rails and the other Ruby Gems
