@@ -1,4 +1,7 @@
 class ProcessXhibitCases < ApplicationService
+  # Gives the LIBRA unlink message time to be processed before the case is linked
+  LIBRA_UNLINK_DELAY = 30.seconds
+
   def call
     XhibitMigratedCase.pending.find_each do |xhibit_case|
       response = maat_search(xhibit_case)
@@ -13,6 +16,22 @@ class ProcessXhibitCases < ApplicationService
     rescue StandardError => e
       record_error(xhibit_case, :unexpected, error: e.class.name, message: e.message)
     end
+  end
+
+  def link_to_common_platform(xhibit_case, maat_id)
+    defendant_summary = fetch_defendant_summary(xhibit_case)
+
+    if defendant_summary.nil?
+      xhibit_case.action_required!
+      record_error(xhibit_case, :common_platform, message: "Case not found on Common Platform")
+      return
+    end
+
+    LinkXhibitCase.call(maat_id, xhibit_case, defendant_summary)
+  rescue ActiveRecord::RecordInvalid => e
+    record_error(xhibit_case, :link, message: "Validation failed: #{e.record.errors.full_messages.join(', ')}")
+  rescue StandardError => e
+    record_error(xhibit_case, :unexpected, error: e.class.name, message: e.message)
   end
 
 private
@@ -38,27 +57,10 @@ private
       flag_manual_action_required(xhibit_case, "MAAT link status could not be determined")
     when :linked_to_libra
       RequestLibraUnlink.call(response, xhibit_case)
-      # NOTE: here is a potential problem: what does happen if the message in `sqs_url_unlink` is processed
-      # after the case is linked to CP (see post_laa_reference_to_common_platform) ?
-      link_to_common_platform(response, xhibit_case)
+      LinkXhibitCaseWorker.perform_in(LIBRA_UNLINK_DELAY, xhibit_case.id, response.maat_id)
     when :unlinked
-      link_to_common_platform(response, xhibit_case)
+      link_to_common_platform(xhibit_case, response.maat_id)
     end
-  end
-
-  def link_to_common_platform(response, xhibit_case)
-    defendant_summary = fetch_defendant_summary(xhibit_case)
-
-    if defendant_summary.nil?
-      # Handle not on common_platform
-      xhibit_case.action_required!
-      record_error(xhibit_case, :common_platform, message: "Case not found on Common Platform")
-      return
-    end
-
-    LinkXhibitCase.call(response, xhibit_case, defendant_summary)
-  rescue ActiveRecord::RecordInvalid => e
-    record_error(xhibit_case, :link, message: "Validation failed: #{e.record.errors.full_messages.join(', ')}")
   end
 
   # Both MAAT link creators read from the local database, so the case has to be

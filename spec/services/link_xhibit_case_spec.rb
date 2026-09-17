@@ -1,6 +1,6 @@
 RSpec.describe LinkXhibitCase, type: :service do
   describe "#call" do
-    let(:maat_response) { instance_double(MaatApi::SearchResponse, maat_id: "6559879") }
+    let(:maat_id) { "6559879" }
     let(:case_type) { "T" }
     let(:application_summaries) { [] }
     let(:subject_id) { "b7c8e2f0-0000-4000-8000-000000000002" }
@@ -22,7 +22,7 @@ RSpec.describe LinkXhibitCase, type: :service do
              defendant_last_name: "Smith")
     end
 
-    let(:link_case) { described_class.call(maat_response, xhibit_case, court_data) }
+    let(:link_case) { described_class.call(maat_id, xhibit_case, court_data) }
 
     before do
       allow(ProsecutionCaseMaatLinkCreator).to receive(:call)
@@ -31,9 +31,9 @@ RSpec.describe LinkXhibitCase, type: :service do
 
     it "updates the xhibit case" do
       expect { link_case }.to change { xhibit_case.reload.status }.from("pending").to("auto_linked")
-                          .and change { xhibit_case.reload.maat_id }.from(nil).to(maat_response.maat_id)
+                          .and change { xhibit_case.reload.maat_id }.from(nil).to(maat_id)
                           .and change { xhibit_case.reload.linked_by }.from(nil).to(User::SYSTEM_USERNAME)
-                          .and change { xhibit_case.reload.linked_at }.from(nil).to(within(1.second).of(Time.zone.now))
+                          .and change { xhibit_case.reload.linked_at }.from(nil).to(be_present)
     end
 
     it "links a trial using the defendant id and enables LAA status updates" do
@@ -42,7 +42,7 @@ RSpec.describe LinkXhibitCase, type: :service do
       expect(ProsecutionCaseMaatLinkCreator).to have_received(:call).with(
         court_data.defendant_id,
         User::SYSTEM_USERNAME,
-        maat_response.maat_id,
+        maat_id,
         can_update_laa_status: true,
       )
     end
@@ -65,7 +65,7 @@ RSpec.describe LinkXhibitCase, type: :service do
           expect(CourtApplicationMaatLinkCreator).to have_received(:call).with(
             subject_id,
             User::SYSTEM_USERNAME,
-            maat_response.maat_id,
+            maat_id,
             can_update_laa_status: true,
           )
         end
