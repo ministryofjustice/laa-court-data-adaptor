@@ -6,6 +6,7 @@ RSpec.describe CommonPlatform::Connection::LogFormatter do
       connection.response :logger, TaggedLogger, { headers: false, formatter: described_class } do |logger|
         logger.filter(/(defendantName=)([^&]+)/, '\1[FILTERED]')
       end
+      connection.response :json, content_type: "application/json"
       connection.adapter :test do |stub|
         stub.get("/search?defendantName=John") { [200, {}, "all good"] }
         stub.get("/failure?defendantName=John") { [500, {}, "Internal Server Error"] }
@@ -19,6 +20,16 @@ RSpec.describe CommonPlatform::Connection::LogFormatter do
         stub.get("/not-found") { [404, {}, "Not Found"] }
         stub.get("/hearing/ceb158e3-7171-40ce-915b-441e2c4e3f75/result") { [500, {}, "Internal Server Error"] }
       end
+    end
+  end
+
+  describe "#apply_filters" do
+    subject(:formatter) { described_class.new(logger: TaggedLogger, options: {}) }
+
+    it "serializes JSON objects before filtering them" do
+      formatter.filter(/John/, "[FILTERED]")
+
+      expect(formatter.send(:apply_filters, { name: "John" })).to eq({ "name": "[FILTERED]" }.to_s)
     end
   end
 
@@ -80,7 +91,7 @@ RSpec.describe CommonPlatform::Connection::LogFormatter do
     allow(TaggedLogger).to receive(:info)
 
     expect(TaggedLogger).to receive(:log_event) do |_level, _event, **fields|
-      expect(fields[:error_message]).to eq('{"error":"<not-html>"}')
+      expect(fields[:error_message]).to eq({ "error" => "<not-html>" })
     end
 
     test_connection.get("/failure-with-json-body")
