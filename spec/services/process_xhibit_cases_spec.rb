@@ -182,16 +182,31 @@ RSpec.describe ProcessXhibitCases, type: :service do
       let(:published_queues) { [] }
 
       before do
+        LinkXhibitCaseWorker.clear
         allow(Sqs::MessagePublisher).to receive(:call) { |**args| published_queues << args[:queue_url] }
       end
 
-      it "requests the LIBRA unlink before linking the case" do
+      it "requests the LIBRA unlink and does not link the case yet" do
         process_cases
 
-        expect(published_queues).to eq([
-          Rails.configuration.x.aws.sqs_url_unlink,
-          Rails.configuration.x.aws.sqs_url_link,
-        ])
+        expect(published_queues).to eq([Rails.configuration.x.aws.sqs_url_unlink])
+        expect(xhibit_case.reload).to have_attributes(
+          status: "pending",
+          maat_id: nil,
+          linked_at: nil,
+          linked_by: nil,
+        )
+      end
+
+      it "schedules the link after the unlink delay" do
+        expect { process_cases }.to change(LinkXhibitCaseWorker.jobs, :size).from(0).to(1)
+      end
+
+      it "links the case when the job runs" do
+        process_cases
+        LinkXhibitCaseWorker.drain
+
+        expect(published_queues.last).to eq(Rails.configuration.x.aws.sqs_url_link)
         expect(xhibit_case.reload).to be_auto_linked
         expect(xhibit_case).to have_attributes(
           maat_id: maat_id.to_s,

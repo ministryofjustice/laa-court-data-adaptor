@@ -3,8 +3,8 @@ class LinkXhibitCase < ApplicationService
   SENTENCE = "S".freeze
   APPEAL = "A".freeze
 
-  def initialize(maat_search_response, xhibit_case, court_data)
-    @maat_search_response = maat_search_response
+  def initialize(maat_id, xhibit_case, court_data)
+    @maat_id = maat_id
     @xhibit_case = xhibit_case
     @court_data = court_data
   end
@@ -29,14 +29,10 @@ class LinkXhibitCase < ApplicationService
 
 private
 
-  attr_reader :maat_search_response, :xhibit_case, :court_data
+  attr_reader :maat_id, :xhibit_case, :court_data
 
   def subject_id
     court_data.application_summaries.first&.subject_summary&.subject_id ||
       raise(ArgumentError, "No court application found for defendant #{court_data.defendant_id}")
-  end
-
-  def maat_id
-    maat_search_response.maat_id
   end
 end
