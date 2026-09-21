@@ -524,10 +524,6 @@ paths:
                 "$ref": search_prosecution_case_response.json#
         '424':
           description: Common Platform API Error
-          content:
-            application/vnd.api+json:
-              schema:
-                "$ref": search_prosecution_case_response.json#
         '503':
           description: Common Platform API Offline
         '401':

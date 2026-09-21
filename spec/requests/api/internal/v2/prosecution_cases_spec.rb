@@ -24,15 +24,9 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
       parameter "$ref" => "#/components/parameters/transaction_id_header"
 
       context "when searching by prosecution_case_reference" do
-        around do |example|
-          VCR.use_cassette(cassette_name) do
-            example.run
-          end
-        end
-
         let(:Authorization) { "Bearer #{token.token}" }
-        let(:'filter[prosecution_case_reference]') { "61GD7528225" }
-        let(:cassette_name) { "search_prosecution_case/by_prosecution_case_reference_success_v2" }
+        let(:prosecution_case_reference) { "61GD7528225" }
+        let(:'filter[prosecution_case_reference]') { prosecution_case_reference }
 
         produces "application/vnd.api+json"
 
@@ -43,38 +37,46 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
                   description: "Searches prosecution cases by prosecution case reference"
 
         response(200, "Success") do
+          before do
+            stub_prosecution_case_search(
+              query: { prosecutionCaseReference: prosecution_case_reference },
+              body: file_fixture("prosecution_cases_v2.json").read,
+            )
+          end
+
           schema "$ref" => "search_prosecution_case_response.json#"
 
           run_test!
         end
 
         context "when search returns no results" do
-          let(:'filter[prosecution_case_reference]') { "id-for-no-results" }
-          let(:cassette_name) { "search_prosecution_case/no_results" }
-
           before do
-            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+            stub_prosecution_case_search(
+              query: { prosecutionCaseReference: prosecution_case_reference },
+              body: { totalResults: 0, cases: [] }.to_json,
+            )
           end
 
-          response(424, "Common Platform API Error") do
-            schema "$ref" => "search_prosecution_case_response.json#"
-
-            run_test!
+          response(200, "Success") do
+            run_test! do |response|
+              expect(response.parsed_body).to eq("total_results" => 0, "results" => [])
+            end
           end
         end
 
-        context "when Common Platform API returns Server Error" do
-          let(:'filter[prosecution_case_reference]') { "" }
-          let(:cassette_name) { "search_prosecution_case/server_error" }
-
+        context "when Common Platform API returns an error" do
           before do
-            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+            stub_prosecution_case_search(
+              query: { prosecutionCaseReference: prosecution_case_reference },
+              status: 404,
+              body: { error: "Not found" }.to_json,
+            )
           end
 
           response(424, "Common Platform API Error") do
-            schema "$ref" => "search_prosecution_case_response.json#"
-
-            run_test!
+            run_test! do |response|
+              expect(response.parsed_body["error_codes"]).to eq %w[common_platform_connection_failed]
+            end
           end
         end
 
@@ -94,10 +96,11 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
       context "when searching by arrest_summons_number" do
         response(200, "Success") do
-          around do |example|
-            VCR.use_cassette("search_prosecution_case/by_arrest_summons_number_success") do
-              example.run
-            end
+          before do
+            stub_prosecution_case_search(
+              query: { defendantASN: "arrest123" },
+              body: file_fixture("prosecution_case_search_result.json").read,
+            )
           end
 
           parameter name: "filter[arrest_summons_number]", in: :query, required: false, type: :string,
@@ -115,10 +118,11 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
       context "when searching by national_insurance_number" do
         response(200, "Success") do
-          around do |example|
-            VCR.use_cassette("search_prosecution_case/by_national_insurance_number_success") do
-              example.run
-            end
+          before do
+            stub_prosecution_case_search(
+              query: { defendantNINO: "HB133542A" },
+              body: file_fixture("prosecution_case_search_result.json").read,
+            )
           end
 
           parameter name: "filter[national_insurance_number]", in: :query, required: false, type: :string,
@@ -136,10 +140,11 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
       context "when searching by name and date of birth" do
         response(200, "Success") do
-          around do |example|
-            VCR.use_cassette("search_prosecution_case/by_name_and_date_of_birth_success") do
-              example.run
-            end
+          before do
+            stub_prosecution_case_search(
+              query: { defendantName: "George Walsh", defendantDOB: "1980-01-01" },
+              body: file_fixture("prosecution_case_search_result.json").read,
+            )
           end
 
           parameter name: "filter[name]", in: :query, required: false, type: :string,
@@ -164,10 +169,11 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
       context "when searching by name and date of next hearing" do
         response(200, "Success") do
-          around do |example|
-            VCR.use_cassette("search_prosecution_case/by_name_and_date_of_next_hearing_success") do
-              example.run
-            end
+          before do
+            stub_prosecution_case_search(
+              query: { defendantName: "George Walsh", dateOfNextHearing: "2020-02-17" },
+              body: file_fixture("prosecution_case_search_result.json").read,
+            )
           end
 
           parameter name: "filter[name]", in: :query, required: false, type: :string,
@@ -217,16 +223,16 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
       let(:Authorization) { "Bearer #{token.token}" }
 
       context "when searching by prosecution_case_reference" do
-        around do |example|
-          VCR.use_cassette(cassette_name) do
-            example.run
-          end
-        end
-
-        let(:cassette_name) { "search_prosecution_case/by_prosecution_case_reference_success_v2" }
+        let(:prosecution_case_reference) { "61GD7528225" }
+        let(:filter) { { filter: { prosecution_case_reference: } } }
 
         response(200, "Success") do
-          let(:filter) { { filter: { prosecution_case_reference: "61GD7528225" } } }
+          before do
+            stub_prosecution_case_search(
+              query: { prosecutionCaseReference: prosecution_case_reference },
+              body: file_fixture("prosecution_cases_v2.json").read,
+            )
+          end
 
           schema "$ref" => "search_prosecution_case_response.json#"
 
@@ -234,32 +240,33 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
         end
 
         context "when search returns no results" do
-          let(:filter) { { filter: { prosecution_case_reference: "id-for-no-results" } } }
-          let(:cassette_name) { "search_prosecution_case/no_results" }
-
           before do
-            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+            stub_prosecution_case_search(
+              query: { prosecutionCaseReference: prosecution_case_reference },
+              body: { totalResults: 0, cases: [] }.to_json,
+            )
           end
 
-          response(424, "Common Platform API Error") do
-            schema "$ref" => "search_prosecution_case_response.json#"
-
-            run_test!
+          response(200, "Success") do
+            run_test! do |response|
+              expect(response.parsed_body).to eq("total_results" => 0, "results" => [])
+            end
           end
         end
 
-        context "when Common Platform API returns Server Error" do
-          let(:'filter[prosecution_case_reference]') { "id-for-500-error" }
-          let(:cassette_name) { "search_prosecution_case/server_error" }
-
+        context "when Common Platform API returns an error" do
           before do
-            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+            stub_prosecution_case_search(
+              query: { prosecutionCaseReference: prosecution_case_reference },
+              status: 404,
+              body: { error: "Not found" }.to_json,
+            )
           end
 
           response(424, "Common Platform API Error") do
-            let(:filter) { { filter: { prosecution_case_reference: "" } } }
-
-            run_test!
+            run_test! do |response|
+              expect(response.parsed_body["error_codes"]).to eq %w[common_platform_connection_failed]
+            end
           end
         end
 
@@ -279,10 +286,11 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
       context "when searching by arrest_summons_number" do
         response(200, "Success") do
-          around do |example|
-            VCR.use_cassette("search_prosecution_case/by_arrest_summons_number_success") do
-              example.run
-            end
+          before do
+            stub_prosecution_case_search(
+              query: { defendantASN: "arrest123" },
+              body: file_fixture("prosecution_case_search_result.json").read,
+            )
           end
 
           let(:filter) { { filter: { arrest_summons_number: "arrest123" } } }
@@ -293,10 +301,11 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
       context "when searching by national_insurance_number" do
         response(200, "Success") do
-          around do |example|
-            VCR.use_cassette("search_prosecution_case/by_national_insurance_number_success") do
-              example.run
-            end
+          before do
+            stub_prosecution_case_search(
+              query: { defendantNINO: "HB133542A" },
+              body: file_fixture("prosecution_case_search_result.json").read,
+            )
           end
 
           let(:filter) { { filter: { national_insurance_number: "HB133542A" } } }
@@ -307,10 +316,11 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
       context "when searching by name and date of birth" do
         response(200, "Success") do
-          around do |example|
-            VCR.use_cassette("search_prosecution_case/by_name_and_date_of_birth_success") do
-              example.run
-            end
+          before do
+            stub_prosecution_case_search(
+              query: { defendantName: "George Walsh", defendantDOB: "1980-01-01" },
+              body: file_fixture("prosecution_case_search_result.json").read,
+            )
           end
 
           let(:filter) { { filter: { name: "George Walsh", date_of_birth: "1980-01-01" } } }
@@ -321,10 +331,11 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
       context "when searching by name and date of next hearing" do
         response(200, "Success") do
-          around do |example|
-            VCR.use_cassette("search_prosecution_case/by_name_and_date_of_next_hearing_success") do
-              example.run
-            end
+          before do
+            stub_prosecution_case_search(
+              query: { defendantName: "George Walsh", dateOfNextHearing: "2020-02-17" },
+              body: file_fixture("prosecution_case_search_result.json").read,
+            )
           end
 
           let(:filter) { { filter: { name: "George Walsh", date_of_next_hearing: "2020-02-17" } } }
