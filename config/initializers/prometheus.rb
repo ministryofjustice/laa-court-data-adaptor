@@ -4,6 +4,8 @@ if Rails.env.production?
 
   PrometheusExporter::Client.default = PrometheusExporter::Client.new(
     host: Rails.configuration.x.metrics_service_host,
+    logger: SemanticLogger["PrometheusExporter"],
+    log_level: Rails.logger.level,
   )
 
   PrometheusExporter::Instrumentation::Process.start(type: "master")
