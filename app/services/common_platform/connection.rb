@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "singleton"
+require "tempfile"
 
 module CommonPlatform
   class Connection
@@ -9,6 +10,7 @@ module CommonPlatform
     HOST = Rails.configuration.x.common_platform_url
     CLIENT_CERT = Rails.configuration.x.client_cert
     CLIENT_KEY = Rails.configuration.x.client_key
+    CA_CERT_PATH = Rails.root.join("lib/ssl/ca.crt")
 
     # Query string values that must never reach the logs.
     PII_FILTERS = {
@@ -38,6 +40,7 @@ module CommonPlatform
     end
 
     def initialize
+      @ssl_files = []
       @connection = Faraday.new HOST, options do |connection|
         connection.request :retry, retry_options
         connection.request :json
@@ -68,11 +71,39 @@ module CommonPlatform
       {
         headers:,
         ssl: {
-          client_cert: OpenSSL::X509::Certificate.new(CLIENT_CERT),
-          client_key: OpenSSL::PKey::RSA.new(CLIENT_KEY),
-          ca_file: Rails.root.join("lib/ssl/ca.crt").to_s,
-        },
+          client_cert: ssl_file_path("client_cert", OpenSSL::X509::Certificate.new(CLIENT_CERT).to_pem),
+          client_key: ssl_file_path("client_key", OpenSSL::PKey::RSA.new(CLIENT_KEY).to_pem),
+          ca_file: ca_bundle_path,
+          ca_path: system_ca_dir,
+        }.compact,
       }
+    end
+
+    # Typhoeus requires file paths rather than OpenSSL objects
+    def ssl_file_path(name, contents)
+      file = Tempfile.new(name)
+      @ssl_files << file
+      file.write(contents)
+      file.flush
+      File.chmod(0o600, file.path)
+      file.path
+    end
+
+    # Typhoeus replaces its trust store with the CA file it is given, so the system
+    # roots that anchor the Common Platform chain have to be included alongside ours
+    def ca_bundle_path
+      bundle = [CA_CERT_PATH.read]
+      bundle << File.read(system_ca_file) if system_ca_file && File.exist?(system_ca_file)
+      ssl_file_path("ca_bundle", bundle.join("\n"))
+    end
+
+    def system_ca_file
+      ENV.fetch(OpenSSL::X509::DEFAULT_CERT_FILE_ENV, OpenSSL::X509::DEFAULT_CERT_FILE)
+    end
+
+    def system_ca_dir
+      dir = ENV.fetch(OpenSSL::X509::DEFAULT_CERT_DIR_ENV, OpenSSL::X509::DEFAULT_CERT_DIR)
+      dir if dir.present? && Dir.exist?(dir)
     end
 
     def retry_options
