@@ -82,7 +82,7 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
         context "when Common Platform API is offline" do
           before do
-            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+            stub_request(:get, /.*/).to_raise(Faraday::ConnectionFailed)
           end
 
           response(503, "Common Platform API Offline") do
@@ -272,7 +272,7 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
 
         context "when Common Platform API is offline" do
           before do
-            stub_request(:get, /.*/).to_raise(Errno::ECONNREFUSED)
+            stub_request(:get, /.*/).to_raise(Faraday::ConnectionFailed)
           end
 
           response(503, "Common Platform API Offline") do

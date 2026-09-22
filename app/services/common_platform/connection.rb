@@ -48,13 +48,7 @@ module CommonPlatform
         connection.response :json, content_type: "application/json"
         connection.response :json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json"
         connection.response :json, content_type: "text/plain"
-        connection.adapter :net_http_persistent, {
-          keep_alive: 60,
-          pool_size: 10,    # to safetly handle For 3-5 req/sec
-          idle_timeout: 120,
-          open_timeout: 3,  # connect + TLS only; without this Net::HTTP defaults to 60 seconds
-          read_timeout: 10,
-        }
+        connection.adapter :typhoeus, http_version: :httpv2_0
       end
     end
 

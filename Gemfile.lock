@@ -173,6 +173,9 @@ GEM
     erb (6.0.7)
     erubi (1.13.1)
     erubis (2.7.0)
+    ethon (0.18.0)
+      ffi (>= 1.15.0)
+      logger
     factory_bot (6.6.0)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.5.1)
@@ -184,14 +187,13 @@ GEM
       logger
     faraday-net_http (3.4.4)
       net-http (~> 0.5)
-    faraday-net_http_persistent (2.3.1)
-      faraday (~> 2.5)
-      net-http-persistent (>= 4.0.4, < 5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
+    faraday-typhoeus (2.0.0)
+      faraday (~> 2.0)
+      typhoeus (~> 1.4)
     ffi (1.17.4-arm64-darwin)
     ffi (1.17.4-x86_64-darwin)
-    ffi (1.17.4-x86_64-linux-gnu)
     ffi (1.17.4-x86_64-linux-musl)
     globalid (1.4.0)
       activesupport (>= 6.1)
@@ -247,8 +249,6 @@ GEM
     mustermann (3.1.1)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-http-persistent (4.0.8)
-      connection_pool (>= 2.2.4, < 4)
     net-imap (0.6.7)
       date
       net-protocol
@@ -262,8 +262,6 @@ GEM
     nokogiri (1.19.4-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.19.4-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.19.4-x86_64-linux-musl)
       racc (~> 1.4)
@@ -288,8 +286,6 @@ GEM
       ffi (~> 1.15)
     pact-ffi (0.5.8.1-x86_64-darwin)
       ffi (~> 1.15)
-    pact-ffi (0.5.8.1-x86_64-linux)
-      ffi (~> 1.15)
     pact-ffi (0.5.8.1-x86_64-linux-musl)
       ffi (~> 1.15)
     parallel (1.28.0)
@@ -298,7 +294,6 @@ GEM
       racc
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-darwin)
-    pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
     pp (0.6.4)
       prettyprint
@@ -505,6 +500,8 @@ GEM
     tilt (2.9.0)
     timeout (0.6.1)
     tsort (0.2.0)
+    typhoeus (1.6.0)
+      ethon (>= 0.18.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.2.0)
@@ -545,8 +542,8 @@ DEPENDENCIES
   dry-validation
   factory_bot_rails (~> 6.5)
   faraday (~> 2.13)
-  faraday-net_http_persistent (~> 2)
   faraday-retry (~> 2.3)
+  faraday-typhoeus
   jbuilder (~> 2.14)
   json-schema!
   json-schema-rspec
