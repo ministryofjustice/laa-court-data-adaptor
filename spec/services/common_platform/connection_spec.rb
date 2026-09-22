@@ -74,7 +74,7 @@ RSpec.describe CommonPlatform::Connection do
       expect(connection).to receive(:response).with(:json, content_type: "application/json")
       expect(connection).to receive(:response).with(:json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json")
       expect(connection).to receive(:response).with(:json, content_type: "text/plain")
-      expect(connection).to receive(:adapter).with(:typhoeus, { http_version: :httpv2_0 })
+      expect(connection).to receive(:adapter).with(:typhoeus)
 
       connect_to_common_platform
     end
