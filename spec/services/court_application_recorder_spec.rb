@@ -44,4 +44,40 @@ RSpec.describe CourtApplicationRecorder do
       expect(court_application.reload.body).to eq(body)
     end
   end
+
+  context "when another Court Application has the same subject_id" do
+    let(:other_court_application_id) { SecureRandom.uuid }
+
+    before do
+      CourtApplication.create!(
+        id: other_court_application_id,
+        subject_id: defendant_id,
+        body: "other body",
+      )
+      allow(Sentry).to receive(:capture_message)
+    end
+
+    it "warns Sentry" do
+      record
+      expect(Sentry).to have_received(:capture_message).with(
+        "CourtApplicationRecorder - Subject ID #{defendant_id} of court application #{court_application_id} is already recorded on court application(s) #{other_court_application_id}",
+        level: :warning,
+      )
+    end
+
+    it "still creates the Court Application" do
+      expect {
+        record
+      }.to change(CourtApplication, :count).by(1)
+    end
+  end
+
+  context "when no other Court Application has the same subject_id" do
+    before { allow(Sentry).to receive(:capture_message) }
+
+    it "does not warn Sentry" do
+      record
+      expect(Sentry).not_to have_received(:capture_message)
+    end
+  end
 end
