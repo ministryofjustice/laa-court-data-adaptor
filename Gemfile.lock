@@ -194,6 +194,7 @@ GEM
       typhoeus (~> 1.4)
     ffi (1.17.4-arm64-darwin)
     ffi (1.17.4-x86_64-darwin)
+    ffi (1.17.4-x86_64-linux-gnu)
     ffi (1.17.4-x86_64-linux-musl)
     globalid (1.4.0)
       activesupport (>= 6.1)
@@ -263,6 +264,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.4-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.19.4-x86_64-linux-gnu)
+      racc (~> 1.4)
     nokogiri (1.19.4-x86_64-linux-musl)
       racc (~> 1.4)
     oauth2 (2.0.25)
@@ -286,6 +289,8 @@ GEM
       ffi (~> 1.15)
     pact-ffi (0.5.8.1-x86_64-darwin)
       ffi (~> 1.15)
+    pact-ffi (0.5.8.1-x86_64-linux)
+      ffi (~> 1.15)
     pact-ffi (0.5.8.1-x86_64-linux-musl)
       ffi (~> 1.15)
     parallel (1.28.0)
@@ -294,6 +299,7 @@ GEM
       racc
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-darwin)
+    pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
     pp (0.6.4)
       prettyprint
@@ -527,6 +533,7 @@ PLATFORMS
   arm64-darwin-25
   x86_64-darwin-20
   x86_64-darwin-24
+  x86_64-linux
   x86_64-linux-musl
 
 DEPENDENCIES
