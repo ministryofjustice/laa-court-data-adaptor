@@ -1,0 +1,54 @@
+name: Publish Pacts
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pact-consumer:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/cda_test
+      TZ: Europe/London
+    services:
+      postgres:
+        image: postgres:17.4-alpine
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        env:
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "postgres"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup test database
+        run: bin/rails db:prepare
+
+      - name: Run contract tests
+        run: bundle exec rails pact:consumer:generate
+
+      - name: Verify pact generated
+        run: find spec/pacts -name '*.json'
+
+      - name: Publish pacts
+        env:
+          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
+          PACT_BROKER_USERNAME: ${{ secrets.PACT_BROKER_USERNAME }}
+          PACT_BROKER_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }}
+          GITHUB_SHA:           ${{ github.sha }}
+          GITHUB_HEAD_REF:      ${{ github.head_ref }}
+          GITHUB_REF_NAME:      ${{ github.ref_name }}
+        run: bundle exec rake pact:consumer:publish

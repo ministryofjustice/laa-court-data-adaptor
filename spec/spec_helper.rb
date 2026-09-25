@@ -129,4 +129,8 @@ RSpec.configure do |config|
     # reinitialized, which is crucial for maintaining test isolation.
     CommonPlatform::Connection.instance_variable_set(:@singleton__instance__, nil)
   end
+
+  config.around(:each, :pact) do |example|
+    VCR.turned_off { example.run }
+  end
 end

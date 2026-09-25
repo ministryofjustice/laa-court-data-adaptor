@@ -1,0 +1,333 @@
+{
+  "consumer": {
+    "name": "laa-court-data-adaptor"
+  },
+  "interactions": [
+    {
+      "description": "a request to validate a MAAT reference",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a MAAT reference that has no common platform data"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "caseUrn": "XYZ",
+            "maatId": "1234567"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Authorization": [
+            "any"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.caseUrn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.maatId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:\\A[0-9]{7}\\z)"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Authorization": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/link/validate"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "code": "BAD_REQUEST",
+            "message": "1234567 has no common platform data created against Maat application."
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 400
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to validate a MAAT reference",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a MAAT reference that is already linked"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "caseUrn": "XYZ",
+            "maatId": "1234567"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Authorization": [
+            "any"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.caseUrn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.maatId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:\\A[0-9]{7}\\z)"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Authorization": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/link/validate"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "code": "BAD_REQUEST",
+            "message": "1234567 is already linked to a case."
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 400
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to validate a MAAT reference",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a MAAT reference that is invalid"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "caseUrn": "XYZ",
+            "maatId": "1234567"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Authorization": [
+            "any"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.caseUrn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.maatId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:\\A[0-9]{7}\\z)"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Authorization": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/link/validate"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "code": "BAD_REQUEST",
+            "message": "MAAT/REP ID [1234567] is invalid"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 400
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to validate a MAAT reference",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a valid MAAT reference"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "caseUrn": "XYZ",
+            "maatId": "1234567"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Authorization": [
+            "any"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.caseUrn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.maatId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:\\A[0-9]{7}\\z)"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Authorization": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/link/validate"
+      },
+      "response": {
+        "body": {
+          "content": ""
+        },
+        "status": 200
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-ruby": {
+      "pact-ffi": "0.5.8"
+    },
+    "pactRust": {
+      "ffi": "0.5.8",
+      "mockserver": "2.2.6",
+      "models": "1.3.16"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "laa-maat-court-data-api"
+  }
+}

@@ -68,3 +68,5 @@ group :test do
   gem "simplecov"
   gem "sinatra", "~> 4.2.1"
 end
+
+gem "pact_broker-client", "~> 1.78"
