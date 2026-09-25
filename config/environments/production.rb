@@ -46,18 +46,19 @@ Rails.application.configure do
   $stdout.sync = true
   config.semantic_logger.application = "" # No need to send the application name as logstash reads it from OpenSearch log tags
   config.semantic_logger.backtrace_level = :fatal # Only attach backtraces at :fatal so error/warn lines stay small enough for OpenSearch ingestion
-  config.rails_semantic_logger.add_file_appender = false # Don't log to file, only STDOUT
   config.rails_semantic_logger.started = false
   config.rails_semantic_logger.processing = false
-  config.rails_semantic_logger.format = :json
-  # Ignore status check events to reduce log output
-  config.rails_semantic_logger.filter = proc { |log| log.name != "StatusController" }
   config.active_record.logger = nil # Don't log SQL
-  # Log to STDOUT JSON-formatted logs
-  config.semantic_logger.add_appender(io: $stdout,
-                                      level: config.log_level,
-                                      formatter: config.rails_semantic_logger.format,
-                                      filter: config.rails_semantic_logger.filter)
+  # Declaring appenders here replaces the default log file appender, so logs only go to STDOUT
+  config.rails_semantic_logger.appenders do |appenders|
+    appenders.add(io: $stdout,
+                  level: config.log_level,
+                  formatter: :json,
+                  # Ignore status checks events to reduce log output
+                  filter: lambda { |log|
+                    log.name != "StatusController"
+                  })
+  end
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
