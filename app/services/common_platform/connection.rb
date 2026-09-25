@@ -10,6 +10,22 @@ module CommonPlatform
     CLIENT_CERT = Rails.configuration.x.client_cert
     CLIENT_KEY = Rails.configuration.x.client_key
 
+    UUID_PATTERN = /\h{8}-\h{4}-\h{4}-\h{4}-\h{12}/
+
+    # Puma and Sidekiq size their thread pools from
+    # RAILS_MAX_THREADS, so the HTTP pool has to keep in line with them.
+    MAX_THREADS = Integer(ENV.fetch("RAILS_MAX_THREADS", 5))
+    # One connection per thread, so no thread ever waits for a free one,
+    # plus 2 extras to cover connections being reopened after IDLE_TIMEOUT.
+    POOL_SIZE = MAX_THREADS + 2
+    OPEN_TIMEOUT = 5   # connect + TLS handshake only
+    READ_TIMEOUT = 30  # cap on a slow Common Platform response
+    WRITE_TIMEOUT = 10
+    # Kept deliberately short so we close pooled connections before Common
+    # Platform does. Reusing a socket the server has already hung up on raises
+    # EOFError/ECONNRESET, which the adapter surfaces as Faraday::ConnectionFailed.
+    IDLE_TIMEOUT = 5
+
     # Query string values that must never reach the logs.
     PII_FILTERS = {
       /(defendantFirstName=)([^&]+)/ => '\1[FILTERED]',
@@ -20,8 +36,6 @@ module CommonPlatform
       /(defendantNINO=)([^&]+)/ => '\1[FILTERED]',
       /(defendantASN=)([^&]+)/ => '\1[FILTERED]',
     }.freeze
-
-    UUID_PATTERN = /\h{8}-\h{4}-\h{4}-\h{4}-\h{12}/
 
     class << self
       def filter_pii(value)
@@ -39,22 +53,20 @@ module CommonPlatform
 
     def initialize
       @connection = Faraday.new HOST, options do |connection|
+        # FailureMiddleware converts transport errors into FailedDependency, so
+        # it has to sit outside :retry or connection failures are never retried.
+        connection.use FailureMiddleware
         connection.request :retry, retry_options
         connection.request :json
         connection.response :logger, TaggedLogger, { headers: false, formatter: CommonPlatform::Connection::LogFormatter } do |logger|
           PII_FILTERS.each { |pattern, replacement| logger.filter(pattern, replacement) }
         end
-        connection.use FailureMiddleware
         connection.response :json, content_type: "application/json"
         connection.response :json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json"
         connection.response :json, content_type: "text/plain"
-        connection.adapter :net_http_persistent, {
-          keep_alive: 60,
-          pool_size: 10,    # to safetly handle For 3-5 req/sec
-          idle_timeout: 120,
-          open_timeout: 3,  # connect + TLS only; without this Net::HTTP defaults to 60 seconds
-          read_timeout: 10,
-        }
+        connection.adapter :net_http_persistent, pool_size: POOL_SIZE do |http|
+          http.idle_timeout = IDLE_TIMEOUT
+        end
       end
     end
 
@@ -69,15 +81,24 @@ module CommonPlatform
     end
 
     def options
-      return { headers: } if CLIENT_CERT.blank?
+      base = { headers:, request: request_timeouts }
 
-      {
-        headers:,
+      return base if CLIENT_CERT.blank?
+
+      base.merge(
         ssl: {
           client_cert: OpenSSL::X509::Certificate.new(CLIENT_CERT),
           client_key: OpenSSL::PKey::RSA.new(CLIENT_KEY),
           ca_file: Rails.root.join("lib/ssl/ca.crt").to_s,
         },
+      )
+    end
+
+    def request_timeouts
+      {
+        open_timeout: OPEN_TIMEOUT,
+        read_timeout: READ_TIMEOUT,
+        write_timeout: WRITE_TIMEOUT,
       }
     end
 
