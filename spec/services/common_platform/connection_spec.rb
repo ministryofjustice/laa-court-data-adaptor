@@ -15,7 +15,10 @@ RSpec.describe CommonPlatform::Connection do
   let(:client_key) { nil }
 
   let(:request_options) do
-    { headers: { "Ocp-Apim-Subscription-Key" => "super-secret-key" } }
+    {
+      headers: { "Ocp-Apim-Subscription-Key" => "super-secret-key" },
+      request: { open_timeout: 5, read_timeout: 30, write_timeout: 10 },
+    }
   end
 
   it "connects to the common platform url" do
@@ -31,6 +34,7 @@ RSpec.describe CommonPlatform::Connection do
         headers: {
           "Ocp-Apim-Subscription-Key" => "super-secret-key",
         },
+        request: { open_timeout: 5, read_timeout: 30, write_timeout: 10 },
         ssl: {
           client_cert: "OPENSSL_CERT",
           client_key: "OPENSSL_KEY",
@@ -65,24 +69,130 @@ RSpec.describe CommonPlatform::Connection do
         backoff_factor: 2,
         methods: %i[delete get head options put post],
         exceptions: Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Faraday::ConnectionFailed, Faraday::ParsingError],
+        retry_block: instance_of(Proc),
       }
 
-      expect(connection).to receive(:request).with(:retry, retry_options)
+      expect(connection).to receive(:use).with(CommonPlatform::Connection::FailureMiddleware).ordered
+      expect(connection).to receive(:request).with(:retry, retry_options).ordered
       expect(connection).to receive(:request).with(:json)
-      expect(connection).to receive(:use).with(CommonPlatform::Connection::FailureMiddleware)
       expect(connection).to receive(:response).with(:logger, TaggedLogger, { headers: false, formatter: CommonPlatform::Connection::LogFormatter })
       expect(connection).to receive(:response).with(:json, content_type: "application/json")
       expect(connection).to receive(:response).with(:json, content_type: "application/vnd.unifiedsearch.query.laa.cases+json")
       expect(connection).to receive(:response).with(:json, content_type: "text/plain")
-      expect(connection).to receive(:adapter).with(:net_http_persistent, {
-        idle_timeout: 120,
-        keep_alive: 60,
-        pool_size: 10,
-        open_timeout: 3,
-        read_timeout: 10,
-      })
+      expect(connection).to receive(:adapter).with(:net_http_persistent, pool_size: described_class::POOL_SIZE)
 
       connect_to_common_platform
+    end
+  end
+
+  describe "failed connection settings" do
+    let(:host) { "https://example.com" }
+
+    describe "timeouts" do
+      it "applies them to the Net::HTTP::Persistent connection" do
+        adapter = connect_to_common_platform.builder.adapter.build(nil)
+        env = Faraday::Env.new
+        env[:url] = URI(host)
+        env[:request] = connect_to_common_platform.options
+        env[:ssl] = Faraday::SSLOptions.new
+
+        http = adapter.send(:build_connection, env)
+
+        expect(http.open_timeout).to eq(5)
+        expect(http.read_timeout).to eq(30)
+        expect(http.write_timeout).to eq(10)
+        expect(http.idle_timeout).to eq(5)
+      end
+    end
+
+    describe "connection pool" do
+      it "is at least as large as the thread pool it serves" do
+        expect(described_class::POOL_SIZE).to be > described_class::MAX_THREADS
+      end
+    end
+
+    describe "retries" do
+      let(:attempts) { [] }
+
+      before do
+        # Stubbing here so the examples do not actually sleep around 7 seconds
+        allow(Faraday::Retry::Middleware).to receive(:new).and_wrap_original do |original, *args, **kwargs, &blk|
+          original.call(*args, **kwargs, &blk).tap { |middleware| allow(middleware).to receive(:sleep) }
+        end
+      end
+
+      # Records every attempt made against /anything and replies with whatever
+      # the given callable returns (or raises).
+      def connection_responding_with(response)
+        stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+          stub.get("/anything") do
+            attempts << Time.zone.now
+            response.call
+          end
+        end
+
+        connect_to_common_platform.tap { |connection| connection.builder.adapter(:test, stubs) }
+      end
+
+      it "retries connection failures before raising an error" do
+        connection = connection_responding_with(-> { raise Faraday::ConnectionFailed, "rush hour" })
+
+        expect { connection.get("/anything") }.to raise_error(CommonPlatform::Api::Errors::FailedDependency)
+        expect(attempts.size).to eq(4)
+      end
+
+      it "retries retryable statuses until the request succeeds" do
+        responses = [
+          [500, {}, ""],
+          [502, {}, ""],
+          [200, { "Content-Type" => "application/json" }, '{"ok":true}'],
+        ]
+        connection = connection_responding_with(-> { responses.shift })
+
+        response = connection.get("/anything")
+
+        expect(response.status).to eq(200)
+        expect(response.body).to eq("ok" => true)
+        expect(attempts.size).to eq(3)
+      end
+
+      it "does not retry statuses that are not retryable" do
+        connection = connection_responding_with(-> { [404, {}, ""] })
+
+        expect(connection.get("/anything").status).to eq(404)
+        expect(attempts.size).to eq(1)
+      end
+
+      describe "retry_block" do
+        let(:request_id) { "retry-request-id" }
+
+        before do
+          allow(Current).to receive(:request_id).and_return(request_id)
+          allow(Sentry).to receive(:capture_message)
+        end
+
+        it "sends the exception and retry count to Sentry before each retry" do
+          connection = connection_responding_with(-> { raise Faraday::ConnectionFailed, "rush hour" })
+
+          expect { connection.get("/anything") }.to raise_error(CommonPlatform::Api::Errors::FailedDependency)
+
+          (0..2).each do |retry_count|
+            expect(Sentry).to have_received(:capture_message).with(
+              "Retrying request due to Faraday::ConnectionFailed: rush hour (retry #{retry_count})",
+              level: :warning,
+              tags: { request_id: },
+            )
+          end
+        end
+
+        it "does not send a message to Sentry when no retry is needed" do
+          connection = connection_responding_with(-> { [200, {}, ""] })
+
+          connection.get("/anything")
+
+          expect(Sentry).not_to have_received(:capture_message)
+        end
+      end
     end
   end
 end
