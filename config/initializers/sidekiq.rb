@@ -17,6 +17,7 @@ Sidekiq.strict_args!
 if Rails.env.production?
   Sidekiq.configure_server do |config|
     require "sidekiq/api"
+    require "prometheus_exporter/client"
     require "prometheus_exporter/instrumentation"
     config.server_middleware do |chain|
       chain.add PrometheusExporter::Instrumentation::Sidekiq
@@ -28,6 +29,10 @@ if Rails.env.production?
       PrometheusExporter::Instrumentation::SidekiqProcess.start
       PrometheusExporter::Instrumentation::SidekiqQueue.start
       PrometheusExporter::Instrumentation::SidekiqStats.start
+    end
+
+    at_exit do
+      PrometheusExporter::Client.default.stop(wait_timeout_seconds: 10)
     end
   end
 end
