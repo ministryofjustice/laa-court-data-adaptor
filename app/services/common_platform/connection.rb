@@ -112,6 +112,13 @@ module CommonPlatform
         backoff_factor: 2,
         methods: Faraday::Retry::Middleware::IDEMPOTENT_METHODS + [:post],
         exceptions: Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Faraday::ConnectionFailed, Faraday::ParsingError],
+        retry_block: lambda do |retry_count:, exception:, **|
+          Sentry.capture_message(
+            "Retrying request due to #{exception.class}: #{exception.message} (retry #{retry_count})",
+            level: :warning,
+            tags: { request_id: Current.request_id },
+          )
+        end,
       }
     end
   end

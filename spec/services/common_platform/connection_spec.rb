@@ -69,6 +69,7 @@ RSpec.describe CommonPlatform::Connection do
         backoff_factor: 2,
         methods: %i[delete get head options put post],
         exceptions: Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Faraday::ConnectionFailed, Faraday::ParsingError],
+        retry_block: instance_of(Proc),
       }
 
       expect(connection).to receive(:use).with(CommonPlatform::Connection::FailureMiddleware).ordered
@@ -111,25 +112,86 @@ RSpec.describe CommonPlatform::Connection do
     end
 
     describe "retries" do
-      it "retries connection failures before raising an error" do
-        attempts = 0
-        stubs = Faraday::Adapter::Test::Stubs.new do |stub|
-          stub.get("/anything") do
-            attempts += 1
-            raise Faraday::ConnectionFailed, "rush hour"
-          end
-        end
+      let(:attempts) { [] }
 
-        # Stubbing here so the example does not actually sleep around 7 seconds
+      before do
+        # Stubbing here so the examples do not actually sleep around 7 seconds
         allow(Faraday::Retry::Middleware).to receive(:new).and_wrap_original do |original, *args, **kwargs, &blk|
           original.call(*args, **kwargs, &blk).tap { |middleware| allow(middleware).to receive(:sleep) }
         end
+      end
 
-        connection = connect_to_common_platform
-        connection.builder.adapter(:test, stubs)
+      # Records every attempt made against /anything and replies with whatever
+      # the given callable returns (or raises).
+      def connection_responding_with(response)
+        stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+          stub.get("/anything") do
+            attempts << Time.zone.now
+            response.call
+          end
+        end
+
+        connect_to_common_platform.tap { |connection| connection.builder.adapter(:test, stubs) }
+      end
+
+      it "retries connection failures before raising an error" do
+        connection = connection_responding_with(-> { raise Faraday::ConnectionFailed, "rush hour" })
 
         expect { connection.get("/anything") }.to raise_error(CommonPlatform::Api::Errors::FailedDependency)
-        expect(attempts).to eq(4)
+        expect(attempts.size).to eq(4)
+      end
+
+      it "retries retryable statuses until the request succeeds" do
+        responses = [
+          [500, {}, ""],
+          [502, {}, ""],
+          [200, { "Content-Type" => "application/json" }, '{"ok":true}'],
+        ]
+        connection = connection_responding_with(-> { responses.shift })
+
+        response = connection.get("/anything")
+
+        expect(response.status).to eq(200)
+        expect(response.body).to eq("ok" => true)
+        expect(attempts.size).to eq(3)
+      end
+
+      it "does not retry statuses that are not retryable" do
+        connection = connection_responding_with(-> { [404, {}, ""] })
+
+        expect(connection.get("/anything").status).to eq(404)
+        expect(attempts.size).to eq(1)
+      end
+
+      describe "retry_block" do
+        let(:request_id) { "retry-request-id" }
+
+        before do
+          allow(Current).to receive(:request_id).and_return(request_id)
+          allow(Sentry).to receive(:capture_message)
+        end
+
+        it "sends the exception and retry count to Sentry before each retry" do
+          connection = connection_responding_with(-> { raise Faraday::ConnectionFailed, "rush hour" })
+
+          expect { connection.get("/anything") }.to raise_error(CommonPlatform::Api::Errors::FailedDependency)
+
+          (0..2).each do |retry_count|
+            expect(Sentry).to have_received(:capture_message).with(
+              "Retrying request due to Faraday::ConnectionFailed: rush hour (retry #{retry_count})",
+              level: :warning,
+              tags: { request_id: },
+            )
+          end
+        end
+
+        it "does not send a message to Sentry when no retry is needed" do
+          connection = connection_responding_with(-> { [200, {}, ""] })
+
+          connection.get("/anything")
+
+          expect(Sentry).not_to have_received(:capture_message)
+        end
       end
     end
   end
