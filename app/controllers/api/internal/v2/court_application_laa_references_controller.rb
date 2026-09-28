@@ -2,7 +2,15 @@ module Api
   module Internal
     module V2
       class CourtApplicationLaaReferencesController < ApplicationController
+        # Link the subject of a Court Application (e.g. breach, appeal) to court data
         # POST /api/internal/v2/court_application_laa_references
+        #
+        # External calls:
+        # - MAAT: POST link/validate (only when maat_reference is given)
+        # - CP:   POST prosecutionCases/laaReference/applications/{applicationId}/subject/{subjectId}/offences/{offenceId}
+        #         (per offence, when the subject has offences)
+        # - CP:   POST prosecutionCases/laaReference/applications/{applicationId} (when the subject has no offences)
+        # - CP:   GET hearing/results?hearingId={hearingId} (Sidekiq job, ~30s after link, per past hearing)
         def create
           contract = CourtApplicationLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
