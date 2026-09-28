@@ -5,6 +5,12 @@ module Api
     module V2
       class ProsecutionCaseLaaReferencesController < ApplicationController
         # Link the Defendant to court data
+        # POST /api/internal/v2/laa_references
+        #
+        # External calls:
+        # - MAAT: POST link/validate (only when maat_reference is given)
+        # - CP:   POST prosecutionCases/laaReference/cases/{caseId}/defendant/{defendantId}/offences/{offenceId} (per offence)
+        # - CP:   GET hearing/results?hearingId={hearingId} (Sidekiq job, ~30s after link, per past hearing)
         def create
           contract = ProsecutionCaseLaaReferenceContract.new.call(**transformed_params)
           enforce_contract!(contract)
@@ -18,6 +24,7 @@ module Api
           head :created
         end
 
+        # PUT /api/internal/v2/laa_references/:defendant_id
         def update
           contract = UnlinkDefendantContract.new.call(**transformed_params)
           enforce_contract!(contract)
