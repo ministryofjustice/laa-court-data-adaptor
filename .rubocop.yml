@@ -38,3 +38,7 @@ Style/MixinUsage:
 
 Rails/Delegate:
   Enabled: false
+
+RSpec/InstanceVariable:
+  Exclude:
+     - 'spec/pact/providers/laa_maat_court_data_api/maat_reference_validator_spec.rb' # Needed to set the mock server URL in an instance variable for Pact tests

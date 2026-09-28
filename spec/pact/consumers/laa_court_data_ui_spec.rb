@@ -11,6 +11,7 @@ RSpec.describe "laa-court-data-ui pact", :pact, pact_entity: :provider do
     http_port: 9393,
     logger: Rails.logger,
     log_level: :info,
+    pact_dir: "spec/pacts",
     fail_if_no_pacts_found: true,
 
     broker_url: ENV.fetch("PACT_BROKER_BASE_URL", nil),

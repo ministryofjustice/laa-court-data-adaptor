@@ -189,7 +189,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
             allow(ProsecutionCaseLinkValidator).to receive(:call).and_return(true)
 
             allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: 1_231_231)
-              .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
+              .and_return(instance_double(MaatApi::MaatReferenceValidator::Result, error_code: nil))
 
             allow(ProsecutionCaseMaatLinkCreator).to receive(:call).with(defendant_id, "JaneDoe", 1_231_231)
           end
@@ -220,7 +220,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
             allow(CourtApplicationLinkValidator).to receive(:call).and_return(true)
 
             allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: 1_231_231)
-              .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
+              .and_return(instance_double(MaatApi::MaatReferenceValidator::Result, error_code: nil))
           end
 
           run_test!

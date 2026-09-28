@@ -49,7 +49,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
           allow(CourtApplicationMaatLinkCreator).to receive(:call).with(subject_id, "JaneDoe", maat_reference)
 
           allow(MaatApi::MaatReferenceValidator).to receive(:call).with(maat_reference: maat_reference)
-            .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
+            .and_return(instance_double(MaatApi::MaatReferenceValidator::Result, error_code: nil))
         end
 
         run_test!
@@ -79,7 +79,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
             allow(MaatApi::MaatReferenceValidator).to receive(:call)
               .and_return(
-                instance_double(Faraday::Response, status: 200, body: {}, success?: true),
+                instance_double(MaatApi::MaatReferenceValidator::Result, error_code: nil),
               )
 
             expect(CourtApplicationMaatLinkCreator).not_to receive(:call)
@@ -119,7 +119,7 @@ RSpec.describe "api/internal/v2/court_application_laa_references", swagger_doc: 
 
         before do
           allow(MaatApi::MaatReferenceValidator).to receive(:call)
-            .and_return(instance_double(Faraday::Response, status: 200, body: {}, success?: true))
+            .and_return(instance_double(MaatApi::MaatReferenceValidator::Result, error_code: nil))
         end
 
         it "renders a JSON response with an unprocessable_content error" do
