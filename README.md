@@ -95,6 +95,13 @@ secrets from Kubernetes secrets. This assumes you are already [setup on the MoJ 
 $ script/generate_env
 ```
 
+Alternatively, if you want to connect to the SIT environment of Common Platform (which has more realistic data), you
+can run the following command:
+
+```
+$ script/generate_env --target=sit
+```
+
 Now you can manually run Rails and Redis/Sidekiq.
 
 ```

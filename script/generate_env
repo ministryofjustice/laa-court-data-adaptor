@@ -23,12 +23,44 @@ ksecret() {
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET="$SCRIPT_DIR/../.env.development.local"
+ENV_TARGET=mock
+
+for arg in "$@"; do
+  case "$arg" in
+    --target=mock)
+      ENV_TARGET=mock
+      ;;
+    --target=sit)
+      ENV_TARGET=sit
+      ;;
+    *)
+      echo "Usage: $0 [--target=mock|--target=sit]" >&2
+      exit 2
+      ;;
+  esac
+done
+
+if [ "$ENV_TARGET" = sit ]; then
+  echo "Generating .env.development.local for SIT environment"
+  COMMON_PLATFORM_URL=https://apigw.sit.cjscp.org.uk/LAA/v1
+  SHARED_SECRET_KEY=$(ksecret aws-secrets sit_common_platform_secret_key laa-court-data-adaptor-uat)
+  SSL_CLIENT_KEY=$(ksecret aws-secrets hmcts_key laa-court-data-adaptor-uat)
+  SSL_CLIENT_CERT=$(ksecret aws-secrets hmcts_cert laa-court-data-adaptor-uat)
+else
+  echo "Generating .env.development.local for MOCK environment"
+  COMMON_PLATFORM_URL=https://hmcts-common-platform-mock-api.apps.live.cloud-platform.service.justice.gov.uk
+  SHARED_SECRET_KEY=$(ksecret aws-secrets common_platform_secret_key)
+  SSL_CLIENT_KEY=""
+  SSL_CLIENT_CERT=""
+fi
 
 cat > "$TARGET" << EOF
-COMMON_PLATFORM_URL=https://hmcts-common-platform-mock-api.apps.live.cloud-platform.service.justice.gov.uk
+COMMON_PLATFORM_URL=$COMMON_PLATFORM_URL
+SSL_CLIENT_KEY=$SSL_CLIENT_KEY
+SSL_CLIENT_CERT=$SSL_CLIENT_CERT
 MAAT_API_CLIENT_ID=$(ksecret maat-api-oauth-client-credentials MAAT_API_CLIENT_ID)
 MAAT_API_CLIENT_SECRET=$(ksecret maat-api-oauth-client-credentials MAAT_API_CLIENT_SECRET)
-SHARED_SECRET_KEY=$(ksecret aws-secrets common_platform_secret_key)
+SHARED_SECRET_KEY=$SHARED_SECRET_KEY
 AWS_ACCESS_KEY_ID=$(ksecret aws-secrets dev_client_id)
 AWS_SECRET_ACCESS_KEY=$(ksecret aws-secrets dev_client_secret)
 AWS_REGION=eu-west-2
