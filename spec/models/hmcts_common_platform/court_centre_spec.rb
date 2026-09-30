@@ -54,7 +54,10 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
   describe "when there is no code" do
     let(:data) { { "id" => id, "name" => "Derby Justice Centre" } }
 
-    before { allow(Sentry).to receive(:capture_message) }
+    before do
+      allow(Sentry).to receive(:capture_message)
+      allow(Rails.logger).to receive(:error)
+    end
 
     context "when ID is recognised" do
       let(:id) { "14876ea1-5f7c-32ef-9fbd-aa0b63193550" }
@@ -63,11 +66,11 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
       it { expect(court_centre.short_oucode).to eq("B30PI") }
       it { expect(court_centre.oucode_l2_code).to eq("30") }
 
-      it "reports a warning to Sentry" do
+      it "logs an error" do
         court_centre.code
 
-        expect(Sentry).to have_received(:capture_message).with(
-          "Court centre code is null for #{id} (Derby Justice Centre)", level: :warning
+        expect(Rails.logger).to have_received(:error).with(
+          "Court centre code is null for #{id} (Derby Justice Centre)",
         )
       end
 

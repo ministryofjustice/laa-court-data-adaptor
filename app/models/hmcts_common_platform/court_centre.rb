@@ -59,7 +59,7 @@ module HmctsCommonPlatform
   private
 
     def lookup_code
-      Sentry.capture_message("Court centre code is null for #{id} (#{name})", level: :warning)
+      Rails.logger.error("Court centre code is null for #{id} (#{name})")
 
       CourtCentreCodeLookup.find(id).tap do |court_centre|
         Sentry.capture_message("Court centre code not present in the 'organisation_unit.csv'. id:#{id} - name:#{name}", level: :error) unless court_centre
