@@ -3,20 +3,20 @@
 module CommonPlatform
   module Api
     class RecordProsecutionCaseLaaReference < ApplicationService
-      def initialize(prosecution_case_id:,
+      def initialize(case_defendant_offence:,
                      defendant_id:,
                      offence_id:,
                      status_code:,
                      application_reference:,
                      status_date:,
                      connection: CommonPlatform::Connection.instance.call)
-        @offence_id = offence_id
+        @case_defendant_offence = case_defendant_offence
         @status_code = status_code
         @application_reference = application_reference.to_s
         @status_date = status_date
         @connection = connection
         @url = "prosecutionCases/laaReference"\
-                "/cases/#{prosecution_case_id}"\
+                "/cases/#{case_defendant_offence.prosecution_case_id}"\
                 "/defendant/#{defendant_id}"\
                 "/offences/#{offence_id}"
       end
@@ -38,15 +38,15 @@ module CommonPlatform
       end
 
       def update_database(response)
-        offence = ProsecutionCaseDefendantOffence.find_by(offence_id:)
-        offence.rep_order_status = status_code
-        offence.status_date = status_date
-        offence.response_status = response.status
-        offence.response_body = response.body
-        offence.save!
+        case_defendant_offence.update!(
+          rep_order_status: status_code,
+          status_date:,
+          response_status: response.status,
+          response_body: response.body,
+        )
       end
 
-      attr_reader :url, :status_code, :application_reference, :status_date, :connection, :offence_id
+      attr_reader :url, :case_defendant_offence, :status_code, :application_reference, :status_date, :connection
     end
   end
 end

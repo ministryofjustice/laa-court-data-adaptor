@@ -27,7 +27,7 @@ jobs:
           POSTGRES_PASSWORD: "postgres"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@v1

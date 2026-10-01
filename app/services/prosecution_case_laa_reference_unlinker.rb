@@ -41,7 +41,7 @@ private
 
   def update_offence_on_common_platform(offence)
     CommonPlatform::Api::RecordProsecutionCaseLaaReference.call(
-      prosecution_case_id: offence.prosecution_case_id,
+      case_defendant_offence: offence,
       defendant_id: offence.defendant_id,
       offence_id: offence.offence_id,
       status_code: "AP",

@@ -3,7 +3,7 @@
 RSpec.describe CommonPlatform::Api::RecordProsecutionCaseLaaReference do
   subject(:record_reference) do
     described_class.call(
-      prosecution_case_id: prosecution_case.id,
+      case_defendant_offence:,
       defendant_id:,
       offence_id:,
       status_code: "ABCDEF",
