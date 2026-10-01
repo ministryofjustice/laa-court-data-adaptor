@@ -60,7 +60,7 @@ private
 
   def post_laa_reference_to_common_platform(offence)
     response = CommonPlatform::Api::RecordProsecutionCaseLaaReference.call(
-      prosecution_case_id: offence.prosecution_case_id,
+      case_defendant_offence: offence,
       defendant_id: offence.defendant_id,
       offence_id: offence.offence_id,
       status_code: "AP",
