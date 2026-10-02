@@ -8,7 +8,7 @@ module Api
         def show
           hearing_result_data = CommonPlatform::Api::GetHearingResults.call(
             hearing_id: permitted_params[:hearing_id],
-            publish_to_queue: permitted_params[:publish_to_queue],
+            publish_to_queue: ActiveModel::Type::Boolean.new.cast(permitted_params[:publish_to_queue]),
           )
 
           hearing_result = HmctsCommonPlatform::HearingResulted.new(hearing_result_data)
