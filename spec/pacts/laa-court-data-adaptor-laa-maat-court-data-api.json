@@ -4,6 +4,619 @@
   },
   "interactions": [
     {
+      "description": "a request to search for a MAAT application",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "firstName is not specified"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "asn": "1234567",
+            "caseType": "Case type",
+            "committalDate": "2020-01-01",
+            "dob": "2000-01-01",
+            "lastName": "Last name",
+            "niNumber": "AB123456C"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Authorization": [
+            "any"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.asn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.caseType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.committalDate": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.dob": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.lastName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.niNumber": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Authorization": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/internal/v1/assessment/rep-orders/search-maat-application"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "detail": "Invalid request content.",
+            "instance": "/api/internal/v1/assessment/rep-orders/search-maat-application",
+            "status": 400,
+            "title": "Bad Request",
+            "type": "about:blank"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/problem+json"
+          ]
+        },
+        "status": 400
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to search for a MAAT application",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "matching MAAT application with linking data"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "asn": "1234567",
+            "caseType": "Case type",
+            "committalDate": "2020-01-01",
+            "dob": "2000-01-01",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "niNumber": "AB123456C"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Authorization": [
+            "any"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.asn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.caseType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.committalDate": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.dob": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.firstName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.lastName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.niNumber": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Authorization": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/internal/v1/assessment/rep-orders/search-maat-application"
+      },
+      "response": {
+        "body": {
+          "content": [
+            {
+              "isLinked": true,
+              "linked": true,
+              "linkingDetail": {
+                "caseId": 10,
+                "caseUrn": "any",
+                "cjsAreaCode": "any",
+                "cjsLocation": "any",
+                "libraId": "any"
+              },
+              "maatId": 10
+            }
+          ],
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$[*].linkingDetail.caseId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$[*].linkingDetail.caseUrn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$[*].linkingDetail.cjsAreaCode": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$[*].linkingDetail.cjsLocation": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$[*].linkingDetail.libraId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$[*].maatId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to search for a MAAT application",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "matching MAAT application with no linking data"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "asn": "1234567",
+            "caseType": "Case type",
+            "committalDate": "2020-01-01",
+            "dob": "2000-01-01",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "niNumber": "AB123456C"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Authorization": [
+            "any"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.asn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.caseType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.committalDate": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.dob": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.firstName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.lastName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.niNumber": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Authorization": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/internal/v1/assessment/rep-orders/search-maat-application"
+      },
+      "response": {
+        "body": {
+          "content": [
+            {
+              "isLinked": false,
+              "linked": false,
+              "linkingDetail": null,
+              "maatId": 10
+            }
+          ],
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$[*].maatId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to search for a MAAT application",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no matching MAAT applications"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "asn": "1234567",
+            "caseType": "Case type",
+            "committalDate": "2020-01-01",
+            "dob": "2000-01-01",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "niNumber": "AB123456C"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Authorization": [
+            "any"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.asn": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.caseType": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.committalDate": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.dob": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.firstName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.lastName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            },
+            "$.niNumber": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Authorization": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "(?-mix:.*)"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/api/internal/v1/assessment/rep-orders/search-maat-application"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "code": "NOT_FOUND",
+            "message": "Representation order not found"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 404
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    },
+    {
       "description": "a request to validate a MAAT reference",
       "pending": false,
       "providerStates": [
