@@ -111,6 +111,7 @@ RSpec.describe HearingsCreator do
             :docLanguage,
             :proceedingsConcluded,
             :inActive,
+            :isCivil,
             :functionType,
             :defendant,
             :session,
@@ -250,6 +251,7 @@ RSpec.describe HearingsCreator do
             :cjsLocation,
             :docLanguage,
             :proceedingsConcluded,
+            :isCivil,
             :inActive,
             :functionType,
             :defendant,
@@ -312,7 +314,7 @@ RSpec.describe HearingsCreator do
       end
     end
 
-    context "with a linked suject" do
+    context "with a linked subject" do
       let(:prosecution_case_array) { nil }
 
       before do
@@ -338,6 +340,7 @@ RSpec.describe HearingsCreator do
             :cjsLocation,
             :docLanguage,
             :proceedingsConcluded,
+            :isCivil,
             :inActive,
             :functionType,
             :defendant,
