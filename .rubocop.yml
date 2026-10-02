@@ -41,4 +41,4 @@ Rails/Delegate:
 
 RSpec/InstanceVariable:
   Exclude:
-     - 'spec/pact/providers/laa_maat_court_data_api/maat_reference_validator_spec.rb' # Needed to set the mock server URL in an instance variable for Pact tests
+     - 'spec/support/shared_examples/laa_maat_court_data_api.rb' # Needed to set the mock server URL in an instance variable for Pact tests
