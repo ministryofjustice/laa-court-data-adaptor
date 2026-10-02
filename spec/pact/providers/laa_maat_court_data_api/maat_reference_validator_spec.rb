@@ -8,8 +8,6 @@ RSpec.describe "Maat Reference Validator contract", :pact do
       subject { described_class.call(maat_reference: maat_reference, connection: connection).error_code }
 
       let(:maat_reference) { "1234567" }
-      let(:connection) { MaatApi::Connection.new(host: mock_server.url).call }
-      let(:mock_server) { @mock_server }
 
       let(:headers) do
         {
@@ -35,15 +33,6 @@ RSpec.describe "Maat Reference Validator contract", :pact do
             status: status,
             body: response_body,
           )
-      end
-
-      before { stub_maat_api_token }
-
-      around do |example|
-        interaction.execute do |mock_server|
-          @mock_server = mock_server
-          example.run
-        end
       end
 
       context "when MAAT reference is valid and not linked" do
