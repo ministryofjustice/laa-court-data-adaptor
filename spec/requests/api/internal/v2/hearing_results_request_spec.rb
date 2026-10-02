@@ -96,30 +96,40 @@ RSpec.describe "api/internal/v2/hearing_results", swagger_doc: "v2/swagger.yaml"
           end
         end
       end
+    end
+  end
 
-      context "with publish_to_queue=true" do
-        let(:hearing_id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
-        let(:publish_to_queue) { true }
+  describe "publish_to_queue" do
+    let(:hearing_id) { "b935a64a-6d03-4da4-bba6-4d32cc2e7fb4" }
+    let(:headers) { { "Authorization" => "Bearer #{access_token.token}" } }
 
-        parameter name: :publish_to_queue, in: :query, required: false, type: :boolean, description: "Publish hearing results to MAAT API"
+    before do
+      stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{hearing_id}")
+        .to_return(
+          status: 200,
+          headers: { content_type: "application/json" },
+          body: file_fixture("hearing_resulted.json").read,
+        )
 
-        before do
-          stub_request(:get, "#{ENV['COMMON_PLATFORM_URL']}/hearing/results?hearingId=#{hearing_id}")
-            .to_return(
-              status: 200,
-              headers: { content_type: "application/json" },
-              body: file_fixture("hearing_resulted.json").read,
-            )
+      allow(HearingsCreatorWorker).to receive(:perform_async)
+    end
 
-          expect(HearingsCreatorWorker).to receive(:perform_async)
-        end
+    it "publishes hearing results when true" do
+      get("/api/internal/v2/hearing_results/#{hearing_id}", params: { publish_to_queue: "true" }, headers:)
 
-        describe "response" do
-          response(200, "Success") do
-            run_test!
-          end
-        end
-      end
+      expect(HearingsCreatorWorker).to have_received(:perform_async)
+    end
+
+    it "does not publish hearing results when false" do
+      get("/api/internal/v2/hearing_results/#{hearing_id}", params: { publish_to_queue: "false" }, headers:)
+
+      expect(HearingsCreatorWorker).not_to have_received(:perform_async)
+    end
+
+    it "does not publish hearing results when missing" do
+      get("/api/internal/v2/hearing_results/#{hearing_id}", headers:)
+
+      expect(HearingsCreatorWorker).not_to have_received(:perform_async)
     end
   end
 end
