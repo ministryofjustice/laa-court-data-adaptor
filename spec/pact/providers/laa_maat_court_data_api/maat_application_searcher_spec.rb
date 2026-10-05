@@ -121,7 +121,6 @@ RSpec.describe "Maat Application Searcher contract", :pact do
         let(:status) { 400 }
         let(:response_body) do
           {
-            "type": "about:blank",
             "title": "Bad Request",
             "status": 400,
             "detail": "Invalid request content.",

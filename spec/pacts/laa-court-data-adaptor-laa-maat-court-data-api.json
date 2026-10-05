@@ -110,8 +110,7 @@
             "detail": "Invalid request content.",
             "instance": "/api/internal/v1/assessment/rep-orders/search-maat-application",
             "status": 400,
-            "title": "Bad Request",
-            "type": "about:blank"
+            "title": "Bad Request"
           },
           "contentType": "application/json",
           "encoded": false
