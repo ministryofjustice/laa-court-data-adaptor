@@ -18,36 +18,25 @@ private
   def push_prosecution_cases
     hearing_resulted.hearing.prosecution_cases.each do |prosecution_case|
       prosecution_case.defendants.each do |defendant|
-        next if defendant.offences.any? do |offence|
-          LaaReference.new(maat_reference: offence.laa_application_reference).dummy_maat_reference?
-        end
-
-        laa_reference = LaaReference.find_by(defendant_id: defendant.id, linked: true)
-
-        next if laa_reference.blank?
-
-        maat_api_prosecution_case = MaatApi::ProsecutionCase.new(
-          hearing_resulted,
-          prosecution_case.urn,
-          defendant,
-          laa_reference.maat_reference,
-        )
-
-        Sqs::MessagePublisher.call(
-          message: MaatApi::Message.new(maat_api_prosecution_case).generate,
-          queue_url:,
-          log_info: { maat_reference: laa_reference.maat_reference },
-        )
+        push_prosecution_case_message(defendant, prosecution_case, hearing_resulted)
       end
     end
   end
 
-  # TODO: refactor to simplify the method push_prosecution_cases"
-  # def defendants_having_offences(prosecution_case)
-  #   prosecution_case.defendants.reject do |defendant|
-  #     defendant.offence.any?{ LaaReference.new(maat_reference: it.laa_application_reference).dummy_maat_reference? }
-  #   end
-  # end
+  def push_prosecution_case_message(defendant, prosecution_case, hearing_resulted)
+    laa_reference = LaaReference.find_by(defendant_id: defendant.id, linked: true)
+
+    return if laa_reference.blank? || laa_reference.dummy_maat_reference?
+
+    maat_api_prosecution_case = MaatApi::ProsecutionCase.new(
+      hearing_resulted,
+      prosecution_case.urn,
+      defendant,
+      laa_reference.maat_reference,
+    )
+
+    publish_message(maat_api_prosecution_case, laa_reference)
+  end
 
   def push_applications
     hearing_resulted.hearing.court_applications.each do |court_application|
@@ -58,19 +47,17 @@ private
 
   def push_messages_about_defendants(court_application, hearing_resulted)
     court_application.defendant_cases.each do |defendant_case|
-      laa_reference = LaaReference.find_by(defendant_id: defendant_case.defendant_id, linked: true)
-
-      push_court_application_message(laa_reference, court_application, hearing_resulted)
+      push_court_application_message(defendant_case.defendant_id, court_application, hearing_resulted)
     end
   end
 
   def push_message_about_subject(court_application, hearing_resulted)
-    laa_reference = LaaReference.find_by(defendant_id: court_application.subject_id, linked: true)
-
-    push_court_application_message(laa_reference, court_application, hearing_resulted)
+    push_court_application_message(court_application.subject_id, court_application, hearing_resulted)
   end
 
-  def push_court_application_message(laa_reference, court_application, hearing_resulted)
+  def push_court_application_message(defendant_id, court_application, hearing_resulted)
+    laa_reference = LaaReference.find_by(defendant_id: defendant_id, linked: true)
+
     return if laa_reference.blank?
 
     maat_api_court_application = MaatApi::CourtApplication.new(
@@ -79,6 +66,10 @@ private
       laa_reference.maat_reference,
     )
 
+    publish_message(maat_api_court_application, laa_reference)
+  end
+
+  def publish_message(maat_api_court_application, laa_reference)
     Sqs::MessagePublisher.call(
       message: MaatApi::Message.new(maat_api_court_application).generate,
       queue_url:,
