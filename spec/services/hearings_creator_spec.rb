@@ -235,6 +235,17 @@ RSpec.describe HearingsCreator do
     let(:defendant_case_array) { [defendant_case_one, defendant_case_two] }
     let(:applications_array) { [court_application] }
 
+    it "loads linked LAA references once across prosecution cases and applications" do
+      create(:laa_reference, defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a888", linked: true, maat_reference: "123", user_name: "Bob")
+      create(:laa_reference, defendant_id: "dd22b110-7fbc-3036-a076-e4bb40d0a666", linked: true, maat_reference: "456", user_name: "Steve")
+      allow(LaaReference).to receive(:where).and_call_original
+
+      create_hearings
+
+      expect(LaaReference).to have_received(:where).once
+      expect(Sqs::MessagePublisher).to have_received(:call).twice
+    end
+
     context "with one linked defendant" do
       let(:prosecution_case_array) { nil }
 
@@ -313,7 +324,7 @@ RSpec.describe HearingsCreator do
       let(:prosecution_case_array) { nil }
 
       it "does not call the Sqs::MessagePublisher service" do
-        allow(LaaReference).to receive(:find_by).and_return(nil)
+        allow(LaaReference).to receive(:where).and_return([])
 
         create_hearings
 

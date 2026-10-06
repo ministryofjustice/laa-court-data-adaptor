@@ -24,7 +24,7 @@ private
   end
 
   def push_prosecution_case_message(defendant, prosecution_case, hearing_resulted)
-    laa_reference = LaaReference.find_by(defendant_id: defendant.id, linked: true)
+    laa_reference = laa_references[defendant.id]
 
     return if laa_reference.blank? || laa_reference.dummy_maat_reference?
 
@@ -56,7 +56,7 @@ private
   end
 
   def push_court_application_message(defendant_id, court_application, hearing_resulted)
-    laa_reference = LaaReference.find_by(defendant_id: defendant_id, linked: true)
+    laa_reference = laa_references[defendant_id]
 
     return if laa_reference.blank?
 
@@ -75,5 +75,17 @@ private
       queue_url:,
       log_info: { maat_reference: laa_reference.maat_reference },
     )
+  end
+
+  def laa_references
+    @laa_references ||= begin
+      defendant_ids = [
+        hearing_resulted.hearing.prosecution_cases.flat_map(&:defendants).map(&:id),
+        hearing_resulted.hearing.court_applications.flat_map(&:defendant_cases).map(&:defendant_id),
+        hearing_resulted.hearing.court_applications.map(&:subject_id),
+      ].flatten
+
+      LaaReference.where(defendant_id: defendant_ids, linked: true).index_by(&:defendant_id)
+    end
   end
 end
