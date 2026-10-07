@@ -33,9 +33,9 @@ gem "prometheus_exporter", "2.3.1"
 gem "rails_semantic_logger"
 gem "rswag-api"
 gem "rswag-ui"
-gem "sentry-rails", "~> 7.0.0"
-gem "sentry-ruby", "~> 7.0.0"
-gem "sentry-sidekiq", "~> 7.0.0"
+gem "sentry-rails", "~> 7.1.0"
+gem "sentry-ruby", "~> 7.1.0"
+gem "sentry-sidekiq", "~> 7.1.0"
 gem "sidekiq", ">= 6.5.10", "< 9.0"
 
 group :development, :test do
