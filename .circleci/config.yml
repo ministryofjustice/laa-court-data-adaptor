@@ -246,7 +246,7 @@ jobs:
       - run:
           name: Deploy to Production
           command: |
-            .circleci/deploy.sh laa-court-data-adaptor-prod ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml $CIRCLE_SHA1
+            .circleci/deploy.sh laa-court-data-adaptor-prod ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml "$CIRCLE_SHA1" "$HMCTS_CA_FINGERPRINT"
 
   postman_test_on_dev:
     executor: newman-latest
