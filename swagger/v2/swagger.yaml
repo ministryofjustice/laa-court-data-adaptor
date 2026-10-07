@@ -385,6 +385,7 @@ paths:
           - maat_id
           - linked_by
           - status
+          - process_errors
         description: Sort field
       - name: sort_direction
         in: query
