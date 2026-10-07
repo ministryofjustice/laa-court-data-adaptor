@@ -85,6 +85,13 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
+      - helm/install-helm-client:
+          version: "v3.2.4"
+
+      - run:
+          name: Test deployment templates
+          command: bundle exec rspec --options /dev/null helm_deploy/laa-court-data-adaptor/spec
+
       - run:
           name: "Install postgres client 17"
           command: |
