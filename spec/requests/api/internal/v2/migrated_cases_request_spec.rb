@@ -43,6 +43,7 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
                     maat_id
                     linked_by
                     status
+                    process_errors
                   ],
                 },
                 description: "Sort field"
@@ -283,6 +284,36 @@ RSpec.describe "api/internal/v2/link_migrated_cases", swagger_doc: "v2/swagger.y
 
         expect(response).to have_http_status(:ok)
         expect(result_ids).to eq(expected_order(records, scenario[:column], "desc"))
+      end
+    end
+
+    context "when sorting by process_errors" do
+      let!(:maat_error_case) do
+        create_migrated_case(
+          traits: [:action_required], suffix: 1,
+          process_errors: { "maat" => { "message" => "MAAT application not found" } }
+        )
+      end
+      let!(:common_platform_error_case) do
+        create_migrated_case(
+          traits: [:action_required], suffix: 2,
+          process_errors: { "common_platform" => { "message" => "Case not found on Common Platform" } }
+        )
+      end
+      let!(:no_error_case) { create_migrated_case(traits: [:pending], suffix: 3) }
+
+      it "sorts ascending by the error text, with cases without errors last" do
+        request_sorted(sort_by: "process_errors", sort_direction: "asc", headers:)
+
+        expect(response).to have_http_status(:ok)
+        expect(result_ids).to eq([common_platform_error_case.id, maat_error_case.id, no_error_case.id])
+      end
+
+      it "sorts descending by the error text, with cases without errors first" do
+        request_sorted(sort_by: "process_errors", sort_direction: "desc", headers:)
+
+        expect(response).to have_http_status(:ok)
+        expect(result_ids).to eq([no_error_case.id, maat_error_case.id, common_platform_error_case.id])
       end
     end
 
