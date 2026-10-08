@@ -239,6 +239,25 @@ To add a new endpoint, run `rails generate rspec:swagger <controller_name>` to g
 
 The build is triggered in [CircleCI](https://circleci.com/gh/ministryofjustice/laa-court-data-adaptor) upon merging to master but requires manual approval through all environments to deploy to production.
 
+To run the deployment tests locally, install Helm (CI uses version 3.2.4) and the
+existing bundle, then run:
+
+```sh
+bundle exec rspec --options /dev/null helm_deploy/laa-court-data-adaptor/spec
+```
+
+These standalone RSpec tests render the chart using public values and dummy
+fingerprints, and exercise the deploy script with stubbed Helm and curl commands.
+They do not load Rails, access a cluster, decrypt production values, or require
+CircleCI secrets. The tests cover required/optional fingerprints, failure on
+missing or empty required values, unchanged non-production annotations, disabled
+ingress, and forwarding the fingerprint to Helm. CircleCI runs them in the test
+job before deployment approval.
+
+Rendering does not execute NGINX or verify CircleCI context permissions. A UAT
+smoke test is still needed to confirm that the ingress controller accepts the
+snippet and rejects a different CA-signed client certificate with HTTP 423.
+
 ## Dev: running locally
 
 ### Connect to hmcts-common-platform-mock-api

@@ -9,6 +9,18 @@ metadata:
     {{- include "laa-court-data-adaptor.labels" . | nindent 4 }}
   annotations:
     nginx.ingress.kubernetes.io/whitelist-source-range: "{{ include "laa-court-data-adaptor.externalWhitelist" $ }}"
+  {{- if or .Values.certFingerprint .Values.ingress.requireCertFingerprint }}
+    nginx.ingress.kubernetes.io/server-snippet: |
+      set $accept false;
+
+      # Do a case-insensitive comparison of the ssl client fingerprint
+      if ($ssl_client_fingerprint ~* "^{{ required "certFingerprint is required when ingress.requireCertFingerprint is true" .Values.certFingerprint }}$") {
+        set $accept true;
+      }
+      if ($accept != true) {
+        return 423;
+      }
+  {{- end }}
   {{- with .Values.ingress.externalAnnotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
