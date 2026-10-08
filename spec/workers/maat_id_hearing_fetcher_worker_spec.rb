@@ -24,6 +24,14 @@ RSpec.describe MaatIdHearingFetcherWorker do
     allow(CommonPlatform::Api::ProsecutionCaseHearingsFetcher).to receive(:call)
   end
 
+  it "runs on the `hearing_repull` queue" do
+    expect(described_class.sidekiq_options["queue"]).to eq :hearing_repull
+  end
+
+  it "does not retry" do
+    expect(described_class.sidekiq_options["retry"]).to eq(0)
+  end
+
   context "when the MAAT ID is found and the fetch succeeds" do
     before { laa_reference }
 
