@@ -16,6 +16,8 @@ module Api
           "maat_id" => %w[maat_id],
           "linked_by" => %w[linked_by],
           "status" => %w[status],
+          # jsonb orders by structure, so sort on its text form instead
+          "process_errors" => [Arel.sql("process_errors::text")],
         }.freeze
 
         # GET /api/internal/v2/link_migrated_cases
@@ -64,7 +66,11 @@ module Api
           order_direction = sort_direction.to_sym
 
           order_columns.reduce(scope) do |relation, column|
-            relation.order(column => order_direction)
+            if column.is_a?(Arel::Nodes::SqlLiteral)
+              relation.order(order_direction == :asc ? column.asc : column.desc)
+            else
+              relation.order(column => order_direction)
+            end
           end
         end
 
