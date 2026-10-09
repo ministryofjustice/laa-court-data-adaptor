@@ -26,7 +26,10 @@ env:
         name: aws-secrets
         key: secret_key_base
   - name: COMMON_PLATFORM_URL
-    value: {{ .Values.common_platform_url }}
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: common_platform_url
   - name: SHARED_SECRET_KEY
     valueFrom:
       secretKeyRef:

@@ -16,8 +16,6 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-common_platform_url: https://hmcts-common-platform-mock-api.apps.live.cloud-platform.service.justice.gov.uk
-
 sqs_region: eu-west-2
 sqs_messaging_enabled: true
 maat_api:
