@@ -8,10 +8,10 @@ namespace :hearings do
     puts "[INFO - #{Time.zone.now}] Scheduling #{maat_ids.count} MAAT IDs ..."
 
     maat_ids.each_with_index do |maat_id, i|
-      MaatIdHearingFetcherWorker.perform_in(i * 12.seconds, maat_id)
+      MaatIdHearingFetcherWorker.perform_in(i * HearingRepullQueue::DELAY_BETWEEN_JOBS, maat_id)
     end
 
-    total_hours = (maat_ids.count * 12.0 / 3600).round(1)
+    total_hours = (maat_ids.count * HearingRepullQueue::DELAY_BETWEEN_JOBS / 3600.0).round(1)
     puts "[INFO - #{Time.zone.now}] All jobs enqueued. Expected completion in ~#{total_hours}h."
   end
 end

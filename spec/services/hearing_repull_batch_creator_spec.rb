@@ -33,7 +33,7 @@ RSpec.describe HearingRepullBatchCreator do
   end
 
   before do
-    allow(ProsecutionCaseHearingRepullWorker).to receive(:perform_async)
+    allow(ProsecutionCaseHearingRepullWorker).to receive(:perform_in)
     call_service
   end
 
@@ -50,6 +50,11 @@ RSpec.describe HearingRepullBatchCreator do
   end
 
   it "calls the async jobs" do
-    expect(ProsecutionCaseHearingRepullWorker).to have_received(:perform_async).exactly(2).times
+    expect(ProsecutionCaseHearingRepullWorker).to have_received(:perform_in).exactly(2).times
+  end
+
+  it "staggers the async jobs 10 seconds apart" do
+    expect(ProsecutionCaseHearingRepullWorker).to have_received(:perform_in).with(0.seconds, kind_of(String))
+    expect(ProsecutionCaseHearingRepullWorker).to have_received(:perform_in).with(10.seconds, kind_of(String))
   end
 end
