@@ -68,7 +68,17 @@ module HmctsCommonPlatform
     end
 
     def linked_maat_id
-      ::LaaReference.find_by(defendant_id: subject_summary.subject_id, linked: true)&.maat_reference
+      court_application = ::CourtApplication.find_by(id: application_id)
+      return if court_application.nil?
+
+      # A court application can only be linked once CDA has saved it in court_applications
+      # (CourtApplicationRecorder runs when VCD first loads it).
+      # So a link on the same id created before that belongs to a prosecution case defendant,
+      # not to this court application.
+      # This happens when CP reuses the masterDefendantId as the application's subjectId.
+      ::LaaReference.where(defendant_id: subject_summary.subject_id, linked: true)
+                    .where("created_at > ?", court_application.created_at)
+                    .pick(:maat_reference)
     end
 
     def to_json(*_args)

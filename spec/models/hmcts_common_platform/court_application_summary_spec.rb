@@ -122,4 +122,59 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
       end
     end
   end
+
+  describe "#linked_maat_id" do
+    subject { court_application_summary.linked_maat_id }
+
+    let(:application_id) { "00004c9f-af9f-401a-b88b-78a4f0e08163" }
+    let(:subject_id) { "855ce6b7-eace-44a1-a5ea-8e530d9fbc7b" }
+    let(:application_recorded_at) { Time.zone.local(2026, 10, 1) }
+
+    def record_court_application
+      CourtApplication.create!(id: application_id, subject_id:, body: data, created_at: application_recorded_at)
+    end
+
+    context "when the subject id is the defendant id of an earlier linked prosecution case" do
+      before do
+        prosecution_case = create(:prosecution_case, body: { "prosecutionCaseReference" => "22FA1039626" })
+        create(:prosecution_case_defendant_offence, prosecution_case_id: prosecution_case.id, defendant_id: subject_id)
+        create(:laa_reference, defendant_id: subject_id, maat_reference: "7647807", created_at: Time.zone.local(2023, 7, 5))
+        record_court_application
+      end
+
+      it { is_expected.to be_nil }
+
+      context "and the application is then linked" do
+        before do
+          create(:laa_reference, defendant_id: subject_id, maat_reference: "1234567", created_at: application_recorded_at + 1.day)
+        end
+
+        it { is_expected.to eq "1234567" }
+      end
+    end
+
+    context "when the application was recorded and then linked" do
+      before do
+        record_court_application
+        create(:laa_reference, defendant_id: subject_id, maat_reference: "1234567", created_at: application_recorded_at + 1.day)
+      end
+
+      it { is_expected.to eq "1234567" }
+    end
+
+    context "when the application link has been unlinked" do
+      before do
+        record_court_application
+        create(:laa_reference, defendant_id: subject_id, linked: false, created_at: application_recorded_at + 1.day)
+      end
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when the application has not been recorded" do
+      before { create(:laa_reference, defendant_id: subject_id, maat_reference: "1234567") }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end
