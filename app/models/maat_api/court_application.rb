@@ -38,6 +38,10 @@ module MaatApi
       false
     end
 
+    def is_civil
+      false
+    end
+
     def inactive
       "Y"
     end
