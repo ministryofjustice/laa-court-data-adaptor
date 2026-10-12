@@ -178,15 +178,13 @@ RSpec.describe ProcessXhibitCases, type: :service do
 
     context "when the MAAT application is already linked to a LIBRA case" do
       let(:maat_fixture) { "linked_to_libra_case" }
-      let(:maat_id) { 6_672_961 }
       let(:published_queues) { [] }
 
       before do
-        LinkXhibitCaseWorker.clear
         allow(Sqs::MessagePublisher).to receive(:call) { |**args| published_queues << args[:queue_url] }
       end
 
-      it "requests the LIBRA unlink and does not link the case yet" do
+      it "requests the LIBRA unlink and leaves the case pending" do
         process_cases
 
         expect(published_queues).to eq([Rails.configuration.x.aws.sqs_url_unlink])
@@ -196,15 +194,16 @@ RSpec.describe ProcessXhibitCases, type: :service do
           linked_at: nil,
           linked_by: nil,
         )
+        expect(xhibit_case.process_errors).to eq(
+          "maat" => { "message" => described_class::LIBRA_UNLINK_REQUESTED_MESSAGE },
+        )
       end
 
-      it "schedules the link after the unlink delay" do
-        expect { process_cases }.to change(LinkXhibitCaseWorker.jobs, :size).from(0).to(1)
-      end
-
-      it "links the case when the job runs" do
+      it "links the case on a later run, once MAAT reports it as unlinked" do
         process_cases
-        LinkXhibitCaseWorker.drain
+
+        stub_maat_search("success")
+        described_class.call
 
         expect(published_queues.last).to eq(Rails.configuration.x.aws.sqs_url_link)
         expect(xhibit_case.reload).to be_auto_linked
