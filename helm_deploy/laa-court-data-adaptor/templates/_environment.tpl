@@ -79,9 +79,15 @@ env:
   {{- end }}
   {{- if .Values.maat_api.validation_enabled }}
   - name: MAAT_API_OAUTH_URL
-    value: {{ .Values.maat_api.oauth_url }}
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: maat_api_oauth_url
   - name: MAAT_API_API_URL
-    value: {{ .Values.maat_api.api_url }}
+    valueFrom:
+      secretKeyRef:
+        name: aws-secrets
+        key: maat_api_api_url
   - name: MAAT_API_CLIENT_ID
     valueFrom:
       secretKeyRef:
