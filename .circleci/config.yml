@@ -29,13 +29,6 @@ executors:
           POSTGRES_DB: cda_test
 
 commands:
-  checkout_and_decrypt:
-    steps:
-      - checkout
-      - run: sudo apt-get update
-      - run: sudo apt-get install git-crypt
-      - run: echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
-      - run: git-crypt unlock git-crypt.key
 
   build-temp-image:
     steps:
@@ -161,7 +154,7 @@ jobs:
     docker:
       - image: cimg/python:3.12
     steps:
-      - checkout_and_decrypt
+      - checkout
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -187,7 +180,7 @@ jobs:
     docker:
       - image: cimg/python:3.12
     steps:
-      - checkout_and_decrypt
+      - checkout
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -213,7 +206,7 @@ jobs:
     docker:
       - image: cimg/python:3.12
     steps:
-      - checkout_and_decrypt
+      - checkout
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -236,7 +229,7 @@ jobs:
     docker:
       - image: cimg/python:3.12
     steps:
-      - checkout_and_decrypt
+      - checkout
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
