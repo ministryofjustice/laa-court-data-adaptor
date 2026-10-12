@@ -1,5 +1,6 @@
 class ProsecutionCaseHearingRepullWorker
   include Sidekiq::Worker
+  include HearingRepullQueue
 
   def perform(repull_id)
     repull = ProsecutionCaseHearingRepull.find(repull_id)

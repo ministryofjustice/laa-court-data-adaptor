@@ -2,7 +2,8 @@
 
 class MaatIdHearingFetcherWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :hearing_repull, retry: 0
+  include HearingRepullQueue
+  sidekiq_options retry: 0
 
   def perform(maat_id)
     laa_reference = LaaReference.find_by!(maat_reference: maat_id, linked: true)

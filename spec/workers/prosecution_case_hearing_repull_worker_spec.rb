@@ -13,6 +13,10 @@ RSpec.describe ProsecutionCaseHearingRepullWorker do
     create(:prosecution_case, body: { hearingSummary: [{ hearingId: "123" }, { hearingId: "456" }] })
   end
 
+  it "runs on the `hearing_repull` queue" do
+    expect(described_class.sidekiq_options["queue"]).to eq :hearing_repull
+  end
+
   context "when Common Platform is called successfully" do
     before do
       allow(CommonPlatform::Api::GetHearingResults).to receive(:call)

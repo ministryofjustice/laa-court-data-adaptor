@@ -7,7 +7,7 @@ class HearingRepullBatchCreator < ApplicationService
     cases_with_matching_maat_ids = retrieve_cases_with_matching_maat_ids
 
     batch = HearingRepullBatch.create!
-    cases_with_matching_maat_ids.each do |case_with_ids|
+    cases_with_matching_maat_ids.each_with_index do |case_with_ids, index|
       repull = ProsecutionCaseHearingRepull.create!(
         prosecution_case: case_with_ids[:prosecution_case],
         urn: case_with_ids[:prosecution_case].body["prosecutionCaseReference"],
@@ -15,7 +15,7 @@ class HearingRepullBatchCreator < ApplicationService
         hearing_repull_batch: batch,
       )
 
-      ProsecutionCaseHearingRepullWorker.perform_async(repull.id)
+      ProsecutionCaseHearingRepullWorker.perform_in(index * HearingRepullQueue::DELAY_BETWEEN_JOBS, repull.id)
     end
 
     create_repull_for_missing_maat_ids(cases_with_matching_maat_ids, batch)

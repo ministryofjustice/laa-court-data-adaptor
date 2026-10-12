@@ -16,13 +16,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-common_platform_url: https://apigw.sit.cjscp.org.uk/LAA/V1
 sqs_region: eu-west-2
 sqs_messaging_enabled: true
 maat_api:
   validation_enabled: true
-  oauth_url: https://maat-api-uat.auth.eu-west-2.amazoncognito.com
-  api_url: https://laa-maat-data-api-uat.apps.live.cloud-platform.service.justice.gov.uk
 
 rails:
   host_env: uat
