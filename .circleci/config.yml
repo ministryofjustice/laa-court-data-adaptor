@@ -259,7 +259,7 @@ jobs:
           command: |
             .circleci/deploy.sh \
               --namespace laa-court-data-adaptor-prod \
-              --values-file ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml \
+              --values-file ./helm_deploy/laa-court-data-adaptor/values/prod.yaml \
               --tag "$CIRCLE_SHA1" \
               --cert-fingerprint "$HMCTS_CA_FINGERPRINT" \
               --hmcts-ips "$HMCTS_PROD_IPS"
