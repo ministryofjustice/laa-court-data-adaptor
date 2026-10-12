@@ -1,0 +1,129 @@
+# Production values for laa-court-data-adaptor
+# The client certificate fingerprint used for mutual TLS is read from the
+# `fingerprint` key of the ca-secret at deploy time and passed in as
+# certFingerprint (see .circleci/config.yml)
+
+replicaCount: 4
+workerReplicaCount: 1
+metricsReplicaCount: 1
+
+image:
+  repository: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-crime-apps-team/laa-court-data-adaptor
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+common_platform_url: https://apigw.cjscp.org.uk/LAA/v1
+sqs_region: eu-west-2
+sqs_messaging_enabled: true
+maat_api:
+  validation_enabled: true
+
+rails:
+  host_env: prod
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "laa-court-data-adaptor-irsa"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 3000
+
+metrics_service:
+  port: 9394
+
+ingress:
+  className: modsec
+  enabled: true
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: laa-court-data-adaptor-laa-court-data-adaptor-prod-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/modsecurity-snippet: |
+      SecAuditEngine On
+      SecRuleEngine DetectionOnly
+      SecDefaultAction "phase:2,pass,log,tag:github_team=laa-access-court-data"
+    alb.ingress.kubernetes.io/load-balancer-attributes: "idle_timeout.timeout_seconds=600"
+  hosts:
+    - host: laa-court-data-adaptor.apps.live-1.cloud-platform.service.justice.gov.uk
+      paths: ["/"]
+    - host: laa-court-data-adaptor.apps.live.cloud-platform.service.justice.gov.uk
+      paths: ["/"]
+    - host: court-data-adaptor.service.justice.gov.uk
+      paths: ["/"]
+  externalAnnotations:
+    external-dns.alpha.kubernetes.io/set-identifier: laa-court-data-adaptor-external-laa-court-data-adaptor-prod-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/modsecurity-snippet: |
+      SecAuditEngine On
+      SecRuleEngine DetectionOnly
+      SecDefaultAction "phase:2,pass,log,tag:github_team=laa-access-court-data"
+    nginx.ingress.kubernetes.io/auth-tls-secret: 'laa-court-data-adaptor-prod/ca-secret'
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'on'
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: '2'
+  # Fail the deploy if certFingerprint is not supplied
+  requireCertFingerprint: true
+  externalHosts:
+    - host: cjscp.court-data-adaptor.service.justice.gov.uk
+      paths: ["/"]
+
+  tls:
+    - secretName: laa-court-data-adaptor-prod-cert
+      hosts:
+        - court-data-adaptor.service.justice.gov.uk
+  externalTls:
+    - secretName: laa-court-data-adaptor-prod-cert
+      hosts:
+        - cjscp.court-data-adaptor.service.justice.gov.uk
+
+resources:
+   limits:
+     cpu: 1
+     memory: 1000Mi
+   requests:
+     cpu: 150m
+     memory: 750Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+ips:
+  restrict: true
+  hmcts: "131.145.53.52,51.140.52.246"
+
+featureFlags:
+  breachCourtApplications: true
