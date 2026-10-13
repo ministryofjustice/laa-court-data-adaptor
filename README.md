@@ -239,6 +239,24 @@ To add a new endpoint, run `rails generate rspec:swagger <controller_name>` to g
 
 The build is triggered in [CircleCI](https://circleci.com/gh/ministryofjustice/laa-court-data-adaptor) upon merging to master but requires manual approval through all environments to deploy to production.
 
+There are a couple of secrets that are required for deployment to production, which are stored in CircleCI and are not
+passed to Helm at runtime. These are:
+
+- `HMCTS_CA_FINGERPRINT` - the SHA256 fingerprint of the CA certificate used to sign the Common Platform API client certificate. This is required for TLS mutual authentication.
+- `HMCTS_PROD_IPS` - a comma-separated list of IP addresses used by HMCTS to access the production environment.
+- `HMCTS_UAT_IPS` - a comma-separated list of IP addresses used by HMCTS to access the UAT environment.
+
+These are stored in CircleCI and can be managed either through the CircleCI web interface or the CircleCI CLI.
+See [the CircleCI docs](https://circleci.com/docs/guides/security/env-vars/) for more information.
+
+For specific guidance on changing the Common Platform URL in UAT, see
+[the Changing Common Platform URL docs](docs/changing-common-platform-url.md).
+
+### Deployment tests
+
+There is a small RSpec test suite that verifies that the Helm chart renders correctly. These tests are located
+in `helm_deploy/laa-court-data-adaptor/spec`.
+
 To run the deployment tests locally, install Helm (CI uses version 3.2.4) and the
 existing bundle, then run:
 
@@ -247,16 +265,8 @@ bundle exec rspec --options /dev/null helm_deploy/laa-court-data-adaptor/spec
 ```
 
 These standalone RSpec tests render the chart using public values and dummy
-fingerprints, and exercise the deploy script with stubbed Helm and curl commands.
-They do not load Rails, access a cluster, decrypt production values, or require
-CircleCI secrets. The tests cover required/optional fingerprints, failure on
-missing or empty required values, unchanged non-production annotations, disabled
-ingress, and forwarding the fingerprint to Helm. CircleCI runs them in the test
-job before deployment approval.
-
-Rendering does not execute NGINX or verify CircleCI context permissions. A UAT
-smoke test is still needed to confirm that the ingress controller accepts the
-snippet and rejects a different CA-signed client certificate with HTTP 423.
+fingerprints. They do not load Rails, access a cluster, decrypt production values, or
+require CircleCI secrets. CircleCI runs them in the test job before deployment approval.
 
 ## Dev: running locally
 
