@@ -2,12 +2,13 @@ class CourtApplicationMaatLinkCreator < ApplicationService
   attr_reader :laa_reference, :subject_id
 
   def initialize(subject_id, user_name, maat_reference, can_update_laa_status: false)
+    @subject_id = subject_id
     @laa_reference = LaaReference.new(
       defendant_id: subject_id,
+      court_application_id: court_application.id,
       user_name:,
       maat_reference: maat_reference.presence || LaaReference.generate_linking_dummy_maat_reference,
     )
-    @subject_id = subject_id
     @can_update_laa_status = can_update_laa_status
   end
 
@@ -103,6 +104,6 @@ private
   end
 
   def court_application
-    @court_application ||= CourtApplication.find_by(subject_id: laa_reference.defendant_id)
+    @court_application ||= CourtApplication.find_by(subject_id:)
   end
 end
