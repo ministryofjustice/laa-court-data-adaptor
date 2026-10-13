@@ -90,8 +90,8 @@ class Messageable
     attrs[:proceedings_concluded]
   end
 
-  def is_civil
-    attrs[:is_civil]
+  def civil_case
+    attrs[:civil_case]
   end
 
   def inactive

@@ -53,7 +53,7 @@ RSpec.describe MaatApi::CourtApplication, type: :model do
     end
 
     it "has an is_civil flag" do
-      expect(court_application.is_civil).to be(false)
+      expect(court_application.civil_case).to be(false)
     end
 
     it "is always inactive" do
@@ -165,7 +165,7 @@ RSpec.describe MaatApi::CourtApplication, type: :model do
     end
 
     it "has an is_civil flag" do
-      expect(court_application.is_civil).to be(false)
+      expect(court_application.civil_case).to be(false)
     end
 
     it "is always inactive" do

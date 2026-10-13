@@ -38,7 +38,7 @@ module MaatApi
       false
     end
 
-    def is_civil
+    def civil_case
       false
     end
 
