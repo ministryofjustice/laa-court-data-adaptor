@@ -70,7 +70,7 @@ VPN IPs to allow access to developers, and possibly HMCTS IPs too
 */}}
 {{- define "laa-court-data-adaptor.whitelist" -}}
 {{- if .Values.ips.restrict }}
-  {{- .Values.pingdomIps }},{{- .Values.vpnIps }},{{- .Values.ips.hmcts }},{{ include "laa-court-data-adaptor.cloudPlatformIps" . }}
+  {{- .Values.pingdomIps }},{{- .Values.vpnIps }},{{- .Values.hmctsIps }},{{ include "laa-court-data-adaptor.cloudPlatformIps" . }}
 {{- end -}}
 {{- end }}
 
@@ -88,6 +88,6 @@ via the external ingress
 */}}
 {{- define "laa-court-data-adaptor.externalWhitelist" -}}
 {{- if .Values.ips.restrict }}
-  {{- .Values.ips.hmcts }}
+  {{- .Values.hmctsIps }}
 {{- end -}}
 {{- end }}
