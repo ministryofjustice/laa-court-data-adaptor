@@ -1,6 +1,6 @@
 class ProcessXhibitCases < ApplicationService
-  # Gives the LIBRA unlink message time to be processed before the case is linked
-  LIBRA_UNLINK_DELAY = 30.seconds
+  LIBRA_UNLINK_REQUESTED_MESSAGE =
+    "LIBRA unlink requested. The case will be linked once MAAT reports it as unlinked".freeze
 
   def call
     XhibitMigratedCase.pending.find_each do |xhibit_case|
@@ -18,6 +18,8 @@ class ProcessXhibitCases < ApplicationService
     end
   end
 
+private
+
   def link_to_common_platform(xhibit_case, maat_id)
     defendant_summary = fetch_defendant_summary(xhibit_case)
 
@@ -33,8 +35,6 @@ class ProcessXhibitCases < ApplicationService
   rescue StandardError => e
     record_error(xhibit_case, :unexpected, error: e.class.name, message: e.message)
   end
-
-private
 
   def maat_search(xhibit_case)
     MaatApi::MaatApplicationSearcher.call(
@@ -57,7 +57,7 @@ private
       flag_manual_action_required(xhibit_case, "MAAT link status could not be determined")
     when :linked_to_libra
       RequestLibraUnlink.call(response, xhibit_case)
-      LinkXhibitCaseWorker.perform_in(LIBRA_UNLINK_DELAY, xhibit_case.id, response.maat_id)
+      record_error(xhibit_case, :maat, message: LIBRA_UNLINK_REQUESTED_MESSAGE)
     when :unlinked
       link_to_common_platform(xhibit_case, response.maat_id)
     end
