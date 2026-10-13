@@ -29,13 +29,6 @@ executors:
           POSTGRES_DB: cda_test
 
 commands:
-  checkout_and_decrypt:
-    steps:
-      - checkout
-      - run: sudo apt-get update
-      - run: sudo apt-get install git-crypt
-      - run: echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
-      - run: git-crypt unlock git-crypt.key
 
   build-temp-image:
     steps:
@@ -161,7 +154,7 @@ jobs:
     docker:
       - image: cimg/python:3.12
     steps:
-      - checkout_and_decrypt
+      - checkout
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -180,14 +173,14 @@ jobs:
           update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
-          values: ./helm_deploy/laa-court-data-adaptor/public-values/dev.yaml
+          values: ./helm_deploy/laa-court-data-adaptor/values/dev.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
   install_on_test_live:
     docker:
       - image: cimg/python:3.12
     steps:
-      - checkout_and_decrypt
+      - checkout
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -206,14 +199,14 @@ jobs:
           update-repositories: false
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
-          values: ./helm_deploy/laa-court-data-adaptor/public-values/test.yaml
+          values: ./helm_deploy/laa-court-data-adaptor/values/test.yaml
           values-to-override: image.tag=$CIRCLE_SHA1
 
   install_on_uat_live:
     docker:
       - image: cimg/python:3.12
     steps:
-      - checkout_and_decrypt
+      - checkout
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -232,7 +225,7 @@ jobs:
           command: |
             .circleci/deploy.sh \
               --namespace laa-court-data-adaptor-uat \
-              --values-file ./helm_deploy/laa-court-data-adaptor/public-values/uat.yaml \
+              --values-file ./helm_deploy/laa-court-data-adaptor/values/uat.yaml \
               --tag "$CIRCLE_SHA1" \
               --hmcts-ips "$HMCTS_UAT_IPS"
 
@@ -240,7 +233,7 @@ jobs:
     docker:
       - image: cimg/python:3.12
     steps:
-      - checkout_and_decrypt
+      - checkout
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -259,7 +252,7 @@ jobs:
           command: |
             .circleci/deploy.sh \
               --namespace laa-court-data-adaptor-prod \
-              --values-file ./helm_deploy/laa-court-data-adaptor/live/prod/values-prod.yaml \
+              --values-file ./helm_deploy/laa-court-data-adaptor/values/prod.yaml \
               --tag "$CIRCLE_SHA1" \
               --cert-fingerprint "$HMCTS_CA_FINGERPRINT" \
               --hmcts-ips "$HMCTS_PROD_IPS"

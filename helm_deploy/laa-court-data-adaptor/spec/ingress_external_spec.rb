@@ -29,7 +29,7 @@ RSpec.describe "External ingress fingerprint" do
     end
     Open3.capture3(
       "helm", "template", "fingerprint-test", chart,
-      "--values", File.join(chart, "public-values/#{environment}.yaml"),
+      "--values", File.join(chart, "values/#{environment}.yaml"),
       *overrides
     )
   end
@@ -83,7 +83,7 @@ RSpec.describe "External ingress fingerprint" do
 
   %w[dev uat test].each do |environment|
     it "preserves the existing #{environment} annotations without a fingerprint" do
-      values = YAML.load_file(File.join(chart, "public-values/#{environment}.yaml"))
+      values = YAML.load_file(File.join(chart, "values/#{environment}.yaml"))
       annotations = ingress(environment:).dig("metadata", "annotations")
 
       expect(annotations).not_to have_key(snippet_key)
