@@ -291,9 +291,33 @@ To run CP Mock locally:
 Information about other environments can be found on [this](https://dsdmoj.atlassian.net/wiki/spaces/ASLST/pages/2811068434/Environments) Confluence page
 
 ## Monitoring and Debugging
+
+### Kibana and Sentry
+
 Kibana logs for production can be found [here](https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-7d,to:now))&_a=(columns:!(kubernetes.namespace_id,log),filters:!(),index:d4959120-0186-11ec-8311-8b9e5a9c1db5,interval:auto,query:(language:lucene,query:'kubernetes.namespace_name:%20%22laa-court-data-adaptor-prod%22%20'),sort:!(!('@timestamp',desc))))
 
 Sentry errors for production can be found [here](https://sentry.io/organizations/ministryofjustice/issues/?environement=prod&project=5375870)
+
+### Running a Rails console in the dedicated console deployment
+
+To open a Rails console in the dedicated console deployment, which connects to the replica database, you can run
+(where $ENV is either `uat` or `prod`):
+
+```bash
+bash scripts/rails-console.bash --env $ENV
+```
+
+This assumes you have `kubectl` configured to access the Cloud Platform cluster and have access to the namespace for
+the environment.
+
+The script scales the console deployment to one replica, waits up to five minutes for a successful rollout, and opens
+an interactive Rails console. It scales back to zero when the console exits, a command fails, or the script receives
+`INT`, `TERM`, or `HUP`. Cleanup cannot run after `SIGKILL` or a machine shutdown; if cleanup fails, the script prints
+the manual scale-down command.
+
+Use only one console session per environment at a time: exiting any session scales down the shared console deployment.
+
+### Monitor worker jobs
 
 To monitor the worker jobs execution you can access pods by running:
 ```
