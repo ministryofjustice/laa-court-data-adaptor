@@ -38,6 +38,10 @@ module MaatApi
       false
     end
 
+    def civil_case
+      false
+    end
+
     def inactive
       "Y"
     end

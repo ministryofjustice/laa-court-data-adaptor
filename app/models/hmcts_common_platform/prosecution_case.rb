@@ -28,6 +28,10 @@ module HmctsCommonPlatform
       data[:caseStatus]
     end
 
+    def civil_case
+      data[:isCivil]
+    end
+
     def statement_of_facts
       data[:statementOfFacts]
     end
@@ -57,6 +61,7 @@ module HmctsCommonPlatform
         pc.id id
         pc.prosecution_case_identifier prosecution_case_identifier.to_json
         pc.status status
+        pc.civil_case civil_case
         pc.statement_of_facts statement_of_facts
         pc.statement_of_facts_welsh statement_of_facts_welsh
         pc.defendants defendants.map(&:to_json)

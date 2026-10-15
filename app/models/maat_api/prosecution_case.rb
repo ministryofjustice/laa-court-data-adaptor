@@ -1,12 +1,13 @@
 module MaatApi
   class ProsecutionCase
-    attr_reader :hearing_resulted, :hmcts_common_platform_defendant, :maat_reference, :case_urn
+    attr_reader :hearing_resulted, :hmcts_common_platform_defendant, :maat_reference, :case_urn, :civil_case
 
-    def initialize(hearing_resulted, case_urn, defendant, maat_reference)
+    def initialize(hearing_resulted, case_urn, defendant, maat_reference, civil_case)
       @hearing_resulted = hearing_resulted
       @case_urn = case_urn
       @hmcts_common_platform_defendant = defendant
       @maat_reference = maat_reference
+      @civil_case = civil_case || false
     end
 
     def hearing_id

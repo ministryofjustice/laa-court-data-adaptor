@@ -19,6 +19,7 @@ module MaatApi
         docLanguage: doc_language,
         proceedingsConcluded: object.proceedings_concluded || false,
         inActive: object.inactive,
+        isCivil: object.civil_case || false,
         functionType: object.function_type,
         defendant: object.defendant,
         session: object.session,
