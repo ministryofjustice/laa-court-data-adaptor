@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require "open3"
-require "yaml"
+require_relative "./helm_helper"
 
 RSpec.describe "External ingress fingerprint" do
   let(:chart) { File.expand_path("../", __dir__) }
@@ -22,22 +21,10 @@ RSpec.describe "External ingress fingerprint" do
     SNIPPET
   end
 
-  def render(values = {}, environment: "uat")
-    overrides = values.flat_map do |key, value|
-      flag = [true, false].include?(value) ? "--set" : "--set-string"
-      [flag, "#{key}=#{value}"]
-    end
-    Open3.capture3(
-      "helm", "template", "fingerprint-test", chart,
-      "--values", File.join(chart, "values/#{environment}.yaml"),
-      *overrides
-    )
-  end
-
   def ingress(values = {}, environment: "uat")
     output, error, status = render(values, environment:)
     expect(status.success?).to be(true), error
-    YAML.load_stream(output).find do |document|
+    output.find do |document|
       document["kind"] == "Ingress" && document.dig("metadata", "name").end_with?("-external")
     end
   end
