@@ -16,6 +16,12 @@ RSpec.describe HmctsCommonPlatform::ApplicationSummary, type: :model do
     it { expect(application_summary.subject_summary).to be_a(HmctsCommonPlatform::SubjectSummary) }
   end
 
+  describe "#subject_summary" do
+    it "is scoped to this court application" do
+      expect(application_summary.subject_summary.court_application_id).to eql("6cd6494e-5409-420a-bd0b-f589dbb2466b")
+    end
+  end
+
   describe "#to_json" do
     it "generates a JSON representation of the data" do
       json = application_summary.to_json

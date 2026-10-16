@@ -53,6 +53,21 @@ RSpec.describe HearingRepullBatchCreator do
     expect(ProsecutionCaseHearingRepullWorker).to have_received(:perform_in).exactly(2).times
   end
 
+  context "when a MAAT ID is linked to a court application whose subject id is a case defendant id" do
+    let(:unrecognised_maat_id) do
+      create(:laa_reference, maat_reference: "5555555", linked: true, defendant_id: third_defendant_offence.defendant_id,
+                             court_application_id: SecureRandom.uuid, user_name: "123").maat_reference
+    end
+
+    it "does not repull the case for it" do
+      expect(ProsecutionCaseHearingRepull.find_by(prosecution_case: second_case).maat_ids).to eq(third_maat_id)
+    end
+
+    it "reports it as unrecognised" do
+      expect(ProsecutionCaseHearingRepull.where(urn: "Unrecognised MAAT IDs", maat_ids: "5555555").count).to eq 1
+    end
+  end
+
   it "staggers the async jobs 10 seconds apart" do
     expect(ProsecutionCaseHearingRepullWorker).to have_received(:perform_in).with(0.seconds, kind_of(String))
     expect(ProsecutionCaseHearingRepullWorker).to have_received(:perform_in).with(10.seconds, kind_of(String))

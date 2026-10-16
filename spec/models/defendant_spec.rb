@@ -107,6 +107,15 @@ RSpec.describe Defendant, type: :model do
       it { expect(defendant.maat_reference).to eq("9876543") }
       it { expect(defendant.defence_organisation_id).to be_nil }
 
+      context "when a court application with the same subject id is also linked" do
+        before do
+          create(:laa_reference, defendant_id: defendant.id, court_application_id: SecureRandom.uuid,
+                                 maat_reference: "1112223", linked: true, user_name: "foo")
+        end
+
+        it { expect(defendant.maat_reference).to eq("9876543") }
+      end
+
       context "when a representation_order is recorded" do
         before do
           create(:prosecution_case_defendant_offence, prosecution_case_id: prosecution_case_hash["prosecutionCaseId"],

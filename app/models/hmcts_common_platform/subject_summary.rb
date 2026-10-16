@@ -1,10 +1,11 @@
 module HmctsCommonPlatform
   class SubjectSummary
-    attr_reader :data, :application_summary
+    attr_reader :data, :application_summary, :court_application_id
 
-    def initialize(data, application_summary = nil)
+    def initialize(data, application_summary = nil, court_application_id: application_summary&.application_id)
       @data = HashWithIndifferentAccess.new(data || {})
       @application_summary = application_summary
+      @court_application_id = court_application_id
     end
 
     def date_of_next_hearing
@@ -53,7 +54,7 @@ module HmctsCommonPlatform
 
     def offence_summary
       offence_payload.map do |summary_object|
-        HmctsCommonPlatform::OffenceSummary.new(summary_object, subject_id)
+        HmctsCommonPlatform::OffenceSummary.new(summary_object, subject_id, court_application_id:)
       end
     end
 

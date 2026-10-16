@@ -26,7 +26,7 @@ class HearingRepullBatchCreator < ApplicationService
 private
 
   def retrieve_cases_with_matching_maat_ids
-    references = LaaReference.where(linked: true, maat_reference: maat_list).to_a
+    references = LaaReference.case_links.where(linked: true, maat_reference: maat_list).to_a
     defendant_offences = ProsecutionCaseDefendantOffence.where(defendant_id: references.map(&:defendant_id)).to_a
     prosecution_cases = ProsecutionCase.where(id: defendant_offences.map(&:prosecution_case_id))
     cases_with_defendant_ids = prosecution_cases.map do |p_case|
