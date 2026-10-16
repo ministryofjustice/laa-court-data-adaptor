@@ -54,6 +54,15 @@ RSpec.describe MaatIdHearingFetcherWorker do
     end
   end
 
+  context "when the MAAT ID is linked to a court application" do
+    before { laa_reference.update!(court_application_id: SecureRandom.uuid) }
+
+    it "raises an error instead of fetching the case hearings" do
+      expect { perform }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(CommonPlatform::Api::ProsecutionCaseHearingsFetcher).not_to have_received(:call)
+    end
+  end
+
   context "when no linked LaaReference exists for the MAAT ID" do
     it "raises an error" do
       expect { perform }.to raise_error(ActiveRecord::RecordNotFound)

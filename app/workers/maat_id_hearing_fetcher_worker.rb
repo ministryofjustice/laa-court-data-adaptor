@@ -6,7 +6,7 @@ class MaatIdHearingFetcherWorker
   sidekiq_options retry: 0
 
   def perform(maat_id)
-    laa_reference = LaaReference.find_by!(maat_reference: maat_id, linked: true)
+    laa_reference = LaaReference.case_links.find_by!(maat_reference: maat_id, linked: true)
     prosecution_case_id = ProsecutionCaseDefendantOffence
                             .where(defendant_id: laa_reference.defendant_id)
                             .pick(:prosecution_case_id)

@@ -66,8 +66,13 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
       create(:laa_reference, defendant_id:, court_application_id: SecureRandom.uuid, maat_reference: "202020")
     end
 
+    def offence_references
+      defendant_summary.to_json["offence_summaries"].map { |offence| offence.dig("laa_application", "reference") }
+    end
+
     it "ignores court application links on the same id" do
       expect(defendant_summary.maat_reference).to be_nil
+      expect(offence_references).to all(be_nil)
     end
 
     context "when the defendant is also linked to the case" do
@@ -75,6 +80,7 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
 
       it "returns the case link maat_reference" do
         expect(defendant_summary.maat_reference).to eq("101010")
+        expect(offence_references).to all(eq("101010"))
       end
     end
   end
