@@ -14,7 +14,7 @@ class CourtApplicationLaaReferenceBackfiller < ApplicationService
     CourtApplication.find_each do |court_application|
       laa_references = LaaReference.where(defendant_id: court_application.subject_id, court_application_id: nil, linked: true)
 
-      if ProsecutionCaseDefendantOffence.exists?(defendant_id: court_application.subject_id)
+      if prosecution_case_defendant?(court_application.subject_id)
         skipped.concat(laa_references.pluck(:maat_reference))
       else
         to_update.concat(laa_references.pluck(:maat_reference))
@@ -23,5 +23,14 @@ class CourtApplicationLaaReferenceBackfiller < ApplicationService
     end
 
     { to_update:, skipped: }
+  end
+
+private
+
+  # Ignores court applications stored as prosecution cases (until July 2025).
+  def prosecution_case_defendant?(subject_id)
+    ProsecutionCaseDefendantOffence.where(defendant_id: subject_id)
+                                   .where.not(prosecution_case_id: CourtApplication.where(subject_id:).select(:id))
+                                   .exists?
   end
 end

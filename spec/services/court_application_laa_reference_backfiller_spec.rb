@@ -41,4 +41,19 @@ RSpec.describe CourtApplicationLaaReferenceBackfiller do
       expect(result).to eq({ to_update: [], skipped: %w[1234567] })
     end
   end
+
+  context "when the subject id is only on the court application's legacy prosecution case rows" do
+    before do
+      create(:prosecution_case, id: court_application_id, body: { "applicationId" => court_application_id })
+      create(:prosecution_case_defendant_offence, prosecution_case_id: court_application_id, defendant_id: subject_id)
+    end
+
+    it "sets the court application id" do
+      expect { result }.to change { laa_reference.reload.court_application_id }.from(nil).to(court_application_id)
+    end
+
+    it "returns the MAAT references to update" do
+      expect(result).to eq({ to_update: %w[1234567], skipped: [] })
+    end
+  end
 end
