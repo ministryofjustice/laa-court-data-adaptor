@@ -10,6 +10,11 @@ class LaaReference < ApplicationRecord
             numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
   validate :validate_unlink_other_reason_text, if: -> { unlink_reason_code.present? }
 
+  # A application subject id can equal a prosecution case defendant id,
+  # so court_application_id is what tells the two kinds of link apart.
+  scope :case_links, -> { where(court_application_id: nil) }
+  scope :court_application_links, -> { where.not(court_application_id: nil) }
+
   def unlink!(unlink_reason_code: nil, unlink_other_reason_text: nil)
     update!(linked: false, unlink_reason_code:, unlink_other_reason_text:)
   end

@@ -80,6 +80,47 @@ RSpec.describe ProsecutionCaseLaaReferenceUnlinker do
     end
   end
 
+  context "when the defendant id is also linked as a court application subject" do
+    let!(:application_laa_reference) do
+      create(:laa_reference, defendant_id:,
+                             court_application_id: SecureRandom.uuid,
+                             user_name: "cpUser",
+                             maat_reference: "202020",
+                             linked: true)
+    end
+
+    context "without a maat_reference" do
+      let(:maat_reference) { nil }
+      let!(:linked_laa_reference) do
+        create(:laa_reference, defendant_id:,
+                               user_name: "cpUser",
+                               maat_reference: "101010",
+                               linked: true)
+      end
+
+      it "unlinks the case link only" do
+        call_unlinker
+        expect(linked_laa_reference.reload).not_to be_linked
+        expect(application_laa_reference.reload).to be_linked
+      end
+    end
+
+    context "with the court application link maat_reference" do
+      subject(:call_unlinker) do
+        described_class.call(defendant_id:,
+                             user_name:,
+                             unlink_reason_code:,
+                             unlink_other_reason_text:,
+                             maat_reference: "202020")
+      end
+
+      it "does not unlink the court application link" do
+        expect { call_unlinker }.to raise_error(ActiveRecord::RecordNotFound)
+        expect(application_laa_reference.reload).to be_linked
+      end
+    end
+  end
+
   context "when LaaReference is linked" do
     it "does not log a warning message" do
       call_unlinker
