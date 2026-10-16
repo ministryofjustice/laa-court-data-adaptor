@@ -19,6 +19,14 @@ RSpec.describe HmctsCommonPlatform::OffenceSummary, type: :model do
     it { expect(offence_summary.verdict).to be_an(HmctsCommonPlatform::Verdict) }
     it { expect(offence_summary.plea).to be_an(HmctsCommonPlatform::Plea) }
     it { expect(offence_summary.pleas).to all(be_an(HmctsCommonPlatform::Plea)) }
+
+    context "with a court application id" do
+      let(:offence_summary) { described_class.new(data, "defendant-id", court_application_id: "application-id") }
+
+      it "passes the defendant id and court application id to the LAA reference" do
+        expect(offence_summary.laa_reference).to have_attributes(defendant_id: "defendant-id", court_application_id: "application-id")
+      end
+    end
   end
 
   context "with required fields only" do

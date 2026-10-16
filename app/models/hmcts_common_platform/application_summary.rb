@@ -27,7 +27,7 @@ module HmctsCommonPlatform
     end
 
     def subject_summary
-      HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary]) if data[:subjectSummary]
+      HmctsCommonPlatform::SubjectSummary.new(data[:subjectSummary], court_application_id: id) if data[:subjectSummary]
     end
 
     def to_json(*_args)

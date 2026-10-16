@@ -112,7 +112,7 @@ private
   end
 
   def _maat_reference
-    LaaReference.find_by(defendant_id: id, linked: true)&.maat_reference
+    LaaReference.case_links.find_by(defendant_id: id, linked: true)&.maat_reference
   end
 
   def case_reference
