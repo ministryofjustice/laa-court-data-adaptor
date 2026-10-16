@@ -5,7 +5,7 @@ class CourtApplicationLaaReferenceUnlinker < ApplicationService
     @unlink_reason_code = unlink_reason_code
     @unlink_other_reason_text = unlink_other_reason_text
 
-    @laa_reference = LaaReference.retrieve_by_defendant_id_and_optional_maat_reference(subject_id, maat_reference)
+    @laa_reference = LaaReference.court_application_links.retrieve_by_defendant_id_and_optional_maat_reference(subject_id, maat_reference)
   end
 
   def call
@@ -70,7 +70,7 @@ private
   end
 
   def court_application
-    @court_application ||= CourtApplication.find_by(subject_id: laa_reference.defendant_id)
+    @court_application ||= CourtApplication.find(laa_reference.court_application_id)
   end
 
   def dummy_maat_reference

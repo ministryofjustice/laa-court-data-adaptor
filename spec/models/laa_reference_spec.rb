@@ -169,4 +169,32 @@ RSpec.describe LaaReference, type: :model do
       end
     end
   end
+
+  context "when a case link and a court application link share the defendant id" do
+    let(:defendant_id) { SecureRandom.uuid }
+    let!(:case_link) { described_class.create!(defendant_id:, user_name: "johnDoe", maat_reference: "101010") }
+    let!(:court_application_link) do
+      described_class.create!(defendant_id:, court_application_id: SecureRandom.uuid, user_name: "johnDoe", maat_reference: "202020")
+    end
+
+    describe ".case_links" do
+      it { expect(described_class.case_links).to contain_exactly(case_link) }
+
+      it "scopes .retrieve_by_defendant_id_and_optional_maat_reference" do
+        expect(described_class.case_links.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id)).to eq case_link
+        expect { described_class.case_links.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, "202020") }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    describe ".court_application_links" do
+      it { expect(described_class.court_application_links).to contain_exactly(court_application_link) }
+
+      it "scopes .retrieve_by_defendant_id_and_optional_maat_reference" do
+        expect(described_class.court_application_links.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id)).to eq court_application_link
+        expect { described_class.court_application_links.retrieve_by_defendant_id_and_optional_maat_reference(defendant_id, "101010") }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 end
