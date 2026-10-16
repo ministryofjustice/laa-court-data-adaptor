@@ -32,6 +32,25 @@ RSpec.describe HmctsCommonPlatform::SubjectSummary, type: :model do
   it { expect(subject_summary.representation_order).to be_a(HmctsCommonPlatform::RepresentationOrder) }
   it { expect(subject_summary.offence_summary.first).to be_a(HmctsCommonPlatform::OffenceSummary) }
 
+  context "when the subject id is linked to both a case and the court application" do
+    let(:application_summary) do
+      instance_double(HmctsCommonPlatform::CourtApplicationSummary, application_id: "a5e6b0b3-6e2d-4b0c-9a27-3ab4b0c0f4e1")
+    end
+
+    before do
+      create(:laa_reference, defendant_id: subject_summary.subject_id, maat_reference: "1111111")
+      create(:laa_reference, defendant_id: subject_summary.subject_id,
+                             court_application_id: "a5e6b0b3-6e2d-4b0c-9a27-3ab4b0c0f4e1",
+                             maat_reference: "2222222")
+    end
+
+    it "shows the court application MAAT reference on its offences" do
+      references = subject_summary.to_json["offence_summary"].map { |offence| offence.dig("laa_application", "reference") }
+
+      expect(references).to all(eq("2222222"))
+    end
+  end
+
   context "when there is no offence summary data" do
     before { data.delete("offenceSummary") }
 

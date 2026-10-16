@@ -1,17 +1,22 @@
 module HmctsCommonPlatform
   class LaaReference
-    attr_reader :data, :defendant_id
+    attr_reader :data, :defendant_id, :court_application_id
 
     delegate :blank?, to: :data
 
-    def initialize(data, defendant_id = nil)
+    # court_application_id is set for court application subject offences; without it the offence is a case offence.
+    def initialize(data, defendant_id = nil, court_application_id: nil)
       @data = HashWithIndifferentAccess.new(data || {})
       @defendant_id = defendant_id
+      @court_application_id = court_application_id
     end
 
     def reference
       # HMCTS does not reliably tell us if there is a MAAT reference or not.
-      ::LaaReference.find_by(defendant_id:, linked: true)&.maat_reference if defendant_id
+      return unless defendant_id
+
+      links = court_application_id ? ::LaaReference.where(court_application_id:) : ::LaaReference.case_links.where(defendant_id:)
+      links.find_by(linked: true)&.maat_reference
     end
 
     def status_id

@@ -60,7 +60,7 @@ module HmctsCommonPlatform
     end
 
     def maat_reference
-      ::LaaReference.find_by(linked: true, defendant_id:)&.maat_reference
+      ::LaaReference.case_links.find_by(linked: true, defendant_id:)&.maat_reference
     end
 
     def to_json(*_args)

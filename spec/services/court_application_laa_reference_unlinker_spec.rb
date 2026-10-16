@@ -15,6 +15,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
   let(:maat_reference) { "101010" }
   let!(:linked_laa_reference) do
     create(:laa_reference, defendant_id: subject_id,
+                           court_application_id: application_id,
                            user_name: "cpUser",
                            maat_reference:,
                            linked: true)
@@ -67,6 +68,7 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
   context "when there are multiple references" do
     let!(:other_laa_reference) do
       create(:laa_reference, defendant_id: subject_id,
+                             court_application_id: application_id,
                              user_name: "cpUser",
                              maat_reference: "something_else",
                              linked: true)
@@ -76,6 +78,63 @@ RSpec.describe CourtApplicationLaaReferenceUnlinker do
       call_unlinker
       expect(other_laa_reference.reload).to be_linked
       expect(linked_laa_reference.reload).not_to be_linked
+    end
+  end
+
+  context "when the subject id is also linked as a prosecution case defendant" do
+    let!(:case_laa_reference) do
+      create(:laa_reference, defendant_id: subject_id,
+                             court_application_id: nil,
+                             user_name: "cpUser",
+                             maat_reference: "202020",
+                             linked: true)
+    end
+
+    context "without a maat_reference" do
+      let(:maat_reference) { nil }
+      let!(:linked_laa_reference) do
+        create(:laa_reference, defendant_id: subject_id,
+                               court_application_id: application_id,
+                               user_name: "cpUser",
+                               maat_reference: "101010",
+                               linked: true)
+      end
+
+      it "unlinks the court application link only" do
+        call_unlinker
+        expect(linked_laa_reference.reload).not_to be_linked
+        expect(case_laa_reference.reload).to be_linked
+      end
+    end
+
+    context "with the case link maat_reference" do
+      subject(:call_unlinker) do
+        described_class.call(subject_id:,
+                             user_name:,
+                             unlink_reason_code:,
+                             unlink_other_reason_text:,
+                             maat_reference: "202020")
+      end
+
+      it "does not unlink the case link" do
+        expect { call_unlinker }.to raise_error(ActiveRecord::RecordNotFound)
+        expect(case_laa_reference.reload).to be_linked
+      end
+    end
+  end
+
+  context "when another court application has the same subject id" do
+    let(:other_application_id) { SecureRandom.uuid }
+    let(:court_application) do
+      body = JSON.parse(file_fixture("court_application_summary.json").read)
+      CourtApplication.create!(id: other_application_id, subject_id:, body: body.merge("applicationId" => other_application_id))
+      CourtApplication.create!(id: application_id, subject_id:, body:)
+    end
+
+    it "updates Common Platform on the linked court application" do
+      call_unlinker
+      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to have_received(:call).with(hash_including(application_id:))
+      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).not_to have_received(:call).with(hash_including(application_id: other_application_id))
     end
   end
 

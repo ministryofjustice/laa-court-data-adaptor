@@ -58,6 +58,33 @@ RSpec.describe HmctsCommonPlatform::DefendantSummary, type: :model do
     end
   end
 
+  describe "#maat_reference" do
+    let(:data) { JSON.parse(file_fixture("defendant_summary/all_fields.json").read) }
+    let(:defendant_id) { "a86c42dc-6566-4076-9655-b3a53cd58566" }
+
+    before do
+      create(:laa_reference, defendant_id:, court_application_id: SecureRandom.uuid, maat_reference: "202020")
+    end
+
+    def offence_references
+      defendant_summary.to_json["offence_summaries"].map { |offence| offence.dig("laa_application", "reference") }
+    end
+
+    it "ignores court application links on the same id" do
+      expect(defendant_summary.maat_reference).to be_nil
+      expect(offence_references).to all(be_nil)
+    end
+
+    context "when the defendant is also linked to the case" do
+      before { create(:laa_reference, defendant_id:, maat_reference: "101010") }
+
+      it "returns the case link maat_reference" do
+        expect(defendant_summary.maat_reference).to eq("101010")
+        expect(offence_references).to all(eq("101010"))
+      end
+    end
+  end
+
   describe "#match_application_summaries" do
     context "when there are matching and non-matching court applications" do
       let(:matching_court_application) do

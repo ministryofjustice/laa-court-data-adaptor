@@ -147,7 +147,8 @@ CREATE TABLE public.laa_references (
     updated_at timestamp(6) without time zone NOT NULL,
     user_name character varying NOT NULL,
     unlink_reason_code integer,
-    unlink_other_reason_text text
+    unlink_other_reason_text text,
+    court_application_id uuid
 );
 
 
@@ -481,6 +482,13 @@ CREATE INDEX index_hearing_event_recordings_on_hearing_id ON public.hearing_even
 
 
 --
+-- Name: index_laa_references_on_court_application_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_laa_references_on_court_application_id ON public.laa_references USING btree (court_application_id) WHERE (linked AND (court_application_id IS NOT NULL));
+
+
+--
 -- Name: index_laa_references_on_defendant_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -618,6 +626,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20261008100000'),
 ('20260424132600'),
 ('20260409121749'),
 ('20260401124945'),
