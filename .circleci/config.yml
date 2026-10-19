@@ -30,6 +30,18 @@ executors:
 
 commands:
 
+  set-image-tag:
+    steps:
+      - run:
+          name: Set deployment image tag
+          command: |
+            if [[ "$CIRCLE_BRANCH" == "main" ]]; then
+              IMAGE_TAG="main-$CIRCLE_SHA1"
+            else
+              IMAGE_TAG="branch-$CIRCLE_SHA1"
+            fi
+            echo "export IMAGE_TAG=$IMAGE_TAG" >> "$BASH_ENV"
+
   build-temp-image:
     steps:
       - run:
@@ -134,7 +146,7 @@ jobs:
       - run:
           name: Set env vars
           command: |
-            [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAGS="$CIRCLE_SHA1,latest" || ECR_TAGS="$CIRCLE_SHA1"
+            [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAGS="main-$CIRCLE_SHA1,latest" || ECR_TAGS="branch-$CIRCLE_SHA1"
             echo "export ECR_TAGS=$ECR_TAGS" >> "$BASH_ENV"
             echo "export APP_BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z)"  >> "$BASH_ENV"
             source "$BASH_ENV"
@@ -155,6 +167,7 @@ jobs:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - set-image-tag
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -174,13 +187,14 @@ jobs:
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
           values: ./helm_deploy/laa-court-data-adaptor/values/dev.yaml
-          values-to-override: image.tag=$CIRCLE_SHA1
+          values-to-override: image.tag=${IMAGE_TAG}
 
   install_on_test_live:
     docker:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - set-image-tag
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -200,13 +214,14 @@ jobs:
           chart: ./helm_deploy/laa-court-data-adaptor
           release-name: laa-court-data-adaptor
           values: ./helm_deploy/laa-court-data-adaptor/values/test.yaml
-          values-to-override: image.tag=$CIRCLE_SHA1
+          values-to-override: image.tag=${IMAGE_TAG}
 
   install_on_uat_live:
     docker:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - set-image-tag
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -226,7 +241,7 @@ jobs:
             .circleci/deploy.sh \
               --namespace laa-court-data-adaptor-uat \
               --values-file ./helm_deploy/laa-court-data-adaptor/values/uat.yaml \
-              --tag "$CIRCLE_SHA1" \
+              --tag "$IMAGE_TAG" \
               --hmcts-ips "$HMCTS_UAT_IPS"
 
   install_on_prod_live:
@@ -234,6 +249,7 @@ jobs:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - set-image-tag
       - kubernetes/install-kubectl
       - helm/install-helm-client:
           version: "v3.2.4"
@@ -253,7 +269,7 @@ jobs:
             .circleci/deploy.sh \
               --namespace laa-court-data-adaptor-prod \
               --values-file ./helm_deploy/laa-court-data-adaptor/values/prod.yaml \
-              --tag "$CIRCLE_SHA1" \
+              --tag "$IMAGE_TAG" \
               --cert-fingerprint "$HMCTS_CA_FINGERPRINT" \
               --hmcts-ips "$HMCTS_PROD_IPS"
 
@@ -301,7 +317,7 @@ jobs:
     steps:
       - court-data-end-to-end-tests/run-e2e-tests:
           e2e_current_image_var: CDA_IMAGE
-          e2e_current_image: ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com/${ECR_REPOSITORY}:${CIRCLE_SHA1}
+          e2e_current_image: ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com/${ECR_REPOSITORY}:branch-${CIRCLE_SHA1}
           e2e_branch: main # Change this to work against a fixed e2e test repo branch if needed
 
   e2e-test-main:
