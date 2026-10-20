@@ -68,7 +68,9 @@ module HmctsCommonPlatform
     end
 
     def linked_maat_id
-      ::LaaReference.find_by(defendant_id: subject_summary.subject_id, linked: true)&.maat_reference
+      return if application_id.blank?
+
+      ::LaaReference.find_by(court_application_id: application_id, linked: true)&.maat_reference
     end
 
     def to_json(*_args)
