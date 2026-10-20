@@ -9,6 +9,8 @@ orbs:
   newman: postman/newman@0.0.2
   snyk: snyk/snyk@2.2.0
   court-data-end-to-end-tests: ministryofjustice/court-data-end-to-end-tests@volatile
+  jq: circleci/jq@3.0.0
+  gh: circleci/github-cli@3.0.0
 
 executors:
   newman-latest:
@@ -41,6 +43,93 @@ commands:
               IMAGE_TAG="branch-$CIRCLE_SHA1"
             fi
             echo "export IMAGE_TAG=$IMAGE_TAG" >> "$BASH_ENV"
+
+  get-github-token:
+    steps:
+      - gh/install
+      - jq/install
+      - run:
+          name: Request GitHub token from Octo STS
+          command: |
+            set -euo pipefail
+            set +x
+
+            oidc_token=$(
+              circleci run oidc get --claims '{"aud":"octo-sts.dev"}'
+            )
+
+            response=$(
+              curl --fail-with-body --silent --show-error \
+                --header "Authorization: Bearer $oidc_token" \
+                --get "https://octo-sts.dev/sts/exchange" \
+                --data-urlencode "scope=ministryofjustice/laa-court-data-adaptor" \
+                --data-urlencode "identity=laa-court-data-adaptor-release-recorder"
+            )
+
+            github_token=$(
+              printf '%s' "$response" |
+                jq --exit-status --raw-output \
+                  '.token | select(type == "string" and length > 0)'
+            )
+
+            printf 'export GH_TOKEN=%q\n' "$github_token" >> "$BASH_ENV"
+
+  record-deployment-start:
+    parameters:
+      environment:
+        type: enum
+        enum: ["dev", "test", "uat", "production"]
+    steps:
+      - run:
+          name: Record deployment in progress
+          environment:
+            DEPLOYMENT_ENVIRONMENT: << parameters.environment >>
+          command: |
+            set -euo pipefail
+
+            repo="ministryofjustice/laa-court-data-adaptor"
+            production=false
+            if [[ "$DEPLOYMENT_ENVIRONMENT" == "production" ]]; then
+              production=true
+            fi
+
+            deployment_id=$(
+              gh api --method POST "repos/$repo/deployments" \
+                -f ref="$CIRCLE_SHA1" \
+                -f environment="$DEPLOYMENT_ENVIRONMENT" \
+                -F auto_merge=false \
+                -F production_environment="$production" \
+                -F transient_environment=false \
+                -F 'required_contexts[]' \
+                -f description="Deployment from CircleCI" \
+                --jq '.id'
+            )
+
+            printf 'export GITHUB_DEPLOYMENT_ID=%q\n' \
+              "$deployment_id" >> "$BASH_ENV"
+
+            gh api --method POST \
+              "repos/$repo/deployments/$deployment_id/statuses" \
+              -f state="in_progress" \
+              -f log_url="$CIRCLE_BUILD_URL" \
+              -f description="Deployment started" > /dev/null
+
+  record-deployment-success:
+    steps:
+      - run:
+          name: Record successful deployment
+          command: |
+            set -euo pipefail
+
+            : "${GITHUB_DEPLOYMENT_ID:?Deployment ID has not been set}"
+
+            repo="ministryofjustice/laa-court-data-adaptor"
+
+            gh api --method POST \
+              "repos/$repo/deployments/$GITHUB_DEPLOYMENT_ID/statuses" \
+              -f state="success" \
+              -f log_url="$CIRCLE_BUILD_URL" \
+              -f description="Deployment completed" > /dev/null
 
   build-temp-image:
     steps:
@@ -167,6 +256,9 @@ jobs:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - get-github-token
+      - record-deployment-start:
+          environment: "dev"
       - set-image-tag
       - kubernetes/install-kubectl
       - helm/install-helm-client:
@@ -188,12 +280,16 @@ jobs:
           release-name: laa-court-data-adaptor
           values: ./helm_deploy/laa-court-data-adaptor/values/dev.yaml
           values-to-override: image.tag=${IMAGE_TAG}
+      - record-deployment-success
 
   install_on_test_live:
     docker:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - get-github-token
+      - record-deployment-start:
+          environment: "test"
       - set-image-tag
       - kubernetes/install-kubectl
       - helm/install-helm-client:
@@ -215,12 +311,16 @@ jobs:
           release-name: laa-court-data-adaptor
           values: ./helm_deploy/laa-court-data-adaptor/values/test.yaml
           values-to-override: image.tag=${IMAGE_TAG}
+      - record-deployment-success
 
   install_on_uat_live:
     docker:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - get-github-token
+      - record-deployment-start:
+          environment: "uat"
       - set-image-tag
       - kubernetes/install-kubectl
       - helm/install-helm-client:
@@ -243,12 +343,16 @@ jobs:
               --values-file ./helm_deploy/laa-court-data-adaptor/values/uat.yaml \
               --tag "$IMAGE_TAG" \
               --hmcts-ips "$HMCTS_UAT_IPS"
+      - record-deployment-success
 
   install_on_prod_live:
     docker:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - get-github-token
+      - record-deployment-start:
+          environment: "production"
       - set-image-tag
       - kubernetes/install-kubectl
       - helm/install-helm-client:
@@ -272,6 +376,7 @@ jobs:
               --tag "$IMAGE_TAG" \
               --cert-fingerprint "$HMCTS_CA_FINGERPRINT" \
               --hmcts-ips "$HMCTS_PROD_IPS"
+      - record-deployment-success
 
   postman_test_on_dev:
     executor: newman-latest
