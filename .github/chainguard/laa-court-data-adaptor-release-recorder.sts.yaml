@@ -1,0 +1,6 @@
+issuer: https://oidc.circleci.com/org/3c8b8a35-eba8-48df-a553-b0f1435cb75d
+subject_pattern: "org/3c8b8a35-eba8-48df-a553-b0f1435cb75d/project/09da64a2-8e1a-4bfb-8b6f-c151f2c9263b/user/.*"
+audience: octo-sts.dev
+
+permissions:
+  deployments: write
