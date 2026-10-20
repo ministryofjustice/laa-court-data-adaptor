@@ -122,4 +122,37 @@ RSpec.describe HmctsCommonPlatform::CourtApplicationSummary, type: :model do
       end
     end
   end
+
+  describe "#linked_maat_id" do
+    subject { court_application_summary.linked_maat_id }
+
+    let(:application_id) { "00004c9f-af9f-401a-b88b-78a4f0e08163" }
+    let(:subject_id) { "855ce6b7-eace-44a1-a5ea-8e530d9fbc7b" }
+
+    context "when the application is linked" do
+      before { create(:laa_reference, defendant_id: subject_id, court_application_id: application_id, maat_reference: "1234567") }
+
+      it { is_expected.to eq "1234567" }
+    end
+
+    context "when the application link has been unlinked" do
+      before { create(:laa_reference, defendant_id: subject_id, court_application_id: application_id, linked: false) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when the subject id is linked to a prosecution case defendant with the same id" do
+      before { create(:laa_reference, defendant_id: subject_id, court_application_id: nil, maat_reference: "7647807") }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when the payload has no application id" do
+      let(:data) { super().except("applicationId") }
+
+      before { create(:laa_reference, defendant_id: subject_id, court_application_id: nil, maat_reference: "7647807") }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end
