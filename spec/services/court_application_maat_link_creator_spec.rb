@@ -176,6 +176,12 @@ RSpec.describe CourtApplicationMaatLinkCreator do
           call_link_creator
         }.to change(LaaReference, :count).by(1)
       end
+
+      it "records the court application on the LaaReference" do
+        call_link_creator
+
+        expect(LaaReference.find_by(defendant_id: subject_id, linked: true).court_application_id).to eq(court_application_id)
+      end
     end
   end
 
