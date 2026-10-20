@@ -123,3 +123,16 @@ ips:
 
 featureFlags:
   breachCourtApplications: true
+
+console:
+  enabled: true
+  replicas: 0
+  databaseSecret:
+    name: rds-instance-read-replica-output
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
