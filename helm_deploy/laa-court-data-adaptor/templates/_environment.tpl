@@ -7,7 +7,7 @@ env:
   - name: DATABASE_URL
     valueFrom:
       secretKeyRef:
-        name: rds-instance-output
+        name: {{ default "rds-instance-output" .databaseSecretName | quote }}
         key: url
   - name: REDIS_URL
     valueFrom:
