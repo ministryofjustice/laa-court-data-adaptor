@@ -25,6 +25,11 @@ RUN apk --no-cache add --virtual build-dependencies \
                     yaml-dev \
                     $(if [ "$BUNDLE_DEPLOYMENT" == "false" ]; then echo "libffi-dev"; fi)
 
+# Ensure we have the latest versions of the CA certificates and the CA bundle
+RUN apk add --no-cache --upgrade \
+   ca-certificates \
+   ca-certificates-bundle
+
 # add non-root user and group with alpine first available uid, 1000
 RUN addgroup -g 1000 -S appgroup \
 && adduser -u 1000 -S appuser -G appgroup
