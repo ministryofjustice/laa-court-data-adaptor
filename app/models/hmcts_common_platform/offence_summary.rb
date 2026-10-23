@@ -53,7 +53,7 @@ module HmctsCommonPlatform
     end
 
     def laa_reference
-      HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference], defendant_id, court_application_id:)
+      HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference], defendant_id:, court_application_id:)
     end
 
     def verdict

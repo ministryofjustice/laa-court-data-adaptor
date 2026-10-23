@@ -45,11 +45,11 @@ RSpec.describe HmctsCommonPlatform::LaaReference, type: :model do
 
     context "when a case link and a court application link share the defendant id" do
       it "returns the case link for a case offence" do
-        expect(described_class.new(data, defendant_id).reference).to eq("1111111")
+        expect(described_class.new(data, defendant_id:).reference).to eq("1111111")
       end
 
       it "returns the court application link for a court application offence" do
-        expect(described_class.new(data, defendant_id, court_application_id:).reference).to eq("2222222")
+        expect(described_class.new(data, defendant_id:, court_application_id:).reference).to eq("2222222")
       end
     end
 
@@ -57,7 +57,7 @@ RSpec.describe HmctsCommonPlatform::LaaReference, type: :model do
       before { LaaReference.find_by(maat_reference: "1111111").unlink! }
 
       it "returns nil for a case offence" do
-        expect(described_class.new(data, defendant_id).reference).to be_nil
+        expect(described_class.new(data, defendant_id:).reference).to be_nil
       end
     end
   end
