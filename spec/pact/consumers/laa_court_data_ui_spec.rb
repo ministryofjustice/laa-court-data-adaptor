@@ -44,4 +44,50 @@ RSpec.describe "laa-court-data-ui pact", :pact, pact_entity: :provider do
       stub_maat_validation("no_common_platform_data", status: 400)
     end
   end
+
+  provider_state "a valid MAAT ID and defendant" do
+    set_up do
+      stub_maat_validation("valid_maat_reference", status: 200)
+    end
+  end
+
+  provider_state "no prosecution case exists" do
+    set_up do
+      stub_prosecution_case_search(
+        query: { prosecutionCaseReference: "TEST12345" },
+        body: { totalResults: 0, cases: [] }.to_json,
+        status: 200,
+      )
+    end
+  end
+
+  provider_state "a prosecution case exists for a URN" do
+    set_up do
+      stub_prosecution_case_search(
+        query: { prosecutionCaseReference: "TEST12345" },
+        body: file_fixture("prosecution_cases_v2.json").read,
+        status: 200,
+      )
+    end
+  end
+
+  provider_state "a prosecution case exists for an ARN" do
+    set_up do
+      stub_prosecution_case_search(
+        query: { defendantReference: "OC22ZJATX15T" },
+        body: file_fixture("prosecution_case_search_result.json").read,
+        status: 200,
+      )
+    end
+  end
+
+  provider_state "a prosecution case exists for a national insurance number" do
+    set_up do
+      stub_prosecution_case_search(
+        query: { nationalInsuranceNumber: "YE744478B" },
+        body: file_fixture("prosecution_case_search_result.json").read,
+        status: 200,
+      )
+    end
+  end
 end
