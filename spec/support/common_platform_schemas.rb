@@ -1,6 +1,8 @@
 require "sinatra/base"
 
 class CommonPlatformSchemas < Sinatra::Base
+  set :environment, :test
+
   get "/" do
     "fake common platform running"
   end
