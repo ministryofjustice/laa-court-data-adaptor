@@ -92,7 +92,7 @@ module HmctsCommonPlatform
     end
 
     def laa_application
-      HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference], @defendant_id)
+      HmctsCommonPlatform::LaaReference.new(data[:laaApplnReference], defendant_id: @defendant_id)
     end
   end
 end

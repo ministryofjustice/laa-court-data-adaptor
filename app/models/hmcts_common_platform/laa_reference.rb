@@ -4,7 +4,7 @@ module HmctsCommonPlatform
 
     delegate :blank?, to: :data
 
-    def initialize(data, defendant_id = nil, court_application_id: nil)
+    def initialize(data, defendant_id: nil, court_application_id: nil)
       @data = HashWithIndifferentAccess.new(data || {})
       @defendant_id = defendant_id
 
