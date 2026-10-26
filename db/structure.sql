@@ -681,6 +681,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20261026101537'),
 ('20261023130608'),
 ('20261008100000'),
 ('20260424132600'),
