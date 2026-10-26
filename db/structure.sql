@@ -135,6 +135,39 @@ CREATE TABLE public.hearings (
 
 
 --
+-- Name: hmcts_common_platform_court_centre_organisation_unit_codes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hmcts_common_platform_court_centre_organisation_unit_codes (
+    id bigint CONSTRAINT hmcts_common_platform_court_centre_organisation_uni_id_not_null NOT NULL,
+    court_centre_id uuid,
+    code character varying,
+    name character varying,
+    created_at timestamp(6) without time zone CONSTRAINT hmcts_common_platform_court_centre_organisa_created_at_not_null NOT NULL,
+    updated_at timestamp(6) without time zone CONSTRAINT hmcts_common_platform_court_centre_organisa_updated_at_not_null NOT NULL
+);
+
+
+--
+-- Name: hmcts_common_platform_court_centre_organisation_unit_cod_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.hmcts_common_platform_court_centre_organisation_unit_cod_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hmcts_common_platform_court_centre_organisation_unit_cod_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.hmcts_common_platform_court_centre_organisation_unit_cod_id_seq OWNED BY public.hmcts_common_platform_court_centre_organisation_unit_codes.id;
+
+
+--
 -- Name: laa_references; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -319,6 +352,13 @@ ALTER TABLE ONLY public.feature_flags ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: hmcts_common_platform_court_centre_organisation_unit_codes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hmcts_common_platform_court_centre_organisation_unit_codes ALTER COLUMN id SET DEFAULT nextval('public.hmcts_common_platform_court_centre_organisation_unit_cod_id_seq'::regclass);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -364,6 +404,14 @@ ALTER TABLE ONLY public.hearing_repull_batches
 
 ALTER TABLE ONLY public.hearings
     ADD CONSTRAINT hearings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hmcts_common_platform_court_centre_organisation_unit_codes hmcts_common_platform_court_centre_organisation_unit_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hmcts_common_platform_court_centre_organisation_unit_codes
+    ADD CONSTRAINT hmcts_common_platform_court_centre_organisation_unit_codes_pkey PRIMARY KEY (id);
 
 
 --
@@ -444,6 +492,13 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.xhibit_migrated_cases
     ADD CONSTRAINT xhibit_migrated_cases_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_on_court_centre_id_bc7b4b691c; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_on_court_centre_id_bc7b4b691c ON public.hmcts_common_platform_court_centre_organisation_unit_codes USING btree (court_centre_id);
 
 
 --
@@ -626,6 +681,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20261023130608'),
 ('20261008100000'),
 ('20260424132600'),
 ('20260409121749'),
