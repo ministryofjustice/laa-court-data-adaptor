@@ -37,6 +37,11 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
 
   context "with required fields only" do
     let(:data) { JSON.parse(file_fixture("court_centre/required_fields.json").read) }
+    let(:id) { "14876ea1-5f7c-32ef-9fbd-aa0b63193550" }
+
+    before do
+      create(:court_centre_organisation_unit_code, court_centre_id: id, code: "B30PI00")
+    end
 
     it "matches the HMCTS Common Platform schema" do
       expect(data).to match_json_schema(:court_centre)
@@ -61,6 +66,10 @@ RSpec.describe HmctsCommonPlatform::CourtCentre, type: :model do
 
     context "when ID is recognised" do
       let(:id) { "14876ea1-5f7c-32ef-9fbd-aa0b63193550" }
+
+      before do
+        create(:court_centre_organisation_unit_code, court_centre_id: id, code: "B30PI00")
+      end
 
       it { expect(court_centre.code).to eq("B30PI00") }
       it { expect(court_centre.short_oucode).to eq("B30PI") }
