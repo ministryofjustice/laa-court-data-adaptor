@@ -23,6 +23,8 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
            defendant_id:,
            offence_id:)
 
+    create(:court_centre_organisation_unit_code, court_centre_id: "f8254db1-1683-483e-afb3-b87fde5a0a26", code: "B01LY00")
+
     allow(Sqs::MessagePublisher).to receive(:call)
     allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call)
   end

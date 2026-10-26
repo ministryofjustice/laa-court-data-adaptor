@@ -65,12 +65,15 @@ RSpec.describe HearingsCreator do
       },
     ]
   end
+
+  let(:court_centre_id) { "dd22b110-7fbc-3036-a076-e4bb40d0a519" }
+
   let(:hearing_resulted_data) do
     {
       "hearing": {
         "jurisdictionType": "MAGISTRATES",
         "courtCentre": {
-          "id": "dd22b110-7fbc-3036-a076-e4bb40d0a519",
+          "id": court_centre_id,
         },
         "prosecutionCases": prosecution_case_array,
         "courtApplications": applications_array,
@@ -81,7 +84,10 @@ RSpec.describe HearingsCreator do
 
   let(:hearing) { Hearing.create!(body: hearing_resulted_data) }
 
-  before { allow(Sqs::MessagePublisher).to receive(:call) }
+  before do
+    allow(Sqs::MessagePublisher).to receive(:call)
+    create(:court_centre_organisation_unit_code, court_centre_id: court_centre_id, code: "B30PI00")
+  end
 
   describe "a prosecution case" do
     let(:applications_array) { nil }
