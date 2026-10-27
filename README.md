@@ -204,15 +204,22 @@ The `enviroment_file` availables are:
 - dev.postman_environment.json
 - uat.postman_environment.json
 
-## Contract tests
+## Pact Testing
+
+### Provider tests
 
 There are a limited number of Contract tests that use [pact](https://docs.pact.io/) to verify the contract between CDA
-and Common Platform API. These are located in `spec/contract` and can be run with `bundle exec rake pact:verify`.
+and Common Platform API. These are located in `spec/pact/consumers` and can be run with `bundle exec rake pact:verify`.
 
 They are also run as part of the [GitHub Actions workflow](https://github.com/ministryofjustice/laa-court-data-adaptor/blob/main/.github/workflows/pact.yml) on pull requests and merges to master.
 
 These tests are based on the [`laa-pact-template`](https://github.com/ministryofjustice/laa-pact-template) and consume the contracts from the [`laa-court-data-ui` repo](https://github.com/ministryofjustice/laa-court-data-ui/tree/main/spec/pact/providers),
 which publish the contracts to the [`laa-data-pact-broker`](https://github.com/ministryofjustice/laa-data-pact-broker).
+
+Each test has a `provider_state`, which is taken from the `laa-court-data-ui` provider states and is used to set up the
+correct application state for the response. When the tests are run, the application is started and the provider states
+are executed to set up the correct data for the response. The tests then make a request to the application and verify
+that the response matches the expected contract.
 
 For more information on how to run the contract tests, see [the `laa-pact-template` README](https://github.com/ministryofjustice/laa-pact-template/blob/main/README.md).
 
@@ -224,6 +231,25 @@ Then run the following command to execute the contract tests:
 ```
 bundle exec rails pact:verify
 ```
+
+### Consumer tests
+
+In addition to the consumer tests, there are also consumer tests that set up the contract between CDA and the `laa-maat-court-data-api`
+application. These are located in `spec/pact/providers`.
+
+The Pact tests are run against a mock server that simulates the responses from the laa-maat-court-data-api API.
+
+When Pact tests run, they generate a Pact file that describes the interactions between this application and the
+laa-maat-court-data-api API as JSON.
+
+On every push to a branch, the Pact tests are run, and the Pact file is generated and
+uploaded to the [Pact Broker](https://laa-data-pact-broker.apps.live.cloud-platform.service.justice.gov.uk/) via the [Pact GitHub Actions workflow](https://github.com/ministryofjustice/laa-court-data-adaptor/actions/workflows/publish_pacts.yml).
+
+This allows laa-maat-court-data-api to pull down the Pact file and verify that it is compatible with the API contract
+defined by this application. If there are any changes to the API contract, the Pact tests in laa-maat-court-data-api
+will fail.
+
+For more information, see the [Pact documentation](https://docs.pact.io/).
 
 ## API Schema
 
