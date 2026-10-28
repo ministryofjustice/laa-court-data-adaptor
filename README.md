@@ -232,6 +232,13 @@ Then run the following command to execute the contract tests:
 bundle exec rails pact:verify
 ```
 
+If you are working on a branch that has changes to the `laa-court-data-ui` consumer, you can set the `CONSUMER_BRANCH`
+environment variable to the name of the branch to run the contract tests against that branch. For example:
+
+```
+CONSUMER_BRANCH=my-feature-branch bundle exec rails pact:verify
+```
+
 ### Consumer tests
 
 In addition to the consumer tests, there are also consumer tests that set up the contract between CDA and the `laa-maat-court-data-api`
