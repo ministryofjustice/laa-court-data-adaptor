@@ -19,6 +19,9 @@ RSpec.describe "laa-court-data-ui pact", :pact, pact_entity: :provider do
     broker_password: ENV.fetch("PACT_BROKER_PASSWORD", nil),
     publish_verification_results: true,
     provider_version: ENV.fetch("PROVIDER_VERSION", "latest"),
+    consumer_version_selectors: if ENV.fetch("CONSUMER_BRANCH", nil)
+                                  [{ consumer: "laa-court-data-ui", branch: ENV.fetch("CONSUMER_BRANCH") }]
+                                end,
   }
 
   before_state_setup do
