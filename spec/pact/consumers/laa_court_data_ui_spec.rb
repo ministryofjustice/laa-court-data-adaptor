@@ -4,6 +4,7 @@ require "pact/rspec"
 include RSpec::Mocks::ExampleMethods
 include WebMock::API
 include MaatApiStubs
+include CommonPlatformApiStubs
 
 RSpec.describe "laa-court-data-ui pact", :pact, pact_entity: :provider do
   http_pact_provider "laa-court-data-adaptor", opts: {
@@ -36,6 +37,13 @@ RSpec.describe "laa-court-data-ui pact", :pact, pact_entity: :provider do
     WebMock.reset!
   end
 
+  search_queries = [
+    { prosecutionCaseReference: "TEST12345" },
+    { defendantASN: "OC22ZJATX15T" },
+    { defendantName: "Maxie Raynor", defendantDOB: "1973-06-30" },
+    { defendantNINO: "YE744478B" },
+  ]
+
   provider_state "a MAAT ID that is already linked" do
     set_up do
       stub_maat_validation("already_linked_maat_reference", status: 400)
@@ -60,43 +68,45 @@ RSpec.describe "laa-court-data-ui pact", :pact, pact_entity: :provider do
     end
   end
 
-  provider_state "no prosecution case exists" do
+  provider_state "a request to link a defendant successfully" do
     set_up do
-      stub_prosecution_case_search(
-        query: { prosecutionCaseReference: "TEST12345" },
-        body: { totalResults: 0, cases: [] }.to_json,
-        status: 200,
-      )
+      stub_maat_validation("valid_maat_reference", status: 200)
+      allow(ProsecutionCaseMaatLinkCreator).to receive(:call).and_return(true)
     end
   end
 
-  provider_state "a prosecution case exists for a URN" do
-    set_up do
-      stub_prosecution_case_search(
-        query: { prosecutionCaseReference: "TEST12345" },
-        body: file_fixture("prosecution_cases_v2.json").read,
-        status: 200,
-      )
+  [
+    "no prosecution case exists",
+    "no prosecution case matches the URN",
+  ].each do |state|
+    provider_state state do
+      set_up do
+        search_queries.each do |query|
+          stub_prosecution_case_search(
+            query:,
+            body: { totalResults: 0, cases: [] }.to_json,
+          )
+        end
+      end
     end
   end
 
-  provider_state "a prosecution case exists for an ASN" do
-    set_up do
-      stub_prosecution_case_search(
-        query: { defendantReference: "OC22ZJATX15T" },
-        body: file_fixture("prosecution_case_search_result.json").read,
-        status: 200,
-      )
-    end
-  end
-
-  provider_state "a prosecution case exists for a national insurance number" do
-    set_up do
-      stub_prosecution_case_search(
-        query: { nationalInsuranceNumber: "YE744478B" },
-        body: file_fixture("prosecution_case_search_result.json").read,
-        status: 200,
-      )
+  [
+    "a prosecution case exists",
+    "a defendant exists",
+    "a prosecution case exists for a URN",
+    "a prosecution case exists for an ASN",
+    "a prosecution case exists for a national insurance number",
+  ].each do |state|
+    provider_state state do
+      set_up do
+        search_queries.each do |query|
+          stub_prosecution_case_search(
+            query:,
+            body: Rails.root.join("spec/fixtures/files/pact/prosecution_case_search.json").read,
+          )
+        end
+      end
     end
   end
 end
