@@ -25,6 +25,7 @@ RSpec.describe "laa-court-data-ui pact", :pact, pact_entity: :provider do
   }
 
   before_state_setup do
+    WebMock.disable_net_connect!(allow_localhost: true)
     token = instance_double(Doorkeeper::AccessToken, accessible?: true, acceptable?: true)
     allow(Doorkeeper::OAuth::Token).to receive(:authenticate).and_return(token)
     allow(ProsecutionCaseLinkValidator).to receive(:new).and_return(double(call: true))
