@@ -1,0 +1,22 @@
+{
+  "totalResults": 1,
+  "cases": [
+    {
+      "prosecutionCaseId": "762d24ad-e7cc-43f9-a46c-92d4e0ea7185",
+      "prosecutionCaseReference": "TEST12345",
+      "defendantSummary": [
+        {
+          "defendantId": "e1d01e04-3a2b-4eed-a4fb-54f5cd257338",
+          "defendantFirstName": "Maxie",
+          "defendantMiddleName": "James",
+          "defendantLastName": "Raynor",
+          "defendantASN": "OC22ZJATX15T",
+          "defendantDOB": "1973-06-30",
+          "defendantNINO": "YE744478B",
+          "offenceSummary": []
+        }
+      ],
+      "hearingSummary": []
+    }
+  ]
+}
