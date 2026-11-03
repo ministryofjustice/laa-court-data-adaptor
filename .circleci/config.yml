@@ -453,20 +453,20 @@ workflows:
             - build-and-push-app
       - e2e-test-main:
           requires:
-            - build-and-push-app
+            - scan-and-monitor-docker-image
       - install_on_dev_live:
           requires:
-            - build-and-push-app
+            - scan-and-monitor-docker-image
       - install_on_test_live:
           requires:
-            - build-and-push-app
+            - scan-and-monitor-docker-image
       - install_on_uat_live:
           requires:
-            - build-and-push-app
+            - scan-and-monitor-docker-image
       - hold_install_on_prod:
           type: approval
           requires:
-            - build-and-push-app
+            - scan-and-monitor-docker-image
       - install_on_prod_live:
           requires:
             - hold_install_on_prod
@@ -488,31 +488,30 @@ workflows:
                 - main
       - scan-docker-image:
           name: scan-docker-image
-          monitor: false
           requires:
             - build-and-push-app
       - e2e-test-branch:
           context: laa-court-data-e2e-tests
           requires:
-            - build-and-push-app
+            - scan-docker-image
       - hold_install_on_dev:
           type: approval
           requires:
-            - build-and-push-app
+            - scan-docker-image
       - install_on_dev_live:
           requires:
             - hold_install_on_dev
       - hold_install_on_test:
           type: approval
           requires:
-            - build-and-push-app
+            - scan-docker-image
       - install_on_test_live:
           requires:
             - hold_install_on_test
       - hold_install_on_uat:
           type: approval
           requires:
-            - build-and-push-app
+            - scan-docker-image
       - install_on_uat_live:
           requires:
             - hold_install_on_uat
