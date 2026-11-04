@@ -18,7 +18,8 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
                     2) arrest_summons_number <br/>
                     3) national_insurance_number <br/>
                     4) name and date_of_birth <br/>
-                    5) name and date_of_next_hearing"
+                    5) name and date_of_next_hearing <br/>
+                    6) xhibit_case_number"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
       parameter "$ref" => "#/components/parameters/transaction_id_header"
@@ -89,6 +90,49 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
             it "returns an error code" do
               get "/api/internal/v2/prosecution_cases?filter[prosecution_case_reference]=123", headers: { "Authorization" => "Bearer #{token.token}" }
               expect(response.parsed_body["error_codes"]).to eq %w[common_platform_connection_failed]
+            end
+          end
+        end
+      end
+
+      context "when searching by xhibit_case_number" do
+        let(:Authorization) { "Bearer #{token.token}" }
+        let(:xhibit_case_number) { "T20254007" }
+        let(:case_urn) { "61GD7528225" }
+        let(:'filter[xhibit_case_number]') { xhibit_case_number }
+
+        produces "application/vnd.api+json"
+
+        parameter name: "filter[xhibit_case_number]", in: :query, required: false, type: :string,
+                  schema: {
+                    "$ref": "xhibit_migrated_case.json#/properties/xhibit_case_number",
+                  },
+                  description: "Searches prosecution cases by the Xhibit case number of a migrated case"
+
+        context "when a migrated case matches" do
+          before do
+            create(:xhibit_migrated_case, xhibit_case_number:, case_urn:)
+            stub_prosecution_case_search(
+              query: { prosecutionCaseReference: case_urn },
+              body: file_fixture("prosecution_cases_v2.json").read,
+            )
+          end
+
+          response(200, "Success") do
+            schema "$ref" => "search_prosecution_case_response.json#"
+
+            run_test! do |response|
+              expect(response.parsed_body["total_results"]).to eq(1)
+              expect(response.parsed_body["results"].first["prosecution_case_reference"]).to eq(case_urn)
+            end
+          end
+        end
+
+        context "when no migrated case matches" do
+          response(200, "Success") do
+            run_test! do |response|
+              expect(response.parsed_body).to eq("total_results" => 0, "results" => [])
+              expect(a_request(:get, /prosecutionCases/)).not_to have_been_made
             end
           end
         end
@@ -211,7 +255,8 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
                     2) arrest_summons_number <br/>
                     3) national_insurance_number <br/>
                     4) name and date_of_birth <br/>
-                    5) name and date_of_next_hearing"
+                    5) name and date_of_next_hearing <br/>
+                    6) xhibit_case_number"
       consumes "application/json"
       tags "Internal - available to other LAA applications"
       security [{ oAuth: [] }]
@@ -279,6 +324,40 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
             it "returns an error code" do
               post "/api/internal/v2/prosecution_cases", params: { filter: { prosecution_case_reference: 123 } }, headers: { "Authorization" => "Bearer #{token.token}" }
               expect(response.parsed_body["error_codes"]).to eq %w[common_platform_connection_failed]
+            end
+          end
+        end
+      end
+
+      context "when searching by xhibit_case_number" do
+        let(:xhibit_case_number) { "T20254007" }
+        let(:case_urn) { "61GD7528225" }
+        let(:filter) { { filter: { xhibit_case_number: } } }
+
+        context "when a migrated case matches" do
+          before do
+            create(:xhibit_migrated_case, xhibit_case_number:, case_urn:)
+            stub_prosecution_case_search(
+              query: { prosecutionCaseReference: case_urn },
+              body: file_fixture("prosecution_cases_v2.json").read,
+            )
+          end
+
+          response(200, "Success") do
+            schema "$ref" => "search_prosecution_case_response.json#"
+
+            run_test! do |response|
+              expect(response.parsed_body["total_results"]).to eq(1)
+              expect(response.parsed_body["results"].first["prosecution_case_reference"]).to eq(case_urn)
+            end
+          end
+        end
+
+        context "when no migrated case matches" do
+          response(200, "Success") do
+            run_test! do |response|
+              expect(response.parsed_body).to eq("total_results" => 0, "results" => [])
+              expect(a_request(:get, /prosecutionCases/)).not_to have_been_made
             end
           end
         end

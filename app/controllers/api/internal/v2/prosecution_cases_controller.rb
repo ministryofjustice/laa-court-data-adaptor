@@ -10,6 +10,8 @@ module Api
                              CommonPlatform::Api::ProsecutionCaseFinder.call(
                                transformed_params[:prosecution_case_reference],
                              )
+                           elsif transformed_params[:xhibit_case_number].present?
+                             find_by_xhibit_case_number
                            else
                              CommonPlatform::Api::SearchProsecutionCase.call(transformed_params)
                            end
@@ -29,12 +31,18 @@ module Api
 
       private
 
+        def find_by_xhibit_case_number
+          case_urn = XhibitMigratedCase.case_urn_for(transformed_params[:xhibit_case_number])
+          CommonPlatform::Api::ProsecutionCaseFinder.call(case_urn) if case_urn
+        end
+
         def transformed_params
           filtered_params.to_hash.deep_symbolize_keys
         end
 
         def filtered_params
           params.require(:filter).permit(:prosecution_case_reference,
+                                         :xhibit_case_number,
                                          :arrest_summons_number,
                                          :name,
                                          :date_of_birth,
