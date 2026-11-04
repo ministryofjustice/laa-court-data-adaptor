@@ -28,6 +28,12 @@ class XhibitMigratedCase < ApplicationRecord
   validate :sent_date_format, if: -> { sent_date_before_type_cast.present? }
   validate :committal_or_sent_date_present
 
+  def self.case_urn_for(xhibit_case_number)
+    where(xhibit_case_number: xhibit_case_number.to_s.strip.upcase)
+      .where.not(case_urn: nil)
+      .pick(:case_urn)
+  end
+
   def trial?
     case_type == "T"
   end
