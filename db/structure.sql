@@ -635,6 +635,13 @@ CREATE INDEX index_prosecution_case_hearing_repulls_on_prosecution_case_id ON pu
 
 
 --
+-- Name: index_xhibit_migrated_cases_on_xhibit_case_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_xhibit_migrated_cases_on_xhibit_case_number ON public.xhibit_migrated_cases USING btree (xhibit_case_number);
+
+
+--
 -- Name: prosecution_case_hearing_repulls fk_rails_02813a006e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -681,6 +688,7 @@ ALTER TABLE ONLY public.oauth_access_grants
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20261104120000'),
 ('20261026101537'),
 ('20261023130608'),
 ('20261008100000'),

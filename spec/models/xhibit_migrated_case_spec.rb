@@ -250,4 +250,40 @@ RSpec.describe XhibitMigratedCase, type: :model do
       end
     end
   end
+
+  describe ".case_urn_for" do
+    subject(:case_urn_for) { described_class.case_urn_for(xhibit_case_number) }
+
+    let(:xhibit_case_number) { "T20254007" }
+
+    context "when a migrated case matches" do
+      before { create(:xhibit_migrated_case, xhibit_case_number: "T20254007", case_urn: "T20254007-DERBY") }
+
+      it { is_expected.to eq("T20254007-DERBY") }
+
+      context "when the Xhibit case number has surrounding whitespace and is lower case" do
+        let(:xhibit_case_number) { "  t20254007 " }
+
+        it { is_expected.to eq("T20254007-DERBY") }
+      end
+    end
+
+    context "when the matching migrated case has no case_urn" do
+      before { create(:xhibit_migrated_case, xhibit_case_number: "T20254007", case_urn: nil) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when no migrated case matches" do
+      before { create(:xhibit_migrated_case, xhibit_case_number: "T20259999") }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when the Xhibit case number is nil" do
+      let(:xhibit_case_number) { nil }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end
