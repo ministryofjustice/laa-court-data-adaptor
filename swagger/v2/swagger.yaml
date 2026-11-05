@@ -459,7 +459,8 @@ paths:
                             2) arrest_summons_number <br/>
                             3) national_insurance_number <br/>
                             4) name and date_of_birth <br/>
-                            5) name and date_of_next_hearing
+                            5) name and date_of_next_hearing <br/>
+                            6) xhibit_case_number
       tags:
       - Internal - available to other LAA applications
       security:
@@ -473,6 +474,14 @@ paths:
         schema:
           "$ref": prosecution_case_identifier.json#/properties/case_urn
         description: Searches prosecution cases by prosecution case reference
+      - name: filter[xhibit_case_number]
+        in: query
+        required: false
+        type: string
+        schema:
+          "$ref": xhibit_migrated_case.json#/properties/xhibit_case_number
+        description: Searches prosecution cases by the Xhibit case number of a migrated
+          case
       - name: filter[arrest_summons_number]
         in: query
         required: false
@@ -536,7 +545,8 @@ paths:
                             2) arrest_summons_number <br/>
                             3) national_insurance_number <br/>
                             4) name and date_of_birth <br/>
-                            5) name and date_of_next_hearing
+                            5) name and date_of_next_hearing <br/>
+                            6) xhibit_case_number
       tags:
       - Internal - available to other LAA applications
       security:

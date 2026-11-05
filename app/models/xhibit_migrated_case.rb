@@ -14,6 +14,11 @@ class XhibitMigratedCase < ApplicationRecord
       "is invalid: URN #{object.case_urn} and Defendant #{object.defendant_first_name} #{object.defendant_last_name} is already present"
     },
   }
+  validates :case_urn, uniqueness: {
+    allow_nil: true,
+    conditions: ->(record) { where.not(xhibit_case_number: record.xhibit_case_number) },
+    message: "is already linked to a different Xhibit case number",
+  }
   validates :xhibit_case_number, presence: true
   validates :court_name, presence: true
   validates :ou_code, presence: true
@@ -27,6 +32,12 @@ class XhibitMigratedCase < ApplicationRecord
   validate :committal_date_format, if: -> { committal_date_before_type_cast.present? }
   validate :sent_date_format, if: -> { sent_date_before_type_cast.present? }
   validate :committal_or_sent_date_present
+
+  def self.case_urn_for(xhibit_case_number)
+    where(xhibit_case_number: xhibit_case_number.to_s.strip.upcase)
+      .where.not(case_urn: nil)
+      .pick(:case_urn)
+  end
 
   def trial?
     case_type == "T"

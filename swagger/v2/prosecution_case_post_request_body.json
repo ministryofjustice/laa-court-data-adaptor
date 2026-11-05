@@ -14,6 +14,10 @@
           "example": "61GD7528225",
           "type": "string"
         },
+        "xhibit_case_number": {
+          "example": "T20254007",
+          "type": "string"
+        },
         "arrest_summons_number": {
           "example": "arrest123",
           "type": "string"
