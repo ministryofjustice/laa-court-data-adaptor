@@ -14,6 +14,11 @@ class XhibitMigratedCase < ApplicationRecord
       "is invalid: URN #{object.case_urn} and Defendant #{object.defendant_first_name} #{object.defendant_last_name} is already present"
     },
   }
+  validates :case_urn, uniqueness: {
+    allow_nil: true,
+    conditions: ->(record) { where.not(xhibit_case_number: record.xhibit_case_number) },
+    message: "is already linked to a different Xhibit case number",
+  }
   validates :xhibit_case_number, presence: true
   validates :court_name, presence: true
   validates :ou_code, presence: true

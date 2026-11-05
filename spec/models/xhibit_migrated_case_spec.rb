@@ -79,6 +79,21 @@ RSpec.describe XhibitMigratedCase, type: :model do
       end
     end
 
+    context "when the case_urn already exists for another defendant" do
+      before { described_class.create!(valid_attributes) }
+
+      it "is valid with the same xhibit_case_number" do
+        expect(described_class.new(valid_attributes.merge(defendant_first_name: "Jane"))).to be_valid
+      end
+
+      it "is invalid with a different xhibit_case_number" do
+        migrated_case = described_class.new(valid_attributes.merge(defendant_first_name: "Jane", xhibit_case_number: "T202540002"))
+
+        expect(migrated_case).not_to be_valid
+        expect(migrated_case.errors[:case_urn]).to include("is already linked to a different Xhibit case number")
+      end
+    end
+
     context "when status is set to auto_linked" do
       subject(:migrated_case) { described_class.new(valid_attributes.merge(status: "auto_linked")) }
 
