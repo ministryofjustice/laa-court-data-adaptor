@@ -11,6 +11,26 @@ RSpec.describe ImportXhibitCases do
     expect(result).to match(success_count: Integer, errors: Array)
   end
 
+  context "with columns that are not XHIBIT case data" do
+    subject(:result) { described_class.call(file_path: csv_file.path) }
+
+    let(:csv_file) do
+      Tempfile.new(%w[xhibit_cases .csv]).tap do |file|
+        file.write(<<~CSV)
+          #{ImportXhibitCases::PERMITTED_ATTRIBUTES.join(',')},status,process_errors,maat_id
+          20GD0217100,T20254007,Derby Justice Centre,B30PI00,T,Either way offence,Either way,2b6fafcd-f204-4d97-8571-cd1c09f4c789,John,,Yundt,1987-05-21,XVITYX8RAIHZ,,2019-10-25,auto_linked,oops,1234567
+        CSV
+        file.close
+      end
+    end
+
+    it "ignores them" do
+      result
+
+      expect(XhibitMigratedCase.last).to have_attributes(status: "pending", process_errors: nil, maat_id: nil)
+    end
+  end
+
   context "with invalid defendant_date_of_birth format" do
     subject(:result) { described_class.call(file_path: file_fixture("xhibit_cases_import_with_errors.csv")) }
 
