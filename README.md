@@ -178,7 +178,8 @@ In CDA the authentication process is handled by the gem [doorkeeper](https://git
 
 ## Postman collection
 
-API testing is conducted using Postman collections, executed through Newman as part of an automated workflow in the CircleCI pipeline..
+API testing is conducted using Postman collections, executed through Newman as part of an automated
+workflow in the CircleCI pipeline..
 
 To run Postman tests locally you'll need `newman`: [installation guide](https://learning.postman.com/docs/collections/using-newman-cli/installing-running-newman).
 
