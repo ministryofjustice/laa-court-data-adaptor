@@ -32,6 +32,16 @@ class XhibitMigratedCase < ApplicationRecord
     case_type == "T"
   end
 
+  def reason_for_manual_linking
+    XhibitErrorPresenter.reason_for_error(process_errors)
+  end
+
+  def as_json(options = {})
+    super(options).merge(
+      "reason_for_manual_linking" => reason_for_manual_linking,
+    )
+  end
+
 private
 
   # Date example: 2002-11-03
