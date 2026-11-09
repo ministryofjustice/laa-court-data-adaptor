@@ -147,8 +147,8 @@ RSpec.describe "XHIBIT auto-linking", type: :service do
       process_cases
 
       expect(xhibit_case.reload).to be_action_required
-      expect(xhibit_case.process_errors).to eq(
-        "maat" => { "message" => "MAAT ID already linked with other CP case (01AB1234567)" },
+      expect(xhibit_case.process_errors).to include(
+        "maat" => include("message" => "MAAT ID already linked with other CP case (01AB1234567)", "actionable" => true),
       )
     end
 

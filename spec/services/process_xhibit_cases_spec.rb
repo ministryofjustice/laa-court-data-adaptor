@@ -21,8 +21,8 @@ RSpec.describe ProcessXhibitCases, type: :service do
       process_cases
 
       expect(xhibit_case.reload).to be_action_required
-      expect(xhibit_case.process_errors).to eq(
-        "maat" => { "message" => "MAAT application not found" },
+      expect(xhibit_case.process_errors).to include(
+        "maat" => include("message" => "MAAT application not found", "actionable" => true),
       )
     end
   end
@@ -36,8 +36,8 @@ RSpec.describe ProcessXhibitCases, type: :service do
       process_cases
 
       expect(xhibit_case.reload).to be_pending
-      expect(xhibit_case.process_errors).to match(
-        "maat" => { "error" => 400, "message" => /Invalid request content/ },
+      expect(xhibit_case.process_errors).to include(
+        "maat" => include("error" => 400, "message" => /Invalid request content/, "actionable" => false),
       )
     end
   end
@@ -51,8 +51,8 @@ RSpec.describe ProcessXhibitCases, type: :service do
     it "records the error on the case" do
       process_cases
 
-      expect(xhibit_case.reload.process_errors).to eq(
-        "unexpected" => { "error" => "Faraday::ConnectionFailed", "message" => "connection refused" },
+      expect(xhibit_case.reload.process_errors).to include(
+        "unexpected" => include("error" => "Faraday::ConnectionFailed", "message" => "connection refused", "actionable" => false),
       )
     end
   end
@@ -65,8 +65,8 @@ RSpec.describe ProcessXhibitCases, type: :service do
 
       expect(xhibit_case.reload).to be_action_required
       expect(xhibit_case).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
-      expect(xhibit_case.process_errors).to eq(
-        "maat" => { "message" => "MAAT ID already linked with other CP case (01AB1234567)" },
+      expect(xhibit_case.process_errors).to include(
+        "maat" => include("message" => "MAAT ID already linked with other CP case (01AB1234567)", "actionable" => true),
       )
     end
   end
@@ -79,8 +79,8 @@ RSpec.describe ProcessXhibitCases, type: :service do
 
       expect(xhibit_case.reload).to be_action_required
       expect(xhibit_case).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
-      expect(xhibit_case.process_errors).to eq(
-        "maat" => { "message" => "MAAT link status could not be determined" },
+      expect(xhibit_case.process_errors).to include(
+        "maat" => include("message" => "MAAT link status could not be determined", "actionable" => true),
       )
     end
   end
@@ -105,8 +105,8 @@ RSpec.describe ProcessXhibitCases, type: :service do
 
       expect(xhibit_case.reload).to be_action_required
       expect(xhibit_case).to have_attributes(maat_id: nil, linked_at: nil, linked_by: nil)
-      expect(xhibit_case.process_errors).to eq(
-        "common_platform" => { "message" => "Case not found on Common Platform" },
+      expect(xhibit_case.process_errors).to include(
+        "common_platform" => include("message" => "Case not found on Common Platform", "actionable" => true),
       )
     end
   end
@@ -131,8 +131,8 @@ RSpec.describe ProcessXhibitCases, type: :service do
     it "records the error on the case" do
       process_cases
 
-      expect(xhibit_case.reload.process_errors).to eq(
-        "link" => { "message" => "Validation failed: error message 1, error message 2" },
+      expect(xhibit_case.reload.process_errors).to include(
+        "link" => include("message" => "Validation failed: error message 1, error message 2", "actionable" => false),
       )
     end
   end
@@ -194,8 +194,8 @@ RSpec.describe ProcessXhibitCases, type: :service do
           linked_at: nil,
           linked_by: nil,
         )
-        expect(xhibit_case.process_errors).to eq(
-          "maat" => { "message" => described_class::LIBRA_UNLINK_REQUESTED_MESSAGE },
+        expect(xhibit_case.process_errors).to include(
+          "maat" => include("message" => described_class::LIBRA_UNLINK_REQUESTED_MESSAGE, "actionable" => false),
         )
       end
 
