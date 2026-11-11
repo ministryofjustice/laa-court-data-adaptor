@@ -1,6 +1,8 @@
 require "csv"
 
 class ImportXhibitCases < ApplicationService
+  # Explicitly list only Xhibit data columns to import from CSV
+  # to ensure we import only the intended Xhibit fields, excluding internal columns
   PERMITTED_ATTRIBUTES = %w[
     case_urn
     xhibit_case_number
