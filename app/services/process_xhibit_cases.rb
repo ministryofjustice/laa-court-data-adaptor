@@ -19,10 +19,10 @@ class ProcessXhibitCases < ApplicationService
       elsif response.not_found?
         handle_not_found(xhibit_case)
       else
-        record_error(xhibit_case, :maat, error: response&.status, message: response&.body, actionable: false)
+        record_error(xhibit_case, :maat, error: response&.status, message: response&.body)
       end
     rescue StandardError => e
-      record_error(xhibit_case, :unexpected, error: e.class.name, message: e.message, actionable: false)
+      record_error(xhibit_case, :unexpected, error: e.class.name, message: e.message)
     end
   end
 
@@ -39,9 +39,9 @@ private
 
     LinkXhibitCase.call(maat_id, xhibit_case, defendant_summary)
   rescue ActiveRecord::RecordInvalid => e
-    record_error(xhibit_case, :link, message: "Validation failed: #{e.record.errors.full_messages.join(', ')}", actionable: false)
+    record_error(xhibit_case, :link, message: "Validation failed: #{e.record.errors.full_messages.join(', ')}")
   rescue StandardError => e
-    record_error(xhibit_case, :unexpected, error: e.class.name, message: e.message, actionable: false)
+    record_error(xhibit_case, :unexpected, error: e.class.name, message: e.message)
   end
 
   def maat_search(xhibit_case)
@@ -65,7 +65,7 @@ private
       flag_manual_action_required(xhibit_case, "MAAT link status could not be determined")
     when :linked_to_libra
       RequestLibraUnlink.call(response, xhibit_case)
-      record_error(xhibit_case, :maat, message: LIBRA_UNLINK_REQUESTED_MESSAGE, actionable: false)
+      record_error(xhibit_case, :maat, message: LIBRA_UNLINK_REQUESTED_MESSAGE)
     when :unlinked
       link_to_common_platform(xhibit_case, response.maat_id)
     end
