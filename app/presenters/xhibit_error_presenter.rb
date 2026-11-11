@@ -2,13 +2,6 @@ class XhibitErrorPresenter
   # Maps internal error structures to user-friendly reasons for caseworkers
   # Used by VCD "Reason for manual linking" column
 
-  REASONS = {
-    maat_not_found: "MAAT application not found for this defendant",
-    maat_linked_to_cp: "MAAT record is linked to another court case",
-    maat_link_unknown: "Cannot verify MAAT record status—manual review needed",
-    cp_not_found: "Case not found on Common Platform",
-  }.freeze
-
   def initialize(process_errors)
     @process_errors = process_errors || {}
   end
@@ -18,7 +11,7 @@ class XhibitErrorPresenter
   end
 
   def reason
-    REASONS[error_type]
+    I18n.t("xhibit_error_presenter.reasons.#{error_type}") if error_type
   end
 
 private

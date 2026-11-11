@@ -1,0 +1,7 @@
+en:
+  xhibit_error_presenter:
+    reasons:
+      maat_not_found: "MAAT application not found for this defendant"
+      maat_linked_to_cp: "MAAT record is linked to another court case"
+      maat_link_unknown: "Cannot verify MAAT record status—manual review needed"
+      cp_not_found: "Case not found on Common Platform"

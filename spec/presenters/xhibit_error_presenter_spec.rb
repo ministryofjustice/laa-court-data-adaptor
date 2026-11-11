@@ -54,32 +54,24 @@ RSpec.describe XhibitErrorPresenter, type: :presenter do
       end
     end
 
-    context "with MAAT HTTP error (technical, should not display)" do
-      let(:process_errors) { { "maat" => { "error" => 500, "message" => "Internal Server Error" } } }
+    context "with technical errors (should not display)" do
+      [
+        { "maat" => { "error" => 500, "message" => "Internal Server Error" }, name: "MAAT HTTP error" },
+        { "link" => { "message" => "Validation failed: MAAT ID already in use" }, name: "validation error" },
+        { "unexpected" => { "error" => "ArgumentError", "message" => "Unsupported case type" }, name: "unexpected error" },
+        {
+          "maat" => { "message" => "LIBRA unlink requested. The case will be linked once MAAT reports it as unlinked" },
+          name: "LIBRA unlink",
+        },
+      ].each do |errors|
+        context "with `#{errors.delete(:name)}` error" do
+          let(:process_errors) { errors }
 
-      it "returns nil (don't show technical errors)" do
-        presenter = described_class.new(process_errors)
-        expect(presenter.reason).to be_nil
-      end
-    end
-
-    context "with validation error (technical, should not display)" do
-      let(:process_errors) { { "link" => { "message" => "Validation failed: MAAT ID already in use" } } }
-
-      it "returns nil (don't show technical errors)" do
-        presenter = described_class.new(process_errors)
-        expect(presenter.reason).to be_nil
-      end
-    end
-
-    context "with unexpected error (technical, should not display)" do
-      let(:process_errors) do
-        { "unexpected" => { "error" => "ArgumentError", "message" => "Unsupported case type" } }
-      end
-
-      it "returns nil (don't show technical errors)" do
-        presenter = described_class.new(process_errors)
-        expect(presenter.reason).to be_nil
+          it "returns nil (don't show technical errors)" do
+            presenter = described_class.new(process_errors)
+            expect(presenter.reason).to be_nil
+          end
+        end
       end
     end
 
@@ -94,17 +86,6 @@ RSpec.describe XhibitErrorPresenter, type: :presenter do
       it "returns reason for MAAT error (primary)" do
         presenter = described_class.new(process_errors)
         expect(presenter.reason).to eq("MAAT application not found for this defendant")
-      end
-    end
-
-    context "with LIBRA unlink error (technical, should not display)" do
-      let(:process_errors) do
-        { "maat" => { "message" => "LIBRA unlink requested. The case will be linked once MAAT reports it as unlinked" } }
-      end
-
-      it "returns nil (retry in background)" do
-        presenter = described_class.new(process_errors)
-        expect(presenter.reason).to be_nil
       end
     end
   end
