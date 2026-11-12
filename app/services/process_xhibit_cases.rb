@@ -2,6 +2,14 @@ class ProcessXhibitCases < ApplicationService
   LIBRA_UNLINK_REQUESTED_MESSAGE =
     "LIBRA unlink requested. The case will be linked once MAAT reports it as unlinked".freeze
 
+  # Errors that caseworkers can act on
+  ACTIONABLE_ERRORS = %i[
+    maat_not_found
+    maat_linked_to_cp
+    maat_link_unknown
+    cp_not_found
+  ].freeze
+
   def call
     XhibitMigratedCase.pending.find_each do |xhibit_case|
       response = maat_search(xhibit_case)
@@ -25,7 +33,7 @@ private
 
     if defendant_summary.nil?
       xhibit_case.action_required!
-      record_error(xhibit_case, :common_platform, message: "Case not found on Common Platform")
+      record_error(xhibit_case, :common_platform, message: "Case not found on Common Platform", actionable: true)
       return
     end
 
@@ -94,14 +102,26 @@ private
 
   def flag_manual_action_required(xhibit_case, message)
     xhibit_case.action_required!
-    record_error(xhibit_case, :maat, message:)
+    record_error(xhibit_case, :maat, message:, actionable: true)
   end
 
   # Errors are keyed by step and merged, so that a failure in one step does not
   # discard what an earlier step recorded.
-  def record_error(xhibit_case, step, **details)
-    xhibit_case.reload.update_columns(
-      process_errors: (xhibit_case.process_errors || {}).merge(step.to_s => details.stringify_keys),
+  #
+  # The error structure now includes:
+  # - error: HTTP status or exception class (if applicable)
+  # - message: Human-readable error message
+  # - actionable: Boolean flag indicating if caseworker should see this
+  def record_error(xhibit_case, step, actionable: false, **details)
+    xhibit_case.reload
+    existing_errors = xhibit_case.process_errors || {}
+
+    error_data = details
+      .stringify_keys
+      .merge("actionable" => actionable)
+
+    xhibit_case.update_columns(
+      process_errors: existing_errors.merge(step.to_s => error_data),
       updated_at: Time.zone.now,
     )
   end
