@@ -32,7 +32,7 @@ namespace :case_links do
 
   desc "Manually link a case with a large number of offences to MAAT using throttled CP API calls.
         This task introduces a 1 second delay between each offence linking to avoid rate limit (429) errors.
-        Example: rake case_links:link_large_case 8597508 jane.smith 13LD1319422"
+        Example: rake case_links:link_large_case 1234567 peter.rabbit 99LD1234567"
   task link_large_case: :environment do |_task, _args|
     maat_reference = ARGV[1]
     user_name = ARGV[2]
