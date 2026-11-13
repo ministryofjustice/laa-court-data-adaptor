@@ -248,7 +248,7 @@ GEM
       drb (~> 2.0)
       prism (~> 1.5)
     mize (0.7.0)
-    msgpack (1.8.5)
+    msgpack (1.8.7)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     mustermann (3.1.1)
