@@ -29,6 +29,7 @@ The application is commonly referred to by its acronym "CDA".
     - [Connect to hmcts-common-platform-mock-api](#connect-to-hmcts-common-platform-mock-api)
   - [Environments](#environments)
   - [Monitoring and Debugging](#monitoring-and-debugging)
+  - [Handling Large Cases](#handling-large-cases)
   - [Pre-commit Hooks](#pre-commit-hooks)
   - [Sidekiq UI](#sidekiq-ui)
   - [Contributing](#contributing)
@@ -36,6 +37,7 @@ The application is commonly referred to by its acronym "CDA".
 ## Contact the team
 
 Court Data Adaptor is maintained by staff in the Legal Aid Agency. If you need support, you can contact the team on our Slack channel:
+
 - [#laa-crime-apps-core](https://mojdt.slack.com/archives/CT0Q47YCQ) on MOJ Digital & Technology
 
 ## Architecture Diagram
@@ -45,32 +47,34 @@ It's defined as code and [can be edited](https://github.com/ministryofjustice/la
 
 ## Dependencies
 
-* Ruby
+- Ruby
   It is desirable to install a Ruby Version Manager.
   Two popular are [RVM](https://rvm.io/) and [asdf](https://asdf-vm.com/).
 
   Check the Ruby version in the file `.ruby-version`
 
-* System dependencies
-  * postgres 17.11
-  * redis
+- System dependencies
+  - postgres 17.11
+  - redis
 
-* Ruby on Rails and the other Ruby Gems
+- Ruby on Rails and the other Ruby Gems
 
   They are specified in the `Gemfile`.
   Use bundler to install them:
+
   ```
   bundle install
   ```
 
 ## Set up
 
-To set up  CDA in your local machine, you can run the following services manually:
-* Rails (the application server)
-* Postgres
-  * [Brew formula for PostgreSQL@17](https://formulae.brew.sh/formula/postgresql@17#default)
-  * Docker - `docker run -d --name cda-db -e POSTGRES_USER postgres -e POSTGRES_PASSWORD <PASSWORD> -p 5432:5432 cimg/postgres:17`
-* Redis and Sidekiq
+To set up CDA in your local machine, you can run the following services manually:
+
+- Rails (the application server)
+- Postgres
+  - [Brew formula for PostgreSQL@17](https://formulae.brew.sh/formula/postgresql@17#default)
+  - Docker - `docker run -d --name cda-db -e POSTGRES_USER postgres -e POSTGRES_PASSWORD <PASSWORD> -p 5432:5432 cimg/postgres:17`
+- Redis and Sidekiq
 
 or you can use docker-compose.
 
@@ -78,9 +82,11 @@ or you can use docker-compose.
 
 A faster way is to use `docker-compose`, which uses the `docker-compose.yaml`.
 On your shell run:
+
 ```
 $ docker-compose up --build
 ```
+
 ---
 
 ### Run the application server
@@ -120,9 +126,10 @@ $ bundle exec sidekiq
 ```
 
 **Alternatively**, to process jobs inline in `.env.development.local` set:
- ```
- INLINE_SIDEKIQ: true
- ```
+
+```
+INLINE_SIDEKIQ: true
+```
 
 The other way run the services is by using docker-compose: `docker-compose up --build`
 
@@ -161,6 +168,7 @@ $ curl -n -X POST https://dev.court-data-adaptor.service.justice.gov.uk/oauth/to
 the response contains <access_token> (see [schema](https://github.com/ministryofjustice/laa-court-data-adaptor/blob/master/schema/schema.md#oauth-endpoints-authentication) for more details)
 
 ### Making authenticated requests:
+
 Now that you have the `access_token` you can use it as a Bearer token to call CDA APIs:
 
 For example:
@@ -304,6 +312,7 @@ require CircleCI secrets. CircleCI runs them in the test job before deployment a
 ## Dev: running locally
 
 ### Connect to hmcts-common-platform-mock-api
+
 Since Common Platform API is deployed only on production, to assist the development and testing of CDA, we created a Common Platform Mock.
 ACD team is committed to keep the API interface in sync.
 To know more check out ([hmcts-common-platform-mock-api](https://github.com/ministryofjustice/hmcts-common-platform-mock-api/).
@@ -311,6 +320,7 @@ To know more check out ([hmcts-common-platform-mock-api](https://github.com/mini
 To run CP Mock locally:
 
 - Add the following to `.env.development.local`
+
   ```
   COMMON_PLATFORM_URL=http://localhost:3001
   SHARED_SECRET_KEY=super-secret-key
@@ -321,13 +331,14 @@ To run CP Mock locally:
 - Run the `hmcts-common-platform-mock-api` in parallel to the Court Data Adaptor on port 3001 to mock the Common Platform API.
 
 ## Environments
+
 Information about other environments can be found on [this](https://dsdmoj.atlassian.net/wiki/spaces/ASLST/pages/2811068434/Environments) Confluence page
 
 ## Monitoring and Debugging
 
 ### Kibana and Sentry
 
-Kibana logs for production can be found [here](https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-7d,to:now))&_a=(columns:!(kubernetes.namespace_id,log),filters:!(),index:d4959120-0186-11ec-8311-8b9e5a9c1db5,interval:auto,query:(language:lucene,query:'kubernetes.namespace_name:%20%22laa-court-data-adaptor-prod%22%20'),sort:!(!('@timestamp',desc))))
+Kibana logs for production can be found [here](<https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-7d,to:now))&_a=(columns:!(kubernetes.namespace_id,log),filters:!(),index:d4959120-0186-11ec-8311-8b9e5a9c1db5,interval:auto,query:(language:lucene,query:'kubernetes.namespace_name:%20%22laa-court-data-adaptor-prod%22%20'),sort:!(!('@timestamp',desc)))>)
 
 Sentry errors for production can be found [here](https://sentry.io/organizations/ministryofjustice/issues/?environement=prod&project=5375870)
 
@@ -353,12 +364,14 @@ Use only one console session per environment at a time: exiting any session scal
 ### Monitor worker jobs
 
 To monitor the worker jobs execution you can access pods by running:
+
 ```
 kubectl get pods --namespace laa-court-data-adaptor-[ENV]
 kubectl exec --stdin --tty -n laa-court-data-adaptor-[ENV]] [POD-NAME]  -- bin/rails c
 require 'sidekiq/api'
 rs = Sidekiq::RetrySet.new
 ```
+
 Further details can be found on [this](https://dsdmoj.atlassian.net/wiki/spaces/ASLST/pages/2697232715/How+to+access+different+environments+-+dev+test+uat+stage+production) confluence page.
 
 ## Pre-commit Hooks
@@ -370,11 +383,17 @@ Please see this [PR](https://github.com/ministryofjustice/laa-court-data-adaptor
 ## Sidekiq UI
 
 There is a user interface for monitoring the sidekiq workers each environment. The credentials can be found in the helm values files.
+
 - [Dev](https://laa-court-data-adaptor-dev.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [Test](https://laa-court-data-adaptor-test.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [UAT](https://laa-court-data-adaptor-uat.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 - [Prod](https://laa-court-data-adaptor.apps.live-1.cloud-platform.service.justice.gov.uk/sidekiq)
 
+## Handling Large Cases
+
+For cases with a large number of offences (ie: 100+), the normal linking process may hit Common Platform rate limits and return 429 responses.
+
+See [Handling Large Cases with Throttling](docs/LARGE_CASE_LINKING.md) for details on using the rake tasks to link large cases with controlled request throttling.
 
 ## Contributing
 

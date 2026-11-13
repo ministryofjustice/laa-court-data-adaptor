@@ -9,9 +9,9 @@ RSpec.describe LinkLargeCaseWithThrottling do
     )
   end
 
-  let(:maat_reference) { "8597508" }
-  let(:user_name) { "jane.smith" }
-  let(:prosecution_case_urn) { "13LD1319422" }
+  let(:maat_reference) { "1234567" }
+  let(:user_name) { "peter.rabbit" }
+  let(:prosecution_case_urn) { "99LD1234567" }
   let(:defendant_id) { "d5e6f7a8-b9c0-d1e2-f3a4-b5c6d7e8f9a0" }
   let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
   let(:offence_ids) do
