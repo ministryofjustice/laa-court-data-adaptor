@@ -42,11 +42,11 @@ private
   end
 
   def post_laa_references_to_common_platform
-    pending = offences_to_post
+    sleep_between_calls = @offence_delay.positive?
 
-    pending.each_with_index do |offence, index|
+    offences.each do |offence|
       post_laa_reference_to_common_platform(offence)
-      sleep(@offence_delay) if @offence_delay.positive? && index < pending.size - 1
+      sleep(@offence_delay) if sleep_between_calls
     rescue StandardError => e
       Sentry.capture_exception(
         e,
@@ -60,20 +60,6 @@ private
       )
       raise e
     end
-  end
-
-  # A throttled run is a manual (re)run for large cases, so offences already
-  # successfully posted today are not posted again.
-  def offences_to_post
-    return offences.to_a unless @offence_delay.positive?
-
-    offences.reject { |offence| already_posted?(offence) }
-  end
-
-  def already_posted?(offence)
-    offence.rep_order_status == "AP" &&
-      offence.response_status.to_i.between?(200, 299) &&
-      offence.status_date&.to_date == Time.zone.today
   end
 
   def post_laa_reference_to_common_platform(offence)

@@ -146,23 +146,22 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
       allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call).and_return(response)
     end
 
-    it "waits between offences but not after the last one" do
+    it "waits after each offence" do
       creator = described_class.new(defendant_id, user_name, maat_reference, offence_delay: 1)
       allow(creator).to receive(:sleep)
 
       creator.call
 
-      expect(creator).to have_received(:sleep).with(1).once
+      expect(creator).to have_received(:sleep).with(1).twice
     end
 
-    it "skips offences already successfully posted today" do
+    it "re-posts all offences, even those already successfully posted today" do
       ProsecutionCaseDefendantOffence.find_by!(offence_id:)
         .update!(rep_order_status: "AP", response_status: 200, status_date: Time.zone.today)
 
       create_maat_link
 
-      expect(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to have_received(:call).once
-                                                                    .with(hash_including(offence_id: other_offence_id))
+      expect(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to have_received(:call).twice
     end
 
     it "still enqueues past hearing results" do

@@ -94,8 +94,8 @@ RSpec.describe "case_links tasks" do
     end
   end
 
-  describe "case_links:link_large_case task" do
-    subject(:link_large_case_task) { Rake::Task["case_links:link_large_case"].execute }
+  describe "case_links:link_prosecution_case_with_many_offences task" do
+    subject(:link_large_case_task) { Rake::Task["case_links:link_prosecution_case_with_many_offences"].execute }
 
     let(:maat_reference) { "1234567" }
     let(:user_name) { "peter" }
@@ -104,12 +104,12 @@ RSpec.describe "case_links tasks" do
     let(:contract) { instance_double(ProsecutionCaseLaaReferenceContract, call: contract_result) }
 
     before do
-      ARGV.replace(["case_links:link_large_case", maat_reference, user_name, defendant_id])
+      ARGV.replace(["case_links:link_prosecution_case_with_many_offences", maat_reference, user_name, defendant_id])
       allow(ProsecutionCaseLaaReferenceContract).to receive(:new).and_return(contract)
       allow(ProsecutionCaseMaatLinkCreator).to receive(:call)
     end
 
-    after { Rake::Task["case_links:link_large_case"].reenable }
+    after { Rake::Task["case_links:link_prosecution_case_with_many_offences"].reenable }
 
     context "with valid params" do
       it "validates the params with the same contract as the API" do
@@ -146,7 +146,7 @@ RSpec.describe "case_links tasks" do
       it "logs the usage and exits" do
         expect { link_large_case_task }.to raise_error(SystemExit)
 
-        expect($stdout).to have_received(:puts).with(/Usage: rake case_links:link_large_case MAAT_ID USER_NAME DEFENDANT_ID/)
+        expect($stdout).to have_received(:puts).with(/Usage: rake case_links:link_prosecution_case_with_many_offences MAAT_ID USER_NAME DEFENDANT_ID/)
       end
 
       it "does not link" do

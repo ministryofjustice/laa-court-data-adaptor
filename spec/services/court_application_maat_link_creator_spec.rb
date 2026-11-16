@@ -129,6 +129,39 @@ RSpec.describe CourtApplicationMaatLinkCreator do
     end
   end
 
+  context "with an offence delay" do
+    subject(:call_link_creator) do
+      described_class.call(subject_id, user_name, maat_reference, offence_delay: 1)
+    end
+
+    before do
+      first_offence = court_application.body["subjectSummary"]["offenceSummary"].first
+      court_application.body["subjectSummary"]["offenceSummary"] << first_offence.dup.merge("offenceId" => SecureRandom.uuid)
+      court_application.save!
+
+      allow(CommonPlatform::Api::RecordCourtApplicationLaaReference).to receive(:call).and_return(response)
+    end
+
+    it "waits after each offence" do
+      creator = described_class.new(subject_id, user_name, maat_reference, offence_delay: 1)
+      allow(creator).to receive(:sleep)
+
+      creator.call
+
+      expect(creator).to have_received(:sleep).with(1).twice
+    end
+
+    it "posts all offences" do
+      call_link_creator
+
+      expect(CommonPlatform::Api::RecordCourtApplicationLaaReference).to have_received(:call).twice
+    end
+
+    it "still enqueues past hearing results" do
+      expect { call_link_creator }.to change(HearingResultFetcherWorker.jobs, :size)
+    end
+  end
+
   context "with no offences" do
     before do
       court_application.body["subjectSummary"].delete("offenceSummary")
