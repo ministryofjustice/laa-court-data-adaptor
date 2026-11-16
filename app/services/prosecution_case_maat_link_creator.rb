@@ -3,7 +3,7 @@
 class ProsecutionCaseMaatLinkCreator < ApplicationService
   attr_reader :laa_reference, :defendant_id, :prosecution_case_id
 
-  def initialize(defendant_id, user_name, maat_reference, can_update_laa_status: false)
+  def initialize(defendant_id, user_name, maat_reference, can_update_laa_status: false, offence_delay: 0)
     @laa_reference = LaaReference.new(
       defendant_id:,
       user_name:,
@@ -11,6 +11,7 @@ class ProsecutionCaseMaatLinkCreator < ApplicationService
     )
     @defendant_id = defendant_id
     @can_update_laa_status = can_update_laa_status
+    @offence_delay = offence_delay
     @prosecution_case_id = verify_prosecution_case_id
   end
 
@@ -41,8 +42,11 @@ private
   end
 
   def post_laa_references_to_common_platform
-    offences.each do |offence|
+    pending = offences_to_post
+
+    pending.each_with_index do |offence, index|
       post_laa_reference_to_common_platform(offence)
+      sleep(@offence_delay) if @offence_delay.positive? && index < pending.size - 1
     rescue StandardError => e
       Sentry.capture_exception(
         e,
@@ -56,6 +60,20 @@ private
       )
       raise e
     end
+  end
+
+  # A throttled run is a manual (re)run for large cases, so offences already
+  # successfully posted today are not posted again.
+  def offences_to_post
+    return offences.to_a unless @offence_delay.positive?
+
+    offences.reject { |offence| already_posted?(offence) }
+  end
+
+  def already_posted?(offence)
+    offence.rep_order_status == "AP" &&
+      offence.response_status.to_i.between?(200, 299) &&
+      offence.status_date&.to_date == Time.zone.today
   end
 
   def post_laa_reference_to_common_platform(offence)

@@ -24,7 +24,7 @@ RSpec.describe "case_links tasks" do
       before do
         laa_reference
         ARGV.replace(["case_links:unlink", maat_id, unlink_reason])
-        allow(LaaReferenceUnlinker).to receive(:call)
+        allow(ProsecutionCaseLaaReferenceUnlinker).to receive(:call)
       end
 
       it "logs the starting message" do
@@ -45,10 +45,10 @@ RSpec.describe "case_links tasks" do
         expect($stdout).to have_received(:puts).with(/Removing link between MAAT ID #{maat_id} and Defendant ID #{defendant_id}/)
       end
 
-      it "calls the `LaaReferenceUnlinker` service" do
+      it "calls the `ProsecutionCaseLaaReferenceUnlinker` service" do
         unlink_task
 
-        expect(LaaReferenceUnlinker).to have_received(:call)
+        expect(ProsecutionCaseLaaReferenceUnlinker).to have_received(:call)
                                         .with(
                                           hash_including(
                                             defendant_id:,
@@ -83,7 +83,7 @@ RSpec.describe "case_links tasks" do
       before do
         laa_reference
         ARGV.replace(["case_links:unlink", maat_id, unlink_reason])
-        allow(LaaReferenceUnlinker).to receive(:call).and_raise(StandardError.new("Test error"))
+        allow(ProsecutionCaseLaaReferenceUnlinker).to receive(:call).and_raise(StandardError.new("Test error"))
       end
 
       it "logs the error message" do
@@ -98,52 +98,31 @@ RSpec.describe "case_links tasks" do
     subject(:link_large_case_task) { Rake::Task["case_links:link_large_case"].execute }
 
     let(:maat_reference) { "1234567" }
-    let(:user_name) { "peter.rabbit" }
-    let(:prosecution_case_urn) { "99LD1234567" }
+    let(:user_name) { "peter" }
     let(:defendant_id) { "d5e6f7a8-b9c0-d1e2-f3a4-b5c6d7e8f9a0" }
-    let(:prosecution_case_id) { "7a0c947e-97b4-4c5a-ae6a-26320afc914d" }
+    let(:contract_result) { instance_double(Dry::Validation::Result, success?: true) }
+    let(:contract) { instance_double(ProsecutionCaseLaaReferenceContract, call: contract_result) }
+
+    before do
+      ARGV.replace(["case_links:link_large_case", maat_reference, user_name, defendant_id])
+      allow(ProsecutionCaseLaaReferenceContract).to receive(:new).and_return(contract)
+      allow(ProsecutionCaseMaatLinkCreator).to receive(:call)
+    end
 
     after { Rake::Task["case_links:link_large_case"].reenable }
 
     context "with valid params" do
-      before do
-        create(:prosecution_case,
-               id: prosecution_case_id,
-               body: {
-                 prosecutionCaseReference: prosecution_case_urn,
-                 defendantSummary: [{ defendantId: defendant_id }],
-                 hearingSummary: [],
-               })
-
-        create(:prosecution_case_defendant_offence,
-               prosecution_case_id:,
-               defendant_id:)
-
-        ARGV.replace(["case_links:link_large_case", maat_reference, user_name, prosecution_case_urn])
-        allow(LinkLargeCaseWithThrottling).to receive(:call)
-      end
-
-      it "logs the starting message" do
+      it "validates the params with the same contract as the API" do
         link_large_case_task
 
-        expect($stdout).to have_received(:puts).with(/Starting large case linking process/)
+        expect(contract).to have_received(:call).with(maat_reference:, user_name:, defendant_id:)
       end
 
-      it "logs the case details" do
+      it "calls `ProsecutionCaseMaatLinkCreator` with a 1 second offence delay" do
         link_large_case_task
 
-        expect($stdout).to have_received(:puts).with(/MAAT Reference: #{maat_reference}, User: #{user_name}, Case URN: #{prosecution_case_urn}/)
-      end
-
-      it "calls the `LinkLargeCaseWithThrottling` service" do
-        link_large_case_task
-
-        expect(LinkLargeCaseWithThrottling).to have_received(:call)
-                                             .with(
-                                               maat_reference:,
-                                               user_name:,
-                                               prosecution_case_urn:,
-                                             )
+        expect(ProsecutionCaseMaatLinkCreator).to have_received(:call)
+          .with(defendant_id, user_name, maat_reference, offence_delay: 1)
       end
 
       it "sets up request context" do
@@ -157,113 +136,46 @@ RSpec.describe "case_links tasks" do
       it "logs success message" do
         link_large_case_task
 
-        expect($stdout).to have_received(:puts).with(/Successfully linked case #{prosecution_case_urn} to MAAT ID #{maat_reference}/)
+        expect($stdout).to have_received(:puts).with(/Successfully linked defendant #{defendant_id} to MAAT ID #{maat_reference}/)
       end
     end
 
-    context "with missing MAAT reference" do
-      before do
-        ARGV.replace(["case_links:link_large_case", "", user_name, prosecution_case_urn])
+    context "with a missing argument" do
+      let(:user_name) { "" }
+
+      it "logs the usage and exits" do
+        expect { link_large_case_task }.to raise_error(SystemExit)
+
+        expect($stdout).to have_received(:puts).with(/Usage: rake case_links:link_large_case MAAT_ID USER_NAME DEFENDANT_ID/)
       end
 
-      it "logs error for missing params" do
-        link_large_case_task
+      it "does not link" do
+        expect { link_large_case_task }.to raise_error(SystemExit)
 
-        expect($stdout).to have_received(:puts).with(/Missing required arguments/)
-      end
-
-      it "logs the correct usage example" do
-        link_large_case_task
-
-        expect($stdout).to have_received(:puts).with(/Usage: rake case_links:link_large_case MAAT_ID USER_NAME CASE_URN/)
+        expect(ProsecutionCaseMaatLinkCreator).not_to have_received(:call)
       end
     end
 
-    context "with missing user name" do
-      before do
-        ARGV.replace(["case_links:link_large_case", maat_reference, "", prosecution_case_urn])
+    context "when the contract fails" do
+      let(:contract_result) do
+        instance_double(Dry::Validation::Result, success?: false, errors: instance_double(Dry::Validation::MessageSet, to_hash: { maat_reference: ["not found"] }))
       end
 
-      it "logs error for missing params" do
-        link_large_case_task
+      it "logs the error and exits without linking" do
+        expect { link_large_case_task }.to raise_error(SystemExit)
 
-        expect($stdout).to have_received(:puts).with(/Missing required arguments/)
-      end
-    end
-
-    context "with missing case URN" do
-      before do
-        ARGV.replace(["case_links:link_large_case", maat_reference, user_name, ""])
-      end
-
-      it "logs error for missing params" do
-        link_large_case_task
-
-        expect($stdout).to have_received(:puts).with(/Missing required arguments/)
+        expect($stdout).to have_received(:puts).with(/Failed to link defendant: Contract failed with/)
+        expect(ProsecutionCaseMaatLinkCreator).not_to have_received(:call)
       end
     end
 
-    context "when `LinkLargeCaseWithThrottling` raises an error" do
-      before do
-        create(:prosecution_case,
-               id: prosecution_case_id,
-               body: {
-                 prosecutionCaseReference: prosecution_case_urn,
-                 defendantSummary: [{ defendantId: defendant_id }],
-                 hearingSummary: [],
-               })
+    context "when the link creator raises an error" do
+      before { allow(ProsecutionCaseMaatLinkCreator).to receive(:call).and_raise(StandardError, "Connection failed") }
 
-        create(:prosecution_case_defendant_offence,
-               prosecution_case_id:,
-               defendant_id:)
+      it "logs the error message and exits" do
+        expect { link_large_case_task }.to raise_error(SystemExit)
 
-        ARGV.replace(["case_links:link_large_case", maat_reference, user_name, prosecution_case_urn])
-        allow(LinkLargeCaseWithThrottling).to receive(:call).and_raise(StandardError.new("Connection failed"))
-      end
-
-      it "logs the error message" do
-        link_large_case_task
-
-        expect($stdout).to have_received(:puts).with(/Failed to link case: Connection failed/)
-      end
-
-      it "logs the backtrace" do
-        link_large_case_task
-
-        expect($stdout).to have_received(:puts).with(/case_links_spec\.rb/)
-      end
-    end
-
-    context "with all three params provided" do
-      before do
-        create(:prosecution_case,
-               id: prosecution_case_id,
-               body: {
-                 prosecutionCaseReference: prosecution_case_urn,
-                 defendantSummary: [{ defendantId: defendant_id }],
-                 hearingSummary: [],
-               })
-
-        create(:prosecution_case_defendant_offence,
-               prosecution_case_id:,
-               defendant_id:)
-
-        ARGV.replace(["case_links:link_large_case", maat_reference, user_name, prosecution_case_urn])
-        allow(LinkLargeCaseWithThrottling).to receive(:call)
-      end
-
-      it "successfully executes the task" do
-        expect { link_large_case_task }.not_to raise_error
-      end
-
-      it "passes all params correctly to the service" do
-        link_large_case_task
-
-        expect(LinkLargeCaseWithThrottling).to have_received(:call).with(
-          maat_reference: "1234567",
-          user_name: "peter.rabbit",
-          prosecution_case_urn: "99LD1234567",
-        )
+        expect($stdout).to have_received(:puts).with(/Failed to link defendant: Connection failed/)
       end
     end
   end
