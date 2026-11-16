@@ -574,7 +574,7 @@ DEPENDENCIES
   amazing_print
   aws-sdk-sqs
   bcrypt (~> 3.1.18)
-  bootsnap (>= 1.4.2)
+  bootsnap
   brakeman
   bundler
   csv
