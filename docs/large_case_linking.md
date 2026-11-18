@@ -5,21 +5,23 @@
 Prosecution case (defendant):
 
 ```bash
-bundle exec rake case_links:link_prosecution_case_with_many_offences MAAT_ID USER_NAME DEFENDANT_ID
+bundle exec rake case_links:link_prosecution_case_with_many_offences MAAT_ID=<maat_id> USER_NAME=<user_name> DEFENDANT_ID=<defendant_id>
 ```
 
 Court application (subject):
 
 ```bash
-bundle exec rake case_links:link_court_application_with_many_offences MAAT_ID USER_NAME SUBJECT_ID
+bundle exec rake case_links:link_court_application_with_many_offences MAAT_ID=<maat_id> USER_NAME=<user_name> SUBJECT_ID=<subject_id>
 ```
 
 **Examples**:
 
 ```bash
-bundle exec rake case_links:link_prosecution_case_with_many_offences 1234567 peter 2ecc9feb-9407-482f-b081-d9e5c8ba3ed3
-bundle exec rake case_links:link_court_application_with_many_offences 1234567 peter 2ecc9feb-9407-482f-b081-d9e5c8ba3ed3
+bundle exec rake case_links:link_prosecution_case_with_many_offences MAAT_ID=1234567 USER_NAME=peter DEFENDANT_ID=2ecc9feb-9407-482f-b081-d9e5c8ba3ed3
+bundle exec rake case_links:link_court_application_with_many_offences MAAT_ID=1234567 USER_NAME=peter SUBJECT_ID=2ecc9feb-9407-482f-b081-d9e5c8ba3ed3
 ```
+
+The inputs are passed as named `KEY=value` arguments (no quotes or brackets needed). Rake treats them as environment variables rather than task names.
 
 **Expected duration**: ~110 seconds for 110 offences
 
@@ -56,6 +58,8 @@ The default (`0`) leaves the normal API flow unchanged.
 
 ## Parameters
 
+All parameters are required and passed as `KEY=value`.
+
 - `MAAT_ID`: The MAAT reference number (e.g., `1234567`)
 - `USER_NAME`: The user performing the linking (max 10 characters, e.g., `peter`)
 - `DEFENDANT_ID`: The defendant UUID, as sent by VCD in the normal flow (prosecution cases)
@@ -70,8 +74,8 @@ bundle exec rspec spec/services/prosecution_case_maat_link_creator_spec.rb spec/
 ## Error Handling
 
 ```
-[ERROR] Missing required arguments. Usage: rake case_links:link_prosecution_case_with_many_offences MAAT_ID USER_NAME DEFENDANT_ID
-[ERROR] Missing required arguments. Usage: rake case_links:link_court_application_with_many_offences MAAT_ID USER_NAME SUBJECT_ID
+[ERROR] Missing required arguments. Usage: rake case_links:link_prosecution_case_with_many_offences MAAT_ID=1234567 USER_NAME=peter DEFENDANT_ID=<uuid>
+[ERROR] Missing required arguments. Usage: rake case_links:link_court_application_with_many_offences MAAT_ID=1234567 USER_NAME=peter SUBJECT_ID=<uuid>
 [ERROR - 2026-11-13 08:03:34 +0000] Failed to link defendant: Contract failed with: {...}
 [ERROR - 2026-11-13 08:03:34 +0000] Failed to link court application subject: <error details>
 ```

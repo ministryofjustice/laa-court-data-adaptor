@@ -104,7 +104,7 @@ RSpec.describe "case_links tasks" do
     let(:contract) { instance_double(ProsecutionCaseLaaReferenceContract, call: contract_result) }
 
     before do
-      ARGV.replace(["case_links:link_prosecution_case_with_many_offences", maat_reference, user_name, defendant_id])
+      stub_const("ENV", ENV.to_h.merge("MAAT_ID" => maat_reference, "USER_NAME" => user_name, "DEFENDANT_ID" => defendant_id))
       allow(ProsecutionCaseLaaReferenceContract).to receive(:new).and_return(contract)
       allow(ProsecutionCaseMaatLinkCreator).to receive(:call)
     end
@@ -146,7 +146,7 @@ RSpec.describe "case_links tasks" do
       it "logs the usage and exits" do
         expect { link_large_case_task }.to raise_error(SystemExit)
 
-        expect($stdout).to have_received(:puts).with(/Usage: rake case_links:link_prosecution_case_with_many_offences MAAT_ID USER_NAME DEFENDANT_ID/)
+        expect($stdout).to have_received(:puts).with(/Usage: rake case_links:link_prosecution_case_with_many_offences MAAT_ID=1234567 USER_NAME=peter DEFENDANT_ID=<uuid>/)
       end
 
       it "does not link" do
