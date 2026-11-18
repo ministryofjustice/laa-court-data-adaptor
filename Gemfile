@@ -9,7 +9,7 @@ gem "rails", ">= 8.1.3.1"
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
-gem "puma", "~> 8.0"
+gem "puma", "~> 8.1"
 # Use Active Model has_secure_password
 gem "bcrypt", "~> 3.1.18"
 
@@ -33,9 +33,9 @@ gem "prometheus_exporter", "2.3.1"
 gem "rails_semantic_logger"
 gem "rswag-api"
 gem "rswag-ui"
-gem "sentry-rails", "~> 7.1.0"
-gem "sentry-ruby", "~> 7.1.0"
-gem "sentry-sidekiq", "~> 7.1.0"
+gem "sentry-rails", "~> 7.2.0"
+gem "sentry-ruby", "~> 7.2.0"
+gem "sentry-sidekiq", "~> 7.2.0"
 gem "sidekiq", ">= 6.5.10", "< 9.0"
 
 group :development, :test do
@@ -63,10 +63,10 @@ group :test do
   gem "json-schema-rspec"
   gem "pact"
   gem "rspec_junit_formatter"
-  gem "rspec-rails", "~> 8.0.2"
+  gem "rspec-rails", "~> 8.1.0"
   gem "shoulda-matchers"
   gem "simplecov"
-  gem "sinatra", "~> 4.2.1"
+  gem "sinatra", "~> 4.2.2"
 end
 
 gem "pact_broker-client", "~> 1.78"
