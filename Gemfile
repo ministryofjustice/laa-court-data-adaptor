@@ -14,7 +14,7 @@ gem "puma", "~> 8.1"
 gem "bcrypt", "~> 3.1.18"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", ">= 1.4.2", require: false
+gem "bootsnap", require: false
 
 gem "aws-sdk-sqs"
 gem "csv"
