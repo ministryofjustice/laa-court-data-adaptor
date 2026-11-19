@@ -7,6 +7,7 @@ class MaatLinkMessageSender < ApplicationService
     @maat_reference = maat_reference
     @court_centre_id = court_centre_id
     @oucode = oucode
+    @laa_reference = LaaReference.case_links.find_by(defendant_id:, maat_reference:, linked: true)
   end
 
   def call
@@ -16,7 +17,7 @@ class MaatLinkMessageSender < ApplicationService
 
 private
 
-  attr_reader :defendant_id, :user_name, :maat_reference, :court_centre_id, :oucode
+  attr_reader :defendant_id, :user_name, :maat_reference, :court_centre_id, :oucode, :laa_reference
 
   def validate_inputs
     raise ArgumentError, "defendant_id is required" if defendant_id.blank?
@@ -25,6 +26,7 @@ private
     raise ArgumentError, "court_centre_id is required" if court_centre_id.blank?
     raise ArgumentError, "oucode is required" if oucode.blank?
     raise ArgumentError, "Defendant not found for ID: #{defendant_id}" if offences.empty?
+    raise ArgumentError, "No linked LAA reference for defendant #{defendant_id} and MAAT #{maat_reference}" if laa_reference.nil?
   end
 
   def publish_message_to_queue

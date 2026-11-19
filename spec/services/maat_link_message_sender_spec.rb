@@ -31,6 +31,8 @@ RSpec.describe MaatLinkMessageSender do
 
     create(:court_centre_organisation_unit_code, court_centre_id:, code: "B01LY00")
 
+    create(:laa_reference, defendant_id:, maat_reference:, linked: true)
+
     allow(Sqs::MessagePublisher).to receive(:call)
   end
 
@@ -125,6 +127,40 @@ RSpec.describe MaatLinkMessageSender do
             oucode:,
           )
         }.to raise_error(ArgumentError, "Defendant not found for ID: wrong-id")
+      end
+
+      context "when there is no linked LAA reference for the defendant and MAAT reference" do
+        let(:expected_message) { "No linked LAA reference for defendant #{defendant_id} and MAAT #{maat_reference}" }
+
+        before { LaaReference.delete_all }
+
+        it "raises `ArgumentError` when no LAA reference exists" do
+          expect { call_service }.to raise_error(ArgumentError, expected_message)
+        end
+
+        it "raises `ArgumentError` when the LAA reference is unlinked" do
+          create(:laa_reference, defendant_id:, maat_reference:, linked: false)
+
+          expect { call_service }.to raise_error(ArgumentError, expected_message)
+        end
+
+        it "raises `ArgumentError` when the LAA reference has a different MAAT reference" do
+          create(:laa_reference, defendant_id:, maat_reference: "87654321", linked: true)
+
+          expect { call_service }.to raise_error(ArgumentError, expected_message)
+        end
+
+        it "raises `ArgumentError` when the LAA reference belongs to a court application" do
+          create(:laa_reference, defendant_id:, maat_reference:, linked: true, court_application_id: SecureRandom.uuid)
+
+          expect { call_service }.to raise_error(ArgumentError, expected_message)
+        end
+
+        it "does not publish a message" do
+          expect { call_service }.to raise_error(ArgumentError)
+
+          expect(Sqs::MessagePublisher).not_to have_received(:call)
+        end
       end
     end
   end
