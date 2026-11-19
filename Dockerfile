@@ -1,4 +1,4 @@
-FROM ruby:3.4.12-alpine3.23
+FROM ruby:3.4.13-alpine3.24
 
 MAINTAINER crime apps team
 
