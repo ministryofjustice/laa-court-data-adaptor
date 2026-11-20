@@ -38,7 +38,7 @@ The application is commonly referred to by its acronym "CDA".
 
 Court Data Adaptor is maintained by staff in the Legal Aid Agency. If you need support, you can contact the team on our Slack channel:
 
-- [#laa-crime-apps-core](https://mojdt.slack.com/archives/CT0Q47YCQ) on MOJ Digital & Technology
+- [#laa-connect-public](https://mojdt.slack.com/archives/C06KX7X6735) on MOJ Digital & Technology
 
 ## Architecture Diagram
 
