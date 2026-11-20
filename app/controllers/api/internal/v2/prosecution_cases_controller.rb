@@ -7,9 +7,7 @@ module Api
         # Get/Post /api/internal/v2/prosecution_cases
         def index
           case_summaries = if transformed_params[:prosecution_case_reference].present?
-                             CommonPlatform::Api::ProsecutionCaseFinder.call(
-                               transformed_params[:prosecution_case_reference],
-                             )
+                             find_by_urn(transformed_params[:prosecution_case_reference])
                            elsif transformed_params[:xhibit_case_number].present?
                              find_by_xhibit_case_number
                            else
@@ -30,6 +28,24 @@ module Api
         end
 
       private
+
+        # Common Platform URN search is case-insensitive,
+        # so occasionally two cases have URNs that differ only by case: return both.
+        def find_by_urn(urn)
+          results = CommonPlatform::Api::SearchProsecutionCase.call(prosecution_case_reference: urn)
+          case_summaries = results.select { urn.casecmp?(it.prosecution_case_reference) }
+          warn_multiple_cases_for_urn(urn, case_summaries) if case_summaries.count > 1
+          case_summaries
+        end
+
+        def warn_multiple_cases_for_urn(urn, case_summaries)
+          cases = case_summaries.map { "#{it.prosecution_case_reference} (#{it.id})" }.join(", ")
+
+          Sentry.capture_message(
+            "#{self.class.name} - URN search for #{urn} returned #{case_summaries.count} cases: #{cases}",
+            level: :warning,
+          )
+        end
 
         def find_by_xhibit_case_number
           case_urn = XhibitMigratedCase.case_urn_for(transformed_params[:xhibit_case_number])
