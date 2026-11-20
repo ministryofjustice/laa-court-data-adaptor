@@ -1,7 +1,7 @@
 class CourtApplicationMaatLinkCreator < ApplicationService
   attr_reader :laa_reference, :subject_id
 
-  def initialize(subject_id, user_name, maat_reference, can_update_laa_status: false)
+  def initialize(subject_id, user_name, maat_reference, can_update_laa_status: false, offence_delay: 0)
     @subject_id = subject_id
     @laa_reference = LaaReference.new(
       defendant_id: subject_id,
@@ -10,6 +10,7 @@ class CourtApplicationMaatLinkCreator < ApplicationService
       maat_reference: maat_reference.presence || LaaReference.generate_linking_dummy_maat_reference,
     )
     @can_update_laa_status = can_update_laa_status
+    @offence_delay = offence_delay
   end
 
   def call
@@ -40,8 +41,11 @@ private
 
   def post_laa_references_to_common_platform!
     if court_application_summary.subject_summary.has_offences?
+      sleep_between_calls = @offence_delay.positive?
+
       offences.each do |offence|
         post_laa_reference_to_common_platform(offence)
+        sleep(@offence_delay) if sleep_between_calls
       end
     else
       post_laa_reference_to_common_platform

@@ -134,6 +134,41 @@ RSpec.describe ProsecutionCaseMaatLinkCreator do
     end
   end
 
+  context "with an offence delay" do
+    subject(:create_maat_link) do
+      described_class.call(defendant_id, user_name, maat_reference, offence_delay: 1)
+    end
+
+    let(:other_offence_id) { SecureRandom.uuid }
+
+    before do
+      create(:prosecution_case_defendant_offence, prosecution_case_id:, defendant_id:, offence_id: other_offence_id)
+      allow(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to receive(:call).and_return(response)
+    end
+
+    it "waits after each offence" do
+      creator = described_class.new(defendant_id, user_name, maat_reference, offence_delay: 1)
+      allow(creator).to receive(:sleep)
+
+      creator.call
+
+      expect(creator).to have_received(:sleep).with(1).twice
+    end
+
+    it "re-posts all offences, even those already successfully posted today" do
+      ProsecutionCaseDefendantOffence.find_by!(offence_id:)
+        .update!(rep_order_status: "AP", response_status: 200, status_date: Time.zone.today)
+
+      create_maat_link
+
+      expect(CommonPlatform::Api::RecordProsecutionCaseLaaReference).to have_received(:call).twice
+    end
+
+    it "still enqueues past hearing results" do
+      expect { create_maat_link }.to change(HearingResultFetcherWorker.jobs, :size)
+    end
+  end
+
   context "when an LaaReference exists" do
     let!(:existing_laa_reference) { create(:laa_reference, defendant_id: SecureRandom.uuid, user_name: "MrDoe", maat_reference:) }
 
