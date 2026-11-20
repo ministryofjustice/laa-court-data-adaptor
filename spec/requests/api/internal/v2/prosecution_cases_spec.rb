@@ -93,6 +93,60 @@ RSpec.describe "api/internal/v2/prosecution_case", swagger_doc: "v2/swagger.yaml
             end
           end
         end
+
+        context "when Common Platform returns cases whose URNs do not match exactly" do
+          let(:cp_case) { JSON.parse(file_fixture("prosecution_cases_v2.json").read)["cases"].first }
+          let(:returned_urns_in_results) { response.parsed_body["results"].map { it["prosecution_case_reference"] } }
+
+          before do
+            allow(Sentry).to receive(:capture_message)
+
+            cases = returned_urns.map do |returned_urn|
+              cp_case.merge("prosecutionCaseId" => SecureRandom.uuid, "prosecutionCaseReference" => returned_urn)
+            end
+
+            stub_prosecution_case_search(
+              query: { prosecutionCaseReference: prosecution_case_reference },
+              body: { totalResults: cases.count, cases: }.to_json,
+            )
+          end
+
+          context "when a single case is returned whose URN differs only by case" do
+            let(:returned_urns) { %w[61gd7528225] }
+
+            response(200, "Success") do
+              run_test! do
+                expect(returned_urns_in_results).to eq(%w[61gd7528225])
+                expect(Sentry).not_to have_received(:capture_message)
+              end
+            end
+          end
+
+          context "when two cases are returned whose URNs differ only by case" do
+            let(:returned_urns) { %w[61GD7528225 61gd7528225] }
+
+            response(200, "Success") do
+              run_test! do
+                expect(returned_urns_in_results).to eq(%w[61GD7528225 61gd7528225])
+                expect(Sentry).to have_received(:capture_message).with(
+                  /URN search for 61GD7528225 returned 2 cases: 61GD7528225 \(.+\), 61gd7528225 \(.+\)/,
+                  level: :warning,
+                )
+              end
+            end
+          end
+
+          context "when a case is returned with a different URN" do
+            let(:returned_urns) { %w[61GD7528225 99XX0000000] }
+
+            response(200, "Success") do
+              run_test! do
+                expect(returned_urns_in_results).to eq(%w[61GD7528225])
+                expect(Sentry).not_to have_received(:capture_message)
+              end
+            end
+          end
+        end
       end
 
       context "when searching by xhibit_case_number" do
